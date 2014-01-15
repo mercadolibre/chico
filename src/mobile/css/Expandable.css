@@ -1,46 +1,36 @@
 /*
 * Expandable
 */
-.ch-expandable-trigger {
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	border: 1px solid #EEE;
-}
-
-.ch-expandable-trigger,
-.ch-expandable-trigger a {
-	color: #555;
-}
-
 .ch-fold-trigger,
 .ch-expandable-trigger {
 	cursor: pointer;
 	display: block;
-	font-weight: bold;
 	margin: 0;
-	position: relative;
-	text-shadow: 0 1px 1px #FFF;
-	padding: 15px 10px;
-	background: #F4F4F4;
-	font-size: 1em;
-	border: 1px solid #EEE;
+    padding: 14px 40px 14px 20px;
+    position: relative;
+    color: #666;
+    font-size: 16px;
+    font-weight: normal;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: #f4f4f4;
+    border: 1px solid #dedede;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .ch-expandable-trigger:after {
-	color: #999999;
-	font-family: icons;
-	content: "\f078";
-	font-size: 16px;
-	overflow: hidden;
-	position: absolute;
-	right: 15px;
-	top: 15px;
+    content: '\f078';
+    font-size: 19px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -10px;
+    font-family: icons;
+    color: #999;
+    overflow: hidden;
 }
 
 .ch-expandable-trigger-on {
-	border-bottom: 1px solid #EEE;
-	background-color: #EEE;
-	color: #333;
 	-webkit-border-bottom-left-radius: 0;
 	-webkit-border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
@@ -48,26 +38,40 @@
 }
 
 .ch-expandable-trigger-on:after {
-	content: "\f077";
+	content: '\f077';
 	color: #333;
 }
 
 .ch-expandable-container {
+    background-color: #fff;
 	margin: 0;
-	padding: 10px;
+	padding: 14px 20px;
 	overflow: hidden;
-	border: 1px solid #EEE;
+	border: 1px solid #e8e8e8;
+    border-top: none;
 	-webkit-border-bottom-left-radius: 5px;
 	-webkit-border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
 
-.ch-expandable-container,
-.ch-expandable-container.ch-list-options {
-	background-color: #FFF;
-	-webkit-border-top-left-radius: 0;
-	-webkit-border-top-right-radius: 0;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
+.ch-expandable-container.ch-box-list {
+    padding: 0;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.ch-expandable-container.ch-box-list li {
+    font-size: 14px;
+}
+
+.ch-expandable-container.ch-box-list li a:after {
+    color: #333;
+}
+
+.ch-expandable-container.ch-list,
+.ch-expandable-container.ch-list li {
+    margin-left: 0;
 }

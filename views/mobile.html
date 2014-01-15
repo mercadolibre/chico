@@ -89,8 +89,8 @@
                 <li><a href="#boxes">Boxes</a></li>
                 <li><a href="#message-boxes">Message Boxes</a></li>
                 <li><a href="#lists">Lists</a></li>
-                <li><a href="#list-options">Lists Options</a></li>
-                <li><a href="#list-options-icon">Lists Options Icons</a></li>
+                <li><a href="#list-boxes">List Boxes</a></li>
+                <li><a href="#list-boxes-icon">List Boxes Icons</a></li>
                 <li><a href="#transitions">Transitions</a></li>
                 <li><a href="#tags">Tags</a></li>
                 <li><a href="#pagination">Pagination</a></li>
@@ -274,9 +274,9 @@
             </div>
 
             <div class="components">
-                <h2 id="list-options">List Options</h2>
+                <h2 id="list-boxes">List Boxes</h2>
                 <div>
-                    <ul class="ch-list-options">
+                    <ul class="ch-box-list">
                         <li><a href="#">Autos, Motos y Otros</a></li>
                         <li><a href="#">Inmuebles</a></li>
                         <li><a href="#">Servicios</a></li>
@@ -285,19 +285,19 @@
             </div>
 
             <div class="components">
-                <h2 id="list-options-icon">List Options with icons</h2>
+                <h2 id="list-boxes-icon">List Boxes with icons</h2>
                 <div>
-                    <ul class="ch-list-options">
+                    <ul class="ch-box-list">
                         <li>
                             <i class="ch-icon-heart"></i>
                             <a href="#">
-                                Multiline text. This is an example that shows how a works a long text inside a list options.
+                                Multiline text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             </a>
                         </li>
                         <li>
                             <i class="ch-icon-heart"></i>
                             <a href="#" class="ch-ellipsis">
-                                Heart. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.
+                                Ellipsis text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.
                             </a>
                         </li>
                         <li>
@@ -372,16 +372,27 @@
 
             <div class="components">
                 <h2 id="expandable">Expandable</h2>
-                <ul class="ch-list-options">
-                    <li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
-                    <li><a href="#" data-categ-id="1459">Inmuebles</a></li>
-                    <li><a href="#" data-categ-id="1540">Servicios</a></li>
+
+                <h3 class="categories">Expand me! (paragraph)</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+
+                <br>
+
+                <h3 class="categories">Expand me! (list)</h3>
+                <ul class="ch-list">
+                    <li>foo</li>
+                    <li>foobar</li>
+                    <li>bar</li>
                 </ul>
 
-                <h3 class="categories">Expandable</h3>
-                <div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-                </div>
+                <br>
+
+                <h3 class="categories">Expand me! (box-list)</h3>
+                <ul class="ch-box-list">
+                    <li><a href="#">foo</a></li>
+                    <li><a href="#">foobar</a></li>
+                    <li><a href="#">bar</a></li>
+                </ul>
             </div>
 
             <div class="components">
@@ -389,13 +400,11 @@
                 <ul class="myMenu">
                     <li>
                         <h3>List Options</h3>
-                        <div>
-                            <ul class="ch-list-options">
-                                <li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
-                                <li><a href="#" data-categ-id="1459">Inmuebles</a></li>
-                                <li><a href="#" data-categ-id="1540">Servicios</a></li>
-                            </ul>
-                        </div>
+                        <ul class="ch-box-list">
+                            <li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
+                            <li><a href="#" data-categ-id="1459">Inmuebles</a></li>
+                            <li><a href="#" data-categ-id="1540">Servicios</a></li>
+                        </ul>
                     </li>
                     <li>
                         <h3>List</h3>
@@ -606,7 +615,7 @@
                                     Icon inside:
                                 </label>
                                 <input class="ch-form-icon-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
-                                <i class="ch-form-icon-inner ch-icon-question-sign"></i>
+                                <i class="ch-form-icon-inner ch-icon-help-sign"></i>
                             </div>
                             <p class="ch-form-row">
                                 <label for="input_button">
@@ -615,14 +624,6 @@
                                 <input type="button" name="add_category" value="Add" class="ch-btn ch-btn-small ch-btn-skin">
                                 <input type="text" id="input_button" name="input_button" size="30" placeholder="">
                                 <span class="ch-form-hint">Add your category</span>
-                            </p>
-                            <p class="ch-form-row ch-form-required">
-                                <label for="price">
-                                    Price:
-                                    <em>*</em>
-                                </label>
-                                <input type="text" id="price" name="price" required="required" placeholder="1349.43">
-                                <span class="ch-form-hint">Numbers and dot symbol</span>
                             </p>
                             <p class="ch-form-row ch-form-required">
                                 <label for="email">
@@ -749,7 +750,7 @@
 
                     <fieldset>
                         <h4 class="ch-form-subtitle">Unique checkbox:</h4>
-                        <p class="ch-list-options ch-form-row ch-form-required check2">
+                        <p class="ch-box-list ch-form-options ch-form-row ch-form-required required-options">
                             <input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
                             <label for="check4a">
                                 Unique checkbox
@@ -757,8 +758,8 @@
                         </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Checkboxs</legend>
-                        <ul class="ch-form-options ch-list-options">
+                        <legend>Checkboxes</legend>
+                        <ul class="ch-form-options ch-box-list ch-form-required required-options">
                             <li class="ch-form-row">
                                 <input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
                                 <label for="check1a">
@@ -776,7 +777,7 @@
 
                     <fieldset>
                         <legend>Radios</legend>
-                        <ul class="ch-form-options ch-list-options">
+                        <ul class="ch-form-options ch-box-list ch-form-required required-options">
                             <li class="ch-form-row">
                                 <input type="radio" value="alpha" id="radio1a" name="version1a" required="required">
                                 <label for="radio1a">
@@ -793,8 +794,26 @@
                     </fieldset>
 
                     <fieldset>
+                        <legend>Radios without box list</legend>
+                        <ul class="ch-form-options ch-form-required required-options">
+                            <li class="ch-form-row">
+                                <input type="radio" value="alpha" id="radio2a" name="version2a" required="required">
+                                <label for="radio2a">
+                                    Alpha
+                                </label>
+                            </li>
+                            <li class="ch-form-row">
+                                <input type="radio" value="beta" id="radio2b" name="version2a">
+                                <label for="radio2b">
+                                    Beta
+                                </label>
+                            </li>
+                        </ul>
+                    </fieldset>
+
+                    <fieldset>
                         <legend>Legend of required group <em>*</em></legend>
-                        <ul class="ch-form-options ch-list-options">
+                        <ul class="ch-form-options ch-box-list ch-form-required required-options">
                             <li class="ch-form-row">
                                 <input type="checkbox" value="alpha" id="check2a" name="version2a" required="required">
                                 <label for="check2a">
@@ -876,7 +895,7 @@
                     <li><i class="ch-icon-minus-sign"></i> ch-icon-minus-sign</li>
                     <li><i class="ch-icon-remove-sign"></i> ch-icon-remove-sign</li>
                     <li><i class="ch-icon-ok-sign"></i> ch-icon-ok-sign</li>
-                    <li><i class="ch-icon-question-sign"></i> ch-icon-question-sign</li>
+                    <li><i class="ch-icon-help-sign"></i> ch-icon-help-sign</li>
                     <li><i class="ch-icon-info-sign"></i> ch-icon-info-sign</li>
                     <li><i class="ch-icon-ban-circle"></i> ch-icon-ban-circle</li>
                     <li><i class="ch-icon-arrow-left"></i> ch-icon-arrow-left</li>
@@ -1171,8 +1190,8 @@
         var validation8 = $('#range').min(8).and().max(10);
         var validation9 = $('#characters').maxLength(20).and().minLength(6);
         var validation10 = $('#double,#textarea2').required();
-        var validation11 = $('.required-check').required(message('requiredCheck'));
-        var validation12 = $('.required-option').required(message('option'));
+        var validation11 = $('#select2').required();
+        var validation12 = $('.required-options').required();
         var validation13 = $('#double').required(message('link'));
         var validation14 = $('#double').number();
 

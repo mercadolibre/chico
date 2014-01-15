@@ -66,36 +66,14 @@ select[multiple],
 }
 
 /* Options */
-.ch-list-options {
+.ch-form-options {
     margin: 0 0 15px 20px;
 }
 
 /* Subtitle in options */
-.ch-list-options .ch-form-subtitle {
+.ch-form-options .ch-form-subtitle {
     margin-bottom: 15px;
     margin-left: -20px;
-}
-
-/* Label in options */
-.ch-list-options label {
-    padding: 0 0 0 22px;
-}
-
-/* Radio & Checkbox in options */
-.ch-list-options input[type="radio"],
-.ch-list-options input[type="checkbox"] {
-    display: block;
-    width: 16px;
-    height: 16px;
-    top: 1.125em;
-}
-
-.ch-list-options input[type=radio] {
-    margin-top: -9px;
-}
-
-.ch-list-options input[type=checkbox] {
-    margin-top: -8px;
 }
 
 /* Disabled status */
@@ -116,10 +94,10 @@ select[multiple],
     margin-left: 145px;
 }
 
-.lt-ie10 .ch-list-options input[type=radio] {
+.lt-ie10 .ch-form-options input[type=radio] {
     margin-top: -11px;
 }
 
-.lt-ie10 .ch-list-options input[type=checkbox]  {
+.lt-ie10 .ch-form-options input[type=checkbox]  {
     margin-top: -11px;
 }

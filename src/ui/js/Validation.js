@@ -23,8 +23,8 @@
                     $trigger = that.$trigger,
                     h4;
                 // CHECKBOX, RADIO
-                // TODO: when old forms be deprecated we must only support ch-list-options class
-                if ($trigger.hasClass('ch-list-options')) {
+                // TODO: when old forms be deprecated we must only support ch-form-options class
+                if ($trigger.hasClass('ch-form-options')) {
                 // Helper reference from will be fired
                 // H4
                     if ($trigger.find('h4').length > 0) {

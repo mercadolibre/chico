@@ -155,7 +155,7 @@
             'align': this._options.align,
             'addClass': this._options.addClass,
             'hiddenby': this._options._hiddenby,
-            'width': (this._el.getBoundingClientRect().width - 22) + 'px',
+            'width': this._el.getBoundingClientRect().width + 'px',
             'fx': this._options.fx
         });
         /**

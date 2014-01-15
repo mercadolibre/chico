@@ -1,12 +1,24 @@
-.ch-autocomplete-item {
-    margin: 0;
+.ch-autocomplete {
     padding: 0;
-    list-style: none;
+}
+
+.ch-autocomplete-item {
+    -webkit-border-radius: 0;
+    border-radius: 0;
     border-bottom: 1px dotted #CCC;
     min-height: 45px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    line-height: 3.3em;
+    line-height: 45px;
     position: relative;
+    text-indent: 12px;
+}
+
+.ch-autocomplete-item:last-of-type {
+    border-bottom: none;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .ch-autocomplete-list .ch-icon-arrow-up[data-js="ch-autocomplete-complete-query"] {

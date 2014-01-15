@@ -99,7 +99,7 @@ CSS.components = [
     "src/shared/css/lists.css",
     "src/shared/css/pagination.css",
     "src/mobile/css/pagination.css",
-    "src/mobile/css/list-options.css",
+    // "src/mobile/css/list-options.css",
     "src/mobile/css/tags.css",
     "src/mobile/css/header.css",
     "src/mobile/css/Expandable.css",
