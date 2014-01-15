@@ -2,6 +2,9 @@
     border-top-right-radius: 0;
     border-top-left-radius: 0;
     border-top: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .ch-autocomplete-item,
@@ -23,6 +26,5 @@
 }
 
 .ch-autocomplete-loading {
-    background: url('../assets/loading-small.gif') no-repeat right center;
-    background-size: 16px;
+    background: url('../assets/loading-small.gif') no-repeat right 10px center;
 }

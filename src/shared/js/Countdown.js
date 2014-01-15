@@ -143,7 +143,7 @@
          * // Gets the countdown trigger.
          * countdown.$trigger;
          */
-        this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown', function () { that._count(); });
+        this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown input.countdown', function () { that._count(); });
 
         /**
          * Amount of free characters until full the field.

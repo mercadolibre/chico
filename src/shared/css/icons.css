@@ -58,7 +58,7 @@
 }
 
 [class*='ch-icon-']:before,
-.ch-list-options li a:after,
+.ch-box-list li a:after,
 .ch-tag:after {
     font-family: icons;
     font-weight: normal;
@@ -69,7 +69,6 @@
 
 
 [class*='ch-icon-'],
-.ch-list-options li a:after,
 .ch-tag:after {
     color: #666;
 }

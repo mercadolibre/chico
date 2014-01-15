@@ -205,7 +205,7 @@ input.ch-form-icon-input:focus {
         font-weight: bold;
     }
 
-    .ch-form-required.ch-list-options label {
+    .ch-form-required.ch-form-options label {
         font-weight: normal;
         z-index: 1;
     }
@@ -218,7 +218,7 @@ input.ch-form-icon-input:focus {
         top: 3px;
     }
 /* Icon indication of required in options */
-    .ch-form-required.ch-list-options em {
+    .ch-form-required.ch-form-options em {
         display: inline;
         position: relative;
         vertical-align: super;
@@ -257,32 +257,39 @@ input[type=range],*/
     display: block;
 }
 
-/* Options */
-.ch-list-options {
-    margin: 0 0 15px 20px;
-}
-
 /* Subtitle in options */
-.ch-list-options .ch-form-subtitle {
+.ch-form-options .ch-form-subtitle {
     margin-bottom: 15px;
     margin-left: -20px;
 }
 
 /* Subtitle in options & required */
-.ch-list-options.ch-form-required .ch-form-subtitle{
-    font-weight:bold;
+.ch-form-options.ch-form-required .ch-form-subtitle{
+    font-weight: bold;
 }
 
 /* Label in options */
-.ch-list-options label {
+.ch-form-options label {
+    padding: 0 0 0 22px;
     margin: 0;
 }
 
-.ch-list-options input[type="radio"],
-.ch-list-options input[type="checkbox"] {
+/* Radio & Checkbox in options */
+.ch-form-options input[type="radio"],
+.ch-form-options input[type="checkbox"] {
     position: absolute;
-    top: 50%;
-    margin: -8px 0 0 0;
+    display: block;
+    width: 16px;
+    height: 16px;
+    top: 1.125em;
+}
+
+.ch-form-options input[type=radio] {
+    margin-top: -9px;
+}
+
+.ch-form-options input[type=checkbox] {
+    margin-top: -8px;
 }
 
 /* Disabled status */

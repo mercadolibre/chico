@@ -206,7 +206,7 @@
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (this.$trigger.hasClass('ch-list-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (this.$trigger.hasClass('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };

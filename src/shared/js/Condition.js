@@ -48,7 +48,7 @@
         'required': {
             'fn': function (value) {
 
-                var tag = this.$trigger.hasClass('ch-list-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = this.$trigger.hasClass('ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {

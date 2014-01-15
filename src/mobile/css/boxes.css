@@ -4,3 +4,63 @@
 .ch-box {
     background-color: #F0F0F0;
 }
+
+/**
+ * List boxes
+ */
+.ch-box-list {
+    background-color: #f4f4f4;
+    border: 1px solid #dedede;
+    padding: 0;
+}
+
+.ch-box-list li {
+    position: relative;
+    border-bottom: 1px dotted #ccc;
+    color: #666;
+    font-size: 16px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+}
+
+.ch-box-list li:last-child {
+    border-bottom: none;
+}
+
+.ch-box-list li:active {
+    background-color: #e9e9e9;
+}
+
+/**
+ * List boxes: anchors within
+ */
+.ch-box-list li a {
+    line-height: 25px;
+    text-decoration: none;
+    display: block;
+    padding: 14px 42px 14px 20px;
+    position: relative;
+}
+
+.ch-box-list li a:after {
+    content: '\f054';
+    font-size: 19px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -11px;
+    color: #999;
+}
+
+/**
+ * List boxes: icons within
+ */
+.ch-box-list [class*='ch-icon'] {
+    position: absolute;
+    top: .75em;
+    left: 16px;
+    color: #999;
+}
+
+.ch-box-list [class*='ch-icon'] + a {
+    padding-left: 48px;
+}
