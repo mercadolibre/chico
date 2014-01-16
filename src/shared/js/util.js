@@ -161,7 +161,7 @@
 
         /**
          * Gives the final used values of all the CSS properties of an element.
-         * @param {object} el The HTMLElement for which to get the computed style.
+         * @param {HTMLElement} el The HTMLElement for which to get the computed style.
          * @param {string} prop The name of the CSS property to test.
          * @returns {CSSStyleDeclaration}
          * @link http://www.quirksmode.org/dom/getstyles.html
@@ -265,9 +265,10 @@
 
         /**
          * Get the current outer dimensions of an element.
+         * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
-         * ch.util.getOuterDimensions(HTMLElement);
+         * ch.util.getOuterDimensions(el);
          */
         'getOuterDimensions': function (el) {
             var obj = el.getBoundingClientRect();
@@ -280,24 +281,57 @@
 
         /**
          * Get the current offset of an element.
+         * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
-         * ch.util.getOffset(HTMLElement);
+         * ch.util.getOffset(el);
          */
         'getOffset': function (el) {
+
             var rect = el.getBoundingClientRect(),
+                fixedParent = ch.util.getPositionedParent(el, 'fixed'),
                 scroll = ch.util.getScroll(),
                 offset = {
                     'left': rect.left,
                     'top': rect.top
                 };
 
-            if (ch.util.getStyles(el, 'position') !== 'fixed' && ch.util.getStyles(el.offsetParent, 'position') !== 'fixed') {
+            if (ch.util.getStyles(el, 'position') !== 'fixed' && fixedParent === null) {
                 offset.left += scroll.left;
                 offset.top += scroll.top;
             }
 
             return offset;
+        },
+
+        /**
+         * Get the current parentNode with the given position.
+         * @param {HTMLElement} el A given HTMLElement.
+         * @param {String} position A given position (static, relative, fixed or absolute).
+         * @returns {HTMLElement}
+         * @example
+         * ch.util.getPositionedParent(el, 'fixed');
+         */
+        'getPositionedParent': function (el, position) {
+            var currentParent = el.offsetParent,
+                parent;
+
+            while (parent === undefined) {
+
+                if (currentParent === null) {
+                    parent = null;
+                    break;
+                }
+
+                if (ch.util.getStyles(currentParent, 'position') !== position) {
+                    currentParent = currentParent.offsetParent;
+                } else {
+                    parent = currentParent;
+                }
+
+            };
+
+            return parent;
         },
 
         /**

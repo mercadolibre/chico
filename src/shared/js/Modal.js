@@ -171,7 +171,7 @@
      */
     Modal.prototype.show = function (content, options) {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || this._shown) {
             return this;
         }
 
@@ -208,6 +208,10 @@
      * modal.hide();
      */
     Modal.prototype.hide = function () {
+        if (!this._shown) {
+            return this;
+        }
+
         // Delete the underlay listener
         $underlay.off(ch.onpointertap);
         // Hide the underlay element

@@ -251,6 +251,18 @@
      * @private
      */
     Tabs.prototype._hasHash = function () {
+
+        /**
+         * Event emitted before a tab container will be showed.
+         * @event ch.Tabs#beforeshow
+         * @example
+         * // Subscribe to "beforeshow" event.
+         * tabs.on('beforeshow', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('hide', this._shown);
+
         var i = 0,
             // Shows the first tab panel if not hash or it's hash and it isn't from the current tab panel,
             l = this.tabpanels.length;
@@ -306,6 +318,17 @@
         if (this._shown === tab) {
             return this;
         }
+
+        /**
+         * Event emitted before a tab container will be showed.
+         * @event ch.Tabs#beforeshow
+         * @example
+         * // Subscribe to "beforeshow" event.
+         * tabs.on('beforeshow', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('hide', this._shown);
 
         // Hides the shown tab
         this.tabpanels[this._shown - 1].hide();

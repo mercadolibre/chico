@@ -141,7 +141,7 @@
      */
     Layer.prototype.show = function (content, options) {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || this._shown) {
             return this;
         }
 

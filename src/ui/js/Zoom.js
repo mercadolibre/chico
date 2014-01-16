@@ -405,7 +405,7 @@
      */
     Zoom.prototype.show = function (content, options) {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || this._shown) {
             return this;
         }
 
@@ -436,6 +436,10 @@
      * zoom.hide();
      */
     Zoom.prototype.hide = function () {
+        if (!this._shown) {
+            return this;
+        }
+
         // Avoid unnecessary execution
         if (!this._loaded) {
             this._$loading.addClass('ch-hide');
