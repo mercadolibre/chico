@@ -187,7 +187,10 @@
          * @todo Define this function on prototype and use bind(): $document.on(ch.onlayoutchange, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
-            that._positioner.refresh(options);
+            if (that._shown) {
+                that._positioner.refresh(options);
+            }
+
             return that;
         };
 
@@ -390,7 +393,7 @@
      */
     Popover.prototype.show = function (content, options) {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || this._shown) {
             return this;
         }
 
@@ -420,7 +423,7 @@
      */
     Popover.prototype.hide = function () {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || !this._shown) {
             return this;
         }
 

@@ -178,7 +178,6 @@ input.ch-form-icon-input:focus {
 
 /* Basic wrapper for horizontal view */
 .ch-form-row {
-    margin-bottom: 0;
     padding: 5px 0;
     position: relative;
 }

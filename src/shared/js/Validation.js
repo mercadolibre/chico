@@ -49,6 +49,7 @@
      * });
      */
     function Validation($el, options) {
+
         /**
          * Reference to context of an instance.
          * @type {Object}

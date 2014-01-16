@@ -613,6 +613,11 @@
     </div>
 
     <div class="ch-box-lite">
+        <h2>Modal with validations</h2>
+        <button id="modal-validation" class="ch-btn ch-btn-small">Show me</button>
+    </div>
+
+    <div class="ch-box-lite">
         <h2 id="transition-window">Transition window</h2>
         <form action="static/ajax.html">
             <input type="submit" id="transition" class="ch-btn ch-btn-small" value="Execute it!">
@@ -1226,6 +1231,21 @@
             </fieldset>
         </form>
 
+        <form id="bigForm" action="static/ajax.html" class="ch-form ch-form-big ch-hide">
+            <fieldset>
+                <legend>Modal with validations</legend>
+                <div class="ch-form-row">
+                    <label for="input_modal">User:</label>
+                    <input class="ch-form-icon-input" type="text" id="input_modal" name="input_modal" size="50">
+                    <i class="ch-form-icon-inner ch-icon-user"></i>
+                </div>
+                <div class="ch-form-actions">
+                    <input type="submit" name="modalConfirmation" value="Login" class="ch-btn">
+                    <a href="#">Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+
     </div>
 
     <script src="/vendor/jquery.js"></script>
@@ -1403,7 +1423,7 @@
             'reference': $('#layer5')
         });
 
-        var fixedLayer = $('#components').layer({
+        var layerFixed = $('#components').layer({
             'content': $("#components-list"),
             'shownby': 'pointertap',
             'hiddenby': 'all',
@@ -1444,6 +1464,18 @@
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
+
+        var modalValidation = $('#modal-validation').modal({
+                'content': $('#bigForm')
+            })
+            .once('show', function () {
+                this.validation = $('#input_modal').required({
+                    'position': 'fixed'
+                });
+            })
+            .on('hide', function () {
+                this.validation.clear();
+            });
 
         // Trasition
         var transition = $('#transition').transition();

@@ -47,7 +47,8 @@
             'align': that._options.align,
             'side': that._options.side,
             'offsetY': that._options.offsetY,
-            'offsetX': that._options.offsetX
+            'offsetX': that._options.offsetX,
+            'position': that._options.position
         });
 
     };
