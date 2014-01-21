@@ -30,7 +30,7 @@
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
 
             /**
-             * Event emitted when the component container is shown.
+             * Event emitted when the componentg is shown.
              * @event ch.Collapsible#show
              * @example
              * // Subscribe to "show" event.
@@ -45,7 +45,7 @@
             that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
 
             /**
-             * Event emitted when the component container is hidden.
+             * Event emitted when the component is hidden.
              * @event ch.Collapsible#hide
              * @example
              * // Subscribe to "hide" event.
@@ -70,6 +70,17 @@
             if (that.$trigger !== undefined) {
                 that.$trigger.addClass(triggerClass);
             }
+
+            /**
+             * Event emitted before the component is shown.
+             * @event ch.Collapsible#beforeshow
+             * @example
+             * // Subscribe to "beforeshow" event.
+             * collapsible.on('beforeshow', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('beforeshow');
 
             // Animate or not
             if (useEffects) {
@@ -96,6 +107,17 @@
                 that.$trigger.removeClass(triggerClass);
             }
 
+            /**
+             * Event emitted before the component is hidden.
+             * @event ch.Collapsible#beforehide
+             * @example
+             * // Subscribe to "beforehide" event.
+             * collapsible.on('beforehide', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('beforehide');
+
             // Animate or not
             if (useEffects) {
                 that.$container[toggleEffects[fx]]('fast', hideCallback);
@@ -107,7 +129,7 @@
         };
 
         /**
-         * Shows or hides the component container.
+         * Shows or hides the component.
          * @function
          * @private
          */

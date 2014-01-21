@@ -253,11 +253,11 @@
     Tabs.prototype._hasHash = function () {
 
         /**
-         * Event emitted before a tab container will be showed.
-         * @event ch.Tabs#beforeshow
+         * Event emitted when a tab hide a tab panel container.
+         * @event ch.Tabs#hide
          * @example
-         * // Subscribe to "beforeshow" event.
-         * tabs.on('beforeshow', function () {
+         * // Subscribe to "hide" event.
+         * tabs.on('hide', function () {
          *     // Some code here!
          * });
          */
@@ -320,11 +320,11 @@
         }
 
         /**
-         * Event emitted before a tab container will be showed.
-         * @event ch.Tabs#beforeshow
+         * Event emitted when a tab hide a tab panel container.
+         * @event ch.Tabs#hide
          * @example
-         * // Subscribe to "beforeshow" event.
-         * tabs.on('beforeshow', function () {
+         * // Subscribe to "hide" event.
+         * tabs.on('hide', function () {
          *     // Some code here!
          * });
          */

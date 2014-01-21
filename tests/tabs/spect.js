@@ -2,7 +2,7 @@ var tabs1 = $('#tabs-1').tabs(),
     tabs2 = $('#tabs-2').tabs(),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    layoutChangeEvent = jasmine.createSpy('layoutChangeEvent'),
+    layoutChangeEvent = jasmine.gcreateSpy('layoutChangeEvent'),
     showEvent = jasmine.createSpy('showEvent');
 
 $(window.document).on(ch.onlayoutchange, layoutChangeEvent);
