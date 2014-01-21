@@ -1,5 +1,7 @@
 var expandable1 = $("#expandable-1").expandable(),
+    beforeshowEvent = jasmine.createSpy('beforeshowEvent'),
     showEvent = jasmine.createSpy('showEvent'),
+    beforehideEvent = jasmine.createSpy('beforehideEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
@@ -17,7 +19,9 @@ $(window.document).on(ch.onlayoutchange, layoutChangeEvent);
 describe('Expandable', function () {
     expandable1
         .on('ready', function () { readyEvent(); })
+        .on('beforeshow', function () { beforeshowEvent(); })
         .on('show', function () { showEvent(); })
+        .on('beforehide', function () { beforehideEvent(); })
         .on('hide', function () { hideEvent(); });
 
     it('should be defined on ch object', function () {
@@ -169,7 +173,8 @@ describe('Its show() method', function () {
         expect($container.attr('aria-expanded')).toEqual('true');
     });
 
-    it('should emit the "show" event', function () {
+    it('should emit the "beforeshow" and "show" events', function () {
+        // expect(beforeshowEvent).toHaveBeenCalled();
         expect(showEvent).toHaveBeenCalled();
     });
 
@@ -196,8 +201,9 @@ describe('Its hide() method', function () {
         expect($container.attr('aria-expanded')).toEqual('false');
     });
 
-    it('should emit the "hide" event', function () {
-        expect(showEvent).toHaveBeenCalled();
+    it('should emit the "beforehide" and "hide" events', function () {
+        expect(beforehideEvent).toHaveBeenCalled();
+        expect(hideEvent).toHaveBeenCalled();
     });
 
     it('should return the same instance than initialized component', function () {

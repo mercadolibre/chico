@@ -1,9 +1,13 @@
-var showEvent = jasmine.createSpy('showEvent'),
+var beforeshowEvent = jasmine.createSpy('beforeshowEvent'),
+    showEvent = jasmine.createSpy('showEvent'),
+    beforehideEvent = jasmine.createSpy('beforehideEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
     popover1 = $('#popover1').popover()
+        .on('beforeshow', function () { beforeshowEvent(); })
         .on('show', function () { showEvent(); })
+        .on('beforehide', function () { beforehideEvent(); })
         .on('hide', function () { hideEvent(); })
         .on('ready', function () { readyEvent(); }),
     $trigger = popover1.$trigger,
@@ -173,14 +177,17 @@ describe('Its show() method', function () {
         });
 	});
 
-    it('should emit the "show" event', function () {
+    it('should emit the "beforeshow" and "show" events', function () {
         popover1.show();
 
         waits(500);
 
         runs(function () {
+            expect(beforeshowEvent).toHaveBeenCalled();
             expect(showEvent).toHaveBeenCalled();
         });
+
+        popover1.hide();
     });
 
     it('should return the same instance than initialized component', function () {
@@ -210,7 +217,8 @@ describe('Its hide() method', function () {
 		});
 	});
 
-    it('should emit the "hide" event', function () {
+    it('should emit the "beforehide" and "hide" events', function () {
+        expect(beforehideEvent).toHaveBeenCalled();
         expect(hideEvent).toHaveBeenCalled();
     });
 
