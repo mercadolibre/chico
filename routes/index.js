@@ -44,6 +44,8 @@ app.get('/m', function (req, res, next) {
  * Files generator
  */
 app.get('/:version/:type?/:file?', isAnotherFile, isView, function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
     var min = ((req.query.min) ? '.min' : ''),
         filename = req.params.file || 'chico',
         path = '/build/' + req.params.version + '/' + filename + min + '.' + req.params.type;

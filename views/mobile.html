@@ -73,6 +73,11 @@
             height: 15px;
             margin-top: 25px;
         }
+
+        .ch-loading-small {
+            display: block;
+            margin:0 auto;
+        }
     </style>
 </head>
 <body>
@@ -99,8 +104,8 @@
                 <li><a href="#tooltip">Tooltip</a></li>
                 <li><a href="#layer">Layer</a></li>
                 <li><a href="#bubble">Bubble</a></li>
-                <li><a href="#modal">Modal</a></li>
-                <li><a href="#transition">Transition</a></li> -->
+                <li><a href="#modal">Modal</a></li>> -->
+                <li><a href="#transition">Transition</a></li
                 <li><a href="#expandable">Expandable</a></li>
                 <li><a href="#menu">Menu</a></li>
                 <li><a href="#carousel">Carousel</a></li>
@@ -314,12 +319,10 @@
             </div>
 
             <div class="components">
-                <h2 id="transitions">Transitions <span class="ch-loading">Cargando...</span></h2>
-                <div class="body">
-                    <div class="ch-loading-wrap">
-                        <p class="ch-loading-text">Cargando...</p>
-                    </div>
-                </div>
+                <h2 id="spinner">Spinner control</h2>
+                <span class="ch-loading-small"></span>
+                <span class="ch-loading"></span>
+                <span class="ch-loading-large"></span>
             </div>
 
             <div class="components">
@@ -1133,11 +1136,11 @@
         // });
 
         // // Trasition
-        // var transition = $('#transition').transition();
+        var transition = $('#transition').transition();
 
-        // var transitionX = $.transition({
-        //     'content': 'Transition without trigger!'
-        // });
+        var transitionX = $.transition({
+            'content': 'Transition without trigger!'
+        });
 
         // Carousel
         var carousel = $('.myCarousel').carousel({
