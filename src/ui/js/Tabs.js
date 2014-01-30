@@ -14,7 +14,7 @@
      * var tabs = new ch.Tabs($el);
      * @example
      * // Create a new Tabs with jQuery or Zepto.
-     * var tabs = $(selector).Tabs();
+     * var tabs = $(selector).tabs();
      */
     function Tabs($el, options) {
 
