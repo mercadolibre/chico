@@ -79,6 +79,12 @@
     left: 0;
 }
 
+[class*="ch-btn"] [class*='ch-icon-'] {
+    margin: 0 5px 0 0;
+    font-size: 15px;
+    line-height: 1em;
+}
+
 /**
  * Icons content
  */
