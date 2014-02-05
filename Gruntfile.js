@@ -91,6 +91,7 @@ module.exports = function (grunt) {
         'jslint': { // configure the task
             'files': files.JS.abilities.concat(files.JS.components),
             'directives': {
+                'browser': true,
                 'nomen': true,
                 'todo': true
             },
