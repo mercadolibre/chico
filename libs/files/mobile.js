@@ -73,7 +73,8 @@ JS.components = [
 CSS.resetML = [
     "src/shared/css/reset.css",
     "src/mobile/css/reset.css",
-    "src/shared/css/typography.css"
+    "src/shared/css/typography.css",
+    "src/mobile/css/typography.css"
 ];
 
 /*
