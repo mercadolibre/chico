@@ -1,23 +1,4 @@
     /**
-     * Reference to the index page
-     * @name $mainView
-     * @memberof ch.util
-     * @returns {ZeptoSelector}
-     * @example
-     * ch.util.$mainView;
-     */
-    ch.util.$mainView = (function () {
-        var $view = $('div[data-page=index]');
-
-        if ($view.length === 0) {
-            alert('Chico Mobile Error\n$mainView: The document doesn\'t contain an index "page" view.');
-            throw new Error('Chico Mobile Error\n$mainView: The document doesn\'t contain an index "page" view.');
-        }
-
-        return $view;
-    }()),
-
-    /**
      * Fixes the broken iPad/iPhone form label click issue.
      * @name fixLabels
      * @memberof ch.util
@@ -43,6 +24,21 @@
                 $(labels[i]).on(ch.onpointertap, labelTap);
             }
         }
+    };
+
+    /**
+     * Cancel pointers if the user scroll.
+     * @name cancelPointerOnScroll
+     * @memberof ch.util
+     */
+    ch.util.cancelPointerOnScroll = function () {
+        $document.on('touchmove', function () {
+            ch.onpointercanceled = true;
+
+            $document.one('touchend', function () {
+                ch.onpointercanceled = false;
+            });
+        });
     };
 
     /*!

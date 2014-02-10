@@ -139,6 +139,10 @@
             .addClass(this._options._classNameTrigger)
             .on(ch.onpointertap + '.' + this.name, function (event) {
 
+                if (ch.onpointercanceled) {
+                    return;
+                }
+
                 ch.util.prevent(event);
 
                 if (that._options.toggle) {
