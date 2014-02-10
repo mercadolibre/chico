@@ -33,10 +33,10 @@
      */
     ch.util.cancelPointerOnScroll = function () {
         $document.on('touchmove', function () {
-            ch.onpointercanceled = true;
+            ch.pointerCanceled = true;
 
             $document.one('touchend', function () {
-                ch.onpointercanceled = false;
+                ch.pointerCanceled = false;
             });
         });
     };

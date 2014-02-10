@@ -139,7 +139,7 @@
             .addClass(this._options._classNameTrigger)
             .on(ch.onpointertap + '.' + this.name, function (event) {
 
-                if (ch.onpointercanceled) {
+                if (ch.pointerCanceled) {
                     return;
                 }
 

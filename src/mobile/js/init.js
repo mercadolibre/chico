@@ -13,7 +13,7 @@
     // Fix the broken iPad/iPhone form label click issue
     ch.util.fixLabels();
 
-    // Prevent pointers if the user scroll.
+    // Cancel pointers if the user scroll.
     ch.util.cancelPointerOnScroll();
 
     // Exposse private $ (Zepto) into ch.$
