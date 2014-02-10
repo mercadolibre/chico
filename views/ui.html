@@ -76,11 +76,12 @@
     <ul id="components-list" class="ch-list component-list ch-hide m-clearfix">
         <li class="m-g1-5"><a href="#headings">Headings</a></li>
         <li class="m-g1-5"><a href="#paragraphs">Paragraphs</a></li>
-        <li class="m-g1-5"><a href="#list">List</a></li>
+        <li class="m-g1-5"><a href="#links">Links</a></li>
+        <li class="m-g1-5"><a href="#lists">List</a></li>
         <li class="m-g1-5"><a href="#boxes">Boxes</a></li>
-        <li class="m-g1-5"><a href="#wizard">Wizard</a></li>
-        <li class="m-g1-5"><a href="#spinner">Spinner</a></li>
         <li class="m-g1-5"><a href="#message-boxes">Message Boxes</a></li>
+        <li class="m-g1-5"><a href="#wizard">Wizard</a></li>
+        <li class="m-g1-5"><a href="#loadings">Loadings</a></li>
         <li class="m-g1-5"><a href="#buttons">Buttons</a></li>
         <li class="m-g1-5"><a href="#autocomplete">Autocomplete</a></li>
         <li class="m-g1-5"><a href="#pagination">Pagination</a></li>
@@ -101,7 +102,7 @@
         <li class="m-g1-5"><a href="#calendar">Calendar</a></li>
         <li class="m-g1-5"><a href="#datepicker">Datepicker</a></li>
         <li class="m-g1-5"><a href="#countdown">Countdown</a></li>
-        <li class="m-g1-5"><a href="#form">Form</a></li>
+        <li class="m-g1-5"><a href="#forms">Forms</a></li>
     </ul>
 
     <div class="ch-box-lite">
@@ -129,7 +130,7 @@
     </div>
 
     <div class="ch-box-lite m-clearfix">
-        <h2 id="list">Lists</h2>
+        <h2 id="lists">Lists</h2>
         <div class="m-g1-4">
             <h3>Unstyled</h3>
             <ul>
@@ -211,6 +212,22 @@
         <p>Everything is great!</p>
     </div>
 
+    <div class="ch-box-icon">
+        <i class="ch-icon-truck"></i>
+        <p>This is a message, with an icon!</p>
+    </div>
+    <div class="ch-box-icon">
+        <i class="ch-icon-warning-sign"></i>
+        <h2>Warning!</h2>
+        <p>This is a big warning message, be careful!</p>
+    </div>
+
+    <div class="ch-box-icon ch-box-error"><i class="ch-icon-remove-sign"></i>Oops, something wrong happened</div>
+    <div class="ch-box-icon ch-box-help"><i class="ch-icon-help-sign"></i>Do you need any help?</div>
+    <div class="ch-box-icon ch-box-info"><i class="ch-icon-info-sign"></i> Here's more information</div>
+    <div class="ch-box-icon ch-box-warn"><i class="ch-icon-warning-sign"></i> Warning! something might be wrong</div>
+    <div class="ch-box-icon ch-box-ok"><i class="ch-icon-ok-sign"></i> Everything is great!</div>
+
     <h2 id="wizard">Wizard</h2>
     <form action="/" class="ch-wizard">
         <ol class="ch-wizard-breadcrumb ch-steps-four">
@@ -219,7 +236,6 @@
             <li class="ch-wizard-current">Step 3</li>
             <li class="ch-wizard-step">Step 4</li>
         </ol>
-
         <div class="ch-box-container">
             <h2>Caption heading</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
@@ -231,30 +247,11 @@
         </div>
     </form>
 
-
     <div class="ch-box-lite">
-        <h2 id="spinner">Spinner control</h2>
+        <h2 id="loadings">Loadings</h2>
         <span class="ch-loading-small"></span>
         <span class="ch-loading"></span>
         <span class="ch-loading-large"></span>
-    </div>
-
-    <div class="ch-box-lite">
-        <h2 id="message-boxes">Messages boxes (with icons)</h2>
-        <div class="ch-box-icon">
-            <i class="ch-icon-truck"></i>
-            <p>This is a big warning message, be careful!</p>
-        </div>
-        <div class="ch-box-icon">
-            <i class="ch-icon-warning-sign"></i>
-            <h2>Warning!</h2>
-            <p>This is a big warning message, be careful!</p>
-        </div>
-        <div class="ch-box-icon ch-box-error"><i class="ch-icon-remove-sign"></i>Oops, something wrong happened</div>
-        <div class="ch-box-icon ch-box-help"><i class="ch-icon-help-sign"></i>Do you need any help?</div>
-        <div class="ch-box-icon ch-box-info"><i class="ch-icon-info-sign"></i> Here's more information</div>
-        <div class="ch-box-icon ch-box-warn"><i class="ch-icon-warning-sign"></i> Warning! something might be wrong</div>
-        <div class="ch-box-icon ch-box-ok"><i class="ch-icon-ok-sign"></i> Everything is great!</div>
     </div>
 
     <div class="ch-box-lite m-clearfix">
@@ -814,7 +811,7 @@
     </div>
 
     <div class="ch-box-lite">
-        <h2 id="form">Forms and Validations</h2>
+        <h2 id="forms">Forms and Validations</h2>
 
         <form action="static/ajax.html" class="ch-form myForm" method="GET">
             <fieldset>
