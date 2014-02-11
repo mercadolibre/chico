@@ -33,7 +33,7 @@
         },
         'number': {
             'fn': function (value) {
-                return (/^(-?[0-9\s]+)$/i).test(value);
+                return (/^(-?[0-9]+)$/i).test(value);
             },
             'message': 'Use only numbers.'
         },
