@@ -2,7 +2,7 @@
  * Chico UI v1.1.0
  * http://chico-ui.com.ar/
  *
- * Copyright (c) 2013, MercadoLibre.com
+ * Copyright (c) 2014, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
@@ -276,7 +276,7 @@ ch.util = {
 
         /**
          * Gives the final used values of all the CSS properties of an element.
-         * @param {object} el The HTMLElement for which to get the computed style.
+         * @param {HTMLElement} el The HTMLElement for which to get the computed style.
          * @param {string} prop The name of the CSS property to test.
          * @returns {CSSStyleDeclaration}
          * @link http://www.quirksmode.org/dom/getstyles.html
@@ -380,9 +380,10 @@ ch.util = {
 
         /**
          * Get the current outer dimensions of an element.
+         * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
-         * ch.util.getOuterDimensions(HTMLElement);
+         * ch.util.getOuterDimensions(el);
          */
         'getOuterDimensions': function (el) {
             var obj = el.getBoundingClientRect();
@@ -395,24 +396,57 @@ ch.util = {
 
         /**
          * Get the current offset of an element.
+         * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
-         * ch.util.getOffset(HTMLElement);
+         * ch.util.getOffset(el);
          */
         'getOffset': function (el) {
+
             var rect = el.getBoundingClientRect(),
+                fixedParent = ch.util.getPositionedParent(el, 'fixed'),
                 scroll = ch.util.getScroll(),
                 offset = {
                     'left': rect.left,
                     'top': rect.top
                 };
 
-            if (ch.util.getStyles(el, 'position') !== 'fixed' && ch.util.getStyles(el.offsetParent, 'position') !== 'fixed') {
+            if (ch.util.getStyles(el, 'position') !== 'fixed' && fixedParent === null) {
                 offset.left += scroll.left;
                 offset.top += scroll.top;
             }
 
             return offset;
+        },
+
+        /**
+         * Get the current parentNode with the given position.
+         * @param {HTMLElement} el A given HTMLElement.
+         * @param {String} position A given position (static, relative, fixed or absolute).
+         * @returns {HTMLElement}
+         * @example
+         * ch.util.getPositionedParent(el, 'fixed');
+         */
+        'getPositionedParent': function (el, position) {
+            var currentParent = el.offsetParent,
+                parent;
+
+            while (parent === undefined) {
+
+                if (currentParent === null) {
+                    parent = null;
+                    break;
+                }
+
+                if (ch.util.getStyles(currentParent, 'position') !== position) {
+                    currentParent = currentParent.offsetParent;
+                } else {
+                    parent = currentParent;
+                }
+
+            };
+
+            return parent;
         },
 
         /**
@@ -1154,7 +1188,7 @@ ch.factory = function (Klass, fn) {
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
 
             /**
-             * Event emitted when the component container is shown.
+             * Event emitted when the componentg is shown.
              * @event ch.Collapsible#show
              * @example
              * // Subscribe to "show" event.
@@ -1169,7 +1203,7 @@ ch.factory = function (Klass, fn) {
             that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
 
             /**
-             * Event emitted when the component container is hidden.
+             * Event emitted when the component is hidden.
              * @event ch.Collapsible#hide
              * @example
              * // Subscribe to "hide" event.
@@ -1194,6 +1228,17 @@ ch.factory = function (Klass, fn) {
             if (that.$trigger !== undefined) {
                 that.$trigger.addClass(triggerClass);
             }
+
+            /**
+             * Event emitted before the component is shown.
+             * @event ch.Collapsible#beforeshow
+             * @example
+             * // Subscribe to "beforeshow" event.
+             * collapsible.on('beforeshow', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('beforeshow');
 
             // Animate or not
             if (useEffects) {
@@ -1220,6 +1265,17 @@ ch.factory = function (Klass, fn) {
                 that.$trigger.removeClass(triggerClass);
             }
 
+            /**
+             * Event emitted before the component is hidden.
+             * @event ch.Collapsible#beforehide
+             * @example
+             * // Subscribe to "beforehide" event.
+             * collapsible.on('beforehide', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('beforehide');
+
             // Animate or not
             if (useEffects) {
                 that.$container[toggleEffects[fx]]('fast', hideCallback);
@@ -1231,7 +1287,7 @@ ch.factory = function (Klass, fn) {
         };
 
         /**
-         * Shows or hides the component container.
+         * Shows or hides the component.
          * @function
          * @private
          */
@@ -2763,7 +2819,7 @@ ch.factory = function (Klass, fn) {
         },
         'number': {
             'fn': function (value) {
-                return (/^(-?[0-9\s]+)$/i).test(value);
+                return (/^(-?[0-9]+)$/i).test(value);
             },
             'message': 'Use only numbers.'
         },
@@ -2778,7 +2834,7 @@ ch.factory = function (Klass, fn) {
         'required': {
             'fn': function (value) {
 
-                var tag = this.$trigger.hasClass('ch-list-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = this.$trigger.hasClass('ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
@@ -2958,8 +3014,8 @@ ch.factory = function (Klass, fn) {
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 10.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
      * @param {String} [options.position] The type of positioning used. Default: "absolute".
      * @returns {validation} Returns a new instance of Validation.
      * @example
@@ -2989,6 +3045,7 @@ ch.factory = function (Klass, fn) {
      * });
      */
     function Validation($el, options) {
+
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -3139,14 +3196,15 @@ ch.factory = function (Klass, fn) {
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = (that.$trigger.parents('form').data('form') || that.$trigger.parents('form').form())
-            .validations.push(this);
+        this.form = (that.$trigger.parents('form').data('form') || that.$trigger.parents('form').form());
+
+        this.form.validations.push(this);
 
         /**
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (this.$trigger.hasClass('ch-list-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (this.$trigger.hasClass('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -3514,8 +3572,8 @@ ch.factory = function (Klass, fn) {
                     $trigger = that.$trigger,
                     h4;
                 // CHECKBOX, RADIO
-                // TODO: when old forms be deprecated we must only support ch-list-options class
-                if ($trigger.hasClass('ch-list-options')) {
+                // TODO: when old forms be deprecated we must only support ch-form-options class
+                if ($trigger.hasClass('ch-form-options')) {
                 // Helper reference from will be fired
                 // H4
                     if ($trigger.find('h4').length > 0) {
@@ -3538,7 +3596,8 @@ ch.factory = function (Klass, fn) {
             'align': that._options.align,
             'side': that._options.side,
             'offsetY': that._options.offsetY,
-            'offsetX': that._options.offsetX
+            'offsetX': that._options.offsetX,
+            'position': that._options.position
         });
 
     };
@@ -4794,6 +4853,10 @@ ch.factory = function (Klass, fn) {
             .addClass(this._options._classNameTrigger)
             .on(ch.onpointertap + '.' + this.name, function (event) {
 
+                if (ch.pointerCanceled) {
+                    return;
+                }
+
                 ch.util.prevent(event);
 
                 if (that._options.toggle) {
@@ -5477,7 +5540,10 @@ ch.factory = function (Klass, fn) {
          * @todo Define this function on prototype and use bind(): $document.on(ch.onlayoutchange, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
-            that._positioner.refresh(options);
+            if (that._shown) {
+                that._positioner.refresh(options);
+            }
+
             return that;
         };
 
@@ -5680,7 +5746,7 @@ ch.factory = function (Klass, fn) {
      */
     Popover.prototype.show = function (content, options) {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || this._shown) {
             return this;
         }
 
@@ -5710,7 +5776,7 @@ ch.factory = function (Klass, fn) {
      */
     Popover.prototype.hide = function () {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || !this._shown) {
             return this;
         }
 
@@ -6088,7 +6154,7 @@ ch.factory = function (Klass, fn) {
      */
     Layer.prototype.show = function (content, options) {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || this._shown) {
             return this;
         }
 
@@ -6505,7 +6571,7 @@ ch.factory = function (Klass, fn) {
      */
     Modal.prototype.show = function (content, options) {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || this._shown) {
             return this;
         }
 
@@ -6542,6 +6608,10 @@ ch.factory = function (Klass, fn) {
      * modal.hide();
      */
     Modal.prototype.hide = function () {
+        if (!this._shown) {
+            return this;
+        }
+
         // Delete the underlay listener
         $underlay.off(ch.onpointertap);
         // Hide the underlay element
@@ -7055,7 +7125,7 @@ ch.factory = function (Klass, fn) {
      */
     Zoom.prototype.show = function (content, options) {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || this._shown) {
             return this;
         }
 
@@ -7086,6 +7156,10 @@ ch.factory = function (Klass, fn) {
      * zoom.hide();
      */
     Zoom.prototype.hide = function () {
+        if (!this._shown) {
+            return this;
+        }
+
         // Avoid unnecessary execution
         if (!this._loaded) {
             this._$loading.addClass('ch-hide');
@@ -8358,7 +8432,7 @@ ch.factory = function (Klass, fn) {
      * var tabs = new ch.Tabs($el);
      * @example
      * // Create a new Tabs with jQuery or Zepto.
-     * var tabs = $(selector).Tabs();
+     * var tabs = $(selector).tabs();
      */
     function Tabs($el, options) {
 
@@ -8595,6 +8669,18 @@ ch.factory = function (Klass, fn) {
      * @private
      */
     Tabs.prototype._hasHash = function () {
+
+        /**
+         * Event emitted when a tab hide a tab panel container.
+         * @event ch.Tabs#hide
+         * @example
+         * // Subscribe to "hide" event.
+         * tabs.on('hide', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('hide', this._shown);
+
         var i = 0,
             // Shows the first tab panel if not hash or it's hash and it isn't from the current tab panel,
             l = this.tabpanels.length;
@@ -8650,6 +8736,17 @@ ch.factory = function (Klass, fn) {
         if (this._shown === tab) {
             return this;
         }
+
+        /**
+         * Event emitted when a tab hide a tab panel container.
+         * @event ch.Tabs#hide
+         * @example
+         * // Subscribe to "hide" event.
+         * tabs.on('hide', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('hide', this._shown);
 
         // Hides the shown tab
         this.tabpanels[this._shown - 1].hide();
@@ -9844,7 +9941,7 @@ ch.factory = function (Klass, fn) {
          * // Gets the countdown trigger.
          * countdown.$trigger;
          */
-        this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown', function () { that._count(); });
+        this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown input.countdown', function () { that._count(); });
 
         /**
          * Amount of free characters until full the field.
@@ -10684,7 +10781,7 @@ ch.factory = function (Klass, fn) {
             'align': this._options.align,
             'addClass': this._options.addClass,
             'hiddenby': this._options._hiddenby,
-            'width': (this._el.getBoundingClientRect().width - 22) + 'px',
+            'width': this._el.getBoundingClientRect().width + 'px',
             'fx': this._options.fx
         });
         /**

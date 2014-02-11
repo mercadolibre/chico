@@ -2,7 +2,7 @@
  * Chico UI v1.1.0
  * http://chico-ui.com.ar/
  *
- * Copyright (c) 2013, MercadoLibre.com
+ * Copyright (c) 2014, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
@@ -318,11 +318,11 @@ a:focus {
      * Safari, Android, iOS
      * Legacy iOS
      */
-    src: url('../assets/icons.eot');
-    src: url('../assets/icons.eot?#iefix') format('embedded-opentype'),
-         url('../assets/icons.woff') format('woff'),
-         url('../assets/icons.ttf') format('truetype'),
-         url('../assets/icons.svg#icons') format('svg');
+    src: url('../../assets/0.3/icons.eot');
+    src: url('../../assets/0.3/icons.eot?#iefix') format('embedded-opentype'),
+         url('../../assets/0.3/icons.woff') format('woff'),
+         url('../../assets/0.3/icons.ttf') format('truetype'),
+         url('../../assets/0.3/icons.svg#icons') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -366,7 +366,7 @@ a:focus {
 }
 
 [class*='ch-icon-']:before,
-.ch-list-options li a:after,
+.ch-box-list li a:after,
 .ch-tag:after {
     font-family: icons;
     font-weight: normal;
@@ -377,7 +377,6 @@ a:focus {
 
 
 [class*='ch-icon-'],
-.ch-list-options li a:after,
 .ch-tag:after {
     color: #666;
 }
@@ -386,6 +385,12 @@ a:focus {
 [class^='ch-icon-']:before,
 [class*=' ch-icon-']:before {
     left: 0;
+}
+
+[class*="ch-btn"] [class*='ch-icon-'] {
+    margin: 0 5px 0 0;
+    font-size: 15px;
+    line-height: 1em;
 }
 
 /**
@@ -532,7 +537,7 @@ a:focus {
 }
 
 .ch-box-error a:visited {
-    color: #0637B3;
+    color: #0033BB;
 }
 
 /**
@@ -556,7 +561,7 @@ a:focus {
 }
 
 .ch-box-info {
-    background-color: #D9EDF7;
+    background-color: #E4F2F9;
 }
 
 .ch-box-info a {
@@ -588,19 +593,19 @@ a:focus {
 }
 
 .ch-loading-large {
-    background-image: url('../assets/loading-big.gif');
+    background-image: url('../../assets/0.3/loading-big.gif');
     width: 36px;
     height: 36px;
 }
 
 .ch-loading {
-    background-image: url('../assets/loading.gif');
+    background-image: url('../../assets/0.3/loading.gif');
     width: 24px;
     height: 24px;
 }
 
 .ch-loading-small {
-    background-image: url('../assets/loading-small.gif');
+    background-image: url('../../assets/0.3/loading-small.gif');
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -1091,6 +1096,17 @@ dl.ch-list dd {
     background-color: #FFF;
 }
 
+.ch-pagination .ch-pagination-current a {
+    border: 1px solid #E9E9E9;
+    background-color: #E9E9E9;
+    color: #0033BB;
+}
+.ch-pagination .ch-pagination-current a:hover {
+    border: 1px solid #E9E9E9;
+    background-color: #E9E9E9;
+    color: #0033BB;
+}
+
 .ch-pagination li a:hover {
     color: #FFF;
     text-decoration: none;
@@ -1098,17 +1114,11 @@ dl.ch-list dd {
     border: 1px solid #2B37B2;
 }
 
-.ch-pagination .ch-pagination-current a,
-.ch-pagination .ch-pagination-current a:hover {
-    border: 1px solid #DEDEDE;
-    background-color: #DEDEDE;
-    color: #0637b3;
-}
-
 .ch-pagination a[type="prev"]:hover,
 .ch-pagination a[type="next"]:hover {
-    border-color: #0637b3;
+    border-color: #0033BB;
 }
+
 .ch-pagination a[type="prev"],
 .ch-pagination a[type="next"] {
     border-color: #FFFFFF;
@@ -1289,7 +1299,6 @@ input.ch-form-icon-input:focus {
 
 /* Basic wrapper for horizontal view */
 .ch-form-row {
-    margin-bottom: 0;
     padding: 5px 0;
     position: relative;
 }
@@ -1316,7 +1325,7 @@ input.ch-form-icon-input:focus {
         font-weight: bold;
     }
 
-    .ch-form-required.ch-list-options label {
+    .ch-form-required.ch-form-options label {
         font-weight: normal;
         z-index: 1;
     }
@@ -1329,7 +1338,7 @@ input.ch-form-icon-input:focus {
         top: 3px;
     }
 /* Icon indication of required in options */
-    .ch-form-required.ch-list-options em {
+    .ch-form-required.ch-form-options em {
         display: inline;
         position: relative;
         vertical-align: super;
@@ -1368,32 +1377,39 @@ input[type=range],*/
     display: block;
 }
 
-/* Options */
-.ch-list-options {
-    margin: 0 0 15px 20px;
-}
-
 /* Subtitle in options */
-.ch-list-options .ch-form-subtitle {
+.ch-form-options .ch-form-subtitle {
     margin-bottom: 15px;
     margin-left: -20px;
 }
 
 /* Subtitle in options & required */
-.ch-list-options.ch-form-required .ch-form-subtitle{
-    font-weight:bold;
+.ch-form-options.ch-form-required .ch-form-subtitle{
+    font-weight: bold;
 }
 
 /* Label in options */
-.ch-list-options label {
+.ch-form-options label {
+    padding: 0 0 0 22px;
     margin: 0;
 }
 
-.ch-list-options input[type="radio"],
-.ch-list-options input[type="checkbox"] {
+/* Radio & Checkbox in options */
+.ch-form-options input[type="radio"],
+.ch-form-options input[type="checkbox"] {
     position: absolute;
-    top: 50%;
-    margin: -8px 0 0 0;
+    display: block;
+    width: 16px;
+    height: 16px;
+    top: 1.125em;
+}
+
+.ch-form-options input[type=radio] {
+    margin-top: -9px;
+}
+
+.ch-form-options input[type=checkbox] {
+    margin-top: -8px;
 }
 
 /* Disabled status */
@@ -1532,41 +1548,19 @@ select[multiple],
 }
 
 /* Help bottom line that helps the user */
-.ch-form-hint {
+.ch-form-row .ch-form-hint {
     margin-left: 145px;
 }
 
 /* Options */
-.ch-list-options {
+.ch-form-options {
     margin: 0 0 15px 20px;
 }
 
 /* Subtitle in options */
-.ch-list-options .ch-form-subtitle {
+.ch-form-options .ch-form-subtitle {
     margin-bottom: 15px;
     margin-left: -20px;
-}
-
-/* Label in options */
-.ch-list-options label {
-    padding: 0 0 0 22px;
-}
-
-/* Radio & Checkbox in options */
-.ch-list-options input[type="radio"],
-.ch-list-options input[type="checkbox"] {
-    display: block;
-    width: 16px;
-    height: 16px;
-    top: 1.125em;
-}
-
-.ch-list-options input[type=radio] {
-    margin-top: -9px;
-}
-
-.ch-list-options input[type=checkbox] {
-    margin-top: -8px;
 }
 
 /* Disabled status */
@@ -1587,15 +1581,15 @@ select[multiple],
     margin-left: 145px;
 }
 
-.lt-ie10 .ch-list-options input[type=radio] {
+.lt-ie10 .ch-form-options input[type=radio] {
     margin-top: -11px;
 }
 
-.lt-ie10 .ch-list-options input[type=checkbox]  {
+.lt-ie10 .ch-form-options input[type=checkbox]  {
     margin-top: -11px;
 }
 .ch-popover {
-    box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+    box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.2);
 }
 
 .ch-shownby-pointertap {
@@ -2426,7 +2420,7 @@ select[multiple],
     border: 1px solid transparent;
     border-width: 0 1px;
     border-radius: 0;
-    color: #0637B3;
+    color: #0033BB;
     text-decoration: none;
     padding: 0 28px 0 13px;
 }
@@ -2477,7 +2471,7 @@ select[multiple],
 
 .ch-dropdown-skin menu a {
     background: none;
-    color: #0637B3;
+    color: #0033BB;
     display: inline;
     line-height: 20px;
     padding: 0;
@@ -2502,7 +2496,7 @@ select[multiple],
 }
 /* Trigger */
 .ch-expandable-trigger {
-    color: #0637B3;
+    color: #0033BB;
     cursor: pointer;
     position: relative;
     padding-left: 16px;
@@ -2756,7 +2750,7 @@ select[multiple],
 }
 
 .ch-datepicker .ch-calendar-day:hover {
-    background-color: #F7F7F7;
+    background-color: #FEFBD6;
     color: #333;
     font-weight: normal;
     cursor:pointer;
@@ -2780,6 +2774,9 @@ select[multiple],
     border-top-right-radius: 0;
     border-top-left-radius: 0;
     border-top: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .ch-autocomplete-item,
@@ -2801,9 +2798,9 @@ select[multiple],
 }
 
 .ch-autocomplete-loading {
-    background: url('../assets/loading-small.gif') no-repeat right center;
-    background-size: 16px;
+    background: url('../../assets/0.3/loading-small.gif') no-repeat right 10px center;
 }
+
 .ch-autocomplete-list .ch-icon-arrow-up {
     display: none;
 }
