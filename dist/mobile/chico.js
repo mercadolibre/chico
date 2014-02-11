@@ -2,7 +2,7 @@
  * Chico UI v1.1.0
  * http://chico-ui.com.ar/
  *
- * Copyright (c) 2013, MercadoLibre.com
+ * Copyright (c) 2014, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
@@ -276,7 +276,7 @@ ch.util = {
 
         /**
          * Gives the final used values of all the CSS properties of an element.
-         * @param {object} el The HTMLElement for which to get the computed style.
+         * @param {HTMLElement} el The HTMLElement for which to get the computed style.
          * @param {string} prop The name of the CSS property to test.
          * @returns {CSSStyleDeclaration}
          * @link http://www.quirksmode.org/dom/getstyles.html
@@ -380,9 +380,10 @@ ch.util = {
 
         /**
          * Get the current outer dimensions of an element.
+         * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
-         * ch.util.getOuterDimensions(HTMLElement);
+         * ch.util.getOuterDimensions(el);
          */
         'getOuterDimensions': function (el) {
             var obj = el.getBoundingClientRect();
@@ -395,24 +396,57 @@ ch.util = {
 
         /**
          * Get the current offset of an element.
+         * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
-         * ch.util.getOffset(HTMLElement);
+         * ch.util.getOffset(el);
          */
         'getOffset': function (el) {
+
             var rect = el.getBoundingClientRect(),
+                fixedParent = ch.util.getPositionedParent(el, 'fixed'),
                 scroll = ch.util.getScroll(),
                 offset = {
                     'left': rect.left,
                     'top': rect.top
                 };
 
-            if (ch.util.getStyles(el, 'position') !== 'fixed' && ch.util.getStyles(el.offsetParent, 'position') !== 'fixed') {
+            if (ch.util.getStyles(el, 'position') !== 'fixed' && fixedParent === null) {
                 offset.left += scroll.left;
                 offset.top += scroll.top;
             }
 
             return offset;
+        },
+
+        /**
+         * Get the current parentNode with the given position.
+         * @param {HTMLElement} el A given HTMLElement.
+         * @param {String} position A given position (static, relative, fixed or absolute).
+         * @returns {HTMLElement}
+         * @example
+         * ch.util.getPositionedParent(el, 'fixed');
+         */
+        'getPositionedParent': function (el, position) {
+            var currentParent = el.offsetParent,
+                parent;
+
+            while (parent === undefined) {
+
+                if (currentParent === null) {
+                    parent = null;
+                    break;
+                }
+
+                if (ch.util.getStyles(currentParent, 'position') !== position) {
+                    currentParent = currentParent.offsetParent;
+                } else {
+                    parent = currentParent;
+                }
+
+            };
+
+            return parent;
         },
 
         /**
@@ -453,24 +487,7 @@ ch.util = {
          */
         'zIndex': 1000
     };
-ch.util.$mainView = (function () {
-        var $view = $('div[data-page=index]');
-
-        if ($view.length === 0) {
-            alert('Chico Mobile Error\n$mainView: The document doesn\'t contain an index "page" view.');
-            throw new Error('Chico Mobile Error\n$mainView: The document doesn\'t contain an index "page" view.');
-        }
-
-        return $view;
-    }()),
-
-    /**
-     * Fixes the broken iPad/iPhone form label click issue.
-     * @name fixLabels
-     * @memberof ch.util
-     * @see Based on: <a href="http://www.quirksmode.org/dom/getstyles.html" target="_blank">http://www.quirksmode.org/dom/getstyles.html</a>
-     */
-    ch.util.fixLabels = function () {
+ch.util.fixLabels = function () {
         var labels = document.getElementsByTagName('label'),
             target_id,
             el,
@@ -490,6 +507,21 @@ ch.util.$mainView = (function () {
                 $(labels[i]).on(ch.onpointertap, labelTap);
             }
         }
+    };
+
+    /**
+     * Cancel pointers if the user scroll.
+     * @name cancelPointerOnScroll
+     * @memberof ch.util
+     */
+    ch.util.cancelPointerOnScroll = function () {
+        $document.on('touchmove', function () {
+            ch.pointerCanceled = true;
+
+            $document.one('touchend', function () {
+                ch.pointerCanceled = false;
+            });
+        });
     };
 
     /*!
@@ -800,6 +832,9 @@ ch.factory = function (Klass, fn) {
 
     // Fix the broken iPad/iPhone form label click issue
     ch.util.fixLabels();
+
+    // Cancel pointers if the user scroll.
+    ch.util.cancelPointerOnScroll();
 
     // Exposse private $ (Zepto) into ch.$
     ch.$ = $;
@@ -1239,7 +1274,7 @@ ch.factory = function (Klass, fn) {
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
 
             /**
-             * Event emitted when the component container is shown.
+             * Event emitted when the componentg is shown.
              * @event ch.Collapsible#show
              * @example
              * // Subscribe to "show" event.
@@ -1254,7 +1289,7 @@ ch.factory = function (Klass, fn) {
             that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
 
             /**
-             * Event emitted when the component container is hidden.
+             * Event emitted when the component is hidden.
              * @event ch.Collapsible#hide
              * @example
              * // Subscribe to "hide" event.
@@ -1279,6 +1314,17 @@ ch.factory = function (Klass, fn) {
             if (that.$trigger !== undefined) {
                 that.$trigger.addClass(triggerClass);
             }
+
+            /**
+             * Event emitted before the component is shown.
+             * @event ch.Collapsible#beforeshow
+             * @example
+             * // Subscribe to "beforeshow" event.
+             * collapsible.on('beforeshow', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('beforeshow');
 
             // Animate or not
             if (useEffects) {
@@ -1305,6 +1351,17 @@ ch.factory = function (Klass, fn) {
                 that.$trigger.removeClass(triggerClass);
             }
 
+            /**
+             * Event emitted before the component is hidden.
+             * @event ch.Collapsible#beforehide
+             * @example
+             * // Subscribe to "beforehide" event.
+             * collapsible.on('beforehide', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('beforehide');
+
             // Animate or not
             if (useEffects) {
                 that.$container[toggleEffects[fx]]('fast', hideCallback);
@@ -1316,7 +1373,7 @@ ch.factory = function (Klass, fn) {
         };
 
         /**
-         * Shows or hides the component container.
+         * Shows or hides the component.
          * @function
          * @private
          */
@@ -2342,6 +2399,10 @@ ch.factory = function (Klass, fn) {
             .addClass(this._options._classNameTrigger)
             .on(ch.onpointertap + '.' + this.name, function (event) {
 
+                if (ch.pointerCanceled) {
+                    return;
+                }
+
                 ch.util.prevent(event);
 
                 if (that._options.toggle) {
@@ -3025,7 +3086,10 @@ ch.factory = function (Klass, fn) {
          * @todo Define this function on prototype and use bind(): $document.on(ch.onlayoutchange, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
-            that._positioner.refresh(options);
+            if (that._shown) {
+                that._positioner.refresh(options);
+            }
+
             return that;
         };
 
@@ -3228,7 +3292,7 @@ ch.factory = function (Klass, fn) {
      */
     Popover.prototype.show = function (content, options) {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || this._shown) {
             return this;
         }
 
@@ -3258,7 +3322,7 @@ ch.factory = function (Klass, fn) {
      */
     Popover.prototype.hide = function () {
         // Don't execute when it's disabled
-        if (!this._enabled) {
+        if (!this._enabled || !this._shown) {
             return this;
         }
 
@@ -3456,6 +3520,326 @@ ch.factory = function (Klass, fn) {
     ch.factory(Popover, Popover.prototype._normalizeOptions);
 
 }(this, this.ch.$, this.ch));
+
+(function (window, $, ch) {
+    'use strict';
+
+    /**
+     * Modal is a dialog window with an underlay.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Popover
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Modal.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+     * @param {String} [options.width] Set a width for the container. Default: "50%".
+     * @param {String} [options.height] Set a height for the container. Default: "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "all".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
+     * @param {String} [options.position] The type of positioning used. Its value must be "absolute" or "fixed". Default: "fixed".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Modal container.
+     * @returns {modal} Returns a new instance of Modal.
+     * @example
+     * // Create a new Modal.
+     * var modal = new ch.Modal($el, [options]);
+     * @example
+     * // Create a new Modal with jQuery or Zepto.
+     * var modal = $(selector).modal([options]);
+     * @example
+     * // Create a new Modal with disabled effects.
+     * var modal = $(selector).modal({
+     *     'fx': 'none'
+     * });
+     * @example
+     * // Create a new Modal using the shorthand way (content as parameter).
+     * var modal = $(selector).modal('http://ui.ml.com:3040/ajax');
+     */
+    function Modal($el, options) {
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
+        this._init($el, options);
+
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Modal is created.
+             * @memberof! ch.Modal.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
+        /**
+         * Event emitted when the component is ready to use.
+         * @event ch.Modal#ready
+         * @example
+         * // Subscribe to "ready" event.
+         * modal.on('ready', function () {
+         *     // Some code here!
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
+    }
+
+    var $body = $('body'),
+        $underlay = $('<div class="ch-underlay ch-hide" tabindex="-1">'),
+        // Inheritance
+        parent = ch.util.inherits(Modal, ch.Popover);
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Modal.prototype
+     * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var modal = $(selector).data('modal');
+     */
+    Modal.prototype.name = 'modal';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Modal.prototype
+     * @function
+     */
+    Modal.prototype.constructor = Modal;
+
+    /**
+     * Configuration by default.
+     * @memberof! ch.Modal.prototype
+     * @type {Object}
+     * @private
+     */
+    Modal.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+        '_className': 'ch-modal ch-box-lite',
+        '_ariaRole': 'dialog',
+        'width': '50%',
+        'hiddenby': 'all',
+        'reference': ch.viewport,
+        'waiting': '<div class="ch-loading-large ch-loading-centered"></div>',
+        'position': 'fixed'
+    });
+
+    /**
+     * Shows the Modal underlay.
+     * @memberof! ch.Modal.prototype
+     * @function
+     * @private
+     */
+    Modal.prototype._showUnderlay = function () {
+
+        $underlay.css('z-index', ch.util.zIndex).appendTo($body);
+
+        if (this._options.fx !== 'none') {
+            $underlay.fadeIn(function () {
+                $underlay.removeClass('ch-hide');
+            });
+        } else {
+            $underlay.removeClass('ch-hide');
+        }
+    };
+
+    /**
+     * Hides the Modal underlay.
+     * @memberof! ch.Modal.prototype
+     * @function
+     * @private
+     */
+    Modal.prototype._hideUnderlay = function () {
+        if (this._options.fx !== 'none') {
+            $underlay.fadeOut('normal', function () { $underlay.remove(null, true); });
+        } else {
+            $underlay.addClass('ch-hide').remove(null, true);
+        }
+    };
+
+    /**
+     * Shows the modal container and the underlay.
+     * @memberof! ch.Modal.prototype
+     * @function
+     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by modal.
+     * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @returns {modal}
+     * @example
+     * // Shows a basic modal.
+     * modal.show();
+     * @example
+     * // Shows a modal with new content
+     * modal.show('Some new content here!');
+     * @example
+     * // Shows a modal with a new content that will be loaded by ajax with some custom options
+     * modal.show('http://domain.com/ajax/url', {
+     *     'cache': false,
+     *     'params': 'x-request=true'
+     * });
+     */
+    Modal.prototype.show = function (content, options) {
+        // Don't execute when it's disabled
+        if (!this._enabled || this._shown) {
+            return this;
+        }
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
+        // Add to the underlay the ability to hide the component
+        if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
+            // Allow only one click to analize the config every time and to close ONLY THIS modal
+            $underlay.one(ch.onpointertap, function () {
+                that.hide();
+            });
+        }
+
+        // Show the underlay
+        this._showUnderlay();
+        // Execute the original show()
+        parent.show.call(this, content, options);
+
+        return this;
+    };
+
+    /**
+     * Hides the modal container and the underlay.
+     * @memberof! ch.Modal.prototype
+     * @function
+     * @returns {modal}
+     * @example
+     * // Close a modal
+     * modal.hide();
+     */
+    Modal.prototype.hide = function () {
+        if (!this._shown) {
+            return this;
+        }
+
+        // Delete the underlay listener
+        $underlay.off(ch.onpointertap);
+        // Hide the underlay element
+        this._hideUnderlay();
+        // Execute the original hide()
+        parent.hide.call(this);
+
+        return this;
+    };
+
+    ch.factory(Modal, parent._normalizeOptions);
+
+}(this, this.ch.$, this.ch));
+
+(function ($, ch) {
+    'use strict';
+
+    /**
+     * Transition lets you give feedback to the users when their have to wait for an action.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Popover
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Transition.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+     * @param {String} [options.width] Set a width for the container. Default: "50%".
+     * @param {String} [options.height] Set a height for the container. Default: "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
+     * @param {String} [options.position] The type of positioning used. Its value must be "absolute" or "fixed". Default: "fixed".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
+     * @returns {transition} Returns a new instance of Transition.
+     * @example
+     * // Create a new Transition.
+     * var transition = new ch.Transition($el, [options]);
+     * @example
+     * // Create a new Transition with jQuery or Zepto.
+     * var transition = $(selector).transition([options]);
+     * @example
+     * // Create a new Transition with disabled effects.
+     * var transition = $(selector).transition({
+     *     'fx': 'none'
+     * });
+     * @example
+     * // Create a new Transition using the shorthand way (content as parameter).
+     * var transition = $(selector).transition('http://ui.ml.com:3040/ajax');
+     */
+    function Transition($el, options) {
+
+        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
+            options = $el;
+            $el = undefined;
+        }
+
+        options = $.extend(ch.util.clone(this._defaults), options);
+
+        options.content = $('<div class="ch-loading-large"></div><p>' + options.content + '</p>');
+
+        return new ch.Modal($el, options);
+    }
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Transition.prototype
+     * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var transition = $(selector).data('transition');
+     */
+    Transition.prototype.name = 'transition';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Transition.prototype
+     * @function
+     */
+    Transition.prototype.constructor = Transition;
+
+    /**
+     * Configuration by default.
+     * @memberof! ch.Transition.prototype
+     * @type {Object}
+     * @private
+     */
+    Transition.prototype._defaults = $.extend(ch.util.clone(ch.Modal.prototype._defaults), {
+        '_className': 'ch-transition ch-box-lite',
+        '_ariaRole': 'alert',
+        'hiddenby': 'none',
+        'content': 'Please wait...'
+    });
+
+    ch.factory(Transition, ch.Modal.prototype._normalizeOptions);
+
+}(this.ch.$, this.ch));
 
 (function (window, $, ch) {
     'use strict';
@@ -3883,7 +4267,7 @@ ch.factory = function (Klass, fn) {
         },
         'number': {
             'fn': function (value) {
-                return (/^(-?[0-9\s]+)$/i).test(value);
+                return (/^(-?[0-9]+)$/i).test(value);
             },
             'message': 'Use only numbers.'
         },
@@ -3898,7 +4282,7 @@ ch.factory = function (Klass, fn) {
         'required': {
             'fn': function (value) {
 
-                var tag = this.$trigger.hasClass('ch-list-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = this.$trigger.hasClass('ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
@@ -4078,8 +4462,8 @@ ch.factory = function (Klass, fn) {
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 10.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
      * @param {String} [options.position] The type of positioning used. Default: "absolute".
      * @returns {validation} Returns a new instance of Validation.
      * @example
@@ -4109,6 +4493,7 @@ ch.factory = function (Klass, fn) {
      * });
      */
     function Validation($el, options) {
+
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -4259,14 +4644,15 @@ ch.factory = function (Klass, fn) {
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = (that.$trigger.parents('form').data('form') || that.$trigger.parents('form').form())
-            .validations.push(this);
+        this.form = (that.$trigger.parents('form').data('form') || that.$trigger.parents('form').form());
+
+        this.form.validations.push(this);
 
         /**
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (this.$trigger.hasClass('ch-list-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (this.$trigger.hasClass('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -5856,7 +6242,7 @@ ch.factory = function (Klass, fn) {
          * // Gets the countdown trigger.
          * countdown.$trigger;
          */
-        this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown', function () { that._count(); });
+        this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown input.countdown', function () { that._count(); });
 
         /**
          * Amount of free characters until full the field.
@@ -7067,7 +7453,7 @@ ch.factory = function (Klass, fn) {
             'align': this._options.align,
             'addClass': this._options.addClass,
             'hiddenby': this._options._hiddenby,
-            'width': (this._el.getBoundingClientRect().width - 22) + 'px',
+            'width': this._el.getBoundingClientRect().width + 'px',
             'fx': this._options.fx
         });
         /**

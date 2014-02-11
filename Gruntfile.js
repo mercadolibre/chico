@@ -111,7 +111,19 @@ module.exports = function (grunt) {
                     'private': false
                 }
             }
+        },
+
+        'replace': {
+            'example': {
+                'src': ['<%= concat.css.dest %>'],
+                'dest': destination + '/' + environment + '/<%= pkg.name %>.css',
+                'replacements': [{
+                    'from': '../assets/',
+                    'to': '../../assets/0.3/'
+                }]
+            }
         }
+
     });
 
     // Load plugins
@@ -119,6 +131,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-text-replace');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-jsdoc');
 
@@ -127,5 +140,5 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['jslint']);
     grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('dev', ['concat', 'clean']);
-    grunt.registerTask('dist', ['concat', 'uglify', 'cssmin', 'clean']);
+    grunt.registerTask('dist', ['concat', 'replace', 'uglify', 'cssmin', 'clean']);
 };
