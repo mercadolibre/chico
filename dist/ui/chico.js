@@ -1,5 +1,5 @@
 /*!
- * Chico UI v1.1.0
+ * Chico UI v1.1.1
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2014, MercadoLibre.com
@@ -751,10 +751,10 @@ ch.factory = function (Klass, fn) {
     $html.removeClass('no-js');
 
     // Exposse private $ (jQuery) into ch.$
-    ch.$ = $;
-	ch.version = '1.1.0';
+    ch.$ = window.$;
+	ch.version = '1.1.1';
 	window.ch = ch;
-}(this, jQuery));
+}(this, this.$));
 (function (ch) {
     'use strict';
 
@@ -6887,7 +6887,7 @@ ch.factory = function (Klass, fn) {
          * @type {(jQuerySelector | ZeptoSelector)}
          * @private
          */
-        this._$original = this.$trigger.children(':first');
+        this._$original = this.$trigger.children().eq(0);
 
         /**
          * The zoomed image specified as a link href (see the HTML snippet).

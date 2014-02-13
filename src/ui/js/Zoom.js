@@ -167,7 +167,7 @@
          * @type {(jQuerySelector | ZeptoSelector)}
          * @private
          */
-        this._$original = this.$trigger.children(':first');
+        this._$original = this.$trigger.children().eq(0);
 
         /**
          * The zoomed image specified as a link href (see the HTML snippet).

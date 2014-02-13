@@ -2,4 +2,4 @@
     $html.removeClass('no-js');
 
     // Exposse private $ (jQuery) into ch.$
-    ch.$ = $;
+    ch.$ = window.$;

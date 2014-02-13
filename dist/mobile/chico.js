@@ -1,5 +1,5 @@
 /*!
- * Chico UI v1.1.0
+ * Chico UI v1.1.1
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2014, MercadoLibre.com
@@ -838,9 +838,9 @@ ch.factory = function (Klass, fn) {
 
     // Exposse private $ (Zepto) into ch.$
     ch.$ = $;
-	ch.version = '1.1.0';
+	ch.version = '1.1.1';
 	window.ch = ch;
-}(this, Zepto));
+}(this, this.$));
 (function (ch) {
     'use strict';
 
