@@ -36,7 +36,7 @@
 .ch-close,
 .ch-close:visited,
 .ch-close:focus {
-    background-color: transparent;
+    background-color: #fff;
     background-image: -webkit-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
     background-image: -moz-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
     background-image: -o-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
