@@ -69,12 +69,13 @@ You can run our tests in your browser:
 
 - Her Mammana ([@hmammana](https://twitter.com/hmammana))
 - Lean Linares ([@lean8086](https://twitter.com/lean8086))
-- Guille Paz ([@pazguille](https://twitter.com/pazguille))
 
 ## Thanks to
 
+- Guille Paz ([@pazguille](https://twitter.com/pazguille)).
 - Natan Santolo ([@natos](https://twitter.com/natos)). Creator and former leader, now traveling around the world, drinking beer and looking for the secret of eternal life.
 - Nati Devalle ([@taly](https://twitter.com/taly)). Because we love her. She is awesome!
+
 
 ## Credits
 
@@ -83,4 +84,4 @@ You can run our tests in your browser:
 ## License
 Licensed under the MIT license.
 
-Copyright (c) 2013 [MercadoLibre](http://github.com/mercadolibre).
+Copyright (c) 2014 [MercadoLibre](http://github.com/mercadolibre).
