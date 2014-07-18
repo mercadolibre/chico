@@ -1,0 +1,36 @@
+/**
+ * MercadoLibre Chico
+ * @description:
+ */
+
+/* Chico
+---------------------------------------------------------------*/
+
+.ml-wrapper {
+	padding-bottom: 0;
+}
+
+section {
+	padding: 40px 0 70px;
+}
+
+
+
+/* Navigation
+---------------------------------------------------------------*/
+
+.chico-nav {
+	float: right;
+	border-left: solid 1px #ccc;
+	padding-left: 10px;
+}
+
+.chico-nav li a {
+	display: block;
+	padding: 5px 0;
+	color: #0033CC;
+}
+
+.chico-nav li > ul > li {
+	padding-left: 15px;
+}
