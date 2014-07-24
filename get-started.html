@@ -87,45 +87,40 @@
         </header>
 
         <!-- Add `ch-wizard` or `ch-box-lite` classname if you are using `ml-contextual` -->
-        <main role="main">
-            <section class="chico-bg-noise">
+        <main role="main" class="chico-get-started">
+
+            <section class="chico-bg-noise chico-head">
                 <div class="ml-bounds">
                     <h1>Getting started</h1>
-                    <h4>
+                    <h3>
                         How to donwload and install Chico in your site.
-                    </h4>
+                    </h3>
                 </div>
             </section>
+
             <section>
+
                 <div class="ml-bounds row">
-                    <nav class="mesh-12 mesh-m-3 chico-nav">
-                        <b>Download</b>
-                        <ul>
-                            <li>
-                                <a href="">Installing Chico in your site</a>
-                                <ul>
-                                    <li><a href="">Browser sniffing</a></li>
-                                    <li><a href="">JQuery JavaScript Library</a></li>
-                                    <li><a href="">Overview</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
+
                     <div class="mesh-12 mesh-m-9">
-                        <h2>Download </h2>
+
+                        <h2 id="download">Download </h2>
                         <p>
                             Getting started with Chico is easy. Whether you are a master of Sass, building a new app, or making your existing site responsive, we’ve got you covered. How would you like to get started?
                         </p>
                         <p>
                             <a href="#" class="ch-btn ch-btn-large">Download Chico</a>
                         </p>
-                        <h2>Installing Chico in your site</h2>
-                        <h3>Browser sniffing</h3>
-                        <p>
-                            We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
-                        </p>
 
-                        <pre class="language-markup">
+                        <h2 id="installing">Installing Chico in your site</h2>
+
+                        <article>
+                            <h3 id="sniffing">Browser sniffing</h3>
+                            <p>
+                                We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
+                            </p>
+
+                            <pre class="language-markup">
 <code>&lt;!DOCTYPE html>
 &lt;html>
 &lt;head>
@@ -133,22 +128,99 @@
 &lt;!--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
 &lt;!--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
 &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;</code>
-                        </pre>
+                            </pre>
 
-                        <h3>jQuery JavaScript Library</h3>
-                        <p>Most of our framework’s functionality is built on jQuery. That’s why we need to pre-load this toolbox.
-You can get jQuery from many places like Google CDN:</p>
+                        </article>
 
-                        <pre class="language-markup">
+                        <article>
+
+                            <h3 id="jquery">jQuery JavaScript Library</h3>
+                            <p>Most of our framework’s functionality is built on jQuery. That’s why we need to pre-load this toolbox.
+    You can get jQuery from many places like Google CDN:</p>
+
+                            <pre class="language-markup">
 <code class="highlight">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js">&lt;/script></code>
-                        </pre>
-                        <p>Or jQuery CDN:</p>
-                        <pre class="language-markup">
+                            </pre>
+                            <h4>Or jQuery CDN:</h4>
+                            <pre class="language-markup">
 <code class="highlight">&lt;script src="http://code.jquery.com/jquery-x.x.x.min.js">&lt;/script></code>
-                        </pre>
+                            </pre>
 
-                        <iframe width="100%" height="300" src="http://jsfiddle.net/zcbFg/1/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+                        </article>
+
+                        <article>
+
+                            <h3 id="">Title asdasd</h3>
+                            <p>You only have to add the CSS, JavaScript and assets of Chico UI, and that’s all!</p>
+                            <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
+
+                            <pre class="language-markup">
+<code class="highlight">&lt;link rel="stylesheet" href="chico-min-x.x.x.css"/></code>
+                            </pre>
+
+                            <p>
+                                And you should add the JavaScript at bottom of page, before <b>&lt;/body></b> tag close and after jQuery script call.
+                            </p>
+
+                            <pre class="language-markup">
+<code class="highlight">&lt;script src="build/chico-min-x.x.x.js">&lt;/script></code>
+                            </pre>
+
+                            <p>
+                                Don’t forget to link to asset files within the stylesheet code.
+                            </p>
+
+                        </article>
+
+                        <article>
+
+                            <h3 id="overview">Overview</h3>
+
+                            <pre class="language-markup">
+<code>&lt;!doctype html&gt;
+&lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;
+&lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;
+&lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;
+&lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;
+&lt;head&gt;
+&lt;!-- Avoid script blocking --&gt;
+&lt;script&gt;&lt;/script&gt;
+&lt;meta charset="utf-8"/&gt;
+&lt;title&gt;Document Title&lt;/title&gt;
+&lt;!-- Chico UI Core stylesheet --&gt;
+&lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+...
+&lt;!-- All markup here... --&gt;
+...
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;
+&lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+                            </pre>
+
+                        </article>
+
                     </div>
+
+                    <nav class="mesh-12 mesh-m-3 chico-nav">
+                        <ul id="nav-sections">
+                            <li>
+                                <a href="#download" data-section="download">Download</a>
+                            </li>
+                            <li>
+                                <a href="#installing" data-section="installing">Installing Chico in your site</a>
+                                <ul>
+                                    <li><a href="#sniffing" data-section="sniffing">Browser sniffing</a></li>
+                                    <li><a href="#jquery" data-section="jquery">JQuery JavaScript Library</a></li>
+                                    <li><a href="#overview" data-section="overview">Overview</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+
                 </div>
             </section>
         </main>
@@ -169,23 +241,27 @@ You can get jQuery from many places like Google CDN:</p>
         </div>
     </footer>
 
+    <script src="http://static.mlstatic.com/org-img/ch/vendor/jquery/jquery-1.10.2.min.js"></script>
+    <script src="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.js"></script>
     <script src="http://chico.mercadolibre.com/ui/api/js/prism.js"></script>
     <script>
-        /*!
-         * Remove the "no-js" class name
-         * Use only when you are not loading any Chico UI JS version.
-         */
-        (function (el) {
-            el.classList ? el.classList.remove('no-js') : el.className = el.className.replace(/(^|\\b)no-js(\\b|$)/gi, ' ');
-        }(document.documentElement));
 
-        /*!
-         * Improve the #ml-header-menu behavior by closing when users click outside checkbox.
-         * Listen to "click" on the documentElement providing support for IE8+
-         * Avoid to close if I click on the trigger. In that case, it will use CSS
-         * See the uncompressed version on https://gist.github.com/llinares/9379744
-         */
-        (function(w,d){var i=d.getElementById('ml-header-user'),l=i.previousElementSibling||i.previousSibling.previousSibling,a=w.addEventListener;d.documentElement[a?'addEventListener':'attachEvent'](a?'click':'onclick',function(ev){var el=ev.target||ev.srcElement;if(el!==i&&el!==l&&i.checked)i.checked=false})}(window,document));
+        // $(document).ready(function() {
+
+        //     var chicoHead = 344;
+        //     var scrollTop = $(window).scrollTop();
+
+        //     $(window).scroll(function() {
+        //         var scrollTop = $(window).scrollTop();
+        //         if(scrollTop > chicoHead){
+        //             $('.chico-nav').addClass('sticky');
+        //         } else {
+        //             $('.chico-nav').removeClass('sticky');
+        //         }
+        //     });
+
+        // });
+
     </script>
 
 </body>

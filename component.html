@@ -46,12 +46,13 @@
     <!-- <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/mobile/1.1.1/chico.min.css"/> -->
     <!-- Chico Mobile HTTPS -->
     <!-- <link rel="stylesheet" href="https://a248.e.akamai.net/secure.mlstatic.com/org-img/ch/mobile/1.1.1/chico.min.css"/> -->
-
+    <link rel="stylesheet" href="http://chico.mercadolibre.com/ui/api/css/prism.css"/>
     <link rel="stylesheet" href="mesh.min.css"/>
     <link rel="stylesheet" href="base__small.css"/>
     <link rel="stylesheet" media="(min-width: 768px)" href="base__large.css"/>
     <link rel="stylesheet" href="chico__small.css"/>
     <link rel="stylesheet" media="(min-width: 768px)" href="chico__large.css"/>
+
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="base__large.css"/>
         <link rel="stylesheet" href="chico__large.css"/>
@@ -87,62 +88,41 @@
 
         <!-- Add `ch-wizard` or `ch-box-lite` classname if you are using `ml-contextual` -->
         <main role="main">
-            <section class="chico-bg-noise chico-hero">
-                <div class="ml-bounds row">
-                    <figure class="mesh-12">
-                        <i class="chico-hero-img"></i>
-                    </figure>
-                    <div class="mesh-12">
-                        <h1>The most advanced framework in the world</h1>
-                        <h3>
-                            Free and open source collection of easy-to-use UI components for designers and developers.
-                        </h3>
-                        <p>
-                            <a href="#" class="ch-btn ch-btn-large">Download Chico</a>
-                        </p>
-                    </div>
+            <section class="chico-bg-noise chico-head">
+                <div class="ml-bounds">
+                    <h1>UI Library</h1>
+                    <h3>
+                        Amazing components built to provide iconography, dropdowns, input groups, navigation, and much more.
+                    </h3>
                 </div>
             </section>
-            <section class="chico-features">
+            <section>
                 <div class="ml-bounds row">
-                <h2>Incredible features</h2>
-                    <ul>
-                        <li class="mesh-12 mesh-m-4">
-                            <span class="chico-box-circle chico-box-circle-medium"></span>
-                            <h3>This is a amazing title</h3>
-                            <p>
-                               Lorem Ipsum Lorem Ipsum
-                            </p>
-                        </li><!--
-                        --><li class="mesh-12 mesh-m-4">
-                            <span class="chico-box-circle chico-box-circle-medium"></span>
-                            <h3>This is a amazing title</h3>
-                            <p>
-                                Lorem Ipsum Lorem Ipsum
-                            </p>
-                        </li><!--
-                        --><li class="mesh-12 mesh-m-4">
-                            <span class="chico-box-circle chico-box-circle-medium"></span>
-                            <h3>This is a amazing title</h3>
-                            <p>
-                                Lorem Ipsum Lorem Ipsum
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-            <section class="chico-bg-noise chico-bottom">
-                <div class="ml-bounds row">
-                    <h2 class="chico-title-section">Developed and maintained by <b>MercadoLibre</b></h2>
-                    <div class="mesh-12 mesh-m-6">
-                        <span class="chico-box-circle chico-box-circle-large"></span>
-                    </div><!--
-                    --><div class="mesh-12 mesh-m-6">
-                        <p>
-                            We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
-                        </p>
+
+                    <div class="mesh-12 mesh-m-9">
+
+                        <iframe width="100%" height="300" src="http://jsfiddle.net/pmontesano/zcbFg/2/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
                     </div>
-                </div>
+
+                    <nav class="mesh-12 mesh-m-3 chico-nav">
+                        <ul>
+                            <li><a href="">Icons</a></li>
+                            <li><a href="">Text</a></li>
+                            <li><a href="">Boxes</a></li>
+                            <li><a href="">Wizard</a></li>
+                            <li><a href="">Pagination</a></li>
+                            <li><a href="">Labels</a></li>
+                            <li><a href="">Spinner</a></li>
+                            <li><a href="">Buttons</a></li>
+                            <li><a href="">Autocomplete</a></li>
+                            <li><a href="">Pagination</a></li>
+                            <li><a href="">Table</a></li>
+                            <li><a href="">Expandable</a></li>
+                            <li><a href="">Menu</a></li>
+                        </ul>
+                    </nav>
+
             </section>
         </main>
     </div>
@@ -162,23 +142,27 @@
         </div>
     </footer>
 
-
+    <script src="http://static.mlstatic.com/org-img/ch/vendor/jquery/jquery-1.10.2.min.js"></script>
+    <script src="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.js"></script>
+    <script src="http://chico.mercadolibre.com/ui/api/js/prism.js"></script>
     <script>
-        /*!
-         * Remove the "no-js" class name
-         * Use only when you are not loading any Chico UI JS version.
-         */
-        (function (el) {
-            el.classList ? el.classList.remove('no-js') : el.className = el.className.replace(/(^|\\b)no-js(\\b|$)/gi, ' ');
-        }(document.documentElement));
 
-        /*!
-         * Improve the #ml-header-menu behavior by closing when users click outside checkbox.
-         * Listen to "click" on the documentElement providing support for IE8+
-         * Avoid to close if I click on the trigger. In that case, it will use CSS
-         * See the uncompressed version on https://gist.github.com/llinares/9379744
-         */
-        (function(w,d){var i=d.getElementById('ml-header-user'),l=i.previousElementSibling||i.previousSibling.previousSibling,a=w.addEventListener;d.documentElement[a?'addEventListener':'attachEvent'](a?'click':'onclick',function(ev){var el=ev.target||ev.srcElement;if(el!==i&&el!==l&&i.checked)i.checked=false})}(window,document));
+        $(document).ready(function() {
+
+            var chicoHead = 344;
+            var scrollTop = $(window).scrollTop();
+
+            $(window).scroll(function() {
+                var scrollTop = $(window).scrollTop();
+                if(scrollTop > chicoHead){
+                    $('.chico-nav').addClass('sticky');
+                } else {
+                    $('.chico-nav').removeClass('sticky');
+                }
+            });
+
+        });
+
     </script>
 
 </body>
