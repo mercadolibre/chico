@@ -44,12 +44,7 @@ section {
 ---------------------------------------------------------------*/
 
 .chico-nav {
-	border-left: solid 1px #ccc;
-	position: -webkit-sticky;
-  	position: -moz-sticky;
-  	position: -ms-sticky;
-  	position: -o-sticky;
-  	top: 15px;
+    display: block;
 }
 
 .chico-nav.sticky {
@@ -57,6 +52,11 @@ section {
 	z-index: 555;
 	top: 20px;
 	right: 63px;
+}
+
+.chico-nav ul {
+    border-left: solid 1px #ccc;
+    padding-left: 20px;
 }
 
 .chico-nav li a {

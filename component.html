@@ -37,6 +37,8 @@
 
     <!-- Font -->
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/300.css">
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/700.css">
+
 
     <!-- Chico HTTP -->
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
@@ -89,9 +91,9 @@
         <!-- Add `ch-wizard` or `ch-box-lite` classname if you are using `ml-contextual` -->
         <main role="main">
             <section class="chico-bg-noise chico-head">
-                <div class="ml-bounds">
-                    <h1>UI Library</h1>
-                    <h3>
+                <div class="ml-bounds row">
+                    <h1 class="mesh-12">UI Library</h1>
+                    <h3 class="mesh-12 mesh-m-6">
                         Amazing components built to provide iconography, dropdowns, input groups, navigation, and much more.
                     </h3>
                 </div>
@@ -101,7 +103,181 @@
 
                     <div class="mesh-12 mesh-m-9">
 
-                        <iframe width="100%" height="300" src="http://jsfiddle.net/pmontesano/zcbFg/2/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+                        <article>
+
+                            <h3>Example</h3>
+
+                            <div id="boxes">
+                                <div class="ch-box-container">
+                                    <h3>Container Box</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.</p>
+                                </div>
+                                <div class="ch-box-lite">
+                                    <h3>Box Lite</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.</p>
+                                </div>
+                                <div class="ch-box">
+                                    <h3>Box</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.</p>
+                                </div>
+                                <div class="ch-box-error">
+                                    <h3>Box Error</h3>
+                                    <p>
+                                    Oops, something wrong happened.</p>
+                                </div>
+                                <div class="ch-box-help">
+                                    <h3>Box Help</h3>
+                                    <p>Do you need any help?</p>
+                                </div>
+                                <div class="ch-box-info">
+                                    <h3>Box Info</h3>
+                                    <p>Here's more information</p>
+                                </div>
+                                <div class="ch-box-warn">
+                                    <h3>Box Warn</h3>
+                                    <p>Warning! something might be wrong</p>
+                                </div>
+                                <div class="ch-box-ok">
+                                    <h3>Box Ok</h3>
+                                    <p>Everything is great!</p>
+                                </div>
+                            </div>
+
+                        </article>
+
+                        <article>
+
+                            <h3 id="">HTML</h3>
+                            <pre class="language-markup">
+<code>&lt;div id=&quot;boxes&quot;&gt;
+    &lt;div class=&quot;ch-box-container&quot;&gt;
+        &lt;h3&gt;Container Box&lt;/h3&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ch-box-lite&quot;&gt;
+        &lt;h3&gt;Box Lite&lt;/h3&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ch-box&quot;&gt;
+        &lt;h3&gt;Box&lt;/h3&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ch-box-error&quot;&gt;
+        &lt;h3&gt;Box Error&lt;/h3&gt;
+        &lt;p&gt;
+        Oops, something wrong happened.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ch-box-help&quot;&gt;
+        &lt;h3&gt;Box Help&lt;/h3&gt;
+        &lt;p&gt;Do you need any help?&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ch-box-info&quot;&gt;
+        &lt;h3&gt;Box Info&lt;/h3&gt;
+        &lt;p&gt;Here's more information&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ch-box-warn&quot;&gt;
+        &lt;h3&gt;Box Warn&lt;/h3&gt;
+        &lt;p&gt;Warning! something might be wrong&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;ch-box-ok&quot;&gt;
+        &lt;h3&gt;Box Ok&lt;/h3&gt;
+        &lt;p&gt;Everything is great!&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code>
+                            </pre>
+
+                        </article>
+
+                        <article>
+
+                            <h3>CSS</h3>
+
+                            <pre class="language-css">
+<code>
+[class*=ch-box] {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0 0 10px
+}
+
+.ch-box-lite,.ch-box {
+    border: 1px solid #ededed
+}
+
+.ch-box-lite {
+    background-color: #FFF
+}
+
+.ch-box-warn,.ch-box-error,.ch-box-help,.ch-box-info,.ch-box-ok {
+    text-shadow: 1px 1px 0 rgba(255,255,255,.5)
+}
+
+.ch-box-icon {
+    position: relative;
+    padding-left: 32px
+}
+
+.ch-box-icon [class*=ch-icon-] {
+    position: absolute;
+    top: 7px;
+    left: 5px
+}
+
+.ch-icon-warning-sign {
+    color: #F5CC00
+}
+
+.ch-box-warn {
+    background-color: #FFF0BA;
+    color: #AA8749
+}
+
+.ch-box-error,.ch-icon-remove-sign {
+    color: #B94A48
+}
+
+.ch-box-error {
+    background-color: #F2DEDE
+}
+
+.ch-box-help,.ch-icon-help-sign {
+    color: #999
+}
+
+.ch-box-help {
+    background-color: #f7f7f7
+}
+
+.ch-box-info,.ch-icon-info-sign {
+    color: #3A87AD
+}
+
+.ch-box-info {
+    background-color: #D9EDF7
+}
+
+.ch-box-ok,.ch-icon-ok-sign {
+    color: #468847
+}
+
+.ch-box-ok {
+    background-color: #DFF0D8
+}
+
+.ch-box {
+    background-image: -webkit-linear-gradient(#eee,#fff 25px,#fff);
+    background-image: -moz-linear-gradient(#eee,#fff 25px,#fff);
+    background-image: -o-linear-gradient(#eee,#fff 25px,#fff);
+    background-image: linear-gradient(#eee,#fff 25px,#fff)
+}
+</code>
+                            </pre>
+
+                        </article>
+
+
+                        <iframe width="100%" height="300" src="http://jsfiddle.net/pmontesano/zcbFg/5/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
                     </div>
 
@@ -147,21 +323,21 @@
     <script src="http://chico.mercadolibre.com/ui/api/js/prism.js"></script>
     <script>
 
-        $(document).ready(function() {
+        // $(document).ready(function() {
 
-            var chicoHead = 344;
-            var scrollTop = $(window).scrollTop();
+        //     var chicoHead = 344;
+        //     var scrollTop = $(window).scrollTop();
 
-            $(window).scroll(function() {
-                var scrollTop = $(window).scrollTop();
-                if(scrollTop > chicoHead){
-                    $('.chico-nav').addClass('sticky');
-                } else {
-                    $('.chico-nav').removeClass('sticky');
-                }
-            });
+        //     $(window).scroll(function() {
+        //         var scrollTop = $(window).scrollTop();
+        //         if(scrollTop > chicoHead){
+        //             $('.chico-nav').addClass('sticky');
+        //         } else {
+        //             $('.chico-nav').removeClass('sticky');
+        //         }
+        //     });
 
-        });
+        // });
 
     </script>
 
