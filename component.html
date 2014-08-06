@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="http://chico.mercadolibre.com/ui/api/css/prism.css"/>
     <link rel="stylesheet" href="mesh.min.css"/>
     <link rel="stylesheet" href="base__small.css"/>
+    <link rel="stylesheet" href="ui-slug_element_component.css"/>
     <link rel="stylesheet" media="(min-width: 768px)" href="base__large.css"/>
     <link rel="stylesheet" href="chico__small.css"/>
     <link rel="stylesheet" media="(min-width: 768px)" href="chico__large.css"/>
@@ -100,6 +101,26 @@
             </section>
             <section>
                 <div class="ml-bounds row">
+
+                    <div class="mesh-12 mesh-m-3 chico-nav">
+                        <nav class="se-element-to-fix">
+                            <ul>
+                                <li><a href="">Icons</a></li>
+                                <li><a href="">Text</a></li>
+                                <li><a href="">Boxes</a></li>
+                                <li><a href="">Wizard</a></li>
+                                <li><a href="">Pagination</a></li>
+                                <li><a href="">Labels</a></li>
+                                <li><a href="">Spinner</a></li>
+                                <li><a href="">Buttons</a></li>
+                                <li><a href="">Autocomplete</a></li>
+                                <li><a href="">Pagination</a></li>
+                                <li><a href="">Table</a></li>
+                                <li><a href="">Expandable</a></li>
+                                <li><a href="">Menu</a></li>
+                            </ul>
+                        </nav>
+                    </div>
 
                     <div class="mesh-12 mesh-m-9">
 
@@ -277,27 +298,9 @@
                         </article>
 
 
-                        <iframe width="100%" height="300" src="http://jsfiddle.net/pmontesano/zcbFg/5/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+                        <iframe width="100%" height="300" src="http://jsfiddle.net/pmontesano/zcbFg/5/embedded/result,js,html,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
                     </div>
-
-                    <nav class="mesh-12 mesh-m-3 chico-nav">
-                        <ul>
-                            <li><a href="">Icons</a></li>
-                            <li><a href="">Text</a></li>
-                            <li><a href="">Boxes</a></li>
-                            <li><a href="">Wizard</a></li>
-                            <li><a href="">Pagination</a></li>
-                            <li><a href="">Labels</a></li>
-                            <li><a href="">Spinner</a></li>
-                            <li><a href="">Buttons</a></li>
-                            <li><a href="">Autocomplete</a></li>
-                            <li><a href="">Pagination</a></li>
-                            <li><a href="">Table</a></li>
-                            <li><a href="">Expandable</a></li>
-                            <li><a href="">Menu</a></li>
-                        </ul>
-                    </nav>
 
             </section>
         </main>
@@ -321,23 +324,15 @@
     <script src="http://static.mlstatic.com/org-img/ch/vendor/jquery/jquery-1.10.2.min.js"></script>
     <script src="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.js"></script>
     <script src="http://chico.mercadolibre.com/ui/api/js/prism.js"></script>
+    <script src="ui-slug_element_component.js"></script>
     <script>
 
-        // $(document).ready(function() {
+        $(document).ready(function() {
 
-        //     var chicoHead = 344;
-        //     var scrollTop = $(window).scrollTop();
+            // Instance of slugElement
+            var element = new SlugElement('se-element-to-fix');
 
-        //     $(window).scroll(function() {
-        //         var scrollTop = $(window).scrollTop();
-        //         if(scrollTop > chicoHead){
-        //             $('.chico-nav').addClass('sticky');
-        //         } else {
-        //             $('.chico-nav').removeClass('sticky');
-        //         }
-        //     });
-
-        // });
+        });
 
     </script>
 
