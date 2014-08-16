@@ -9,7 +9,7 @@
          * @private
          * @type {(jQuerySelector | ZeptoSelector)}
          */
-        $window = $(window),
+        window = window,
 
         /**
          * Reference to the navigator object.
