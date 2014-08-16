@@ -51,7 +51,7 @@
          * @private
          * @type {HTMLhtmlElement}
          */
-        html = document.getElementsByTagName('html')[0],
+        html = document.documentElement,
 
         /**
          * Reference to the html jQuery or Zepto Selector.
