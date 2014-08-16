@@ -47,13 +47,6 @@
         body = document.body,
 
         /**
-         * Reference to the body jQuery or Zepto Selector.
-         * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
-         */
-        $body = $(body),
-
-        /**
          * Reference to the HTMLhtmlElement.
          * @private
          * @type {HTMLhtmlElement}
