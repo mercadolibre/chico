@@ -370,5 +370,32 @@
          * @example
          * ch.util.zIndex += 1;
          */
-        'zIndex': 1000
+        'zIndex': 1000,
+
+        /**
+         * Add or remove class
+         * @name classList
+         * @param {HTMLElement} el A given HTMLElement.
+         * @see Based on: <a href="http://youmightnotneedjquery.com/" target="_blank">http://youmightnotneedjquery.com/</a>
+         */
+        'classList': function (el) {
+            var isClassList = el.classList;
+
+            return {
+                'add': function add(className) {
+                    if (isClassList) {
+                        el.classList.add(className);
+                    } else {
+                        el.className += ' ' + className;
+                    }
+                },
+                'remove': function remove(className) {
+                    if (isClassList) {
+                        el.classList.remove(className)
+                    } else {
+                        el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+                    }
+                }
+            }
+        }
     };
