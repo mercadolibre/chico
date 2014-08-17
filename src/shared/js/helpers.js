@@ -33,13 +33,6 @@
         document = window.document,
 
         /**
-         * Reference to the document jQuery or Zepto Selector.
-         * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
-         */
-        $document = $(document),
-
-        /**
          * Reference to the HTMLBodyElement.
          * @private
          * @type {HTMLBodyElement}
