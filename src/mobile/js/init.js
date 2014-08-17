@@ -1,5 +1,5 @@
     // Remove no-js classname
-    $html.removeClass('no-js');
+    ch.util.classList(html).remove('no-js');
 
     // Iphone scale fix
     ch.util.MBP.scaleFix();
