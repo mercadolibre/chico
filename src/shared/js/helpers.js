@@ -54,13 +54,6 @@
         html = document.documentElement,
 
         /**
-         * Reference to the html jQuery or Zepto Selector.
-         * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
-         */
-        $html = $(html),
-
-        /**
          * Reference to the Object Contructor.
          * @private
          * @constructor
