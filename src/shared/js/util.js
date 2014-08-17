@@ -377,6 +377,8 @@
          * @name classList
          * @param {HTMLElement} el A given HTMLElement.
          * @see Based on: <a href="http://youmightnotneedjquery.com/" target="_blank">http://youmightnotneedjquery.com/</a>
+         * @example
+         * ch.util.classList(document.body).add('ch-example');
          */
         'classList': function (el) {
             var isClassList = el.classList;
@@ -406,5 +408,43 @@
                     return exist;
                 }
             }
-        }
+        },
+
+        /**
+         * Event utility
+         * @constant
+         * @memberof ch.util
+         * @type {Object}
+         * @example
+         * ch.util.Event.addListener(document, 'click', function(){}, false);
+         */
+         'Event': (function(){
+            var isStandard = document.addEventListener ? true : false,
+                addHandler = isStandard ? 'addEventListener' : 'attachEvent',
+                removeHandler = isStandard ? 'removeEventListener' : 'detachEvent';
+
+            function evtUtility(evt) {
+                return isStandard ? evt : ('on' + evt);
+            }
+
+            return {
+                'addListener': function addListener(el, evt, fn, bubbles) {
+                    el[addHandler](evtUtility(evt), fn, bubbles || false);
+                },
+                'addListenerOne': function addListener(el, evt, fn, bubbles) {
+
+                    function oneRemove(){
+                        el[removeHandler](evtUtility(evt), fn);
+                    }
+                    // must remove the event after executes one time
+                    el[addHandler](evtUtility(evt), fn, bubbles || false);
+                    el[addHandler](evtUtility(evt), function(){ oneRemove() }, bubbles || false);
+                },
+                'removeListener': function removeListener(el, evt, fn) {
+                    el[removeHandler](evtUtility(evt), fn);
+                }
+            }
+         }())
+
+
     };
