@@ -395,6 +395,15 @@
                     } else {
                         el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
                     }
+                },
+                'contains': function contains(className) {
+                    var exist;
+                    if (isClassList) {
+                        exist = el.classList.contains(className);
+                    } else {
+                        exist = new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+                    }
+                    return exist;
                 }
             }
         }
