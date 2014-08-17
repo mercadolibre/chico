@@ -32,13 +32,18 @@
      * @memberof ch.util
      */
     ch.util.cancelPointerOnScroll = function () {
-        $document.on('touchmove', function () {
+
+        function blockPointer() {
             ch.pointerCanceled = true;
 
-            $document.one('touchend', function () {
+            function unblockPointer() {
                 ch.pointerCanceled = false;
-            });
-        });
+            }
+
+            ch.util.Event.addListenerOne(document, 'touchend', unblockPointer);
+        }
+
+        ch.util.Event.addListener(document, 'touchmove', blockPointer);
     };
 
     /*!
