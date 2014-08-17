@@ -149,7 +149,7 @@
                     throw new Error('"ch.util.avoidTextSelection(selector);": The parameter must be a jQuery or Zepto selector.');
                 }
 
-                if ($html.hasClass('lt-ie10')) {
+                if (ch.util.classList(html).contains('lt-ie10')) {
                     args[i].attr('unselectable', 'on');
 
                 } else {
