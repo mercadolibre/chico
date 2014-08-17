@@ -24,7 +24,7 @@
         var that = this,
             triggerClass = 'ch-' + this.name + '-trigger-on',
             fx = this._options.fx,
-            useEffects = (ch.support.fx && fx !== 'none' && fx !== false);
+            useEffects = false;
 
         function showCallback() {
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
