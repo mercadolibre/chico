@@ -47,6 +47,8 @@
 
     ch.util.inherits(Component, ch.EventEmitter);
 
+    Component.instances = {};
+
     /**
      * The name of a component.
      * @memberof! ch.Component.prototype
@@ -118,6 +120,17 @@
          * @private
          */
         this._enabled = true;
+
+        /**
+         * Stores all instances created
+         * @type {Object}
+         * @public
+         */
+        Component.instances[this.uid] = this;
+
+        // set the uid to the element to help search for the instance in the collection instances
+        this._el.setAttribute('data-uid', this.uid);
+
     };
 
 

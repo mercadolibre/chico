@@ -200,7 +200,7 @@
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = (that.$trigger.parents('form').data('form') || that.$trigger.parents('form').form());
+        this.form = (ch.Component.instances[that.$trigger.parents('form')[0].getAttribute('data-uid')] || new ch.Form(that.$trigger.parents('form')));
 
         this.form.validations.push(this);
 
