@@ -153,14 +153,14 @@
          * @type {ch.Calendar}
          * @private
          */
-        this._calendar = $('<div>').calendar(options);
+        this._calendar = new ch.Calendar($('<div>'), options);
 
         /**
          * Reference to the Popover component instanced.
          * @type {ch.Popover}
          * @private
          */
-        this._popover = this.$trigger.popover({
+        this._popover = new ch.Popover(this.$trigger, {
             '_className': 'ch-datepicker ch-cone',
             '_ariaRole': 'tooltip',
             'content': this._calendar.$container,

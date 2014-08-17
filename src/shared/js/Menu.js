@@ -191,7 +191,7 @@
 
             } else {
                 // List inside list, inits an Expandable
-                var expandable = $child.expandable({
+                var expandable = new ch.Expandable($child, {
                     // Show/hide on IE8- instead slideUp/slideDown
                     'fx': that._options.fx
                 });

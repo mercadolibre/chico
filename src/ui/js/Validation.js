@@ -17,7 +17,7 @@
          * @type {Bubble}
          * @see ch.Bubble
          */
-        this.bubble = this._container = $.bubble({
+        this.bubble = this._container = new ch.Bubble($('<div>'), {
             'reference': that._options.reference || (function () {
                 var reference,
                     $trigger = that.$trigger,

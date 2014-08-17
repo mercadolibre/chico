@@ -1266,7 +1266,7 @@
             }
         }
 
-        var autocomplete = $('.autocomplete').autocomplete()
+        var autocomplete = new ch.Autocomplete($('.autocomplete'))
                 .on('type', function (userInput) {
                      $.ajax({
                          'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1&callback=parseResults',
@@ -1281,10 +1281,10 @@
 
             autocomplete.$container.prepend(extraSuggestions);
 
-        var calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});
+        var calendar = new ch.Calendar($(".YOUR_SELECTOR_calendar"), {'selected': '2012/01/22'});
 
         // Expandable
-        var expandable1 = $(".YOUR_SELECTOR_expandable").expandable();
+        var expandable1 = new ch.Expandable($(".YOUR_SELECTOR_expandable"));
 
         // expandable1.on('contentdone', function () {
         //     $(".test").click(function () {
@@ -1299,130 +1299,131 @@
         //  });
         // });
 
-        var expandable2 = $(".YOUR_SELECTOR_expandable2").expandable({
+        var expandable2 = new ch.Expandable($(".YOUR_SELECTOR_expandable2"), {
          'container': $('#container')
         });
 
-        var expandable3 = $(".YOUR_SELECTOR_expandable3").expandable({
+        var expandable3 = new ch.Expandable($(".YOUR_SELECTOR_expandable3"), {
          'container': $('#container-ajax'),
          'content': './/static/ajax.html'
         });
 
         // Menu
-        var menu = $(".YOUR_SELECTOR_Menu").menu();
+        var menu = new ch.Menu($(".YOUR_SELECTOR_Menu"));
 
         // Dropdown
-        var dropdown1 = $(".myDropdown").dropdown();
+        var dropdown1 = new ch.Dropdown($(".myDropdown"));
 
-        var dropdown2 = $(".myDropdownNav").dropdown({'shortcuts': false, 'skin': true});
+        var dropdown2 = new ch.Dropdown($(".myDropdownNav"), {'shortcuts': false, 'skin': true});
 
-        var dropdown3 = $(".myDropdownSkin").dropdown({'skin': true});
+        var dropdown3 = new ch.Dropdown($(".myDropdownSkin"), {'skin': true});
 
         // Tooltip
         // Bottom
-        var tooltip1 = $('#default').tooltip(); // lt lb
-        var tooltip2 = $('#ctcb').tooltip({
+        var tooltip1 = new ch.Tooltip($('#default')); // lt lb
+
+        var tooltip2 = new ch.Tooltip($('#ctcb'), {
          'side': 'bottom',
          'align': 'center'
         });
-        var tooltip3 = $('#rtrb').tooltip({
+        var tooltip3 = new ch.Tooltip($('#rtrb'), {
          'side': 'bottom',
          'align': 'right'
         });
 
         // Top
-        var tooltip4 = $('#lblt').tooltip({
+        var tooltip4 = new ch.Tooltip($('#lblt'), {
          'side': 'top',
          'align': 'left',
          'offsetY': -10
         });
-        var tooltip5 = $('#cbct').tooltip({
+        var tooltip5 = new ch.Tooltip($('#cbct'), {
          'side': 'top',
          'align': 'center',
          'offsetY': -10
         });
-        var tooltip6 = $('#rbrt').tooltip({
+        var tooltip6 = new ch.Tooltip($('#rbrt'), {
          'side': 'top',
          'align': 'right',
          'offsetY': -10
         });
 
         // Right
-        var tooltip7 = $('#ltrt').tooltip({
+        var tooltip7 = new ch.Tooltip($('#ltrt'), {
          'side': 'right',
          'align': 'top',
          'offsetX': 10
         });
-        var tooltip8 = $('#lmrm').tooltip({
+        var tooltip8 = new ch.Tooltip($('#lmrm'), {
          'side': 'right',
          'align': 'center',
          'offsetX': 10
         });
-        var tooltip9 = $('#lbrb').tooltip({
+        var tooltip9 = new ch.Tooltip($('#lbrb'), {
          'side': 'right',
          'align': 'bottom',
          'offsetX': 10
         });
 
         // Left
-        var tooltip10 = $('#rtlt').tooltip({
+        var tooltip10 = new ch.Tooltip($('#rtlt'), {
          'side': 'left',
          'align': 'top',
          'offsetX': -10
         });
-        var tooltip11 = $('#rmlm').tooltip({
+        var tooltip11 = new ch.Tooltip($('#rmlm'), {
          'side': 'left',
          'align': 'center',
          'offsetX': -10
         });
-        var tooltip12 = $('#rblb').tooltip({
+        var tooltip12 = new ch.Tooltip($('#rblb'), {
          'side': 'left',
          'align': 'bottom',
          'offsetX': -10
         });
 
-        var tooltipX = $.tooltip({
-            'content': 'Tooltip without trigger!',
-            'reference': $('#default')
-        });
+        // var tooltipX = $.tooltip({
+        //     'content': 'Tooltip without trigger!',
+        //     'reference': $('#default')
+        // });
 
 
         // Layer
-        var layer1 = $('#layer1').layer('foo');
+        var layer1 = new ch.Layer($('#layer1'), {'content': 'foo'});
 
         var layerContent = document.createElement('p');
             layerContent.innerHTML = 'This is an HTML P Element as content.';
 
-        var layer2 = $('#layer2').layer({
+        var layer2 = new ch.Layer($('#layer2'), {
             'content': layerContent,
             'shownby': 'pointertap',
             'hiddenby': 'all'
         });
 
-        var layer3 = $('#layer3').layer({
+        var layer3 = new ch.Layer($('#layer3'), {
             'content': $('#invisible-content-for-layer'),
             'shownby': 'pointertap',
             'hiddenby': 'none'
         });
 
-        var layer4 = $('#layer4').layer({
+        var layer4 = new ch.Layer($('#layer4'), {
             'content': 'Plain text.',
             'shownby': 'pointertap',
             'hiddenby': 'button'
         });
 
-        var layer5 = $('#layer5').layer({
+        var layer5 = new ch.Layer($('#layer5'), {
             'content': './/static/ajax.html',
             'shownby': 'pointertap',
             'hiddenby': 'pointers'
         });
 
-        var layerX = $.layer({
-            'content': 'Layer without trigger!',
-            'reference': $('#layer5')
-        });
+        // var layerX = $.layer({
+        //     'content': 'Layer without trigger!',
+        //     'reference': $('#layer5')
+        // });
 
-        var layerFixed = $('#components').layer({
+        var layerFixed = new ch.Layer($('#components'), {
             'content': $("#components-list"),
             'shownby': 'pointertap',
             'hiddenby': 'all',
@@ -1432,43 +1433,43 @@
             'offsetY': '5px'
         });
 
-        var bubble = $.bubble({
-            'reference': $('#bubble1')
-        });
+        // var bubble = $.bubble({
+        //     'reference': $('#bubble1')
+        // });
 
-        $('#bubble1').on('click', function () {
-            bubble.show();
-        });
+        // $('#bubble1').on('click', function () {
+        //     bubble.show();
+        // });
 
         // Modal
-        var modal1 = $('#modal1').modal({
+        var modal1 = new ch.Modal($('#modal1'), {
             'width': '500px',
             'height': '300px'
         });
 
         // Modal with invisible DOM Content
-        var modal2 = $('#modal2').modal($('#invisible-content'));
+        var modal2 = new ch.Modal($('#modal2'), $('#invisible-content'));
 
         // Modal lite
-        var modal3 = $('#modal3').modal({
+        var modal3 = new ch.Modal($('#modal3'), {
          'content': '<h2>Heading or content</h2>',
          'addClass': 'ch-modal-lite'
         });
 
-        var modalX = $.modal({
-            'hiddenby': 'button'
-        });
+        // var modalX = $.modal({
+        //     'hiddenby': 'button'
+        // });
 
         $('#modal-form').on('submit', function (e) {
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
 
-        var modalValidation = $('#modal-validation').modal({
+        var modalValidation = new ch.Modal($('#modal-validation'), {
                 'content': $('#bigForm')
             })
             .once('show', function () {
-                this.validation = $('#input_modal').required({
+                this.validation = new ch.Required($('#input_modal'), {
                     'position': 'fixed'
                 });
             })
@@ -1477,36 +1478,36 @@
             });
 
         // Trasition
-        var transition = $('#transition').transition();
+        var transition = new ch.Transition($('#transition'));
 
-        var transitionX = $.transition({
-            'content': 'Transition without trigger!'
-        });
+        // var transitionX = $.transition({
+        //     'content': 'Transition without trigger!'
+        // });
 
         // Zoom
-        var zoom = $('.zoom').zoom();
+        var zoom = new ch.Zoom($('.zoom'));
         // Preload image
-        zoom[1].loadImage();
+        zoom.loadImage();
 
         // Carousel
-        var carousel = $(".myCarousel").carousel({"pagination": true});
+        var carousel = new ch.Carousel($(".myCarousel"), {"pagination": true});
 
         // Tabs
-        var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
+        var tabs = new ch.Tabs($(".YOUR_SELECTOR_Tabs"));
 
         // Date Picker
-        var datepicker = $("#val_date").datepicker({
+        var datepicker = new ch.Datepicker($("#val_date"), {
          "selected": "2011/11/15",
          "to": "today"
         });
 
-        var  datepicker2 = $("#val_date2").datepicker({
+        var  datepicker2 = new ch.Datepicker($("#val_date2"), {
          "selected": "2011/11/15",
          "to": "today"
         });
 
         // Countdown
-        var countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
+        var countdown = new ch.Countdown($("#text_cd"), {'max': 140, 'plural': '# left', 'singular': '# left'});
 
         // Messages
         var message = (function (message, value) {
@@ -1526,8 +1527,9 @@
         }());
 
         // Form
-        var m = $.modal();
-        var form = $('.myForm').form()
+        var m = new ch.Modal($('<div></div>'));
+
+        var form = new ch.Form($('.myForm'))
                  .on('success', function (event) {
                      event.preventDefault();
                      m.show();
@@ -1536,7 +1538,7 @@
                      console.log(errors);
                  });
 
-        $('.myForm').on('submit.form', function (event) {
+        form.on('submit.form', function (event) {
             if (!form.hasError()) {
                 event.preventDefault();
                 console.log('Ademas hago otra cosa en el submit');
@@ -1576,41 +1578,49 @@
 
 
 
-        var  validation1 = $('#input_ico').required({
-            'reference': $('#input_ico + .ch-form-icon')
-        }).and().string();
-        var  validation2 = $('#input_ico_inside').required().and().string();
-        var  validation4 = $('#email').required().and().email();
-        var  validation5 = $('#custom')
-         .custom(
-             'myCustom1',
-             function (v) {
-                 if (v.toString().indexOf("1") > -1) {
-                     return true;
-                 }
-                 return false;
-             },
-             'The number must contain a 1.')
-         .and()
-         .custom(
-             'myCustom2',
-             function (v) {
-                 if (v.toString().indexOf("2") > -1) {
-                     return true;
-                 }
-                 return false;
-             },
-             'The number must contain a 2.');
+        var  validation1 = new ch.Validation($('#input_ico'), {'conditions': [
+                {
+                    'name': 'required',
+                    'reference': $('#input_ico + .ch-form-icon')
+                },
+                {
+                    'name': 'string'
+                }
+            ]});
 
-        var validation6 = $('#url').url()
-        var validation7 = $('#number').number().and().min(5);
-        var validation8 = $('#range').min(8).and().max(10);
-        var validation9 = $('#characters').maxLength(20).and().minLength(6);
-        var validation10 = $('#select2').required(message('option'));
-        var validation11 = $('.required-check').required(message('requiredCheck'));
-        var validation12 = $('.required-option').required(message('option'));
-        var validation13 = $('#double').required(message('link')).and().number();
-        var validation14 = $('#textarea2').required();
+
+        // var  validation2 = $('#input_ico_inside').required().and().string();
+        // var  validation4 = $('#email').required().and().email();
+        // var  validation5 = $('#custom')
+        //  .custom(
+        //      'myCustom1',
+        //      function (v) {
+        //          if (v.toString().indexOf("1") > -1) {
+        //              return true;
+        //          }
+        //          return false;
+        //      },
+        //      'The number must contain a 1.')
+        //  .and()
+        //  .custom(
+        //      'myCustom2',
+        //      function (v) {
+        //          if (v.toString().indexOf("2") > -1) {
+        //              return true;
+        //          }
+        //          return false;
+        //      },
+        //      'The number must contain a 2.');
+
+        // var validation6 = $('#url').url()
+        // var validation7 = $('#number').number().and().min(5);
+        // var validation8 = $('#range').min(8).and().max(10);
+        // var validation9 = $('#characters').maxLength(20).and().minLength(6);
+        // var validation10 = $('#select2').required(message('option'));
+        // var validation11 = $('.required-check').required(message('requiredCheck'));
+        // var validation12 = $('.required-option').required(message('option'));
+        // var validation13 = $('#double').required(message('link')).and().number();
+        // var validation14 = $('#textarea2').required();
     </script>
 </body>
 </html>

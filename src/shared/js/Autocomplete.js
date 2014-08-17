@@ -148,7 +148,7 @@
         this._$suggestionsList = $('<ul class="ch-autocomplete-list"></ul>');
 
         // The component who shows and manage the suggestions.
-        this._popover = $.popover({
+        this._popover = new ch.Popover($('<div></div>'), {
             'reference': this._$el,
             'content': this._$suggestionsList,
             'side': this._options.side,
