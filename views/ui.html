@@ -1456,9 +1456,9 @@
          'addClass': 'ch-modal-lite'
         });
 
-        // var modalX = $.modal({
-        //     'hiddenby': 'button'
-        // });
+        var modalX = new ch.Modal($('<div>'), {
+            'hiddenby': 'button'
+        });
 
         $('#modal-form').on('submit', function (e) {
             e.preventDefault();
