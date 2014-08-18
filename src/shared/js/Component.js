@@ -91,17 +91,17 @@
             } else if (typeof $el === 'object') {
                 options = $el;
                 $el = undefined;
-                this._options = $.extend(defaults, options);
+                this._options = ch.util.extend(defaults, options);
             }
 
         } else if (typeof options === 'object') {
             if ($el === undefined) {
-                this._options = $.extend(defaults, options);
+                this._options = ch.util.extend(defaults, options);
 
             } else if (util.is$($el)) {
                 this._$el = $el;
                 this._el = $el[0];
-                this._options = $.extend(defaults, options);
+                this._options = ch.util.extend(defaults, options);
             }
 
         } else {

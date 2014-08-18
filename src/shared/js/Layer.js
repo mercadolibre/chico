@@ -102,7 +102,7 @@
      * @type {Object}
      * @private
      */
-    Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Layer.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
         '_ariaRole': 'tooltip',
         'shownby': 'pointerenter',

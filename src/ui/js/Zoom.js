@@ -97,7 +97,7 @@
      * @type {Object}
      * @private
      */
-    Zoom.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Zoom.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-zoom',
         '_ariaRole': 'tooltip',
         '_hideDelay': 0,

@@ -49,7 +49,7 @@
             $el = undefined;
         }
 
-        options = $.extend(ch.util.clone(this._defaults), options);
+        options = ch.util.extend(ch.util.clone(this._defaults), options);
 
         return new ch.Layer($el, options);
     }
@@ -77,7 +77,7 @@
      * @type {Object}
      * @private
      */
-    Tooltip.prototype._defaults = $.extend(ch.util.clone(ch.Layer.prototype._defaults), {
+    Tooltip.prototype._defaults = ch.util.extend(ch.util.clone(ch.Layer.prototype._defaults), {
         '_className': 'ch-tooltip ch-cone'
     });
 

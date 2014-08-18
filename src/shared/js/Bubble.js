@@ -100,7 +100,7 @@
      * @type {Object}
      * @private
      */
-    Bubble.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Bubble.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-bubble ch-box-icon ch-box-error ch-cone',
         '_ariaRole': 'alert',
         'shownby': 'none',

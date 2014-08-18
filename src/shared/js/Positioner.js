@@ -108,7 +108,7 @@
     Positioner.prototype._configure = function (options) {
 
         // Merge user options with its options
-        $.extend(this._options, options);
+        ch.util.extend(this._options, options);
 
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);

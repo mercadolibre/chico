@@ -49,7 +49,7 @@
             $el = undefined;
         }
 
-        options = $.extend(ch.util.clone(this._defaults), options);
+        options = ch.util.extend(ch.util.clone(this._defaults), options);
 
         options.content = $('<div class="ch-loading-large"></div><p>' + options.content + '</p>');
 
@@ -79,7 +79,7 @@
      * @type {Object}
      * @private
      */
-    Transition.prototype._defaults = $.extend(ch.util.clone(ch.Modal.prototype._defaults), {
+    Transition.prototype._defaults = ch.util.extend(ch.util.clone(ch.Modal.prototype._defaults), {
         '_className': 'ch-transition ch-box-lite',
         '_ariaRole': 'alert',
         'hiddenby': 'none',

@@ -101,7 +101,7 @@
      * @type {Object}
      * @private
      */
-    Modal.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Modal.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-modal ch-box-lite',
         '_ariaRole': 'dialog',
         'width': '50%',

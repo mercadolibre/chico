@@ -232,7 +232,7 @@
             }
 
             var child = obj.prototype || {};
-            obj.prototype = $.extend(child, superConstructor.prototype);
+            obj.prototype = ch.util.extend(child, superConstructor.prototype);
 
             return superConstructor.prototype;
         },
@@ -444,7 +444,24 @@
                     el[removeHandler](evtUtility(evt), fn);
                 }
             }
-         }())
+        }()),
+        'extend': function(obj) {
+            var source,
+                prop,
+                i,
+                length = arguments.length;
 
+            if (!(typeof obj === 'function' || typeof obj === 'object' && !!obj)) { return obj; }
 
+            for (i = 1; i < length; i++) {
+                source = arguments[i];
+                for (prop in source) {
+                    if (Object.prototype.hasOwnProperty.call(source, prop)) {
+                        obj[prop] = source[prop];
+                    }
+                }
+            }
+
+            return obj;
+        }
     };

@@ -120,7 +120,7 @@
      */
     function Condition(condition) {
 
-        $.extend(this, conditions[condition.name], condition);
+        ch.util.extend(this, conditions[condition.name], condition);
 
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
         if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {

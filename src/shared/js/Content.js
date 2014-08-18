@@ -102,7 +102,7 @@
          */
         function getAsyncContent(url, options) {
             // Initial options to be merged with the user's options
-            options = $.extend({
+            options = ch.util.extend({
                 'method': 'GET',
                 'params': '',
                 'async': true,

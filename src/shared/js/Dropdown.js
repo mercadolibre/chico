@@ -100,7 +100,7 @@
      * @type {Object}
      * @private
      */
-    Dropdown.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Dropdown.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-dropdown ch-box-lite',
         '_ariaRole': 'combobox',
         'fx': 'none',
