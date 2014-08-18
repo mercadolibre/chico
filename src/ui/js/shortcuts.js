@@ -161,7 +161,7 @@
             if (shortcut !== undefined && shortcuts._active !== null) {
                 callbacks = shortcuts._collection[shortcuts._active][shortcut];
 
-                event.type = shortcut;
+                event.shortcut = shortcut;
 
 
                 if (callbacks !== undefined) {
