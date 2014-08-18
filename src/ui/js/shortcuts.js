@@ -150,33 +150,34 @@
 
                 return this;
             }
-        };
+        },
+        shortcutsEmitter = function (event) {
+            var keyCode = event.keyCode.toString(),
+                shortcut = codeMap[keyCode],
+                callbacks,
+                callbacksLenght,
+                i = 0;
 
-    $document.on('keydown.shortcuts', function (event) {
-        var keyCode = event.keyCode.toString(),
-            shortcut = codeMap[keyCode],
-            callbacks,
-            callbacksLenght,
-            i = 0;
+            if (shortcut !== undefined && shortcuts._active !== null) {
+                callbacks = shortcuts._collection[shortcuts._active][shortcut];
 
-        if (shortcut !== undefined && shortcuts._active !== null) {
-            callbacks = shortcuts._collection[shortcuts._active][shortcut];
-
-            event.type = shortcut;
+                event.type = shortcut;
 
 
-            if (callbacks !== undefined) {
+                if (callbacks !== undefined) {
 
-                callbacksLenght = callbacks.length;
+                    callbacksLenght = callbacks.length;
 
-                for (i = 0; i < callbacksLenght; i += 1) {
-                    callbacks[i](event);
+                    for (i = 0; i < callbacksLenght; i += 1) {
+                        callbacks[i](event);
+                    }
+
                 }
 
             }
+        };
 
-        }
-    });
+    ch.util.Event.addListener(document, 'keydown', shortcutsEmitter);
 
     ch.shortcuts = shortcuts;
 
