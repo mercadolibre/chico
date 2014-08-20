@@ -120,24 +120,25 @@
             });
 
             // Make async request
-            $.ajax({
+            //$.ajax({
+            reqwest({
                 'url': url,
                 'type': options.method,
                 'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
                 'cache': that._options.cache,
                 'async': options.async,
-                'beforeSend': function (jqXHR) {
-                    // Set the AJAX default HTTP headers
-                    jqXHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                'headers': {
+                    'X-Requested-With': 'XMLHttpRequest'
                 },
                 'success': function (data) {
                     // Send the result data to the client
                     setAsyncContent({
                         'status': 'done',
-                        'response': data
+                        'response': data.response
                     });
+                    console.log(data, data.statusText);
                 },
-                'error': function (jqXHR, textStatus, errorThrown) {
+                'error': function (data) {
                     // Send a defined error message
                     setAsyncContent({
                         'status': 'error',
@@ -145,11 +146,13 @@
 
                          // Grab all the parameters into a JSON to send to the client
                         'data': {
-                            'jqXHR': jqXHR,
-                            'textStatus': textStatus,
-                            'errorThrown': errorThrown
+                            'jqXHR': data,
+                            //'textStatus': textStatus,
+                            'errorThrown': data.statusText
                         }
                     });
+
+                    console.log(data, data.statusText);
                 }
             });
         }
