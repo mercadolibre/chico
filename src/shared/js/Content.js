@@ -1,4 +1,4 @@
-(function ($, ch) {
+(function ($, ch, reqwest) {
     'use strict';
 
     /**
@@ -120,7 +120,6 @@
             });
 
             // Make async request
-            //$.ajax({
             reqwest({
                 'url': url,
                 'type': options.method,
@@ -222,4 +221,4 @@
 
     ch.Content = Content;
 
-}(this.ch.$, this.ch));
+}(this.ch.$, this.ch, this.reqwest));
