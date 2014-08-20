@@ -1247,6 +1247,7 @@
 
     </div>
 
+    <script src="/vendor/reqwest.js"></script>
     <script src="/vendor/jquery.js"></script>
     <script src="/ui/js"></script>
     <script>
@@ -1255,7 +1256,8 @@
             '<li class="ch-autocomplete-item" data-suggested="Other Static option">Other static option</li>',
             '</ul>'].join('');
 
-        var parseResults = function (results) {
+        function parseResults(results) {
+
             var data = [];
             if (results[2].suggested_queries !== undefined) {
                 results[2].suggested_queries.forEach(function (e, i) {
@@ -1268,14 +1270,11 @@
 
         var autocomplete = new ch.Autocomplete($('.autocomplete'))
                 .on('type', function (userInput) {
-                     $.ajax({
-                         'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1&callback=parseResults',
-                         'dataType': 'jsonp',
-                         'cache': false,
-                         'global': true,
-                         'context': window,
-                         'jsonp': 'parseResults',
-                         'crossDomain': true
+                     reqwest({
+                         'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1',
+                         'type': 'jsonp',
+                         'success': parseResults,
+                         'crossOrigin': true
                      });
                 });
 
@@ -1305,7 +1304,7 @@
 
         var expandable3 = new ch.Expandable($(".YOUR_SELECTOR_expandable3"), {
          'container': $('#container-ajax'),
-         'content': './/static/ajax.html'
+         'content': './static/ajax.html'
         });
 
         // Menu
@@ -1413,7 +1412,7 @@
         });
 
         var layer5 = new ch.Layer($('#layer5'), {
-            'content': './/static/ajax.html',
+            'content': './static/ajax.html',
             'shownby': 'pointertap',
             'hiddenby': 'pointers'
         });
