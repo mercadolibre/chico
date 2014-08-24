@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     var util = ch.util,
@@ -9,11 +9,17 @@
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter
-     * @param {(jQuerySelector | ZeptoSelector)} $el jQuery or Zepto Selector.
+     * @param {String} [selector] It must be a valid CSS selector.
      * @param {Object} [options] Configuration options.
      * @returns {component} Returns a new instance of Component.
+     * @example
+     * // Create a new Component.
+     * var component = new ch.Component();
+     * var component = new ch.Component('.my-component', {'option': 'value'});
+     * var component = new ch.Component('.my-component');
+     * var component = new ch.Component({'option': 'value'});
      */
-    function Component($el, options) {
+    function Component(selector, options) {
 
         /**
          * Reference to context of an instance.
@@ -22,7 +28,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -53,9 +59,6 @@
      * The name of a component.
      * @memberof! ch.Component.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var component = $(selector).data(name);
      */
     Component.prototype.name = 'component';
 
@@ -73,39 +76,23 @@
      * @private
      * @returns {component}
      */
-    Component.prototype._init = function ($el, options) {
+    Component.prototype._init = function (selector, options) {
 
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
 
-        // Clones the defaults options or creates a new object
-        if (options === undefined) {
-            if ($el === undefined) {
-                this._options = defaults;
+        // selector parameter could be ommited, so it will be a empty div
+        if (typeof selector === 'string') {
+            this._el = document.querySelector(selector);
+        } else if (typeof selector === 'object') {
+            this._el = document.createElement('div');
+        }
 
-            } else if (util.is$($el)) {
-                this._$el = $el;
-                this._el = $el[0];
-                this._options = defaults;
-
-            } else if (typeof $el === 'object') {
-                options = $el;
-                $el = undefined;
-                this._options = ch.util.extend(defaults, options);
-            }
-
-        } else if (typeof options === 'object') {
-            if ($el === undefined) {
-                this._options = ch.util.extend(defaults, options);
-
-            } else if (util.is$($el)) {
-                this._$el = $el;
-                this._el = $el[0];
-                this._options = ch.util.extend(defaults, options);
-            }
-
+        // the options parameter could be ommited, so it will the defaults options
+        if (options !== undefined && typeof options === 'object') {
+            this._options = ch.util.extend(defaults, options);
         } else {
-            throw new window.Error('Unexpected parameters were found in the \'' + this.name + '\' instantiation.');
+            this._options = defaults;
         }
 
         /**
@@ -250,4 +237,4 @@
 
     ch.Component = Component;
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
