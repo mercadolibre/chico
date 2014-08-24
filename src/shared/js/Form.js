@@ -378,7 +378,7 @@
 
         this.validations.forEach(function (e, i) {
             e.destroy();
-        })
+        });
 
         parent.destroy.call(this);
 
