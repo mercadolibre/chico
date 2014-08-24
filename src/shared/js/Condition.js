@@ -62,7 +62,7 @@
 
                 // INPUTS and TEXTAREAS
                 default:
-                    validated = $.trim(value).length !== 0;
+                    validated = value.replace(/^\s+|\s+$/g, '').length !== 0;
                     break;
                 }
 
