@@ -289,7 +289,7 @@
 
             // Multiple date selection
             } else {
-                $.each(selected, function (i, e) {
+                selected.forEach(function (e, i){
                     // Simple date
                     if (!ch.util.isArray(e)) {
                         selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
@@ -587,7 +587,7 @@
 
         // Multiple selection (ranges)
         } else {
-            $.each(this._dates.selected, function (i, e) {
+            this._dates.selected.forEach(function (e, i) {
                 // Simple date
                 if (!ch.util.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {

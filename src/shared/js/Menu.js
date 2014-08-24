@@ -317,7 +317,7 @@
      */
     Menu.prototype.destroy = function () {
 
-        $.each(this.folds, function (i, e) {
+        this.folds.forEach(function (e, i) {
             if (e.destroy !== undefined) {
                 e.destroy();
             }

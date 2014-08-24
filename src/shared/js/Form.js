@@ -376,9 +376,9 @@
             .off('.form')
             .removeAttr('novalidate');
 
-        $.each(this.validations, function (i, e) {
+        this.validations.forEach(function (e, i) {
             e.destroy();
-        });
+        })
 
         parent.destroy.call(this);
 

@@ -150,8 +150,6 @@
                             'errorThrown': data.statusText
                         }
                     });
-
-                    console.log(data, data.statusText);
                 }
             });
         }
