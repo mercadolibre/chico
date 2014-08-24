@@ -230,7 +230,7 @@
         this.disable();
 
         if (this._el !== undefined) {
-            this._$el.removeData(this.name);
+            delete Component.instances[this._el.getAttribute('data-uid')];
         }
 
         /**
