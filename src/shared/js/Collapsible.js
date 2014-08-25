@@ -27,7 +27,8 @@
             useEffects = false;
 
         function showCallback() {
-            that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
+            ch.util.classList(that.container).remove('ch-hide');
+            that.container.setAttribute('aria-hidden', 'false');
 
             /**
              * Event emitted when the componentg is shown.
@@ -42,7 +43,8 @@
         }
 
         function hideCallback() {
-            that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
+            ch.util.classList(that.container).add('ch-hide');
+            that.container.setAttribute('aria-hidden', 'true');
 
             /**
              * Event emitted when the component is hidden.
@@ -67,8 +69,8 @@
 
             that._shown = true;
 
-            if (that.$trigger !== undefined) {
-                that.$trigger.addClass(triggerClass);
+            if (that.trigger !== undefined) {
+                ch.util.classList(that.trigger).add(triggerClass);
             }
 
             /**
@@ -84,7 +86,8 @@
 
             // Animate or not
             if (useEffects) {
-                that.$container[fx]('fast', showCallback);
+                // that.$container[fx]('fast', showCallback);
+                showCallback();
             } else {
                 showCallback();
             }
@@ -103,8 +106,8 @@
 
             that._shown = false;
 
-            if (that.$trigger !== undefined) {
-                that.$trigger.removeClass(triggerClass);
+            if (that.trigger !== undefined) {
+                ch.util.classList(this.trigger).remove(triggerClass);
             }
 
             /**
@@ -120,7 +123,8 @@
 
             // Animate or not
             if (useEffects) {
-                that.$container[toggleEffects[fx]]('fast', hideCallback);
+                // that.$container[toggleEffects[fx]]('fast', hideCallback);
+                hideCallback();
             } else {
                 hideCallback();
             }

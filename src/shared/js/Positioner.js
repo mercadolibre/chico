@@ -110,24 +110,26 @@
         // Merge user options with its options
         ch.util.extend(this._options, options);
 
+        console.log(this._options.reference)
+
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);
 
         /**
          * Reference to the element to be positioned.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$target = options.target || this.$target;
+        this.target = options.target || this.target;
 
 
         /**
          * It's a reference to position and size of element that will be considered to carry out the position.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$reference = options.reference || this.$reference;
+        this.reference = options.reference || this.reference;
         this._reference = this._options.reference;
 
-        this.$target.css('position', this._options.position);
+        this.target.style.position = this._options.position;
 
         return this;
     };
@@ -175,7 +177,7 @@
      */
     Positioner.prototype._calculateReference = function () {
 
-        var reference = this.$reference[0],
+        var reference = this.reference,
             offset;
 
         reference.setAttribute('data-side', this._options.side);
@@ -183,7 +185,7 @@
 
         this._reference = ch.util.getOuterDimensions(reference);
 
-        if (reference.offsetParent === this.$target[0].offsetParent) {
+        if (reference.offsetParent === this.target.offsetParent) {
             this._reference.left = reference.offsetLeft;
             this._reference.top = reference.offsetTop;
 
@@ -205,7 +207,7 @@
      */
     Positioner.prototype._calculateTarget = function () {
 
-        var target = this.$target[0];
+        var target = this.target;
         target.setAttribute('data-side', this._options.side);
         target.setAttribute('data-align', this._options.align);
 
@@ -269,7 +271,8 @@
         coors.top += this._options.offsetY;
         coors.left += this._options.offsetX;
 
-        this.$target.css(coors);
+        this.target.style.top = coors.top;
+        this.target.style.left = coors.left;
 
         return this;
     };

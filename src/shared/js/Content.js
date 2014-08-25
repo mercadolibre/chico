@@ -29,7 +29,7 @@
          */
         function setAsyncContent(event) {
 
-            that._$content.html(event.response);
+            that._content.innerHTML = event.response;
 
             /**
              * Event emitted when the content change.
@@ -73,7 +73,7 @@
          */
         function setContent(content) {
 
-            that._$content.html(content);
+            that._content.innerHTML = content;
 
             that._options.cache = true;
 
@@ -176,10 +176,11 @@
          * });
          */
         this.content = function (content, options) {
+            var parent;
 
             // Returns the last updated content.
             if (content === undefined) {
-                return that._$content.html();
+                return that._content.innerHTML;
             }
 
             that._options.content = content;
@@ -196,9 +197,14 @@
                 } else {
                     setContent(content);
                 }
-            // Case 3: jQuery/Zepto/HTML Element
-            } else if (ch.util.is$(content) || content.nodeType !== undefined) {
-                setContent($(content).remove(null, true).removeClass('ch-hide'));
+            // Case 3: HTML Element
+            } else if (content.nodeType !== undefined) {
+                ch.util.classList(content).remove('ch-hide');
+                //parent = content.parentElement;
+                // $(content).remove(null, true)
+
+                setContent(content.outterHTML);
+                //parent.removeChild(content);
             }
 
             return that;
