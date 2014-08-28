@@ -1,0 +1,36 @@
+/**
+* Component styles of the ui-slug element component
+* @authors: ibarbieri
+* @description: this stylesheet is used in all of the ui-slug element component.
+*/
+
+
+/* Element cloned and fixed
+---------------------------------------------------------------*/
+.se-cloned-element {
+    position: fixed;
+    top: 0;
+    right: 230px;
+    z-index: 3;
+    background: #FFF;
+}
+
+.se-cloned-element[aria-hidden='true'] {
+    visibility: hidden;
+    display: none;
+}
+
+.se-cloned-element[aria-hidden='false'] {
+    visibility: visible;
+    display: block;
+}
+
+/* Transitions
+---------------------------------------------------------------*/
+.se-height-transition {
+     -webkit-transition: height 0.4s;
+     -moz-transition: height 0.4s;
+      -ms-transition: height 0.4s;
+       -o-transition: height 0.4s;
+          transition: height 0.4s;
+}

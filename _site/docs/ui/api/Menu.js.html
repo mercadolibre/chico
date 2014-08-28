@@ -1,0 +1,400 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <script></script>
+        <meta charset="utf-8">
+        <title>Chico UI | Source: shared/js/Menu.js - API Documentation</title>
+        <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/v5.css">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="logo">Chico UI - Doc</h1>
+            <span class="version">v1.0.0</span>
+        </header>
+        <section class="main">
+            <article class="ch-g3-4">
+                <div class="ch-leftcolumn">
+                    <h1>Source: shared/js/Menu.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (window, $, ch) {
+    'use strict';
+
+    /**
+     * Menu lets you organize the links by categories.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Component
+     * @requires ch.Expandable
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Menu.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.fx] Enable or disable UI effects. You should use: "slideDown", "fadeIn" or "none". Default: "slideDown".
+     * @returns {menu} Returns a new instance of Menu.
+     * @example
+     * // Create a new Menu.
+     * var menu = new ch.Menu($el, [options]);
+     * @example
+     * // Create a new Menu with jQuery or Zepto.
+     * var menu = $(selector).menu();
+     * @example
+     * // Create a new Menu with custom options.
+     * var menu = $(selector).menu({
+     *     'fx': 'none'
+     * });
+     */
+    function Menu($el, options) {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
+        that._init($el, options);
+
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Menu is created.
+             * @memberof! ch.Menu.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
+        /**
+         * Event emitted when the component is ready to use.
+         * @event ch.Menu#ready
+         * @example
+         * // Subscribe to "ready" event.
+         * menu.on('ready', function () {
+         *     // Some code here!
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
+    }
+
+    // Inheritance
+    var parent = ch.util.inherits(Menu, ch.Component),
+
+        // Creates methods enable and disable into the prototype.
+        methods = ['enable', 'disable'],
+        len = methods.length;
+
+    function createMethods(method) {
+        Menu.prototype[method] = function (child) {
+            var i,
+                fold = this.folds[child - 1];
+
+            // Enables or disables a specific expandable fold
+            if (fold && fold.name === 'expandable') {
+
+                fold[method]();
+
+            // Enables or disables Expandable folds
+            } else {
+
+                i = this.folds.length;
+
+                while (i) {
+
+                    fold = this.folds[i -= 1];
+
+                    if (fold.name === 'expandable') {
+                        fold[method]();
+                    }
+                }
+
+                // Executes parent method
+                parent[method].call(this);
+
+                // Updates "aria-disabled" attribute
+                this._el.setAttribute('aria-disabled', !this._enabled);
+            }
+
+            return this;
+        };
+    }
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Menu.prototype
+     * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var menu = $(selector).data('menu');
+     */
+    Menu.prototype.name = 'menu';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Menu.prototype
+     * @function
+     */
+    Menu.prototype.constructor = Menu;
+
+    /**
+     * Configuration by default.
+     * @type {Object}
+     * @private
+     */
+    Menu.prototype._defaults = {
+        'fx': 'slideDown'
+    };
+
+    /**
+     * Initialize a new instance of Menu and merge custom options with defaults options.
+     * @memberof! ch.Menu.prototype
+     * @function
+     * @private
+     * @returns {menu}
+     */
+    Menu.prototype._init = function ($el, options) {
+        // Call to its parent init method
+        parent._init.call(this, $el, options);
+
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
+
+        /**
+         * The menu container.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        this.$container = this._$el
+            .attr('role', 'navigation')
+            .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
+
+        /**
+         * A collection of folds.
+         * @type {Array}
+         */
+        this.folds = [];
+
+        // Inits an expandable component on each list inside main HTML code snippet
+        this._createExpandables();
+
+        return this;
+    };
+
+    /**
+     * Inits an Expandable component on each list inside main HTML code snippet.
+     * @function
+     * @private
+     */
+    Menu.prototype._createExpandables = function () {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this,
+            $li,
+            $child;
+
+        function createExpandable(i, li) {
+            // List element
+            $li = $(li).addClass('ch-menu-fold');
+
+            // Children of list elements
+            $child = $li.children(':first-child');
+
+            // Anchor inside list
+            if ($child[0].tagName === 'A') {
+                // Add attr role to match wai-aria
+                $li.attr('role', 'presentation');
+                //
+                $child.addClass('ch-fold-trigger');
+                // Add anchor to that.fold
+                that.folds.push($child);
+
+            } else {
+                // List inside list, inits an Expandable
+                var expandable = $child.expandable({
+                    // Show/hide on IE8- instead slideUp/slideDown
+                    'fx': that._options.fx
+                });
+
+                expandable
+                    .on('show', function () {
+                        /**
+                         * Event emitted when the menu shows a fold.
+                         * @event ch.Menu#show
+                         * @example
+                         * // Subscribe to "show" event.
+                         * menu.on('show', function (shown) {
+                         *     // Some code here!
+                         * });
+                         */
+                        that.emit('show', i + 1);
+                    })
+                    .on('hide', function () {
+                        /**
+                         * Event emitted when the menu hides a fold.
+                         * @event ch.Menu#hide
+                         * @example
+                         * // Subscribe to "hide" event.
+                         * menu.on('hide', function () {
+                         *     // Some code here!
+                         * });
+                         */
+                        that.emit('hide');
+                    });
+
+                $child.next()
+                    .attr('role', 'menu')
+                    .children()
+                        .attr('role', 'presentation')
+                        .children()
+                            .attr('role', 'menuitem');
+
+                // Add expandable to that.fold
+                that.folds.push(expandable);
+            }
+        }
+
+        $.each(this.$container.children(), createExpandable);
+
+        return this;
+    };
+
+    /**
+     * Shows a specific fold.
+     * @memberof! ch.Menu.prototype
+     * @function
+     * @param {Number} child - A given number of fold.
+     * @returns {menu}
+     * @example
+     * // Shows the second fold.
+     * menu.show(2);
+     */
+    Menu.prototype.show = function (child) {
+
+        this.folds[child - 1].show();
+
+        return this;
+    };
+
+    /**
+     * Hides a specific fold.
+     * @memberof! ch.Menu.prototype
+     * @function
+     * @param {Number} child - A given number of fold.
+     * @returns {menu}
+     * @example
+     * // Hides the second fold.
+     * menu.hide(2);
+     */
+    Menu.prototype.hide = function (child) {
+
+        this.folds[child - 1].hide();
+
+        return this;
+    };
+
+    /**
+     * Allows to manage the menu content.
+     * @param {Number} fold A given fold to change its content.
+     * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a fold.
+     * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @example
+     * // Updates the content of the second fold with some string.
+     * menu.content(2, 'http://ajax.com', {'cache': false});
+     */
+    Menu.prototype.content = function (fold, content, options) {
+        if (fold === undefined || typeof fold !== 'number') {
+            throw new window.Error('Menu.content(fold, content, options): Expected number of fold.');
+        }
+
+        if (content === undefined) {
+            return this.folds[fold - 1].content();
+        }
+
+        this.folds[fold - 1].content(content, options);
+
+        return this;
+    };
+
+    while (len) {
+        createMethods(methods[len -= 1]);
+    }
+
+    /**
+     * Destroys a Menu instance.
+     * @memberof! ch.Menu.prototype
+     * @function
+     * @example
+     * // Destroy a menu
+     * menu.destroy();
+     * // Empty the menu reference
+     * menu = undefined;
+     */
+    Menu.prototype.destroy = function () {
+
+        $.each(this.folds, function (i, e) {
+            if (e.destroy !== undefined) {
+                e.destroy();
+            }
+        });
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        $(window.document).trigger(ch.onlayoutchange);
+
+        parent.destroy.call(this);
+
+        return;
+    };
+
+    ch.factory(Menu);
+
+}(this, this.ch.$, this.ch));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </article>
+
+            <aside class="ch-g1-4">
+                <nav class="ch-rightcolumn">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </aside>
+
+        </section>
+
+        <footer>
+            <p class="updated">
+                Documentation updated on Wed Nov 06 2013 18:18:33 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+            </p>
+        </footer>
+
+        <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script>
+            $(function () {
+                $("#copyright").text((new Date().getFullYear()) + " ");
+            });
+        </script>
+    </body>
+</html>

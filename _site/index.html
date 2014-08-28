@@ -1,0 +1,208 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>Chico UI</title>
+
+    <!-- Contains instructions to the browser in the matter of viewports and zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading. -->
+    <meta http-equiv="cleartype" content="on"/>
+    <!-- Specify to IE to use the last legacy document mode to display a webpage. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="http://static.mlstatic.com/org-img/ui/ml/favicon/favicon-1.0.0.ico"/>
+
+    <!-- Home screen icons -->
+    <!--
+    <link rel="apple-touch-icon" href="http://static.mlstatic.com/org-img/ui/ml/apple-touch-icon/1.0.0/60x60-precomposed.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="http://static.mlstatic.com/org-img/ui/ml/apple-touch-icon/1.0.0/76x76-precomposed.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="http://static.mlstatic.com/org-img/ui/ml/apple-touch-icon/1.0.0/120x120-precomposed.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="http://static.mlstatic.com/org-img/ui/ml/apple-touch-icon/1.0.0/152x152-precomposed.png"/>
+    -->
+
+    <!-- Tile icon for Win8 (152x152 + tile color) -->
+    <!--
+    <meta name="msapplication-TileImage" content="http://static.mlstatic.com/org-img/ui/ml/apple-touch-icon/1.0.0/152x152-precomposed.png"/>
+    <meta name="msapplication-TileColor" content="#fff059"/>
+    -->
+
+    <!-- The HTML5 Shiv (https://github.com/aFarkas/html5shiv) -->
+    <!--[if lt IE 9]>
+        <script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+    <![endif]-->
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/300.css">
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/700.css">
+
+    <!-- Chico HTTP -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
+    <!-- Chico HTTPS -->
+    <!-- <link rel="stylesheet" href="https://a248.e.akamai.net/secure.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/> -->
+    <!-- Chico Mobile HTTP -->
+    <!-- <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/mobile/1.1.1/chico.min.css"/> -->
+    <!-- Chico Mobile HTTPS -->
+    <!-- <link rel="stylesheet" href="https://a248.e.akamai.net/secure.mlstatic.com/org-img/ch/mobile/1.1.1/chico.min.css"/> -->
+
+    <link rel="stylesheet" href="/src/css/mesh.min.css"/>
+    <link rel="stylesheet" href="/src/css/base__small.css"/>
+    <link rel="stylesheet" media="(min-width: 768px)" href="/src/css/base__large.css"/>
+    <link rel="stylesheet" href="/src/css/chico__small.css"/>
+    <link rel="stylesheet" media="(min-width: 768px)" href="/src/css/chico__large.css"/>
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="src/css/base__large.css"/>
+        <link rel="stylesheet" href="src/css/chico__large.css"/>
+    <![endif]-->
+</head>
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      <!-- <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Chico UI</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+ -->
+<header role="banner" class="ml-header">
+    <div class="ml-bounds">
+        <!-- Page title (small devices) -->
+        <h1 class="ml-title">Chico</h1>
+
+        <!-- Header buttons (small devices) -->
+        <a class="ml-header-btn" href="#">Back</a>
+        <a class="ml-header-btn ml-header-action" href="#">Action</a>
+
+        <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+        <a class="ml-logo" href="/">MercadoLibre - Donde compras y vendes de todo</a>
+
+        <!-- Menu for large devices -->
+        <nav class="ml-header-menu">
+            <a href="#">link</a>
+            <a href="#">link</a>
+            <a href="#">link</a>
+            <a href="#">link</a>
+        </nav>
+    </div>
+</header>
+
+      <div class="ml-wrapper">
+        <!-- Add `ch-wizard` or `ch-box-lite` classname if you are using `ml-contextual` -->
+<main role="main">
+    <section class="chico-bg-noise chico-hero">
+        <div class="ml-bounds row">
+            <figure class="mesh-12">
+                <img src="src/images/ninja.jpg" class="chico-hero-img" width="367" height="434">
+            </figure>
+
+            <div class="mesh-12">
+                <h1>The most advanced framework in the world</h1>
+                <h3>
+                    Free and open source collection of easy-to-use UI components for designers and developers.
+                </h3>
+                <p>
+                    <a href="#" class="ch-btn ch-btn-large">Download Chico</a>
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="chico-features">
+        <div class="ml-bounds row">
+        <h2>Incredible features</h2>
+            <ul>
+                <li class="mesh-12 mesh-m-4">
+                    <span class="chico-box-circle chico-box-circle-medium"></span>
+                    <h3>This is a amazing title</h3>
+                    <p>
+                       Lorem Ipsum Lorem Ipsum
+                    </p>
+                </li><!--
+                --><li class="mesh-12 mesh-m-4">
+                    <span class="chico-box-circle chico-box-circle-medium"></span>
+                    <h3>This is a amazing title</h3>
+                    <p>
+                        Lorem Ipsum Lorem Ipsum
+                    </p>
+                </li><!--
+                --><li class="mesh-12 mesh-m-4">
+                    <span class="chico-box-circle chico-box-circle-medium"></span>
+                    <h3>This is a amazing title</h3>
+                    <p>
+                        Lorem Ipsum Lorem Ipsum
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="chico-bg-noise chico-bottom">
+        <div class="ml-bounds row">
+            <h2 class="chico-title-section">Developed and maintained by <b>MercadoLibre</b></h2>
+            <div class="mesh-12 mesh-m-6">
+                <span class="chico-box-circle chico-box-circle-large"></span>
+            </div><!--
+            --><div class="mesh-12 mesh-m-6">
+                <p>
+                    We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <!-- Copyright -->
+        <!-- Each country has different copyrights. Check which copyrights do you need. -->
+        <small>©2014 MercadoLibre.com</small>
+
+        <!-- Navigation (large devices) -->
+        <!-- Important: The comments between elements eliminates the space between them -->
+        <!-- See: http://css-tricks.com/fighting-the-space-between-inline-block-elements/ -->
+        <nav>
+            <a href="#">About</a>
+  </nav>
+    </div>
+</footer>
+
+  </body>
+
+</html>

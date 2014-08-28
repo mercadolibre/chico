@@ -1,0 +1,272 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <script></script>
+        <meta charset="utf-8">
+        <title>Chico UI | Source: shared/js/Condition.js - API Documentation</title>
+        <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/v5.css">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="logo">Chico UI - Doc</h1>
+            <span class="version">v1.0.0</span>
+        </header>
+        <section class="main">
+            <article class="ch-g3-4">
+                <div class="ch-leftcolumn">
+                    <h1>Source: shared/js/Condition.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function ($, ch) {
+    'use strict';
+
+    // Private Members
+    var conditions = {
+        'string': {
+            'fn': function (value) {
+                // the following regular expression has the utf code for the lating characters
+                // the ranges are A,EI,O,U,a,ei,o,u,ç,Ç please for reference see http://www.fileformat.info/info/charset/UTF-8/list.htm
+                return (/^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/i).test(value);
+            },
+            'message': 'Use only letters.'
+        },
+        'email': {
+            'fn': function (value) {
+                return (/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i).test(value);
+            },
+            'message': 'Use a valid e-mail such as name@example.com.'
+        },
+        'url': {
+            'fn': function (value) {
+                return (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/i).test(value);
+            },
+            'message': 'It must be a valid URL.'
+        },
+        'minLength': {
+            'fn': function (a, b) { return a.length >= b; },
+            'message': 'Enter at least {#num#} characters.'
+        },
+        'maxLength': {
+            'fn': function (a, b) { return a.length &lt;= b; },
+            'message': 'The maximum amount of characters is {#num#}.'
+        },
+        'number': {
+            'fn': function (value) {
+                return (/^(-?[0-9\s]+)$/i).test(value);
+            },
+            'message': 'Use only numbers.'
+        },
+        'max': {
+            'fn': function (a, b) { return a &lt;= b; },
+            'message': 'The amount must be smaller than {#num#}.'
+        },
+        'min': {
+            'fn': function (a, b) { return a >= b; },
+            'message': 'The amount must be higher than {#num#}.'
+        },
+        'required': {
+            'fn': function (value) {
+
+                var tag = this.$trigger.hasClass('ch-list-options') ? 'OPTIONS' : this._el.tagName,
+                    validated;
+
+                switch (tag) {
+                case 'OPTIONS':
+                    validated = this.$trigger.find('input:checked').length !== 0;
+                    break;
+
+                case 'SELECT':
+                    validated = (value !== '-1' && value !== '');
+                    break;
+
+                // INPUTS and TEXTAREAS
+                default:
+                    validated = $.trim(value).length !== 0;
+                    break;
+                }
+
+                return validated;
+            },
+            'message': 'Fill in this information.'
+        },
+        'custom': {
+            // I don't have pre-conditions, comes within conf.fn argument
+            'message': 'Error'
+        }
+    };
+
+    /**
+     * Condition utility.
+     * @memberof ch
+     * @constructor
+     * @requires ch.Validation
+     * @param {Array} [condition] A conditions to validate.
+     * @param {String} [condition.name] The name of the condition.
+     * @param {String} [condition.message] The given error message to the condition.
+     * @param {String} [condition.fn] The method to validate a given condition.
+     * @returns {condition} Returns a new instance of Condition.
+     * @example
+     * // Create a new condition object with patt.
+     * var condition = ch.Condition({
+     *     'name': 'string',
+     *     'patt': /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
+     *     'message': 'Some message here!'
+     * });
+     * @example
+     * //Create a new condition object with expr.
+     * var condition = ch.Condition({
+     *     'name': 'maxLength',
+     *     'patt': function(a,b) { return a.length &lt;= b },
+     *     'message': 'Some message here!',
+     *     'value': 4
+     * });
+     * @example
+     * // Create a new condition object with func.
+     * var condition = ch.Condition({
+     *     'name': 'custom',
+     *     'patt': function (value) {
+     *         if (value === 'ChicoUI') {
+     *
+     *             // Some code here!
+     *
+     *             return true;
+     *         };
+     *
+     *         return false;
+     *     },
+     *     'message': 'Your message here!'
+     * });
+     */
+    function Condition(condition) {
+
+        $.extend(this, conditions[condition.name], condition);
+
+        // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
+        if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {
+            this.message = this.message.replace('{#num#}', this.num);
+        }
+
+        this._enabled = true;
+
+        return this;
+    }
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Condition.prototype
+     * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var condition = $(selector).data('condition');
+     */
+    Condition.prototype.name = 'condition';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Condition.prototype
+     * @function
+     */
+    Condition.prototype.constructor = Condition;
+
+    /**
+     * Enables an instance of condition.
+     * @memberof! ch.Condition.prototype
+     * @function
+     * @returns {condition}
+     * @example
+     * // Enabling an instance of Condition.
+     * condition.enable();
+     * @example
+     * // Enabling a condition.
+     * condition.enable();
+     */
+    Condition.prototype.enable = function () {
+        this._enabled = true;
+
+        return this;
+    };
+
+    /**
+     * Disables an instance of a condition.
+     * @memberof! ch.Condition.prototype
+     * @function
+     * @returns {condition}
+     * @example
+     * // Disabling an instance of Condition.
+     * condition.disable();
+     * @example
+     * // Disabling a condition.
+     * condition.disable();
+     */
+    Condition.prototype.disable = function () {
+        this._enabled = false;
+
+        return this;
+    };
+
+    /**
+     * Enables an instance of condition.
+     * @memberof! ch.Condition.prototype
+     * @function
+     * @param {(String | Number)} value A given value.
+     * @param {condition} validation A given validation to execute.
+     * @returns {Boolean} Returns a boolean indicating whether the condition fails or not.
+     * @example
+     * // Testing a condition.
+     * condition.test('foobar', validationA);
+     */
+    Condition.prototype.test = function (value, validation) {
+
+        if (!this._enabled) {
+            return true;
+        }
+
+        return this.fn.call(validation, value, this.num);
+    };
+
+    ch.Condition = Condition;
+
+}(this.ch.$, this.ch));</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </article>
+
+            <aside class="ch-g1-4">
+                <nav class="ch-rightcolumn">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li><li><a href="ch.util.MBP.html">MBP</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </aside>
+
+        </section>
+
+        <footer>
+            <p class="updated">
+                Documentation updated on Wed Nov 06 2013 18:18:52 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+            </p>
+        </footer>
+
+        <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script>
+            $(function () {
+                $("#copyright").text((new Date().getFullYear()) + " ");
+            });
+        </script>
+    </body>
+</html>

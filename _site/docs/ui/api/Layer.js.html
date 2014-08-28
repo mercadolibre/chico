@@ -1,0 +1,229 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <script></script>
+        <meta charset="utf-8">
+        <title>Chico UI | Source: shared/js/Layer.js - API Documentation</title>
+        <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/v5.css">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="logo">Chico UI - Doc</h1>
+            <span class="version">v1.0.0</span>
+        </header>
+        <section class="main">
+            <article class="ch-g3-4">
+                <div class="ch-leftcolumn">
+                    <h1>Source: shared/js/Layer.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (window, $, ch) {
+    'use strict';
+
+    /**
+     * Layer is a dialog window that can be shown one at a time.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Popover
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Layer.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+     * @param {String} [options.width] Set a width for the container. Default: "auto".
+     * @param {String} [options.height] Set a height for the container. Default: "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointerenter".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "bottom".
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "left".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 10.
+     * @param {String} [options.position] The type of positioning used. Its value must be "absolute" or "fixed". Default: "absolute".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Layer container.
+     * @returns {layer} Returns a new instance of Layer.
+     * @example
+     * // Create a new Layer.
+     * var layer = new ch.Layer($el, [options]);
+     * @example
+     * // Create a new Layer with jQuery or Zepto.
+     * var layer = $(selector).layer([options]);
+     * @example
+     * // Create a new Layer with disabled effects.
+     * var layer = $(selector).layer({
+     *     'fx': 'none'
+     * });
+     * @example
+     * // Create a new Layer using the shorthand way (content as parameter).
+     * var layer = $(selector).layer('http://ui.ml.com:3040/ajax');
+     */
+    function Layer($el, options) {
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
+        this._init($el, options);
+
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Layer is created.
+             * @memberof! ch.Layer.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
+        /**
+         * Event emitted when the component is ready to use.
+         * @event ch.Layer#ready
+         * @example
+         * // Subscribe to "ready" event.
+         * layer.on('ready', function () {
+         *     // Some code here!
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
+    }
+
+    // Reference to the last component open. Allows to close and to deny to
+    // have 2 components open at the same time
+    var lastShown,
+        // Inheritance
+        parent = ch.util.inherits(Layer, ch.Popover);
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Layer.prototype
+     * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var layer = $(selector).data('layer');
+     */
+    Layer.prototype.name = 'layer';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Layer.prototype
+     * @function
+     */
+    Layer.prototype.constructor = Layer;
+
+    /**
+     * Configuration by default.
+     * @memberof! ch.Layer.prototype
+     * @type {Object}
+     * @private
+     */
+    Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+        '_className': 'ch-layer ch-box-lite ch-cone',
+        '_ariaRole': 'tooltip',
+        'shownby': 'pointerenter',
+        'hiddenby': 'pointerleave',
+        'side': 'bottom',
+        'align': 'left',
+        'offsetX': 0,
+        'offsetY': 10,
+        'waiting': '&lt;div class="ch-loading-small">&lt;/div>'
+    });
+
+    /**
+     * Shows the layer container and hides other layers.
+     * @memberof! ch.Layer.prototype
+     * @function
+     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by layer.
+     * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @returns {layer}
+     * @example
+     * // Shows a basic layer.
+     * layer.show();
+     * @example
+     * // Shows a layer with new content
+     * layer.show('Some new content here!');
+     * @example
+     * // Shows a layer with a new content that will be loaded by ajax with some custom options
+     * layer.show('http://domain.com/ajax/url', {
+     *     'cache': false,
+     *     'params': 'x-request=true'
+     * });
+     */
+    Layer.prototype.show = function (content, options) {
+        // Don't execute when it's disabled
+        if (!this._enabled) {
+            return this;
+        }
+
+        // Only hide if there was a component opened before
+        if (lastShown !== undefined && lastShown.name === this.name && lastShown !== this) {
+            lastShown.hide();
+        }
+
+        // Only save to future close if this component is closable
+        if (this._options.hiddenby !== 'none' && this._options.hiddenby !== 'button') {
+            lastShown = this;
+        }
+
+        // Execute the original show()
+        parent.show.call(this, content, options);
+
+        return this;
+    };
+
+    ch.factory(Layer, parent._normalizeOptions);
+
+}(this, this.ch.$, this.ch));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </article>
+
+            <aside class="ch-g1-4">
+                <nav class="ch-rightcolumn">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </aside>
+
+        </section>
+
+        <footer>
+            <p class="updated">
+                Documentation updated on Wed Nov 06 2013 18:18:33 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+            </p>
+        </footer>
+
+        <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script>
+            $(function () {
+                $("#copyright").text((new Date().getFullYear()) + " ");
+            });
+        </script>
+    </body>
+</html>
