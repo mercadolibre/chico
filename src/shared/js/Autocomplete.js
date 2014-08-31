@@ -1,5 +1,22 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
+
+
+    function highlightSuggestion(target) {
+        var posinset;
+
+        Array.prototype.forEach.call(this._suggestionsList.childNodes, function(e, i){
+            if(e.contains(target)){
+                posinset = parseInt(target.getAttribute('aria-posinset'), 10) - 1;
+            }
+        });
+
+        this._highlighted = (typeof posinset === 'number') ? posinset : null;
+
+        this._toogleHighlighted();
+
+        return this;
+    };
 
     /**
      * Autocomplete Component shows a list of suggestions for a HTMLInputElement.
@@ -7,7 +24,7 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Autocomplete.
+     * @param {String} [selector] A CSS Selector to create an instance of ch.Autocomplete.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.loadingClass] Default: "ch-autocomplete-loading".
      * @param {String} [options.highlightedClass] Default: "ch-autocomplete-highlighted".
@@ -23,10 +40,10 @@
      * @returns {autocomplete}
      * @example
      * // Create a new AutoComplete.
-     * var autocomplete = new AutoComplete($el, [options]);
+     * var autocomplete = new AutoComplete([selector], [options]);
      * @example
      * // Create a new AutoComplete with configuration.
-     * var autocomplete = new AutoComplete($el, {
+     * var autocomplete = new AutoComplete('.my-autocomplete', {
      *  'loadingClass': 'custom-loading',
      *  'highlightedClass': 'custom-highlighted',
      *  'itemClass': 'custom-item',
@@ -76,7 +93,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Autocomplete, ch.Component);
+    var parent = ch.util.inherits(Autocomplete, ch.Component),
+        // there is no mouseenter to highlight the item, so it happens when the user do mousedown
+        highlightEvent = (ch.support.touch) ? ch.onpointerdown : 'mouseover';
 
     /**
      * The name of the component.
@@ -123,11 +142,7 @@
          * @type {Object}
          * @private
          */
-        var that = this,
-            POINTERDOWN = 'mousedown' + '.' + this.name,
-            MOUSEENTER = 'mouseover' + '.' + this.name,
-            // there is no mouseenter to highlight the item, so it happens when the user do mousedown
-            highlightEvent = (ch.support.touch) ? POINTERDOWN : MOUSEENTER;
+        var that = this;
 
         // Call to its parent init method
         parent._init.call(this, selector, options);
@@ -153,10 +168,10 @@
         });
         /**
          * The autocomplete container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          * @example
          * // Gets the autocomplete container to append or prepend content.
-         * autocomplete.$container.append('&lt;button&gt;Hide Suggestions&lt;/button&gt;');
+         * autocomplete.container.appendChild(document.createElement('div'));
          */
         this.container = this._popover.container;
 
@@ -172,12 +187,28 @@
 
         this.container.appendChild(this._suggestionsList);
 
-        ch.util.Event.addListener(this.container, highlightEvent, function (event) {
-            that._highlightSuggestion(event.target || event.srcElement);
-        });
+        /**
+         * Selects the items
+         * @memberof! ch.Autocomplete.prototype
+         * @function
+         * @private
+         * @returns {autocomplete}
+         */
+
+        this._highlightSuggestion = function (event) {
+            var target = event.target || event.srcElement,
+                item = (target.nodeName === 'LI') ? target : (target.parentNode.nodeName === 'LI') ? target.parentNode : null;
+
+            if (item !== null) {
+                highlightSuggestion.call(that, item);
+            }
+
+        };
+
+        ch.util.Event.addListener(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        ch.util.Event.addListener(this.container, POINTERDOWN, function (event) {
+        ch.util.Event.addListener(this.container, ch.onpointerdown, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word
@@ -335,30 +366,6 @@
     };
 
     /**
-     * Selects the items
-     * @memberof! ch.Autocomplete.prototype
-     * @function
-     * @private
-     * @returns {autocomplete}
-     */
-    Autocomplete.prototype._highlightSuggestion = function (target) {
-        var that = this,
-            posinset;
-
-        Array.prototype.forEach.call(this._suggestionsList.childNodes, function(e, i){
-            if(e.contains(target)){
-                posinset = parseInt(target.getAttribute('aria-posinset'), 10) - 1;
-            }
-        });
-
-        this._highlighted = (typeof posinset === 'number') ? posinset : null;
-
-        this._toogleHighlighted();
-
-        return this;
-    };
-
-    /**
      * It highlights the item adding the "ch-autocomplete-highlighted" class name or the class name that you configured as "highlightedClass" option.
      * @memberof! ch.Autocomplete.prototype
      * @function
@@ -372,11 +379,15 @@
             currentItem = this.container.querySelector('[aria-posinset="' + current + '"]'),
             selectedItem = this.container.querySelector('[aria-posinset].' + this._options.highlightedClass);
 
-        // background the highlighted item
-        ch.util.classList(selectedItem).remove(this._options.highlightedClass);
+        if (selectedItem !== null) {
+            // background the highlighted item
+            ch.util.classList(selectedItem).remove(this._options.highlightedClass);
+        }
 
-        // highlight the selected item
-        ch.util.classList(currentItem).add(this._options.highlightedClass)
+        if (currentItem !== null) {
+            // highlight the selected item
+            ch.util.classList(currentItem).add(this._options.highlightedClass);
+        }
 
         return this;
     };
@@ -544,7 +555,7 @@
      */
     Autocomplete.prototype.destroy = function () {
 
-        //this.$trigger.off('.' + this.name)
+        ch.util.Event.removeListener(this.container, highlightEvent, this._highlightSuggestion);
 
         this.trigger.removeAttribute('autocomplete');
         this.trigger.removeAttribute('aria-autocomplete');
@@ -560,4 +571,4 @@
 
     ch.factory(Autocomplete);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
