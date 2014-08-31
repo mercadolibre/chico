@@ -72,7 +72,6 @@
          * @private
          */
         function setContent(content) {
-
             that._content.innerHTML = content;
 
             that._options.cache = true;
@@ -199,12 +198,18 @@
                 }
             // Case 3: HTML Element
             } else if (content.nodeType !== undefined) {
-                ch.util.classList(content).remove('ch-hide');
-                //parent = content.parentElement;
-                // $(content).remove(null, true)
 
-                setContent(content.outterHTML);
-                //parent.removeChild(content);
+                ch.util.classList(content).remove('ch-hide');
+                parent = ch.util.parentElement(content);
+
+                setContent(content.outerHTML);
+
+                if (!that._options.cache) {
+                    parent.removeChild(content);
+                } else {
+                    ch.util.classList(content).add('ch-hide');
+                }
+
             }
 
             return that;
