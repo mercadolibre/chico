@@ -177,8 +177,6 @@
 
         // Add functionality to the trigger if it exists
         this._configureTrigger();
-        // Configure the way it hides
-        this._configureHiding();
 
         this._positioner = new ch.Positioner({
             'target': this.container,
@@ -203,6 +201,19 @@
 
             return that;
         };
+
+        this._hideTimer = function () {
+            that._timeout = window.setTimeout(function () {
+                that.hide();
+            }, that._options._hideDelay);
+        }
+
+        this._hideTimerCleaner = function () {
+            window.clearTimeout(that._timeout);
+        }
+
+        // Configure the way it hides
+        this._configureHiding();
 
         // Refresh position:
         // on layout change
@@ -305,18 +316,6 @@
          */
         this.trigger = this._el;
     };
-
-    Popover.prototype._hideTimer = function () {
-        var that = this;
-        this._timeout = window.setTimeout(function () {
-            that.hide();
-        }, that._options._hideDelay);
-    }
-
-    Popover.prototype._hideTimerCleaner = function () {
-        var that = this;
-        window.clearTimeout(this._timeout);
-    }
 
     /**
      * Determines how to hide the component.
@@ -455,7 +454,7 @@
         // Close the collapsible
         this._hide();
 
-        parent = this.container.parent;
+        parent = this.container.parentNode;
         parent.removeChild(this.container);
 
         return this;
