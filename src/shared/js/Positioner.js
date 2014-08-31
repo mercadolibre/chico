@@ -110,8 +110,6 @@
         // Merge user options with its options
         ch.util.extend(this._options, options);
 
-        console.log(this._options.reference)
-
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);
 
