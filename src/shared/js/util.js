@@ -543,5 +543,17 @@
             // If the function hasn't returned already, we're confident that
             // |obj| is a plain object, created by {} or constructed with new Object
             return true;
+        },
+
+        'parentElement': function(el) {
+            var parent = el.parentNode;
+
+            if (parent !== null) {
+                if (parent.nodeType !== document.ELEMENT_NODE) {
+                    return this.parentElement(parent);
+                }
+
+                return parent;
+            }
         }
     };
