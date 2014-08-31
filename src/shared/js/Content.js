@@ -1,4 +1,4 @@
-(function ($, ch, reqwest) {
+(function (ch, reqwest) {
     'use strict';
 
     /**
@@ -230,4 +230,4 @@
 
     ch.Content = Content;
 
-}(this.ch.$, this.ch, this.reqwest));
+}(this.ch, this.reqwest));
