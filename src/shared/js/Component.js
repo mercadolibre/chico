@@ -81,18 +81,23 @@
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
 
-        // selector parameter could be ommited, so it will be a empty div
+        // selector is a string so query that element
         if (typeof selector === 'string') {
             this._el = document.querySelector(selector);
-        } else if (typeof selector === 'object') {
-            this._el = document.createElement('div');
-        }
 
-        // the options parameter could be ommited, so it will the defaults options
-        if (options !== undefined && typeof options === 'object') {
-            this._options = ch.util.extend(defaults, options);
-        } else {
-            this._options = defaults;
+            if (options === undefined) {
+                this._options = defaults;
+            } else if (options !== undefined && typeof options === 'object') {
+                this._options = ch.util.extend(defaults, options);
+            }
+
+        // selector is an object configuration
+        } else if (typeof selector === 'object') {
+            // creates a empty element becouse the user not set a DOM elment to use, but we requires one
+            this._el = document.createElement('div');
+
+            // we extend defaults with the object that is in selector parameter object
+            this._options = ch.util.extend(defaults, selector);
         }
 
         /**
