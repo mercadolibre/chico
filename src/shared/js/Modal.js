@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Modal.
+     * @param {String} [selector] A CSS Selector to create an instance of ch.Modal.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -29,20 +29,20 @@
      * @returns {modal} Returns a new instance of Modal.
      * @example
      * // Create a new Modal.
-     * var modal = new ch.Modal($el, [options]);
+     * var modal = new ch.Modal([selector], [options]);
      * @example
-     * // Create a new Modal with jQuery or Zepto.
-     * var modal = $(selector).modal([options]);
+     * // Create a new Modal.
+     * var modal = new ch.Modal([options]);
      * @example
      * // Create a new Modal with disabled effects.
-     * var modal = $(selector).modal({
-     *     'fx': 'none'
+     * var modal = new ch.Modal({
+     *     'content': 'This is the content of the Modal'
      * });
      * @example
      * // Create a new Modal using the shorthand way (content as parameter).
-     * var modal = $(selector).modal('http://ui.ml.com:3040/ajax');
+     * var modal = new ch.Modal('http://ui.ml.com:3040/ajax');
      */
-    function Modal($el, options) {
+    function Modal(selector, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -50,7 +50,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -73,8 +73,13 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var $body = $('body'),
-        $underlay = $('<div class="ch-underlay ch-hide" tabindex="-1">'),
+    var document = window.document,
+        body = document.body,
+        underlay = (function () {
+                        var dummyElement = document.createElement('div')
+                            dummyElement.innerHTML = '<div class="ch-underlay ch-hide" tabindex="-1"></div>';
+                            return dummyElement.querySelector('div');
+                }()),
         // Inheritance
         parent = ch.util.inherits(Modal, ch.Popover);
 
@@ -82,9 +87,6 @@
      * The name of the component.
      * @memberof! ch.Modal.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var modal = $(selector).data('modal');
      */
     Modal.prototype.name = 'modal';
 
@@ -119,15 +121,17 @@
      */
     Modal.prototype._showUnderlay = function () {
 
-        $underlay.css('z-index', ch.util.zIndex).appendTo($body);
+        underlay.style.zIndex = ch.util.zIndex;
 
-        if (this._options.fx !== 'none') {
-            $underlay.fadeIn(function () {
-                $underlay.removeClass('ch-hide');
-            });
-        } else {
-            $underlay.removeClass('ch-hide');
-        }
+        body.appendChild(underlay);
+
+        // if (this._options.fx !== 'none') {
+        //     $underlay.fadeIn(function () {
+        //         $underlay.removeClass('ch-hide');
+        //     });
+        // } else {
+        ch.util.classList(underlay).remove('ch-hide');
+        // }
     };
 
     /**
@@ -137,11 +141,13 @@
      * @private
      */
     Modal.prototype._hideUnderlay = function () {
-        if (this._options.fx !== 'none') {
-            $underlay.fadeOut('normal', function () { $underlay.remove(null, true); });
-        } else {
-            $underlay.addClass('ch-hide').remove(null, true);
-        }
+        var parent = underlay.parentNode;
+        // if (this._options.fx !== 'none') {
+        //     $underlay.fadeOut('normal', function () { $underlay.remove(null, true); });
+        // } else {
+        ch.util.classList(underlay).add('ch-hide')
+        parent.removeChild(underlay);
+        // }
     };
 
     /**
@@ -185,7 +191,7 @@
         // Add to the underlay the ability to hide the component
         if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
             // Allow only one click to analize the config every time and to close ONLY THIS modal
-            $underlay.one(ch.onpointertap, function () {
+            ch.util.Event.addListenerOne(underlay, ch.onpointertap, function () {
                 that.hide();
             });
         }
@@ -213,7 +219,7 @@
         }
 
         // Delete the underlay listener
-        $underlay.off(ch.onpointertap);
+        ch.util.Event.removeListener(underlay, ch.onpointertap)
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()
@@ -224,4 +230,4 @@
 
     ch.factory(Modal, parent._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Layer.
+     * @param {String} [selector] A CSS Selector to create an instance of ch.Layer.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -29,20 +29,17 @@
      * @returns {layer} Returns a new instance of Layer.
      * @example
      * // Create a new Layer.
-     * var layer = new ch.Layer($el, [options]);
-     * @example
-     * // Create a new Layer with jQuery or Zepto.
-     * var layer = $(selector).layer([options]);
+     * var layer = new ch.Layer([selector], [options]);
      * @example
      * // Create a new Layer with disabled effects.
-     * var layer = $(selector).layer({
-     *     'fx': 'none'
+     * var layer = new ch.Layer({
+     *     'content': 'This is the content of the Layer'
      * });
      * @example
      * // Create a new Layer using the shorthand way (content as parameter).
-     * var layer = $(selector).layer('http://ui.ml.com:3040/ajax');
+     * var layer = new ch.Layer('http://ui.ml.com:3040/ajax');
      */
-    function Layer($el, options) {
+    function Layer(selector, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -50,7 +47,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -83,9 +80,6 @@
      * The name of the component.
      * @memberof! ch.Layer.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var layer = $(selector).data('layer');
      */
     Layer.prototype.name = 'layer';
 
@@ -163,4 +157,4 @@
 
     ch.factory(Layer, parent._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

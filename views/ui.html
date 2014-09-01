@@ -1387,77 +1387,79 @@
         // // });
 
 
-        // // Layer
-        // var layer1 = new ch.Layer($('#layer1'), {'content': 'foo'});
+        // Layer
+        var layer1 = new ch.Layer('#layer1', {'content': 'foo'});
 
-        // var layerContent = document.createElement('p');
-        //     layerContent.innerHTML = 'This is an HTML P Element as content.';
+        var layerContent = document.createElement('p');
+            layerContent.innerHTML = 'This is an HTML P Element as content.';
 
-        // var layer2 = new ch.Layer($('#layer2'), {
-        //     'content': layerContent,
-        //     'shownby': 'pointertap',
-        //     'hiddenby': 'all'
-        // });
+        var layer2 = new ch.Layer('#layer2', {
+            'content': layerContent,
+            'shownby': 'pointertap',
+            'hiddenby': 'all'
+        });
 
-        // var layer3 = new ch.Layer($('#layer3'), {
-        //     'content': $('#invisible-content-for-layer'),
-        //     'shownby': 'pointertap',
-        //     'hiddenby': 'none'
-        // });
+        var invisibleContent = document.querySelector('#invisible-content-for-layer');
 
-        // var layer4 = new ch.Layer($('#layer4'), {
-        //     'content': 'Plain text.',
-        //     'shownby': 'pointertap',
-        //     'hiddenby': 'button'
-        // });
+        var layer3 = new ch.Layer('#layer3', {
+            'content': invisibleContent,
+            'shownby': 'pointertap',
+            'hiddenby': 'none'
+        });
 
-        // var layer5 = new ch.Layer($('#layer5'), {
-        //     'content': './static/ajax.html',
-        //     'shownby': 'pointertap',
-        //     'hiddenby': 'pointers'
-        // });
+        var layer4 = new ch.Layer('#layer4', {
+            'content': 'Plain text.',
+            'shownby': 'pointertap',
+            'hiddenby': 'button'
+        });
 
-        // // var layerX = $.layer({
-        // //     'content': 'Layer without trigger!',
-        // //     'reference': $('#layer5')
-        // // });
+        var layer5 = new ch.Layer('#layer5', {
+            'content': './static/ajax.html',
+            'shownby': 'pointertap',
+            'hiddenby': 'pointers'
+        });
 
-        // var layerFixed = new ch.Layer($('#components'), {
-        //     'content': $("#components-list"),
-        //     'shownby': 'pointertap',
-        //     'hiddenby': 'all',
-        //     'width': '700px',
-        //     'position': 'fixed',
-        //     'align': 'center',
-        //     'offsetY': '5px'
-        // });
+        var layerX = new ch.Layer({
+            'content': 'Layer without trigger!',
+            'reference': document.querySelector('#layer5')
+        });
 
-        // // var bubble = $.bubble({
-        // //     'reference': $('#bubble1')
-        // // });
+        var layerFixed = new ch.Layer('#components', {
+            'content': $("#components-list"),
+            'shownby': 'pointertap',
+            'hiddenby': 'all',
+            'width': '700px',
+            'position': 'fixed',
+            'align': 'center',
+            'offsetY': '5px'
+        });
 
-        // // $('#bubble1').on('click', function () {
-        // //     bubble.show();
-        // // });
+        var bubble = new ch.Bubble({
+            'reference': document.querySelector('#bubble1')
+        });
 
-        // // Modal
-        // var modal1 = new ch.Modal($('#modal1'), {
-        //     'width': '500px',
-        //     'height': '300px'
-        // });
+        $('#bubble1').on('click', function () {
+            bubble.show();
+        });
 
-        // // Modal with invisible DOM Content
-        // var modal2 = new ch.Modal($('#modal2'), {'content': $('#invisible-content')});
+        // Modal
+        var modal1 = new ch.Modal('#modal1', {
+            'width': '500px',
+            'height': '300px'
+        });
 
-        // // Modal lite
-        // var modal3 = new ch.Modal($('#modal3'), {
-        //  'content': '<h2>Heading or content</h2>',
-        //  'addClass': 'ch-modal-lite'
-        // });
+        // Modal with invisible DOM Content
+        var modal2 = new ch.Modal('#modal2', {'content': document.querySelector('#invisible-content')});
 
-        // var modalX = new ch.Modal($('<div>'), {
-        //     'hiddenby': 'button'
-        // });
+        // Modal lite
+        var modal3 = new ch.Modal('#modal3', {
+         'content': '<h2>Heading or content</h2>',
+         'addClass': 'ch-modal-lite'
+        });
+
+        var modalX = new ch.Modal({
+            'hiddenby': 'button'
+        });
 
         // $('#modal-form').on('submit', function (e) {
         //     e.preventDefault();
@@ -1476,12 +1478,12 @@
         //         this.validation.clear();
         //     });
 
-        // // Trasition
-        // var transition = new ch.Transition($('#transition'));
+        // Trasition
+        // var transition = new ch.Transition('#transition');
 
-        // // var transitionX = $.transition({
-        // //     'content': 'Transition without trigger!'
-        // // });
+        // var transitionX = new ch.Transition({
+        //     'content': 'Transition without trigger!'
+        // });
 
         // // Zoom
         // var zoom = new ch.Zoom($('.zoom'));
