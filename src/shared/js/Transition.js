@@ -1,4 +1,4 @@
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Transition.
+     * @param {String} [selector] A CSS Selector to create an instance of ch.Transition.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -29,31 +29,39 @@
      * @returns {transition} Returns a new instance of Transition.
      * @example
      * // Create a new Transition.
-     * var transition = new ch.Transition($el, [options]);
+     * var transition = new ch.Transition([selector], [options]);
      * @example
      * // Create a new Transition with jQuery or Zepto.
-     * var transition = $(selector).transition([options]);
+     * var transition = new ch.Transition([options]);
      * @example
      * // Create a new Transition with disabled effects.
-     * var transition = $(selector).transition({
+     * var transition = new ch.Transition({
      *     'fx': 'none'
      * });
      * @example
      * // Create a new Transition using the shorthand way (content as parameter).
-     * var transition = $(selector).transition('http://ui.ml.com:3040/ajax');
+     * var transition = new ch.Transition('http://ui.ml.com:3040/ajax');
      */
-    function Transition($el, options) {
+    function Transition(selector, options) {
 
-        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
-            options = $el;
-            $el = undefined;
+        if (options === undefined && selector !== undefined && !(selector instanceof HTMLElement)) {
+            options = selector;
+            selector = undefined;
         }
 
         options = ch.util.extend(ch.util.clone(this._defaults), options);
 
-        options.content = $('<div class="ch-loading-large"></div><p>' + options.content + '</p>');
 
-        return new ch.Modal($el, options);
+
+
+        options.content = (function () {
+            var dummyElement = document.createElement('div');
+            dummyElement.innerHTML = '<section><div class="ch-loading-large"></div><p>' + options.content + '</p></section>';
+
+            return dummyElement.querySelector('section');
+        }());
+
+        return new ch.Modal(selector, options);
     }
 
     /**
@@ -88,4 +96,4 @@
 
     ch.factory(Transition, ch.Modal.prototype._normalizeOptions);
 
-}(this.ch.$, this.ch));
+}(this.ch));
