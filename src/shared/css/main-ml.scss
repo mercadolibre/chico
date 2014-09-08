@@ -1,0 +1,86 @@
+ /**
+  * Global sass import
+  * @authors: hgarzon
+  * @description: used to import all chico sass files
+  */
+
+/* Variables
+---------------------------------------------------------------*/
+
+/* Flavor */
+@import 'flavors/variables-flavors-ml';
+
+/* Structure */
+@import 'structure/variables-structure-ml';
+
+/* Meyer's Reset
+---------------------------------------------------------------*/
+
+@import 'reset';
+
+/* Utils
+---------------------------------------------------------------*/
+
+/* Icons */
+@import 'icons';
+
+
+/* Components
+---------------------------------------------------------------*/
+
+/* Base */
+@import 'base';
+
+/* Autocomplete */
+@import 'autocomplete';
+
+/* Boxes */
+@import 'boxes';
+
+/* Bubble */
+@import 'bubble';
+
+/* Buttons */
+@import 'buttons';
+
+/* Calendar */
+@import 'calendar';
+
+/* Carousel */
+@import 'carousel';
+
+/* Datagrid */
+@import 'datagrid';
+
+/* Dropdown */
+@import 'dropdown';
+
+/* Form */
+@import 'form';
+
+/* Layer */
+@import 'layer';
+
+/* Lists */
+@import 'lists';
+
+/* Loading */
+@import 'loading';
+
+/* Modal */
+@import 'modal';
+
+/* Pagination */
+@import 'pagination';
+
+/* Popover */
+@import 'popover';
+
+/* Tooltip */
+@import 'tooltip';
+
+/* Transition */
+@import 'transition';
+
+/* Typography */
+@import 'typography';
