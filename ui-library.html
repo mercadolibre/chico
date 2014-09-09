@@ -1,0 +1,51 @@
+---
+layout: default
+---
+
+<main role="main" class="chico-get-started">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds row">
+            <h1 class="mesh-12">UI Library</h1>
+            <h3 class="mesh-12 mesh-6">
+                Amazing components built to provide iconography, dropdowns, input groups, navigation, and much more.
+            </h3>
+        </div>
+    </section>
+
+    <section>
+        <div class="ml-bounds row">
+
+            <div class="mesh-12 mesh-m-9">
+                {% for post in site.posts %}
+                <article id="{{ post.tags }}">
+                    <h2>
+                        {{ post.title }}
+                    </h2>
+                    <p>
+                        {{ post.content }}
+                    </p>
+                </article>
+                {% endfor %}
+            </div>
+
+            <nav class="mesh-12 mesh-m-3 chico-nav">
+                <ul id="nav-sections">
+                    <li><a href="#icons" data-section="">Icons</a></li>
+                    <li><a href="#text" data-section="">Text</a></li>
+                    <li><a href="#boxes" data-section="">Boxes</a></li>
+                    <li><a href="#" data-section="">Wizard</a></li>
+                    <li><a href="#" data-section="">Pagination</a></li>
+                    <li><a href="#" data-section="">Labels</a></li>
+                    <li><a href="#" data-section="">Spinner</a></li>
+                    <li><a href="#" data-section="">Buttons</a></li>
+                    <li><a href="#" data-section="">Autocomplete</a></li>
+                    <li><a href="#" data-section="">Pagination</a></li>
+                    <li><a href="#" data-section="">Table</a></li>
+                    <li><a href="#" data-section="">Expandable</a></li>
+                    <li><a href="#" data-section="">Menu</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </section>
+</main>

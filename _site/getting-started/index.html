@@ -1,8 +1,67 @@
----
-layout: default
----
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
 
-<!-- Add `ch-wizard` or `ch-box-lite` classname if you are using `ml-contextual` -->
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>Chico UI</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="http://static.mlstatic.com/org-img/ui/ml/favicon/favicon-1.0.0.ico"/>
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/300.css">
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/700.css">
+
+    <!-- Chico HTTP -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
+
+    <link rel="stylesheet" href="/src/css/mesh.min.css"/>
+    <link rel="stylesheet" href="/src/css/base__small.css"/>
+    <link rel="stylesheet" media="(min-width: 768px)" href="/src/css/base__large.css"/>
+    <link rel="stylesheet" href="/src/css/chico__small.css"/>
+    <link rel="stylesheet" media="(min-width: 768px)" href="/src/css/chico__large.css"/>
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="src/css/base__large.css"/>
+        <link rel="stylesheet" href="src/css/chico__large.css"/>
+    <![endif]-->
+</head>
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      <header role="banner" class="ml-header">
+    <div class="ml-bounds">
+        <!-- Page title (small devices) -->
+        <h1 class="ml-title">Chico</h1>
+
+        <!-- Header buttons (small devices) -->
+        <a class="ml-header-btn" href="#">Back</a>
+        <a class="ml-header-btn ml-header-action" href="#">Action</a>
+
+        <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+        <a class="ml-logo" href="/">MercadoLibre - Donde compras y vendes de todo</a>
+
+        <!-- Menu for large devices -->
+        <nav class="ml-header-menu">
+            <a href="/getting-started/">Getting started</a>
+            <a href="/ui-library/">UI Library</a>
+            <a href="/help/">Help</a>
+        </nav>
+    </div>
+</header>
+
+      <div class="ml-wrapper">
+        <!-- Add `ch-wizard` or `ch-box-lite` classname if you are using `ml-contextual` -->
 <main role="main" class="chico-get-started">
     <section class="chico-bg-noise chico-head">
         <div class="ml-bounds row">
@@ -139,3 +198,17 @@ layout: default
         </div>
     </section>
 </main>
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <small>©2014 MercadoLibre.com</small>
+        <nav>
+            <a href="#">About</a>
+        </nav>
+    </div>
+</footer>
+
+  </body>
+
+</html>
