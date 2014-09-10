@@ -1,5 +1,6 @@
 ---
 layout: default
+id: ui-library
 ---
 
 <main role="main" class="chico-get-started">
@@ -18,12 +19,7 @@ layout: default
             <div class="mesh-12 mesh-m-9">
                 {% for post in site.posts %}
                 <article id="{{ post.tags }}">
-                    <h2>
-                        {{ post.title }}
-                    </h2>
-                    <p>
-                        {{ post.content }}
-                    </p>
+                    {{ post.content }}
                 </article>
                 {% endfor %}
             </div>

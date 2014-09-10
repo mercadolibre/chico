@@ -7,12 +7,26 @@
 
 /* Element cloned and fixed
 ---------------------------------------------------------------*/
+.se-element-to-fix {
+    text-align: center;
+    background-color: #F7F7F7;
+    border-top: 1px solid #FFF;
+}
+
+.se-element-to-fix p {
+    text-align: center;
+    font-size: 14px;
+}
+
+
+/* Element cloned and fixed
+---------------------------------------------------------------*/
 .se-cloned-element {
     position: fixed;
     top: 0;
-    right: 230px;
+    right: 65px;
+    background-color: #FFF;
     z-index: 3;
-    background: #FFF;
 }
 
 .se-cloned-element[aria-hidden='true'] {
@@ -24,6 +38,14 @@
     visibility: visible;
     display: block;
 }
+
+.se-element-to-fix {
+    padding: 0 0 0 100px;
+    height: 46px;
+    clear: both;
+
+}
+
 
 /* Transitions
 ---------------------------------------------------------------*/

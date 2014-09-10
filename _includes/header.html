@@ -8,13 +8,13 @@
         <a class="ml-header-btn ml-header-action" href="#">Action</a>
 
         <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
-        <a class="ml-logo" href="{{ site.baseurl }}">MercadoLibre - Donde compras y vendes de todo</a>
+        <a class="ml-logo" href="{{ site.baseurl }}/">MercadoLibre - Donde compras y vendes de todo</a>
 
         <!-- Menu for large devices -->
         <nav class="ml-header-menu">
-            <a href="{{ site.baseurl }}/getting-started/">Getting started</a>
-            <a href="{{ site.baseurl }}/ui-library/">UI Library</a>
-            <a href="{{ site.baseurl }}/help/">Help</a>
+            <a class="{% if page.id == 'getting-started' %} active{% endif %}" href="{{ site.baseurl }}/getting-started/">Getting started</a>
+            <a class="{% if page.id == 'ui-library' %} active{% endif %}" href="{{ site.baseurl }}/ui-library/">UI Library</a>
+            <a class="{% if page.id == 'help' %} active{% endif %}" href="{{ site.baseurl }}/help/">Help</a>
         </nav>
     </div>
 </header>

@@ -85,6 +85,9 @@ body {
         position: relative;
     }
 
+.ml-header-menu a.active {
+    font-weight: bold;
+}
 
 /* Logo
 ---------------------------------------------------------------*/

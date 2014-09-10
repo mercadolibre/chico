@@ -21,9 +21,8 @@
 		elementCloned,
 		on = (win.addEventListener !== undefined) ? 'addEventListener' : 'attachEvent',
         scrollEvent = (on === 'attachEvent') ? 'onscroll' : 'scroll',
-		// Missing IE8 fix
-		positionScrollBefore = win.pageYOffset,
-		//positionScrollBefore = (win.pageYOffset !== undefined) ? win.pageYOffset : document.body.scrollTop,
+		positionScrollBefore = (win.pageYOffset !== undefined) ? win.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop,
+		positionScrollAfter,
 		positionScrollNow,
 		transitionProperty;
 
@@ -77,9 +76,11 @@
 
 		elementToFix = document.getElementsByClassName(elementToFixClassName)[0],
 
+		positionScrollAfter = (win.pageYOffset !== undefined) ? win.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+
 		// Plus win.pageYOffset to cover the case where the page is loaded with scrollY so the elemet to fix is not visible.
 		// For this case always need to know the initial position of the element to fix.
-		elementInitialTopPosition = elementToFix.getBoundingClientRect().top + win.pageYOffset,// Missing fallback to IE8
+		elementInitialTopPosition = elementToFix.getBoundingClientRect().top + positionScrollAfter,// Missing fallback to IE8
 
 		cloned = elementToFix.cloneNode(true);
 		cloned.className += ' se-cloned-element ';
@@ -96,7 +97,7 @@
 
 
 		// Listen the scroll event
-		win[on](scrollEvent, function(){
+		win[on](scrollEvent, function (event) {
 
 			if (!scrolling) {
 				win.requestAnimationFrame(that.checkElementFixedState);
@@ -137,15 +138,16 @@
 		elementTopPosition = elementToFix.getBoundingClientRect().top;
 
 		if (!isFixed) {
-			if(elementTopPosition < 0) {
+			if (elementTopPosition < 0) {
 				cloned.setAttribute('aria-hidden', 'false');
 				isFixed = true;
 			}
 
 		} else {
 
-			lastElementTopPosition = cloned.getBoundingClientRect().top + win.pageYOffset;// Missing fallback to IE8
+			positionScrollAfter = (win.pageYOffset !== undefined) ? win.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
+			lastElementTopPosition = cloned.getBoundingClientRect().top + positionScrollAfter;
 
 			if (lastElementTopPosition <= elementInitialTopPosition) {
 				cloned.setAttribute('aria-hidden', 'true');

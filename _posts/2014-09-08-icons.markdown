@@ -5,13 +5,17 @@ permalink: ui-components/icons
 tags: icons
 ---
 
-<!-- Component description -->
-Usar los iconos es facil, solo tenes que agregar la clase correspondiente:
+Icons
+---------------------
+
+Estos son los icons que podes utilizar. **Esto es texto destacado**.
+
 
 <!-- Component snippet code -->
 {% highlight ruby linenos %}
 <i class=”ch-icon-envelope”></i>
 {% endhighlight %}
+
 
 <!-- Component example -->
 <div class="component-example">
