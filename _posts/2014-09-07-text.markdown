@@ -12,7 +12,7 @@ Descripción del text. **Esto es destacado**.
 
 
 <!-- Component snippet code -->
-{% highlight ruby linenos %}
+{% highlight ruby %}
 <i class=”ch-icon-envelope”></i>
 {% endhighlight %}
 

@@ -12,7 +12,7 @@ Estos son los icons que podes utilizar. **Esto es texto destacado**.
 
 
 <!-- Component snippet code -->
-{% highlight ruby linenos %}
+{% highlight ruby %}
 <i class=”ch-icon-envelope”></i>
 {% endhighlight %}
 

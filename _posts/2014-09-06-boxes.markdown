@@ -13,7 +13,7 @@ This is just a regular paragraph.
 
 
 <!-- Component snippet code -->
-{% highlight ruby linenos %}
+{% highlight ruby%}
 <i class=”ch-icon-envelope”></i>
 {% endhighlight %}
 
