@@ -3,9 +3,9 @@
  * @authors: hgarzon
  * @description: used to import all chico sass files
  */
-/* Variables
----------------------------------------------------------------*/
-/* Flavor */
+/**
+ * Global Fonts
+ */
 /**
  * Global Colors
  */
@@ -18,15 +18,18 @@
 /**
  * Tooltip
  */
-/* Structure */
+/**
+ * Carousel
+ */
+/**
+ * Global
+ */
 /**
  * Buttons
  */
 /**
  * Tooltip
  */
-/* Meyer's Reset
----------------------------------------------------------------*/
 /**
  * Reset
  * @based on: Eric Meyer
@@ -111,9 +114,6 @@ a img {
 p + p {
   margin-top: 1em; }
 
-/* Utils
----------------------------------------------------------------*/
-/* Icons */
 /**
  * Icons
  */
@@ -385,9 +385,6 @@ p + p {
 .ch-icon-phone:before {
   content: '\f095'; }
 
-/* Components
----------------------------------------------------------------*/
-/* Base */
 [hidden],
 .ch-hide {
   display: none; }
@@ -468,7 +465,6 @@ p + p {
   background-image: -o-linear-gradient(#BF0602, #8F2F00);
   background-image: linear-gradient(#BF0602, #8F2F00); }
 
-/* Autocomplete */
 .ch-autocomplete {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
@@ -495,7 +491,6 @@ p + p {
 .ch-autocomplete-loading {
   background: url("../assets/loading-small.gif") no-repeat right 10px center; }
 
-/* Boxes */
 /**
  * Boxes
  */
@@ -581,7 +576,6 @@ p + p {
 .ch-box-ok {
   background-color: #E9F4E4; }
 
-/* Bubble */
 /**
  * Bubble
  */
@@ -631,17 +625,16 @@ p + p {
 .ch-bubble.ch-cone[data-side=left] .ch-popover-content:after {
   border-left-color: #F5E6E6; }
 
-/* Buttons */
 /*
  * Links
 */
 a {
-  color: #0637B2;
+  color: #0033BB;
   text-decoration: none; }
   a:hover {
     text-decoration: underline; }
   a:visited {
-    color: #0637B3; }
+    color: #880099; }
 
 /*
  * Buttons
@@ -656,7 +649,7 @@ a {
   background: #3E52A1;
   background-image: linear-gradient(#3E52A1, #2D3277);
   border: 1px solid #2C3176;
-  box-shadow: 0 1px 0 0 #4357A5 inset;
+  box-shadow: 0 1px 0 0 #8EA2DF inset;
   color: #fff;
   font-size: 18px;
   line-height: 20px;
@@ -701,7 +694,6 @@ a {
   text-shadow: none;
   opacity: 0.5; }
 
-/* Calendar */
 .ch-calendar {
   position: relative;
   display: inline-block; }
@@ -803,7 +795,6 @@ a {
 .ie8 .ch-calendar caption {
   margin: 0; }
 
-/* Carousel */
 .ch-carousel {
   overflow: auto;
   position: relative;
@@ -904,7 +895,6 @@ a {
 .ch-carousel-pages .ch-carousel-selected {
   background-color: #16232f; }
 
-/* Datagrid */
 /**
  * Tables
  */
@@ -1026,7 +1016,6 @@ table {
 .lt-ie10 .ch-datagrid td {
   border-top: 1px solid #DEDEDE; }
 
-/* Dropdown */
 /**
  * Dropdown
  */
@@ -1163,7 +1152,6 @@ table {
 .lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on:hover {
   filter: none; }
 
-/* Form */
 /* ==========================================================================
      Forms
      ========================================================================== */
@@ -1485,14 +1473,12 @@ input[type=range],*/
 .ch-validation-error:focus {
   border-width: 2px; }
 
-/* Layer */
 /**
  * Layer
  */
 .ch-layer {
   box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1); }
 
-/* Lists */
 /**
  * List
  */
@@ -1525,7 +1511,6 @@ dl.ch-list dt {
 dl.ch-list dd {
   margin: 5px 0 10px 10px; }
 
-/* Loading */
 /**
  * Transitions
  */
@@ -1567,7 +1552,6 @@ dl.ch-list dd {
   margin-top: -8px;
   margin-left: -8px; }
 
-/* Modal */
 /**
  * Modal
  */
@@ -1598,7 +1582,6 @@ dl.ch-list dd {
   background-color: #000;
   -ms-filter: "alpha(opacity=50)"; }
 
-/* Pagination */
 /**
  * Pagination
  */
@@ -1623,7 +1606,6 @@ dl.ch-list dd {
   background-color: #E9E9E9;
   color: #0033BB; }
 
-/* Popover */
 /**
  * Popover
  */
@@ -1789,7 +1771,6 @@ dl.ch-list dd {
 .ch-cone[data-side=left][data-align=bottom] .ch-popover-content:before {
   bottom: 4px; }
 
-/* Tooltip */
 /**
  * Tooltip
  */
@@ -1840,7 +1821,6 @@ dl.ch-list dd {
 .ch-tooltip.ch-cone[data-side=left] .ch-popover-content:after {
   border-left-color: #FCF8E3; }
 
-/* Transition */
 /**
  * Transition
  */
@@ -1850,7 +1830,6 @@ dl.ch-list dd {
   box-shadow: 0 3px 14px #444;
   text-align: center; }
 
-/* Typography */
 /**
  * Headings
  */
@@ -1915,16 +1894,14 @@ a:focus {
   color: #900;
   font-size: 16px;
   font-weight: bold; }
-
-.ch-price sup {
-  font-size: 10px;
-  vertical-align: text-top;
-  line-height: 1em; }
-
-.ch-price span {
-  color: #999;
-  font-size: 13px;
-  font-weight: normal; }
+  .ch-price sup {
+    font-size: 10px;
+    vertical-align: text-top;
+    line-height: 1em; }
+  .ch-price span {
+    color: #4d4d4d;
+    font-size: 13px;
+    font-weight: normal; }
 
 /* IE */
 .lt-ie9 .ch-price sup {

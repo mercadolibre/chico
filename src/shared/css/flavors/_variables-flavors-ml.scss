@@ -2,22 +2,45 @@
 //-------------------------------------------------
 
 /**
+ * Global Fonts
+ */
+
+$font__xx__large:					22px;
+$font__x__large:					20px;
+$font__large:						18px;
+$font__medium:						16px;
+$font__small:						15px;
+$font__x__small:					14px;
+
+$font__normal:						13px;
+
+$font__smaller:						12px;
+$font__smallest:					11px;
+$font__mini:						10px;
+		
+$font-weigth__normal:				normal;
+$font-weigth__bold:					bold;
+
+$font-underline:					underline;
+$font-no-underline:					none;				
+
+/**
  * Global Colors
  */
 
 $white:							#fff;
 $gray: 							#333;
 
-$gray-light:					lighten($gray, 10%);
-$gray-lighter:					lighten($gray, 30%);
-$gray-lightest:					lighten($gray, 60%);
+$gray-light:					lighten($gray, 10%); // #4d4d4d
+$gray-lighter:					lighten($gray, 30%); // grey
+$gray-lightest:					lighten($gray, 60%); // #cccccc
 $gray-dark:						darken($gray, 10%);
 $gray-darker:					darken($gray, 30%);
 $gray-darkest:					darken($gray, 60%);
 
 $yellow-main:   				#FFF059;
 $price:   						#900;
-$blue-main:   					#0637B2;
+$blue-main:   					#0033BB;
 $danger:						#B84A46;
 $success:						#468847;
 $warning:						#AA8749;
@@ -30,7 +53,7 @@ $help:							#888888;
 
 $main-text:						$gray;
 $links:							$blue-main;
-$links-visited:					#0637B3;
+$links-visited:					#880099;
 
 /**
  * Buttons
@@ -46,8 +69,8 @@ $btn-primary-hover:   			#4051D0;
 $btn-primary-hover-top-bg:		#4355D2;
 $btn-primary-hover-bottom-bg: 	#2F33AE;
 $btn-primary-active:  			#29358F;
-$btn-primary-border:			#2C3176; //#0D6FB9;
-$btn-primary-shadow:			#4357A5; //#97DCFF;
+$btn-primary-border:			#2C3176;
+$btn-primary-shadow:			#8EA2DF;
 
 $btn-secondary-color:			#476274;
 $btn-secondary-bg:				#CCE3F7;
@@ -74,11 +97,11 @@ $btn-disabled-shadow:			none;
 
 $tooltip-bg:						#FCF8E3;
 $tooltip-border-color:				#FBEED5;
+$tooltip-font-color:				#AA8749;
+$tooltip-border-content-before:		#FBEED5;
+$tooltip-border-content-after:		#FCF8E3;		
 
-// cone
-$tooltip-cone-before-color:			#FBEED5;
-$tooltip-cone-after-color:			#FCF8E3;
-$tooltip-cone-border-bottom:		#E5E5E5;
-$tooltip-cone-border-bottom-after:	#fff;
-
+/**
+ * Carousel
+ */
 

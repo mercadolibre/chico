@@ -7,32 +7,32 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: normal;
-    margin: 10px 0;
+    font-weight: $font-weigth__normal;
+    margin: $margin-headers;
 }
 
 h1 {
-    font-size: 22px;
+    font-size: $font__xx__large;
 }
 
 h2 {
-    font-size: 20px;
+    font-size: $font__x__large;
 }
 
 h3 {
-    font-size: 18px;
+    font-size: $font__large;
 }
 
 h4 {
-    font-size: 16px;
+    font-size: $font__medium;
 }
 
 h5 {
-    font-size: 15px;
+    font-size: $font__small;
 }
 
 h6 {
-    font-size: 14px;
+    font-size: $font__x__small;
 }
 
 /**
@@ -44,7 +44,7 @@ h6 {
 [class*="ch-box"] h4,
 [class*="ch-box"] h5,
 [class*="ch-box"] h6 {
-    margin-top: 0;
+    margin-top: $margin-box-headings;
 }
 
 /**
@@ -53,41 +53,42 @@ h6 {
 a,
 a:active,
 a:link {
-    color: #0033BB;
-    text-decoration: none;
+    color: $blue-main;
+    text-decoration: $font-no-underline;
 }
 
 a:visited {
-    color: #880099;
+    color: $links-visited;
 }
 
 a:hover,
 a:focus {
-    text-decoration: underline;
+    text-decoration: $font-underline;
 }
 
 /**
  * Price
  */
 .ch-price {
-    color: #900;
-    font-size: 16px;
-    font-weight: bold;
-}
+    color: $price;
+    font-size: $font__medium;
+    font-weight: $font-weigth__bold;
 
-.ch-price sup {
-    font-size: 10px;
-    vertical-align: text-top;
-    line-height: 1em;
-}
+    sup {
+        font-size: $font__mini;
+        vertical-align: text-top;
+        line-height: 1em;
+    }
 
-.ch-price span {
-    color: #999;
-    font-size: 13px;
-    font-weight: normal
+    span {
+        color: $gray-light;
+        font-size: $font__normal;
+        font-weight: $font-weigth__normal;
+    }
+
 }
 
 /* IE */
 .lt-ie9 .ch-price sup {
-    font-size: 12px;
+    font-size: $font__smaller;
 }

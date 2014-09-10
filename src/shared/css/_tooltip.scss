@@ -2,11 +2,11 @@
  * Tooltip
  */
 .ch-tooltip {
-    background-color: #FCF8E3;
-    border: 1px solid #FBEED5;
-    color: #AA8749;
-    padding: 8px 10px;
-    border-radius: 5px;
+    background-color: $tooltip-bg;
+    border: 1px solid $tooltip-border-color;
+    color: $tooltip-font-color;
+    padding: $tooltip-padding;
+    border-radius: $tooltip-border-radius;
 }
 
 /**
@@ -14,11 +14,11 @@
  * ltlb, ctcb, rtrb
  */
 .ch-tooltip.ch-cone[data-side=bottom] .ch-popover-content:before {
-    border-bottom-color: #FBEED5;
+    border-bottom-color: $tooltip-border-content-before;
 }
 
 .ch-tooltip.ch-cone[data-side=bottom] .ch-popover-content:after {
-    border-bottom-color: #FCF8E3;
+    border-bottom-color: $tooltip-border-content-after;
 }
 
 /**
@@ -26,11 +26,11 @@
  * lblt, cbct, rbrt
  */
 .ch-tooltip.ch-cone[data-side=top] .ch-popover-content:before {
-    border-top-color: #FBEED5;
+    border-top-color: $tooltip-border-content-before;
 }
 
 .ch-tooltip.ch-cone[data-side=top] .ch-popover-content:after {
-    border-top-color: #FCF8E3;
+    border-top-color: $tooltip-border-content-after;
 }
 
 /**
@@ -38,11 +38,11 @@
  * ltrt, lmrm, lbrb
  */
 .ch-tooltip.ch-cone[data-side=right] .ch-popover-content:before {
-    border-right-color: #FBEED5;
+    border-right-color: $tooltip-border-content-before;
 }
 
 .ch-tooltip.ch-cone[data-side=right] .ch-popover-content:after {
-    border-right-color: #FCF8E3;
+    border-right-color: $tooltip-border-content-after;
 }
 
 /**
@@ -50,9 +50,9 @@
  * rtlt, rmlm, rblb
  */
 .ch-tooltip.ch-cone[data-side=left] .ch-popover-content:before {
-    border-left-color: #FBEED5;
+    border-left-color: $tooltip-border-content-before;
 }
 
 .ch-tooltip.ch-cone[data-side=left] .ch-popover-content:after {
-    border-left-color: #FCF8E3;
+    border-left-color: $tooltip-border-content-after;
 }

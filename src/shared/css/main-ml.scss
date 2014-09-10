@@ -4,83 +4,84 @@
   * @description: used to import all chico sass files
   */
 
-/* Variables
----------------------------------------------------------------*/
+// Variables
+//---------------------------------------------------------------
 
-/* Flavor */
+// Flavor
 @import 'flavors/variables-flavors-ml';
 
-/* Structure */
+// Structure
 @import 'structure/variables-structure-ml';
 
-/* Meyer's Reset
----------------------------------------------------------------*/
+// Meyer's Reset
+//---------------------------------------------------------------
 
 @import 'reset';
 
-/* Utils
----------------------------------------------------------------*/
+// Utils
+//---------------------------------------------------------------
 
-/* Icons */
+// Icons
 @import 'icons';
 
 
-/* Components
----------------------------------------------------------------*/
+// Components
+//---------------------------------------------------------------
 
-/* Base */
+// Base
 @import 'base';
 
-/* Autocomplete */
+// Autocomplete
 @import 'autocomplete';
 
-/* Boxes */
+// Boxes
 @import 'boxes';
 
-/* Bubble */
+// Bubble
 @import 'bubble';
 
-/* Buttons */
+// Buttons
 @import 'buttons';
 
-/* Calendar */
+// Calendar
 @import 'calendar';
 
-/* Carousel */
+// Carousel
 @import 'carousel';
 
-/* Datagrid */
+// Datagrid
 @import 'datagrid';
 
-/* Dropdown */
+// Dropdown
 @import 'dropdown';
 
-/* Form */
+// Form 
+
 @import 'form';
 
-/* Layer */
+// Layer
 @import 'layer';
 
-/* Lists */
+// Lists
 @import 'lists';
 
-/* Loading */
+// Loading
 @import 'loading';
 
-/* Modal */
+// Modal
 @import 'modal';
 
-/* Pagination */
+// Pagination 
 @import 'pagination';
 
-/* Popover */
+// Popover
 @import 'popover';
 
-/* Tooltip */
+// Tooltip
 @import 'tooltip';
 
-/* Transition */
+// Transition
 @import 'transition';
 
-/* Typography */
+// Typography
 @import 'typography';
