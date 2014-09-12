@@ -24,9 +24,9 @@
     display: inline-block;
     vertical-align: middle;
     line-height: .9em;
-    height: 16px;
-    width: 16px;
-    font-size: 19px;
+    height: $icon-medium-box;
+    width: $icon-medium-box;
+    font-size: $icon-medium;
     margin: 5px;
 }
 
@@ -40,21 +40,21 @@
 }
 
 .ch-icon-large {
-    height: 24px;
-    width: 24px;
-    font-size: 26px;
+    height: $icon-large-box;
+    width: $icon-large-box;
+    font-size: $icon-large;
 }
 
 .ch-icon-x-large {
-    height: 32px;
-    width: 32px;
-    font-size: 34px;
+    height: $icon-larger-box;
+    width: $icon-larger-box;
+    font-size: $icon-larger;
 }
 
 .ch-icon-xx-large {
-    height: 64px;
-    width: 64px;
-    font-size: 66px;
+    height: $icon-largest-box;
+    width: $icon-largest-box;
+    font-size: $icon-largest;
 }
 
 [class*='ch-icon-']:before,
