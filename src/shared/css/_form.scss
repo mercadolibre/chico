@@ -12,14 +12,9 @@ fieldset {
     padding: 0;
 }
 
-/*
- * 1. Corrects color not being inherited in IE 8/9.
- * 2. Remove padding so people aren't caught out if they zero out fieldsets.
- */
-
 legend {
-    border: 0; /* 1 */
-    padding: 0; /* 2 */
+    margin: 0;
+    padding: 0;
 }
 
 /*
@@ -85,27 +80,12 @@ select[multiple],
     border: 1px solid #CDCDCD;
     border-radius: 3px;
     padding: 6px;
-}
 
-input[type="text"]:focus,
-input[type="url"]:focus,
-input[type="email"]:focus,
-input[type="search"]:focus,
-input[type="date"]:focus,
-input[type="datatime"]:focus,
-input[type="datatime-local"]:focus,
-input[type="month"]:focus,
-input[type="week"]:focus,
-input[type="time"]:focus,
-input[type="tel"]:focus,
-input[type="number"]:focus,
-input[type="password"]:focus,
-textarea:focus,
-select[multiple]:focus,
-.ch-form-select-multiple:focus {
-    border: 2px solid #9A9A9A;
-    padding: 5px;
-    outline: 0;
+    &:focus {
+        border: 2px solid #9A9A9A;
+        padding: 5px;
+        outline: 0;
+    }
 }
 
 input[type="file"]:focus,
@@ -130,11 +110,11 @@ input[readonly]:focus {
 }
 
 .ch-form-icon-inner {
-    opacity: 0.3;
+    opacity: .3;
 }
 
 .ch-form-icon-input:focus + .ch-form-icon-inner {
-    opacity: 0.7;
+    opacity: .7;
 }
 
 input.ch-form-icon-input {
@@ -180,13 +160,12 @@ input.ch-form-icon-input:focus {
 .ch-form-row {
     padding: 5px 0;
     position: relative;
-}
 
-/* Label */
-.ch-form-row label {
-    display:inline-block;
-    position:relative;
-    padding: 7px 11px 5px 0;
+    label {
+        display:inline-block;
+        position:relative;
+        padding: 7px 11px 5px 0;        
+    }
 }
 
 /* Label inline not used yet */
@@ -329,25 +308,10 @@ input[type=range],*/
     border-radius: 3px;
     padding: 12px 10px;
     margin: 5px 0;
-}
 
-.ch-form-big input[type="text"]:focus,
-.ch-form-big input[type="url"]:focus,
-.ch-form-big input[type="email"]:focus,
-.ch-form-big input[type="search"]:focus,
-.ch-form-big input[type="date"]:focus,
-.ch-form-big input[type="datatime"]:focus,
-.ch-form-big input[type="datatime-local"]:focus,
-.ch-form-big input[type="month"]:focus,
-.ch-form-big input[type="week"]:focus,
-.ch-form-big input[type="time"]:focus,
-.ch-form-big input[type="tel"]:focus,
-.ch-form-big input[type="number"]:focus,
-.ch-form-big input[type="password"]:focus,
-.ch-form-big textarea:focus,
-.ch-form-big select[multiple]:focus,
-.ch-form-big .ch-form-select-multiple:focus {
-    padding: 11px 9px;
+    &:focus {
+        padding: 11px 9px;        
+    }
 }
 
 /**

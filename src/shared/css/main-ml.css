@@ -4,16 +4,19 @@
  * @description: used to import all chico sass files
  */
 /**
- * Global Fonts
+ * Global Colors
  */
 /**
- * Global Colors
+ * Boxes
  */
 /**
  * Links
  */
 /**
  * Buttons
+ */
+/**
+ * Bubble
  */
 /**
  * Tooltip
@@ -25,7 +28,13 @@
  * Global
  */
 /**
+ * Fonts
+ */
+/**
  * Buttons
+ */
+/**
+ * Forms
  */
 /**
  * Tooltip
@@ -401,9 +410,8 @@ p + p {
 
 .ch-actions {
   margin-top: 20px; }
-
-.ch-actions a {
-  margin-left: 15px; }
+  .ch-actions a {
+    margin-left: 15px; }
 
 /* do not select text */
 .ch-user-no-select {
@@ -428,7 +436,7 @@ p + p {
   display: inline-block;
   padding: 0;
   text-indent: 1px;
-  color: #CCCCCC;
+  color: #cccccc;
   font-family: Arial;
   font-style: normal;
   text-align: center;
@@ -438,32 +446,32 @@ p + p {
   -webkit-appearance: none;
   z-index: 1; }
 
+.ch-close:active {
+  color: #fff;
+  background-color: #BF0602;
+  background-image: -webkit-linear-gradient(#BF0602, #8F2F00);
+  background-image: -moz-linear-gradient(#BF0602, #8F2F00);
+  background-image: -o-linear-gradient(#BF0602, #8F2F00);
+  background-image: linear-gradient(#BF0602, #8F2F00); }
+
 .ch-close:before {
   content: "\00D7"; }
 
-.ch-close:hover,
+.ch-close:active
 .ch-close:focus,
-.ch-close:active {
+.ch-close:hover {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
   border: none; }
 
-.ch-close:hover,
-.ch-close:focus {
-  color: #FFFFFF;
+.ch-close:focus,
+.ch-close:hover {
+  color: #fff;
   background-color: #FA5900;
   background-image: -webkit-linear-gradient(#FA5900, #CA0C02);
   background-image: -moz-linear-gradient(#FA5900, #CA0C02);
   background-image: -o-linear-gradient(#FA5900, #CA0C02);
   background-image: linear-gradient(#FA5900, #CA0C02);
   text-decoration: none; }
-
-.ch-close:active {
-  color: #FFFFFF;
-  background-color: #BF0602;
-  background-image: -webkit-linear-gradient(#BF0602, #8F2F00);
-  background-image: -moz-linear-gradient(#BF0602, #8F2F00);
-  background-image: -o-linear-gradient(#BF0602, #8F2F00);
-  background-image: linear-gradient(#BF0602, #8F2F00); }
 
 .ch-autocomplete {
   border-top-right-radius: 0;
@@ -498,15 +506,15 @@ p + p {
   -webkit-border-radius: 5px;
   /* Android 2.1 */
   border-radius: 5px;
-  padding: 10px;
-  margin: 0 0 10px 0; }
+  margin: 0 0 10px 0;
+  padding: 10px; }
 
 .ch-box-lite,
 .ch-box {
-  border: 1px solid #DEDEDE; }
+  border: 1px solid #dedede; }
 
 .ch-box-lite {
-  background-color: #FFF; }
+  background-color: #fff; }
 
 /**
  * Message boxes
@@ -514,11 +522,10 @@ p + p {
 .ch-box-icon {
   position: relative;
   padding-left: 32px; }
-
-.ch-box-icon [class*='ch-icon-'] {
-  position: absolute;
-  top: 7px;
-  left: 5px; }
+  .ch-box-icon [class*='ch-icon-'] {
+    position: absolute;
+    top: 7px;
+    left: 5px; }
 
 /**
  * Warn
@@ -528,20 +535,19 @@ p + p {
 
 .ch-box-warn {
   background-color: #FFF3C8;
-  color: #AA8749; }
+  color: #aa8749; }
 
 /**
  * Error
  */
 .ch-box-error,
 .ch-icon-remove-sign {
-  color: #B94A48; }
+  color: #B84A46; }
 
 .ch-box-error {
   background-color: #F5E6E6; }
-
-.ch-box-error a:visited {
-  color: #0033BB; }
+  .ch-box-error a:visited {
+    color: #0033bb; }
 
 /**
  * Help
@@ -562,9 +568,8 @@ p + p {
 
 .ch-box-info {
   background-color: #E4F2F9; }
-
-.ch-box-info a {
-  text-decoration: underline; }
+  .ch-box-info a {
+    text-decoration: underline; }
 
 /**
  * Ok
@@ -1163,15 +1168,9 @@ fieldset {
   margin: 0;
   padding: 0; }
 
-/*
- * 1. Corrects color not being inherited in IE 8/9.
- * 2. Remove padding so people aren't caught out if they zero out fieldsets.
- */
 legend {
-  border: 0;
-  /* 1 */
-  padding: 0;
-  /* 2 */ }
+  margin: 0;
+  padding: 0; }
 
 /*
  * 1. Corrects font family not being inherited in all browsers.
@@ -1232,26 +1231,25 @@ select[multiple],
   border: 1px solid #CDCDCD;
   border-radius: 3px;
   padding: 6px; }
-
-input[type="text"]:focus,
-input[type="url"]:focus,
-input[type="email"]:focus,
-input[type="search"]:focus,
-input[type="date"]:focus,
-input[type="datatime"]:focus,
-input[type="datatime-local"]:focus,
-input[type="month"]:focus,
-input[type="week"]:focus,
-input[type="time"]:focus,
-input[type="tel"]:focus,
-input[type="number"]:focus,
-input[type="password"]:focus,
-textarea:focus,
-select[multiple]:focus,
-.ch-form-select-multiple:focus {
-  border: 2px solid #9A9A9A;
-  padding: 5px;
-  outline: 0; }
+  input[type="text"]:focus,
+  input[type="url"]:focus,
+  input[type="email"]:focus,
+  input[type="search"]:focus,
+  input[type="date"]:focus,
+  input[type="datatime"]:focus,
+  input[type="datatime-local"]:focus,
+  input[type="month"]:focus,
+  input[type="week"]:focus,
+  input[type="time"]:focus,
+  input[type="tel"]:focus,
+  input[type="number"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select[multiple]:focus,
+  .ch-form-select-multiple:focus {
+    border: 2px solid #9A9A9A;
+    padding: 5px;
+    outline: 0; }
 
 input[type="file"]:focus,
 input[type="checkbox"]:focus,
@@ -1272,10 +1270,10 @@ input[readonly]:focus {
   margin-left: 0; }
 
 .ch-form-icon-inner {
-  opacity: 0.3; }
+  opacity: .3; }
 
 .ch-form-icon-input:focus + .ch-form-icon-inner {
-  opacity: 0.7; }
+  opacity: .7; }
 
 input.ch-form-icon-input {
   padding-right: 24px; }
@@ -1312,12 +1310,10 @@ input.ch-form-icon-input:focus {
 .ch-form-row {
   padding: 5px 0;
   position: relative; }
-
-/* Label */
-.ch-form-row label {
-  display: inline-block;
-  position: relative;
-  padding: 7px 11px 5px 0; }
+  .ch-form-row label {
+    display: inline-block;
+    position: relative;
+    padding: 7px 11px 5px 0; }
 
 /* Label inline not used yet */
 .ch-form-row input + label,
@@ -1441,24 +1437,23 @@ input[type=range],*/
   border-radius: 3px;
   padding: 12px 10px;
   margin: 5px 0; }
-
-.ch-form-big input[type="text"]:focus,
-.ch-form-big input[type="url"]:focus,
-.ch-form-big input[type="email"]:focus,
-.ch-form-big input[type="search"]:focus,
-.ch-form-big input[type="date"]:focus,
-.ch-form-big input[type="datatime"]:focus,
-.ch-form-big input[type="datatime-local"]:focus,
-.ch-form-big input[type="month"]:focus,
-.ch-form-big input[type="week"]:focus,
-.ch-form-big input[type="time"]:focus,
-.ch-form-big input[type="tel"]:focus,
-.ch-form-big input[type="number"]:focus,
-.ch-form-big input[type="password"]:focus,
-.ch-form-big textarea:focus,
-.ch-form-big select[multiple]:focus,
-.ch-form-big .ch-form-select-multiple:focus {
-  padding: 11px 9px; }
+  .ch-form-big input[type="text"]:focus,
+  .ch-form-big input[type="url"]:focus,
+  .ch-form-big input[type="email"]:focus,
+  .ch-form-big input[type="search"]:focus,
+  .ch-form-big input[type="date"]:focus,
+  .ch-form-big input[type="datatime"]:focus,
+  .ch-form-big input[type="datatime-local"]:focus,
+  .ch-form-big input[type="month"]:focus,
+  .ch-form-big input[type="week"]:focus,
+  .ch-form-big input[type="time"]:focus,
+  .ch-form-big input[type="tel"]:focus,
+  .ch-form-big input[type="number"]:focus,
+  .ch-form-big input[type="password"]:focus,
+  .ch-form-big textarea:focus,
+  .ch-form-big select[multiple]:focus,
+  .ch-form-big .ch-form-select-multiple:focus {
+    padding: 11px 9px; }
 
 /**
  * Input colorizing
@@ -1484,12 +1479,11 @@ input[type=range],*/
  */
 .ch-list {
   margin-bottom: 10px; }
-
-.ch-list li {
-  margin-left: 10px;
-  padding: 3px 0;
-  line-height: 1.286em;
-  /* 18px */ }
+  .ch-list li {
+    margin-left: 10px;
+    padding: 3px 0;
+    line-height: 1.286em;
+    /* 18px */ }
 
 ul.ch-list {
   list-style: disc inside; }
@@ -1499,17 +1493,14 @@ ol.ch-list {
 
 dl.ch-list {
   margin-bottom: 18px; }
-
-dl.ch-list dt,
-dl.ch-list dd {
-  line-height: 1.286em;
-  /* 18px */ }
-
-dl.ch-list dt {
-  font-weight: bold; }
-
-dl.ch-list dd {
-  margin: 5px 0 10px 10px; }
+  dl.ch-list dt,
+  dl.ch-list dd {
+    line-height: 1.286em;
+    /* 18px */ }
+  dl.ch-list dt {
+    font-weight: bold; }
+  dl.ch-list dd {
+    margin: 5px 0 10px 10px; }
 
 /**
  * Transitions
@@ -1563,9 +1554,8 @@ dl.ch-list dd {
 .ch-modal-lite {
   text-align: center;
   padding: 40px; }
-
-.ch-modal-lite h2 {
-  margin-bottom: 0; }
+  .ch-modal-lite h2 {
+    margin-bottom: 0; }
 
 /**
  * Underlay
@@ -1590,16 +1580,14 @@ dl.ch-list dd {
   list-style: none;
   margin: 10px 0;
   text-align: center; }
-
-.ch-pagination li {
-  display: inline-block;
-  margin: 0 4px; }
-
-.ch-pagination li a {
-  border-radius: 3px;
-  padding: 5px 8px;
-  border: 1px solid #DEDEDE;
-  background-color: #FFF; }
+  .ch-pagination li {
+    display: inline-block;
+    margin: 0 4px; }
+    .ch-pagination li a {
+      border-radius: 3px;
+      padding: 5px 8px;
+      border: 1px solid #DEDEDE;
+      background-color: #FFF; }
 
 .ch-pagination .ch-pagination-current a {
   border: 1px solid #E9E9E9;

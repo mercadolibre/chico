@@ -1,28 +1,5 @@
 //COMMON SKIN VARIABLES
-//-------------------------------------------------
-
-/**
- * Global Fonts
- */
-
-$font__xx__large:					22px;
-$font__x__large:					20px;
-$font__large:						18px;
-$font__medium:						16px;
-$font__small:						15px;
-$font__x__small:					14px;
-
-$font__normal:						13px;
-
-$font__smaller:						12px;
-$font__smallest:					11px;
-$font__mini:						10px;
-		
-$font-weigth__normal:				normal;
-$font-weigth__bold:					bold;
-
-$font-underline:					underline;
-$font-no-underline:					none;				
+//-------------------------------------------------			
 
 /**
  * Global Colors
@@ -41,11 +18,23 @@ $gray-darkest:					darken($gray, 60%);
 $yellow-main:   				#FFF059;
 $price:   						#900;
 $blue-main:   					#0033BB;
-$danger:						#B84A46;
-$success:						#468847;
-$warning:						#AA8749;
-$information:					#3A87AD;
-$help:							#888888;
+
+/**
+ * Boxes
+ */
+
+$box-bg-color-error:			#F5E6E6;
+$box-bg-color-help:				#F0F0F0;
+$box-bg-color-info:				#E4F2F9;
+$box-bg-color-ok:				#E9F4E4;
+$box-bg-color-warning:			#FFF3C8;
+
+$box-font-color-error:			#B84A46;
+$box-font-color-help:			#888888;
+$box-font-color-info:			#3A87AD;
+$box-font-color-ok:				#468847;
+$box-font-color-warning:		#F5CC00;
+
 
 /**
  * Links
@@ -58,8 +47,6 @@ $links-visited:					#880099;
 /**
  * Buttons
  */
-
-// colors
 
 $btn-primary-color:				#fff;
 $btn-primary-bg:				#3E52A1;
@@ -90,10 +77,15 @@ $btn-disabled-border:			#CCC;
 $btn-disabled-shadow:			none;
 
 /**
- * Tooltip
+ * Bubble
  */
 
-// colors
+$bubble-color-data-side-after:		#F5E6E6;
+$bubble-color-data-side-before:		#EED3D7;
+
+/**
+ * Tooltip
+ */
 
 $tooltip-bg:						#FCF8E3;
 $tooltip-border-color:				#FBEED5;

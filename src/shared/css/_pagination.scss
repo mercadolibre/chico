@@ -6,18 +6,18 @@
     list-style: none;
     margin: 10px 0;
     text-align: center;
-}
 
-.ch-pagination li {
-    display: inline-block;
-    margin:  0 4px;
-}
+    li {
+        display: inline-block;
+        margin:  0 4px;
 
-.ch-pagination li a {
-    border-radius: 3px;
-    padding: 5px 8px;
-    border: 1px solid #DEDEDE;
-    background-color: #FFF;
+        a {
+            border-radius: 3px;
+            padding: 5px 8px;
+            border: 1px solid #DEDEDE;
+            background-color: #FFF;           
+        }     
+    }
 }
 
 .ch-pagination .ch-pagination-current a {

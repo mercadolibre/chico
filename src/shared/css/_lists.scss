@@ -3,12 +3,12 @@
  */
 .ch-list {
     margin-bottom: 10px;
-}
 
-.ch-list li {
-    margin-left: 10px;
-    padding: 3px 0;
-    line-height: 1.286em; /* 18px */
+    li {
+        margin-left: 10px;
+        padding: 3px 0;
+        line-height: 1.286em; /* 18px */        
+    }
 }
 
 ul.ch-list {
@@ -21,17 +21,17 @@ ol.ch-list {
 
 dl.ch-list {
     margin-bottom: 18px;
-}
 
-dl.ch-list dt,
-dl.ch-list dd {
-    line-height: 1.286em; /* 18px */
-}
+    dt,
+    dd {
+        line-height: 1.286em; /* 18px */        
+    }
 
-dl.ch-list dt {
-    font-weight: bold;
-}
+    dt {
+        font-weight: bold;       
+    }
 
-dl.ch-list dd {
-    margin: 5px 0 10px 10px;
+    dd {
+        margin: 5px 0 10px 10px;        
+    }
 }

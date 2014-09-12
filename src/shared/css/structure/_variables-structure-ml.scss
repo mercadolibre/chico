@@ -5,6 +5,29 @@
  * Global
  */
 
+/**
+ * Fonts
+ */
+
+$font__xx__large:					22px;
+$font__x__large:					20px;
+$font__large:						18px;
+$font__medium:						16px;
+$font__small:						15px;
+$font__x__small:					14px;
+$font__smaller:						12px;
+$font__smallest:					11px;
+
+$font__normal:						13px;
+$font__mini:						10px;
+		
+$font-weigth__normal:				normal;
+$font-weigth__bold:					bold;
+
+$font-underline:					underline;
+$font-no-underline:					none;	
+
+
 $margin-box-headings:			0;
 
 $margin-headers:				10px 0;
@@ -35,10 +58,18 @@ $btn-small-line-height:		  	12px;
 $border-radius:					4px;
 
 /**
+ * Forms
+ */
+
+
+/**
  * Tooltip
  */
 
  // box model
 
-$tooltip-padding:					8px 10px;
-$tooltip-border-radius:				5px;
+$tooltip-padding:				8px 10px;
+$tooltip-border-radius:			5px;
+
+$box-margin:					0 0 10px 0;
+$box-padding:					10px;

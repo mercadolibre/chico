@@ -4,17 +4,17 @@
 [class*='ch-box'] {
     -webkit-border-radius: 5px; /* Android 2.1 */
     border-radius: 5px;
-    padding: 10px;
-    margin: 0 0 10px 0;
+    margin: $box-margin;
+    padding: $box-padding;
 }
 
 .ch-box-lite,
 .ch-box {
-    border: 1px solid #DEDEDE;
+    border: 1px solid #dedede;
 }
 
 .ch-box-lite {
-    background-color: #FFF;
+    background-color: $white;
 }
 
 /**
@@ -23,24 +23,25 @@
 .ch-box-icon {
     position: relative;
     padding-left: 32px;
-}
 
-.ch-box-icon [class*='ch-icon-'] {
-    position: absolute;
-    top: 7px;
-    left: 5px;
+    [class*='ch-icon-'] {
+        position: absolute;
+        top: 7px;
+        left: 5px;
+    }
+
 }
 
 /**
  * Warn
  */
 .ch-icon-warning-sign {
-    color: #F5CC00;
+    color: $box-font-color-warning;
 }
 
 .ch-box-warn {
-    background-color: #FFF3C8;
-    color: #AA8749;
+    background-color: $box-bg-color-warning;
+    color: #aa8749;
 }
 
 
@@ -49,15 +50,16 @@
  */
 .ch-box-error,
 .ch-icon-remove-sign {
-    color: #B94A48;
+    color: $box-font-color-error;
 }
 
 .ch-box-error {
-    background-color: #F5E6E6;
-}
+    background-color: $box-bg-color-error;
 
-.ch-box-error a:visited {
-    color: #0033BB;
+    a:visited {
+        color: #0033bb;
+    }
+
 }
 
 /**
@@ -65,11 +67,11 @@
  */
 .ch-box-help,
 .ch-icon-help-sign {
-    color: #888888;
+    color: $box-font-color-help;
 }
 
 .ch-box-help {
-    background-color: #F0F0F0;
+    background-color: $box-bg-color-help;
 }
 
 /**
@@ -77,15 +79,16 @@
  */
 .ch-box-info,
 .ch-icon-info-sign {
-    color: #3A87AD;
+    color: $box-font-color-info;
 }
 
 .ch-box-info {
-    background-color: #E4F2F9;
-}
+    background-color: $box-bg-color-info;
 
-.ch-box-info a {
-    text-decoration: underline;
+    a {
+        text-decoration: $font-underline;
+    }
+
 }
 
 /**
@@ -93,9 +96,9 @@
  */
 .ch-box-ok,
 .ch-icon-ok-sign  {
-    color: #468847;
+    color: $box-font-color-ok;
 }
 
 .ch-box-ok {
-    background-color: #E9F4E4;
+    background-color: $box-bg-color-ok;
 }

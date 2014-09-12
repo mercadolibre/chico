@@ -4,10 +4,10 @@
 
 a {
 	color: $links;
-	text-decoration: none;
+	text-decoration: $font-no-underline;
 
 	&:hover {
-		text-decoration: underline;
+		text-decoration: $font-underline;
 	}
 
 	&:visited {
@@ -45,7 +45,6 @@ a {
 	&:active {
 		background: $btn-primary-active;
 	}
-
 }
 
 .ch-btn-big {
@@ -79,7 +78,6 @@ a {
 	&:active {
 		background: $btn-secondary-active;
 	}
-
 }
 
 .ch-btn-disabled-bg {
@@ -99,5 +97,4 @@ a {
 	&:hover {
 		@extend .ch-btn-disabled-bg;
 	}
-
 }
