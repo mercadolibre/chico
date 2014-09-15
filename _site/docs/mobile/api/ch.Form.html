@@ -1,0 +1,1095 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <script></script>
+        <meta charset="utf-8">
+        <title>Chico UI | ch.Form - API Documentation</title>
+        <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/v5.css">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="logo">Chico UI - Doc</h1>
+            <span class="version">v1.0.0</span>
+        </header>
+        <section class="main">
+            <article class="ch-g3-4">
+                <div class="ch-leftcolumn">
+                    <h1>ch.Form</h1>
+                    
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>Form is a controller of DOM's HTMLFormElement.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+    <pre><code class="language-javascript">// Create a new Form.
+var form = new ch.Form($el, [options]);</code></pre>
+
+    <pre><code class="language-javascript">// Create a new Form with jQuery or Zepto.
+var form = $(selector).form();</code></pre>
+
+    <pre><code class="language-javascript">// Create a new Form with custom messages.
+var form = $(selector).form({
+    'messages': {
+         'required': 'Some message!',
+         'email': 'Another message!'
+    }
+});</code></pre>
+
+    
+
+    
+        <h2 class="api-title">Parameters</h2>
+        
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">$el</code>
+             - 
+            
+                
+<em class="param-type">jQuerySelector | ZeptoSelector</em>
+            
+            : A jQuery or Zepto Selector to create an instance of ch.Form.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">options</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Options to customize an instance.
+
+            
+                
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">messages</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : A collections of validations messages.
+
+            
+                
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">required</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">string</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">url</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">email</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">maxLength</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">minLength</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">custom</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">number</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">min</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">max</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A validation message.
+
+            
+        </li>
+	
+</ul>
+            
+        </li>
+	
+</ul>
+            
+        </li>
+	
+</ul>
+    
+
+
+
+
+   <h2 class="api-title">Extends</h2>
+
+    <ul>
+        <li><a href="ch.Component.html">ch.Component</a></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Properties</h2>
+
+    <dl>
+        
+
+<h4>
+    <code class=" language-markup">.$container</code>
+    
+    
+<em class="param-type">jQuerySelector | ZeptoSelector</em>
+    
+</h4>
+
+
+<p>The form container.</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.Component#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of a component.</p>
+
+
+
+    
+    <pre><code class="language-javascript">// You can reach the associated instance.
+var component = $(selector).data(name);</code></pre>
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.errors</code>
+    
+    
+<em class="param-type">Array</em>
+    
+</h4>
+
+
+<p>A collection of active errors.</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.Form#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of the component.</p>
+
+
+
+    
+    <pre><code class="language-javascript">// You can reach the associated instance.
+var form = $(selector).data('form');</code></pre>
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.uid</code>
+    
+    
+<em class="param-type">Number</em>
+    
+</h4>
+
+
+<p>A unique id to identify the instance of a component.</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.validations</code>
+    
+    
+<em class="param-type">Array</em>
+    
+</h4>
+
+
+<p>A collection of validations instances.</p>
+
+
+
+    </dl>
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.destroy<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Destroys an instance of Component and remove its data from asociated element.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Destroy a component
+component.destroy();
+// Empty the component reference
+component = undefined;</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.disable<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Disables an instance of Component.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Disabling an instance of Component.
+component.disable();</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.enable<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Enables an instance of Component.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Enabling an instance of Component.
+component.enable();</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.require<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds functionality or abilities from other classes.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// You can require some abilitiest to use in your component.
+// For example you should require the collpasible abitliy.
+var component = new Component(element, options);
+component.require('Collapsible');</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.emit<span class="signature">(event, var_args)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Execute each item in the listener collection in order with the specified data.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The name of the event you want to emit.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">var_args</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Data to pass to the listeners.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Will emit the 'ready' event with 'param1' and 'param2' as arguments.
+component.emit('ready', 'param1', 'param2');</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.getListeners<span class="signature">(event)</span><span class="type-signature"> &rarr; {Array}</span></code></h4>
+<pre></pre>
+
+    <p>Returns all listeners from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Returns listeners from 'ready' event.
+component.getListeners('ready');</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.off<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Removes a listener from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">Function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Will remove event listener to 'ready' event.
+component.off('ready', listener);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.on<span class="signature">(event, listener, once)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name to subscribe.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">Function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">once</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Indicate if a listener function will be called only one time.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Will add an event listener to 'ready' event.
+component.on('ready', listener);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.once<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event to will execute only once.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">Function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Will add an event handler to 'contentLoad' event once.
+component.once('contentLoad', listener);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.clear<span class="signature">()</span><span class="type-signature"> &rarr; {form}</span></code></h4>
+<pre></pre>
+
+    <p>Clear all active errors.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Clear active errors.
+form.clear();</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.destroy<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Destroys a Form instance.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Destroy a form
+form.destroy();
+// Empty the form reference
+form = undefined;</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.hasError<span class="signature">()</span><span class="type-signature"> &rarr; {Boolean}</span></code></h4>
+<pre></pre>
+
+    <p>Checks if the form has got errors but it doesn't show bubbles.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Checks if a form has errors and do something.
+if (form.hasError()) {
+    // Some code here!
+};</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.reset<span class="signature">()</span><span class="type-signature"> &rarr; {form}</span></code></h4>
+<pre></pre>
+
+    <p>Clear all active errors and executes the reset() native mehtod.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Resets form fields and clears active errors.
+form.reset();</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.validate<span class="signature">()</span><span class="type-signature"> &rarr; {form}</span></code></h4>
+<pre></pre>
+
+    <p>Executes all validations.</p>
+
+
+
+
+
+
+    </dl>
+
+
+
+
+
+    <h2 class="api-title">Events</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">'beforevalidate'</code></h4>
+<pre></pre>
+
+    <p>It emits an event when the form will be validated.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Subscribe to "beforevalidate" event.
+component.on('beforevalidate', function () {
+    // Some code here!
+});</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'clear'</code></h4>
+<pre></pre>
+
+    <p>It emits an event when the form is cleaned.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Subscribe to "clear" event.
+form.on('clear', function () {
+    // Some code here!
+});</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'destroy'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is destroyed.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Subscribe to "destroy" event.
+component.on('destroy', function () {
+    // Some code here!
+});</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'disable'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is disable.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Subscribe to "disable" event.
+component.on('disable', function () {
+    // Some code here!
+});</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'enable'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is enabled.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Subscribe to "enable" event.
+component.on('enable', function () {
+    // Some code here!
+});</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'error'</code></h4>
+<pre></pre>
+
+    <p>It emits an event when a form has got errors.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Subscribe to "error" event.
+form.on('error', function (errors) {
+    console.log(errors.length);
+});</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'ready'</code></h4>
+<pre></pre>
+
+    <p>It emits an event when the form is ready to use.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Subscribe to "ready" event.
+form.on('ready', function () {
+    // Some code here!
+});</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'reset'</code></h4>
+<pre></pre>
+
+    <p>It emits an event when a form resets its fields.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Subscribe to "reset" event.
+form.on('reset', function () {
+    // Some code here!
+});</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'success'</code></h4>
+<pre></pre>
+
+    <p>It emits an event when a form hasn't got errors.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">// Subscribe to "success" event.
+form.on("submit",function () {
+    // Some code here!
+});</code></pre>
+
+    <pre><code class="language-javascript">// Subscribe to "success" event and prevent the submit event.
+form.on("submit",function (event) {
+    event.preventDefault();
+    // Some code here!
+});</code></pre>
+
+
+
+    </dl>
+
+
+
+
+
+
+                </div>
+            </article>
+
+            <aside class="ch-g1-4">
+                <nav class="ch-rightcolumn">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li><li><a href="ch.util.MBP.html">MBP</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </aside>
+
+        </section>
+
+        <footer>
+            <p class="updated">
+                Documentation updated on Wed Nov 06 2013 18:18:54 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+            </p>
+        </footer>
+
+        <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script>
+            $(function () {
+                $("#copyright").text((new Date().getFullYear()) + " ");
+            });
+        </script>
+    </body>
+</html>

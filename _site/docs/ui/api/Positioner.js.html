@@ -1,0 +1,341 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <script></script>
+        <meta charset="utf-8">
+        <title>Chico UI | Source: shared/js/Positioner.js - API Documentation</title>
+        <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/v5.css">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="logo">Chico UI - Doc</h1>
+            <span class="version">v1.0.0</span>
+        </header>
+        <section class="main">
+            <article class="ch-g3-4">
+                <div class="ch-leftcolumn">
+                    <h1>Source: shared/js/Positioner.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (window, $, ch) {
+    'use strict';
+
+    /**
+     * The Positioner lets you position elements on the screen and changes its positions.
+     * @memberof ch
+     * @constructor
+     * @param {Object} options Configuration object.
+     * @param {(jQuerySelector | ZeptoSelector)} options.target Reference to the element to be positioned.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
+     * @param {String} [options.position] Thethe type of positioning used. You must use: "absolute" or "fixed". Default: "fixed".
+     * @requires ch.util
+     * @requires ch.Viewport
+     * @returns {positioner} Returns a new instance of Positioner.
+     * @example
+     * // Instance the Positioner It requires a little configuration.
+     * // The default behavior place an element center into the Viewport.
+     * var positioned = new ch.Positioner({
+     *     'target': $(selector),
+     *     'reference': $(selector),
+     *     'side': 'top',
+     *     'align': 'left',
+     *     'offsetX': 20,
+     *     'offsetY': 10
+     * });
+     * @example
+     * // offsetX: The Positioner could be configurated with an offsetX.
+     * // This example show an element displaced horizontally by 10px of defined position.
+     * var positioned = new ch.Positioner({
+     *     'target': $(selector),
+     *     'reference': $(selector),
+     *     'side': 'top',
+     *     'align': 'left',
+     *     'offsetX': 10
+     * });
+     * @example
+     * // offsetY: The Positioner could be configurated with an offsetY.
+     * // This example show an element displaced vertically by 10px of defined position.
+     * var positioned = new ch.Positioner({
+     *     'target': $(selector),
+     *     'reference': $(selector),
+     *     'side': 'top',
+     *     'align': 'left',
+     *     'offsetY': 10
+     * });
+     * @example
+     * // positioned: The positioner could be configured to work with fixed or absolute position value.
+     * var positioned = new ch.Positioner({
+     *     'target': $(selector),
+     *     'reference': $(selector),
+     *     'position': 'fixed'
+     * });
+     */
+    function Positioner(options) {
+
+        if (options === undefined) {
+            throw new window.Error('ch.Positioner: Expected options defined.');
+        }
+
+        // Creates its private options
+        this._options = ch.util.clone(this._defaults);
+
+        // Init
+        this._configure(options);
+    }
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Positioner.prototype
+     * @type {String}
+     */
+    Positioner.prototype.name = 'positioner';
+
+    /**
+     * Returns a reference to the Constructor function that created the instance's prototype.
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @private
+     */
+    Positioner.prototype._constructor = Positioner;
+
+    /**
+     * Configuration by default.
+     * @type {Object}
+     * @private
+     */
+    Positioner.prototype._defaults = {
+        'offsetX': 0,
+        'offsetY': 0,
+        'side': 'center',
+        'align': 'center',
+        'reference': ch.viewport,
+        'position': 'fixed'
+    };
+
+    /**
+     * Configures the positioner instance with a given options.
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @private
+     * @returns {positioner}
+     * @params {Object} options A configuration object.
+     */
+    Positioner.prototype._configure = function (options) {
+
+        // Merge user options with its options
+        $.extend(this._options, options);
+
+        this._options.offsetX = parseInt(this._options.offsetX, 10);
+        this._options.offsetY = parseInt(this._options.offsetY, 10);
+
+        /**
+         * Reference to the element to be positioned.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        this.$target = options.target || this.$target;
+
+
+        /**
+         * It's a reference to position and size of element that will be considered to carry out the position.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        this.$reference = options.reference || this.$reference;
+        this._reference = this._options.reference;
+
+        this.$target.css('position', this._options.position);
+
+        return this;
+    };
+
+    /**
+     * Updates the current position with a given options
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @returns {positioner}
+     * @params {Object} options A configuration object.
+     * @example
+     * // Updates the current position.
+     * positioned.refresh();
+     * @example
+     * // Updates the current position with new offsetX and offsetY.
+     * positioned.refresh({
+     *     'offestX': 100,
+     *     'offestY': 10
+     * });
+     */
+    Positioner.prototype.refresh = function (options) {
+
+        if (options !== undefined) {
+            this._configure(options);
+        }
+
+        if (this._reference !== ch.viewport) {
+            this._calculateReference();
+        }
+
+        this._calculateTarget();
+
+        // the object that stores the top, left reference to set to the target
+        this._setPoint();
+
+        return this;
+    };
+
+    /**
+     * Calculates the reference (element or ch.viewport) of the position.
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @private
+     * @returns {positioner}
+     */
+    Positioner.prototype._calculateReference = function () {
+
+        var reference = this.$reference[0],
+            offset;
+
+        reference.setAttribute('data-side', this._options.side);
+        reference.setAttribute('data-align', this._options.align);
+
+        this._reference = ch.util.getOuterDimensions(reference);
+
+        if (reference.offsetParent === this.$target[0].offsetParent) {
+            this._reference.left = reference.offsetLeft;
+            this._reference.top = reference.offsetTop;
+
+        } else {
+            offset = ch.util.getOffset(reference);
+            this._reference.left = offset.left;
+            this._reference.top = offset.top;
+        }
+
+        return this;
+    };
+
+    /**
+     * Calculates the positioned element.
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @private
+     * @returns {positioner}
+     */
+    Positioner.prototype._calculateTarget = function () {
+
+        var target = this.$target[0];
+        target.setAttribute('data-side', this._options.side);
+        target.setAttribute('data-align', this._options.align);
+
+        this._target = ch.util.getOuterDimensions(target);
+
+        return this;
+    };
+
+    /**
+     * Calculates the points.
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @private
+     * @returns {positioner}
+     */
+    Positioner.prototype._setPoint = function () {
+        var side = this._options.side,
+            oritentation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
+            coors,
+            oritentationMap;
+
+        // take the side and calculate the alignment and make the CSSpoint
+        if (oritentation === 'center') {
+            // calculates the coordinates related to the center side to locate the target
+            coors = {
+                'top': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
+                'left': (this._reference.left + (this._reference.width / 2 - this._target.width / 2))
+            };
+
+        } else if (oritentation === 'horizontal') {
+            // calculates the coordinates related to the top or bottom side to locate the target
+            oritentationMap = {
+                'left': this._reference.left,
+                'center': (this._reference.left + (this._reference.width / 2 - this._target.width / 2)),
+                'right': (this._reference.left + this._reference.width - this._target.width),
+                'top': this._reference.top - this._target.height,
+                'bottom': (this._reference.top + this._reference.height)
+            };
+
+            coors = {
+                'top': oritentationMap[side],
+                'left': oritentationMap[this._options.align]
+            };
+
+        } else {
+            // calculates the coordinates related to the right or left side to locate the target
+            oritentationMap = {
+                'top': this._reference.top,
+                'center': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
+                'bottom': (this._reference.top + this._reference.height - this._target.height),
+                'right': (this._reference.left + this._reference.width),
+                'left': (this._reference.left - this._target.width)
+            };
+
+            coors = {
+                'top': oritentationMap[this._options.align],
+                'left': oritentationMap[side]
+            };
+        }
+
+        coors.top += this._options.offsetY;
+        coors.left += this._options.offsetX;
+
+        this.$target.css(coors);
+
+        return this;
+    };
+
+    ch.Positioner = Positioner;
+
+}(this, this.ch.$, this.ch));</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </article>
+
+            <aside class="ch-g1-4">
+                <nav class="ch-rightcolumn">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </aside>
+
+        </section>
+
+        <footer>
+            <p class="updated">
+                Documentation updated on Wed Nov 06 2013 18:18:33 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+            </p>
+        </footer>
+
+        <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script>
+            $(function () {
+                $("#copyright").text((new Date().getFullYear()) + " ");
+            });
+        </script>
+    </body>
+</html>

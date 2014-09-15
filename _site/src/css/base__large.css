@@ -1,0 +1,281 @@
+/**
+ * Navigation boilerplate
+ * @description: A responsive frame to wrap your layout. Use only the fragments you need.
+ */
+
+/* Icons
+---------------------------------------------------------------*/
+
+@font-face {
+  font-family: 'navigation';
+  src: url('http://static.mlstatic.com/org-img/ui/navigation/1.0.0/navigation.eot?93575983');
+  src: url('http://static.mlstatic.com/org-img/ui/navigation/1.0.0/navigation.eot?93575983#iefix') format('embedded-opentype'),
+       url('http://static.mlstatic.com/org-img/ui/navigation/1.0.0/navigation.woff?93575983') format('woff'),
+       url('http://static.mlstatic.com/org-img/ui/navigation/1.0.0/navigation.ttf?93575983') format('truetype'),
+       url('http://static.mlstatic.com/org-img/ui/navigation/1.0.0/navigation.svg?93575983#fontello') format('svg');
+  font-style: normal;
+  font-weight: normal;
+}
+
+[class^='ml-icon-']:before,
+[class*=' ml-icon-']:before {
+    display: inline-block;
+    font-family: 'navigation';
+    font-style: normal;
+    font-variant: normal; /* For safety - reset parent styles, that can break glyph codes*/
+    margin: 0 .2em;
+    speak: none;
+    text-align: center;
+    width: 1em;
+}
+
+
+/* Base
+---------------------------------------------------------------*/
+html,
+body {
+    font-size: 13px;
+}
+
+/* Bounds
+---------------------------------------------------------------*/
+
+.ml-bounds {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+    main.ml-bounds,
+    [role='main'].ml-bounds {
+        padding-top: 1em;
+    }
+
+.ml-wrapper {
+    padding-top: 54px; /* same as header height */
+}
+
+    .ml-wrapper:after {
+        height: 42px; /* same as footer height */
+    }
+
+
+/* Hidden elements from smaller devices
+---------------------------------------------------------------*/
+
+.ml-header h1,
+.ml-header-btn,
+.ml-footer-user {
+    display: none;
+}
+
+
+/* Header
+---------------------------------------------------------------*/
+
+.ml-header {
+    background-image: none;
+    height: 54px;
+    left: 0;
+    position: absolute; /* Just change this to FIXED for a fixed header */
+    right: 0;
+    top: 0;
+}
+
+    .ml-header .ml-bounds {
+        position: relative;
+    }
+
+.ml-header-menu a.active {
+    font-weight: bold;
+}
+
+/* Logo
+---------------------------------------------------------------*/
+
+.ml-logo {
+    /* HTTPS logo: https://secure.mlstatic.com/org-img/ui/ml/logo/1.0.0/mercadolibre.png */
+    background-image: url('http://static.mlstatic.com/org-img/ui/ml/logo/1.0.0/mercadolibre.png');
+    display: block;
+    height: 42px;
+    margin-top: 6px; /* difference between header height and image height */
+    overflow: hidden;
+    text-indent: -999px;
+    width: 160px;
+}
+
+[data-country='MLB'] .ml-logo,
+[data-country='MPT'] .ml-logo {
+    /* HTTPS logo: https://secure.mlstatic.com/org-img/ui/ml/logo/1.0.0/mercadolivre.png */
+    background-image: url('http://static.mlstatic.com/org-img/ui/ml/logo/1.0.0/mercadolivre.png');
+}
+
+
+/* Header Menu
+---------------------------------------------------------------*/
+
+.ml-header-menu {
+    bottom: 0;
+    display: block;
+    position: absolute;
+    right: 10px; /* same as ml-bounds right padding */
+    top: 0;
+    line-height: 42px; /* same as logo height because that's giving the size to the bounds */
+}
+
+    /* Normal state */
+    .ml-header-menu > a,
+    .lt-ie9 .ml-header-menu a, /* IE8 replacement for layer */
+    .lt-ie9 .ml-header-menu a:visited,
+    [for='ml-header-user'] {
+        color: #716e39;
+        text-decoration: none;
+    }
+
+    /* Hover state */
+    .ml-header-menu > a:hover,
+    .lt-ie9 .ml-header-menu a:hover, /* IE8 replacement for layer */
+    [for='ml-header-user']:hover {
+        color: #4e4e31;
+    }
+
+    .ml-header-menu > a {
+        border-left: 1px solid #dccf50;
+        padding: .4em .8em; /* same as margin of the user menu label */
+    }
+
+        .ml-header-menu > a:last-of-type {
+            border-right: none;
+        }
+
+    .ml-header-menu i:before {
+        vertical-align: middle;
+        color: inherit;
+    }
+
+    .ml-icon-user:before {
+        content: '\e801';
+        font-size: 1.6em;
+        margin-left: .4em;
+    }
+
+    .ml-icon-help-circled:before {
+        content: '\e800';
+        font-size: 1.5em;
+    }
+
+
+/* User Layer
+---------------------------------------------------------------*/
+
+[for='ml-header-user'] {
+    cursor: pointer;
+    font-size: .85em;
+    padding: .85em 0;
+    margin-right: .85em; /* same as padding of the menu anchors */
+    text-transform: uppercase;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#ml-header-user,
+.ml-header-user-layer {
+    display: none;
+}
+
+.ml-header-user-layer {
+    background-color: #fff;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(99, 99, 99, .2);
+    left: 0;
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+}
+
+    .ml-header-user-layer:before,
+    .ml-header-user-layer:after {
+        border: outset transparent; /* border transparent bug on FF: http://stackoverflow.com/a/6225439 */
+        border-bottom-style: solid;
+        bottom: 100%;
+        content: '';
+        display: block;
+        height: 0;
+        pointer-events: none;
+        position: absolute;
+        width: 0;
+    }
+
+    .ml-header-user-layer:before {
+        border-bottom-color: #ddd;
+        border-width: 10px;
+        left: 50%;
+        margin-left: -10px;
+    }
+
+    .ml-header-user-layer:after {
+        border-bottom-color: #fff;
+        border-width: 9px;
+        left: 50%;
+        margin-left: -9px;
+    }
+
+    .ml-header-user-layer a {
+        color: #000;
+        display: block;
+        line-height: 25px;
+        margin: 3px 0;
+        padding: 5px 15px;
+        text-decoration: none;
+    }
+
+        .ml-header-user-layer a:hover {
+            background-color: #fefbd6;
+        }
+
+    #ml-header-user:checked + .ml-header-user-layer {
+        display: block;
+    }
+
+
+/* Footer
+---------------------------------------------------------------*/
+
+.ml-footer {
+    background-color: #f7f7f7;
+    border-top: 1px solid #eee;
+    height: 42px; /* same as ml-wrapper:after size */
+    line-height: 42px; /* same as height */
+    margin-top: -42px; /* same as height */
+}
+
+    .ml-footer small {
+        line-height: 1em;
+    }
+
+    .ml-footer nav {
+        display: inline-block;
+    }
+
+        .ml-footer nav a {
+            border-right: 1px solid #ddd;
+            padding: 0 .8em;
+        }
+
+        .ml-footer nav a:last-of-type {
+            border-right: none;
+        }
+
+
+/* Contextual layout
+---------------------------------------------------------------*/
+
+.ml-contextual main,
+.ml-contextual [role='main'] {
+    background-color: #fff;
+    margin: 3em auto;
+    max-width: 768px;
+    padding: 0;
+}

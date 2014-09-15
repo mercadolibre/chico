@@ -1,0 +1,172 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <script></script>
+        <meta charset="utf-8">
+        <title>Chico UI | Source: shared/js/Max.js - API Documentation</title>
+        <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/v5.css">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="logo">Chico UI - Doc</h1>
+            <span class="version">v1.0.0</span>
+        </header>
+        <section class="main">
+            <article class="ch-g3-4">
+                <div class="ch-leftcolumn">
+                    <h1>Source: shared/js/Max.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (window, ch) {
+    'use strict';
+
+    /**
+     * Normalizes and creates an options object
+     * @private
+     * @function
+     * @returns {Object}
+     */
+    function normalizeOptions(num, message) {
+        var options,
+            condition = {
+                'name': 'max'
+            };
+
+        // If the first paramater is an object, it creates a condition and append to options
+        if (typeof num === 'object') {
+
+            // Stores the current options
+            options = num;
+
+            // Creates condition properties
+            condition.num = options.num;
+            condition.message = options.message;
+
+            // Removes the keys that has been stored into the condition
+            delete options.num;
+            delete options.message;
+
+        // Creates an option object if receive more than one parameter
+        } else {
+            options = {};
+            condition.num = num;
+            condition.message = message;
+        }
+
+        // Appends condition object into conditions collection
+        options.conditions = [condition];
+
+        return options;
+    }
+
+    /**
+     * Max creates a new instance of Validation to validate a number with a maximun value.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Validation
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Number} [options.num] A given maximun value.
+     * @param {String} [options.message] The given error message to the condition.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
+     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
+     * @param {String} [options.position] The type of positioning used. Default: "absolute".
+     * @returns {validation} Returns a new instance of Validation.
+     * @example
+     * // Create a new Max Validation.
+     * var maxValidation = new ch.Max($el, [options]);
+     * @example
+     * // Create a new Max validation with jQuery or Zepto.
+     * var maxValidation = $(selector).max([options]);
+     * @example
+     * // Create a new Max validation with custom options.
+     * var maxValidation = $(selector).max({
+     *     'num': 10,
+     *     'message': 'Write a number smaller than 10.',
+     *     'offsetX': 0,
+     *     'offsetY': 10,
+     *     'side': 'bottom',
+     *     'align': 'left'
+     * });
+     * @example
+     * // Create a new Max validation using the shorthand way (number and message as parameters).
+     * var maxValidation = $(selector).max(10, 'Write a number smaller than 10.');
+     */
+    function Max($el, options) {
+        return new ch.Validation($el, options);
+    }
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Max.prototype
+     * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var maxValidation = $(selector).data('validation');
+     */
+    Max.prototype.name = 'max';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Max.prototype
+     * @function
+     */
+    Max.prototype.constructor = Max;
+
+    /**
+     * The preset name.
+     * @memberof! ch.Max.prototype
+     * @type {String}
+     * @private
+     */
+    Max.prototype._preset = 'validation';
+
+    ch.factory(Max, normalizeOptions);
+
+}(this, this.ch));</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </article>
+
+            <aside class="ch-g1-4">
+                <nav class="ch-rightcolumn">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li><li><a href="ch.util.MBP.html">MBP</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </aside>
+
+        </section>
+
+        <footer>
+            <p class="updated">
+                Documentation updated on Wed Nov 06 2013 18:18:52 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+            </p>
+        </footer>
+
+        <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script>
+            $(function () {
+                $("#copyright").text((new Date().getFullYear()) + " ");
+            });
+        </script>
+    </body>
+</html>

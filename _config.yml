@@ -1,0 +1,19 @@
+# Site settings
+title: Chico UI
+email: chico@mercadolibre.com
+description: "A collection of easy-to-use UI components"
+baseurl: "/chico"
+twitter_username: chicoui
+github_username:  chicoui
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# The folder destination where Jekyll will write files
+destination: _site/
+
+# Set the files encoding
+encoding: utf-8
+
+#ATENCION: si no anda hay que desomcentar del bash_profile #source ~/.profile

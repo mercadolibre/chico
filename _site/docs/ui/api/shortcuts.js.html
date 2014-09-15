@@ -1,0 +1,246 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <script></script>
+        <meta charset="utf-8">
+        <title>Chico UI | Source: ui/js/shortcuts.js - API Documentation</title>
+        <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/v5.css">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="logo">Chico UI - Doc</h1>
+            <span class="version">v1.0.0</span>
+        </header>
+        <section class="main">
+            <article class="ch-g3-4">
+                <div class="ch-leftcolumn">
+                    <h1>Source: ui/js/shortcuts.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (window, $, ch) {
+    'use strict';
+
+    var $document = $(window.document),
+        codeMap = {
+            '8': ch.onkeybackspace,
+            '9': ch.onkeytab,
+            '13': ch.onkeyenter,
+            '27': ch.onkeyesc,
+            '37': ch.onkeyleftarrow,
+            '38': ch.onkeyuparrow,
+            '39': ch.onkeyrightarrow,
+            '40': ch.onkeydownarrow
+        },
+
+        /**
+         * Shortcuts
+         * @memberof ch
+         * @namespace
+         */
+        shortcuts = {
+
+            '_active': null,
+
+            '_queue': [],
+
+            '_collection': {},
+
+            /**
+             * Add a callback to a shortcut with given name.
+             * @param {(ch.onkeybackspace | ch.onkeytab | ch.onkeyenter | ch.onkeyesc | ch.onkeyleftarrow | ch.onkeyuparrow | ch.onkeyrightarrow | ch.onkeydownarrow)} shortcut Shortcut to subscribe.
+             * @param {String} name A name to add in the collection.
+             * @param {Function} callback A given function.
+             * @returns {Object} Retuns the ch.shortcuts.
+             * @example
+             * // Add a callback to ESC key with "component" name.
+             * ch.shortcuts.add(ch.onkeyesc, 'component', component.hide);
+             */
+            'add': function (shortcut, name, callback) {
+
+                if (this._collection[name] === undefined) {
+                    this._collection[name] = {};
+                }
+
+                if (this._collection[name][shortcut] === undefined) {
+                    this._collection[name][shortcut] = [];
+                }
+
+                this._collection[name][shortcut].push(callback);
+
+                return this;
+
+            },
+
+            /**
+             * Removes a callback from a shortcut with given name.
+             * @param {String} name A name to remove from the collection.
+             * @param {(ch.onkeybackspace | ch.onkeytab | ch.onkeyenter | ch.onkeyesc | ch.onkeyleftarrow | ch.onkeyuparrow | ch.onkeyrightarrow | ch.onkeydownarrow)} [shortcut] Shortcut to unsubscribe.
+             * @param {Function} callback A given function.
+             * @returns {Object} Retuns the ch.shortcuts.
+             * @example
+             * // Remove a callback from ESC key with "component" name.
+             * ch.shortcuts.remove(ch.onkeyesc, 'component', component.hide);
+             */
+            'remove': function (name, shortcut, callback) {
+                var evt,
+                    evtCollection,
+                    evtCollectionLenght;
+
+                if (name === undefined) {
+                    throw new Error('Shortcuts - "remove(name, shortcut, callback)": "name" parameter must be defined.');
+                }
+
+                if (shortcut === undefined) {
+                    delete this._collection[name];
+                    return this;
+                }
+
+                if (callback === undefined) {
+                    delete this._collection[name][shortcut];
+                    return this;
+                }
+
+                evtCollection = this._collection[name][shortcut];
+
+                evtCollectionLenght = evtCollection.length;
+
+                for (evt = 0; evt &lt; evtCollectionLenght; evt += 1) {
+
+                    if (evtCollection[evt] === callback) {
+                        evtCollection.splice(evt, 1);
+                    }
+                }
+
+                return this;
+
+            },
+
+            /**
+             * Turn on shortcuts associated to a given name.
+             * @param {String} name A given name from the collection.
+             * @returns {Object} Retuns the ch.shortcuts.
+             * @example
+             * // Turn on shortcuts associated to "component" name.
+             * ch.shortcuts.on('component');
+             */
+            'on': function (name) {
+                var queueLength = this._queue.length,
+                    item = queueLength - 1;
+
+                // check if the instance exist and move the order, adds it at the las position and removes the current
+                for (item; item >= 0; item -= 1) {
+                    if (this._queue[item] === name) {
+                        this._queue.splice(item, 1);
+                    }
+                }
+
+                this._queue.push(name);
+                this._active = name;
+
+                return this;
+            },
+
+            /**
+             * Turn off shortcuts associated to a given name.
+             * @param {String} name A given name from the collection.
+             * @returns {Object} Retuns the ch.shortcuts.
+             * @example
+             * // Turn off shortcuts associated to "component" name.
+             * ch.shortcuts.off('component');
+             */
+            'off': function (name) {
+                var queueLength = this._queue.length,
+                    item = queueLength - 1;
+
+                for (item; item >= 0; item -= 1) {
+                    if (this._queue[item] === name) {
+                        // removes the instance that I'm setting off
+                        this._queue.splice(item, 1);
+
+                        // the queue is full
+                        if (this._queue.length > 0) {
+                            this._active = this._queue[this._queue.length - 1];
+                        } else {
+                        // the queue no has elements
+                            this._active = null;
+                        }
+                    }
+                }
+
+                return this;
+            }
+        };
+
+    $document.on('keydown.shortcuts', function (event) {
+        var keyCode = event.keyCode.toString(),
+            shortcut = codeMap[keyCode],
+            callbacks,
+            callbacksLenght,
+            i = 0;
+
+        if (shortcut !== undefined && shortcuts._active !== null) {
+            callbacks = shortcuts._collection[shortcuts._active][shortcut];
+
+            event.type = shortcut;
+
+
+            if (callbacks !== undefined) {
+
+                callbacksLenght = callbacks.length;
+
+                for (i = 0; i &lt; callbacksLenght; i += 1) {
+                    callbacks[i](event);
+                }
+
+            }
+
+        }
+    });
+
+    ch.shortcuts = shortcuts;
+
+}(this, this.ch.$, this.ch));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </article>
+
+            <aside class="ch-g1-4">
+                <nav class="ch-rightcolumn">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </aside>
+
+        </section>
+
+        <footer>
+            <p class="updated">
+                Documentation updated on Wed Nov 06 2013 18:18:33 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+            </p>
+        </footer>
+
+        <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script>
+            $(function () {
+                $("#copyright").text((new Date().getFullYear()) + " ");
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <script></script>
+        <meta charset="utf-8">
+        <title>Chico UI | Source: ui/js/Validation.js - API Documentation</title>
+        <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/v5.css">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="logo">Chico UI - Doc</h1>
+            <span class="version">v1.0.0</span>
+        </header>
+        <section class="main">
+            <article class="ch-g3-4">
+                <div class="ch-leftcolumn">
+                    <h1>Source: ui/js/Validation.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function ($, ch) {
+    'use strict';
+
+    /**
+     * Creates a bubble to show the validation message.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @private
+     * @returns {validation}
+     */
+    ch.Validation.prototype._configureContainer = function () {
+
+        var that = this;
+
+        /**
+         * Is the little sign that popover showing the validation message. It's a Popover component, so you can change it's content, width or height and change its visibility state.
+         * @type {Bubble}
+         * @see ch.Bubble
+         */
+        this.bubble = this._container = $.bubble({
+            'reference': (function () {
+                var reference,
+                    $trigger = that.$trigger,
+                    h4;
+                // CHECKBOX, RADIO
+                // TODO: when old forms be deprecated we must only support ch-list-options class
+                if ($trigger.hasClass('ch-list-options')) {
+                // Helper reference from will be fired
+                // H4
+                    if ($trigger.find('h4').length > 0) {
+                        h4 = $trigger.find('h4'); // Find h4
+                        h4.wrapInner('&lt;span>'); // Wrap content with inline element
+                        reference = h4.children(); // Inline element in h4 like helper reference
+                    // Legend
+                    } else if ($trigger.prev().prop('tagName') === 'LEGEND') {
+                        reference = $trigger.prev(); // Legend like helper reference
+                    } else {
+                        reference = $($trigger.find('label')[0]);
+                    }
+                // INPUT, SELECT, TEXTAREA
+                } else {
+                    reference = $trigger;
+                }
+
+                return reference;
+            }()),
+            'align': that._options.align,
+            'side': that._options.side,
+            'offsetY': that._options.offsetY,
+            'offsetX': that._options.offsetX
+        });
+
+    };
+
+    /**
+     * Shows the validation message.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @private
+     * @returns {validation}
+     */
+    ch.Validation.prototype._showErrorMessage = function (message) {
+        this.bubble.show(message);
+        this.$trigger.attr('aria-label', 'ch-' + this.bubble.name + '-' + this.bubble.uid);
+
+        return this;
+    };
+
+    /**
+     * Hides the validation message.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @private
+     * @returns {validation}
+     */
+    ch.Validation.prototype._hideErrorMessage = function () {
+        this.bubble.hide();
+        this.$trigger.removeAttr('aria-label');
+
+        return this;
+    };
+
+    /**
+     * Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @returns {validation}
+     * @example
+     * // Change validaton bubble's position.
+     * validation.refreshPosition({
+     *     offsetY: -10,
+     *     side: 'top',
+     *     align: 'left'
+     * });
+     */
+    ch.Validation.prototype.refreshPosition = function (options) {
+
+        if (options === undefined) {
+            return this.bubble._position;
+        }
+
+        this.bubble.refreshPosition(options);
+
+        return this;
+    };
+
+}(this.ch.$, this.ch));</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </article>
+
+            <aside class="ch-g1-4">
+                <nav class="ch-rightcolumn">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </aside>
+
+        </section>
+
+        <footer>
+            <p class="updated">
+                Documentation updated on Wed Nov 06 2013 18:18:33 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+            </p>
+        </footer>
+
+        <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script>
+            $(function () {
+                $("#copyright").text((new Date().getFullYear()) + " ");
+            });
+        </script>
+    </body>
+</html>

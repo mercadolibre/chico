@@ -1,0 +1,23 @@
+---
+layout: ui-components
+title:  "Icons"
+permalink: ui-components/icons
+tags: icons
+---
+
+Text
+---------------------
+
+Descripción del text. **Esto es destacado**.
+
+
+<!-- Component snippet code -->
+{% highlight ruby %}
+<i class=”ch-icon-envelope”></i>
+{% endhighlight %}
+
+
+<!-- Component example -->
+<div class="component-example">
+	Text example
+</div>

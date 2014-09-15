@@ -1,0 +1,516 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <script></script>
+        <meta charset="utf-8">
+        <title>Chico UI | util (Namespace) - API Documentation</title>
+        <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
+        <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/v5.css">
+    </head>
+
+    <body>
+        <header>
+            <h1 class="logo">Chico UI - Doc</h1>
+            <span class="version">v1.0.0</span>
+        </header>
+        <section class="main">
+            <article class="ch-g3-4">
+                <div class="ch-leftcolumn">
+                    <h1>util (Namespace)</h1>
+                    
+
+
+
+
+
+
+
+    
+        <h2 class="api-title">Description</h2>
+        <p>Provides varies utilities and commons functions that are used across all components.</p>
+    
+
+    
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Namespaces</h2>
+
+    <dl>
+        <dt><a href="namespaces.html#ch.util.MBP"><a href="ch.util.MBP.html">MBP</a></a></dt>
+        <dd></dd>
+    </dl>
+
+
+
+    <h2 class="api-title">Properties</h2>
+
+    <dl>
+        
+
+<h4>
+    <code class=" language-markup">.$mainView</code>
+    
+</h4>
+
+
+<p>Reference to the index page</p>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.$mainView;</code></pre>
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.fixLabels</code>
+    
+</h4>
+
+
+<p>Fixes the broken iPad/iPhone form label click issue.</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.is$</code>
+    
+</h4>
+
+
+<p>Determines if a specified element is an instance of $.</p>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.is$($('element')); // true</code></pre>
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.isArray</code>
+    
+</h4>
+
+
+<p>Returns true if an object is an array, false if it is not.</p>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.isArray([1, 2, 3]); // true</code></pre>
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.VENDOR_PREFIX</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>Reference to the vendor prefix of the current browser.</p>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.VENDOR_PREFIX === 'webkit';</code></pre>
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup">.zIndex</code>
+    
+    
+<em class="param-type">Number</em>
+    
+</h4>
+
+
+<p>zIndex values.</p>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.zIndex += 1;</code></pre>
+
+
+    </dl>
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.avoidTextSelection<span class="signature">(jQuery)</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Adds CSS rules to disable text selection highlighting.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">jQuery</code>
+             - 
+            
+                
+<em class="param-type">jQuerySelector</em>
+            
+            : or Zepto Selector to disable text selection highlighting.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.avoidTextSelection($(selector));</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.clone<span class="signature">(obj)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Returns a shallow-copied clone of the object.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">obj</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : The object to copy.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.clone(object);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.getOffset<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Get the current offset of an element.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.getOffset(HTMLElement);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.getOuterDimensions<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Get the current outer dimensions of an element.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.getOuterDimensions(HTMLElement);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.getScroll<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Get the current vertical and horizontal positions of the scroll bar.</p>
+
+
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.getScroll();</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.getStyles<span class="signature">(el, prop)</span><span class="type-signature"> &rarr; {CSSStyleDeclaration}</span></code></h4>
+<pre></pre>
+
+    <p>Gives the final used values of all the CSS properties of an element.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">el</code>
+             - 
+            
+                
+<em class="param-type">object</em>
+            
+            : The HTMLElement for which to get the computed style.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">prop</code>
+             - 
+            
+                
+<em class="param-type">string</em>
+            
+            : The name of the CSS property to test.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.getStyles(HTMLElement, 'color'); // true</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.inherits<span class="signature">(obj, superConstructor)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">obj</code>
+             - 
+            
+                
+<em class="param-type">Function</em>
+            
+            : The object that have new members.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">superConstructor</code>
+             - 
+            
+                
+<em class="param-type">Function</em>
+            
+            : The construsctor Class.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.inherit(obj, parent);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.isUrl<span class="signature">(url)</span><span class="type-signature"> &rarr; {Boolean}</span></code></h4>
+<pre></pre>
+
+    <p>Checks if the url given is right to load content.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">url</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The url to be checked.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.isUrl('www.chico-ui.com.ar'); // true</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.prevent<span class="signature">(event)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Prevent default actions of a given event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">Event</em>
+            
+            : The event ot be prevented.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">ch.util.prevent(event);</code></pre>
+
+
+
+    </dl>
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </article>
+
+            <aside class="ch-g1-4">
+                <nav class="ch-rightcolumn">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li><li><a href="ch.util.MBP.html">MBP</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </aside>
+
+        </section>
+
+        <footer>
+            <p class="updated">
+                Documentation updated on Wed Nov 06 2013 18:18:55 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+            </p>
+        </footer>
+
+        <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script>
+            $(function () {
+                $("#copyright").text((new Date().getFullYear()) + " ");
+            });
+        </script>
+    </body>
+</html>

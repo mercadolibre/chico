@@ -1,0 +1,75 @@
+/**
+ * MercadoLibre Chico
+ * @description:
+ */
+
+/* Chico
+---------------------------------------------------------------*/
+
+h1 {
+	font-size: 60px;
+}
+
+.ml-wrapper {
+	padding-bottom: 0;
+}
+
+section {
+	padding: 40px 0 70px;
+}
+
+.chico-head {
+	padding: 90px 70px;
+}
+
+.chico-head-help {
+	padding: 50px 70px;
+}
+
+.chico-bottom .ml-bounds {
+	max-width: 800px;
+	margin: auto;
+}
+
+.chico-bottom .mesh-m-6 {
+	float: none;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.chico-bottom .chico-box-circle {
+	float: right;
+	margin-right: 20px;
+}
+
+
+
+/* Navigation
+---------------------------------------------------------------*/
+
+.chico-nav {
+    display: block;
+    float: right;
+}
+
+.chico-nav.sticky {
+	position: fixed;
+	z-index: 555;
+	top: 20px;
+	right: 63px;
+}
+
+.chico-nav ul {
+    border-left: solid 1px #ccc;
+    padding-left: 20px;
+}
+
+.chico-nav li a {
+	display: block;
+	padding: 5px 0;
+	color: #0033CC;
+}
+
+.chico-nav li > ul > li {
+	padding-left: 15px;
+}
