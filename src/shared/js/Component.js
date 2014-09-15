@@ -92,7 +92,8 @@
             }
 
         // selector is an object configuration
-        } else if (typeof selector === 'object') {
+        } else if (typeof selector === 'object' || selector === undefined) {
+
             // creates a empty element becouse the user not set a DOM elment to use, but we requires one
             this._el = document.createElement('div');
 
