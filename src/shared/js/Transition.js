@@ -14,7 +14,7 @@
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
+     * @param {String} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -24,8 +24,8 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
+     * @param {(HTMLElement | String)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
      * @returns {transition} Returns a new instance of Transition.
      * @example
      * // Create a new Transition.
@@ -44,22 +44,29 @@
      */
     function Transition(selector, options) {
 
-        if (options === undefined && selector !== undefined && !(selector instanceof HTMLElement)) {
-            options = selector;
-            selector = undefined;
+        if (selector === undefined || options === undefined) {
+            options = {};
         }
 
-        options = ch.util.extend(ch.util.clone(this._defaults), options);
-
-
-
-
         options.content = (function () {
-            var dummyElement = document.createElement('div');
-            dummyElement.innerHTML = '<section><div class="ch-loading-large"></div><p>' + options.content + '</p></section>';
+            var dummyElement = document.createElement('div'),
+                content = options.waiting || '';
 
-            return dummyElement.querySelector('section');
+            // TODO: options.content could be a HTMLElement
+            dummyElement.innerHTML = '<div class="ch-loading-large"></div><p>' + content + '</p>';
+
+            return dummyElement.firstChild;
         }());
+
+        // selector is not defined
+        if (selector === undefined) {
+            selector = ch.util.extend(ch.util.clone(this._defaults), options);
+        // selector is present as a object configuration
+        } else if (selector !== undefined && typeof selector === 'object') {
+            selector = ch.util.extend(ch.util.clone(this._defaults), selector);
+        } else if (options !== undefined) {
+            options = ch.util.extend(ch.util.clone(this._defaults), options);
+        }
 
         return new ch.Modal(selector, options);
     }
