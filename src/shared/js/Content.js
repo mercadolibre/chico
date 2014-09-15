@@ -72,7 +72,14 @@
          * @private
          */
         function setContent(content) {
-            that._content.innerHTML = content;
+
+            if (content.nodeType !== undefined) {
+                that._content.innerHTML = '';
+                that._content.appendChild(content);
+            } else {
+                that._content.innerHTML = content;
+            }
+
 
             that._options.cache = true;
 
@@ -202,12 +209,10 @@
                 ch.util.classList(content).remove('ch-hide');
                 parent = ch.util.parentElement(content);
 
-                setContent(content.outerHTML);
+                setContent(content);
 
                 if (!that._options.cache) {
                     parent.removeChild(content);
-                } else {
-                    ch.util.classList(content).add('ch-hide');
                 }
 
             }
