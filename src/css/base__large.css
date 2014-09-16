@@ -137,7 +137,7 @@ body {
     position: absolute;
     right: 10px; /* same as ml-bounds right padding */
     top: 0;
-    line-height: 42px; /* same as logo height because that's giving the size to the bounds */
+    line-height: 55px; /* same as logo height because that's giving the size to the bounds */
 }
 
     /* Normal state */
