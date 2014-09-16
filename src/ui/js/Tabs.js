@@ -449,7 +449,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onlayoutchange);
+        ch.util.Event.dispatchEvent(window.document, ch.util.Event.custom(ch.onlayoutchange));
 
         parent.destroy.call(this);
     };

@@ -130,9 +130,9 @@
 
         /**
          * Adds CSS rules to disable text selection highlighting.
-         * @param {...jQuerySelector} jQuery or Zepto Selector to disable text selection highlighting.
+         * @param {HTMLElement} jQuery or Zepto Selector to disable text selection highlighting.
          * @example
-         * ch.util.avoidTextSelection($(selector));
+         * ch.util.avoidTextSelection('');
          */
         'avoidTextSelection': function () {
             var args = arguments,
@@ -145,15 +145,11 @@
 
             for (i; i < len; i += 1) {
 
-                if (!(args[i] instanceof $ || $.zepto.isZ(args[i]))) {
-                    throw new Error('"ch.util.avoidTextSelection(selector);": The parameter must be a jQuery or Zepto selector.');
-                }
-
                 if (ch.util.classList(html).contains('lt-ie10')) {
-                    args[i].attr('unselectable', 'on');
+                    args[i].setAttribute('unselectable', 'on');
 
                 } else {
-                    args[i].addClass('ch-user-no-select');
+                    ch.util.classList(args[i]).add('ch-user-no-select');
                 }
 
             }
@@ -420,8 +416,10 @@
          */
          'Event': (function(){
             var isStandard = document.addEventListener ? true : false,
-                addHandler = isStandard ? 'addEventListener' : 'attachEvent',
-                removeHandler = isStandard ? 'removeEventListener' : 'detachEvent';
+                addHandler = document.addEventListener ? 'addEventListener' : 'attachEvent',
+                removeHandler = document.removeEventListener ? 'removeEventListener' : 'detachEvent',
+                dispatchEvent = document.dispatchEvent ? 'dispatchEvent' : 'fireEvent',
+                _custom = {};
 
             function evtUtility(evt) {
                 return isStandard ? evt : ('on' + evt);
@@ -442,6 +440,17 @@
                 },
                 'removeListener': function removeListener(el, evt, fn) {
                     el[removeHandler](evtUtility(evt), fn);
+                },
+                'dispatchEvent': function dispatchEvent(el, name) {
+                    el[dispatchEvent](_custom[name]);
+                },
+                'createCustom': function custom(name) {
+                    if (_custom[name] !== undefined) {
+                        return _custom[name] = new CustomEvent(name);
+                    }
+
+                    return _custom[name];
+
                 }
             }
         }()),

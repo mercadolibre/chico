@@ -245,7 +245,7 @@
 
         this.$container.off('.dropdown');
 
-        $document.trigger(ch.onlayoutchange);
+        ch.util.Event.dispatchEvent(window.document, ch.util.Event.custom(ch.onlayoutchange));
 
         $.each(this._$navigation, function (i, e) {
             $(e).off(pointerenter);

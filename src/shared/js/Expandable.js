@@ -174,10 +174,10 @@
 
         this
             .on('show', function () {
-                $document.trigger(ch.onlayoutchange);
+                ch.util.Event.dispatchEvent(window.document, ch.util.Event.custom(ch.onlayoutchange));
             })
             .on('hide', function () {
-                $document.trigger(ch.onlayoutchange);
+                ch.util.Event.dispatchEvent(window.document, ch.util.Event.custom(ch.onlayoutchange));
             });
 
         ch.util.avoidTextSelection(this.$trigger);

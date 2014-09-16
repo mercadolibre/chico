@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -35,7 +35,7 @@
      *     });
      * });
      */
-    function Carousel($el, options) {
+    function Carousel(selector, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -43,7 +43,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -66,7 +66,7 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var pointertap = ch.onpointertap + '.carousel',
+    var pointertap = ch.onpointertap,
         Math = window.Math,
         setTimeout = window.setTimeout,
         // Inheritance
@@ -109,9 +109,9 @@
      * @private
      * @returns {carousel}
      */
-    Carousel.prototype._init = function ($el, options) {
+    Carousel.prototype._init = function (selector, options) {
         // Call to its parents init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
         /**
          * Reference to context of an instance.
@@ -133,42 +133,60 @@
          * @private
          * @type {(jQuerySelector | ZeptoSelector)}
          */
-        this._$list = this._$el.addClass('ch-carousel').children().addClass('ch-carousel-list');
+        ch.util.classList(this._el).add('ch-carousel');
+
+        this._list = this._el.children[0];
+        ch.util.classList(this._list).add('ch-carousel-list');
 
         /**
          * Collection of each child of the slider list.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLCollection}
          */
-        this._$items = this._$list.children().addClass('ch-carousel-item');
+        this._$items = (function () {
+                var item,
+                    collection = that._list.children,
+                    collectionLength = collection.length;
+
+                for (item = 0; item < collectionLength; item++) {
+                    ch.util.classList(collection[item]).add('ch-carousel-item');
+                }
+
+                return collection;
+            }());
 
         /**
          * Element that wraps the list and denies its overflow.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$mask = $('<div class="ch-carousel-mask" role="tabpanel">').html(this._$list).appendTo(this._$el);
+        this._mask = document.createElement('div');
+        this._mask.setAttribute('role', 'tabpanel');
+        this._mask.setAttribute('class','ch-carousel-mask');
+        this._mask.appendChild(this._list);
+
+        this._el.appendChild(this._mask);
 
         /**
          * Size of the mask (width). Updated in each refresh.
          * @private
          * @type {Number}
          */
-        this._maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
+        this._maskWidth = ch.util.getOuterDimensions(this._mask).width;
 
         /**
          * The width of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
          * @type {Number}
          */
-        this._itemWidth = this._$items.width();
+        this._itemWidth = this._items[0].clientWidth;
 
         /**
          * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
          * @private
          * @type {Number}
          */
-        this._itemOuterWidth = ch.util.getOuterDimensions(this._$items[0]).width;
+        this._itemOuterWidth = ch.util.getOuterDimensions(this._items).width;
 
         /**
          * The size added to each item to make it elastic/responsive.
@@ -182,7 +200,7 @@
          * @private
          * @type {Number}
          */
-        this._itemHeight = this._$items.height();
+        this._itemHeight = this._items[0].clientHeight;
 
         /**
          * The margin of all items. Updated in each refresh only if it's necessary.
@@ -243,39 +261,49 @@
         /**
          * UI element of arrow that moves the Carousel to the previous page.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$prevArrow = $('<div class="ch-carousel-prev ch-carousel-disabled" role="button" aria-hidden="true">')
-            .on(pointertap, function () { that.prev(); });
+        this._prevArrow = document.createElement('div');
+        this._prevArrow.setAttribute('role', 'button');
+        this._prevArrow.setAttribute('aria-hidden', 'true');
+        this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
+        ch.util.Event.addListener(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
         /**
          * UI element of arrow that moves the Carousel to the next page.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        that._$nextArrow = $('<div class="ch-carousel-next" role="button" aria-hidden="false">')
-            .on(pointertap, function () { that.next(); });
+        this._nextArrow = document.createElement('div');
+        this._nextArrow.setAttribute('role', 'button');
+        this._nextArrow.setAttribute('aria-hidden', 'true');
+        this._nextArrow.setAttribute('class', 'ch-carousel-next');
+        ch.util.Event.addListener(this._nextArrow, pointertap, function () { that.next(); }, false);
 
         /**
          * UI element that contains all the thumbnails for pagination.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$pagination = $('<div class="ch-carousel-pages" role="navigation">').on(pointertap, function (event) {
+        this._pagination = document.createElement('div');
+        this._pagination.setAttribute('role', 'navigation');
+        this._pagination.setAttribute('class', 'ch-carousel-pages');
+
+        ch.util.Event.addListener(this._pagination, pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
             if (page !== null) { that.select(window.parseInt(page, 10)); }
-        });
+        }, false);
 
         // Refresh calculation when the viewport resizes
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
-        if (!this._options.fx) { this._$list.addClass('ch-carousel-nofx'); }
+        if (!this._options.fx) { ch.util.classList(this._list).add('ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
-        if (!ch.support.transition) { this._$list.css({'position': 'absolute', 'left': '0'}); }
+        if (!ch.support.transition) { this._list.style.cssText += 'position:absolute;left:0;'; }
 
         // If there are a parameter specifying a pagination, add it
         if (this._options.pagination !== undefined) { this._addPagination(); }
@@ -309,12 +337,12 @@
          */
         var that = this,
             // Amount of items when ARIA is updated
-            total = this._$items.length + this._async,
+            total = this._items.length + this._async,
             // Page where each item is in
             page;
 
         // Update WAI-ARIA properties on all items
-        $.each(this._$items, function (i, item) {
+        this._items.forEach(function (item, i) {
             // Update page where this item is in
             page = Math.floor(i / that._limitPerPage) + 1;
             // Update ARIA attributes
@@ -323,6 +351,7 @@
             item.setAttribute('aria-posinset', (i + 1));
             item.setAttribute('aria-label', 'page' + page);
         });
+
     };
 
     /**
@@ -339,7 +368,7 @@
         // Amount of items from the beginning to current page
         var total = this._currentPage * this._limitPerPage,
             // How many items needs to add to items rendered to complete to this page
-            amount = total - this._$items.length,
+            amount = total - this._items.length,
             // The new width calculated from current width plus extraWidth
             width = (this._itemWidth + this._itemExtraWidth),
             // Get the height using new width and relation between width and height of item (ratio)
@@ -368,14 +397,11 @@
             amount -= 1;
         }
 
-        // Wrap the string elements into jQuery/Zepto
-        $items = $(items);
-
         // Add sample items to the list
-        this._$list.append($items);
+        this._list.insertAdjacentHTML('beforeend', items);
 
         // Update items collection
-        this._$items = this._$list.children();
+        this._items = this._list.children;
 
         // Set WAI-ARIA properties to each item
         this._updateARIA();
@@ -441,10 +467,11 @@
         }
 
         // Append thumbnails to pagination and append this to Carousel
-        that._$pagination.html(thumbs.join('')).appendTo(that._$el);
+        that._pagination.innerHTML = thumbs.join('');
+        that._el.appendChild(that._pagination);
 
         // Avoid selection on the pagination
-        ch.util.avoidTextSelection(that._$pagination);
+        ch.util.avoidTextSelection(that._pagination);
 
         // Check pagination as created
         that._paginationCreated = true;
@@ -460,7 +487,7 @@
         // Avoid to change something that not exists
         if (!this._paginationCreated) { return; }
         // Delete thumbnails
-        this._$pagination[0].innerHTML = '';
+        this._pagination.innerHTML = '';
         // Check pagination as deleted
         this._paginationCreated = false;
     };
@@ -483,12 +510,12 @@
         // Do it if is required
         if (this._options.fx) {
             // Delete efects on list to make changes instantly
-            this._$list.addClass('ch-carousel-nofx');
+            ch.util.classList(this._list).add('ch-carousel-nofx');
             // Execute the custom method
             callback.call(this);
             // Restore efects to list
             // Use a setTimeout to be sure to do this AFTER changes
-            setTimeout(function () { that._$list.removeClass('ch-carousel-nofx'); }, 0);
+            setTimeout(function () { ch.util.classList(that._list).remove('ch-carousel-nofx'); }, 0);
         // Avoid to add/remove classes if it hasn't effects
         } else {
             callback.call(this);
@@ -504,7 +531,7 @@
     Carousel.prototype._updatePages = function () {
         // Update the amount of total pages
         // The ratio between total amount of items and items in each page
-        this._pages = Math.ceil((this._$items.length + this._async) / this._limitPerPage);
+        this._pages = Math.ceil((this._items.length + this._async) / this._limitPerPage);
         // Add items to the list, if it's necessary
         this._loadAsyncItems();
         // Set WAI-ARIA properties to each item
@@ -565,7 +592,9 @@
             // Amount of spaces to distribute the free space
             spaces,
             // The new width calculated from current width plus extraWidth
-            width;
+            width,
+            // Styles to update the item element width, height & margin-right
+            cssItemText;
 
         // Update ONLY IF margin changed from last refresh
         // If *new* and *old* extra width are 0, continue too
@@ -594,19 +623,23 @@
         // Do it before item resizing to make space to all items
         // Delete efects on list to change width instantly
         this._standbyFX(function () {
-            this._$list.css('width', this._pageWidth * this._pages);
+            this._list.style.width = this._pageWidth * this._pages;
         });
 
-        // Update element styles
         // Get the height using new width and relation between width and height of item (ratio)
-        this._$items.css({
-            'width': width,
-            'height': ((width * this._itemHeight) / this._itemWidth).toFixed(3),
-            'margin-right': this._itemMargin
+        cssItemText = [
+                'width:' + width + ';',
+                'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(3) + ';',
+                'margin-right:' + this._itemMargin + ';'
+            ].join();
+
+        // Update element styles
+        this._items.forEach(function (item, index){
+            item.style.cssText = cssItemText;
         });
 
         // Update the mask height with the list height
-        this._$mask[0].style.height = ch.util.getOuterDimensions(this._$items[0]).height + 'px';
+        this._mask.style.height = ch.util.getOuterDimensions(this._items).height + 'px';
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -622,9 +655,9 @@
      */
     Carousel.prototype._addArrows = function () {
         // Avoid selection on the arrows
-        ch.util.avoidTextSelection(this._$prevArrow, this._$nextArrow);
+        ch.util.avoidTextSelection(this._prevArrow, this._nextArrow);
         // Add arrows to DOM
-        this._$el.prepend(this._$prevArrow).append(this._$nextArrow);
+        this._el.prepend(this._prevArrow).append(this._nextArrow);
         // Check arrows as created
         this._arrowsCreated = true;
     };
@@ -638,8 +671,11 @@
      * @param {Boolean} next Defines if the "next" arrow must be disabled or not.
      */
     Carousel.prototype._disableArrows = function (prev, next) {
-        this._$prevArrow.attr('aria-disabled', prev)[prev ? 'addClass' : 'removeClass']('ch-carousel-disabled');
-        this._$nextArrow.attr('aria-disabled', next)[next ? 'addClass' : 'removeClass']('ch-carousel-disabled');
+        this._prevArrow.setAttribute('aria-disabled', prev);
+        ch.util.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
+
+        this._nextArrow.setAttribute('aria-disabled', next);
+        ch.util.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
     };
 
     /**
@@ -682,14 +718,16 @@
         // Use CSS transform to move
         if (ch.support.transition) {
             return function (displacement) {
-                this._$list.css(transform, 'translateX(' + displacement + 'px)');
+                this._list.style.transform = 'translateX(' + displacement + 'px)';
             };
         }
 
         // Use JS to move
         // Ask for fx INTO the method because the "fx" is an instance property
         return function (displacement) {
-            this._$list[(this._options.fx) ? 'animate' : 'css']({'left': displacement});
+            //this._list[(this._options.fx) ? 'animate' : 'css']({'left': displacement});
+            this._list.style.left = displacement;
+
         };
     }());
 
@@ -705,11 +743,17 @@
         // Avoid to change something that not exists
         if (!this._paginationCreated) { return; }
         // Get all thumbnails of pagination element
-        var children = this._$pagination.children();
+        var children = this._pagination.children,
+            fromItem = children[from - 1],
+            toItem = children[to - 1];
+
         // Unselect the thumbnail previously selected
-        children.eq(from - 1).attr('aria-selected', false).removeClass('ch-carousel-selected');
+        fromItem.setAttribute('aria-selected', false)
+        ch.util.classList(fromItem).remove('ch-carousel-selected');
+
         // Select the new thumbnail
-        children.eq(to - 1).attr('aria-selected', true).addClass('ch-carousel-selected');
+        toItem.setAttribute('aria-selected', true)
+        ch.util.classList(toItem).add('ch-carousel-selected');
     };
 
     /**
@@ -721,7 +765,7 @@
     Carousel.prototype.refresh = function () {
 
         var that = this,
-            maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
+            maskWidth = ch.util.getOuterDimensions(this._mask).width;
 
         // Check for changes on the width of mask, for the elastic carousel
         // Update the width of the mask
@@ -747,9 +791,9 @@
 
         // Check for a change in the total amount of items
         // Update items collection
-        if (this._$list.children().length !== this._$items.length) {
+        if (this._list.children.length !== this._items.length) {
             // Update the entire reference to items
-            this._$items = this._$list.children();
+            this._items = this._list.children;
             // Calculates the total amount of pages and executes internal methods
             this._updatePages();
             // Go to the last page in case that the current page no longer exists
@@ -905,7 +949,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onlayoutchange);
+        ch.util.Event.dispatchEvent(window.document, ch.util.Event.custom(ch.onlayoutchange));
 
         parent.destroy.call(this);
 
@@ -914,4 +958,4 @@
 
     ch.factory(Carousel);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
