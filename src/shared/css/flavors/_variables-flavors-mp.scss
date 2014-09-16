@@ -91,10 +91,6 @@ $bubble-color-data-side-before:		#EED3D7;
 $tooltip-bg:						#EBF9FF;
 $tooltip-border-color:				#C6E2FF;
 $tooltip-font-color:				$gray;
-$tooltip-border-content-before:		#FBEED5;
-$tooltip-border-content-after:		#FCF8E3;		
-
-/**
- * Carousel
- */
+$tooltip-border-content-before:		$tooltip-border-color;
+$tooltip-border-content-after:		$tooltip-bg;
 
