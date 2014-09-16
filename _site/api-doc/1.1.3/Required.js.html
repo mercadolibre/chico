@@ -5,8 +5,6 @@
 <![endif]-->
 <!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
 
-
-
 <head>
     <!-- Define the charset always before the title -->
     <meta charset="utf-8"/>
@@ -21,9 +19,6 @@
     <!-- Font -->
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/300.css">
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/700.css">
-<!--     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css"> -->
-<!--     <link rel="stylesheet" href="css/prism.css">
-    <link rel="stylesheet" href="css/v5.css"> -->
 
     <!-- gh-pages -->
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
@@ -40,29 +35,27 @@
     <![endif]-->
 </head>
 
-    <body>
+    <body data-country="MLA">
 
         <header role="banner" class="ml-header">
             <div class="ml-bounds">
-                <!-- Page title (small devices) -->
                 <h1 class="ml-title">Chico UI - Doc</h1>
-                <span class="version">v1.0.0</span>
 
-                <!-- Header buttons (small devices) -->
                 <a class="ml-header-btn" href="#">Back</a>
                 <a class="ml-header-btn ml-header-action" href="#">Action</a>
 
-                <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
                 <a class="ml-logo" href="/chico/">Chico UI - Doc</a>
                 <span class="version">v1.0.0</span>
             </div>
         </header>
 
-        <section class="main ml-bounds">
-            <article class="ch-g3-4">
-                <div class="ch-leftcolumn">
-                    <h1>Source: shared/js/Required.js</h1>
-                    
+        <div class="ml-wrapper">
+            <main role="main">
+                <section>
+                    <div class="ml-bounds row">
+                        <div class="mesh-12 mesh-m-9">
+                            <h1>Source: shared/js/Required.js</h1>
+                            
 
 
     
@@ -165,21 +158,29 @@
 
 
 
-                </div>
-            </article>
+                        </div>
 
-            <aside class="ch-g1-4">
-                <nav class="chico-nav">
-                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
-                </nav>
-            </aside>
-
-        </section>
+                        <nav class="mesh-12 mesh-m-3 chico-nav">
+                            <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                        </nav>
+                    </div>
+                </section>
+            </main>
+        </div>
 
         <footer  role="contentinfo" class="ml-footer">
             <p class="updated">
-                Documentation updated on Mon Sep 15 2014 17:56:09 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+
             </p>
+        </footer>
+
+        <footer role="contentinfo" class="ml-footer">
+            <div class="ml-bounds">
+                <small>Documentation updated on Tue Sep 16 2014 10:44:59 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.</small>
+                <nav>
+                    <a href="#">About</a>
+                </nav>
+            </div>
         </footer>
 
         <script src="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-jquery.min.js"></script>
@@ -188,10 +189,9 @@
         <script>
             $(function () {
                 $("#copyright").text((new Date().getFullYear()) + " ");
-
-                var elementToFix = new SlugElement('chico-nav', 'height', 300, 300);
-
             });
+
+            var elementToFix = new SlugElement('chico-nav', 'height', 300, 300);
         </script>
     </body>
 </html>
