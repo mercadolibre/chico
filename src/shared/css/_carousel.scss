@@ -93,20 +93,20 @@
     margin: 0 auto;
     text-align: center;
     width: 100%;
-}
 
-.ch-carousel-pages span {
-    background-color: #F0F0F0;
-    border-radius: 100%;
-    -webkit-box-shadow: inset 1px 1px #888;
-    box-shadow: inset 1px 1px #888;
-    cursor: pointer;
-    display: inline-block;
-    height: 10px;
-    margin: 10px 5px;
-    overflow: hidden;
-    text-indent: -99px;
-    width: 10px;
+    span {
+        background-color: #f0f0f0;
+        border-radius: 100%;
+        -webkit-box-shadow: inset 1px 1px #888;
+        box-shadow: inset 1px 1px #888;
+        cursor: pointer;
+        display: inline-block;
+        height: 10px;
+        margin: 10px 5px;
+        overflow: hidden;
+        text-indent: -99px;
+        width: 10px;
+    }
 }
 
 .ch-carousel-pages .ch-carousel-selected {

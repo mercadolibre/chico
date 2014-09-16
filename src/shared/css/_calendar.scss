@@ -1,6 +1,42 @@
 .ch-calendar {
     position:relative;
     display:inline-block;
+
+    caption {
+        background-color: #f0f0f0;
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $white), color-stop(100%, #f0f0f0));
+        background: -webkit-linear-gradient($white, #F0f0f0);
+        background: -moz-linear-gradient($white, #f0f0f0);
+        background: -o-linear-gradient($white, #f0f0f0);
+        background: linear-gradient($white, #f0f0f0);
+        font-size: 13px;
+        line-height: 28px;
+        text-shadow: 0 1px 0 $white;
+        border-bottom: none;       
+    }
+
+    thead {
+        border-weight: 0 1px;        
+    }
+
+    td {
+        cursor: default;
+        height: 26px;
+        line-height: 26px;
+        width: 14.28%;        
+    }
+
+    th {
+        font-size: 11px;
+        font-weight: normal;
+        width: 14.28%;        
+    }
+
+    caption,
+    thead,
+    td {
+        border: 1px solid #dedede;        
+    }
 }
 
 .ch-calendar-month {
@@ -9,52 +45,16 @@
     width: 240px;
 }
 
-.ch-calendar caption,
-.ch-calendar thead,
-.ch-calendar td {
-    border: 1px solid #DEDEDE;
-}
-
-.ch-calendar caption {
-    background-color: #F0F0F0;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #F0F0F0));
-    background: -webkit-linear-gradient(#FFFFFF, #F0F0F0);
-    background: -moz-linear-gradient(#FFFFFF, #F0F0F0);
-    background: -o-linear-gradient(#FFFFFF, #F0F0F0);
-    background: linear-gradient(#FFFFFF, #F0F0F0);
-    font-size: 13px;
-    line-height: 28px;
-    text-shadow: 0 1px 0 #FFFFFF;
-    border-bottom: none;
-}
-
 .lt-ie10 .ch-calendar caption {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#F0F0F0');
-}
-
-.ch-calendar thead {
-    border-weight: 0 1px;
-}
-
-.ch-calendar th {
-    font-size: 11px;
-    font-weight: normal;
-    width: 14.28%;
-}
-
-.ch-calendar td {
-    cursor: default;
-    height: 26px;
-    line-height: 26px;
-    width: 14.28%;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$white', endColorstr='#f0f0f0');
 }
 
 .ch-calendar-today {
-    background-color: #FEFBD6;
+    background-color: #fefbd6;
 }
 
 .ch-calendar-other {
-    color: #C6C6C6;
+    color: #c6c6c6;
     cursor: default !important;
     overflow: hidden;
     text-indent: -99px;
@@ -62,8 +62,8 @@
 
 .ch-calendar-disabled,
 .ch-calendar-disabled:hover {
-    background-color: #FFF;
-    color: #C6C6C6;
+    background-color: $white;
+    color: #c6c6c6;
     cursor: not-allowed;
 }
 
@@ -71,8 +71,8 @@
 .ch-calendar-selected,
 .ch-calendar-selected:hover,
 .ch-calendar-selected.ch-today {
-    background-color: #A9A9A9 !important;
-    color: #FFF !important;
+    background-color: #a9a9a9 !important;
+    color: $white !important;
     font-weight: bold !important;
 }
 
@@ -99,8 +99,8 @@
     font-family: icons;
     position: absolute;
     top: 7px;
-    color: #666666;
-    text-shadow: 0 1px #FFFFFF;
+    color: #666;
+    text-shadow: 0 1px $white;
 }
 
 .ch-calendar-prev:after {
