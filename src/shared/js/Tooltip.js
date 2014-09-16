@@ -1,4 +1,4 @@
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -42,16 +42,16 @@
      * // Create a new Tooltip using the shorthand way (content as parameter).
      * var tooltip = $(selector).tooltip('http://ui.ml.com:3040/ajax');
      */
-    function Tooltip($el, options) {
+    function Tooltip(selector, options) {
 
-        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
-            options = $el;
-            $el = undefined;
+        if (options === undefined && selector !== undefined) {
+            options = selector;
+            selector = undefined;
         }
 
         options = ch.util.extend(ch.util.clone(this._defaults), options);
 
-        return new ch.Layer($el, options);
+        return new ch.Layer(selector, options);
     }
 
     /**
@@ -83,4 +83,4 @@
 
     ch.factory(Tooltip, ch.Layer.prototype._normalizeOptions);
 
-}(this.ch.$, this.ch));
+}(this.ch));
