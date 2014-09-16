@@ -58,6 +58,11 @@ body {
         height: 42px; /* same as footer height */
     }
 
+.main {
+    padding-top: 90px;
+}
+
+
 
 /* Hidden elements from smaller devices
 ---------------------------------------------------------------*/
