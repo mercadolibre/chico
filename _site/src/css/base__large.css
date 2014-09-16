@@ -94,6 +94,10 @@ body {
     font-weight: bold;
 }
 
+.ml-logo {
+    float: left;
+}
+
 .ch-brand-name {
     float: left;
     font-size: 20px;

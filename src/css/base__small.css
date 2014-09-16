@@ -76,6 +76,10 @@ body {
     position: relative;
 }
 
+.ml-logo {
+    float: left;
+}
+
 .ch-brand-name {
     float: left;
     font-size: 20px;
