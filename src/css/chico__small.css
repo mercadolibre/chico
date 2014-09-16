@@ -171,6 +171,6 @@ pre.language-javascript {
 }
 
 .ml-bounds small a {
- 	margin-left: 0;
- 	border: none;
+	border: none;
+	margin-left: 0;
 }
