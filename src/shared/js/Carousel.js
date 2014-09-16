@@ -143,7 +143,7 @@
          * @private
          * @type {HTMLCollection}
          */
-        this._$items = (function () {
+        this._items = (function () {
                 var item,
                     collection = that._list.children,
                     collectionLength = collection.length;
@@ -179,14 +179,14 @@
          * @private
          * @type {Number}
          */
-        this._itemWidth = this._items[0].clientWidth;
+        this._itemWidth = ch.util.getOuterDimensions(this._items[0]).width;
 
         /**
          * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
          * @private
          * @type {Number}
          */
-        this._itemOuterWidth = ch.util.getOuterDimensions(this._items).width;
+        this._itemOuterWidth = parseInt(ch.util.getStyles(this._items[0], 'width'));
 
         /**
          * The size added to each item to make it elastic/responsive.
@@ -200,7 +200,7 @@
          * @private
          * @type {Number}
          */
-        this._itemHeight = this._items[0].clientHeight;
+        this._itemHeight = ch.util.getOuterDimensions(this._items[0]).height;
 
         /**
          * The margin of all items. Updated in each refresh only if it's necessary.
@@ -342,7 +342,7 @@
             page;
 
         // Update WAI-ARIA properties on all items
-        this._items.forEach(function (item, i) {
+        Array.prototype.forEach.call(this._items, function (item, i) {
             // Update page where this item is in
             page = Math.floor(i / that._limitPerPage) + 1;
             // Update ARIA attributes
@@ -557,6 +557,8 @@
             // Avoid zero items in a page
             limitPerPage = Math.floor(this._maskWidth / this._itemOuterWidth) || 1;
 
+            console.log(this._maskWidth, this._itemOuterWidth, limitPerPage);
+
         // Limit amount of items when user set a limitPerPage amount
         if (max !== undefined && limitPerPage > max) { limitPerPage = max; }
 
@@ -628,18 +630,18 @@
 
         // Get the height using new width and relation between width and height of item (ratio)
         cssItemText = [
-                'width:' + width + ';',
-                'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(3) + ';',
-                'margin-right:' + this._itemMargin + ';'
-            ].join();
+                'width:' + width + 'px;',
+                'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(3) + 'px;',
+                'margin-right:' + this._itemMargin + 'px;'
+            ].join('');
 
         // Update element styles
-        this._items.forEach(function (item, index){
-            item.style.cssText = cssItemText;
+        Array.prototype.forEach.call(this._items, function (item, index){
+            item.setAttribute('style', cssItemText);
         });
 
         // Update the mask height with the list height
-        this._mask.style.height = ch.util.getOuterDimensions(this._items).height + 'px';
+        this._mask.style.height = ch.util.getOuterDimensions(this._list).height + 'px';
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -657,7 +659,8 @@
         // Avoid selection on the arrows
         ch.util.avoidTextSelection(this._prevArrow, this._nextArrow);
         // Add arrows to DOM
-        this._el.prepend(this._prevArrow).append(this._nextArrow);
+        this._el.insertBefore(this._prevArrow, this._el.children[0])
+        this._el.appendChild(this._nextArrow);
         // Check arrows as created
         this._arrowsCreated = true;
     };
