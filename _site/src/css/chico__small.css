@@ -169,3 +169,8 @@ pre.language-javascript {
 .ml-footer nav a {
 	padding: 0 .8em;
 }
+
+.ml-bounds small a {
+ 	margin-left: 0;
+ 	border: none;
+}
