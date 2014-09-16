@@ -94,6 +94,15 @@ body {
     font-weight: bold;
 }
 
+.ch-brand-name {
+    float: left;
+    font-size: 20px;
+    margin: 14px 0 0 14px;
+    border-left: 1px solid #333;
+    padding: 5px 12px 3px 12px;
+    font-family: sans-serif;
+}
+
 /* Logo
 ---------------------------------------------------------------*/
 
