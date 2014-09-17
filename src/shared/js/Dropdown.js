@@ -254,7 +254,7 @@
         // this.$trigger.off('.dropdown');
         // this.$container.off('.dropdown');
 
-        ch.util.Event.dispatchEvent(window.document, ch.util.Event.custom(ch.onlayoutchange));
+        ch.util.Event.dispatchEvent(window.document, ch.util.Event.createCustom(ch.onlayoutchange));
 
         // $.each(this._$navigation, function (i, e) {
         //     $(e).off(ch.onpointerenter);
