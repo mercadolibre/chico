@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -7,23 +7,23 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Expandable
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Menu.
+     * @param {String} selector A jQuery or Zepto Selector to create an instance of ch.Menu.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.fx] Enable or disable UI effects. You should use: "slideDown", "fadeIn" or "none". Default: "slideDown".
      * @returns {menu} Returns a new instance of Menu.
      * @example
      * // Create a new Menu.
-     * var menu = new ch.Menu($el, [options]);
+     * var menu = new ch.Menu(selector, [options]);
      * @example
      * // Create a new Menu with jQuery or Zepto.
-     * var menu = $(selector).menu();
+     * var menu = new ch.Menu();
      * @example
      * // Create a new Menu with custom options.
-     * var menu = $(selector).menu({
+     * var menu = new ch.Menu({
      *     'fx': 'none'
      * });
      */
-    function Menu($el, options) {
+    function Menu(selector, options) {
 
         /**
          * Reference to context of an instance.
@@ -32,7 +32,7 @@
          */
         var that = this;
 
-        that._init($el, options);
+        that._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -101,9 +101,6 @@
      * The name of the component.
      * @memberof! ch.Menu.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var menu = $(selector).data('menu');
      */
     Menu.prototype.name = 'menu';
 
@@ -130,20 +127,23 @@
      * @private
      * @returns {menu}
      */
-    Menu.prototype._init = function ($el, options) {
+    Menu.prototype._init = function (selector, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
 
         /**
          * The menu container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$container = this._$el
-            .attr('role', 'navigation')
-            .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
+        this.container = this._el;
+        this.container.setAttribute('role', 'navigation');
+        ch.util.classList(this.container).add('ch-menu');
+
+        this._options._className ? ch.util.classList(this.container).add(this._options._className) : null;
+        this._options.addClass ? ch.util.classList(this.container).add(this._options.addClass) : null;
 
         /**
          * A collection of folds.
@@ -170,28 +170,32 @@
          * @private
          */
         var that = this,
-            $li,
-            $child;
+            li,
+            child;
 
-        function createExpandable(i, li) {
+        function createExpandable(li, i) {
+            var expandable,
+                menu;
+
             // List element
-            $li = $(li).addClass('ch-menu-fold');
+            ch.util.classList(li).add('ch-menu-fold');
 
             // Children of list elements
-            $child = $li.children(':first-child');
+            child = li.children[0];
 
             // Anchor inside list
-            if ($child[0].tagName === 'A') {
+            if (child.tagName === 'A') {
                 // Add attr role to match wai-aria
-                $li.attr('role', 'presentation');
+                li.setAttribute('role', 'presentation');
                 //
-                $child.addClass('ch-fold-trigger');
+                ch.util.classList(child).add('ch-fold-trigger');
                 // Add anchor to that.fold
-                that.folds.push($child);
+                that.folds.push(child);
 
             } else {
                 // List inside list, inits an Expandable
-                var expandable = new ch.Expandable($child, {
+                console.log(child)
+                expandable = new ch.Expandable(child, {
                     // Show/hide on IE8- instead slideUp/slideDown
                     'fx': that._options.fx
                 });
@@ -222,19 +226,20 @@
                         that.emit('hide');
                     });
 
-                $child.next()
-                    .attr('role', 'menu')
-                    .children()
-                        .attr('role', 'presentation')
-                        .children()
-                            .attr('role', 'menuitem');
+                menu = child.nextElementSibling;
+                menu.setAttribute('role', 'menu');
+
+                Array.prototype.forEach.call(menu.children, function (item){
+                    item.setAttribute('role', 'presentation');
+                    item.children[0].setAttribute('role', 'menuitem');
+                });
 
                 // Add expandable to that.fold
                 that.folds.push(expandable);
             }
         }
 
-        $.each(this.$container.children(), createExpandable);
+        Array.prototype.forEach.call(this.container.children, createExpandable);
 
         return this;
     };
@@ -325,7 +330,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.util.Event.dispatchEvent(window.document, ch.util.Event.custom(ch.onlayoutchange));
+        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -334,4 +339,4 @@
 
     ch.factory(Menu);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

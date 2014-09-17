@@ -1,12 +1,12 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     function normalizeOptions(options) {
-        if (typeof options === 'string' || ch.util.is$(options)) {
-            options = {
-                'content': options
-            };
-        }
+        // if (typeof options === 'string' || ch.util.is$(options)) {
+        //     options = {
+        //         'content': options
+        //     };
+        // }
         return options;
     }
 
@@ -17,32 +17,29 @@
      * @augments ch.Component
      * @mixes ch.Collapsible
      * @mixes ch.Content
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
+     * @param {String} selector A CSS Selector to create an instance of ch.Expandable.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
      * @param {Boolean} [options.toggle] Customize toggle behavior. Default: true.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. Default: the next sibling of $el.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. Default: the next sibling of selector.
      * @param {(jQuerySelector | ZeptoSelector | String)} [options.content] The content to be shown into the expandable container.
      * @returns {expandable} Returns a new instance of Expandable.
      * @example
      * // Create a new Expandable.
-     * var expandable = new ch.Expandable($el, [options]);
-     * @example
-     * // Create a new Expandable with jQuery or Zepto.
-     * var expandable = $(selector).expandable([options]);
+     * var expandable = new ch.Expandable([selector], [options]);
      * @example
      * // Create a new Expandable with custom options.
-     * var expandable = $(selector).expandable({
-     *     'container': $(selector),
+     * var expandable = new ch.Expandable({
+     *     'container': 'selector',
      *     'toggle': false,
      *     'fx': 'slideDown',
      *     'content': 'http://ui.ml.com:3040/ajax'
      * });
      * @example
      * // Create a new Expandable using the shorthand way (content as parameter).
-     * var expandable = $(selector).expandable('http://ui.ml.com:3040/ajax');
+     * var expandable = new ch.Expandable('http://ui.ml.com:3040/ajax');
      */
-    function Expandable($el, options) {
+    function Expandable(selector, options) {
 
         /**
          * Reference to context of an instance.
@@ -51,7 +48,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -75,16 +72,13 @@
     }
 
     // Inheritance
-    var $document = $(window.document),
+    var document = window.document,
         parent = ch.util.inherits(Expandable, ch.Component);
 
     /**
      * The name of the component.
      * @memberof! ch.Expandable.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var expandable = $(selector).data('expandable');
      */
     Expandable.prototype.name = 'expandable';
 
@@ -101,8 +95,9 @@
      * @private
      */
     Expandable.prototype._defaults = {
-        '_classNameTrigger': 'ch-expandable-trigger ch-expandable-ico',
-        '_classNameContainer': 'ch-expandable-container ch-hide',
+        '_classNameTrigger': 'ch-expandable-trigger',
+        '_classNameIcon': 'ch-expandable-ico',
+        '_classNameContainer': 'ch-expandable-container',
         'fx': false,
         'toggle': true
     };
@@ -114,9 +109,9 @@
      * @private
      * @returns {expandable}
      */
-    Expandable.prototype._init = function ($el, options) {
+    Expandable.prototype._init = function (selector, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
         // Requires abilities
         this.require('Collapsible', 'Content');
@@ -130,57 +125,60 @@
 
         /**
          * The expandable trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @example
          * // Gets the expandable trigger.
-         * expandable.$trigger;
+         * expandable.trigger;
          */
-        this.$trigger = this._$el
-            .addClass(this._options._classNameTrigger)
-            .on(ch.onpointertap + '.' + this.name, function (event) {
+        this.trigger = this._el;
+        ch.util.classList(this.trigger).add(this._options._classNameTrigger);
+        ch.util.classList(this.trigger).add(this._options._classNameIcon);
+        ch.util.Event.addListener(this.trigger, ch.onpointertap, function (event) {
+            if (ch.pointerCanceled) {
+                return;
+            }
 
-                if (ch.pointerCanceled) {
-                    return;
-                }
+            ch.util.prevent(event);
 
-                ch.util.prevent(event);
-
-                if (that._options.toggle) {
-                    that._toggle();
-                } else {
-                    that.show();
-                }
-            });
+            if (that._options.toggle) {
+                that._toggle();
+            } else {
+                that.show();
+            }
+        });
 
         /**
          * The expandable container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @example
          * // Gets the expandable container.
-         * expandable.$container;
+         * expandable.container;
          */
-        this.$container = this._$content = (this._options.container || this._$el.next())
-            .addClass(this._options._classNameContainer)
-            .attr('aria-expanded', 'false');
+        // console.log(this._options.container, this._el.nextElementSibling);
+        this.container = this._content = (this._options.container ? document.querySelector(this._options.container) : this._el.nextElementSibling);
+        ///console.log(this.container, this._el);
+        ch.util.classList(this.container).add(this._options._classNameContainer);
+        ch.util.classList(this.container).add('ch-hide');
+        this.container.setAttribute('aria-expanded', 'false');
 
         /**
          * Default behavior
          */
-        if (this.$container.prop('id') === '') {
-            this.$container.prop('id', 'ch-expandable-' + this.uid);
+        if (this.container.getAttribute('id') === '') {
+            this.container.setAttribute('id', 'ch-expandable-' + this.uid);
         }
 
-        this.$trigger.attr('aria-controls', this.$container.prop('id'));
+        this.trigger.setAttribute('aria-controls', this.container.getAttribute('id'));
 
         this
             .on('show', function () {
-                ch.util.Event.dispatchEvent(window.document, ch.util.Event.custom(ch.onlayoutchange));
+                ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
             })
             .on('hide', function () {
-                ch.util.Event.dispatchEvent(window.document, ch.util.Event.custom(ch.onlayoutchange));
+                ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
             });
 
-        ch.util.avoidTextSelection(this.$trigger);
+        ch.util.avoidTextSelection(this.trigger);
 
         return this;
     };
@@ -219,7 +217,7 @@
         this._show();
 
         // Update ARIA
-        this.$container.attr('aria-expanded', 'true');
+        this.container.setAttribute('aria-expanded', 'true');
 
         // Set new content
         if (content !== undefined) {
@@ -246,7 +244,7 @@
 
         this._hide();
 
-        this.$container.attr('aria-expanded', 'false');
+        this.container.setAttribute('aria-expanded', 'false');
 
         return this;
     };
@@ -279,16 +277,18 @@
      */
     Expandable.prototype.destroy = function () {
 
-        this.$trigger
-            .off('.expandable')
-            .removeClass('ch-expandable-trigger ch-expandable-ico ch-user-no-select')
-            .removeAttr('aria-controls');
+        //this.$trigger.off('.expandable')
+        ch.util.classList(this.trigger).remove('ch-expandable-trigger');
+        ch.util.classList(this.trigger).remove('ch-expandable-ico');
+        ch.util.classList(this.trigger).remove('ch-user-no-select');
+        this.trigger.removeAttribute('aria-controls');
 
-        this.$container
-            .removeClass('ch-expandable-container ch-hide')
-            .removeAttr('aria-expanded aria-hidden');
+        ch.util.classList(this.container).remove('ch-expandable-container');
+        ch.util.classList(this.container).remove('ch-hide');
+        this.container.removeAttribute('aria-expanded');
+        this.container.removeAttribute('aria-hidden');
 
-        $document.trigger(ch.onlayoutchange);
+        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -298,4 +298,4 @@
     // Factorize
     ch.factory(Expandable, normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
