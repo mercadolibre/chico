@@ -432,11 +432,14 @@
         </div>
 
         <h4 class="YOUR_SELECTOR_expandable2">Lorem ipsum dolor sit amet.</h4>
+        <div class="container_expandable2"></div>
+
+        <h4 class="YOUR_SELECTOR_expandable3">Lorem ipsum dolor sit amet.</h4>
         <div>
             <div id="container">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</div>
         </div>
 
-        <h4 class="YOUR_SELECTOR_expandable3">Lorem ipsum dolor sit amet.</h4>
+        <h4 class="YOUR_SELECTOR_expandable4">Lorem ipsum dolor sit amet.</h4>
         <div id="container-ajax"></div>
     </div>
 
@@ -1278,37 +1281,39 @@
                      });
                 });
 
-//            autocomplete.$container.prepend(extraSuggestions);
+            autocomplete.container.insertAdjacentHTML('beforeend', extraSuggestions);
 
-        // var calendar = new ch.Calendar($(".YOUR_SELECTOR_calendar"), {'selected': ['2012/01/22','2012/01/21']});
+        var calendar = new ch.Calendar('.YOUR_SELECTOR_calendar'), {'selected': ['2012/01/22','2012/01/21']});
 
-        // // Expandable
-        // var expandable1 = new ch.Expandable($(".YOUR_SELECTOR_expandable"));
+        // Expandable
+        var expandable1 = new ch.Expandable('.YOUR_SELECTOR_expandable');
 
-        // // expandable1.on('contentdone', function () {
-        // //     $(".test").click(function () {
-        // //         console.log("contentdone");
-        // //     });
-        // // });
+        expandable1.on('contentdone', function () {
+            ch.util.Event.addListener(document.querySelector('.test'), 'click', function () {
+                console.log('contentdone' + that.uid);
+            });
+        });
 
-        // // var expandable1 = $(".YOUR_SELECTOR_expandable").expandable('http://ui.ml.com:3040/ajax');
-        // // expandable1.on('contentdone', function () {
-        // //  $("h2").click(function () {
-        // //      console.log("ContentDone");
-        // //  });
-        // // });
+        var expandable2 = new ch.Expandable({
+            'content': './static/ajax.html',
+            'container': '.container_expandable2'
+        });
+        expandable2.on('contentdone', function () {
+            var that = this;
+            ch.util.Event.addListener(document.querySelector('h2'), 'click', function () {
+                console.log('contentdone' + that.uid);
+            });
+        });
 
-        // var expandable2 = new ch.Expandable($(".YOUR_SELECTOR_expandable2"), {
-        //  'container': $('#container')
-        // });
+        var expandable3 = new ch.Expandable('.YOUR_SELECTOR_expandable3', {'container': '#container'});
 
-        // var expandable3 = new ch.Expandable($(".YOUR_SELECTOR_expandable3"), {
-        //  'container': $('#container-ajax'),
-        //  'content': './static/ajax.html'
-        // });
+        var expandable4 = new ch.Expandable('.YOUR_SELECTOR_expandable4', {
+            'container': '#container-ajax',
+            'content': './static/ajax.html'
+        });
 
-        // // Menu
-        // var menu = new ch.Menu($(".YOUR_SELECTOR_Menu"));
+        // Menu
+        var menu = new ch.Menu('.YOUR_SELECTOR_Menu');
 
         // Dropdown
         var dropdown1 = new ch.Dropdown('.myDropdown');
