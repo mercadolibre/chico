@@ -1283,7 +1283,7 @@
 
             autocomplete.container.insertAdjacentHTML('beforeend', extraSuggestions);
 
-        var calendar = new ch.Calendar('.YOUR_SELECTOR_calendar'), {'selected': ['2012/01/22','2012/01/21']});
+        var calendar = new ch.Calendar('.YOUR_SELECTOR_calendar', {'selected': ['2012/01/22','2012/01/21']});
 
         // Expandable
         var expandable1 = new ch.Expandable('.YOUR_SELECTOR_expandable');
@@ -1504,16 +1504,16 @@
         // // Tabs
         // var tabs = new ch.Tabs($(".YOUR_SELECTOR_Tabs"));
 
-        // // Date Picker
-        // var datepicker = new ch.Datepicker($("#val_date"), {
-        //  "selected": "2011/11/15",
-        //  "to": "today"
-        // });
+        // Date Picker
+        var datepicker = new ch.Datepicker('#val_date', {
+            'selected': '2011/11/15',
+            'to': 'today'
+        });
 
-        // var  datepicker2 = new ch.Datepicker($("#val_date2"), {
-        //  "selected": "2011/11/15",
-        //  "to": "today"
-        // });
+        var  datepicker2 = new ch.Datepicker("#val_date2", {
+            'selected': '2011/11/15',
+            'to': 'today'
+        });
 
         // // Countdown
         // var countdown = new ch.Countdown($("#text_cd"), {'max': 140, 'plural': '# left', 'singular': '# left'});
