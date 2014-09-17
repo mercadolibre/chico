@@ -8,7 +8,7 @@
      */
     ch.Dropdown.prototype._highlightOption = function (key) {
 
-        var optionsLength = this._$navigation.length;
+        var optionsLength = this._navigation.length;
 
         if (!this._shown) { return; }
 
@@ -17,15 +17,15 @@
 
         // Unselects current option
         if (this._selected !== -1) {
-            this._$navigation[this._selected].blur();
-            this._$navigation[this._selected].removeAttribute('id');
+            this._navigation[this._selected].blur();
+            this._navigation[this._selected].removeAttribute('id');
         }
 
         if (key === ch.onkeydownarrow) { this._selected += 1; } else { this._selected -= 1; }
 
         // Selects new current option
-        this._$navigation[this._selected].focus();
-        this._$navigation[this._selected].id = 'ch-dropdown' + this.uid + '-selected';
+        this._navigation[this._selected].focus();
+        this._navigation[this._selected].id = 'ch-dropdown' + this.uid + '-selected';
     };
 
     /**
