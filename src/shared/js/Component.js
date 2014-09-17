@@ -90,6 +90,13 @@
             } else if (options !== undefined && typeof options === 'object') {
                 this._options = ch.util.extend(defaults, options);
             }
+        // selector is HTMLElement
+        } else if (selector.nodeType !== undefined & selector.nodeType === document.ELEMENT_NODE) {
+
+            this._el = selector;
+
+            // we extend defaults with options parameter
+            this._options = ch.util.extend(defaults, options);
 
         // selector is an object configuration
         } else if (typeof selector === 'object' || selector === undefined) {
