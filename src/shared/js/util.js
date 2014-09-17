@@ -418,7 +418,7 @@
             var isStandard = document.addEventListener ? true : false,
                 addHandler = document.addEventListener ? 'addEventListener' : 'attachEvent',
                 removeHandler = document.removeEventListener ? 'removeEventListener' : 'detachEvent',
-                dispatchEvent = document.dispatchEvent ? 'dispatchEvent' : 'fireEvent',
+                dispatch = document.dispatchEvent ? 'dispatchEvent' : 'fireEvent',
                 _custom = {};
 
             function evtUtility(evt) {
@@ -442,11 +442,13 @@
                     el[removeHandler](evtUtility(evt), fn);
                 },
                 'dispatchEvent': function dispatchEvent(el, name) {
-                    el[dispatchEvent](_custom[name]);
+                    el[dispatch](_custom[name]);
                 },
-                'createCustom': function custom(name) {
-                    if (_custom[name] !== undefined) {
-                        return _custom[name] = new CustomEvent(name);
+                'createCustom': function createCustom(name) {
+
+                    if (_custom[name] === undefined) {
+                        _custom[name] = new Event(name);
+                        return _custom[name] ;
                     }
 
                     return _custom[name];

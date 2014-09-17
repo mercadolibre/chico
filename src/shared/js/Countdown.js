@@ -268,7 +268,7 @@
 
         this.$container.remove();
 
-        ch.util.Event.dispatchEvent(window.document, ch.util.Event.createCustom(ch.onlayoutchange));
+        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

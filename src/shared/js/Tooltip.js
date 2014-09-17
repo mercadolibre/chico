@@ -44,7 +44,7 @@
      */
     function Tooltip(selector, options) {
 
-        if (options === undefined && selector !== undefined) {
+        if (options === undefined && selector !== undefined && selector.nodeType !== undefined) {
             options = selector;
             selector = undefined;
         }

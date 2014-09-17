@@ -3,3 +3,5 @@
 
     // Exposse private $ (jQuery) into ch.$
     ch.$ = window.$;
+
+    ch.util.Event.createCustom(ch.onlayoutchange);
