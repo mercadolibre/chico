@@ -1,0 +1,55 @@
+/* Api doc
+---------------------------------------------------------------*/
+.main {
+    padding-top: 90px;
+}
+
+.ml-bounds dl h4 {
+    margin: 40px 0 10px 0;
+}
+
+.ml-bounds h2 {
+    margin: 50px 0 15px 0;
+}
+
+
+/* Ui components
+---------------------------------------------------------------*/
+.ui-component .component-example {
+    margin: 20px 0 0 0;
+}
+
+.component-example h1,
+.component-example h2,
+.component-example h3,
+.component-example h4,
+.component-example h5,
+.component-example h6 {
+    font-weight: normal;
+    font-family: Arial,Helvetica,"Nimbus Sans L",sans-serif;
+    margin: 0;
+}
+
+.component-example h1 {
+    font-size: 22px;
+}
+
+.component-example h2 {
+    font-size: 20px;
+}
+
+.component-example h3 {
+    font-size: 18px;
+}
+
+.component-example h4 {
+    font-size: 16px;
+}
+
+.component-example h5 {
+    font-size: 15px;
+}
+
+.component-example h6 {
+    font-size: 14px;
+}

@@ -16,7 +16,7 @@ id: ui-components
     <section>
         <div class="ml-bounds row">
 
-            <div class="mesh-12 mesh-m-9">
+            <div class="mesh-12 mesh-m-9 ui-component">
                 {% for post in site.posts %}
                 <article id="{{ post.tags }}">
                     {{ post.content }}
@@ -26,9 +26,9 @@ id: ui-components
 
             <nav class="mesh-12 mesh-m-3 chico-nav">
                 <ul id="nav-sections">
-                    <li><a href="#icons" data-section="">Icons</a></li>
-                    <li><a href="#text" data-section="">Text</a></li>
-                    <li><a href="#boxes" data-section="">Boxes</a></li>
+                    <li><a href="#headings" data-section="">Headings</a></li>
+                    <li><a href="#paragraphs" data-section="">Paragraphs</a></li>
+                    <li><a href="#links" data-section="">Links</a></li>
                     <li><a href="#" data-section="">Wizard</a></li>
                     <li><a href="#" data-section="">Pagination</a></li>
                     <li><a href="#" data-section="">Labels</a></li>

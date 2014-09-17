@@ -5,87 +5,74 @@
     <description>A collection of easy-to-use UI components</description>
     <link>/chico/</link>
     <atom:link href="/chico/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 17 Sep 2014 10:26:21 -0300</pubDate>
-    <lastBuildDate>Wed, 17 Sep 2014 10:26:21 -0300</lastBuildDate>
+    <pubDate>Wed, 17 Sep 2014 11:51:24 -0300</pubDate>
+    <lastBuildDate>Wed, 17 Sep 2014 11:51:24 -0300</lastBuildDate>
     <generator>Jekyll v2.3.0</generator>
     
       <item>
-        <title>Icons</title>
-        <description>&lt;h2 id=&quot;icons&quot;&gt;Icons&lt;/h2&gt;
+        <title>Headings</title>
+        <description>&lt;h2 id=&quot;headings&quot;&gt;Headings&lt;/h2&gt;
 
-&lt;p&gt;Estos son los icons que podes utilizar. &lt;strong&gt;Esto es texto destacado&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;!-- Component snippet code --&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;icon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;envelope&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;These are the heading tha you can use to semanticize your html markup.&lt;/p&gt;
 
 &lt;!-- Component example --&gt;
 &lt;div class=&quot;component-example&quot;&gt;
-	Estos son los iconos disponibles:
-	&lt;ul class=&quot;showroomIcons&quot;&gt;
-		&lt;li&gt;&lt;i class=&quot;ch-icon-search&quot;&gt;&lt;/i&gt;ch-icon-search&lt;/li&gt;
-		&lt;li&gt;&lt;i class=&quot;ch-icon-heart&quot;&gt;&lt;/i&gt;ch-icon-heart&lt;/li&gt;
-		&lt;li&gt;&lt;i class=&quot;ch-icon-star&quot;&gt;&lt;/i&gt;ch-icon-star&lt;/li&gt;
-		&lt;li&gt;&lt;i class=&quot;ch-icon-star-empty&quot;&gt;&lt;/i&gt;ch-icon-star-empty&lt;/li&gt;
-		&lt;li&gt;&lt;i class=&quot;ch-icon-user&quot;&gt;&lt;/i&gt;ch-icon-user&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-th-large&quot;&gt;&lt;/i&gt;ch-icon-th-large&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-th&quot;&gt;&lt;/i&gt;ch-icon-th&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-th-list&quot;&gt;&lt;/i&gt;ch-icon-user&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-ok&quot;&gt;&lt;/i&gt;ch-icon-ok&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-remove&quot;&gt;&lt;/i&gt;ch-icon-remove&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-zoom-in&quot;&gt;&lt;/i&gt;ch-icon-zoom-in&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-zoom-out&quot;&gt;&lt;/i&gt;ch-icon-zoom-out&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-cog&quot;&gt;&lt;/i&gt;ch-icon-cog&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-trash&quot;&gt;&lt;/i&gt;ch-icon-trash&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-time&quot;&gt;&lt;/i&gt;ch-icon-time&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-repeat&quot;&gt;&lt;/i&gt;ch-icon-repeat&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-refresh&quot;&gt;&lt;/i&gt;ch-icon-refresh&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-lock&quot;&gt;&lt;/i&gt;ch-icon-lock&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-print&quot;&gt;&lt;/i&gt;ch-icon-print&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-camera&quot;&gt;&lt;/i&gt;ch-icon-camera&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-pencil&quot;&gt;&lt;/i&gt;ch-icon-pencil&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-map-marker&quot;&gt;&lt;/i&gt;ch-icon-map-marker&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-move&quot;&gt;&lt;/i&gt;ch-icon-move&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-chevron-left&quot;&gt;&lt;/i&gt;ch-icon-chevron-left&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-chevron-right&quot;&gt;&lt;/i&gt;ch-icon-chevron-right&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-plus-sign&quot;&gt;&lt;/i&gt;ch-icon-plus-sign&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-minus-sign&quot;&gt;&lt;/i&gt;ch-icon-minus-sign&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-remove-sign&quot;&gt;&lt;/i&gt;ch-icon-remove-sign&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-ok-sign&quot;&gt;&lt;/i&gt;ch-icon-ok-sign&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-help-sign&quot;&gt;&lt;/i&gt;ch-icon-help-sign&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-info-sign&quot;&gt;&lt;/i&gt;ch-icon-info-sign&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-ban-circle&quot;&gt;&lt;/i&gt;ch-icon-ban-circle&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-arrow-left&quot;&gt;&lt;/i&gt;ch-icon-arrow-left&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-arrow-right&quot;&gt;&lt;/i&gt;ch-icon-arrow-right&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-arrow-up&quot;&gt;&lt;/i&gt;ch-icon-arrow-up&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-arrow-down&quot;&gt;&lt;/i&gt;ch-icon-arrow-down&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-plus&quot;&gt;&lt;/i&gt;ch-icon-plus&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-minus&quot;&gt;&lt;/i&gt;ch-icon-minus&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-exclamation-sign&quot;&gt;&lt;/i&gt;ch-icon-exclamation-sign&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-warning-sign&quot;&gt;&lt;/i&gt;ch-icon-warning-sign&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-calendar&quot;&gt;&lt;/i&gt;ch-icon-calendar&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-comment&quot;&gt;&lt;/i&gt;ch-icon-comment&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-chevron-up&quot;&gt;&lt;/i&gt;ch-icon-chevron-up&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-chevron-down&quot;&gt;&lt;/i&gt;ch-icon-chevron-down&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-key&quot;&gt;&lt;/i&gt;ch-icon-key&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-comments&quot;&gt;&lt;/i&gt;ch-icon-comments&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-unlock&quot;&gt;&lt;/i&gt;ch-icon-unlock&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-wrench&quot;&gt;&lt;/i&gt;ch-icon-wrench&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-group&quot;&gt;&lt;/i&gt;ch-icon-group&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-copy&quot;&gt;&lt;/i&gt;ch-icon-copy&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-paper-clip&quot;&gt;&lt;/i&gt;ch-icon-paper-clip&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-reorder&quot;&gt;&lt;/i&gt;ch-icon-reorder&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-truck&quot;&gt;&lt;/i&gt;ch-icon-truck&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-caret-down&quot;&gt;&lt;/i&gt;ch-icon-caret-down&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-caret-up&quot;&gt;&lt;/i&gt;ch-icon-caret-up&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-caret-left&quot;&gt;&lt;/i&gt;ch-icon-caret-left&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-caret-right&quot;&gt;&lt;/i&gt;ch-icon-caret-right&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-sort&quot;&gt;&lt;/i&gt;ch-icon-sort&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-sort-down&quot;&gt;&lt;/i&gt;ch-icon-sort-down&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-sort-down&quot;&gt;&lt;/i&gt;ch-icon-sort-up&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-envelope-alt&quot;&gt;&lt;/i&gt;ch-icon-envelope-alt&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-undo&quot;&gt;&lt;/i&gt;ch-icon-undo&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-comment-alt&quot;&gt;&lt;/i&gt;ch-icon-comment-alt&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-comments-alt&quot;&gt;&lt;/i&gt;ch-icon-comments-alt&lt;/li&gt;&lt;li&gt;&lt;i class=&quot;ch-icon-phone&quot;&gt;&lt;/i&gt;ch-icon-phone&lt;/li&gt;
-	&lt;/ul&gt;
-
+	&lt;h1&gt;Header 1&lt;/h1&gt;
+	&lt;h2&gt;Header 2&lt;/h2&gt;
+	&lt;h3&gt;Header 3&lt;/h3&gt;
+	&lt;h4&gt;Header 4&lt;/h4&gt;
+	&lt;h5&gt;Header 5&lt;/h5&gt;
+	&lt;h6&gt;Header 6&lt;/h6&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 08 Sep 2014 00:00:00 -0300</pubDate>
-        <link>/chico/ui-components/icons</link>
-        <guid isPermaLink="true">/chico/ui-components/icons</guid>
+        <link>/chico/ui-components/headings</link>
+        <guid isPermaLink="true">/chico/ui-components/headings</guid>
         
-        <category>icons</category>
+        <category>headings</category>
         
         
       </item>
     
       <item>
-        <title>Icons</title>
-        <description>&lt;h2 id=&quot;text&quot;&gt;Text&lt;/h2&gt;
+        <title>Paragraphs</title>
+        <description>&lt;h2 id=&quot;paragraphs&quot;&gt;Paragraphs&lt;/h2&gt;
 
-&lt;p&gt;Descripción del text. &lt;strong&gt;Esto es destacado&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;!-- Component snippet code --&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;icon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;envelope&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Paragraphs description. &lt;strong&gt;importante text&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;!-- Component example --&gt;
 &lt;div class=&quot;component-example&quot;&gt;
-	Text example
+	&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.&lt;/p&gt;&lt;p&gt;Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed libero eget purus dictum fringilla non sed lectus. Etiam commodo quam in neque vehicula dapibus.&lt;/p&gt;&lt;p&gt;Phasellus ornare lacus ut purus elementum eget sodales dui placerat. Nunc ultrices porttitor mi, eu varius quam tristique in. Etiam tempor porta sodales.&lt;/p&gt;&lt;p&gt;Phasellus dui nisi, hendrerit a porta vel, tempus bibendum mauris.&lt;/p&gt;&lt;p&gt;Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.&lt;/p&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Sun, 07 Sep 2014 00:00:00 -0300</pubDate>
-        <link>/chico/ui-components/icons</link>
-        <guid isPermaLink="true">/chico/ui-components/icons</guid>
+        <link>/chico/ui-components/paragraphs</link>
+        <guid isPermaLink="true">/chico/ui-components/paragraphs</guid>
         
-        <category>icons</category>
+        <category>paragraphs</category>
         
         
       </item>
     
       <item>
-        <title>Icons</title>
-        <description>&lt;h2 id=&quot;boxes&quot;&gt;Boxes&lt;/h2&gt;
+        <title>Links</title>
+        <description>&lt;h2 id=&quot;links&quot;&gt;Links&lt;/h2&gt;
 
-&lt;p&gt;Now is the time for all good men to come to the aid of &lt;strong&gt;their country&lt;/strong&gt;.
-This is just a regular paragraph.&lt;/p&gt;
-
-&lt;!-- Component snippet code --&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;icon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;envelope&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;These are the links tha you can use in your html.&lt;/p&gt;
 
 &lt;!-- Component example --&gt;
 &lt;div class=&quot;component-example&quot;&gt;
-	Boxes example
+	&lt;p&gt;&lt;a href=&quot;http://www.mercadolibre.com&quot;&gt;MercadoLibre&lt;/a&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;a href=&quot;http://www.mercadopago.com&quot;&gt;MercadoPago&lt;/a&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;a href=&quot;http://www.mercadoshops.com&quot;&gt;MercadoShops&lt;/a&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;a href=&quot;http://www.mercadoclics.com&quot;&gt;MercadoClics&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Sat, 06 Sep 2014 00:00:00 -0300</pubDate>
-        <link>/chico/ui-components/icons</link>
-        <guid isPermaLink="true">/chico/ui-components/icons</guid>
+        <link>/chico/ui-components/links</link>
+        <guid isPermaLink="true">/chico/ui-components/links</guid>
         
-        <category>icons</category>
+        <category>links</category>
         
         
       </item>
