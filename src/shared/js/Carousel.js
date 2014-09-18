@@ -557,8 +557,6 @@
             // Avoid zero items in a page
             limitPerPage = Math.floor(this._maskWidth / this._itemOuterWidth) || 1;
 
-            console.log(this._maskWidth, this._itemOuterWidth, limitPerPage);
-
         // Limit amount of items when user set a limitPerPage amount
         if (max !== undefined && limitPerPage > max) { limitPerPage = max; }
 
