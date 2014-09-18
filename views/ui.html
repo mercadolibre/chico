@@ -1251,7 +1251,7 @@
     </div>
 
     <script src="/vendor/reqwest.js"></script>
-    <script src="/vendor/jquery.js"></script>
+    <!--script src="/vendor/jquery.js"></script-->
     <script src="/ui/js"></script>
     <script>
         var extraSuggestions = ['<ul>',
@@ -1431,7 +1431,7 @@
         });
 
         var layerFixed = new ch.Layer('#components', {
-            'content': $("#components-list"),
+            'content': '#components-list',
             'shownby': 'pointertap',
             'hiddenby': 'all',
             'width': '700px',
@@ -1444,7 +1444,7 @@
             'reference': document.querySelector('#bubble1')
         });
 
-        $('#bubble1').on('click', function () {
+        bubble.on('click', function () {
             bubble.show();
         });
 
@@ -1587,80 +1587,80 @@
 
 
 
-        // var  validation1 = new ch.Validation($('#input_ico'), {'conditions': [
-        //         {
-        //             'name': 'required',
-        //             'reference': $('#input_ico + .ch-form-icon')
-        //         },
-        //         {
-        //             'name': 'string'
-        //         }
-        //     ]});
+        var  validation1 = new ch.Validation('#input_ico', {'conditions': [
+                {
+                    'name': 'required',
+                    'reference': '#input_ico + .ch-form-icon'
+                },
+                {
+                    'name': 'string'
+                }
+            ]});
 
 
-        // var  validation2 = new ch.Validation($('#input_ico_inside'), {
-        //     'conditions':[{'name': 'required'}, {'name': 'number'}]
-        // });
+        var  validation2 = new ch.Validation('#input_ico_inside', {
+            'conditions':[{'name': 'required'}, {'name': 'number'}]
+        });
 
-        // var  validation4 = new ch.Validation($('#email'), {
-        //     'conditions':[{'name': 'required'}, {'name': 'email'}]
-        // });
+        var  validation4 = new ch.Validation('#email', {
+            'conditions':[{'name': 'required'}, {'name': 'email'}]
+        });
 
-        // var  validation5 = new ch.Validation($('#custom'), {'conditions':[
-        //     {
-        //         'name': 'myCustom1',
-        //         'fn': function (v) {
-        //              if (v.toString().indexOf("1") > -1) {
-        //                  return true;
-        //              }
-        //              return false;
-        //         },
-        //         'message': 'The number must contain a 1.'
-        //     },
-        //     {
-        //         'name': 'myCustom2',
-        //         'fn': function (v) {
-        //              if (v.toString().indexOf("2") > -1) {
-        //                  return true;
-        //              }
-        //              return false;
-        //         },
-        //         'message': 'The number must contain a 2.'
-        //     }
-        // ]});
+        var  validation5 = new ch.Validation('#custom', {'conditions':[
+            {
+                'name': 'myCustom1',
+                'fn': function (v) {
+                     if (v.toString().indexOf("1") > -1) {
+                         return true;
+                     }
+                     return false;
+                },
+                'message': 'The number must contain a 1.'
+            },
+            {
+                'name': 'myCustom2',
+                'fn': function (v) {
+                     if (v.toString().indexOf("2") > -1) {
+                         return true;
+                     }
+                     return false;
+                },
+                'message': 'The number must contain a 2.'
+            }
+        ]});
 
-        // var validation6 = new ch.Validation($('#url'), {'conditions':[{'name': 'url'}]});
+        var validation6 = new ch.Validation('#url', {'conditions':[{'name': 'url'}]});
 
-        // var validation7 = new ch.Validation($('#number'), {
-        //     'conditions':[{'name': 'number'}, {'name': 'min', 'num': 5}]
-        // });
+        var validation7 = new ch.Validation('#number', {
+            'conditions':[{'name': 'number'}, {'name': 'min', 'num': 5}]
+        });
 
-        // var validation8 = new ch.Validation($('#range'), {
-        //     'conditions':[{'name': 'min', 'num': 8}, {'name': 'max', 'num': 10}]
-        // });
+        var validation8 = new ch.Validation('#range', {
+            'conditions':[{'name': 'min', 'num': 8}, {'name': 'max', 'num': 10}]
+        });
 
-        // var validation9 = new ch.Validation($('#characters'), {
-        //     'conditions':[{'name': 'maxLength', 'num': 20}, {'name': 'minLength', 'num': 6}]
-        // });
+        var validation9 = new ch.Validation('#characters', {
+            'conditions':[{'name': 'maxLength', 'num': 20}, {'name': 'minLength', 'num': 6}]
+        });
 
-        // var validation10 = new ch.Validation($('#select2'), {
-        //     'conditions':[{'name': 'required', 'message': message('option')}]
-        // });
+        var validation10 = new ch.Validation('#select2', {
+            'conditions':[{'name': 'required', 'message': message('option')}]
+        });
 
-        // var validation11 = new ch.Validation($('.required-check'), {
-        //     'conditions':[{'name': 'required', 'message': message('requiredCheck')}]
-        // });
+        var validation11 = new ch.Validation('.required-check', {
+            'conditions':[{'name': 'required', 'message': message('requiredCheck')}]
+        });
 
-        // var validation12 = new ch.Validation($('.required-option'), {
-        //     'conditions':[{'name': 'required', 'message': message('option')}]
-        // });
-        // var validation13 = new ch.Validation($('#double'), {
-        //     'conditions':[{'name': 'required', 'message': message('link')}, {'name': 'number'}]
-        // });
+        var validation12 = new ch.Validation('.required-option', {
+            'conditions':[{'name': 'required', 'message': message('option')}]
+        });
+        var validation13 = new ch.Validation('#double', {
+            'conditions':[{'name': 'required', 'message': message('link')}, {'name': 'number'}]
+        });
 
-        // var validation14 = new ch.Validation($('#textarea2'), {
-        //     'conditions':[{'name': 'required'}]
-        // });
+        var validation14 = new ch.Validation('#textarea2', {
+            'conditions':[{'name': 'required'}]
+        });
     </script>
 </body>
 </html>
