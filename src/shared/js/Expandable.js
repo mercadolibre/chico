@@ -154,9 +154,7 @@
          * // Gets the expandable container.
          * expandable.container;
          */
-        // console.log(this._options.container, this._el.nextElementSibling);
         this.container = this._content = (this._options.container ? document.querySelector(this._options.container) : this._el.nextElementSibling);
-        ///console.log(this.container, this._el);
         ch.util.classList(this.container).add(this._options._classNameContainer);
         ch.util.classList(this.container).add('ch-hide');
         this.container.setAttribute('aria-expanded', 'false');
