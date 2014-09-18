@@ -8,21 +8,17 @@
     position: relative;
     padding-left: 16px;
     font-size: 1em;
+
+    &:active {
+        color: #00D;    
+    &:visited {
+        color: #800080;   
+    }
+    &:hover {
+        text-decoration: underline;        
+    }
 }
 
-/* Active trigger */
-.ch-expandable-trigger:active {
-    color: #00D;
-}
-
-/* Visited trigger */
-.ch-expandable-trigger:visited{
-    color: #800080;
-}
-
-/* Hover trigger */
-.ch-expandable-trigger:hover {
-    text-decoration: underline;
 }
 
 /* Trigger icon */
@@ -32,7 +28,7 @@
     position:absolute;
     top: 2px;
     left: 5px;
-    color: #999999;
+    color: #999;
     text-decoration: none;
 }
 

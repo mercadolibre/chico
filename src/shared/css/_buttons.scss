@@ -59,20 +59,17 @@ a {
 	padding: $btn-small-padding-vertical $btn-small-padding-horizontal;
 }
 
-.ch-btn-skin-bg {
+.ch-btn-skin {
 	background: $btn-secondary-bg;
 	background-image: linear-gradient($btn-secondary-top-bg,$btn-secondary-bottom-bg);
-}
-
-.ch-btn-skin {
-	@extend .ch-btn-skin-bg;
 	border:1px solid $btn-secondary-border;
 	box-shadow: $btn-secondary-shadow;
 	color: $btn-secondary-color;
 	line-height: 1em;
 
 	&:hover {
-		@extend .ch-btn-skin-bg;
+		background: $btn-secondary-bg-hover;
+		background-image: linear-gradient($btn-secondary-top-bg-hover,$btn-secondary-bottom-bg-hover);
 	}
 
 	&:active {

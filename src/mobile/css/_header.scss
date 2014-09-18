@@ -12,6 +12,37 @@
 	margin-bottom: 10px;
 	margin-left: -10px;
 	margin-right: -10px;
+
+	& h1 {
+		font-size: 1.143em;
+		line-height: 2.5em;
+		text-shadow: 0 1px 0 #FFF;
+		margin: 0;	
+	}
+
+	& .ch-nav,
+	nav {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 40px;		
+	}
+
+	& .ch-action-left,
+	.ch-action-right {
+		position: absolute;
+		top: 6px;
+	}
+
+	& .ch-action-left {
+		left: 5px;	
+	}
+
+	& .ch-action-right {
+		right: 5px;
+		margin-right: 0;	
+	}
 }
 
 /* Colors */
@@ -33,37 +64,6 @@
 	background-image: -o-linear-gradient(#efefef 10%, #e2e2e2 56%);
 	background-image: linear-gradient(#efefef 10%, #e2e2e2 56%);
 	color: #666666;
-}
-
-[class*="ch-header"] h1 {
-	font-size: 1.143em;
-	line-height: 2.5em;
-	text-shadow: 0 1px 0 #FFF;
-	margin: 0;
-}
-
-[class*="ch-header"] .ch-nav,
-[class*="ch-header"] nav {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 40px;
-}
-
-[class*="ch-header"] .ch-action-left,
-[class*="ch-header"] .ch-action-right {
-	position: absolute;
-	top: 6px;
-}
-
-[class*="ch-header"] .ch-action-left {
-	left: 5px;
-}
-
-[class*="ch-header"] .ch-action-right {
-	right: 5px;
-	margin-right: 0;
 }
 
 /* BTN Header */

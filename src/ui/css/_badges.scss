@@ -11,10 +11,10 @@
     margin: 10px;
     color: #FFF;
     background-color: #F5CC00;
-}
 
-[class*='ch-badge'].ch-icon-warning-sign {
-    color: #FFF;
+    &.ch-icon-warning-sign {
+        color: #FFF;        
+    }
 }
 
 .ch-badge-skin {

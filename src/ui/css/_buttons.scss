@@ -5,15 +5,15 @@
 /* Default h: ~30px*/
 .ch-btn,
 .ch-btn:focus {
-    line-height: 1.12em; /* ~20px */
-    padding: 5px 10px;
+    line-height: $btn-line-height;
+    padding: $btn-padding;
 }
 
 /* Large h: ~39px */
 .ch-btn-large,
 .ch-btn-large:focus {
-    line-height: 1.25em; /* ~23px */
-    padding: 6px 12px;
+    line-height: $btn-big-line-height;
+    padding: $btn-big-padding;
 }
 
 a.ch-btn-large,
@@ -25,8 +25,8 @@ a.ch-btn-large:focus {
 .ch-btn-small,
 .ch-btn-small:focus {
     font-size: 12px;
-    line-height: 1em;
-    padding: 5px 8px;
+    line-height: $btn-small-line-height;
+    padding: $btn-small-padding;
 }
 
 /* IE */

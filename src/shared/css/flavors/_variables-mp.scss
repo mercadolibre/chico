@@ -1,0 +1,112 @@
+//COMMON MERCADOPAGO SHARED SKIN VARIABLES
+//-------------------------------------------------			
+
+/**
+ * Global Colors
+ */
+
+$white:							#fff;
+$gray: 							#333;
+
+$gray-light:					lighten($gray, 10%); // #4d4d4d
+$gray-lighter:					lighten($gray, 30%); // grey
+$gray-lightest:					lighten($gray, 60%); // #cccccc
+$gray-dark:						darken($gray, 10%);
+$gray-darker:					darken($gray, 30%);
+$gray-darkest:					darken($gray, 60%);
+
+$yellow-main:   				#FFF059;
+$price:   						#900;
+$blue-main:   					#0066CC;
+
+/**
+ * Autocomplete
+ */
+
+$autocomplete-highlighted:		#e8f6fd;
+
+
+/**
+ * Boxes
+ */
+
+$box-bg-color-error:			#F5E6E6;
+$box-bg-color-help:				#F0F0F0;
+$box-bg-color-info:				#E4F2F9;
+$box-bg-color-ok:				#E9F4E4;
+$box-bg-color-warning:			#FFF3C8;
+
+$box-font-color-error:			#B84A46;
+$box-font-color-help:			#888888;
+$box-font-color-info:			#3A87AD;
+$box-font-color-ok:				#468847;
+$box-font-color-warning:		#F5CC00;
+
+
+/**
+ * Links
+ */
+
+$main-text:						$gray;
+$links:							$blue-main;
+$links-visited:					#880099;
+
+/**
+ * Buttons
+ */
+
+$btn-primary-color:				#fff;
+$btn-primary-bg:				#36a1f1;
+$btn-primary-top-bg:			#349FEF;
+$btn-primary-bottom-bg: 		#0f79c9;
+$btn-primary-hover:   			#4CBFF8;
+$btn-primary-hover-top-bg:		#4BBFF8;
+$btn-primary-hover-bottom-bg: 	#1699DF;
+$btn-primary-active:  			#116DC4;
+$btn-primary-border:			#0E70B9;
+
+$btn-primary-shadow:			#97dcff;
+
+$btn-secondary-color:			#295D8F;
+$btn-secondary-bg:				#DAF1FC;
+$btn-secondary-top-bg:			#DAF1FC;
+$btn-secondary-bottom-bg: 		#C2E2F3;
+
+$btn-secondary-bg-hover:   		#EAF7FE;
+$btn-secondary-top-bg-hover:	#EAF7FE;
+$btn-secondary-bottom-bg-hover:	#EAF7FE;
+
+$btn-secondary-active:  		#A9DBF7;
+$btn-secondary-border:			#79B0D9;
+$btn-secondary-shadow:			#EFF7FD; 
+
+$btn-disabled-color:			#CCC;
+$btn-disabled-bg:				#FFF;
+$btn-disabled-top-bg:			lighten($btn-disabled-bg,6.8%);	
+$btn-disabled-bottom-bg: 		darken($btn-disabled-bg,15%);
+$btn-disabled-hover:			none;
+$btn-disabled-border:			#CCC;
+$btn-disabled-shadow:			none;
+
+/**
+ * Bubble
+ */
+
+$bubble-color-data-side-after:		#F5E6E6;
+$bubble-color-data-side-before:		#EED3D7;
+
+/**
+ * Tooltip
+ */
+
+$tooltip-bg:						#EBF9FF;
+$tooltip-border-color:				#C6E2FF;
+$tooltip-font-color:				$gray;
+$tooltip-border-content-before:		$tooltip-border-color;
+$tooltip-border-content-after:		$tooltip-bg;
+
+/**
+ * Tables / Datagrid
+ */
+
+ $datagrid-selected:				#e8f6fd;

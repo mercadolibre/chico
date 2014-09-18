@@ -5,8 +5,8 @@
     background-image: none;
     position: absolute;
     z-index: 300;
-    background-color: #fff;
-    border: 1px solid #DEDEDE;
+    background-color: $white;
+    border: 1px solid #dedede;
     min-width: 240px;
 }
 
@@ -17,21 +17,18 @@
 
 .ch-datepicker .ch-calendar {
     display: block;
-}
 
-.ch-datepicker .ch-calendar caption {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
+    & caption,
+    thead {
+        border: none;
+    }
 
-.ch-datepicker .ch-calendar caption,
-.ch-datepicker .ch-calendar thead {
-    border: none;
-}
-
-.ch-datepicker .ch-calendar caption {
-    border-bottom: 1px solid #DEDEDE;
-    margin: 0;
+    & caption {
+        border-bottom: 1px solid #dedede;
+        margin: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
 }
 
 .ch-datepicker .ch-calendar tbody td:first-child {
@@ -44,15 +41,15 @@
 }
 
 .ch-datepicker .ch-calendar-day:hover {
-    background-color: #FEFBD6;
-    color: #333;
+    background-color: $datepicker-day-hover;
+    color: $gray;
     font-weight: normal;
     cursor:pointer;
 }
 
 .ch-datepicker .ch-calendar-day.ch-calendar-disabled:hover {
-    background-color: white;
-    color: #C6C6C6;
+    background-color: $white;
+    color: #c6c6c6;
     cursor: not-allowed;
 }
 

@@ -32,16 +32,16 @@
     background-color: #C9C9C9;
     width: 40px;
     height: 40px;
-}
 
-.ch-autocomplete-list .ch-icon-arrow-up[data-js="ch-autocomplete-complete-query"]:before {
-    color: #F4F4F4;
-    display: block;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    font-size: 30px;
-    overflow: hidden;
-    line-height: 50px;
-    text-indent: 10px;
+    &:before {
+        color: #F4F4F4;
+        display: block;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        font-size: 30px;
+        overflow: hidden;
+        line-height: 50px;
+        text-indent: 10px;        
+    }
 }

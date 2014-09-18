@@ -4,15 +4,15 @@
 /* Default h: ~38px */
 .ch-btn,
 .ch-btn:focus {
-	line-height: 1.4em;
-	padding: 7px 14px;
+	line-height: $btn-line-height;
+	padding: $btn-padding;
 }
 
 /* Large h: ~44px */
 .ch-btn-large,
 .ch-btn-large:focus {
 	width: 100%;
-	line-height: 1.5em;
+	line-height: $btn-big-line-height;
 }
 
 a.ch-btn-large,
@@ -25,7 +25,7 @@ a.ch-btn-large:focus {
 /* Small h: ~26px */
 .ch-btn-small,
 .ch-btn-small:focus {
-	font-size: 13px;
-	line-height: 1.4em;
-	padding: 5px 10px;
+	font-size: $btn-font-size;
+	line-height: $btn-small-line-height;
+	padding: $btn-small-padding;
 }
