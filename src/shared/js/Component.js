@@ -91,7 +91,7 @@
                 this._options = ch.util.extend(defaults, options);
             }
         // selector is HTMLElement
-        } else if (selector.nodeType !== undefined & selector.nodeType === document.ELEMENT_NODE) {
+        } else if (selector && selector.nodeType !== undefined && selector.nodeType === document.ELEMENT_NODE) {
 
             this._el = selector;
 
