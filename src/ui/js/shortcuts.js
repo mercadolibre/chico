@@ -1,7 +1,7 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
-    var $document = $(window.document),
+    var document = window.document,
         codeMap = {
             '8': ch.onkeybackspace,
             '9': ch.onkeytab,
@@ -181,4 +181,4 @@
 
     ch.shortcuts = shortcuts;
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
