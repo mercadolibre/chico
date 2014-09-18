@@ -65,10 +65,10 @@
 
 .ch-expandable-container.ch-box-list li {
     font-size: 14px;
-}
 
-.ch-expandable-container.ch-box-list li a:after {
-    color: #333;
+    a:after {
+        color: #333;  
+    }
 }
 
 .ch-expandable-container.ch-list,

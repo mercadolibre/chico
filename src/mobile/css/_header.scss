@@ -13,14 +13,14 @@
 	margin-left: -10px;
 	margin-right: -10px;
 
-	& h1 {
+	h1 {
 		font-size: 1.143em;
 		line-height: 2.5em;
 		text-shadow: 0 1px 0 #FFF;
 		margin: 0;	
 	}
 
-	& .ch-nav,
+	.ch-nav,
 	nav {
 		position: absolute;
 		top: 0;
@@ -29,17 +29,17 @@
 		height: 40px;		
 	}
 
-	& .ch-action-left,
+	.ch-action-left,
 	.ch-action-right {
 		position: absolute;
 		top: 6px;
 	}
 
-	& .ch-action-left {
+	.ch-action-left {
 		left: 5px;	
 	}
 
-	& .ch-action-right {
+	.ch-action-right {
 		right: 5px;
 		margin-right: 0;	
 	}
