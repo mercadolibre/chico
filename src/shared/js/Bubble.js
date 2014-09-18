@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -7,7 +7,7 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Positioner
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Bubble.
+     * @param {String} selector A jQuery or Zepto Selector to create an instance of ch.Bubble.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -32,18 +32,15 @@
      * // Create a new Bubble.
      * var bubble = new ch.Bubble($el, [options]);
      * @example
-     * // Create a new Bubble with jQuery or Zepto.
-     * var bubble = $(selector).bubble([options]);
-     * @example
      * // Create a new Bubble with disabled effects.
-     * var bubble = $(selector).bubble({
+     * var bubble = new ch.Bubble({
      *     'fx': 'none'
      * });
      * @example
      * // Create a new Bubble using the shorthand way (content as parameter).
-     * var bubble = $(selector).bubble('http://ui.ml.com:3040/ajax');
+     * var bubble = new ch.Bubble('http://ui.ml.com:3040/ajax');
      */
-    function Bubble($el, options) {
+    function Bubble(selector, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -51,7 +48,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -118,15 +115,15 @@
      * @private
      * @returns {bubble}
      */
-    Bubble.prototype._init = function ($el, options) {
+    Bubble.prototype._init = function (selector, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
-        $('<i class="ch-icon-remove-sign"></i>').prependTo(this.$container);
+        this.container.insertAdjacentHTML('beforeend', '<i class="ch-icon-remove-sign"></i>');
 
         return this;
     };
 
     ch.factory(Bubble, parent._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
