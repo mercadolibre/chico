@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -36,7 +36,7 @@
      *     }
      * });
      */
-    function Form($el, options) {
+    function Form(selector, options) {
 
         /**
          * Reference to context of an instance.
@@ -45,7 +45,7 @@
          */
         var that = this;
 
-        that._init($el, options);
+        that._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -95,9 +95,9 @@
      * @private
      * @returns {form}
      */
-    Form.prototype._init = function ($el, options) {
+    Form.prototype._init = function (selector, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
         /**
          * Reference to context of an instance.
@@ -129,23 +129,22 @@
          * The form container.
          * @type {(jQuerySelector | ZeptoSelector)}
          */
-        this.$container = this._$el
+        this.container = this._el;
             // Add classname
-            .addClass('ch-form')
+        ch.util.classList(this.container).add('ch-form');
             // Disable HTML5 browser-native validations
-            .attr('novalidate', 'novalidate')
+        this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-            .on('submit.form', function (event) {
-                // Runs validations
-                that.validate(event);
-            });
+        ch.util.Event.addListener(this.container, 'submit', function (event) {
+            // Runs validations
+            that.validate(event);
+        });
 
-        this.$container
-            // Bind the reset
-            .find('input[type="reset"]').on(ch.onpointertap + '.form', function (event) {
-                ch.util.prevent(event);
-                that.reset();
-            });
+        // Bind the reset
+        ch.util.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
+            ch.util.prevent(event);
+            that.reset();
+        });
 
         // Clean validations
         this.on('disable', this.clear);
@@ -207,14 +206,14 @@
         if (that.errors.length > 0) {
             firstError = that.errors[0];
 
-            firstError.$trigger[0].scrollIntoView();
+            firstError.trigger.scrollIntoView();
 
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-            triggerError = firstError.$trigger[0];
+            triggerError = firstError.trigger;
 
             if (triggerError.tagName === 'DIV') {
-                firstError.$trigger.find('input:first').focus();
+                firstError.trigger.querySelector('input:first-child').focus();
             }
 
             if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
@@ -372,9 +371,8 @@
      */
     Form.prototype.destroy = function () {
 
-        this.$container
-            .off('.form')
-            .removeAttr('novalidate');
+        // this.$container.off('.form')
+        this.container.removeAttribute('novalidate');
 
         this.validations.forEach(function (e, i) {
             e.destroy();
@@ -388,4 +386,4 @@
     // Factorize
     ch.factory(Form);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

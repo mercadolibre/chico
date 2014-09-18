@@ -1518,41 +1518,41 @@
         // Countdown
         var countdown = new ch.Countdown('#text_cd', {'max': 140, 'plural': '# left', 'singular': '# left'});
 
-        // // Messages
-        // var message = (function (message, value) {
-        // var messages = {
-        //      'option': 'Choose an option.',
-        //      'requiredCheck': 'Accept the Terms of Use.',
-        //      'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
-        //  };
+        // Messages
+        var message = (function (message, value) {
+        var messages = {
+             'option': 'Choose an option.',
+             'requiredCheck': 'Accept the Terms of Use.',
+             'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
+         };
 
-        //  return function (message, value) {
-        //      var message = messages[message] || message;
-        //      if(value){
-        //          return message.replace('{#num#}',value)
-        //      }
-        //      return message;
-        //  }
-        // }());
+         return function (message, value) {
+             var message = messages[message] || message;
+             if(value){
+                 return message.replace('{#num#}',value)
+             }
+             return message;
+         }
+        }());
 
-        // // Form
-        // var m = new ch.Modal($('<div></div>'));
+        // Form
+        var m = new ch.Modal();
 
-        // var form = new ch.Form($('.myForm'))
-        //          .on('success', function (event) {
-        //              event.preventDefault();
-        //              m.show();
-        //          })
-        //          .on('error', function (errors) {
-        //              console.log(errors);
-        //          });
+        var form = new ch.Form('.myForm')
+                 .on('success', function (event) {
+                     event.preventDefault();
+                     m.show('success');
+                 })
+                 .on('error', function (errors) {
+                     console.log(errors);
+                 });
 
-        // form.on('submit.form', function (event) {
-        //     if (!form.hasError()) {
-        //         event.preventDefault();
-        //         console.log('Ademas hago otra cosa en el submit');
-        //     }
-        // });
+        ch.util.Event.addListener(form._el, 'submit', function (event) {
+            if (!form.hasError()) {
+                event.preventDefault();
+                console.log('Ademas hago otra cosa en el submit');
+            }
+        });
 
         // // Validators
         // // var validation1 = $('#input_ico').validation({
