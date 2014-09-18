@@ -1,4 +1,4 @@
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -17,29 +17,33 @@
          * @type {Bubble}
          * @see ch.Bubble
          */
-        this.bubble = this._container = new ch.Bubble($('<div>'), {
+        this.bubble = this._container = new ch.Bubble({
             'reference': that._options.reference || (function () {
                 var reference,
-                    $trigger = that.$trigger,
-                    h4;
+                    trigger = that.trigger,
+                    h4,
+                    span;
                 // CHECKBOX, RADIO
                 // TODO: when old forms be deprecated we must only support ch-form-options class
-                if ($trigger.hasClass('ch-form-options')) {
+                if (ch.util.classList(trigger).contains('ch-form-options')) {
                 // Helper reference from will be fired
-                // H4
-                    if ($trigger.find('h4').length > 0) {
-                        h4 = $trigger.find('h4'); // Find h4
-                        h4.wrapInner('<span>'); // Wrap content with inline element
-                        reference = h4.children(); // Inline element in h4 like helper reference
+                    if (trigger.querySelectorAll('h4').length > 0) {
+                        // Wrap content with inline element
+                        h4 = trigger.querySelector('h4'); // Find h4
+                        span = document.createElement('span');
+                        span.insertAdjacentHTML('beforeend', h4.innerHTML);
+                        h4.innerHTML = '';
+                        h4.insertBefore(span, h4.firstChild);
+                        reference = h4.children[0]; // Inline element in h4 like helper reference
                     // Legend
-                    } else if ($trigger.prev().prop('tagName') === 'LEGEND') {
-                        reference = $trigger.prev(); // Legend like helper reference
+                    } else if (trigger.previousElementSibling && trigger.previousElementSibling.tagName === 'LEGEND') {
+                        reference = trigger.previousElementSibling; // Legend like helper reference
                     } else {
-                        reference = $($trigger.find('label')[0]);
+                        reference = trigger.querySelector('label');
                     }
                 // INPUT, SELECT, TEXTAREA
                 } else {
-                    reference = $trigger;
+                    reference = trigger;
                 }
 
                 return reference;
@@ -62,7 +66,7 @@
      */
     ch.Validation.prototype._showErrorMessage = function (message) {
         this.bubble.content(message).show();
-        this.$trigger.attr('aria-label', 'ch-' + this.bubble.name + '-' + this.bubble.uid);
+        this.trigger.setAttribute('aria-label', 'ch-' + this.bubble.name + '-' + this.bubble.uid);
 
         return this;
     };
@@ -76,7 +80,7 @@
      */
     ch.Validation.prototype._hideErrorMessage = function () {
         this.bubble.hide();
-        this.$trigger.removeAttr('aria-label');
+        this.trigger.removeAttribute('aria-label');
 
         return this;
     };
@@ -105,4 +109,4 @@
         return this;
     };
 
-}(this.ch.$, this.ch));
+}(this.ch));

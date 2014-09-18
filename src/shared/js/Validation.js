@@ -9,7 +9,7 @@
      * @requires ch.Condition
      * @requires ch.Form
      * @requires ch.Bubble
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {String} selector A jQuery or Zepto Selector to create an instance of ch.Validation.
      * @param {Object} [options] Options to customize an instance.
      * @param {Array} [options.conditions] A collection of conditions to validate.
      * @param {String} [options.conditions.name] The name of the condition.
@@ -24,13 +24,10 @@
      * @returns {validation} Returns a new instance of Validation.
      * @example
      * // Create a new Validation.
-     * var validation = new ch.Validation($el, [options]);
-     * @example
-     * // Create a new Validation with jQuery or Zepto.
-     * var validation = $(selector).validation([options]);
+     * var validation = new ch.Validation([selector], [options]);
      * @example
      * // Create a validation with with custom options.
-     * var validation = $(selector).validation({
+     * var validation = new ch.Validation({
      *     'conditions': [
      *         {
      *             'name': 'required',
@@ -48,7 +45,7 @@
      *     'align': 'left'
      * });
      */
-    function Validation($el, options) {
+    function Validation(selector, options) {
 
         /**
          * Reference to context of an instance.
@@ -57,7 +54,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -144,7 +141,7 @@
      * @private
      * @returns {validation}
      */
-    Validation.prototype._init = function ($el, options) {
+    Validation.prototype._init = function (selector, options) {
 
         /**
          * Reference to context of an instance.
@@ -153,13 +150,13 @@
          */
         var that = this;
 
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
         /**
          * The validation trigger.
          * @type {(jQuerySelector | ZeptoSelector)}
          */
-        this.$trigger = this._$el;
+        this.trigger = this._el;
 
         /**
          * The validation container.
@@ -200,7 +197,7 @@
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = (ch.Component.instances[that.$trigger.parents('form')[0].getAttribute('data-uid')] || new ch.Form(that.$trigger.parents('form')));
+        this.form = (ch.Component.instances[ch.util.parentElement(that.trigger, 'form').getAttribute('data-uid')] || new ch.Form(ch.util.parentElement(that.trigger, 'form')));
 
         this.form.validations.push(this);
 
@@ -208,7 +205,7 @@
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (this.$trigger.hasClass('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (ch.util.classList(this.trigger).contains('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -261,7 +258,7 @@
             previousValue;
 
         // It must happen only once.
-        this.$trigger.on(this._validationEvent + '.validation', function () {
+        ch.util.Event.addListener(this.trigger, this._validationEvent, function () {
 
             if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
                 previousValue = this.value;
@@ -279,7 +276,7 @@
 
             if (!that._previousError.condition || !that._shown) {
                 if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
-                    that.$trigger.addClass('ch-validation-error');
+                    ch.util.classList(that.trigger).add('ch-validation-error');
                 }
 
                 that._showErrorMessage(that.error.message || 'Error');
@@ -322,9 +319,9 @@
             this._shown = false;
         }
 
-        this.$trigger
-            .removeClass('ch-validation-error')
-            .removeAttr('aria-label');
+        this.trigger.removeAttribute('aria-label');
+        ch.util.classList(this.trigger).remove('ch-validation-error')
+
 
         this._hideErrorMessage();
 
@@ -356,7 +353,7 @@
     Validation.prototype.hasError = function () {
 
         // Pre-validation: Don't validate disabled
-        if (this.$trigger.attr('disabled') || !this._enabled) {
+        if (this.trigger.getAttribute('disabled') || !this._enabled) {
             return false;
         }
 
@@ -410,9 +407,8 @@
      */
     Validation.prototype.clear = function () {
 
-        this.$trigger
-            .removeClass('ch-validation-error')
-            .removeAttr('aria-label');
+        this.trigger.removeAttribute('aria-label');
+        ch.util.classList(this.trigger).remove('ch-validation-error');
 
         this.error = null;
 
@@ -444,7 +440,7 @@
      * validation.and().validation();
      */
     Validation.prototype.and = function () {
-        return this.$trigger;
+        return this.trigger;
     };
 
     /**
@@ -538,9 +534,8 @@
      */
     Validation.prototype.destroy = function () {
 
-        this.$trigger
-            .off('.validation')
-            .removeAttr('data-side data-align');
+        // this.$trigger.off('.validation')
+        this.trigger.removeAttribute('data-side data-align');
 
         parent.destroy.call(this);
 

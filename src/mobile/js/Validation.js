@@ -1,4 +1,4 @@
-(function (ch, $) {
+(function (ch) {
     'use strict';
 
     /**
@@ -9,8 +9,8 @@
      * @returns {validation}
      */
     ch.Validation.prototype._configureContainer = function () {
-        this._container = $('<div class="ch-validation-message ch-hide">').appendTo(this.$trigger.parent());
-
+        var parent = ch.util.parentElement(this.trigger);
+        parent.insertAdjacentHTML('beforeend', '<div class="ch-validation-message ch-hide">');
         return this;
     };
 
@@ -22,9 +22,8 @@
      * @returns {validation}
      */
     ch.Validation.prototype._showErrorMessage = function (message) {
-        this._container
-            .html(message)
-            .removeClass('ch-hide');
+        this._container.innerHTML = message;
+        ch.util.classList(this._container).remove('ch-hide');
 
         return this;
     };
@@ -37,9 +36,9 @@
      * @returns {validation}
      */
     ch.Validation.prototype._hideErrorMessage = function () {
-        this._container.addClass('ch-hide');
+        ch.util.classList(this._container).add('ch-hide');
 
         return this;
     };
 
-}(this.ch, this.ch.$));
+}(this.ch));
