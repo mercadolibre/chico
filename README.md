@@ -68,7 +68,7 @@ You can run our tests in your browser:
 
         $ sass --watch .
 
-3. At the folder tree, go to src/ui/css/chico.scss
+3. At the folder tree, go to `src/ui/css/chico.scss`
 
 4. Change Flavor and Structure variables. 
 
@@ -77,7 +77,13 @@ You can run our tests in your browser:
 
 5. Save the file (sass will compile the new css created).
 
-6. Overwrite the css from src/ui/css/chico.css to vendor/chico.css
+6. Overwrite the css from 
+
+`src/ui/css/chico.css` 
+
+to 
+
+`vendor/chico.css`
 
 7. Refresh the url
 
