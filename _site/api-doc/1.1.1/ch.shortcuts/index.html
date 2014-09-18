@@ -1,0 +1,354 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>Chico UI</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="http://static.mlstatic.com/org-img/ui/ml/favicon/favicon-1.0.0.ico"/>
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/300.css">
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/700.css">
+
+    <!-- Chico HTTP -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
+
+    <link rel="stylesheet" href="/chico/src/css/mesh.min.css"/>
+    <link rel="stylesheet" href="/chico/src/css/base__small.css"/>
+    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/base__large.css"/>
+    <link rel="stylesheet" href="/chico/src/css/chico__small.css"/>
+    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/chico__large.css"/>
+    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/ui-slug_element_component.css"/>
+
+    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/gh-pages.css"/>
+    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/prism.css"/>
+
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="src/css/base__large.css"/>
+        <link rel="stylesheet" href="src/css/chico__large.css"/>
+    <![endif]-->
+</head>
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      <header role="banner" class="ml-header">
+    <div class="ml-bounds">
+        <!-- Page title (small devices) -->
+        <h1 class="ml-title">Chico</h1>
+
+        <!-- Header buttons (small devices) -->
+        <a class="ml-header-btn" href="#">Back</a>
+        <a class="ml-header-btn ml-header-action" href="#">Action</a>
+
+        <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+        <a class="ml-logo" href="/chico/">MercadoLibre - Donde compras y vendes de todo</a>
+        <span class="ch-brand-name">Chico UI</span>
+
+        <!-- Menu for large devices -->
+        <nav class="ml-header-menu">
+            <a class="" href="/chico/getting-started/">Getting started</a>
+            <a class="" href="/chico/ui-components/">UI Components</a>
+            <a class=" active" href="/chico/api-doc/1.1.1/ch.Autocomplete.html">API Doc</a>
+        </nav>
+    </div>
+</header>
+
+      <div class="ml-wrapper">
+        <div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds row">
+                <div class="mesh-12 mesh-m-9">
+                    <h1>shortcuts (Namespace)</h1>
+                    
+
+
+
+
+
+
+
+    
+        <h2 class="api-title">Description</h2>
+        <p>Shortcuts</p>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.add<span class="signature">(shortcut, name, callback)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Add a callback to a shortcut with given name.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">shortcut</code>
+             - 
+            
+                
+<em class="param-type"><a href="ch.html#onkeybackspace">ch.onkeybackspace</a> | <a href="ch.html#onkeytab">ch.onkeytab</a> | <a href="ch.html#onkeyenter">ch.onkeyenter</a> | <a href="ch.html#onkeyesc">ch.onkeyesc</a> | <a href="ch.html#onkeyleftarrow">ch.onkeyleftarrow</a> | <a href="ch.html#onkeyuparrow">ch.onkeyuparrow</a> | <a href="ch.html#onkeyrightarrow">ch.onkeyrightarrow</a> | <a href="ch.html#onkeydownarrow">ch.onkeydownarrow</a></em>
+            
+            : Shortcut to subscribe.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A name to add in the collection.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">callback</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : A given function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Add a callback to ESC key with "component" name.
+ch.shortcuts.add(ch.onkeyesc, 'component', component.hide);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.off<span class="signature">(name)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Turn off shortcuts associated to a given name.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A given name from the collection.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Turn off shortcuts associated to "component" name.
+ch.shortcuts.off('component');</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.on<span class="signature">(name)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Turn on shortcuts associated to a given name.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A given name from the collection.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Turn on shortcuts associated to "component" name.
+ch.shortcuts.on('component');</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.remove<span class="signature">(name, <span class="optional">shortcut</span>, callback)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Removes a callback from a shortcut with given name.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A name to remove from the collection.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">shortcut</code>
+             - 
+            
+                
+<em class="param-type"><a href="ch.html#onkeybackspace">ch.onkeybackspace</a> | <a href="ch.html#onkeytab">ch.onkeytab</a> | <a href="ch.html#onkeyenter">ch.onkeyenter</a> | <a href="ch.html#onkeyesc">ch.onkeyesc</a> | <a href="ch.html#onkeyleftarrow">ch.onkeyleftarrow</a> | <a href="ch.html#onkeyuparrow">ch.onkeyuparrow</a> | <a href="ch.html#onkeyrightarrow">ch.onkeyrightarrow</a> | <a href="ch.html#onkeydownarrow">ch.onkeydownarrow</a></em>
+            
+            : Shortcut to unsubscribe.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">callback</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : A given function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Remove a callback from ESC key with "component" name.
+ch.shortcuts.remove(ch.onkeyesc, 'component', component.hide);</code></pre>
+
+
+
+    </dl>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <nav class="mesh-12 mesh-m-3 chico-nav">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <small>©2014 MercadoLibre.com</small>
+        <nav>
+            <a href="#">About</a>
+        </nav>
+    </div>
+</footer>
+
+    <script type="text/javascript" src="/chico/src/js/ui-slug_element_component.js"></script>
+    <script type="text/javascript">
+
+      var elementToFix = new SlugElement('chico-nav', 'height', 900, 900);
+
+    </script>
+
+  </body>
+
+</html>
