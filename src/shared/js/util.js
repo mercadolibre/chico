@@ -110,25 +110,6 @@
         },
 
         /**
-         * Determines if a specified element is an instance of $.
-         * @param {Object} $el The element to be checked as instance of $.
-         * @returns {Boolean}
-         * @example
-         * ch.util.is$($('element')); // true
-         */
-        'is$': (function () {
-            if ($.zepto === undefined) {
-                return function ($el) {
-                    return $el instanceof $;
-                };
-            } else {
-                return function ($el) {
-                    return $.zepto.isZ($el);
-                };
-            }
-        }()),
-
-        /**
          * Adds CSS rules to disable text selection highlighting.
          * @param {HTMLElement} jQuery or Zepto Selector to disable text selection highlighting.
          * @example
@@ -556,14 +537,24 @@
             return true;
         },
 
-        'parentElement': function(el) {
-            var parent = el.parentNode;
+        // review this method :S
+        'parentElement': function(el, tagname) {
+            var parent = el.parentNode,
+                tag = tagname ? tagname.toUpperCase() : tagname;
+
 
             if (parent !== null) {
                 if (parent.nodeType !== document.ELEMENT_NODE) {
-                    return this.parentElement(parent);
+                    return this.parentElement(parent, tag);
+                } else {
+                    if (tagname !== undefined && parent.tagName === tag) {
+                        return parent;
+                    } else if (tagname !== undefined && parent.tagName !== tag) {
+                        return this.parentElement(parent, tag);
+                    } else if (tagname === undefined) {
+                        return parent;
+                    }
                 }
-
                 return parent;
             }
         }
