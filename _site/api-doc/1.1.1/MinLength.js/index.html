@@ -34,7 +34,6 @@
     <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/gh-pages.css"/>
     <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/prism.css"/>
 
-
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="src/css/base__large.css"/>
         <link rel="stylesheet" href="src/css/chico__large.css"/>
@@ -62,7 +61,7 @@
         <nav class="ml-header-menu">
             <a class="" href="/chico/getting-started/">Getting started</a>
             <a class="" href="/chico/ui-components/">UI Components</a>
-            <a class=" active" href="/chico/api-doc/1.1.1/ch.Autocomplete.html">API Doc</a>
+            <a class=" active" href="/chico/api-doc/1.1.1/ch.Autocomplete">API Doc</a>
         </nav>
     </div>
 </header>
@@ -206,6 +205,13 @@
         </section>
     </main>
 </div>
+
+<script src="/chico/src/js/prism.js"></script>
+<script>
+    $(function () {
+        $("#copyright").text((new Date().getFullYear()) + " ");
+    });
+</script>
       </div>
 
     <footer role="contentinfo" class="ml-footer">
