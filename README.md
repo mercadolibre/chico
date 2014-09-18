@@ -62,11 +62,11 @@ You can run our tests in your browser:
 ## Theme setup
 1. Install sass:
 
-MAC -> sudo gem install sass
+        $ sudo gem install sass
 
 2. Watch sass to alert for changes and compile:
 
-sass --watch .
+        $ sass --watch .
 
 3. At the folder tree, go to src/ui/css/chico.scss
 
