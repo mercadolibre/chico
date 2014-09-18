@@ -1,4 +1,4 @@
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     // Private Members
@@ -48,12 +48,12 @@
         'required': {
             'fn': function (value) {
 
-                var tag = this.$trigger.hasClass('ch-form-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = ch.util.classList(this.trigger).contains('ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
                 case 'OPTIONS':
-                    validated = this.$trigger.find('input:checked').length !== 0;
+                    validated = this.trigger.querySelectorAll('input:checked').length !== 0;
                     break;
 
                 case 'SELECT':
@@ -207,4 +207,4 @@
 
     ch.Condition = Condition;
 
-}(this.ch.$, this.ch));
+}(this.ch));
