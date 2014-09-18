@@ -77,13 +77,7 @@ You can run our tests in your browser:
 
 5. Save the file (sass will compile the new css created).
 
-6. Overwrite the css from 
-
-`src/ui/css/chico.css` 
-
-to 
-
-`vendor/chico.css`
+6. Overwrite the css from `src/ui/css/chico.css` to `vendor/chico.css`
 
 7. Refresh the url
 
