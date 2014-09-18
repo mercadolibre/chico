@@ -32,6 +32,8 @@
     <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/ui-slug_element_component.css"/>
 
     <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/gh-pages.css"/>
+    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/prism.css"/>
+
 
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="src/css/base__large.css"/>
@@ -66,8 +68,7 @@
 </header>
 
       <div class="ml-wrapper">
-        <!-- Add `ch-wizard` or `ch-box-lite` classname if you are using `ml-contextual` -->
-<main role="main" class="chico-get-started">
+        <main role="main" class="chico-get-started">
     <section class="chico-bg-noise chico-head">
         <div class="ml-bounds row">
             <h1 class="mesh-12">Getting started</h1>
@@ -100,13 +101,13 @@
                     </p>
 
                     <pre class="language-markup">
-    <code>&lt;!DOCTYPE html>
-    &lt;html>
-    &lt;head>
-    &lt;!--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-    &lt;!--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-    &lt;!--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-    &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;</code>
+                        <code>&lt;!DOCTYPE html>
+                        &lt;html>
+                        &lt;head>
+                        &lt;!--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
+                        &lt;!--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
+                        &lt;!--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
+                        &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;</code>
                     </pre>
 
                 </article>
@@ -115,14 +116,14 @@
 
                     <h3 id="jquery">jQuery JavaScript Library</h3>
                     <p>Most of our framework’s functionality is built on jQuery. That’s why we need to pre-load this toolbox.
-    You can get jQuery from many places like Google CDN:</p>
+                    You can get jQuery from many places like Google CDN:</p>
 
                     <pre class="language-markup">
-    <code class="highlight">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js">&lt;/script></code>
+                        <code class="highlight">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js">&lt;/script></code>
                     </pre>
                     <h4>Or jQuery CDN:</h4>
                     <pre class="language-markup">
-    <code class="highlight">&lt;script src="http://code.jquery.com/jquery-x.x.x.min.js">&lt;/script></code>
+                         <code class="highlight">&lt;script src="http://code.jquery.com/jquery-x.x.x.min.js">&lt;/script></code>
                     </pre>
 
                 </article>
@@ -134,7 +135,7 @@
                     <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
 
                     <pre class="language-markup">
-    <code class="highlight">&lt;link rel="stylesheet" href="chico-min-x.x.x.css"/></code>
+                        <code class="highlight">&lt;link rel="stylesheet" href="chico-min-x.x.x.css"/></code>
                     </pre>
 
                     <p>
@@ -142,7 +143,7 @@
                     </p>
 
                     <pre class="language-markup">
-    <code class="highlight">&lt;script src="build/chico-min-x.x.x.js">&lt;/script></code>
+                        <code class="highlight">&lt;script src="build/chico-min-x.x.x.js">&lt;/script></code>
                     </pre>
 
                     <p>
@@ -156,28 +157,28 @@
                     <h3 id="overview">Overview</h3>
 
                     <pre class="language-markup">
-    <code>&lt;!doctype html&gt;
-    &lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;
-    &lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;
-    &lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;
-    &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;
-    &lt;head&gt;
-    &lt;!-- Avoid script blocking --&gt;
-    &lt;script&gt;&lt;/script&gt;
-    &lt;meta charset="utf-8"/&gt;
-    &lt;title&gt;Document Title&lt;/title&gt;
-    &lt;!-- Chico UI Core stylesheet --&gt;
-    &lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    ...
-    &lt;!-- All markup here... --&gt;
-    ...
-    &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;&lt;/script&gt;
-    &lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;
-    &lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;</code>
+                        <code>&lt;!doctype html&gt;
+                        &lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;
+                        &lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;
+                        &lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;
+                        &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;
+                        &lt;head&gt;
+                        &lt;!-- Avoid script blocking --&gt;
+                        &lt;script&gt;&lt;/script&gt;
+                        &lt;meta charset="utf-8"/&gt;
+                        &lt;title&gt;Document Title&lt;/title&gt;
+                        &lt;!-- Chico UI Core stylesheet --&gt;
+                        &lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;
+                        &lt;/head&gt;
+                        &lt;body&gt;
+                        ...
+                        &lt;!-- All markup here... --&gt;
+                        ...
+                        &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;&lt;/script&gt;
+                        &lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;
+                        &lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;
+                        &lt;/body&gt;
+                        &lt;/html&gt;</code>
                     </pre>
 
                 </article>
