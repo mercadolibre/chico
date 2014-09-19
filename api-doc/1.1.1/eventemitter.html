@@ -1,0 +1,339 @@
+---
+layout: default
+id: api-doc
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds row">
+                <div class="mesh-12 mesh-m-9">
+                    <h1>NaN</h1>
+                    
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>Event Emitter Class for the browser.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+    <pre><code class="language-javascript">// Create a new instance of EventEmitter.
+var emitter = new ch.EventEmitter();</code></pre>
+
+    <pre><code class="language-javascript">// Inheriting from EventEmitter.
+ch.util.inherits(Component, ch.EventEmitter);</code></pre>
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.emit<span class="signature">(event, var_args)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Execute each item in the listener collection in order with the specified data.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The name of the event you want to emit.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">var_args</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Data to pass to the listeners.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Will emit the 'ready' event with 'param1' and 'param2' as arguments.
+component.emit('ready', 'param1', 'param2');</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.getListeners<span class="signature">(event)</span><span class="type-signature"> &rarr; {Array}</span></code></h4>
+<pre></pre>
+
+    <p>Returns all listeners from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Returns listeners from 'ready' event.
+component.getListeners('ready');</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.off<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Removes a listener from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Will remove event listener to 'ready' event.
+component.off('ready', listener);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.on<span class="signature">(event, listener, once)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name to subscribe.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">once</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Indicate if a listener function will be called only one time.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Will add an event listener to 'ready' event.
+component.on('ready', listener);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.once<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event to will execute only once.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Will add an event handler to 'contentLoad' event once.
+component.once('contentLoad', listener);</code></pre>
+
+
+
+    </dl>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <nav class="mesh-12 mesh-m-3 chico-nav">
+                    <h2>Components</h2><ul><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li></ul><h2>Namespaces</h2><ul><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li></ul><h2>Mixins</h2><ul><li><a href="../collapsible.html">Collapsible</a></li><li><a href="../content.html">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="/chico/src/js/prism.js"></script>
+<script>
+    $(function () {
+        $("#copyright").text((new Date().getFullYear()) + " ");
+    });
+</script>
