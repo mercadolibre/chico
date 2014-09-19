@@ -1,0 +1,275 @@
+---
+layout: default
+id: api-doc
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds row">
+                <div class="mesh-12 mesh-m-9">
+                    <h1>shortcuts (Namespace)</h1>
+                    
+
+
+
+
+
+
+
+    
+        <h2 class="api-title">Description</h2>
+        <p>Shortcuts</p>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.add<span class="signature">(shortcut, name, callback)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Add a callback to a shortcut with given name.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">shortcut</code>
+             - 
+            
+                
+<em class="param-type"><a href="../../html#onkeybackspace">ch.onkeybackspace</a> | <a href="../../html#onkeytab">ch.onkeytab</a> | <a href="../../html#onkeyenter">ch.onkeyenter</a> | <a href="../../html#onkeyesc">ch.onkeyesc</a> | <a href="../../html#onkeyleftarrow">ch.onkeyleftarrow</a> | <a href="../../html#onkeyuparrow">ch.onkeyuparrow</a> | <a href="../../html#onkeyrightarrow">ch.onkeyrightarrow</a> | <a href="../../html#onkeydownarrow">ch.onkeydownarrow</a></em>
+            
+            : Shortcut to subscribe.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A name to add in the collection.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">callback</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : A given function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Add a callback to ESC key with "component" name.
+ch.shortcuts.add(ch.onkeyesc, 'component', component.hide);</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.off<span class="signature">(name)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Turn off shortcuts associated to a given name.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A given name from the collection.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Turn off shortcuts associated to "component" name.
+ch.shortcuts.off('component');</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.on<span class="signature">(name)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Turn on shortcuts associated to a given name.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A given name from the collection.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Turn on shortcuts associated to "component" name.
+ch.shortcuts.on('component');</code></pre>
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.remove<span class="signature">(name, <span class="optional">shortcut</span>, callback)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<pre></pre>
+
+    <p>Removes a callback from a shortcut with given name.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A name to remove from the collection.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">shortcut</code>
+             - 
+            
+                
+<em class="param-type"><a href="../../html#onkeybackspace">ch.onkeybackspace</a> | <a href="../../html#onkeytab">ch.onkeytab</a> | <a href="../../html#onkeyenter">ch.onkeyenter</a> | <a href="../../html#onkeyesc">ch.onkeyesc</a> | <a href="../../html#onkeyleftarrow">ch.onkeyleftarrow</a> | <a href="../../html#onkeyuparrow">ch.onkeyuparrow</a> | <a href="../../html#onkeyrightarrow">ch.onkeyrightarrow</a> | <a href="../../html#onkeydownarrow">ch.onkeydownarrow</a></em>
+            
+            : Shortcut to unsubscribe.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">callback</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : A given function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+    <pre><code class="language-javascript">// Remove a callback from ESC key with "component" name.
+ch.shortcuts.remove(ch.onkeyesc, 'component', component.hide);</code></pre>
+
+
+
+    </dl>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <nav class="mesh-12 mesh-m-3 chico-nav">
+                    <h2>Components</h2><ul><li><a href="../../Autocomplete.html">Autocomplete</a></li><li><a href="../../Bubble.html">Bubble</a></li><li><a href="../../Calendar.html">Calendar</a></li><li><a href="../../Carousel.html">Carousel</a></li><li><a href="../../Component.html">Component</a></li><li><a href="../../Condition.html">Condition</a></li><li><a href="../../Countdown.html">Countdown</a></li><li><a href="../../Custom.html">Custom</a></li><li><a href="../../Datepicker.html">Datepicker</a></li><li><a href="../../Dropdown.html">Dropdown</a></li><li><a href="../../Email.html">Email</a></li><li><a href="../../EventEmitter.html">EventEmitter</a></li><li><a href="../../Expandable.html">Expandable</a></li><li><a href="../../Form.html">Form</a></li><li><a href="../../Layer.html">Layer</a></li><li><a href="../../Max.html">Max</a></li><li><a href="../../MaxLength.html">MaxLength</a></li><li><a href="../../Menu.html">Menu</a></li><li><a href="../../Min.html">Min</a></li><li><a href="../../MinLength.html">MinLength</a></li><li><a href="../../Modal.html">Modal</a></li><li><a href="../../Number.html">Number</a></li><li><a href="../../Popover.html">Popover</a></li><li><a href="../../Positioner.html">Positioner</a></li><li><a href="../../Required.html">Required</a></li><li><a href="../../String.html">String</a></li><li><a href="../../Tabs.html">Tabs</a></li><li><a href="../../Tooltip.html">Tooltip</a></li><li><a href="../../Transition.html">Transition</a></li><li><a href="../../URL.html">URL</a></li><li><a href="../../Validation.html">Validation</a></li><li><a href="../../Viewport.html">Viewport</a></li><li><a href="../../Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../../html">ch</a></li><li><a href="../../shortcuts.html">shortcuts</a></li><li><a href="../../support.html">support</a></li><li><a href="../../util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="../../Collapsible.html">Collapsible</a></li><li><a href="../../Content.html">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="/chico/src/js/prism.js"></script>
+<script>
+    $(function () {
+        $("#copyright").text((new Date().getFullYear()) + " ");
+    });
+</script>
