@@ -1,0 +1,136 @@
+---
+layout: default
+id: api-doc
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds row">
+                <div class="mesh-12 mesh-m-9">
+                    <h1>Source: shared/js/factory.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>    /**
+     * Method in change of expose a friendly interface of the Chico constructors.
+     * @memberof ch
+     * @param {Object} Klass Direct reference to the constructor from where the $-plugin will be created.
+     * @link http://docs.jquery.com/Plugins/Authoring | Authoring
+     */
+    ch.factory = function (Klass, fn) {
+        /**
+         * Identification of the constructor, in lowercases.
+         * @type {String}
+         */
+        var name = Klass.prototype.name,
+
+            /**
+             * Reference to the class name. When it's a preset, take its constructor name via the "preset" property.
+             * @type {String}
+             */
+            constructorName = Klass.prototype._preset || name;
+
+        /**
+         * The class constructor exposed directly into the "ch" namespace.
+         * @exampleDescription Creating a component instance by specifying a query selector and a configuration object.
+         * @example
+         * ch.Component($('#example'), {
+         *     'key': 'value'
+         * });
+         */
+        // Uses the function.name property (non-standard) on the newest browsers OR
+        // uppercases the first letter from the identification name of the constructor
+        ch[(name.charAt(0).toUpperCase() + name.substr(1))] = Klass;
+
+        /**
+         * The class constructor exposed into the "$" namespace.
+         * @ignore
+         * @exampleDescription Creating a component instance by specifying a query selector and a configuration object.
+         * @example
+         * $.component($('#example'), {
+         *     'key': 'value'
+         * });
+         * @exampleDescription Creating a component instance by specifying only a query selector. The default options of each component will be used.
+         * @example
+         * $.component($('#example')});
+         * @exampleDescription Creating a component instance by specifying only a cofiguration object. It only works on compatible components, when those doesn't depends on a element to be created.
+         * @example
+         * $.component({
+         *     'key': 'value'
+         * });
+         * @exampleDescription Creating a component instance by no specifying parameters. It only works on compatible components, when those doesn't depends on a element to be created. The default options of each component will be used.
+         * @example
+         * $.component();
+         */
+        $[name] = function ($el, options) {
+            // Create a new instance of the constructor and return it
+            return new Klass($el, options);
+        };
+
+        /**
+         * The class constructor exposed as a "$" plugin.
+         */
+        $.fn[name] = function (options) {
+
+            // Collection with each instanced component
+            var components = [];
+
+            // Normalize options
+            options = (fn !== undefined) ? fn.apply(this, arguments) : options;
+
+            // Analize every match of the main query selector
+            $.each(this, function () {
+                // Get into the "$" scope
+                var $el = $(this),
+                    // Try to get the "data" reference to this component related to the element
+                    data = $el.data(constructorName);
+
+                // When this component isn't related to the element via data, create a new instance and save
+                if (data === undefined) {
+
+                    // Save the reference to this instance into the element data
+                    data = new Klass($el, options);
+                    $el.data(constructorName, data);
+
+                } else {
+
+                    if (data.emit !== undefined) {
+                        data.emit('exist', options);
+                    }
+                }
+
+                // Add the component reference to the final collection
+                components.push(data);
+
+            });
+
+            // Return the instance/instances of components
+            return (components.length > 1) ? components : components[0];
+        };
+    };</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+
+                <nav class="mesh-12 mesh-m-3 chico-nav">
+                    <h2>Components</h2><ul><li><a href="../../Autocomplete.html">Autocomplete</a></li><li><a href="../../Bubble.html">Bubble</a></li><li><a href="../../Calendar.html">Calendar</a></li><li><a href="../../Carousel.html">Carousel</a></li><li><a href="../../Component.html">Component</a></li><li><a href="../../Condition.html">Condition</a></li><li><a href="../../Countdown.html">Countdown</a></li><li><a href="../../Custom.html">Custom</a></li><li><a href="../../Datepicker.html">Datepicker</a></li><li><a href="../../Dropdown.html">Dropdown</a></li><li><a href="../../Email.html">Email</a></li><li><a href="../../EventEmitter.html">EventEmitter</a></li><li><a href="../../Expandable.html">Expandable</a></li><li><a href="../../Form.html">Form</a></li><li><a href="../../Layer.html">Layer</a></li><li><a href="../../Max.html">Max</a></li><li><a href="../../MaxLength.html">MaxLength</a></li><li><a href="../../Menu.html">Menu</a></li><li><a href="../../Min.html">Min</a></li><li><a href="../../MinLength.html">MinLength</a></li><li><a href="../../Modal.html">Modal</a></li><li><a href="../../Number.html">Number</a></li><li><a href="../../Popover.html">Popover</a></li><li><a href="../../Positioner.html">Positioner</a></li><li><a href="../../Required.html">Required</a></li><li><a href="../../String.html">String</a></li><li><a href="../../Tabs.html">Tabs</a></li><li><a href="../../Tooltip.html">Tooltip</a></li><li><a href="../../Transition.html">Transition</a></li><li><a href="../../URL.html">URL</a></li><li><a href="../../Validation.html">Validation</a></li><li><a href="../../Viewport.html">Viewport</a></li><li><a href="../../Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../../html">ch</a></li><li><a href="../../shortcuts.html">shortcuts</a></li><li><a href="../../support.html">support</a></li><li><a href="../../util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="../../Collapsible.html">Collapsible</a></li><li><a href="../../Content.html">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="/chico/src/js/prism.js"></script>
+<script>
+    $(function () {
+        $("#copyright").text((new Date().getFullYear()) + " ");
+    });
+</script>
