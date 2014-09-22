@@ -99,12 +99,14 @@ body {
 }
 
 .ch-brand-name {
-    float: left;
+    float: right;
     font-size: 20px;
-    margin: 14px 0 0 14px;
+    margin: 10px 0 0 14px;
     border-left: 1px solid #333;
     padding: 5px 12px 3px 12px;
     font-family: sans-serif;
+    text-indent: 0;
+    color: #333;
 }
 
 /* Logo
@@ -118,7 +120,8 @@ body {
     margin-top: 6px; /* difference between header height and image height */
     overflow: hidden;
     text-indent: -999px;
-    width: 160px;
+    width: 278px;
+    background-repeat: no-repeat;
 }
 
 [data-country='MLB'] .ml-logo,

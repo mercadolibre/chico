@@ -34,15 +34,16 @@ id: getting-started
                     <p>
                         We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
                     </p>
-
-                    <pre class="language-markup">
-                        <code>&lt;!DOCTYPE html>
-                        &lt;html>
-                        &lt;head>
-                        &lt;!--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                        &lt;!--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                        &lt;!--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                        &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;</code>
+                    <pre class="language-javascript">
+                        <code>
+                            &lt;!DOCTYPE html>
+                            &lt;html>
+                            &lt;head>
+                            &lt;!--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
+                            &lt;!--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
+                            &lt;!--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
+                            &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;
+                        </code>
                     </pre>
 
                 </article>
@@ -53,11 +54,11 @@ id: getting-started
                     <p>Most of our framework’s functionality is built on jQuery. That’s why we need to pre-load this toolbox.
                     You can get jQuery from many places like Google CDN:</p>
 
-                    <pre class="language-markup">
+                    <pre class="language-javascript">
                         <code class="highlight">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js">&lt;/script></code>
                     </pre>
                     <h4>Or jQuery CDN:</h4>
-                    <pre class="language-markup">
+                    <pre class="language-javascript">
                          <code class="highlight">&lt;script src="http://code.jquery.com/jquery-x.x.x.min.js">&lt;/script></code>
                     </pre>
 
@@ -69,7 +70,7 @@ id: getting-started
                     <p>You only have to add the CSS, JavaScript and assets of Chico UI, and that’s all!</p>
                     <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
 
-                    <pre class="language-markup">
+                    <pre class="language-javascript">
                         <code class="highlight">&lt;link rel="stylesheet" href="chico-min-x.x.x.css"/></code>
                     </pre>
 
@@ -77,7 +78,7 @@ id: getting-started
                         And you should add the JavaScript at bottom of page, before <b>&lt;/body></b> tag close and after jQuery script call.
                     </p>
 
-                    <pre class="language-markup">
+                    <pre class="language-javascript">
                         <code class="highlight">&lt;script src="build/chico-min-x.x.x.js">&lt;/script></code>
                     </pre>
 
@@ -91,7 +92,7 @@ id: getting-started
 
                     <h3 id="overview">Overview</h3>
 
-                    <pre class="language-markup">
+                    <pre class="language-javascript">
                         <code>&lt;!doctype html&gt;
                         &lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;
                         &lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;

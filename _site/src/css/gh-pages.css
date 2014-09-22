@@ -12,6 +12,12 @@
     margin: 50px 0 15px 0;
 }
 
+.language-markup code {
+    position: relative;
+    left: -180px;
+    top: 2px;
+}
+
 
 /* Ui components
 ---------------------------------------------------------------*/
