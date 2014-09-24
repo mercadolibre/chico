@@ -1467,10 +1467,10 @@
             'hiddenby': 'button'
         });
 
-        // $('#modal-form').on('submit', function (e) {
-        //     e.preventDefault();
-        //     modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
-        // });
+        ch.util.Event.addListener(document.querySelector('#modal-form'), 'submit', function (e) {
+            e.preventDefault();
+            modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
+        });
 
         // var modalValidation = new ch.Modal($('#modal-validation'), {
         //         'content': $('#bigForm')
