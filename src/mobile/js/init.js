@@ -15,6 +15,3 @@
 
     // Cancel pointers if the user scroll.
     ch.util.cancelPointerOnScroll();
-
-    // Exposse private $ (Zepto) into ch.$
-    ch.$ = $;
