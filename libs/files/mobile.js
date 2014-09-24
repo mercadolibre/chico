@@ -36,12 +36,12 @@ JS.components = [
     "src/shared/js/Expandable.js",
     "src/shared/js/Menu.js",
     "src/shared/js/Popover.js",
-    // "src/shared/js/Layer.js",
+    "src/shared/js/Layer.js",
     // "src/shared/js/Tooltip.js",
     // "src/shared/js/Bubble.js",
     "src/shared/js/Modal.js",
     "src/shared/js/Transition.js",
-    // "src/shared/js/Dropdown.js",
+    "src/shared/js/Dropdown.js",
     "src/shared/js/Form.js",
     "src/shared/js/Condition.js",
     "src/shared/js/Validation.js",
@@ -58,7 +58,9 @@ JS.components = [
     "src/shared/js/Required.js",
     "src/shared/js/Countdown.js",
     "src/shared/js/Carousel.js",
-    // "src/shared/js/Calendar.js",
+    "src/shared/js/Calendar.js",
+    "src/ui/js/Datepicker.js",
+    "src/mobile/js/Datepicker.js",
     "src/shared/js/Autocomplete.js"
 ];
 
@@ -113,9 +115,12 @@ CSS.components = [
     "src/shared/css/Modal.css",
     "src/mobile/css/Modal.css",
     "src/shared/css/Transition.css",
-    // "src/shared/css/Dropdown.css",
+    "src/shared/css/Dropdown.css",
     "src/shared/css/Carousel.css",
-    // "src/shared/css/Calendar.css",
+    "src/shared/css/Calendar.css",
+    "src/mobile/css/Calendar.css",
+    "src/ui/css/Datepicker.css",
+    "src/mobile/css/Datepicker.css",
     "src/shared/css/Autocomplete.css",
     "src/mobile/css/Autocomplete.css"
 
