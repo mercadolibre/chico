@@ -83,6 +83,10 @@
 
         // selector is a string so query that element
         if (typeof selector === 'string') {
+            if (document.querySelector(selector) === null) {
+                throw new Error('The \'' + selector + '\' selector parameter is not present in the DOM');
+            }
+
             this._el = document.querySelector(selector);
 
             if (options === undefined) {
