@@ -10,7 +10,8 @@
      */
     ch.Validation.prototype._configureContainer = function () {
         var parent = ch.util.parentElement(this.trigger);
-        parent.insertAdjacentHTML('beforeend', '<div class="ch-validation-message ch-hide">');
+        parent.insertAdjacentHTML('beforeend', '<div class="ch-validation-message ch-hide"></div>');
+        this._container = parent.querySelector('.ch-validation-message');
         return this;
     };
 
