@@ -23,6 +23,11 @@
 
 /* Footer
 ---------------------------------------------------------------*/
+footer {
+    position: relative;
+    z-index: 999;
+}
+
 footer .contact {
     float: right;
     width: 76px;
@@ -39,6 +44,11 @@ footer .icon-contact-us {
     width: 22px;
     float: right;
     margin: 12px 0 0 0;
+    border: none;
+}
+
+footer .link-chico-footer {
+    border: none;
 }
 
 
