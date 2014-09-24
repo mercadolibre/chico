@@ -230,7 +230,7 @@
 
                 Array.prototype.forEach.call(menu.children, function (item){
                     item.setAttribute('role', 'presentation');
-                    item.children[0].setAttribute('role', 'menuitem');
+                    item.children[0] ? item.children[0].setAttribute('role', 'menuitem') : null;
                 });
 
                 // Add expandable to that.fold
