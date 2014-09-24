@@ -9,6 +9,59 @@
 }
 
 
+/* Home Page
+---------------------------------------------------------------*/
+.chico-bottom .ml-bounds {
+    text-align: center;
+}
+
+.chico-bottom .brand-ml {
+    margin: -12px 0 60px 0;
+}
+
+
+
+/* Footer
+---------------------------------------------------------------*/
+footer .contact {
+    float: right;
+    width: 76px;
+    margin: 15px 0 0 0;
+    border-right: 1px solid #DDD;
+    margin: 12px 14px 0 0;
+    height: 18px;
+    padding: 2px 0 0 0;
+}
+
+footer .icon-contact-us {
+    background: url('../images/sprite.png') no-repeat;
+    height: 22px;
+    width: 22px;
+    float: right;
+    margin: 12px 0 0 0;
+}
+
+
+/* Get started
+---------------------------------------------------------------*/
+.chico-get-started .language-javascript {
+    word-wrap: break-word;
+}
+
+
+.chico-get-started .language-javascript code { /* Temporally*/
+    position: relative;
+    left: -182px;
+    top: 12px;
+}
+
+.chico-get-started .language-javascript code.html { /* Temporally*/
+    position: relative;
+    left: -198px;
+    top: 9px;
+}
+
+
 /* Api doc
 ---------------------------------------------------------------*/
 .main {

@@ -8,8 +8,6 @@
 
   {% include head.html %}
 
-  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
-  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
   <body data-country="MLA">
 
       {% include header.html %}
@@ -20,11 +18,29 @@
 
     {% include footer.html %}
 
-    <script type="text/javascript" src="{{ site.baseurl }}/src/js/ui-slug_element_component.js"></script>
     <script type="text/javascript">
-
-      var elementToFix = new SlugElement('chico-nav', 'height', 900, 900);
-
+      (function(a, b) {
+          a.GoogleAnalyticsObject = b;
+          a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+          a[b] = a[b] || function() {
+              (a[b].q = a[b].q || []).push(arguments)
+          };
+          a[b].l = 1 * new Date
+      })(window, "meli_ga");
+      meli_ga("set", "title", "app-chico-frontend-0.8.5");
+      meli_ga("set", "page", "/CHICO/");
+      meli_ga('send', 'pageview');
+      (function(b, d) {
+          var a = b.createElement("iframe");
+          (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+          a.src = "javascript:false";
+          a.id = "GoogleAnalyticsIframe";
+          var c = b.getElementsByTagName("script")[0];
+          c.parentNode.insertBefore(a, c);
+          a = a.contentWindow.document;
+          a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+          a.close()
+      })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
     </script>
 
   </body>

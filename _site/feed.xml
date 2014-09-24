@@ -5,8 +5,8 @@
     <description>A collection of easy-to-use UI components</description>
     <link>/chico/</link>
     <atom:link href="/chico/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 23 Sep 2014 18:20:08 -0300</pubDate>
-    <lastBuildDate>Tue, 23 Sep 2014 18:20:08 -0300</lastBuildDate>
+    <pubDate>Wed, 24 Sep 2014 16:47:06 -0300</pubDate>
+    <lastBuildDate>Wed, 24 Sep 2014 16:47:06 -0300</lastBuildDate>
     <generator>Jekyll v2.3.0</generator>
     
       <item>
@@ -73,6 +73,60 @@
         <guid isPermaLink="true">/chico/ui-components/links</guid>
         
         <category>links</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Lists</title>
+        <description>&lt;h2 id=&quot;lists&quot;&gt;Lists&lt;/h2&gt;
+
+&lt;p&gt;These are the lists tha you can use in your html.&lt;/p&gt;
+
+&lt;div class=&quot;m-g1-4&quot;&gt;
+    &lt;h3&gt;Unstyled&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadolibre.com&quot;&gt;MercadoLibre&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadopago.com&quot;&gt;MercadoPago&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadoshops.com&quot;&gt;MercadoShops&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadoclics.com&quot;&gt;MercadoClics&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;m-g1-4&quot;&gt;
+    &lt;h3&gt;Unordered&lt;/h3&gt;
+    &lt;ul class=&quot;ch-list&quot;&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadolibre.com&quot;&gt;MercadoLibre&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadopago.com&quot;&gt;MercadoPago&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadoshops.com&quot;&gt;MercadoShops&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadoclics.com&quot;&gt;MercadoClics&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;m-g1-4&quot;&gt;
+    &lt;h3&gt;Ordered&lt;/h3&gt;
+    &lt;ol class=&quot;ch-list&quot;&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadolibre.com&quot;&gt;MercadoLibre&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadopago.com&quot;&gt;MercadoPago&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadoshops.com&quot;&gt;MercadoShops&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;http://www.mercadoclics.com&quot;&gt;MercadoClics&lt;/a&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;m-g1-4&quot;&gt;
+    &lt;h3&gt;Description&lt;/h3&gt;
+    &lt;dl class=&quot;ch-list&quot;&gt;
+        &lt;dt&gt;MercadoLibre&lt;/dt&gt;
+        &lt;dd&gt;Donde compras y vendes de todo!&lt;/dd&gt;
+        &lt;dt&gt;MercadoPago&lt;/dt&gt;
+        &lt;dd&gt;La forma más simple de recibir pagos!&lt;/dd&gt;
+        &lt;dt&gt;MercadoShops&lt;/dt&gt;
+        &lt;dd&gt;Tu tienda virtual gratis y en minutos!&lt;/dd&gt;
+    &lt;/dl&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 05 Sep 2014 00:00:00 -0300</pubDate>
+        <link>/chico/ui-components/lists</link>
+        <guid isPermaLink="true">/chico/ui-components/lists</guid>
+        
+        <category>lists</category>
         
         
       </item>

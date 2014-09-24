@@ -93,10 +93,8 @@ pre.language-javascript {
 }
 
 .chico-hero-img {
-	width: 100%;
-	max-width: 367px;
-	height: auto;
-	margin: auto;
+	max-width: 100%;
+	max-height: 100%;
 	display: inline-block;
 	overflow: hidden;
 }

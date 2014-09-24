@@ -40,8 +40,6 @@
     <![endif]-->
 </head>
 
-  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
-  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
   <body data-country="MLA">
 
       <header role="banner" class="ml-header">
@@ -98,14 +96,14 @@
                         We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
                     </p>
                     <pre class="language-javascript">
-                        <code>
+                        <code class="highlight html">
                             &lt;!DOCTYPE html>
                             &lt;html>
                             &lt;head>
-                            &lt;!--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                            &lt;!--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                            &lt;!--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                            &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;
+                            !--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
+                            !--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
+                            !--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
+                            !--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;
                         </code>
                     </pre>
 
@@ -156,28 +154,30 @@
                     <h3 id="overview">Overview</h3>
 
                     <pre class="language-javascript">
-                        <code>&lt;!doctype html&gt;
-                        &lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;
-                        &lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;
-                        &lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;
-                        &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;
-                        &lt;head&gt;
-                        &lt;!-- Avoid script blocking --&gt;
-                        &lt;script&gt;&lt;/script&gt;
-                        &lt;meta charset="utf-8"/&gt;
-                        &lt;title&gt;Document Title&lt;/title&gt;
-                        &lt;!-- Chico UI Core stylesheet --&gt;
-                        &lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;
-                        &lt;/head&gt;
-                        &lt;body&gt;
-                        ...
-                        &lt;!-- All markup here... --&gt;
-                        ...
-                        &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;&lt;/script&gt;
-                        &lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;
-                        &lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;
-                        &lt;/body&gt;
-                        &lt;/html&gt;</code>
+                        <code class="highlight html">
+                            &lt;!doctype html&gt;
+                            &lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;
+                            &lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;
+                            &lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;
+                            &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;
+                            &lt;head&gt;
+                            &lt;!-- Avoid script blocking --&gt;
+                            &lt;script&gt;&lt;/script&gt;
+                            &lt;meta charset="utf-8"/&gt;
+                            &lt;title&gt;Document Title&lt;/title&gt;
+                            &lt;!-- Chico UI Core stylesheet --&gt;
+                            &lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;
+                            &lt;/head&gt;
+                            &lt;body&gt;
+                            ...
+                            &lt;!-- All markup here... --&gt;
+                            ...
+                            &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;&lt;/script&gt;
+                            &lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;
+                            &lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;
+                            &lt;/body&gt;
+                            &lt;/html&gt;
+                        </code>
                     </pre>
 
                 </article>
@@ -211,15 +211,10 @@
         <nav>
             <a href="#">About</a>
         </nav>
+        <a href="mailto:chico@mercadolibre.com"><span class="icon-contact-us"></span></a>
+        <small class="contact">Contact us</small>
     </div>
 </footer>
-
-    <script type="text/javascript" src="/chico/src/js/ui-slug_element_component.js"></script>
-    <script type="text/javascript">
-
-      var elementToFix = new SlugElement('chico-nav', 'height', 900, 900);
-
-    </script>
 
   </body>
 
