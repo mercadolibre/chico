@@ -1,17 +1,87 @@
+/* General Styles
+---------------------------------------------------------------*/
+h2 {
+    line-height: 1em;
+}
+
+.ml-wrapper {
+    padding-top: 0;
+}
+
+.ml-wrapper:after {
+    height: 0;
+}
+
+.ml-footer {
+    margin-top: 0;
+}
+
+
 /* Header
 ---------------------------------------------------------------*/
+header .toggle-label {
+    z-index: 999;
+    cursor: pointer;
+}
+
+header .ml-logo-mobile {
+    text-decoration: none;
+    color: #333;
+}
+
+.ml-header {
+    background-image: none;
+}
+
+.ml-navigation {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.ml-header .ml-logo {
+    display: inline;
+}
+
+.ml-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
 .ch-brand-name {
     font-size: 20px;
-    margin: 9px 0 0 14px;
+    margin: 14px 0 0 14px;
     border-left: 1px solid #333;
     padding: 5px 12px 3px 12px;
     font-family: sans-serif;
 }
 
+.ml-header .ml-logo {
+    width: 162px;
+    height: 54px;
+    margin: 0;
+    background: url(http://static.mlstatic.com/org-img/mobile/ch/0.4.7/assets/logo-large-new.png?v2) no-repeat left center;
+    background-size: 58px auto;
+    text-indent: -99999px;
+}
+
+@media only screen and (min-width: 768px) {
+    .toggle-label,
+    .ml-navicon {
+        display: none;
+    }
+
+
+}
+
+
 
 /* Home Page
 ---------------------------------------------------------------*/
 .chico-bottom .ml-bounds {
+    text-align: center;
+}
+
+.chico-bottom {
     text-align: center;
 }
 
@@ -26,8 +96,41 @@
 }
 
 @media only screen and (max-width: 768px) {
-    .chico-bottom {
+
+    .ml-header .ml-logo {
+        display: none;
+    }
+
+    .chico-features ul li {
+        margin: 0 0 30px 0;
+    }
+
+    .ml-bounds {
         text-align: center;
+    }
+
+    .ml-bounds h2 {
+        margin: 10px 0 20px 0;
+    }
+
+    .ml-footer {
+        height: 42px;
+        line-height: 42px;
+        margin-top: -42px;
+        background-color: #FFF;
+    }
+
+    .ml-footer .contact {
+        display: none;
+    }
+
+    .ml-footer a {
+        border-right: solid 1px #CCC;
+    }
+
+    .ml-footer .link-chico-footer {
+        top: 6px;
+        position: absolute;
     }
 }
 

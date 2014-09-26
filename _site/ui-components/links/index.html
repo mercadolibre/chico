@@ -29,10 +29,11 @@
     <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/base__large.css"/>
     <link rel="stylesheet" href="/chico/src/css/chico__small.css"/>
     <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/chico__large.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/ui-slug_element_component.css"/>
+    <link rel="stylesheet" href="/chico/src/css/ui-slug_element_component.css"/>
 
-    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/gh-pages.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/prism.css"/>
+    <link rel="stylesheet" href="/chico/src/css/ml-header.css"/>
+    <link rel="stylesheet" href="/chico/src/css/gh-pages.css"/>
+    <link rel="stylesheet" href="/chico/src/css/prism.css"/>
 
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="src/css/base__large.css"/>
@@ -45,14 +46,33 @@
   <body data-country="MLA">
 
       <header role="banner" class="ml-header">
-    <div class="ml-bounds">
-        <!-- Page title (small devices) -->
-        <h1 class="ml-title">Chico UI</h1>
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/chico/"><h1 class="ml-title">Chico UI</h1></a>
 
-        <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
         <a class="ml-logo" href="/chico/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico UI</span></a>
 
-        <!-- Menu for large devices -->
+        <label for="toggle-menu" class="toggle-label"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account ">
+                   <a class="" href="/chico/getting-started/">Getting started</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="" href="/chico/ui-components/">UI Components</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="" href="/chico/api-doc/1.1.1/autocomplete">API Doc</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <nav class="ml-header-menu">
             <a class="" href="/chico/getting-started/">Getting started</a>
             <a class="" href="/chico/ui-components/">UI Components</a>
@@ -60,6 +80,8 @@
         </nav>
     </div>
 </header>
+
+
 
       <div class="ml-wrapper">
         <h2 id="links">Links</h2>
