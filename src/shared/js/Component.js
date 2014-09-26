@@ -95,7 +95,7 @@
             this._options = ch.util.extend(defaults, options);
 
         // el is an object configuration
-        } else if (el.nodeType === undefined) {
+        } else if (el === undefined || el.nodeType === undefined) {
 
             // creates a empty element becouse the user not set a DOM elment to use, but we requires one
             this._el = document.createElement('div');
