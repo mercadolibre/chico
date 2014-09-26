@@ -107,8 +107,8 @@
         'width': '50%',
         'hiddenby': 'all',
         'reference': ch.viewport,
-        'waiting': '<div class="ch-loading-large ch-loading-centered"></div>',
-        'position': 'fixed'
+        'waiting': '<div class="ch-loading-large ch-loading-centered"></div>'
+        //'position': 'fixed'
     });
 
     /**

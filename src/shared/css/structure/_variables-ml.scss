@@ -73,15 +73,31 @@ $border-radius:					4px;
 
  // box model
 
-$tooltip-padding:				8px 10px;
-$tooltip-border-radius:			5px;
-
 $box-margin:					0 0 10px 0;
 $box-padding:					10px;
-
 
 /**
  * Popover
  */
 
 $autocomplete-position:			absolute;
+
+/**
+ * Modal
+ */
+
+$modal-position:				fixed;
+
+/**
+ * Tooltip
+ */
+
+$tooltip-position:				absolute;
+$tooltip-padding:				8px 10px;
+$tooltip-border-radius:			5px;
+
+/**
+ * Transition Window
+ */
+
+ $transition-position:			fixed;

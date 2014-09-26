@@ -50,6 +50,15 @@
  * Popover
  */
 /**
+ * Modal
+ */
+/**
+ * Tooltip
+ */
+/**
+ * Transition Window
+ */
+/**
  * Buttons
  */
 /* ~20px */
@@ -1980,7 +1989,8 @@ dl.ch-list dd {
 .ch-modal {
   overflow: auto;
   padding: 20px;
-  box-shadow: 0 3px 14px #444; }
+  box-shadow: 0 3px 14px #444;
+  position: fixed; }
 
 .ch-modal-lite {
   text-align: center;
@@ -2274,7 +2284,8 @@ dl.ch-list dd {
   border: 1px solid #FBEED5;
   color: #AA8749;
   padding: 8px 10px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  position: absolute; }
 
 /**
  * Bottom side
@@ -2323,7 +2334,8 @@ dl.ch-list dd {
   overflow: auto;
   padding: 40px;
   box-shadow: 0 3px 14px #444;
-  text-align: center; }
+  text-align: center;
+  position: fixed; }
 
 /**
  * Headings
