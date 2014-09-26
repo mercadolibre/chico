@@ -78,7 +78,7 @@
         /**
          * Element representing the visible area.
          * @memberof! ch.viewport#element
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {Object}
          */
         this.el = window;
 

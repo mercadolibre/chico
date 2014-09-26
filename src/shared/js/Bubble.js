@@ -7,7 +7,7 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Positioner
-     * @param {String} selector A jQuery or Zepto Selector to create an instance of ch.Bubble.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Bubble.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -15,7 +15,7 @@
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "none".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "top".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 10.
@@ -25,8 +25,8 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Bubble container. Default: "Check the information, please."
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Bubble container. Default: "Check the information, please."
      * @returns {bubble} Returns a new instance of Bubble.
      * @example
      * // Create a new Bubble.
@@ -40,7 +40,7 @@
      * // Create a new Bubble using the shorthand way (content as parameter).
      * var bubble = new ch.Bubble('http://ui.ml.com:3040/ajax');
      */
-    function Bubble(selector, options) {
+    function Bubble(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -48,7 +48,7 @@
          */
         var that = this;
 
-        this._init(selector, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -78,9 +78,6 @@
      * The name of the component.
      * @memberof! ch.Bubble.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var bubble = $(selector).data('bubble');
      */
     Bubble.prototype.name = 'bubble';
 
@@ -115,9 +112,9 @@
      * @private
      * @returns {bubble}
      */
-    Bubble.prototype._init = function (selector, options) {
+    Bubble.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, selector, options);
+        parent._init.call(this, el, options);
 
         this.container.insertAdjacentHTML('beforeend', '<i class="ch-icon-remove-sign"></i>');
 

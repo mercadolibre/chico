@@ -6,7 +6,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Tooltip.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Tooltip.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -14,7 +14,7 @@
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointerenter".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "left".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -24,34 +24,26 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Tooltip container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Tooltip container.
      * @returns {tooltip} Returns a new instance of Tooltip.
      * @example
      * // Create a new Tooltip.
-     * var tooltip = new ch.Tooltip($el, [options]);
-     * @example
-     * // Create a new Tooltip with jQuery or Zepto.
-     * var tooltip = $(selector).tooltip([options]);
-     * @example
-     * // Create a new Tooltip with disabled effects.
-     * var tooltip = $(selector).tooltip({
-     *     'fx': 'none'
-     * });
+     * var tooltip = new ch.Tooltip(document.querySelector('.trigger'), [options]);
      * @example
      * // Create a new Tooltip using the shorthand way (content as parameter).
-     * var tooltip = $(selector).tooltip('http://ui.ml.com:3040/ajax');
+     * var tooltip = new ch.Tooltip(document.querySelector('.trigger'), {'content': 'http://ui.ml.com:3040/ajax'});
      */
-    function Tooltip(selector, options) {
+    function Tooltip(el, options) {
 
-        if (options === undefined && selector !== undefined && selector.nodeType !== undefined) {
-            options = selector;
-            selector = undefined;
+        if (options === undefined && el !== undefined && el.nodeType !== undefined) {
+            options = el;
+            el = undefined;
         }
 
         options = ch.util.extend(ch.util.clone(this._defaults), options);
 
-        return new ch.Layer(selector, options);
+        return new ch.Layer(el, options);
     }
 
     /**

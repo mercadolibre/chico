@@ -15,7 +15,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Component
-     * @param {String} selector A jQuery or Zepto Selector to create an instance of ch.Calendar.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Calendar.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. You must use "DD/MM/YYYY", "MM/DD/YYYY" or "YYYY/MM/DD". Default: "DD/MM/YYYY".
      * @param {String} [options.selected] Sets a date that should be selected by default. Default: The date of today.
@@ -26,7 +26,7 @@
      * @returns {calendar} Returns a new instance of Calendar.
      * @example
      * // Create a new Calendar.
-     * var calendar = new ch.Calendar([selector], [options]);
+     * var calendar = new ch.Calendar([el], [options]);
      * @example
      * // Creates a new Calendar with custom options.
      * var calendar =  new ch.Calendar({
@@ -41,7 +41,7 @@
      * // Creates a new Calendar using a shorthand way (selected date as parameter).
      * var calendar = new ch.Calendar('2011/12/25');
      */
-    function Calendar(selector, options) {
+    function Calendar(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -49,7 +49,7 @@
          */
         var that = this;
 
-        this._init(selector, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -230,9 +230,9 @@
      * @private
      * @returns {calendar}
      */
-    Calendar.prototype._init = function (selector, options) {
+    Calendar.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, selector, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.

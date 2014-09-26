@@ -7,7 +7,7 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Validations
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Form.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Form.
      * @param {Object} [options] Options to customize an instance.
      * @param {Object} [options.messages] A collections of validations messages.
      * @param {String} [options.messages.required] A validation message.
@@ -26,17 +26,17 @@
      * var form = new ch.Form($el, [options]);
      * @example
      * // Create a new Form with jQuery or Zepto.
-     * var form = $(selector).form();
+     * var form = new ch.Form();
      * @example
      * // Create a new Form with custom messages.
-     * var form = $(selector).form({
+     * var form = new ch.Form({
      *     'messages': {
      *          'required': 'Some message!',
      *          'email': 'Another message!'
      *     }
      * });
      */
-    function Form(selector, options) {
+    function Form(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -45,7 +45,7 @@
          */
         var that = this;
 
-        that._init(selector, options);
+        that._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -75,9 +75,6 @@
      * The name of the component.
      * @memberof! ch.Form.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var form = $(selector).data('form');
      */
     Form.prototype.name = 'form';
 
@@ -95,9 +92,9 @@
      * @private
      * @returns {form}
      */
-    Form.prototype._init = function (selector, options) {
+    Form.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, selector, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -127,7 +124,7 @@
 
         /**
          * The form container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
         this.container = this._el;
             // Add classname

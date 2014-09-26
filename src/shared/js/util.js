@@ -111,9 +111,9 @@
 
         /**
          * Adds CSS rules to disable text selection highlighting.
-         * @param {HTMLElement} jQuery or Zepto Selector to disable text selection highlighting.
+         * @param {HTMLElement} HTMLElement to disable text selection highlighting.
          * @example
-         * ch.util.avoidTextSelection('');
+         * ch.util.avoidTextSelection(document.querySelector('.menu nav'), document.querySelector('.menu ol'));
          */
         'avoidTextSelection': function () {
             var args = arguments,

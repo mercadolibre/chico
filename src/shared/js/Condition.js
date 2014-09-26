@@ -136,9 +136,6 @@
      * The name of the component.
      * @memberof! ch.Condition.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var condition = $(selector).data('condition');
      */
     Condition.prototype.name = 'condition';
 

@@ -6,7 +6,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {String} [selector] A CSS Selector to create an instance of ch.Transition.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Transition.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -29,7 +29,7 @@
      * @returns {transition} Returns a new instance of Transition.
      * @example
      * // Create a new Transition.
-     * var transition = new ch.Transition([selector], [options]);
+     * var transition = new ch.Transition([el], [options]);
      * @example
      * // Create a new Transition with jQuery or Zepto.
      * var transition = new ch.Transition([options]);
@@ -42,9 +42,9 @@
      * // Create a new Transition using the shorthand way (content as parameter).
      * var transition = new ch.Transition('http://ui.ml.com:3040/ajax');
      */
-    function Transition(selector, options) {
+    function Transition(el, options) {
 
-        if (selector === undefined || options === undefined) {
+        if (el === undefined || options === undefined) {
             options = {};
         }
 
@@ -58,26 +58,23 @@
             return dummyElement.firstChild;
         }());
 
-        // selector is not defined
-        if (selector === undefined) {
-            selector = ch.util.extend(ch.util.clone(this._defaults), options);
-        // selector is present as a object configuration
-        } else if (selector !== undefined && typeof selector === 'object') {
-            selector = ch.util.extend(ch.util.clone(this._defaults), selector);
+        // el is not defined
+        if (el === undefined) {
+            el = ch.util.extend(ch.util.clone(this._defaults), options);
+        // el is present as a object configuration
+        } else if (el.nodeType === undefined && typeof el === 'object') {
+            el = ch.util.extend(ch.util.clone(this._defaults), el);
         } else if (options !== undefined) {
             options = ch.util.extend(ch.util.clone(this._defaults), options);
         }
 
-        return new ch.Modal(selector, options);
+        return new ch.Modal(el, options);
     }
 
     /**
      * The name of the component.
      * @memberof! ch.Transition.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var transition = $(selector).data('transition');
      */
     Transition.prototype.name = 'transition';
 

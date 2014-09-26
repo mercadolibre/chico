@@ -24,7 +24,7 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Popover
-     * @param {String} [selector] A CSS Selector to create an instance of ch.Autocomplete.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Autocomplete.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.loadingClass] Default: "ch-autocomplete-loading".
      * @param {String} [options.highlightedClass] Default: "ch-autocomplete-highlighted".
@@ -40,7 +40,7 @@
      * @returns {autocomplete}
      * @example
      * // Create a new AutoComplete.
-     * var autocomplete = new AutoComplete([selector], [options]);
+     * var autocomplete = new AutoComplete([el], [options]);
      * @example
      * // Create a new AutoComplete with configuration.
      * var autocomplete = new AutoComplete('.my-autocomplete', {
@@ -57,7 +57,7 @@
      *  'positioned': 'fixed'
      * });
      */
-    function Autocomplete(selector, options) {
+    function Autocomplete(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -66,7 +66,7 @@
          */
         var that = this;
 
-        this._init(selector, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -135,7 +135,7 @@
      * @private
      * @returns {autocomplete}
      */
-    Autocomplete.prototype._init = function (selector, options) {
+    Autocomplete.prototype._init = function (el, options) {
 
         /**
          * Reference to context of an instance.
@@ -145,7 +145,7 @@
         var that = this;
 
         // Call to its parent init method
-        parent._init.call(this, selector, options);
+        parent._init.call(this, el, options);
 
         // creates the basic item template for this instance
         this._options._itemTemplate = this._options._itemTemplate.replace('{{itemClass}}', this._options.itemClass);

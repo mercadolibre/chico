@@ -4,10 +4,10 @@
     /**
      * Executes a callback function when the images of a query selection loads.
      * @memberof! ch
-     * @param image An image or a collection of images.
-     * @param callback The handler the component will fire after the images loads.
+     * @param {HTMLImageElement} image An image or a collection of images.
+     * @param {Function} [callback] The handler the component will fire after the images loads.
      * @example
-     * $('selector').onImagesLoads(function () {
+     * new ch.onImagesLoads(HTMLImageElement, function () {
      *     console.log('The size of the loaded image is ' + this.width);
      * });
      */

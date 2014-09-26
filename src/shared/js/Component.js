@@ -9,7 +9,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter
-     * @param {String} [selector] It must be a valid CSS selector.
+     * @param {HTMLElement} [el] It must be a HTMLElement.
      * @param {Object} [options] Configuration options.
      * @returns {component} Returns a new instance of Component.
      * @example
@@ -19,7 +19,7 @@
      * var component = new ch.Component('.my-component');
      * var component = new ch.Component({'option': 'value'});
      */
-    function Component(selector, options) {
+    function Component(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -28,7 +28,7 @@
          */
         var that = this;
 
-        this._init(selector, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -76,40 +76,32 @@
      * @private
      * @returns {component}
      */
-    Component.prototype._init = function (selector, options) {
+    Component.prototype._init = function (el, options) {
 
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
 
-        // selector is a string so query that element
-        if (typeof selector === 'string') {
-            if (document.querySelector(selector) === null) {
-                throw new Error('The \'' + selector + '\' selector parameter is not present in the DOM');
-            }
+        // el is a string so query that element
+        if (el === null) {
+            throw new Error('The \'' + el + '\' el parameter is not present in the DOM');
+        }
 
-            this._el = document.querySelector(selector);
+        // el is HTMLElement
+        if (el && el.nodeType !== undefined && el.nodeType === document.ELEMENT_NODE) {
 
-            if (options === undefined) {
-                this._options = defaults;
-            } else if (options !== undefined && typeof options === 'object') {
-                this._options = ch.util.extend(defaults, options);
-            }
-        // selector is HTMLElement
-        } else if (selector && selector.nodeType !== undefined && selector.nodeType === document.ELEMENT_NODE) {
-
-            this._el = selector;
+            this._el = el;
 
             // we extend defaults with options parameter
             this._options = ch.util.extend(defaults, options);
 
-        // selector is an object configuration
-        } else if (typeof selector === 'object' || selector === undefined) {
+        // el is an object configuration
+        } else if (el.nodeType === undefined) {
 
             // creates a empty element becouse the user not set a DOM elment to use, but we requires one
             this._el = document.createElement('div');
 
-            // we extend defaults with the object that is in selector parameter object
-            this._options = ch.util.extend(defaults, selector);
+            // we extend defaults with the object that is in el parameter object
+            this._options = ch.util.extend(defaults, el);
         }
 
         /**

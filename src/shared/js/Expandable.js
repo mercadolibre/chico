@@ -17,20 +17,20 @@
      * @augments ch.Component
      * @mixes ch.Collapsible
      * @mixes ch.Content
-     * @param {String} selector A CSS Selector to create an instance of ch.Expandable.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Expandable.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
      * @param {Boolean} [options.toggle] Customize toggle behavior. Default: true.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. Default: the next sibling of selector.
-     * @param {(jQuerySelector | ZeptoSelector | String)} [options.content] The content to be shown into the expandable container.
+     * @param {HTMLElement} [options.container] The container where the expanbdale puts its content. Default: the next sibling of el parameter.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the expandable container.
      * @returns {expandable} Returns a new instance of Expandable.
      * @example
      * // Create a new Expandable.
-     * var expandable = new ch.Expandable([selector], [options]);
+     * var expandable = new ch.Expandable([el], [options]);
      * @example
      * // Create a new Expandable with custom options.
      * var expandable = new ch.Expandable({
-     *     'container': 'selector',
+     *     'container': document.querySelector('.my-container'),
      *     'toggle': false,
      *     'fx': 'slideDown',
      *     'content': 'http://ui.ml.com:3040/ajax'
@@ -39,7 +39,7 @@
      * // Create a new Expandable using the shorthand way (content as parameter).
      * var expandable = new ch.Expandable('http://ui.ml.com:3040/ajax');
      */
-    function Expandable(selector, options) {
+    function Expandable(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -48,7 +48,7 @@
          */
         var that = this;
 
-        this._init(selector, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -109,9 +109,9 @@
      * @private
      * @returns {expandable}
      */
-    Expandable.prototype._init = function (selector, options) {
+    Expandable.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, selector, options);
+        parent._init.call(this, el, options);
 
         // Requires abilities
         this.require('Collapsible', 'Content');
@@ -185,13 +185,13 @@
      * Shows expandable's content.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by expandable.
+     * @param {(String | HTMLElement)} [content] The content that will be used by expandable.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {expandable}
      * @example
      * // Shows a basic expandable.

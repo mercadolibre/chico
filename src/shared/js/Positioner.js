@@ -6,8 +6,8 @@
      * @memberof ch
      * @constructor
      * @param {Object} options Configuration object.
-     * @param {String} options.target A CSS Selector that reference to the element to be positioned.
-     * @param {String} [options.reference] A CSS Selector that it's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {String} options.target A HTMLElement that reference to the element to be positioned.
+     * @param {String} [options.reference] A HTMLElement that it's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -20,8 +20,8 @@
      * // Instance the Positioner It requires a little configuration.
      * // The default behavior place an element center into the Viewport.
      * var positioned = new ch.Positioner({
-     *     'target': 'CSS Selector',
-     *     'reference': 'CSS Selector',
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 20,
@@ -31,8 +31,8 @@
      * // offsetX: The Positioner could be configurated with an offsetX.
      * // This example show an element displaced horizontally by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': 'CSS Selector',
-     *     'reference': 'CSS Selector',
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 10
@@ -41,8 +41,8 @@
      * // offsetY: The Positioner could be configurated with an offsetY.
      * // This example show an element displaced vertically by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': 'CSS Selector',
-     *     'reference': 'CSS Selector',
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetY': 10
@@ -50,8 +50,8 @@
      * @example
      * // positioned: The positioner could be configured to work with fixed or absolute position value.
      * var positioned = new ch.Positioner({
-     *     'target': 'CSS Selector',
-     *     'reference': 'CSS Selector',
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'position': 'fixed'
      * });
      */

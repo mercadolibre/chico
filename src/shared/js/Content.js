@@ -164,13 +164,13 @@
          * Allows to manage the components content.
          * @function
          * @memberof! ch.Content#
-         * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a component.
+         * @param {(String | HTMLElement)} content The content that will be used by a component.
          * @param {Object} [options] A custom options to be used with content loaded by ajax.
          * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
          * @param {String} [options.params] Params like query string to be sent to the server.
          * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
          * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-         * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+         * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
          * @example
          * // Update content with some string.
          * component.content('Some new content here!');

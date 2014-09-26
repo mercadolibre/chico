@@ -5,7 +5,7 @@
      * A large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
      * @memberof ch
      * @constructor
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Carousel.
      * @param {Object} [options] Options to customize an instance.
      * @param {Number} [options.async] Defines the number of future asynchronous items to add to the component. Default: 0.
      * @param {Boolean} [options.arrows] Defines if the arrow-buttons must be created or not at initialization. Default: true.
@@ -18,24 +18,24 @@
      * var carousel = new ch.Carousel($el, [options]);
      * @example
      * // Create a new Carousel with jQuery or Zepto.
-     * var carousel = $(selector).carousel([options]);
+     * var carousel = new ch.Carousel(el,[options]);
      * @example
      * // Create a new Carousel with disabled effects.
-     * var carousel = $(selector).carousel({
+     * var carousel = new ch.Carousel(el, {
      *     'fx': false
      * });
      * @example
      * // Create a new Carousel with items asynchronously loaded.
-     * var carousel = $(selector).carousel({
+     * var carousel = new ch.Carousel(el, {
      *     'async': 10
-     * }).on('itemsadd', function ($items) {
+     * }).on('itemsadd', function (collection) {
      *     // Inject content into the added <li> elements
-     *     $.each($items, function (i, e) {
+     *     $.each(collection, function (i, e) {
      *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
      *     });
      * });
      */
-    function Carousel(selector, options) {
+    function Carousel(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -43,7 +43,7 @@
          */
         var that = this;
 
-        this._init(selector, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -76,9 +76,6 @@
      * The name of the component.
      * @memberof! ch.Carousel.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var carousel = $(selector).data('carousel');
      */
     Carousel.prototype.name = 'carousel';
 
@@ -109,9 +106,9 @@
      * @private
      * @returns {carousel}
      */
-    Carousel.prototype._init = function (selector, options) {
+    Carousel.prototype._init = function (el, options) {
         // Call to its parents init method
-        parent._init.call(this, selector, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -131,11 +128,11 @@
         /**
          * Element that moves (slides) across the component (inside the mask).
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        ch.util.classList(this._el).add('ch-carousel');
-
         this._list = this._el.children[0];
+
+        ch.util.classList(this._el).add('ch-carousel');
         ch.util.classList(this._list).add('ch-carousel-list');
 
         /**
@@ -414,11 +411,11 @@
          * @event ch.Carousel#itemsadd
          * @example
          * // Create a new Carousel with items asynchronously loaded.
-         * var carousel = $(selector).carousel({
+         * var carousel = new ch.Carousel({
          *     'async': 10
-         * }).on('itemsadd', function ($items) {
+         * }).on('itemsadd', function (collection) {
          *     // Inject content into the added <li> elements
-         *     $.each($items, function (i, e) {
+         *     $.each(collection, function (i, e) {
          *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
          *     });
          * });

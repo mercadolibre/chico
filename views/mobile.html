@@ -895,6 +895,8 @@
     <script src="/mobile/js"></script>
     <script>
 
+        function qS(selector) { return document.querySelector(selector); };
+
         var extraSuggestions = ['<ul>',
             '<li class="ch-autocomplete-item" data-suggested="Static option">Static option</li>',
             '<li class="ch-autocomplete-item" data-suggested="Other Static option">Other static option</li>',
@@ -911,74 +913,72 @@
             }
         }
 
-        var autocomplete = new ch.Autocomplete('.autocomplete')
+        var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
             .on('type', function (userInput) {
-                 $.ajax({'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1&callback=parseResults',
-                 'dataType': 'jsonp',
-                 'cache': false,
-                 'global': true,
-                 'context': window,
-                 'jsonp': 'parseResults',
-                 'crossDomain': true
-             });
-        });
+                 reqwest({
+                         'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1',
+                         'type': 'jsonp',
+                         'success': parseResults,
+                         'crossOrigin': true
+                     });
+            });
 
-        var expadable1 = new ch.Expandable('.categories1');
-        var expadable2 = new ch.Expandable('.categories2');
-        var expadable3 = new ch.Expandable('.categories3');
+        var expadable1 = new ch.Expandable(qS('.categories1'));
+        var expadable2 = new ch.Expandable(qS('.categories2'));
+        var expadable3 = new ch.Expandable(qS('.categories3'));
 
-        var menu = new ch.Menu('.myMenu');
+        var menu = new ch.Menu(qS('.myMenu'));
 
         // // Trasition
-        var transition = new ch.Transition('#transition');
+        var transition = new ch.Transition(qS('#transition'));
 
         var transitionX = new ch.Transition({
             'content': 'Transition without trigger!'
         });
 
         // Dropdown
-        var dropdown1 = new ch.Dropdown('.myDropdown');
+        var dropdown1 = new ch.Dropdown(qS('.myDropdown'));
 
-        var dropdown2 = new ch.Dropdown('.myDropdownNav', {'shortcuts': false, 'skin': true});
+        var dropdown2 = new ch.Dropdown(qS('.myDropdownNav'), {'shortcuts': false, 'skin': true});
 
-        var dropdown3 = new ch.Dropdown('.myDropdownSkin', {'skin': true});
+        var dropdown3 = new ch.Dropdown(qS('.myDropdownSkin'), {'skin': true});
 
         // Countdown
-        var countdown = new ch.Countdown('#text_cd', {'max': 140, 'plural': '# left', 'singular': '# left'});
+        var countdown = new ch.Countdown(qS('#text_cd'), {'max': 140, 'plural': '# left', 'singular': '# left'});
 
         // Carousel
-        var carousel = new ch.Carousel('.myCarousel', {
+        var carousel = new ch.Carousel(qS('.myCarousel'), {
             'pagination': true,
             'arrows': false
         });
 
         // Layer
-        var layer1 = new ch.Layer('#layer1', {'content': 'foo'});
+        var layer1 = new ch.Layer(qS('#layer1'), {'content': 'foo'});
 
         var layerContent = document.createElement('p');
             layerContent.innerHTML = 'This is an HTML P Element as content.';
 
-        var layer2 = new ch.Layer('#layer2', {
+        var layer2 = new ch.Layer(qS('#layer2'), {
             'content': layerContent,
             'shownby': 'pointertap',
             'hiddenby': 'all'
         });
 
-        var invisibleContent = document.querySelector('#invisible-content-for-layer');
+        var invisibleContent = qS('#invisible-content-for-layer');
 
-        var layer3 = new ch.Layer('#layer3', {
+        var layer3 = new ch.Layer(qS('#layer3'), {
             'content': invisibleContent,
             'shownby': 'pointertap',
             'hiddenby': 'none'
         });
 
-        var layer4 = new ch.Layer('#layer4', {
+        var layer4 = new ch.Layer(qS('#layer4'), {
             'content': 'Plain text.',
             'shownby': 'pointertap',
             'hiddenby': 'button'
         });
 
-        var layer5 = new ch.Layer('#layer5', {
+        var layer5 = new ch.Layer(qS('#layer5'), {
             'content': './static/ajax.html',
             'shownby': 'pointertap',
             'hiddenby': 'pointers'
@@ -986,11 +986,11 @@
 
         var layerX = new ch.Layer({
             'content': 'Layer without trigger!',
-            'reference': document.querySelector('#layer5')
+            'reference': qS('#layer5')
         });
 
         // Modal
-        var modal1 = new ch.Modal('#modal1', {
+        var modal1 = new ch.Modal(qS('#modal1'), {
             'width': '80%',
             'height': '80%'
         });
@@ -998,10 +998,10 @@
         modal1._content.style.overflow = 'auto';
 
         // Modal with invisible DOM Content
-        var modal2 = new ch.Modal('#modal2', {'content': document.querySelector('#invisible-content')});
+        var modal2 = new ch.Modal(qS('#modal2'), {'content': document.querySelector('#invisible-content')});
 
         // Modal lite
-        var modal3 = new ch.Modal('#modal3', {
+        var modal3 = new ch.Modal(qS('#modal3'), {
          'content': '<h2>Heading or content</h2>',
          'addClass': 'ch-modal-lite'
         });
@@ -1010,20 +1010,20 @@
             'hiddenby': 'button'
         });
 
-        var calendar = new ch.Calendar('.YOUR_SELECTOR_calendar', {'selected': ['2012/01/22','2012/01/21']});
+        var calendar = new ch.Calendar(qS('.YOUR_SELECTOR_calendar'), {'selected': ['2012/01/22','2012/01/21']});
 
         // Date Picker
-        var datepicker = new ch.Datepicker('#val_date', {
+        var datepicker = new ch.Datepicker(qS('#val_date'), {
             'selected': '2011/11/15',
             'to': 'today'
         });
 
-        var  datepicker2 = new ch.Datepicker('#val_date2', {
+        var  datepicker2 = new ch.Datepicker(qS('#val_date2'), {
             'selected': '2011/11/15',
             'to': 'today'
         });
 
-        ch.util.Event.addListener(document.querySelector('#modal-form'), 'submit', function (e) {
+        ch.util.Event.addListener(qS('#modal-form'), 'submit', function (e) {
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
@@ -1045,9 +1045,9 @@
             }
         }());
 
-        var form = new ch.Form('.myForm');
+        var form = new ch.Form(qS('.myForm'));
 
-         var  validation1 = new ch.Validation('#input_ico', {'conditions': [
+         var  validation1 = new ch.Validation(qS('#input_ico'), {'conditions': [
                 {
                     'name': 'required',
                     'reference': '#input_ico + .ch-form-icon'
@@ -1058,15 +1058,15 @@
             ]});
 
 
-        var  validation2 = new ch.Validation('#input_ico_inside', {
+        var  validation2 = new ch.Validation(qS('#input_ico_inside'), {
             'conditions':[{'name': 'required'}, {'name': 'number'}]
         });
 
-        var  validation4 = new ch.Validation('#email', {
+        var  validation4 = new ch.Validation(qS('#email'), {
             'conditions':[{'name': 'required'}, {'name': 'email'}]
         });
 
-        var  validation5 = new ch.Validation('#custom', {'conditions':[
+        var  validation5 = new ch.Validation(qS('#custom'), {'conditions':[
             {
                 'name': 'myCustom1',
                 'fn': function (v) {
@@ -1089,21 +1089,21 @@
             }
         ]});
 
-        var validation6 = new ch.Validation('#url', {'conditions':[{'name': 'url'}]});
+        var validation6 = new ch.Validation(qS('#url'), {'conditions':[{'name': 'url'}]});
 
-        var validation7 = new ch.Validation('#number', {
+        var validation7 = new ch.Validation(qS('#number'), {
             'conditions':[{'name': 'number'}, {'name': 'min', 'num': 5}]
         });
 
-        var validation8 = new ch.Validation('#range', {
+        var validation8 = new ch.Validation(qS('#range'), {
             'conditions':[{'name': 'min', 'num': 8}, {'name': 'max', 'num': 10}]
         });
 
-        var validation9 = new ch.Validation('#characters', {
+        var validation9 = new ch.Validation(qS('#characters'), {
             'conditions':[{'name': 'maxLength', 'num': 20}, {'name': 'minLength', 'num': 6}]
         });
 
-        var validation10 = new ch.Validation('#select2', {
+        var validation10 = new ch.Validation(qS('#select2'), {
             'conditions':[{'name': 'required', 'message': message('option')}]
         });
 
@@ -1118,13 +1118,13 @@
         //     'conditions':[{'name': 'required', 'message': message('link')}, {'name': 'number'}]
         // });
 
-        var validation14 = new ch.Validation('#textarea2', {
+        var validation14 = new ch.Validation(qS('#textarea2'), {
             'conditions':[{'name': 'required'}]
         });
-        // var validation1 = $('#input_ico').required().and().string();
-        // var validation2 = $('#input_ico_inside').required().and().string();
-        // var validation4 = $('#email').required().and().email();
-        // var validation5 = $('#custom').required().and()
+        // var validation1 = qS('#input_ico').required().and().string();
+        // var validation2 = qS('#input_ico_inside').required().and().string();
+        // var validation4 = qS('#email').required().and().email();
+        // var validation5 = qS('#custom').required().and()
         //     .custom('myCustom1',
         //          function (v) {
         //              if (v.toString().indexOf("1") > -1) {
@@ -1143,15 +1143,15 @@
         //              return false;
         //          },
         //          'The number must contain a 2.');
-        // var validation6 = $('#url').url();
-        // var validation7 = $('#number').number().and().min(5);
-        // var validation8 = $('#range').min(8).and().max(10);
-        // var validation9 = $('#characters').maxLength(20).and().minLength(6);
-        // var validation10 = $('#double,#textarea2').required();
-        // var validation11 = $('#select2').required();
-        // var validation12 = $('.required-options').required();
-        // var validation13 = $('#double').required(message('link'));
-        // var validation14 = $('#double').number();
+        // var validation6 = qS('#url').url();
+        // var validation7 = qS('#number').number().and().min(5);
+        // var validation8 = qS('#range').min(8).and().max(10);
+        // var validation9 = qS('#characters').maxLength(20).and().minLength(6);
+        // var validation10 = qS('#double,#textarea2').required();
+        // var validation11 = qS('#select2').required();
+        // var validation12 = qS('.required-options').required();
+        // var validation13 = qS('#double').required(message('link'));
+        // var validation14 = qS('#double').number();
 
 
 

@@ -5,9 +5,9 @@
     var ch = {},
 
         /**
-         * Reference to the window jQuery or Zepto Selector.
+         * Reference to the window.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {Object}
          */
         window = window,
 
@@ -40,7 +40,7 @@
         body = document.body,
 
         /**
-         * Reference to the HTMLhtmlElement.
+         * Reference to the HTMLElement.
          * @private
          * @type {HTMLhtmlElement}
          */

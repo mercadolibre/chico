@@ -19,9 +19,9 @@
 
         /**
          * The class constructor exposed directly into the "ch" namespace.
-         * @exampleDescription Creating a component instance by specifying a query selector and a configuration object.
          * @example
-         * ch.Component($('#example'), {
+         * // Creating a component instance by specifying a query selector and a configuration object.
+         * ch.Component(document.querySelector('#example'), {
          *     'key': 'value'
          * });
          */

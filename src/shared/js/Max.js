@@ -76,8 +76,8 @@
      * // Create a new Max validation using the shorthand way (number and message as parameters).
      * var maxValidation = $(selector).max(10, 'Write a number smaller than 10.');
      */
-    function Max($el, options) {
-        return new ch.Validation($el, options);
+    function Max(el, options) {
+        return new ch.Validation(el, options);
     }
 
     /**

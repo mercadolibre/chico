@@ -9,13 +9,13 @@
      * @requires ch.Condition
      * @requires ch.Form
      * @requires ch.Bubble
-     * @param {String} selector A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Validation.
      * @param {Object} [options] Options to customize an instance.
      * @param {Array} [options.conditions] A collection of conditions to validate.
      * @param {String} [options.conditions.name] The name of the condition.
      * @param {String} [options.conditions.message] The given error message to the condition.
      * @param {String} [options.conditions.fn] The method to validate a given condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 10.
@@ -24,7 +24,7 @@
      * @returns {validation} Returns a new instance of Validation.
      * @example
      * // Create a new Validation.
-     * var validation = new ch.Validation([selector], [options]);
+     * var validation = new ch.Validation(document.querySelector('.name-field'), [options]);
      * @example
      * // Create a validation with with custom options.
      * var validation = new ch.Validation({
@@ -45,7 +45,7 @@
      *     'align': 'left'
      * });
      */
-    function Validation(selector, options) {
+    function Validation(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -54,7 +54,7 @@
          */
         var that = this;
 
-        this._init(selector, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -112,9 +112,6 @@
      * The name of the component.
      * @memberof! ch.Validation.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var validation = $(selector).data('validation');
      */
     Validation.prototype.name = 'validation';
 
@@ -141,7 +138,7 @@
      * @private
      * @returns {validation}
      */
-    Validation.prototype._init = function (selector, options) {
+    Validation.prototype._init = function (el, options) {
 
         /**
          * Reference to context of an instance.
@@ -150,17 +147,17 @@
          */
         var that = this;
 
-        parent._init.call(this, selector, options);
+        parent._init.call(this, el, options);
 
         /**
          * The validation trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
         this.trigger = this._el;
 
         /**
          * The validation container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
         this._configureContainer();
 
@@ -187,9 +184,6 @@
         this.error = null;
 
         this
-            .on('exist', function (data) {
-                this._mergeConditions(data.conditions);
-            })
             // Clean the validation if is shown;
             .on('disable', this.clear);
 
@@ -431,16 +425,30 @@
     };
 
     /**
-     * Returns the jQuerySelector or ZeptoSelector to chaining more validations.
+     * Returns the HTMLElement to chaining more validations.
      * @memberof! ch.Validation.prototype
      * @function
-     * @returns {(jQuerySelector | ZeptoSelector)}
+     * @returns {HTMLElement}
      * @example
      * // Concatenates another validation.
-     * validation.and().validation();
+     * var validation = new ch.Validation().and().Number();
      */
     Validation.prototype.and = function () {
-        return this.trigger;
+        var el = this._el;
+
+        var presets = {};
+
+        Validation.presets.forEach(function (preset, i) {
+            var presetName = preset.prototype.name.charAt(0).toUpperCase() + preset.prototype.name.substr(1);
+
+            presets[presetName] = function (options) {
+                console.log(el, presetName);
+                return new ch[presetName](el, options);
+            }
+        });
+
+
+        return presets;
     };
 
     /**

@@ -18,7 +18,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Component
-     * @param {String} selector A jQuery or Zepto Selector to create an instance of ch.Countdown.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Countdown.
      * @param {Object} [options] Options to customize an instance.
      * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control. Default: 500.
      * @param {String} [options.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. Default: "# characters left.".
@@ -26,7 +26,7 @@
      * @returns {countdown} Returns a new instance of Countdown.
      * @example
      * // Create a new Countdown.
-     * var countdown = new ch.Countdown([selector], [options]);
+     * var countdown = new ch.Countdown([el], [options]);
      * @example
      * // Create a new Countdown with custom options.
      * var countdown = new ch.Countdown({
@@ -38,7 +38,7 @@
      * // Create a new Countdown using the shorthand way (max as parameter).
      * var countdown = new ch.Countdown({'max': 500});
      */
-    function Countdown(selector, options) {
+    function Countdown(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -47,7 +47,7 @@
          */
         var that = this;
 
-        that._init(selector, options);
+        that._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -105,9 +105,9 @@
      * @private
      * @returns {countdown}
      */
-    Countdown.prototype._init = function (selector, options) {
+    Countdown.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, selector, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
