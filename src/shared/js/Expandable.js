@@ -2,11 +2,11 @@
     'use strict';
 
     function normalizeOptions(options) {
-        // if (typeof options === 'string' || ch.util.is$(options)) {
-        //     options = {
-        //         'content': options
-        //     };
-        // }
+        if (typeof options === 'string' || options instanceof HTMLElement) {
+            options = {
+                'content': options
+            };
+        }
         return options;
     }
 
@@ -154,7 +154,7 @@
          * // Gets the expandable container.
          * expandable.container;
          */
-        this.container = this._content = (this._options.container ? document.querySelector(this._options.container) : this._el.nextElementSibling);
+        this.container = this._content = (this._options.container ? this._options.container : this._el.nextElementSibling);
         ch.util.classList(this.container).add(this._options._classNameContainer);
         ch.util.classList(this.container).add('ch-hide');
         this.container.setAttribute('aria-expanded', 'false');
