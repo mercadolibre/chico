@@ -1254,6 +1254,9 @@
     <!--script src="/vendor/jquery.js"></script-->
     <script src="/ui/js"></script>
     <script>
+
+        function qS(selector) { return document.querySelector(selector); };
+
         var extraSuggestions = ['<ul>',
             '<li class="ch-autocomplete-item" data-suggested="Static option">Static option</li>',
             '<li class="ch-autocomplete-item" data-suggested="Other Static option">Other static option</li>',
@@ -1271,7 +1274,7 @@
             }
         }
 
-        var autocomplete = new ch.Autocomplete('.autocomplete')
+        var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
                 .on('type', function (userInput) {
                      reqwest({
                          'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1',
@@ -1283,10 +1286,10 @@
 
             autocomplete.container.insertAdjacentHTML('beforeend', extraSuggestions);
 
-        var calendar = new ch.Calendar('.YOUR_SELECTOR_calendar', {'selected': ['2012/01/22','2012/01/21']});
+        var calendar = new ch.Calendar(qS('.YOUR_SELECTOR_calendar'), {'selected': ['2012/01/22','2012/01/21']});
 
         // Expandable
-        var expandable1 = new ch.Expandable('.YOUR_SELECTOR_expandable');
+        var expandable1 = new ch.Expandable(qS('.YOUR_SELECTOR_expandable'));
 
         expandable1.on('contentdone', function () {
             ch.util.Event.addListener(document.querySelector('.test'), 'click', function () {
@@ -1296,92 +1299,92 @@
 
         var expandable2 = new ch.Expandable({
             'content': './static/ajax.html',
-            'container': '.container_expandable2'
+            'container': qS('.container_expandable2')
         });
         expandable2.on('contentdone', function () {
             var that = this;
-            ch.util.Event.addListener(document.querySelector('h2'), 'click', function () {
+            ch.util.Event.addListener(qS('h2'), 'click', function () {
                 console.log('contentdone' + that.uid);
             });
         });
 
-        var expandable3 = new ch.Expandable('.YOUR_SELECTOR_expandable3', {'container': '#container'});
+        var expandable3 = new ch.Expandable(qS('.YOUR_SELECTOR_expandable3'), {'container': qS('#container')});
 
-        var expandable4 = new ch.Expandable('.YOUR_SELECTOR_expandable4', {
-            'container': '#container-ajax',
+        var expandable4 = new ch.Expandable(qS('.YOUR_SELECTOR_expandable4'), {
+            'container': qS('#container-ajax'),
             'content': './static/ajax.html'
         });
 
         // Menu
-        var menu = new ch.Menu('.YOUR_SELECTOR_Menu');
+        var menu = new ch.Menu(qS('.YOUR_SELECTOR_Menu'));
 
         // Dropdown
-        var dropdown1 = new ch.Dropdown('.myDropdown');
+        var dropdown1 = new ch.Dropdown(qS('.myDropdown'));
 
-        var dropdown2 = new ch.Dropdown('.myDropdownNav', {'shortcuts': false, 'skin': true});
+        var dropdown2 = new ch.Dropdown(qS('.myDropdownNav'), {'shortcuts': false, 'skin': true});
 
-        var dropdown3 = new ch.Dropdown('.myDropdownSkin', {'skin': true});
+        var dropdown3 = new ch.Dropdown(qS('.myDropdownSkin'), {'skin': true});
 
         // Tooltip
         // Bottom
-        var tooltip1 = new ch.Tooltip('#default'); // lt lb
+        var tooltip1 = new ch.Tooltip(qS('#default')); // lt lb
 
-        var tooltip2 = new ch.Tooltip('#ctcb', {
+        var tooltip2 = new ch.Tooltip(qS('#ctcb'), {
          'side': 'bottom',
          'align': 'center'
         });
 
-        var tooltip3 = new ch.Tooltip('#rtrb', {
+        var tooltip3 = new ch.Tooltip(qS('#rtrb'), {
          'side': 'bottom',
          'align': 'right'
         });
 
         // Top
-        var tooltip4 = new ch.Tooltip('#lblt', {
+        var tooltip4 = new ch.Tooltip(qS('#lblt'), {
          'side': 'top',
          'align': 'left',
          'offsetY': -10
         });
-        var tooltip5 = new ch.Tooltip('#cbct', {
+        var tooltip5 = new ch.Tooltip(qS('#cbct'), {
          'side': 'top',
          'align': 'center',
          'offsetY': -10
         });
-        var tooltip6 = new ch.Tooltip('#rbrt', {
+        var tooltip6 = new ch.Tooltip(qS('#rbrt'), {
          'side': 'top',
          'align': 'right',
          'offsetY': -10
         });
 
         // Right
-        var tooltip7 = new ch.Tooltip('#ltrt', {
+        var tooltip7 = new ch.Tooltip(qS('#ltrt'), {
          'side': 'right',
          'align': 'top',
          'offsetX': 10
         });
-        var tooltip8 = new ch.Tooltip('#lmrm', {
+        var tooltip8 = new ch.Tooltip(qS('#lmrm'), {
          'side': 'right',
          'align': 'center',
          'offsetX': 10
         });
-        var tooltip9 = new ch.Tooltip('#lbrb', {
+        var tooltip9 = new ch.Tooltip(qS('#lbrb'), {
          'side': 'right',
          'align': 'bottom',
          'offsetX': 10
         });
 
         // Left
-        var tooltip10 = new ch.Tooltip('#rtlt', {
+        var tooltip10 = new ch.Tooltip(qS('#rtlt'), {
          'side': 'left',
          'align': 'top',
          'offsetX': -10
         });
-        var tooltip11 = new ch.Tooltip('#rmlm', {
+        var tooltip11 = new ch.Tooltip(qS('#rmlm'), {
          'side': 'left',
          'align': 'center',
          'offsetX': -10
         });
-        var tooltip12 = new ch.Tooltip('#rblb', {
+        var tooltip12 = new ch.Tooltip(qS('#rblb'), {
          'side': 'left',
          'align': 'bottom',
          'offsetX': -10
@@ -1389,37 +1392,37 @@
 
         var tooltipX = new ch.Tooltip({
             'content': 'Tooltip without trigger!',
-            'reference': '#default'
+            'reference': qS('#default')
         });
 
 
         // Layer
-        var layer1 = new ch.Layer('#layer1', {'content': 'foo'});
+        var layer1 = new ch.Layer(qS('#layer1'), {'content': 'foo'});
 
         var layerContent = document.createElement('p');
             layerContent.innerHTML = 'This is an HTML P Element as content.';
 
-        var layer2 = new ch.Layer('#layer2', {
+        var layer2 = new ch.Layer(qS('#layer2'), {
             'content': layerContent,
             'shownby': 'pointertap',
             'hiddenby': 'all'
         });
 
-        var invisibleContent = document.querySelector('#invisible-content-for-layer');
+        var invisibleContent = qS('#invisible-content-for-layer');
 
-        var layer3 = new ch.Layer('#layer3', {
+        var layer3 = new ch.Layer(qS('#layer3'), {
             'content': invisibleContent,
             'shownby': 'pointertap',
             'hiddenby': 'none'
         });
 
-        var layer4 = new ch.Layer('#layer4', {
+        var layer4 = new ch.Layer(qS('#layer4'), {
             'content': 'Plain text.',
             'shownby': 'pointertap',
             'hiddenby': 'button'
         });
 
-        var layer5 = new ch.Layer('#layer5', {
+        var layer5 = new ch.Layer(qS('#layer5'), {
             'content': './static/ajax.html',
             'shownby': 'pointertap',
             'hiddenby': 'pointers'
@@ -1427,11 +1430,11 @@
 
         var layerX = new ch.Layer({
             'content': 'Layer without trigger!',
-            'reference': document.querySelector('#layer5')
+            'reference': qS('#layer5')
         });
 
-        var layerFixed = new ch.Layer('#components', {
-            'content': '#components-list',
+        var layerFixed = new ch.Layer(qS('#components'), {
+            'content': qS('#components-list'),
             'shownby': 'pointertap',
             'hiddenby': 'all',
             'width': '700px',
@@ -1441,7 +1444,7 @@
         });
 
         var bubble = new ch.Bubble({
-            'reference': document.querySelector('#bubble1')
+            'reference': qS('#bubble1')
         });
 
         bubble.on('click', function () {
@@ -1449,16 +1452,16 @@
         });
 
         // Modal
-        var modal1 = new ch.Modal('#modal1', {
+        var modal1 = new ch.Modal(qS('#modal1'), {
             'width': '500px',
             'height': '300px'
         });
 
         // Modal with invisible DOM Content
-        var modal2 = new ch.Modal('#modal2', {'content': document.querySelector('#invisible-content')});
+        var modal2 = new ch.Modal(qS('#modal2'), {'content': document.querySelector('#invisible-content')});
 
         // Modal lite
-        var modal3 = new ch.Modal('#modal3', {
+        var modal3 = new ch.Modal(qS('#modal3'), {
          'content': '<h2>Heading or content</h2>',
          'addClass': 'ch-modal-lite'
         });
@@ -1467,7 +1470,7 @@
             'hiddenby': 'button'
         });
 
-        ch.util.Event.addListener(document.querySelector('#modal-form'), 'submit', function (e) {
+        ch.util.Event.addListener(qS('#modal-form'), 'submit', function (e) {
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
@@ -1485,38 +1488,38 @@
         //     });
 
         // Trasition
-        var transition = new ch.Transition('#transition');
+        var transition = new ch.Transition(qS('#transition'));
 
         var transitionX = new ch.Transition({
             'waiting': 'Transition without trigger!'
         });
 
         // Zoom
-        var zoom1 = new ch.Zoom('#zoom-default');
+        var zoom1 = new ch.Zoom(qS('#zoom-default'));
 
-        var zoom2 = new ch.Zoom('#zoom-default');
+        var zoom2 = new ch.Zoom(qS('#zoom-default'));
         // Preload image
         zoom2.loadImage();
 
         // Carousel
-        var carousel = new ch.Carousel('.myCarousel', {"pagination": true});
+        var carousel = new ch.Carousel(qS('.myCarousel'), {"pagination": true});
 
         // // Tabs
         // var tabs = new ch.Tabs($(".YOUR_SELECTOR_Tabs"));
 
         // Date Picker
-        var datepicker = new ch.Datepicker('#val_date', {
+        var datepicker = new ch.Datepicker(qS('#val_date'), {
             'selected': '2011/11/15',
             'to': 'today'
         });
 
-        var  datepicker2 = new ch.Datepicker('#val_date2', {
+        var  datepicker2 = new ch.Datepicker(qS('#val_date2'), {
             'selected': '2011/11/15',
             'to': 'today'
         });
 
         // Countdown
-        var countdown = new ch.Countdown('#text_cd', {'max': 140, 'plural': '# left', 'singular': '# left'});
+        var countdown = new ch.Countdown(qS('#text_cd'), {'max': 140, 'plural': '# left', 'singular': '# left'});
 
         // Messages
         var message = (function (message, value) {
@@ -1538,7 +1541,7 @@
         // Form
         var m = new ch.Modal();
 
-        var form = new ch.Form('.myForm')
+        var form = new ch.Form(qS('.myForm'))
                  .on('success', function (event) {
                      event.preventDefault();
                      m.show('success');
@@ -1587,26 +1590,28 @@
 
 
 
-        var  validation1 = new ch.Validation('#input_ico', {'conditions': [
+        var  validation1 = new ch.Validation(qS('#input_ico'), {
+            'conditions': [
                 {
-                    'name': 'required',
-                    'reference': '#input_ico + .ch-form-icon'
+                    'name': 'required'
                 },
                 {
                     'name': 'string'
                 }
-            ]});
+            ],
+            'reference': qS('#input_ico + .ch-form-icon.ch-icon-help-sign')
+        });
 
 
-        var  validation2 = new ch.Validation('#input_ico_inside', {
+        var  validation2 = new ch.Validation(qS('#input_ico_inside'), {
             'conditions':[{'name': 'required'}, {'name': 'number'}]
         });
 
-        var  validation4 = new ch.Validation('#email', {
+        var  validation4 = new ch.Validation(qS('#email'), {
             'conditions':[{'name': 'required'}, {'name': 'email'}]
         });
 
-        var  validation5 = new ch.Validation('#custom', {'conditions':[
+        var  validation5 = new ch.Validation(qS('#custom'), {'conditions':[
             {
                 'name': 'myCustom1',
                 'fn': function (v) {
@@ -1629,36 +1634,36 @@
             }
         ]});
 
-        var validation6 = new ch.Validation('#url', {'conditions':[{'name': 'url'}]});
+        var validation6 = new ch.Validation(qS('#url'), {'conditions':[{'name': 'url'}]});
 
-        var validation7 = new ch.Validation('#number', {
+        var validation7 = new ch.Validation(qS('#number'), {
             'conditions':[{'name': 'number'}, {'name': 'min', 'num': 5}]
         });
 
-        var validation8 = new ch.Validation('#range', {
+        var validation8 = new ch.Validation(qS('#range'), {
             'conditions':[{'name': 'min', 'num': 8}, {'name': 'max', 'num': 10}]
         });
 
-        var validation9 = new ch.Validation('#characters', {
+        var validation9 = new ch.Validation(qS('#characters'), {
             'conditions':[{'name': 'maxLength', 'num': 20}, {'name': 'minLength', 'num': 6}]
         });
 
-        var validation10 = new ch.Validation('#select2', {
+        var validation10 = new ch.Validation(qS('#select2'), {
             'conditions':[{'name': 'required', 'message': message('option')}]
         });
 
-        var validation11 = new ch.Validation('.required-check', {
+        var validation11 = new ch.Validation(qS('.required-check'), {
             'conditions':[{'name': 'required', 'message': message('requiredCheck')}]
         });
 
-        var validation12 = new ch.Validation('.required-option', {
+        var validation12 = new ch.Validation(qS('.required-option'), {
             'conditions':[{'name': 'required', 'message': message('option')}]
         });
-        var validation13 = new ch.Validation('#double', {
+        var validation13 = new ch.Validation(qS('#double'), {
             'conditions':[{'name': 'required', 'message': message('link')}, {'name': 'number'}]
         });
 
-        var validation14 = new ch.Validation('#textarea2', {
+        var validation14 = new ch.Validation(qS('#textarea2'), {
             'conditions':[{'name': 'required'}]
         });
     </script>
