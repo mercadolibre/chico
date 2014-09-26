@@ -93,8 +93,8 @@
         'offsetY': 0,
         'side': 'center',
         'align': 'center',
-        'reference': ch.viewport,
-        'position': 'fixed'
+        'reference': ch.viewport
+        //'position': 'fixed'
     };
 
     /**

@@ -118,8 +118,8 @@
         'height': 'auto',
         'shownby': 'pointertap',
         'hiddenby': 'button',
-        'waiting': '<div class="ch-loading ch-loading-centered"></div>',
-        'position': 'absolute'
+        'waiting': '<div class="ch-loading ch-loading-centered"></div>'
+        // 'position': 'absolute'
     };
 
     /**
@@ -176,8 +176,8 @@
             'side': this._options.side,
             'align': this._options.align,
             'offsetX': this._options.offsetX,
-            'offsetY': this._options.offsetY,
-            'position': this._options.position
+            'offsetY': this._options.offsetY
+            //'position': this._options.position
         });
 
         /**

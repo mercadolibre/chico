@@ -47,6 +47,9 @@
  * Buttons
  */
 /**
+ * Popover
+ */
+/**
  * Buttons
  */
 /* ~20px */
@@ -525,7 +528,8 @@ body {
   border-top: none;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  position: absolute; }
 
 .ch-autocomplete-item,
 .ch-autocomplete-highlighted {
