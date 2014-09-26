@@ -392,7 +392,6 @@ ul {
   top: 0;
   right: 0;
   z-index: 99;
-  display: block;
   width: 54px;
   height: 44px;
   background: rgba(0, 0, 0, 0);

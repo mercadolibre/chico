@@ -22,6 +22,7 @@ h2 {
 header .toggle-label {
     z-index: 999;
     cursor: pointer;
+    display: none;
 }
 
 header .ml-logo-mobile {
@@ -96,6 +97,10 @@ header .ml-logo-mobile {
 }
 
 @media only screen and (max-width: 768px) {
+
+    .ml-header .toggle-label {
+        display: block;
+    }
 
     .ml-header .ml-logo {
         display: none;
