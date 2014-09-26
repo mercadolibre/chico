@@ -425,33 +425,6 @@
     };
 
     /**
-     * Returns the HTMLElement to chaining more validations.
-     * @memberof! ch.Validation.prototype
-     * @function
-     * @returns {HTMLElement}
-     * @example
-     * // Concatenates another validation.
-     * var validation = new ch.Validation().and().Number();
-     */
-    Validation.prototype.and = function () {
-        var el = this._el;
-
-        var presets = {};
-
-        Validation.presets.forEach(function (preset, i) {
-            var presetName = preset.prototype.name.charAt(0).toUpperCase() + preset.prototype.name.substr(1);
-
-            presets[presetName] = function (options) {
-                console.log(el, presetName);
-                return new ch[presetName](el, options);
-            }
-        });
-
-
-        return presets;
-    };
-
-    /**
      * Indicates if the validation is shown.
      * @memberof! ch.Validation.prototype
      * @function
