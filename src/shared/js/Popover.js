@@ -176,8 +176,8 @@
             'side': this._options.side,
             'align': this._options.align,
             'offsetX': this._options.offsetX,
-            'offsetY': this._options.offsetY
-            //'position': this._options.position
+            'offsetY': this._options.offsetY,
+            'position': this._options.position
         });
 
         /**
