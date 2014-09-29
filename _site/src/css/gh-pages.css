@@ -34,10 +34,6 @@ header .ml-logo-mobile {
     background-image: none;
 }
 
-.ml-navigation {
-    border-bottom: 1px solid #eaeaea;
-}
-
 .ml-header .ml-logo {
     display: inline;
 }
@@ -66,11 +62,16 @@ header .ml-logo-mobile {
 }
 
 @media only screen and (min-width: 768px) {
+
     .toggle-label,
     .ml-navicon {
         display: none;
     }
 
+    .chico-get-started section .ml-bounds article .language-javascript .class-name {
+        position: absolute;
+        left: 44px;
+    }
 
 }
 
@@ -98,6 +99,10 @@ header .ml-logo-mobile {
 
 @media only screen and (max-width: 768px) {
 
+    .ml-navigation {
+        border-bottom: 1px solid #eaeaea;
+    }
+
     .ml-header .toggle-label {
         display: block;
     }
@@ -105,6 +110,7 @@ header .ml-logo-mobile {
     .ml-header .ml-logo {
         display: none;
     }
+
 
     .chico-features ul li {
         margin: 0 0 30px 0;
@@ -116,6 +122,13 @@ header .ml-logo-mobile {
 
     .ml-bounds h2 {
         margin: 10px 0 20px 0;
+    }
+
+
+    .chico-get-started section .ml-bounds article .language-javascript .class-name {
+        margin-left: -220px;
+        position: relative;
+        left: 10px;
     }
 
     .ml-footer {
@@ -176,19 +189,6 @@ footer .link-chico-footer {
 ---------------------------------------------------------------*/
 .chico-get-started .language-javascript {
     word-wrap: break-word;
-}
-
-
-.chico-get-started .language-javascript code { /* Temporally*/
-    position: relative;
-    left: -182px;
-    top: 12px;
-}
-
-.chico-get-started .language-javascript code.html { /* Temporally*/
-    position: relative;
-    left: -198px;
-    top: 9px;
 }
 
 

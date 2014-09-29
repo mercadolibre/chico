@@ -35,14 +35,14 @@ id: getting-started
                         We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
                     </p>
                     <pre class="language-javascript">
-                        <code class="highlight html">
-                            &lt;!DOCTYPE html>
-                            &lt;html>
-                            &lt;head>
-                            !--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                            !--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                            !--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                            !--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;!DOCTYPE html></span>
+                            <span class="token class-name">&lt;html></span>
+                            <span class="token class-name">&lt;head></span>
+                            <span class="token class-name">&lt;!--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;</span>
                         </code>
                     </pre>
 
@@ -55,11 +55,17 @@ id: getting-started
                     You can get jQuery from many places like Google CDN:</p>
 
                     <pre class="language-javascript">
-                        <code class="highlight">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js">&lt;/script></code>
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;script src=<span class="token string">"https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"</span>>&lt;/script></span>
+                        </code>
                     </pre>
+
+
                     <h4>Or jQuery CDN:</h4>
                     <pre class="language-javascript">
-                         <code class="highlight">&lt;script src="http://code.jquery.com/jquery-x.x.x.min.js">&lt;/script></code>
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;script src=<span class="token string">"http://code.jquery.com/jquery-x.x.x.min.js"</span>>&lt;/script></span>
+                        </code>
                     </pre>
 
                 </article>
@@ -71,7 +77,9 @@ id: getting-started
                     <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
 
                     <pre class="language-javascript">
-                        <code class="highlight">&lt;link rel="stylesheet" href="chico-min-x.x.x.css"/></code>
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;link rel=<span class="token string">"stylesheet"</span> href=<span class="token string">"chico-min-x.x.x.css"</span>/></span>
+                        </code>
                     </pre>
 
                     <p>
@@ -79,7 +87,9 @@ id: getting-started
                     </p>
 
                     <pre class="language-javascript">
-                        <code class="highlight">&lt;script src="build/chico-min-x.x.x.js">&lt;/script></code>
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;script src=<span class="token string">"build/chico-min-x.x.x.js"</span>>&lt;/script></span>
+                        </code>
                     </pre>
 
                     <p>
@@ -93,29 +103,30 @@ id: getting-started
                     <h3 id="overview">Overview</h3>
 
                     <pre class="language-javascript">
-                        <code class="highlight html">
-                            &lt;!doctype html&gt;
-                            &lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;
-                            &lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;
-                            &lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;
-                            &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;
-                            &lt;head&gt;
-                            &lt;!-- Avoid script blocking --&gt;
-                            &lt;script&gt;&lt;/script&gt;
-                            &lt;meta charset="utf-8"/&gt;
-                            &lt;title&gt;Document Title&lt;/title&gt;
-                            &lt;!-- Chico UI Core stylesheet --&gt;
-                            &lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;
-                            &lt;/head&gt;
-                            &lt;body&gt;
-                            ...
-                            &lt;!-- All markup here... --&gt;
-                            ...
-                            &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;&lt;/script&gt;
-                            &lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;
-                            &lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;
-                            &lt;/body&gt;
-                            &lt;/html&gt;
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;!doctype html&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;head&gt;</span>
+                            <span class="token comment">&lt;!-- Avoid script blocking --&gt;</span>
+                            <span class="token class-name">&lt;script&gt;&lt;/script&gt;</span>
+                            <span class="token class-name">&lt;meta charset="utf-8"/&gt;</span>
+                            <span class="token class-name">&lt;title&gt;Document Title&lt;/title&gt;</span>
+                            <span class="token comment">&lt;!-- Chico UI Core stylesheet --&gt;</span>
+                            <span class="token class-name">&lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;</span>
+                            <span class="token class-name">&lt;/head&gt;</span>
+                            <span class="token class-name">&lt;body&gt;</span>
+                            <span class="token class-name">...</span>
+                            <span class="token comment">&lt;!-- All markup here... --&gt;</span>
+                            <span class="token class-name">...</span>
+                            <span class="token class-name">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;</span>
+                            <span class="token class-name">&lt;/script&gt;</span>
+                            <span class="token class-name">&lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;</span>
+                            <span class="token class-name">&lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;</span>
+                            <span class="token class-name">&lt;/body&gt;</span>
+                            <span class="token class-name">&lt;/html&gt;</span>
                         </code>
                     </pre>
 

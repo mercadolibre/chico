@@ -60,7 +60,14 @@
                     <a class="" href="/chico/ui-components/">UI Components</a>
                 </li>
                 <li class="ml-navigation-item ml-navigation-account ">
-                    <a class="" href="/chico/api-doc/1.1.1/autocomplete">API Doc</a>
+                    <a class="api-doc " href="/chico/api-doc/1.1.1/autocomplete">API Doc</a>
+
+                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
+                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+
+                    <nav class="mesh-12 mesh-m-3 chico-nav">
+                        <h2>Components</h2><ul><li><a href="/chico/api-doc/1.1.1/autocomplete" class="1.1.1">Autocomplete</a></li><li><a href="/chico/api-doc/1.1.1/bubble" class="1.1.1">Bubble</a></li><li><a href="/chico/api-doc/1.1.1/calendar" class="1.1.1">Calendar</a></li><li><a href="/chico/api-doc/1.1.1/carousel" class="1.1.1">Carousel</a></li><li><a href="/chico/api-doc/1.1.1/component" class="1.1.1">Component</a></li><li><a href="/chico/api-doc/1.1.1/condition" class="1.1.1">Condition</a></li><li><a href="/chico/api-doc/1.1.1/countdown" class="1.1.1">Countdown</a></li><li><a href="/chico/api-doc/1.1.1/custom" class="1.1.1">Custom</a></li><li><a href="/chico/api-doc/1.1.1/datepicker" class="1.1.1">Datepicker</a></li><li><a href="/chico/api-doc/1.1.1/dropdown" class="1.1.1">Dropdown</a></li><li><a href="/chico/api-doc/1.1.1/email" class="1.1.1">Email</a></li><li><a href="/chico/api-doc/1.1.1/eventemitter" class="1.1.1">EventEmitter</a></li><li><a href="/chico/api-doc/1.1.1/expandable" class="1.1.1">Expandable</a></li><li><a href="/chico/api-doc/1.1.1/form" class="1.1.1">Form</a></li><li><a href="/chico/api-doc/1.1.1/layer" class="1.1.1">Layer</a></li><li><a href="/chico/api-doc/1.1.1/max" class="1.1.1">Max</a></li><li><a href="/chico/api-doc/1.1.1/maxlength" class="1.1.1">MaxLength</a></li><li><a href="/chico/api-doc/1.1.1/menu" class="1.1.1">Menu</a></li><li><a href="/chico/api-doc/1.1.1/min" class="1.1.1">Min</a></li><li><a href="/chico/api-doc/1.1.1/minlength" class="1.1.1">MinLength</a></li><li><a href="/chico/api-doc/1.1.1/modal" class="1.1.1">Modal</a></li><li><a href="/chico/api-doc/1.1.1/number" class="1.1.1">Number</a></li><li><a href="/chico/api-doc/1.1.1/popover" class="1.1.1">Popover</a></li><li><a href="/chico/api-doc/1.1.1/positioner" class="1.1.1">Positioner</a></li><li><a href="/chico/api-doc/1.1.1/required" class="1.1.1">Required</a></li><li><a href="/chico/api-doc/1.1.1/string" class="1.1.1">String</a></li><li><a href="/chico/api-doc/1.1.1/tabs" class="1.1.1">Tabs</a></li><li><a href="/chico/api-doc/1.1.1/tooltip" class="1.1.1">Tooltip</a></li><li><a href="/chico/api-doc/1.1.1/transition" class="1.1.1">Transition</a></li><li><a href="/chico/api-doc/1.1.1/url" class="1.1.1">URL</a></li><li><a href="/chico/api-doc/1.1.1/validation" class="1.1.1">Validation</a></li><li><a href="/chico/api-doc/1.1.1/viewport" class="1.1.1">Viewport</a></li><li><a href="/chico/api-doc/1.1.1/zoom" class="1.1.1">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="/chico/api-doc/1.1.1/html" class="1.1.1">ch</a></li><li><a href="/chico/api-doc/1.1.1/shortcuts" class="1.1.1">shortcuts</a></li><li><a href="/chico/api-doc/1.1.1/support" class="1.1.1">support</a></li><li><a href="/chico/api-doc/1.1.1/util" class="1.1.1">util</a></li></ul><h2>Mixins</h2><ul><li><a href="/chico/api-doc/1.1.1/collapsible" class="1.1.1">Collapsible</a></li><li><a href="/chico/api-doc/1.1.1/content" class="1.1.1">Content</a></li></ul>
+                    </nav>
                 </li>
             </ul>
         </nav>
@@ -114,14 +121,14 @@
                         We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
                     </p>
                     <pre class="language-javascript">
-                        <code class="highlight html">
-                            &lt;!DOCTYPE html>
-                            &lt;html>
-                            &lt;head>
-                            !--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                            !--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                            !--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;
-                            !--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;!DOCTYPE html></span>
+                            <span class="token class-name">&lt;html></span>
+                            <span class="token class-name">&lt;head></span>
+                            <span class="token class-name">&lt;!--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;</span>
                         </code>
                     </pre>
 
@@ -134,11 +141,17 @@
                     You can get jQuery from many places like Google CDN:</p>
 
                     <pre class="language-javascript">
-                        <code class="highlight">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js">&lt;/script></code>
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;script src=<span class="token string">"https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"</span>>&lt;/script></span>
+                        </code>
                     </pre>
+
+
                     <h4>Or jQuery CDN:</h4>
                     <pre class="language-javascript">
-                         <code class="highlight">&lt;script src="http://code.jquery.com/jquery-x.x.x.min.js">&lt;/script></code>
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;script src=<span class="token string">"http://code.jquery.com/jquery-x.x.x.min.js"</span>>&lt;/script></span>
+                        </code>
                     </pre>
 
                 </article>
@@ -150,7 +163,9 @@
                     <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
 
                     <pre class="language-javascript">
-                        <code class="highlight">&lt;link rel="stylesheet" href="chico-min-x.x.x.css"/></code>
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;link rel=<span class="token string">"stylesheet"</span> href=<span class="token string">"chico-min-x.x.x.css"</span>/></span>
+                        </code>
                     </pre>
 
                     <p>
@@ -158,7 +173,9 @@
                     </p>
 
                     <pre class="language-javascript">
-                        <code class="highlight">&lt;script src="build/chico-min-x.x.x.js">&lt;/script></code>
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;script src=<span class="token string">"build/chico-min-x.x.x.js"</span>>&lt;/script></span>
+                        </code>
                     </pre>
 
                     <p>
@@ -172,29 +189,30 @@
                     <h3 id="overview">Overview</h3>
 
                     <pre class="language-javascript">
-                        <code class="highlight html">
-                            &lt;!doctype html&gt;
-                            &lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;
-                            &lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;
-                            &lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;
-                            &lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;
-                            &lt;head&gt;
-                            &lt;!-- Avoid script blocking --&gt;
-                            &lt;script&gt;&lt;/script&gt;
-                            &lt;meta charset="utf-8"/&gt;
-                            &lt;title&gt;Document Title&lt;/title&gt;
-                            &lt;!-- Chico UI Core stylesheet --&gt;
-                            &lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;
-                            &lt;/head&gt;
-                            &lt;body&gt;
-                            ...
-                            &lt;!-- All markup here... --&gt;
-                            ...
-                            &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;&lt;/script&gt;
-                            &lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;
-                            &lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;
-                            &lt;/body&gt;
-                            &lt;/html&gt;
+                        <code class=" language-javascript">
+                            <span class="token class-name">&lt;!doctype html&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;</span>
+                            <span class="token class-name">&lt;head&gt;</span>
+                            <span class="token comment">&lt;!-- Avoid script blocking --&gt;</span>
+                            <span class="token class-name">&lt;script&gt;&lt;/script&gt;</span>
+                            <span class="token class-name">&lt;meta charset="utf-8"/&gt;</span>
+                            <span class="token class-name">&lt;title&gt;Document Title&lt;/title&gt;</span>
+                            <span class="token comment">&lt;!-- Chico UI Core stylesheet --&gt;</span>
+                            <span class="token class-name">&lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;</span>
+                            <span class="token class-name">&lt;/head&gt;</span>
+                            <span class="token class-name">&lt;body&gt;</span>
+                            <span class="token class-name">...</span>
+                            <span class="token comment">&lt;!-- All markup here... --&gt;</span>
+                            <span class="token class-name">...</span>
+                            <span class="token class-name">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;</span>
+                            <span class="token class-name">&lt;/script&gt;</span>
+                            <span class="token class-name">&lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;</span>
+                            <span class="token class-name">&lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;</span>
+                            <span class="token class-name">&lt;/body&gt;</span>
+                            <span class="token class-name">&lt;/html&gt;</span>
                         </code>
                     </pre>
 
