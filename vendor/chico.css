@@ -677,7 +677,8 @@ body {
 .ch-bubble {
   font-size: .929em;
   padding: 5px 5px 5px 25px;
-  border: 1px solid #EED3D7; }
+  border: 1px solid #EED3D7;
+  position: absolute; }
 
 /* Error icon */
 .ch-bubble .ch-icon-remove-sign {
@@ -1254,7 +1255,8 @@ table {
   white-space: nowrap;
   -webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1);
   box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1);
-  border-radius: 0 5px 5px 5px; }
+  border-radius: 0 5px 5px 5px;
+  position: absolute; }
   .ch-dropdown menu a {
     color: #000;
     display: block;
@@ -1789,7 +1791,8 @@ select[multiple],
  * Layer
  */
 .ch-layer {
-  box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1); }
+  box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1);
+  position: absolute; }
 
 /**
  * List
@@ -2549,7 +2552,8 @@ a:focus {
 /* Zoomed area */
 .ch-zoom {
   border: 1px solid #ccc;
-  background-color: #fff; }
+  background-color: #fff;
+  position: absolute; }
 
 /* Zoomed container */
 .ch-zoom .ch-popover-content {
