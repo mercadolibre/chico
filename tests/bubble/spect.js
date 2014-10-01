@@ -1,5 +1,5 @@
-var bubble = $('#bubble').bubble().show(),
-    $c = bubble.$container;
+var bubble = new ch.Bubble(document.querySelector('#bubble')).show(),
+    c = bubble.container;
 
 describe('Bubble', function () {
 
@@ -9,8 +9,8 @@ describe('Bubble', function () {
     });
 
     it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('bubble')).toBeTruthy();
-        expect(typeof $.fn.bubble).toEqual('function');
+        expect(ch.hasOwnProperty('Bubble')).toBeTruthy();
+        expect(typeof ch.Bubble).toEqual('function');
     });
 
     it('should return a new instance of Bubble', function () {
@@ -21,20 +21,20 @@ describe('Bubble', function () {
 describe('It should have a container with', function () {
 
     it('role alert', function () {
-        expect($c.attr('role')).toEqual('alert');
+        expect(c.getAttribute('role')).toEqual('alert');
     });
 
     it('specific CSS class names', function () {
-        expect($c.hasClass('ch-bubble')).toBeTruthy();
-        expect($c.hasClass('ch-box-error')).toBeTruthy();
-        expect($c.hasClass('ch-cone')).toBeTruthy();
+        expect(c.classList.contains('ch-bubble')).toBeTruthy();
+        expect(c.classList.contains('ch-box-error')).toBeTruthy();
+        expect(c.classList.contains('ch-cone')).toBeTruthy();
     });
 
     it('alignment', function () {
         waits(450);
         runs(function () {
-            expect($c.attr('data-side')).toEqual('right');
-            expect($c.attr('data-align')).toEqual('top');
+            expect(c.getAttribute('data-side')).toEqual('right');
+            expect(c.getAttribute('data-align')).toEqual('center');
         });
     });
 });
