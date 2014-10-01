@@ -6,7 +6,7 @@
     ch.Popover.prototype._hidingShortcuts = function () {
 
         var that = this,
-            pointertap = ch.onpointertap + '.' + this.name;
+            pointertap = ch.onpointertap;
 
         function hide(event) {
             // event.button === 0: Fix issue #933 Right click closes it on Firefox.
