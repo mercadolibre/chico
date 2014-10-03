@@ -35,16 +35,7 @@
  * Buttons
  */
 /**
- * Popover
- */
-/**
- * Modal
- */
-/**
  * Tooltip
- */
-/**
- * Transition Window
  */
 /**
  * Global Colors
@@ -510,8 +501,7 @@ img {
   border-top: none;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  position: absolute; }
+  box-sizing: border-box; }
 
 .ch-autocomplete-item,
 .ch-autocomplete-highlighted {
@@ -1951,8 +1941,7 @@ dl.ch-list dd {
 .ch-modal {
   overflow: auto;
   padding: 20px;
-  box-shadow: 0 3px 14px #444;
-  position: fixed; }
+  box-shadow: 0 3px 14px #444; }
 
 .ch-modal-lite {
   text-align: center;
@@ -2181,8 +2170,7 @@ dl.ch-list dd {
   border: 1px solid #FBEED5;
   color: #AA8749;
   padding: 8px 10px;
-  border-radius: 5px;
-  position: absolute; }
+  border-radius: 5px; }
 
 /**
  * Bottom side
@@ -2231,8 +2219,7 @@ dl.ch-list dd {
   overflow: auto;
   padding: 40px;
   box-shadow: 0 3px 14px #444;
-  text-align: center;
-  position: fixed; }
+  text-align: center; }
 
 /**
  * Headings
