@@ -5,8 +5,7 @@
 
     ch.Popover.prototype._hidingShortcuts = function () {
 
-        var that = this,
-            pointertap = ch.onpointertap;
+        var that = this;
 
         function hide(event) {
             // event.button === 0: Fix issue #933 Right click closes it on Firefox.
@@ -22,11 +21,11 @@
         this
             .on('show', function () {
                 ch.shortcuts.on(that.uid);
-                ch.util.Event.addListener(document, pointertap, hide);
+                ch.util.Event.addListener(document, ch.onpointertap, hide);
             })
             .on('hide', function () {
                 ch.shortcuts.off(that.uid);
-                ch.util.Event.removeListener(document, pointertap, hide);
+                ch.util.Event.removeListener(document, ch.onpointertap, hide);
             })
             .once('destroy', function () {
                 ch.shortcuts.remove(that.uid, ch.onkeyesc);
