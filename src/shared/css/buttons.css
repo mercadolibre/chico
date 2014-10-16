@@ -11,7 +11,6 @@
     box-shadow: none;
     cursor: pointer;
     display: inline-block;
-    font-family: Arial, Helvetica, sans-serif;
     height: auto;
     text-decoration: none;
     font-size: 18px;
@@ -164,13 +163,6 @@ input.ch-btn-small::-moz-focus-inner {
 .ch-btn-large:focus {
     font-size: 20px;
     text-align: center;
-}
-
-input.ch-btn::-moz-focus-inner,
-input.ch-btn-large::-moz-focus-inner,
-input.ch-btn-small::-moz-focus-inner {
-    border: 0;
-    padding: 0;
 }
 
 /* Disabled */
