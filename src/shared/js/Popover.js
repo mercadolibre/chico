@@ -118,8 +118,8 @@
         'height': 'auto',
         'shownby': 'pointertap',
         'hiddenby': 'button',
-        'waiting': '<div class="ch-loading ch-loading-centered"></div>'
-        // 'position': 'absolute'
+        'waiting': '<div class="ch-loading ch-loading-centered"></div>',
+        'position': 'absolute'
     };
 
     /**

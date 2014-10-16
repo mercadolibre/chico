@@ -1,97 +1,152 @@
-/*
- * Links
-*/
-
-a {
-	color: $links;
-	text-decoration: $font-no-underline;
-
-	&:hover {
-		text-decoration: $font-underline;
-	}
-
-	&:visited {
-		color: $links-visited; 
-	}
-}
-
-/*
+/**
  * Buttons
-*/
+ */
+/* Global */
+[class*="ch-btn"],
+[class*="ch-btn"]:focus {
+    font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
+    -webkit-border-radius: 4px; /* Android 2.1 */
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    cursor: pointer;
+    display: inline-block;
+    height: auto;
+    text-decoration: none;
+    font-size: $font__large;
+}
 
-/* shared */
+/* Focus */
+[class*="ch-btn"]:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="file"]::-webkit-file-upload-button:focus,
+button:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
 
+/* Colors */
 .ch-btn,
-.ch-btn-skin {
-	border-radius: $border-radius;
-	cursor: pointer;
+.ch-btn:focus,
+.ch-btn:visited {
+    background-color: $btn-primary-bg;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4055A5), color-stop(100%, #283077));
+    background-image: -webkit-linear-gradient($btn-primary-top-bg, $btn-primary-bottom-bg);
+    background-image: -moz-linear-gradient($btn-primary-top-bg, $btn-primary-bottom-bg);
+    background-image: -o-linear-gradient($btn-primary-top-bg, $btn-primary-bottom-bg);
+    background-image: linear-gradient($btn-primary-top-bg, $btn-primary-bottom-bg);
+    -webkit-box-shadow: inset 0 1px $btn-primary-shadow;
+    box-shadow: inset 0 1px $btn-primary-shadow;
+    border: 1px solid $btn-primary-border;
+    color: $btn-primary-color;
 }
 
-.ch-btn {
-	background: $btn-primary-bg;
-	background-image: linear-gradient($btn-primary-top-bg,$btn-primary-bottom-bg);
-	border:1px solid $btn-primary-border;
-	box-shadow: 0 1px 0 0 $btn-primary-shadow inset;
-	color: $btn-primary-color;
-	font-size: $btn-font-size;
-	line-height: $btn-line-height;
-	padding: $btn-padding-vertical $btn-padding-horizontal;
-
-	&:hover {
-		background: $btn-primary-hover;
-		background-image: linear-gradient($btn-primary-hover-top-bg,$btn-primary-hover-bottom-bg);
-	}
-
-	&:active {
-		background: $btn-primary-active;
-	}
+.ch-btn-skin,
+.ch-btn-skin:focus,
+.ch-btn-skin:visited {
+    background-color: $btn-secondary-bg;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-secondary-bg), color-stop(100%, $btn-secondary-bottom-bg));
+    background-image: -webkit-linear-gradient($btn-secondary-top-bg, $btn-secondary-bottom-bg);
+    background-image: -moz-linear-gradient($btn-secondary-top-bg, $btn-secondary-bottom-bg);
+    background-image: -o-linear-gradient($btn-secondary-top-bg, $btn-secondary-bottom-bg);
+    background-image: linear-gradient($btn-secondary-top-bg, $btn-secondary-bottom-bg);
+    border: 1px solid $btn-secondary-border;
+    -webkit-box-shadow: inset 0 1px $btn-secondary-shadow;
+    box-shadow: inset 0 1px $btn-secondary-shadow;
+    color: $btn-secondary-color;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
 
-.ch-btn-big {
-	font-size: $btn-big-font-size;
-	line-height: $btn-big-line-height;
-	padding: $btn-big-padding-vertical $btn-small-padding-horizontal;
+/* Hover */
+.ch-btn:hover,
+.ch-btn-skin:hover {
+    text-decoration: none;
 }
 
-.ch-btn-small {
-	font-size: $btn-small-font-size;
-	line-height: $btn-small-line-height;
-	padding: $btn-small-padding-vertical $btn-small-padding-horizontal;
+/* Colors on Hover */
+.ch-btn:hover {
+    background-color: $btn-primary-hover-top-bg;
+    background-image: -webkit-linear-gradient($btn-primary-hover-top-bg, $btn-primary-hover-bottom-bg);
+    background-image: -moz-linear-gradient($btn-primary-hover-top-bg, $btn-primary-hover-bottom-bg);
+    background-image: -o-linear-gradient($btn-primary-hover-top-bg, $btn-primary-hover-bottom-bg);
+    background-image: linear-gradient($btn-primary-hover-top-bg, $btn-primary-hover-bottom-bg);
+    -webkit-box-shadow: inset 0 1px $btn-primary-shadow-hover;
+    box-shadow: inset 0 1px $btn-primary-shadow-hover;
 }
 
-.ch-btn-skin {
-	background: $btn-secondary-bg;
-	background-image: linear-gradient($btn-secondary-top-bg,$btn-secondary-bottom-bg);
-	border:1px solid $btn-secondary-border;
-	box-shadow: $btn-secondary-shadow;
-	color: $btn-secondary-color;
-	line-height: 1em;
-
-	&:hover {
-		background: $btn-secondary-bg-hover;
-		background-image: linear-gradient($btn-secondary-top-bg-hover,$btn-secondary-bottom-bg-hover);
-	}
-
-	&:active {
-		background: $btn-secondary-active;
-	}
+.ch-btn-skin:hover {
+    background-color: $btn-secondary-bg-hover;
+    background-image: -webkit-linear-gradient($btn-secondary-top-bg-hover, $btn-secondary-bottom-bg-hover);
+    background-image: -moz-linear-gradient($btn-secondary-top-bg-hover, $btn-secondary-bottom-bg-hover);
+    background-image: -o-linear-gradient($btn-secondary-top-bg-hover, $btn-secondary-bottom-bg-hover);
+    background-image: linear-gradient($btn-secondary-top-bg-hover, $btn-secondary-bottom-bg-hover);
+    -webkit-box-shadow: inset 0 1px $btn-secondary-box-shadow-hover;
+    box-shadow: inset 0 1px $btn-secondary-box-shadow-hover;
 }
 
-.ch-btn-disabled-bg {
-	background: $btn-disabled-bg;
-	background-image: linear-gradient($btn-disabled-top-bg, $btn-disabled-bottom-bg);	
+/* Colors on Active */
+.ch-btn:active {
+    background-color: $btn-primary-active;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-primary-active-top-bg), color-stop(100%, #202388));
+    background-image: -webkit-linear-gradient($btn-primary-active-top-bg, $btn-primary-active-bottom-bg);
+    background-image: -moz-linear-gradient($btn-primary-active-top-bg, $btn-primary-active-bottom-bg);
+    background-image: -o-linear-gradient($btn-primary-active-top-bg, $btn-primary-active-bottom-bg);
+    background-image: linear-gradient($btn-primary-active-top-bg, $btn-primary-active-bottom-bg);
+    -webkit-box-shadow: inset 0 1px 6px $btn-primary-shadow-active;
+    box-shadow: inset 0 1px 6px $btn-primary-shadow-active;
+    border-color: $btn-primary-border-active;
 }
 
-.ch-btn-disabled {
-	@extend .ch-btn-disabled-bg;
-	border: 1px solid $btn-disabled-color;
-	box-shadow: $btn-disabled-shadow;
-	color: $btn-disabled-color;
-	cursor: not-allowed;
-	text-shadow: none;
-	opacity: 0.5;
+.ch-btn-skin:active {
+    background-color: $btn-secondary-bg-active;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-secondary-top-bg-active), color-stop(100%, $btn-secondary-bg-active));
+    background-image: -webkit-linear-gradient($btn-secondary-top-bg-active, $btn-secondary-bottom-bg-active);
+    background-image: -moz-linear-gradient($btn-secondary-top-bg-active, $btn-secondary-bottom-bg-active);
+    background-image: -o-linear-gradient($btn-secondary-top-bg-active, $btn-secondary-bottom-bg-active);
+    background-image: linear-gradient($btn-secondary-top-bg-active, $btn-secondary-bottom-bg-active);
+    -webkit-box-shadow: inset 0 1px 6px $btn-secondary-shadow-active;
+    box-shadow: inset 0 1px 6px $btn-secondary-shadow-active;
+    border-color: $btn-secondary-border-active;
+}
 
-	&:hover {
-		@extend .ch-btn-disabled-bg;
-	}
+/* Size */
+input.ch-btn::-moz-focus-inner,
+input.ch-btn-large::-moz-focus-inner,
+input.ch-btn-small::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/* Large */
+.ch-btn-large,
+.ch-btn-large:focus {
+    font-size: $font__x__large;
+    text-align: center;
+}
+
+/* Disabled */
+[class*="ch-btn"].ch-btn-disabled,
+.ch-btn-disabled:hover,
+.ch-btn-disabled:active,
+.ch-btn-disabled:focus,
+[class*="ch-btn"][disabled],
+[class*="ch-btn"][disabled]:hover,
+[class*="ch-btn"][disabled]:active,
+[class*="ch-btn"][disabled]:focus {
+    background-color: $btn-disabled-bg;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-disabled-top-bg), color-stop(100%, $btn-disabled-bottom-bg));
+    background-image: -webkit-linear-gradient($btn-disabled-top-bg, $btn-disabled-bottom-bg);
+    background-image: -moz-linear-gradient($btn-disabled-top-bg, $btn-disabled-bottom-bg);
+    background-image: -o-linear-gradient($btn-disabled-top-bg, $btn-disabled-bottom-bg);
+    background-image: linear-gradient($btn-disabled-top-bg, $btn-disabled-bottom-bg);
+    border: 1px solid $btn-disabled-border !important; /* important for links */
+    -webkit-box-shadow: inset 0px 1px $btn-disabled-box-shadow;
+    box-shadow: inset 0px 1px rgba(240, 240, 240, 1);
+    color: #999 !important; /* important for links */
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-shadow: $btn-disabled-text-shadow;
 }

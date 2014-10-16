@@ -1,22 +1,15 @@
 //COMMON MERCADOPAGO UI SKIN VARIABLES
 //-------------------------------------------------
 
-/**
- * Global Colors
- */
+// >> Datepicker
 
-$white:									#fff;
-$gray: 									#333;
+$datepicker-day-hover:					$components-hover-bg-color;
 
-/**
- * Datepicker
- */
+// >> Menu
 
-$datepicker-day-hover:					#e8f6fd;
+$menu-bg-color-hover:					$components-hover-bg-color;
 
-/**
- * Pagination
- */
+// >> Pagination
 
 $pagination-current-bg-hover:			#e9e9e9;
 $pagination-current-border-hover:		#e9e9e9;
@@ -27,9 +20,3 @@ $pagination-link-pages:					#0066cc;
 $pagination-to-select-bg-hover:			#0066cc;
 $pagination-to-select-border-hover:		#0066cc;
 $pagination-to-select-font-color-hover:	$white;
-
-/**
- * Pagination
- */
-
-$menu-bg-color-hover:					#E8F6FD;

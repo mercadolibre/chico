@@ -1,6 +1,47 @@
 /**
  * Buttons
  */
+
+/* Action button */
+
+.ch-btn-action,
+.ch-btn-action:focus,
+.ch-btn-action:visited {
+    background-color: $btn-action-bg;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-action-top-bg), color-stop(100%, $btn-action-bottom-bg));
+    background-image: -webkit-linear-gradient($btn-action-top-bg, $btn-action-bottom-bg);
+    background-image: -moz-linear-gradient($btn-action-top-bg, $btn-action-bottom-bg);
+    background-image: -o-linear-gradient($btn-action-top-bg, $btn-action-bottom-bg);
+    background-image: linear-gradient($btn-action-top-bg, $btn-action-bottom-bg);
+    border: 1px solid $btn-action-border;
+    -webkit-box-shadow: inset 0 1px $btn-action-shadow;
+    box-shadow: inset 0 1px $btn-action-shadow;
+    color: $btn-action-color;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+
+
+/* Colors on Hover */
+.ch-btn-action:hover {
+    background-color: $btn-action-hover;
+    background-image: -webkit-linear-gradient($btn-action-hover-top-bg, $btn-action-hover-bottom-bg);
+    background-image: -moz-linear-gradient($btn-action-hover-top-bg, $btn-action-hover-bottom-bg);
+    background-image: -o-linear-gradient($btn-action-hover-top-bg, $btn-action-hover-bottom-bg);
+    background-image: linear-gradient($btn-action-hover-top-bg, $btn-action-hover-bottom-bg);
+}
+
+.ch-btn-action:active {
+    background-color: $btn-action-active-bg;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-action-active-top-bg), color-stop(100%, $btn-action-active-bottom-bg));
+    background-image: -webkit-linear-gradient($btn-action-active-top-bg, $btn-action-active-bottom-bg);
+    background-image: -moz-linear-gradient($btn-action-active-top-bg, $btn-action-active-bottom-bg);
+    background-image: -o-linear-gradient($btn-action-active-top-bg, $btn-action-active-bottom-bg);
+    background-image: linear-gradient($btn-action-active-top-bg, $btn-action-active-bottom-bg);
+    -webkit-box-shadow: inset 0 1px 6px $btn-action-shadow-active;
+    box-shadow: inset 0 1px 6px $btn-action-shadow-active;
+    border-color: $btn-action-border-active;
+}
+
 /* Default h: ~38px */
 .ch-btn,
 .ch-btn:focus {

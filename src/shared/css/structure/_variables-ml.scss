@@ -1,13 +1,9 @@
 //COMMON MERCADOLIBRE SHARED STRUCTURE VARIABLES
 //-------------------------------------------------
 
-/**
- * Global
- */
+// > Global
 
-/**
- * Fonts
- */
+// >> Fonts
 
 $font__xx__large:					22px;
 $font__x__large:					20px;
@@ -27,10 +23,7 @@ $font-weigth__bold:					bold;
 $font-underline:					underline;
 $font-no-underline:					none;	
 
-
-/**
- * Icons
- */
+// >> Icons
  
 $icon-medium:					19px;
 $icon-large:					26px;
@@ -46,11 +39,9 @@ $margin-box-headings:			0;
 
 $margin-headers:				10px 0;
 
-/**
- * Buttons
- */
+// >> Buttons
 
- // btn box model
+// >>> Box model
 
 $btn-padding-vertical:			5px;
 $btn-padding-horizontal:		10px;  
@@ -67,18 +58,16 @@ $btn-small-padding-horizontal:	8px;
 $btn-small-font-size:		  	12px;
 $btn-small-line-height:		  	12px;
 
-// shared
+// >>> shared
 
 $border-radius:					4px;
 
- // box model
+// >>> box model
 
 $box-margin:					0 0 10px 0;
 $box-padding:					10px;
 
-/**
- * Tooltip
- */
+// >> Tooltip
 
 $tooltip-padding:				8px 10px;
 $tooltip-border-radius:			5px;

@@ -1,22 +1,14 @@
 //COMMON MERCADOLIBRE UI SKIN VARIABLES
 //-------------------------------------------------
 
-/**
- * Global Colors
- */
+// >> Datepicker
 
-$white:									#fff;
-$gray: 									#333;
+$datepicker-day-hover:					$components-hover-bg-color;
 
-/**
- * Datepicker
- */
+// >> Menu
 
-$datepicker-day-hover:					#fefbd6;
-
-/**
- * Pagination
- */
+$menu-bg-color-hover:					$components-hover-bg-color;
+// >> Pagination
 
 $pagination-current-bg-hover:			#e9e9e9;
 $pagination-current-border-hover:		#e9e9e9;
@@ -27,9 +19,3 @@ $pagination-link-pages:					#0033bb;
 $pagination-to-select-bg-hover:			#2b37b2;
 $pagination-to-select-border-hover:		#2b37b2;
 $pagination-to-select-font-color-hover:	$white;
-
-/**
- * Pagination
- */
-
-$menu-bg-color-hover:					#FDF9D5;
