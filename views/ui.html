@@ -520,6 +520,25 @@
         </menu>
     </div>
 
+    <div class="ch-box-lite">
+        <h2 id="select">Select</h2>
+            <!-- <p>1 cuota de <span class="ch-price">$ 89<sup>24</sup></span></p> -->
+        <!-- <select name="cuotas" class="myCustomSelect">
+            <option value="1">1 cuotas de $ 89,25</option>
+            <option value="3">3 cuotas de $ 47,22 (Sin interés) ($ 32,44)</option>
+            <option value="6" disabled="disabled">6 cuotas de $ 27,32 (Sin interés) </option>
+            <option value="12">12 cuotas de $ 12,56 ($ 32,44)</option>
+        </select> -->
+
+        <select name="cuotas" class="myCustomSelect">
+            <option value="1">1 cuotas de $ 89,25</option>
+            <option value="3">3 cuotas de $ 47,22</option>
+            <option value="6" disabled="disabled">6 cuotas de $ 27,32</option>
+            <option value="12">12 cuotas de $ 12,56 ($ 32,44)</option>
+        </select>
+
+    </div>
+
 
 
     <div class="ch-box-lite m-clearfix">
@@ -1317,6 +1336,21 @@
         var dropdown2 = $(".myDropdownNav").dropdown({'shortcuts': false, 'skin': true});
 
         var dropdown3 = $(".myDropdownSkin").dropdown({'skin': true});
+
+        var customselect = $('.myCustomSelect').select()
+
+        // var customselect = $('.myCustomSelect').select({
+        //     'format': [{
+        //         'regex': /(\$|u\$s|R\$|¢|S\/\.|€|BsF)\s((\d+)([\.\,]\b)(\d{2}\b)|([\d\.\,]+)|(\d+))/i,
+        //         'replace': '<strong class="ch-price">$1 $3$6$7<sup>$5</sup></strong>'
+        //     },{
+        //         'regex': /\((s.+s)\)/ig,
+        //         'replace': '<span class="cho-color-ok-light">($1)</span>'
+        //     }, {
+        //         'regex': /\(((\$|u\$s|R\$|¢|S\/\.|€|BsF).+\d)\)/ig,
+        //         'replace': '<span class="cho-form-hint">($1)</span>'
+        //     }]
+        // })
 
         // Tooltip
         // Bottom

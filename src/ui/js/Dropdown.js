@@ -8,24 +8,34 @@
      */
     ch.Dropdown.prototype._highlightOption = function (key) {
 
-        var optionsLength = this._$navigation.length;
+        var optionsLength = this._$navigation.length,
+            lastSelection,
+            currentSelection;
 
         if (!this._shown) { return; }
 
-        // Sets limits behavior
-        if (this._selected === (key === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
+        // Sets limits behavior when up arrow
+        if (key === ch.onkeyuparrow && this._selected === -1) { return; }
 
-        // Unselects current option
+        if (this._selected === (key === ch.onkeydownarrow ? optionsLength - 1 : 0)) { return; }
+
         if (this._selected !== -1) {
-            this._$navigation[this._selected].blur();
+            // Save this to send in the event emition
+            lastSelection = this._selected;
+
+            // Remove last option selected
             this._$navigation[this._selected].removeAttribute('id');
         }
 
-        if (key === 'down_arrow') { this._selected += 1; } else { this._selected -= 1; }
+        if (key === ch.onkeydownarrow) { this._selected += 1; } else { this._selected -= 1; }
 
-        // Selects new current option
-        this._$navigation[this._selected].focus();
-        this._$navigation[this._selected].id = 'ch-dropdown' + this.uid + '-selected';
+        // Saves this to send in the event emition
+        currentSelection = this._selected;
+
+        this._$navigation[this._selected].setAttribute('id', 'ch-' + this.name + this.uid + '-selected');
+
+        this.emit('highlight', currentSelection, lastSelection);
+
     };
 
     /**
@@ -62,5 +72,17 @@
 
         return this;
     };
+
+    ch.Dropdown.prototype.initialize = function () {
+        
+        this.on('highlight', function(current, last) {
+
+            if (last !== undefined) { this._$navigation[last].blur() };
+
+            this._$navigation[current].focus();
+
+        });
+    }
+
 
 }(this.ch));

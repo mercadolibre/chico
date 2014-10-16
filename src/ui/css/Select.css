@@ -1,0 +1,42 @@
+.ch-select {
+	border-radius: 0 0 5px 5px;
+	border-top-style: none;
+	padding:0;
+}
+
+.ch-select li {
+    cursor: default;
+    padding: 0.3em 1.9em 0.3em 1.2em;
+}
+.ch-select li[data-disabled="disabled"],
+.ch-select-trigger-skin[data-disabled="disabled"]{
+	opacity: 0.5;
+}
+.ch-select .selected, 
+.ch-select [id$="-selected"]{
+    background: #EEE;
+}
+
+.ch-select-trigger-skin:hover{
+	border: 1px solid #DDD;
+}
+.ch-select-trigger-on:hover{
+	border-bottom: 1px solid #EEE;
+}
+.ch-select-trigger-skin{
+	cursor: default;
+	padding: 0.3em 2em 0.3em 0.6em;
+	padding-left: 15px;
+	border-radius: 5px;
+	border: 1px solid #EEE;
+	background: #EEE;
+}
+
+
+.ch-select-trigger-on {
+	border: 1px solid #DDD;
+	border-bottom: 1px solid #EEE;
+	border-radius: 5px 5px 0 0;
+	
+	box-shadow: 2px 0 0 rgba(100, 100, 100, .1);
+}
