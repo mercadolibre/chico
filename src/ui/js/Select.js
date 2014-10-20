@@ -1,6 +1,47 @@
 (function (ch, doc, $) {
 	'use strict'
 
+    /**
+     * Select is a customizable select
+     * @memberof ch
+     * @constructor
+     * @augments ch.Dropdown
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Select.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+     * @param {String} [options.width] Set a width for the container. Default: "auto".
+     * @param {String} [options.height] Set a height for the container. Default: "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "button".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
+     * @param {String} [options.position] The type of positioning used. Its value must be "absolute" or "fixed". Default: "absolute".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Select container.
+     * @returns {select} Returns a new instance of Select.
+     * @example
+     * // Create a new Select.
+     * var select = new ch.Select($el, [options]);
+     * @example
+     * // Create a new Select with jQuery or Zepto.
+     * var select = $(selector).select([options]);
+     * @example
+     * // Create a new Select with disabled effects.
+     * var select = $(selector).select({
+     *     'fx': 'none'
+     * });
+     * @example
+     * // Create a new Select using the shorthand way (content as parameter).
+     * var select = $(selector).select('http://ui.ml.com:3040/ajax');
+     */
 	function Select ($el, options) {
         /**
          * Reference to context of an instance.
@@ -146,21 +187,19 @@
             return $list.find('li');
         }());
 
+        if ($el.attr('disabled')) {
+
+            this.disable();
+        }
 
         // Input hidden save selected option
         this._$input = $('<input type="hidden" value="' + $el.find('option:selected').val() + '" name="' + $el.attr('name') + '">');
         
         this._$input.insertBefore(that.$trigger);
 
-        if ($el.attr('disabled')) {
-            this.$trigger.attr('data-disabled', 'disabled');
-            this._$input.attr('disabled', 'disabled');
-            this.disable();
-        }
-
         // Disable and Hide native select
         $el.attr('disabled', 'disabled').addClass('ch-hide').removeAttr('name');
-        
+
         // Update index of selected item 
         this._selected = $list.find('li[id$="-selected"]').index();
 
@@ -253,6 +292,63 @@
         });
 
         return this;
+    };
+
+    /**
+     * Enables a Select instance.
+     * @memberof! ch.Select.prototype
+     * @function
+     * @returns {select}
+     * @example
+     * // Enable a select
+     * select.enable();
+     */
+    Select.prototype.enable = function () {
+
+        this.$trigger.removeAttr('data-disabled');
+        this._$input.removeAttr('disabled');
+
+        parent.enable.call(this);
+
+        return this;
+    };
+
+    /**
+     * Disables a Select instance.
+     * @memberof! ch.Select.prototype
+     * @function
+     * @returns {select}
+     * @example
+     * // Disable a select
+     * select.disable();
+     */
+    
+    Select.prototype.disable = function () {
+        
+        this.$trigger.attr('data-disabled', 'disabled');
+        this._$input.attr('disabled', 'disabled');
+
+        parent.disable.call(this);
+
+        return this;
+    };
+
+    /**
+     * Destroys a Select instance.
+     * @memberof! ch.Select.prototype
+     * @function
+     * @returns {select}
+     * @example
+     * // Destroy a select
+     * select.destroy();
+     * // Empty the select reference
+     * select = undefined;
+     */
+    Select.prototype.destroy = function () {
+
+        parent.destroy.call(this);
+
+        return;
     };
 
     ch.factory(Select);
