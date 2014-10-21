@@ -56,9 +56,18 @@ module.exports = function (grunt) {
                     'banner': '<%= banner.full %>'
                 },
                 'src': files.CSS.resetML.concat(files.CSS.core).concat(files.CSS.components),
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.css'
+                'dest': destination + '/' + environment + '/<%= pkg.name %>-old.css'
             }
 
+        },
+
+        'sass': {
+            'dist': {
+                'files': {
+                    '<%= pkg.name %>.css': 'src/' + environment + '/css/' + environment + '.scss',
+                    'dest': destination + '/' + environment + '/<%= pkg.name %>-sass.css'
+                }
+            }
         },
 
         'uglify': {
@@ -82,7 +91,7 @@ module.exports = function (grunt) {
 
             'chico': {
                 'src': ['<%= concat.css.dest %>'],
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.min.css'
+                'dest': destination + '/' + environment + '/<%= pkg.name %>-old.min.css'
             }
         },
 
@@ -127,6 +136,7 @@ module.exports = function (grunt) {
     });
 
     // Load plugins
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -134,11 +144,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-text-replace');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-jsdoc');
+    
 
     // Resgister task(s).
     grunt.registerTask('default', []);
+    //grunt.registerTask('sass', ['sass']);
     grunt.registerTask('lint', ['jslint']);
     grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('dev', ['concat', 'clean']);
-    grunt.registerTask('dist', ['concat', 'replace', 'uglify', 'cssmin', 'clean']);
+    grunt.registerTask('dist', ['concat', 'sass', 'replace', 'uglify', 'cssmin', 'clean']);
 };

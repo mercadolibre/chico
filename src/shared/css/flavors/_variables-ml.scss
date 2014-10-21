@@ -6,6 +6,8 @@
 $white:							#fff;
 $gray: 							#333;
 
+// armar hexadecimales de una y aclarar y oscurecer directamente en el gradient, del 20%.
+
 $gray-light:					lighten($gray, 10%); // #4d4d4d
 $gray-lighter:					lighten($gray, 30%); // grey
 $gray-lightest:					lighten($gray, 60%); // #cccccc
@@ -49,7 +51,7 @@ $links-visited:					#880099;
 // >>>> primary:normal
 
 $btn-primary-color:				#fff;
-$btn-primary-bg:				#3E52A1;
+$btn-primary-bg:				#3E52A1; // por defecto que tome alguno y no se duplique.
 $btn-primary-top-bg:			#3E52A1;
 $btn-primary-bottom-bg: 		#2D3277;
 $btn-primary-active:  			#29358F;
@@ -76,7 +78,7 @@ $btn-primary-border-active:		#181E39;
 // >>>> skin:normal
 
 $btn-secondary-color:			#476274;
-$btn-secondary-bg:				#CCE3F7;
+$btn-secondary-bg:				#CCE3F7; // por defecto que tome alguno y no se duplique.
 $btn-secondary-top-bg:			#CCE3F7;
 $btn-secondary-bottom-bg: 		#AAD0EF;
 $btn-secondary-border:			#79A8C7;
