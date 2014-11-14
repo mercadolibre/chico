@@ -1,0 +1,47 @@
+// *************************************
+//
+//   Boxes
+//
+// *************************************
+
+// -------------------------------------
+//   Skin variables
+// -------------------------------------
+
+// ----- Error box ----- //
+
+$box-bg-color-error:			#F5E6E6;
+$box-font-color-error:			#B84A46;
+$box-font-color-error-visited:	$blue-main;
+
+// ----- Help box ----- //
+
+$box-bg-color-help:				#F0F0F0;
+$box-font-color-help:			#888888;
+
+// ----- Info box ----- //
+
+$box-bg-color-info:				#E4F2F9;
+$box-font-color-info:			#3A87AD;
+
+// ----- Warning box ----- //
+
+$box-bg-color-warning:			#FFF0BA;
+$box-font-color-warning:		#AA8749;
+$box-icon-color-warning:		#F5CC00;
+
+// ----- Ok box ----- //
+
+$box-bg-color-ok:				#E9F4E4;
+$box-font-color-ok:				#468847;
+
+$box-lite-bg-color:				$white;
+
+// -------------------------------------
+//   Structure variables
+// -------------------------------------
+
+$box-border:					1px solid #dedede;
+$box-margin:					0 0 10px 0;
+$box-padding:					10px;
+$box-border-radius:				5px;

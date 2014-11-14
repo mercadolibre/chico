@@ -1,48 +1,49 @@
+@import 'calendar/calendar-variables-ml';
+/**
+ * Calendar
+ */
 .ch-calendar {
-    position:relative;
-    display:inline-block;
+    position: relative;
+    display: inline-block;
 
-    caption {
-        background-color: #f0f0f0;
-        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $white), color-stop(100%, #f0f0f0));
-        background: -webkit-linear-gradient($white, #F0f0f0);
-        background: -moz-linear-gradient($white, #f0f0f0);
-        background: -o-linear-gradient($white, #f0f0f0);
-        background: linear-gradient($white, #f0f0f0);
-        font-size: 13px;
-        line-height: 28px;
-        text-shadow: 0 1px 0 $white;
-        border-bottom: none;       
+    caption {
+        background-color: $calendar-title-bg-color;
+        /* Bourbon output */
+        @include background-image(linear-gradient($white 0%, $calendar-title-bg-color 100%));
+        font-size: $calendar-title-font-size;
+        line-height: $calendar-title-line-heigth;
+        text-shadow: $calendar-title-shadow;
+        border-bottom: none;
     }
 
     thead {
-        border-weight: 0 1px;        
+        border-weight: 0 1px;
     }
 
     td {
-        cursor: default;
-        height: 26px;
-        line-height: 26px;
-        width: 14.28%;        
+        cursor: $calendar-day-cursor;
+        height: $calendar-day-height;
+        line-height: $calendar-day-line-height;
+        width: 14.28%;
     }
 
     th {
-        font-size: 11px;
-        font-weight: normal;
-        width: 14.28%;        
+        font-size: $calendar-head-font-size;
+        font-weight: $calendar-head-font-weigth;
+        width: 14.28%;
     }
 
     caption,
     thead,
     td {
-        border: 1px solid #dedede;        
+        border: 1px solid #dedede; // $calendar-general-border       
     }
 }
 
 .ch-calendar-month {
-    font-size: 12px;
-    text-align: center;
-    width: 240px;
+    font-size: $calendar-font-size;
+    text-align: $calendar-text-align;
+    width: $calendar-width;
 }
 
 .lt-ie10 .ch-calendar caption {
@@ -50,20 +51,20 @@
 }
 
 .ch-calendar-today {
-    background-color: #fefbd6;
+    background-color: $calendar-day-today-bg-color;
 }
 
 .ch-calendar-other {
-    color: #c6c6c6;
-    cursor: default !important;
+    color: $calendar-day-empty-color;
+    cursor: $calendar-day-empty-cursor;
     overflow: hidden;
     text-indent: -99px;
 }
 
 .ch-calendar-disabled,
 .ch-calendar-disabled:hover {
-    background-color: $white;
-    color: #c6c6c6;
+    background-color: $calendar-day-disabled-bg-color;
+    color: $calendar-day-disabled-color;
     cursor: not-allowed;
 }
 
@@ -71,19 +72,19 @@
 .ch-calendar-selected,
 .ch-calendar-selected:hover,
 .ch-calendar-selected.ch-today {
-    background-color: #a9a9a9 !important;
-    color: $white !important;
-    font-weight: bold !important;
+    background-color: $calendar-day-selected-bg-color;
+    color: $calendar-day-selected-color;
+    font-weight: $calendar-day-selected-font-weight;
 }
 
 .ch-calendar-prev,
 .ch-calendar-next {
-    cursor: pointer;
+    cursor: $calendar-head-control-pointer;
     position: absolute;
-    padding: 0px 20px;
-    height: 28px;
-    line-height: 18px;
-    font-size: .9em;
+    padding: $calendar-head-control-padding;
+    height: $calendar-head-control-height;
+    line-height: $calendar-head-control-line-height;
+    font-size: $calendar-head-control-font-size;
 }
 
 .ch-calendar-prev {
@@ -99,18 +100,18 @@
     font-family: icons;
     position: absolute;
     top: 7px;
-    color: #666;
-    text-shadow: 0 1px $white;
+    color: $calendar-head-control-icon-color;
+    text-shadow: $calendar-head-control-icon-shadow;
 }
 
 .ch-calendar-prev:after {
     content: "\f053";
-    left: 15px;
+    left: $calendar-head-control-prev-icon-position;
 }
 
 .ch-calendar-next:after {
     content: "\f054";
-    right: 15px;
+    right: $calendar-head-control-next-icon-position;
 }
 
 /* IE */

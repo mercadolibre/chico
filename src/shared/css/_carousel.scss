@@ -1,24 +1,27 @@
+@import 'carousel/carousel-variables-ml';
+/**
+ * Carousel
+ */
 .ch-carousel {
     overflow: auto;
     position: relative;
     /* Enable hardware acceleration */
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
+    /* Bourbon */
+    @include transform(translateZ(0));
 }
 
 .ch-carousel-mask {
     overflow: hidden;
     position: relative;
-    margin: 0 50px;
+    margin: $carousel-mask;
 }
 
 /* Both are the same elements, but it can apply styles before the component initialization */
 .ch-carousel > ul,
 .ch-carousel-list {
     overflow: hidden;
-    -webkit-transition: all .8s ease;
-    transition: all .8s ease;
+    /* Bourbon */
+    @include transition(all .8s ease);
     width: -webkit-max-content;
     width: -moz-max-content;
     width: max-content;
@@ -28,8 +31,8 @@
 }
 
 .ch-carousel ul.ch-carousel-nofx {
-    -webkit-transition: none;
-    transition: none;
+    /* Bourbon */
+    @include transition(none);
 }
 
 /* Both are the same elements, but it can apply styles before the component initialization */
@@ -41,16 +44,16 @@
 
 .ch-carousel-prev,
 .ch-carousel-next {
-    cursor: pointer;
+    cursor: $carousel-control-pointer;
     position: absolute;
     z-index: 2;
-    width: 47px;
-    height: 80px;
-    font-size: 2em;
-    line-height: 3.3em;
-    color: #666;
-    top: 50%;
-    margin-top: -40px;
+    width: $carousel-control-width;
+    height: $carousel-control-height;
+    font-size: $carousel-control-font-size;
+    line-height: $carousel-control-line-height;
+    color:$carousel-control-color;
+    top: $carousel-control-vertical-position;
+    margin: $carousel-control-margin;
 }
 
 .ch-carousel-prev {
@@ -69,17 +72,17 @@
 
 .ch-carousel-prev:after {
     content: "\f053";
-    left: 17px;
+    left: $carousel-control-prev-position;
 }
 
 .ch-carousel-next:after {
     content: "\f054";
-    right: 17px;
+    right: $carousel-control-next-position;
 }
 
 .ch-carousel-prev:hover,
 .ch-carousel-next:hover {
-    opacity: 0.7;
+    opacity: $carousel-control-hover;
 }
 
 .ch-carousel-disabled {
@@ -95,20 +98,20 @@
     width: 100%;
 
     span {
-        background-color: #f0f0f0;
-        border-radius: 100%;
-        -webkit-box-shadow: inset 1px 1px #888;
-        box-shadow: inset 1px 1px #888;
+        background-color: $carousel-pagination-bg-color;
+        border-radius: 100%; 
+        -webkit-box-shadow: $carousel-pagination-shadow;
+        box-shadow: $carousel-pagination-shadow;
         cursor: pointer;
         display: inline-block;
-        height: 10px;
-        margin: 10px 5px;
+        height: $carousel-pagination-height;
+        margin: $carousel-pagination-margin;
         overflow: hidden;
         text-indent: -99px;
-        width: 10px;
+        width: $carousel-pagination-width;
     }
 }
 
 .ch-carousel-pages .ch-carousel-selected {
-    background-color: #16232f;
+    background-color: $carousel-pagination-selected-bg-color;
 }

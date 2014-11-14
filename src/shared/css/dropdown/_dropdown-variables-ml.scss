@@ -1,0 +1,76 @@
+// *************************************
+//
+//   Dropdown
+//
+// *************************************
+
+// -------------------------------------
+//   General
+// -------------------------------------
+
+$dropdown-trigger-cursor:			pointer;
+$dropdown-trigger-padding:			0 2em 0 0;
+$dropdown-border-radius:			0 5px 5px;
+
+// -------------------------------------
+//   Primary skin
+// -------------------------------------
+
+$box-content-shadow:				2px 2px 2px rgba(100, 100, 100, .1);
+$box-content-min-width:				120px;
+
+// ----- List-item ----- //
+
+$list-item-color:					#000;
+$list-item-height:					25px;
+$list-item-line-height: 			25px; // same as $dropdown-list-element-height
+$list-item-margin:					5px 0;
+$list-item-padding: 				2px 35px 2px 10px;
+$list-item-decoration:				none;
+
+// ----- Focus-item-list ----- //
+
+$list-item-focus-bg-color:  		#fefbd6;
+$list-item-focus-outline: 			none;
+
+// ----- Trigger ----- //
+
+$trigger-active-bg-color:			#7AB6DC;
+$trigger-active-bg-color-top:		#A2C9E1;
+
+$trigger-active-gradient:			inset 0 1px 6px rgba(71, 98, 116, .6);
+$trigger-active-shadow:				0 1px 6px rgba(71, 98, 116, .6);
+$trigger-active-border-color:		#79A8C7;
+$trigger-active-border-radius:		3px 3px 0 0;
+
+// ----- Trigger-ON ----- //
+
+$trigger-on-active-bg-color:		#fff;
+$trigger-on-active-border:			#DEDEDE;
+$trigger-on-active-shadow:			2px 0 0 rgba(100, 100, 100, .1);
+$trigger-on-active-border-radius:	0;
+
+// -------------------------------------
+//   Secondary skin
+// -------------------------------------
+
+$skin-box-padding:					5px 10px;
+
+$skin-list-item-margin:				5px 0;
+
+$skin-list-item-bg-color:			none;
+$skin-list-item-color:				$blue-main;
+$skin-list-item-line-height:		20px;
+$skin-list-item-padding:			0;
+
+$trigger-skin-bg:					transparent;
+$trigger-skin-border:				1px solid transparent;
+$trigger-skin-border-width:			0 1px;
+$trigger-skin-border-radius:		0;
+$trigger-skin-font-color:			$blue-main;
+$trigger-skin-font-decoration:		none;
+$trigger-skin-padding:				0 28px 0 13px;
+$trigger-skin-font-color-after: 	#999;
+$trigger-skin-font-color-active:	#00D;
+
+// >> Skin

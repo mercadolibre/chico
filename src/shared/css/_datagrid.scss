@@ -1,3 +1,5 @@
+@import 'datagrid/datagrid-variables-ml';
+
 /**
  * Tables
  */
@@ -14,65 +16,55 @@ table {
 .ch-datagrid-controls,
 .ch-datagrid {
     width: 100%;
-    border: 1px solid #dedede;
-    text-align: left;
+    border: $table-border;
+    text-align: $table-text-align;
 }
 
 .ch-datagrid-controls caption,
 .ch-datagrid caption {
-    text-align: left;
-    font-weight: normal;
-    margin: 10px 0;
-    font-size: 18px;
+    text-align: $table-title-text-align;
+    font-weight: $table-title-font-weight;
+    margin: $table-title-margin;
+    font-size: $table-title-font-size;
 }
 
 .ch-datagrid-controls thead tr,
 .ch-datagrid thead tr {
-    border-top: 1px solid #dedede;
+    border-top: $table-row-border;
 }
 
 .ch-datagrid-controls th,
 .ch-datagrid th {
-    background-color: #f0f0f0;
-    border-bottom: 1px solid #dedede;
-    border-left: 1px solid #dedede;
-    font-size: 11px;
-    line-height: 26px;
-    padding: 0 10px;
-    text-align: left;
-    text-shadow: 0 1px 0 #fff;
-    vertical-align: middle;
-    color: #666;
+    background-color: $table-header-bg-color;
+    border-left: $table-header-row-border-left;
+    font-size: $table-header-row-font-size;
+    line-height: $table-header-row-line-height;
+    padding: $table-header-row-padding;
+    text-align: $table-header-row-text-align;
+    text-shadow: $table-header-row-text-shadow;
+    vertical-align: $table-header-row-v-align;
+    color: $table-header-row-color;
 }
 
 .ch-datagrid-controls th {
-    background-color: #fafafa;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #ececec));
-    background-image: -webkit-linear-gradient(#fafafa, #ececec);
-    background-image: -moz-linear-gradient(#fafafa, #ececec);
-    background-image: -o-linear-gradient(#fafafa, #ececec);
-    background-image: linear-gradient(#fafafa, #ececec);
+    background-color: $table-header-controls-bg-color;
+    /* Bourbon output */
+    @include background-image(linear-gradient($table-header-controls-bg-color 0, $table-header-controls-bg-color-bottom 100%));
     cursor: pointer;
 
     &:hover {
-        background: #fafafa;
-        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #f2f2f2));
-        background-image: -webkit-linear-gradient(#fafafa, #f2f2f2);
-        background-image: -moz-linear-gradient(#fafafa, #f2f2f2);
-        background-image: -o-linear-gradient(#fafafa, #f2f2f2);
-        background-image: linear-gradient(#fafafa, #f2f2f2);       
+        background: $table-header-controls-hover-bg-color;
+        /* Bourbon output */
+        @include background-image(linear-gradient($table-header-controls-hover-bg-color 0, $table-header-controls-hover-bg-color-bottom 100%));     
     }
 }
 
 .ch-datagrid-controls th:active,
 .ch-datagrid-controls th.ch-datagrid-selected {
-    background: #e5e5e5;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e5e5e5), color-stop(100%, #d8d8d8));
-    background-image: -webkit-linear-gradient(#e5e5e5, #d8d8d8);
-    background-image: -moz-linear-gradient(#e5e5e5, #d8d8d8);
-    background-image: -o-linear-gradient(#e5e5e5, #d8d8d8);
-    background-image: linear-gradient(#e5e5e5, #d8d8d8);
-    border-top: 1px solid #dcdcdc;
+    background: $table-header-controls-active-bg-color;
+        /* Bourbon output */
+        @include background-image(linear-gradient($table-header-controls-active-bg-color 0, $table-header-controls-active-bg-bottom 100%));
+    border-top: $table-header-controls-active-border;
 }
 
 .ch-datagrid-controls th.ch-datagrid-selected {
@@ -97,33 +89,33 @@ table {
 
 .ch-datagrid-controls tr,
 .ch-datagrid tr {
-    border-top: 1px solid #dedede;
+    border-top: $table-row-border;
 }
 
 
 .ch-datagrid-selected {
-    background-color:  $datagrid-selected;
+    background-color:  $table-row-selected-bg-color;
 }
 
 .ch-datagrid-controls td,
 .ch-datagrid td {
-    height: 40px;
-    padding: 0 10px;
-    vertical-align: middle;
+    height: $table-row-selected-height;
+    padding: $table-row-selected-padding;
+    vertical-align: $table-row-selected-v-align;
 }
 
 /* IE */
 .lt-ie10 .ch-datagrid-controls th {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#ececec');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-bg-color', endColorstr=' $table-header-controls-bg-color-bottom');
 }
 
 .lt-ie10 .ch-datagrid-controls th:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefefe', endColorstr='#f2f2f2');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-hover-bg-color', endColorstr='$table-header-controls-hover-bg-bottom');
 }
 
 .lt-ie10 .ch-datagrid-controls th:active,
 .lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5e5e5', endColorstr='#d8d8d8');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-active-bg-color', endColorstr='$table-header-controls-active-bg-bottom');
 }
 
 .lt-ie9 .ch-datagrid-controls thead tr,

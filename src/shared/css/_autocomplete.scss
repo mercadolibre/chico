@@ -1,3 +1,5 @@
+@import 'autocomplete/autocomplete-variables-ml';
+
 .ch-autocomplete {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
@@ -10,8 +12,8 @@
 .ch-autocomplete-item,
 .ch-autocomplete-highlighted {
     margin: 0;
-    padding: 3px 5px;
-    cursor: pointer;
+    padding: $autocomplete-padding;
+    cursor: $autocomplete-trigger-cursor;
 }
 
 .ch-autocomplete-list {
@@ -22,7 +24,7 @@
 
 .ch-autocomplete-highlighted {
     background-color: $autocomplete-highlighted;
-    border-radius: 5px;
+    border-radius: $autocomplete-highlighted-border-radius;
 }
 
 .ch-autocomplete-loading {

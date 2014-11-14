@@ -1,9 +1,10 @@
+@import 'transition/transition-variables-ml';
 /**
  * Transition
  */
 .ch-transition {
     overflow: auto;
-    padding: 40px;
-    box-shadow: 0 3px 14px #444;
+    padding:$transition-padding;
+    box-shadow: $transition-box-shadow; // skin
     text-align: center;
 }

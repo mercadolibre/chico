@@ -1,7 +1,12 @@
-//COMMON MERCADOPAGO SHARED SKIN VARIABLES
-//-------------------------------------------------			
+//
+// @title: COMMON MERCADOPAGO SHARED SKIN VARIABLES
+// @description:
+// @author:
+// 
+
 
 // > Global Colors
+// --------------------------------------------------------------------
 
 $white:							#fff;
 $gray: 							#333;
@@ -19,12 +24,14 @@ $blue-main:   					#0066CC;
 $components-hover-bg-color:		#e8f6fd;
 
 // >> Autocomplete
+// --------------------------------------------------------------------
 
 $autocomplete-highlighted:		$components-hover-bg-color;
 
-
 // >> Boxes
+// --------------------------------------------------------------------
 
+$box-lite-bg-color:				$white;
 $box-bg-color-error:			#F5E6E6;
 $box-bg-color-help:				#F0F0F0;
 $box-bg-color-info:				#E4F2F9;
@@ -32,19 +39,21 @@ $box-bg-color-ok:				#E9F4E4;
 $box-bg-color-warning:			#FFF3C8;
 
 $box-font-color-error:			#B84A46;
+$box-font-color-error-visited:	#03b;
 $box-font-color-help:			#888888;
 $box-font-color-info:			#3A87AD;
 $box-font-color-ok:				#468847;
 $box-font-color-warning:		#F5CC00;
 
-
 // >> Links
+// --------------------------------------------------------------------
 
 $main-text:						$gray;
 $links:							$blue-main;
 $links-visited:					#880099;
 
 // >> Buttons
+// --------------------------------------------------------------------
 
 // >>> primary
 
@@ -113,11 +122,35 @@ $btn-disabled-text-shadow:		none;
 $btn-disabled-box-shadow:		#fefefe;
 
 // >> Bubble
+// --------------------------------------------------------------------
 
-$bubble-color-data-side-after:		#F5E6E6;
-$bubble-color-data-side-before:		#EED3D7;
+$bubble-bg-color:				#F5E6E6;
+$bubble-border-color:			#EED3D7;
+
+$bubble-border:					1px solid $bubble-border-color;
+
+// >> Modal
+// --------------------------------------------------------------------
+
+$underlay-bg-color:				rgba(0, 0, 0, 0.5);
+$modal-box-shadow:				0 3px 14px #444;
+
+// >> Pagination
+// --------------------------------------------------------------------
+
+// >>> link to page
+
+$pagination-page-bg-color:			$white;
+$pagination-page-border:			1px solid #DEDEDE;
+
+// >>> current page
+
+$pagination-current-page-border:	1px solid #E9E9E9; 
+$pagination-current-page-bg-color:	#e9e9e9; 
+$pagination-current-page-text-color:#03b;
 
 // >> Tooltip
+// --------------------------------------------------------------------
 
 $tooltip-bg:						#EBF9FF;
 $tooltip-border-color:				#C6E2FF;
@@ -126,5 +159,6 @@ $tooltip-border-content-before:		$tooltip-border-color;
 $tooltip-border-content-after:		$tooltip-bg;
 
 // >> Tables / Datagrid
+// --------------------------------------------------------------------
 
 $datagrid-selected:				$components-hover-bg-color;

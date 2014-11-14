@@ -1,0 +1,79 @@
+// *************************************
+//
+//   Calendar
+//
+// *************************************
+
+// -------------------------------------
+//   Skin variables
+// -------------------------------------
+
+// ----- General ----- //
+
+$calendar-text-align: 						center;
+
+// ----- Title ----- //
+
+$calendar-title-bg-color: 					#f0f0f0;
+$calendar-title-shadow:						0 1px 0 $white;
+
+// ----- Day cell ----- //
+
+$calendar-day-cursor:						default;
+
+// ----- Today cell ----- //
+
+$calendar-day-today-bg-color:				#fefbd6;
+
+// ----- Empty day cell ----- //
+
+$calendar-day-empty-color:					#c6c6c6;
+$calendar-day-empty-cursor:					default !important;
+
+// ----- Diseabled day cell ----- //
+
+$calendar-day-disabled-bg-color:			#fff;
+$calendar-day-disabled-color:				#c6c6c6;
+
+// ----- Calendar selected ----- //
+
+$calendar-day-selected-bg-color:			#a9a9a9 !important;
+$calendar-day-selected-color:				#fff !important;
+$calendar-day-selected-font-weight:			bold !important;
+
+// ----- Header controls ----- //
+
+$calendar-head-control-pointer:				pointer;
+
+$calendar-head-control-icon-color:			#666;
+$calendar-head-control-icon-shadow:			0 1px #fff;
+
+$calendar-head-control-prev-icon-position:	15px;
+$calendar-head-control-next-icon-position:	15px;
+
+// -------------------------------------
+//   Structure variables
+// -------------------------------------
+
+// ----- General ----- //
+
+$calendar-font-size: 						$font__smaller;
+$calendar-width: 							240px;
+
+// ----- Title ----- //
+
+$calendar-title-font-size:					$font__normal;
+$calendar-title-line-heigth:				28px;
+
+$calendar-day-height:						26px;
+$calendar-day-line-height:					26px;
+
+$calendar-head-font-size:					$font__smallest;
+$calendar-head-font-weigth:					normal;
+
+// ----- Header controls ----- //
+
+$calendar-head-control-padding:				0px 20px; 
+$calendar-head-control-height:				28px; 
+$calendar-head-control-line-height:			18px;
+$calendar-head-control-font-size:			.9em;

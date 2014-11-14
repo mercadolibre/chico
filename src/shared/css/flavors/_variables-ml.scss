@@ -1,7 +1,12 @@
-//COMMON MERCADOLIBRE SHARED SKIN VARIABLES
-//-------------------------------------------------			
+// *************************************
+//
+//   COMMON ML SKIN VARIABLES
+//
+// *************************************
 
-// > Global Colors
+// -------------------------------------
+//   Global colors
+// -------------------------------------
 
 $white:							#fff;
 $gray: 							#333;
@@ -15,114 +20,12 @@ $gray-darkest:					darken($gray, 60%);
 
 $yellow-main:   				#FFF059;
 $price:   						#900;
-$blue-main:   					#0033BB;
+$blue-main:   					#03b;
 $components-hover-bg-color:		#fdf9d5;
 
-// >> Autocomplete
-
-$autocomplete-highlighted:		$components-hover-bg-color;
-
-// >> Boxes
-
-$box-bg-color-error:			#F5E6E6;
-$box-bg-color-help:				#F0F0F0;
-$box-bg-color-info:				#E4F2F9;
-$box-bg-color-ok:				#E9F4E4;
-$box-bg-color-warning:			#FFF3C8;
-
-$box-font-color-error:			#B84A46;
-$box-font-color-help:			#888888;
-$box-font-color-info:			#3A87AD;
-$box-font-color-ok:				#468847;
-$box-font-color-warning:		#F5CC00;
-
 // >> Links
+// --------------------------------------------------------------------
 
 $main-text:						$gray;
 $links:							$blue-main;
 $links-visited:					#880099;
-
-// >> Buttons
-
-// >>> primary
-
-// >>>> primary:normal
-
-$btn-primary-color:				#fff;
-$btn-primary-bg:				#3E52A1;
-$btn-primary-top-bg:			#3E52A1;
-$btn-primary-bottom-bg: 		#2D3277;
-$btn-primary-active:  			#29358F;
-$btn-primary-border:			#2D3277;
-$btn-primary-shadow:			#8EA2DF;
-
-// >>>> normal:hover
-
-$btn-primary-hover:   			#4051D0;
-$btn-primary-hover-top-bg:		#4355D2;
-$btn-primary-hover-bottom-bg: 	#2F33AE;
-$btn-primary-shadow-hover:		#7A89E8;
-
-// >>>> normal:active
-
-$btn-primary-active:   			#292F66;
-$btn-primary-active-top-bg:		#292F66;
-$btn-primary-active-bottom-bg: 	#202388;
-$btn-primary-shadow-active:		#141452;
-$btn-primary-border-active:		#181E39;
-
-// >>> skin
-
-// >>>> skin:normal
-
-$btn-secondary-color:			#476274;
-$btn-secondary-bg:				#CCE3F7;
-$btn-secondary-top-bg:			#CCE3F7;
-$btn-secondary-bottom-bg: 		#AAD0EF;
-$btn-secondary-border:			#79A8C7;
-$btn-secondary-shadow:			#E5F2FC;
-$btn-secondary-active:  		#7C9CB2;
-$btn-secondary-border:			#79A8C7;
-$btn-secondary-shadow:			none;
-
-// >>>> skin:hover
-
-$btn-secondary-bg-hover:   		#DCECFB;
-$btn-secondary-top-bg-hover:	#DCECFB;
-$btn-secondary-bottom-bg-hover:	#C5DFF5;
-$btn-secondary-box-shadow-hover: #E5F2FC;
-
-// >>>> skin:active
-
-$btn-secondary-bg-active:   	#7AB6DC;
-$btn-secondary-top-bg-active:	#A2C9E1;
-$btn-secondary-bottom-bg-active:#7AB6DC;
-$btn-secondary-shadow-active:	rgba(71, 98, 116, .6);
-$btn-secondary-border-active:	#79A8C7;
-
-// >>> disabled
-
-$btn-disabled-color:			#CCC;
-$btn-disabled-bg:				#fefefe;
-$btn-disabled-top-bg:			lighten($btn-disabled-bg,6.8%);	
-$btn-disabled-bottom-bg: 		darken($btn-disabled-bg,15%);
-$btn-disabled-border:			$gray-lightest;
-$btn-disabled-text-shadow:		none;
-$btn-disabled-box-shadow:		#fefefe;
-
-// >> Bubble
-
-$bubble-color-data-side-after:		#F5E6E6;
-$bubble-color-data-side-before:		#EED3D7;
-
-// >> Tooltip
-
-$tooltip-bg:						#FCF8E3;
-$tooltip-border-color:				#FBEED5;
-$tooltip-font-color:				#AA8749;
-$tooltip-border-content-before:		#FBEED5;
-$tooltip-border-content-after:		#FCF8E3;
-
-// >> Tables / Datagrid
-
- $datagrid-selected:				$components-hover-bg-color;

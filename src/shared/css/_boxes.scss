@@ -1,20 +1,22 @@
+@import 'boxes/boxes-variables-ml';
+
 /**
  * Boxes
  */
 [class*='ch-box'] {
-    -webkit-border-radius: 5px; /* Android 2.1 */
-    border-radius: 5px;
+    -webkit-border-radius: $box-border-radius; /* Android 2.1 */
+    border-radius: $box-border-radius;
     margin: $box-margin;
     padding: $box-padding;
 }
 
 .ch-box-lite,
 .ch-box {
-    border: 1px solid #dedede;
+    border: $box-border;
 }
 
 .ch-box-lite {
-    background-color: $white;
+    background-color: $box-lite-bg-color;
 }
 
 /**
@@ -36,12 +38,12 @@
  * Warn
  */
 .ch-icon-warning-sign {
-    color: $box-font-color-warning;
+    color: $box-icon-color-warning;
 }
 
 .ch-box-warn {
     background-color: $box-bg-color-warning;
-    color: #aa8749;
+    color: $box-font-color-warning;
 }
 
 
@@ -57,7 +59,7 @@
     background-color: $box-bg-color-error;
 
     a:visited {
-        color: #0033bb;
+        color: $box-font-color-error-visited;
     }
 
 }

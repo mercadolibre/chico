@@ -1,0 +1,41 @@
+// *************************************
+//
+//   Base
+//
+// *************************************
+
+// -------------------------------------
+//   Skin variables
+// -------------------------------------
+
+// ----- Close button ----- //
+
+$close-button-bg-color: 						transparent;
+$close-button-cursor:							pointer;
+$close-button-font: 							normal Arial;
+
+// ----- Close button active ----- //
+
+$close-button-active-color:						#fff;
+$close-button-active-bg-color:					#BF0602;
+$close-button-active-bg-color-bottom:			#8F2F00;
+
+// ----- Close button focus and hover ----- //
+
+$close-button-focus-hover-color: 				#fff;
+$close-button-focus-hover-bg-color: 			#FA5900;
+$close-button-focus-hover-bg-color-bottom:		#CA0C02;
+
+// -------------------------------------
+//   Structure variables
+// -------------------------------------
+
+// ----- Close button ----- //
+
+$close-button-border:					1px solid #DEDEDE;
+$close-button-border-radius:			3px;
+
+// ----- Close button active, hover and focus ----- //
+
+$close-button-shadow:					0 1px 0 rgba(0,0,0,.5);
+$close-button-border:					none;

@@ -2,7 +2,7 @@
  * Pagination
  */
 .ch-pagination .ch-pagination-current a:hover {
-    border: 1px solid $pagination-current-border-hover;
+    border: $pagination-current-border-hover;
     background-color: $pagination-current-bg-hover;
     color: $pagination-current-font-color-hover;
 }
@@ -16,10 +16,10 @@
 
 .ch-pagination a[type="prev"]:hover,
 .ch-pagination a[type="next"]:hover {
-    border-color: $pagination-link-pages;
+    border-color: $pagination-link-pages-hover;
 }
 
 .ch-pagination a[type="prev"],
 .ch-pagination a[type="next"] {
-    border-color: $white;
+    border-color: $pagination-link-pages;
 }

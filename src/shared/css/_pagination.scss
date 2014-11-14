@@ -1,27 +1,29 @@
+@import 'pagination/pagination-variables-ml';
+
 /**
  * Pagination
  */
 .ch-pagination {
-    padding: 0;
+    padding: $pagination-padding;
     list-style: none;
-    margin: 10px 0;
+    margin: $pagination-margin;
     text-align: center;
 
     li {
         display: inline-block;
-        margin:  0 4px;
+        margin: $pagination-page-margin;
 
         a {
-            border-radius: 3px;
-            padding: 5px 8px;
-            border: 1px solid #DEDEDE;
-            background-color: #FFF;           
+            border-radius: $pagination-page-border-radius;
+            padding: $pagination-page-padding;
+            border: $pagination-page-border;
+            background-color: $pagination-page-bg-color;      
         }     
     }
 }
 
 .ch-pagination .ch-pagination-current a {
-    border: 1px solid #E9E9E9;
-    background-color: #E9E9E9;
-    color: #0033BB;
+    border: $pagination-current-page-border;
+    background-color: $pagination-current-page-bg-color;
+    color:$pagination-current-page-text-color;
 }

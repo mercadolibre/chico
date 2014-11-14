@@ -1,3 +1,4 @@
+@import '../../shared/css/buttons/buttons-variables-ml';
 /**
  * Buttons
  */
@@ -6,14 +7,14 @@
 .ch-btn,
 .ch-btn:focus {
     line-height: $btn-line-height;
-    padding: $btn-padding;
+    padding: $btn-padding-vertical $btn-padding-horizontal;
 }
 
 /* Large h: ~39px */
 .ch-btn-large,
 .ch-btn-large:focus {
     line-height: $btn-big-line-height;
-    padding: $btn-big-padding;
+    padding: $btn-big-padding-vertical $btn-big-padding-horizontal;
 }
 
 a.ch-btn-large,
@@ -26,7 +27,7 @@ a.ch-btn-large:focus {
 .ch-btn-small:focus {
     font-size: 12px;
     line-height: $btn-small-line-height;
-    padding: $btn-small-padding;
+    padding: $btn-small-padding-vertical $btn-small-padding-horizontal;;
 }
 
 /* IE */

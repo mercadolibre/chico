@@ -1,0 +1,82 @@
+// *************************************
+//
+//   COMMON SHARED SKIN VARIABLES
+//
+// *************************************
+
+// -------------------------------------
+//   Global colors
+// -------------------------------------
+
+$white:							#fff;
+$gray: 							#333;
+
+$gray-light:					lighten($gray, 10%); // #4d4d4d
+$gray-lighter:					lighten($gray, 30%); // grey
+$gray-lightest:					lighten($gray, 60%); // #cccccc
+$gray-dark:						darken($gray, 10%);
+$gray-darker:					darken($gray, 30%);
+$gray-darkest:					darken($gray, 60%);
+
+$yellow-main:   				#FFF059;
+$price:   						#900;
+$blue-main:   					#03b;
+
+// >> Main components hover background color
+// --------------------------------------------------------------------
+
+$components-hover-bg-color:		#fdf9d5;
+
+// >> Links
+// --------------------------------------------------------------------
+
+$main-text:						$gray;
+$links:							$blue-main;
+$links-visited:					#880099;
+
+// *************************************
+//
+//   COMMON MP STRUCTURE VARIABLES
+//
+// *************************************
+
+// -------------------------------------
+//   Fonts
+// -------------------------------------
+
+$font__xx__large:					22px;
+$font__x__large:					20px;
+$font__large:						18px;
+$font__medium:						16px;
+$font__small:						15px;
+$font__x__small:					14px;
+$font__smaller:						12px;
+$font__smallest:					11px;
+
+$font__normal:						13px;
+$font__mini:						10px;
+		
+$font-weigth__normal:				normal;
+$font-weigth__bold:					bold;
+
+$font-underline:					underline;
+$font-no-underline:					none;	
+
+// -------------------------------------
+//   Icons
+// -------------------------------------
+ 
+$icon-medium:					19px;
+$icon-large:					26px;
+$icon-larger:					34px;
+$icon-largest:					66px;
+
+$icon-medium-box:				16px;
+$icon-large-box:				24px;
+$icon-larger-box:				32px;
+$icon-largest-box:				64px;
+
+$margin-box-headings:			0;
+
+$margin-headers:				10px 0;
+

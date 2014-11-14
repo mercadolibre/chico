@@ -1,3 +1,5 @@
+@import 'buttons-variables-ml';
+
 /**
  * Buttons
  */
@@ -46,7 +48,7 @@
 .ch-btn,
 .ch-btn:focus {
 	line-height: $btn-line-height;
-	padding: $btn-padding;
+	//padding: $btn-padding; //////FALTA AGREGAR VARIABLE Y VALOR
 }
 
 /* Large h: ~44px */
@@ -68,5 +70,5 @@ a.ch-btn-large:focus {
 .ch-btn-small:focus {
 	font-size: $btn-font-size;
 	line-height: $btn-small-line-height;
-	padding: $btn-small-padding;
+	//padding: $btn-small-padding; //////FALTA AGREGAR VARIABLE Y VALOR
 }

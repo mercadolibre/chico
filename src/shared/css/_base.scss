@@ -1,3 +1,5 @@
+@import 'base/base-variables-ml';
+
 [hidden],
 .ch-hide {
     display: none;
@@ -16,10 +18,10 @@
 }
 
 .ch-actions {
-    margin-top: 20px;
+    margin-top: 20px; // skin
 
     a {
-        margin-left: 15px;        
+        margin-left: 15px; // skin
     }
 }
 
@@ -36,35 +38,30 @@
 .ch-close,
 .ch-close:visited,
 .ch-close:focus {
-    background-color: transparent;
-    background-image: -webkit-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
-    background-image: -moz-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
-    background-image: -o-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
-    background-image: linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
-    border: 1px solid #DEDEDE;
-    border-radius: 3px;
-    cursor: pointer;
+    background-color: $close-button-bg-color;
+    /* Bourbon output */
+    @include background-image(linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1) 100%));
+    border: $close-button-border;
+    border-radius: $close-button-border-radius;
+    cursor: $close-button-cursor;
     display: inline-block;
     padding: 0;
-    text-indent: 1px;
+    text-indent: 1px; // skin
     color: $gray-lightest;
-    font-family: Arial;
-    font-style: normal;
+    font: $close-button-font;
     text-align:center;
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 10px; // skin $close-button-position-right
+    top: 10px; // skin $close-button-position-top
     -webkit-appearance: none;
     z-index: 1;
 }
 
 .ch-close:active {
-    color: $white;
-    background-color: #BF0602;
-    background-image: -webkit-linear-gradient(#BF0602, #8F2F00);
-    background-image: -moz-linear-gradient(#BF0602, #8F2F00);
-    background-image: -o-linear-gradient(#BF0602, #8F2F00);
-    background-image: linear-gradient(#BF0602, #8F2F00);
+    color: $close-button-active-color;
+    background-color: $close-button-active-bg-color;
+    /* Bourbon output */
+    @include background-image(linear-gradient($close-button-active-bg-color 0%, $close-button-active-bg-color-bottom 100%));
 }
 
 .ch-close:before {
@@ -74,17 +71,15 @@
 .ch-close:active
 .ch-close:focus,
 .ch-close:hover {
-    text-shadow: 0 1px 0 rgba(0,0,0,.5);
-    border: none;
+    text-shadow: $close-button-shadow;
+    border: $close-button-border;
 }
 
 .ch-close:focus,
 .ch-close:hover {
-    color: $white;
-    background-color: #FA5900;
-    background-image: -webkit-linear-gradient(#FA5900, #CA0C02);
-    background-image: -moz-linear-gradient(#FA5900, #CA0C02);
-    background-image: -o-linear-gradient(#FA5900, #CA0C02);
-    background-image: linear-gradient(#FA5900, #CA0C02);
+    color: $close-button-focus-hover-color;
+    background-color: $close-button-focus-hover-bg-color;
+    /* Bourbon output */
+    @include background-image(linear-gradient($close-button-focus-hover-bg-color 0%, $close-button-focus-hover-bg-color-bottom 100%));
     text-decoration: none;
 }

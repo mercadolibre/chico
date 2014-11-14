@@ -1,6 +1,9 @@
+@import 'buttons/buttons-variables-ml';
+
 /**
  * Buttons
  */
+ 
 /* Global */
 [class*="ch-btn"],
 [class*="ch-btn"]:focus {
@@ -33,11 +36,8 @@ button:focus {
 .ch-btn:focus,
 .ch-btn:visited {
     background-color: $btn-primary-bg;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4055A5), color-stop(100%, #283077));
-    background-image: -webkit-linear-gradient($btn-primary-top-bg, $btn-primary-bottom-bg);
-    background-image: -moz-linear-gradient($btn-primary-top-bg, $btn-primary-bottom-bg);
-    background-image: -o-linear-gradient($btn-primary-top-bg, $btn-primary-bottom-bg);
-    background-image: linear-gradient($btn-primary-top-bg, $btn-primary-bottom-bg);
+    /* Bourbon output */
+    @include background-image(linear-gradient($btn-primary-top-bg 0, $btn-primary-bottom-bg 100%));
     -webkit-box-shadow: inset 0 1px $btn-primary-shadow;
     box-shadow: inset 0 1px $btn-primary-shadow;
     border: 1px solid $btn-primary-border;
@@ -48,11 +48,8 @@ button:focus {
 .ch-btn-skin:focus,
 .ch-btn-skin:visited {
     background-color: $btn-secondary-bg;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-secondary-bg), color-stop(100%, $btn-secondary-bottom-bg));
-    background-image: -webkit-linear-gradient($btn-secondary-top-bg, $btn-secondary-bottom-bg);
-    background-image: -moz-linear-gradient($btn-secondary-top-bg, $btn-secondary-bottom-bg);
-    background-image: -o-linear-gradient($btn-secondary-top-bg, $btn-secondary-bottom-bg);
-    background-image: linear-gradient($btn-secondary-top-bg, $btn-secondary-bottom-bg);
+    /* Bourbon output */
+    @include background-image(linear-gradient($btn-secondary-bg 0, $btn-secondary-bottom-bg 100%));
     border: 1px solid $btn-secondary-border;
     -webkit-box-shadow: inset 0 1px $btn-secondary-shadow;
     box-shadow: inset 0 1px $btn-secondary-shadow;
@@ -69,20 +66,16 @@ button:focus {
 /* Colors on Hover */
 .ch-btn:hover {
     background-color: $btn-primary-hover-top-bg;
-    background-image: -webkit-linear-gradient($btn-primary-hover-top-bg, $btn-primary-hover-bottom-bg);
-    background-image: -moz-linear-gradient($btn-primary-hover-top-bg, $btn-primary-hover-bottom-bg);
-    background-image: -o-linear-gradient($btn-primary-hover-top-bg, $btn-primary-hover-bottom-bg);
-    background-image: linear-gradient($btn-primary-hover-top-bg, $btn-primary-hover-bottom-bg);
+    /* Bourbon output */
+    @include background-image(linear-gradient($btn-primary-hover-top-bg 0, $btn-primary-hover-bottom-bg 100%));
     -webkit-box-shadow: inset 0 1px $btn-primary-shadow-hover;
     box-shadow: inset 0 1px $btn-primary-shadow-hover;
 }
 
 .ch-btn-skin:hover {
     background-color: $btn-secondary-bg-hover;
-    background-image: -webkit-linear-gradient($btn-secondary-top-bg-hover, $btn-secondary-bottom-bg-hover);
-    background-image: -moz-linear-gradient($btn-secondary-top-bg-hover, $btn-secondary-bottom-bg-hover);
-    background-image: -o-linear-gradient($btn-secondary-top-bg-hover, $btn-secondary-bottom-bg-hover);
-    background-image: linear-gradient($btn-secondary-top-bg-hover, $btn-secondary-bottom-bg-hover);
+    /* Bourbon output */
+    @include background-image(linear-gradient($btn-secondary-top-bg-hover 0, $btn-secondary-bottom-bg-hover 100%));
     -webkit-box-shadow: inset 0 1px $btn-secondary-box-shadow-hover;
     box-shadow: inset 0 1px $btn-secondary-box-shadow-hover;
 }
@@ -90,11 +83,8 @@ button:focus {
 /* Colors on Active */
 .ch-btn:active {
     background-color: $btn-primary-active;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-primary-active-top-bg), color-stop(100%, #202388));
-    background-image: -webkit-linear-gradient($btn-primary-active-top-bg, $btn-primary-active-bottom-bg);
-    background-image: -moz-linear-gradient($btn-primary-active-top-bg, $btn-primary-active-bottom-bg);
-    background-image: -o-linear-gradient($btn-primary-active-top-bg, $btn-primary-active-bottom-bg);
-    background-image: linear-gradient($btn-primary-active-top-bg, $btn-primary-active-bottom-bg);
+    /* Bourbon output */
+    @include background-image(linear-gradient($btn-primary-active-top-bg 0, $btn-primary-active-bottom-bg 100%));
     -webkit-box-shadow: inset 0 1px 6px $btn-primary-shadow-active;
     box-shadow: inset 0 1px 6px $btn-primary-shadow-active;
     border-color: $btn-primary-border-active;
@@ -102,11 +92,8 @@ button:focus {
 
 .ch-btn-skin:active {
     background-color: $btn-secondary-bg-active;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-secondary-top-bg-active), color-stop(100%, $btn-secondary-bg-active));
-    background-image: -webkit-linear-gradient($btn-secondary-top-bg-active, $btn-secondary-bottom-bg-active);
-    background-image: -moz-linear-gradient($btn-secondary-top-bg-active, $btn-secondary-bottom-bg-active);
-    background-image: -o-linear-gradient($btn-secondary-top-bg-active, $btn-secondary-bottom-bg-active);
-    background-image: linear-gradient($btn-secondary-top-bg-active, $btn-secondary-bottom-bg-active);
+    /* Bourbon output */
+    @include background-image(linear-gradient($btn-secondary-top-bg-active 0, $btn-secondary-bg-active 100%));
     -webkit-box-shadow: inset 0 1px 6px $btn-secondary-shadow-active;
     box-shadow: inset 0 1px 6px $btn-secondary-shadow-active;
     border-color: $btn-secondary-border-active;
@@ -137,11 +124,8 @@ input.ch-btn-small::-moz-focus-inner {
 [class*="ch-btn"][disabled]:active,
 [class*="ch-btn"][disabled]:focus {
     background-color: $btn-disabled-bg;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $btn-disabled-top-bg), color-stop(100%, $btn-disabled-bottom-bg));
-    background-image: -webkit-linear-gradient($btn-disabled-top-bg, $btn-disabled-bottom-bg);
-    background-image: -moz-linear-gradient($btn-disabled-top-bg, $btn-disabled-bottom-bg);
-    background-image: -o-linear-gradient($btn-disabled-top-bg, $btn-disabled-bottom-bg);
-    background-image: linear-gradient($btn-disabled-top-bg, $btn-disabled-bottom-bg);
+    /* Bourbon output */
+    @include background-image(linear-gradient($btn-disabled-top-bg 0, $btn-disabled-bottom-bg 100%));
     border: 1px solid $btn-disabled-border !important; /* important for links */
     -webkit-box-shadow: inset 0px 1px $btn-disabled-box-shadow;
     box-shadow: inset 0px 1px rgba(240, 240, 240, 1);
