@@ -39,8 +39,8 @@ module.exports = function (grunt) {
 
             'core': {
                 'options': {
-                    'banner': '<%= banner.full %>' + "\n\n(function (window, $) {\n\t'use strict';\n\n",
-                    'footer': '\n\tch.version = \'<%= pkg.version %>\';\n\twindow.ch = ch;\n}(this, this.$));'
+                    'banner': '<%= banner.full %>' + "\n\n(function (window) {\n\t'use strict';\n\n",
+                    'footer': '\n\tch.version = \'<%= pkg.version %>\';\n\twindow.ch = ch;\n}(this));'
                 },
                 'src': files.JS.core,
                 'dest': 'temp/' + environment + '/core.tmp.js'
