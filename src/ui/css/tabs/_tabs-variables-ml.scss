@@ -1,0 +1,52 @@
+// *************************************
+//
+//   Tabs
+//
+// *************************************
+
+// -------------------------------------
+//   Skin variables
+// -------------------------------------
+
+// ----- Tab ----- //
+
+$tab-border: 1px solid #DEDEDE;
+$tab-bg-color: #fff;
+$tab-border-radius: 5px 5px 0 0;
+
+
+$tab-text-underline: none;
+$tab-text-color: #333;
+
+// ----- Tab hover ----- //
+
+$tab-hover-bg-color: #F0F0F0;
+
+// ----- Tab active ----- //
+
+$tab-active-bg-color: #F0F0F0;
+
+$tab-trigger-bg-color: #F0F0F0;
+$tab-trigger-bg-color-secondary: #FFFFFF 25px;
+
+	// Box shadow
+
+	$tab-trigger-box-shadow-top: 2px;
+	$tab-trigger-box-shadow-left: 0;
+	$tab-trigger-box-shadow-blur: 2px;
+	$tab-trigger-box-shadow-color: rgba(255, 255, 255, .5);
+
+// -------------------------------------
+//   Structure variables
+// -------------------------------------
+
+$tabs-component-margin: 10px 0;
+
+$tab-margin: 0;
+
+$tab-group-margin: 0 0 0 10px;
+
+// ----- Tab ----- //
+
+$tab-padding: 3px 12px;
+$tab-margin: 0 0 0 2px;

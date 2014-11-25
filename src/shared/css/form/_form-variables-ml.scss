@@ -1,0 +1,111 @@
+// *************************************
+//
+//   Forms
+//
+// *************************************
+
+$fieldset-border:						none;
+$fieldset-margin:						0;
+$fieldset-padding:						0;
+
+$legend-margin:							0;
+$legend-padding:						0;
+
+$form-actions-text-align:				left;
+
+// -------------------------------------
+//   Form inputs (input, textarea, select)
+// -------------------------------------
+
+$generic-input-border:					1px solid #CDCDCD;
+$generic-input-padding:			 		6px;
+
+// ----- Focus state ----- //
+
+$generic-input-focus-border:			2px solid #9A9A9A;
+$generic-input-focus-padding:	 		5px;
+
+// ----- Input outline ----- //
+// types file, checkbox, range, radio & select //
+
+$input-options-focus-outline:		 	 		1px dotted #9A9A9A;
+$input-options-subtitle-margin:		 	 		0 0 15px -20px;
+$input-required-options-subtitle-font-weight: 	bold;
+
+$input-options-label-padding: 					0 0 0 22px;
+$input-options-label-margin: 					0;
+
+// ----- Input Radio ----- //
+
+$input-radio-margin:					-9px 0 0 0;
+
+// ----- Input Checkbox ----- //
+
+$input-checkbox-margin:					-8px 0 0 0;
+
+// -- Read-only focus -- //
+
+$input-read-only-border:				 none;
+$input-read-only-color:					 999;
+$input-read-only-padding:				 5px 0;
+
+// -- Icons -- //
+
+$input-inner-icon-opacity:				 .3;
+$input-inner-icon-focus-opacity:		 .7;
+
+// -- Required icon (*) -- //
+
+$icon-required-position-right:			 3px;
+$icon-required-position-top:			 3px;
+
+// --- Form Fieldset --- //
+
+$form-fieldset-margin:					 0 0 10px 0;
+
+$fieldset-title-color:				#dc7b1c;
+$fieldset-title-font-weigth:		bold;
+
+$fieldset-subtitle-font-size:		13px;
+$fieldset-subtitle-font-weigth:		bold;
+
+// ----- Hint text ----- //
+
+$form-text-hint-color:				#999;
+$form-text-hint-size:				12px;
+$form-text-hint-line-heigth:		12px;
+
+// ----- Input row ----- //
+
+$input-row-padding:					5px 0;
+$input-row-label-padding:			7px 11px 5px 0;
+
+// --- Label required --- //
+
+$input-row-label-required-text-weight:	bold;
+
+// -------------------------------------
+//   Disabled inputs
+// -------------------------------------
+
+$input-disabled-label-color:		#999;	
+$input-disabled-bg-color:			#F2F2F2;
+
+// -------------------------------------
+//   Big form inputs (input, textarea, select)
+// -------------------------------------
+
+$input-big-padding:					12px 10px;
+$input-big-margin:					5px 0;
+$input-big-border-radius:			3px;
+
+// ----- Focus state ----- //
+
+$input-big-focus-padding:			11px 9px;
+
+// -------------------------------------
+//   Input Errors
+// -------------------------------------
+
+$input-error-border-color:			#f99;
+$input-error-focus-border-width:	2px;

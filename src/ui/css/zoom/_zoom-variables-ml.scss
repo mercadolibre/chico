@@ -1,0 +1,42 @@
+// *************************************
+//
+//   Zoom
+//
+// *************************************
+
+// -------------------------------------
+//   Skin variables
+// -------------------------------------
+
+// ----- Seeker ----- //
+
+$zoom-seeker-border:				1px solid #ccc;
+$zoom-seeker-bg-color:				rgba(240, 240, 240, 0.4);
+
+$zoom-seeker-ie9-bg-color:			#f0f0f0;
+$zoom-seeker-ie9-opacity:			50;
+
+// ----- Loading ----- //
+
+$zoom-loading-border:				1px solid #ccc;
+$zoom-loading-border-radius:		5px;
+$zoom-loading-text-size:			$font__smallest;
+$zoom-loading-text-color:			#333;
+$zoom-loading-bg-color:				rgba(240, 240, 240, 0.75);
+
+$zoom-loading-ie9-bg-color:			#f0f0f0;
+$zoom-loading-ie9-opacity:			90;
+
+// ----- Zoom area ----- //
+
+$zoom-area-border:					1px solid #ccc;
+$zoom-area-bg-color:				#fff;
+
+// -------------------------------------
+//   Structure variables
+// -------------------------------------
+
+// ----- Loading ----- //
+
+$zoom-loading-width:				100px;
+$zoom-loading-height:				100px;

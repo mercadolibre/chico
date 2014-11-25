@@ -16,38 +16,38 @@ $table-text-align:				left;
 // ----- Table Title ----- //
 
 $table-title-text-align:		left;
-$table-title-font-weight:		normal;
+$table-title-text-weight:		normal;
 
 // ----- Table header row ----- //
 
-$table-header-bg-color:					#f0f0f0;
-$table-header-row-border:				1px solid #dedede;
-$table-header-row-border-left:			1px solid #dedede;
-$table-header-row-text-align:			left;
-$table-header-row-text-shadow:			0 1px 0 #fff;
-$table-header-row-v-align:				middle;
-$table-header-row-color:				#666;
+$table-header-bg-color:								#f0f0f0;
+$table-header-row-border:							1px solid #dedede;
+$table-header-row-border-left:						1px solid #dedede;
+$table-header-row-text-align:						left;
+$table-header-row-text-shadow:						0 1px 0 #fff;
+$table-header-row-v-align:							middle;
+$table-header-row-color:							#666;
 
 // ----- Table row selected----- //
 
-$table-row-selected-bg-color:			$components-hover-bg-color;
-$table-row-border: 						1px solid #dedede;
+$table-row-selected-bg-color:						$components-hover-bg-color;
+$table-row-border: 									1px solid #dedede;
 
 // ----- Table header with controls ----- //
 
-$table-header-controls-bg-color: 			   #fafafa;
-$table-header-controls-bg-color-bottom: 	   #ececec;
+$table-header-controls-bg-color: 			   		#fafafa;
+$table-header-controls-bg-color-secondary: 	   		#ececec;
 
 // ----- Table header with controls hover ----- //
 
-$table-header-controls-hover-bg-color:	 	   #fafafa;
-$table-header-controls-hover-bg-color-bottom:  #f2f2f2;
+$table-header-controls-hover-bg-color:	 	   		#fafafa;
+$table-header-controls-hover-bg-color-secondary:  	#f2f2f2;
 
 // ----- Table header with controls active ----- //
 
-$table-header-controls-active-bg-color:	 #e5e5e5;
-$table-header-controls-active-bg-bottom: #d8d8d8;
-$table-header-controls-active-border:	 1px solid #dcdcdc;
+$table-header-controls-active-bg-color:	 			#e5e5e5;
+$table-header-controls-active-bg-secondary: 		#d8d8d8;
+$table-header-controls-active-border:	 			1px solid #dcdcdc;
 
 // -------------------------------------
 //   Structure variables
@@ -56,11 +56,11 @@ $table-header-controls-active-border:	 1px solid #dcdcdc;
 // ----- Table Title ----- //
 
 $table-title-margin: 			10px 0;
-$table-title-font-size:			$font__large;
+$table-title-text-size:			$font__large;
 
 // ----- Table header row ----- //
 
-$table-header-row-font-size:	$font__smallest;
+$table-header-row-text-size:	$font__smallest;
 $table-header-row-line-height:	26px;
 $table-header-row-padding:		0 10px;
 

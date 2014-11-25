@@ -1,4 +1,4 @@
-@import '../../shared/css/buttons/buttons-variables-ml';
+@import 'buttons/buttons-variables-ml';
 /**
  * Buttons
  */
@@ -7,14 +7,14 @@
 .ch-btn,
 .ch-btn:focus {
     line-height: $btn-line-height;
-    padding: $btn-padding-vertical $btn-padding-horizontal;
+    padding: $btn-padding;
 }
 
 /* Large h: ~39px */
 .ch-btn-large,
 .ch-btn-large:focus {
     line-height: $btn-big-line-height;
-    padding: $btn-big-padding-vertical $btn-big-padding-horizontal;
+    padding: $btn-big-padding;
 }
 
 a.ch-btn-large,
@@ -25,38 +25,38 @@ a.ch-btn-large:focus {
 /* Small h: ~23px */
 .ch-btn-small,
 .ch-btn-small:focus {
-    font-size: 12px;
+    font-size: $btn-small-text-size;
     line-height: $btn-small-line-height;
-    padding: $btn-small-padding-vertical $btn-small-padding-horizontal;;
+    padding: $btn-small-padding;
 }
 
 /* IE */
 .lt-ie10 .ch-btn,
 .lt-ie10 .ch-btn:focus,
 .lt-ie10 .ch-btn:visited {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3E52A1', endColorstr='#2D3277');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-ie-filter-start-color', endColorstr='$btn-ie-filter-end-color');
 }
 
 .lt-ie10 .ch-btn-skin,
 .lt-ie10 .ch-btn-skin:focus,
 .lt-ie10 .ch-btn-skin:visited {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCE3F7', endColorstr='#AAD0EF');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-ie-filter-start-color', endColorstr='$btn-skin-ie-filter-end-color');
 }
 
 .lt-ie10 .ch-btn:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4355D2', endColorstr='#2F33AE');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-hover-ie-filter-start-color', endColorstr='$btn-hover-ie-filter-end-color');
 }
 
 .lt-ie10 .ch-btn-skin:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DCECFB', endColorstr='#C5DFF5');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-hover-ie-filter-start-color', endColorstr='$btn-skin-hover-ie-filter-end-color');
 }
 
 .lt-ie10 .ch-btn:active {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0F1534', endColorstr='#171C41');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-active-ie-filter-start-color', endColorstr='$btn-active-ie-filter-end-color');
 }
 
 .lt-ie10 .ch-btn-skin:active {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A2C9E1', endColorstr='#7DB7DC');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-active-ie-filter-start-color', endColorstr='$btn-skin-active-ie-filter-end-color');
 }
 
 .lt-ie10 .ch-btn.ch-btn-disabled,

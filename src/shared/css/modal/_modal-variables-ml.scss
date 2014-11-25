@@ -9,7 +9,13 @@
 // -------------------------------------
 
 $underlay-bg-color:				rgba(0, 0, 0, 0.5);
-$modal-box-shadow:				0 3px 14px #444;
+
+	// Box shadow
+
+	$modal-box-shadow-top:		0;
+	$modal-box-shadow-left:		3px;
+	$modal-box-shadow-blur:		14px;
+	$modal-box-shadow-color:	#444;
 
 // -------------------------------------
 //   Structure variables

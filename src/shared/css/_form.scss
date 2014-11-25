@@ -1,3 +1,4 @@
+@import 'form/form-variables-ml';
 /* ==========================================================================
      Forms
      ========================================================================== */
@@ -7,14 +8,14 @@
  */
 
 fieldset {
-    border: none;
-    margin: 0;
-    padding: 0;
+    border: $fieldset-border;
+    margin: $fieldset-margin;
+    padding: $fieldset-padding;
 }
 
 legend {
-    margin: 0;
-    padding: 0;
+    margin: $legend-margin;
+    padding: $legend-padding;
 }
 
 /*
@@ -56,7 +57,8 @@ input[type="search"]{
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+    /* Bourbon output*/
+    @include appearance(none);
     margin: 0;
 }
 
@@ -77,13 +79,14 @@ input[type="password"],
 textarea,
 select[multiple],
 .ch-form-select-multiple {
-    border: 1px solid #CDCDCD;
+    border: $generic-input-border;
     border-radius: 3px;
-    padding: 6px;
+    padding: $generic-input-padding;
 
+    // Para hablar el viernes, el tema del focus.
     &:focus {
-        border: 2px solid #9A9A9A;
-        padding: 5px;
+        border: $generic-input-focus-border;
+        padding: $generic-input-focus-padding;
         outline: 0;
     }
 }
@@ -93,14 +96,14 @@ input[type="checkbox"]:focus,
 input[type="radio"]:focus,
 input[type="range"]:focus,
 select:focus {
-    outline: 1px dotted #9A9A9A;
+    outline: $input-options-focus-outline;
 }
 
 input[readonly],
 input[readonly]:focus {
-    border: none;
-    color: #999999;
-    padding: 5px 0;
+    border: $input-read-only-border;
+    color: $input-read-only-color;
+    padding: $input-read-only-padding;
 }
 
 /* Icons */
@@ -110,13 +113,16 @@ input[readonly]:focus {
 }
 
 .ch-form-icon-inner {
-    opacity: .3;
+    /* Mixin output */
+    @include opacity($input-inner-icon-opacity);
 }
 
 .ch-form-icon-input:focus + .ch-form-icon-inner {
-    opacity: .7;
+    /* Mixin output */
+    @include opacity($input-inner-icon-focus-opacity);
 }
 
+// para hablar el viernes
 input.ch-form-icon-input {
     padding-right: 24px;
 }
@@ -135,36 +141,36 @@ input.ch-form-icon-input:focus {
 
 /* Module */
 .ch-form fieldset {
-    margin-bottom: 10px;
+    margin: $form-fieldset-margin;
 }
 
     /* Title module */
     .ch-form legend {
-        color: #dc7b1c;
-        font-weight: bold;
+        color: $fieldset-title-color;
+        font-weight: $fieldset-title-font-weigth;
     }
 
     .ch-form-subtitle {
-        font-size: 13px;
-        font-weight: bold;
+        font-size: $fieldset-subtitle-font-size;
+        font-weight: $fieldset-subtitle-font-weigth;
     }
 
 /* Required specification or another */
 .ch-form-hint {
-    color: #999999;
-    font-size: 12px;
-    line-height: 12px;
+    color: $form-text-hint-color;
+    font-size: $form-text-hint-size;
+    line-height: $form-text-hint-line-heigth;
 }
 
 /* Basic wrapper for horizontal view */
 .ch-form-row {
-    padding: 5px 0;
+    padding: $input-row-padding;
     position: relative;
 
     label {
         display:inline-block;
         position:relative;
-        padding: 7px 11px 5px 0;        
+        padding: $input-row-label-padding; 
     }
 }
 
@@ -180,7 +186,7 @@ input.ch-form-icon-input:focus {
 
 /* Label required **/
     .ch-form-required label {
-        font-weight: bold;
+        font-weight: $input-row-label-required-text-weight;
     }
 
     .ch-form-required.ch-form-options label {
@@ -192,8 +198,8 @@ input.ch-form-icon-input:focus {
     .ch-form-required em {
         display: block;
         position: absolute;
-        right: 3px;
-        top: 3px;
+        right: $icon-required-position-right;
+        top: $icon-required-position-top;
     }
 /* Icon indication of required in options */
     .ch-form-required.ch-form-options em {
@@ -211,6 +217,7 @@ input.ch-form-icon-input:focus {
     border: none;
 }
 
+// revisar el viernes
 /* Range
 input[type=range],*/
 .ch-form-range {
@@ -237,19 +244,18 @@ input[type=range],*/
 
 /* Subtitle in options */
 .ch-form-options .ch-form-subtitle {
-    margin-bottom: 15px;
-    margin-left: -20px;
+    margin: $input-options-subtitle-margin;
 }
 
 /* Subtitle in options & required */
 .ch-form-options.ch-form-required .ch-form-subtitle{
-    font-weight: bold;
+    font-weight: $input-required-options-subtitle-font-weight;
 }
 
 /* Label in options */
 .ch-form-options label {
-    padding: 0 0 0 22px;
-    margin: 0;
+    padding: $input-options-label-padding;
+    margin: $input-options-label-margin;
 }
 
 /* Radio & Checkbox in options */
@@ -263,29 +269,29 @@ input[type=range],*/
 }
 
 .ch-form-options input[type=radio] {
-    margin-top: -9px;
+    margin: $input-radio-margin;
 }
 
 .ch-form-options input[type=checkbox] {
-    margin-top: -8px;
+    margin: $input-checkbox-margin;
 }
 
 /* Disabled status */
 .ch-form-disabled label {
-    color: #999999;
+    color: $input-disabled-label-color;
 }
 
 .ch-form-disabled input,
 .ch-form-disabled input[disabled],
 .ch-form-disabled textarea,
 .ch-form-disabled textarea[disabled] {
-    background-color: #F2F2F2;
+    background-color: $input-disabled-bg-color;
     cursor: not-allowed;
 }
 
 /* Actions */
 .ch-form-actions {
-    text-align: left;
+    text-align: $form-actions-text-align;
 }
 
 /* Big inputs */
@@ -305,12 +311,12 @@ input[type=range],*/
 .ch-form-big textarea,
 .ch-form-big select[multiple],
 .ch-form-big .ch-form-select-multiple {
-    border-radius: 3px;
-    padding: 12px 10px;
-    margin: 5px 0;
+    border-radius: $input-big-border-radius;
+    padding: $input-big-padding;
+    margin: $input-big-margin ;
 
     &:focus {
-        padding: 11px 9px;        
+        padding: $input-big-focus-padding;
     }
 }
 
@@ -323,9 +329,9 @@ input[type=range],*/
 .ch-form input.ch-bubble-trigger-on,
 .ch-form textarea.ch-bubble-trigger-on,
 .ch-countdown-exceeded {
-    border-color: #f99;
+    border-color: $input-error-border-color;
 }
 
 .ch-validation-error:focus {
-    border-width: 2px;
+    border-width: $input-error-focus-border-width;
 }

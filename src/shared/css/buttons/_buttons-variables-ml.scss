@@ -8,30 +8,49 @@
 //   Primary
 // -------------------------------------
 
+$button-cursor:								pointer;
+
 // ----- Normal state ----- //
 
-$btn-primary-color:				#fff;
-$btn-primary-bg:				#3E52A1;
-$btn-primary-top-bg:			#3E52A1;
-$btn-primary-bottom-bg: 		#2D3277;
-$btn-primary-active:  			#29358F;
-$btn-primary-border:			#2D3277;
-$btn-primary-shadow:			#8EA2DF;
+$btn-primary-color:							#fff;
+$btn-primary-bg-color:						#3E52A1;
+$btn-primary-bg-color-secondary:			#2D3277;
+$btn-primary-active:  						#29358F;
+$btn-primary-border:						#2D3277;
+$btn-primary-shadow:						#8EA2DF;
+
+	// Box shadow mixin
+
+	$btn-primary-box-shadow-top:			0;
+	$btn-primary-box-shadow-left:			1px;
+	$btn-primary-box-shadow-blur:			0;
+	$btn-primary-box-shadow-color:			#7A89E8;
 
 // ----- Hover state ----- //
 
-$btn-primary-hover:   			#4051D0;
-$btn-primary-hover-top-bg:		#4355D2;
-$btn-primary-hover-bottom-bg: 	#2F33AE;
-$btn-primary-shadow-hover:		#7A89E8;
+$btn-primary-box-hover:   					#4051D0;
+$btn-primary-box-hover-bg-color:			#4355D2;
+$btn-primary-box-hover-bg-color-secondary: 	#2F33AE;
+
+	// Box shadow mixin
+
+	$btn-primary-hover-box-shadow-top:		0;
+	$btn-primary-hover-box-shadow-left:		1px;
+	$btn-primary-hover-box-shadow-blur:		0;
+	$btn-primary-hover-box-shadow-color:	#7A89E8;
 
 // ----- Active state ----- //
 
-$btn-primary-active:   			#292F66;
-$btn-primary-active-top-bg:		#292F66;
-$btn-primary-active-bottom-bg: 	#202388;
-$btn-primary-shadow-active:		#141452;
-$btn-primary-border-active:		#181E39;
+$btn-primary-active-bg-color:   			#292F66;
+$btn-primary-active-bg-color-secondary: 	#202388;
+$btn-primary-border-active:					#181E39;
+
+	// Box shadow mixin
+
+	$btn-primary-active-box-shadow-top:		0;
+	$btn-primary-active-box-shadow-left:	1px;
+	$btn-primary-active-box-shadow-blur:	6px;
+	$btn-primary-active-box-shadow-color:	#141452;
 
 // -------------------------------------
 //   Skin
@@ -39,56 +58,67 @@ $btn-primary-border-active:		#181E39;
 
 // ----- Normal state ----- //
 
-$btn-secondary-color:			#476274;
-$btn-secondary-bg:				#CCE3F7;
-$btn-secondary-top-bg:			#CCE3F7;
-$btn-secondary-bottom-bg: 		#AAD0EF;
-$btn-secondary-border:			#79A8C7;
-$btn-secondary-shadow:			#E5F2FC;
-$btn-secondary-active:  		#7C9CB2;
-$btn-secondary-border:			#79A8C7;
-$btn-secondary-shadow:			none;
+$btn-secondary-color:						#476274;
+$btn-secondary-bg-color:					#CCE3F7;
+$btn-secondary-bg-color-secondary:  		#AAD0EF;
+$btn-secondary-border:						#79A8C7;
+$btn-secondary-active:  					#7C9CB2;
+$btn-secondary-shadow:						none;
+
+	// Box shadow mixin values
+
+	$btn-secondary-box-shadow-top:			0;
+	$btn-secondary-box-shadow-left:			1px;
+	$btn-secondary-box-shadow-blur:			0;
+	$btn-secondary-box-shadow-color:		#e5f2fc;
 
 // ----- Hover state ----- //
 
-$btn-secondary-bg-hover:   		#DCECFB;
-$btn-secondary-top-bg-hover:	#DCECFB;
-$btn-secondary-bottom-bg-hover:	#C5DFF5;
-$btn-secondary-box-shadow-hover: #E5F2FC;
+$btn-secondary-hover-bg-color:   			#DCECFB;
+$btn-secondary-hover-bg-color-secondary:	#C5DFF5;
+
+	// Box shadow mixin values
+
+	$btn-secondary-hover-box-shadow-top:	0;
+	$btn-secondary-hover-box-shadow-left:	1px;
+	$btn-secondary-hover-box-shadow-blur:	0;
+	$btn-secondary-hover-box-shadow-color:	#E5F2FC;
 
 // ----- Active state ----- //
 
-$btn-secondary-bg-active:   	#7AB6DC;
-$btn-secondary-top-bg-active:	#A2C9E1;
-$btn-secondary-bottom-bg-active:#7AB6DC;
-$btn-secondary-shadow-active:	rgba(71, 98, 116, .6);
-$btn-secondary-border-active:	#79A8C7;
+$btn-secondary-active-bg-color:				#A2C9E1;
+$btn-secondary-active-bg-color-secondary:	#7AB6DC;
+$btn-secondary-shadow-active:				#476274; // rgba(71, 98, 116, .6);
+$btn-secondary-border-active:				#79A8C7;
+
+	// Box shadow mixin values
+
+	$btn-secondary-active-box-shadow-top:	0;
+	$btn-secondary-active-box-shadow-left:	1px;
+	$btn-secondary-active-box-shadow-blur:	6px;
+	$btn-secondary-active-box-shadow-color:	#476274;
 
 // ----- Disabled state ----- //
 
-$btn-disabled-color:			#CCC;
-$btn-disabled-bg:				#fefefe;
-$btn-disabled-top-bg:			lighten($btn-disabled-bg,6.8%);	
-$btn-disabled-bottom-bg: 		darken($btn-disabled-bg,15%);
-$btn-disabled-border:			$gray-lightest;
-$btn-disabled-text-shadow:		none;
-$btn-disabled-box-shadow:		#fefefe;
+$btn-disabled-color:						#CCC;
+$btn-disabled-bg-color:						#fefefe;
+$btn-disabled-bg-color-secondary: 			darken($btn-disabled-bg-color,15%);
+$btn-disabled-border:						$gray-lightest;
+$btn-disabled-text-shadow:					none;
+$btn-disabled-text-color:					#999;
+$btn-disabled-opacity:						0.5;
+
+	// Box shadow mixin values
+
+	$btn-disabled-box-shadow-left: 			0;
+	$btn-disabled-box-shadow-top: 			1px;
+	$btn-disabled-box-shadow-blur:			1px;
+	$btn-disabled-box-shadow-color:			#fefefe;
 
 // -------------------------------------
 //   Structure variables
 // -------------------------------------
 
-$btn-padding-vertical:			5px;
-$btn-padding-horizontal:		10px;  
-$btn-font-size:		    		$font__large;
-$btn-line-height:				20px;
-
-$btn-big-padding-vertical:		6px;
-$btn-big-padding-horizontal:	12px;  
+$btn-font-size:		    		$font__large; 
 $btn-big-font-size:		    	$font__x__large;
-$btn-big-line-height:			1.25em;
-
-$btn-small-padding-vertical:  	5px;
-$btn-small-padding-horizontal:	8px;  
 $btn-small-font-size:		  	$font__smaller;
-$btn-small-line-height:		  	12px;

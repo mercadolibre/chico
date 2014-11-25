@@ -10,30 +10,31 @@
 
 // ----- Error box ----- //
 
-$box-bg-color-error:			#F5E6E6;
-$box-font-color-error:			#B84A46;
-$box-font-color-error-visited:	$blue-main;
+$box-error-bg-color:			#F5E6E6;
+$box-error-text-color:			#B84A46;
+$box-error-visited-text-color:	$blue-main;
 
 // ----- Help box ----- //
 
-$box-bg-color-help:				#F0F0F0;
-$box-font-color-help:			#888888;
+$box-help-bg-color:				#F0F0F0;
+$box-help-text-color:			#888888;
 
 // ----- Info box ----- //
 
-$box-bg-color-info:				#E4F2F9;
-$box-font-color-info:			#3A87AD;
+$box-info-bg-color:				#E4F2F9;
+$box-info-text-color:			#3A87AD;
+$box-info-link-underline:		none;
 
 // ----- Warning box ----- //
 
-$box-bg-color-warning:			#FFF0BA;
-$box-font-color-warning:		#AA8749;
-$box-icon-color-warning:		#F5CC00;
+$box-warning-bg-color:			#FFF0BA;
+$box-warning-font-color:		#AA8749;
+$icon-warning-text-color:		#F5CC00;
 
 // ----- Ok box ----- //
 
-$box-bg-color-ok:				#E9F4E4;
-$box-font-color-ok:				#468847;
+$box-ok-bg-color:				#E9F4E4;
+$box-ok-text-color:				#468847;
 
 $box-lite-bg-color:				$white;
 

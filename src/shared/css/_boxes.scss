@@ -4,7 +4,6 @@
  * Boxes
  */
 [class*='ch-box'] {
-    -webkit-border-radius: $box-border-radius; /* Android 2.1 */
     border-radius: $box-border-radius;
     margin: $box-margin;
     padding: $box-padding;
@@ -31,19 +30,19 @@
         top: 7px;
         left: 5px;
     }
-
 }
+
 
 /**
  * Warn
  */
 .ch-icon-warning-sign {
-    color: $box-icon-color-warning;
+    color: $icon-warning-text-color;
 }
 
 .ch-box-warn {
-    background-color: $box-bg-color-warning;
-    color: $box-font-color-warning;
+    background-color: $box-warning-bg-color;
+    color: $box-warning-font-color;
 }
 
 
@@ -52,14 +51,14 @@
  */
 .ch-box-error,
 .ch-icon-remove-sign {
-    color: $box-font-color-error;
+    color: $box-error-text-color;
 }
 
 .ch-box-error {
-    background-color: $box-bg-color-error;
+    background-color: $box-error-bg-color;
 
     a:visited {
-        color: $box-font-color-error-visited;
+        color: $box-error-visited-text-color;
     }
 
 }
@@ -69,11 +68,11 @@
  */
 .ch-box-help,
 .ch-icon-help-sign {
-    color: $box-font-color-help;
+    color: $box-help-text-color;
 }
 
 .ch-box-help {
-    background-color: $box-bg-color-help;
+    background-color: $box-help-bg-color;
 }
 
 /**
@@ -81,16 +80,15 @@
  */
 .ch-box-info,
 .ch-icon-info-sign {
-    color: $box-font-color-info;
+    color: $box-info-text-color;
 }
 
 .ch-box-info {
-    background-color: $box-bg-color-info;
+    background-color: $box-info-bg-color;
 
     a {
-        text-decoration: $font-underline;
+        text-decoration: $box-info-link-underline;
     }
-
 }
 
 /**
@@ -98,9 +96,9 @@
  */
 .ch-box-ok,
 .ch-icon-ok-sign  {
-    color: $box-font-color-ok;
+    color: $box-ok-text-color;
 }
 
 .ch-box-ok {
-    background-color: $box-bg-color-ok;
+    background-color: $box-ok-bg-color;
 }

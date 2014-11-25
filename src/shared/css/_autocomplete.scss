@@ -1,12 +1,11 @@
 @import 'autocomplete/autocomplete-variables-ml';
 
 .ch-autocomplete {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+    /* Bourbon output */
+    @include border-top-radius(0);
     border-top: none;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    /* Bourbon output */
+    @include box-sizing(border-box);
 }
 
 .ch-autocomplete-item,

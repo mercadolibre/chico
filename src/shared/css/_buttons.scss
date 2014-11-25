@@ -8,11 +8,10 @@
 [class*="ch-btn"],
 [class*="ch-btn"]:focus {
     font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
-    -webkit-border-radius: 4px; /* Android 2.1 */
-    border-radius: 4px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    cursor: pointer;
+    border-radius:4px;
+    /* Mixin output */
+    @include box-shadow(0,0,0,none);
+    cursor: $button-cursor;
     display: inline-block;
     height: auto;
     text-decoration: none;
@@ -35,11 +34,11 @@ button:focus {
 .ch-btn,
 .ch-btn:focus,
 .ch-btn:visited {
-    background-color: $btn-primary-bg;
+    background-color: $btn-primary-bg-color;
     /* Bourbon output */
-    @include background-image(linear-gradient($btn-primary-top-bg 0, $btn-primary-bottom-bg 100%));
-    -webkit-box-shadow: inset 0 1px $btn-primary-shadow;
-    box-shadow: inset 0 1px $btn-primary-shadow;
+    @include background-image(linear-gradient($btn-primary-bg-color, $btn-primary-bg-color-secondary));
+     /* Mixin output */
+    @include box-shadow($btn-primary-box-shadow-top, $btn-primary-box-shadow-left, $btn-primary-box-shadow-blur, $btn-primary-box-shadow-color);
     border: 1px solid $btn-primary-border;
     color: $btn-primary-color;
 }
@@ -47,12 +46,12 @@ button:focus {
 .ch-btn-skin,
 .ch-btn-skin:focus,
 .ch-btn-skin:visited {
-    background-color: $btn-secondary-bg;
+    background-color: $btn-secondary-bg-color;
     /* Bourbon output */
-    @include background-image(linear-gradient($btn-secondary-bg 0, $btn-secondary-bottom-bg 100%));
+    @include background-image(linear-gradient($btn-secondary-bg-color, $btn-secondary-bg-color-secondary));
     border: 1px solid $btn-secondary-border;
-    -webkit-box-shadow: inset 0 1px $btn-secondary-shadow;
-    box-shadow: inset 0 1px $btn-secondary-shadow;
+     /* Mixin output */
+    @include box-shadow($btn-secondary-box-shadow-top, $btn-secondary-box-shadow-left, $btn-secondary-box-shadow-blur,$btn-secondary-box-shadow-color); 
     color: $btn-secondary-color;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
@@ -65,37 +64,37 @@ button:focus {
 
 /* Colors on Hover */
 .ch-btn:hover {
-    background-color: $btn-primary-hover-top-bg;
+    background-color: $btn-primary-box-hover-bg-color;
     /* Bourbon output */
-    @include background-image(linear-gradient($btn-primary-hover-top-bg 0, $btn-primary-hover-bottom-bg 100%));
-    -webkit-box-shadow: inset 0 1px $btn-primary-shadow-hover;
-    box-shadow: inset 0 1px $btn-primary-shadow-hover;
+    @include background-image(linear-gradient($btn-primary-box-hover-bg-color, $btn-primary-box-hover-bg-color-secondary));
+     /* Mixin output */
+    @include box-shadow($btn-primary-hover-box-shadow-top, $btn-primary-hover-box-shadow-left, $btn-primary-hover-box-shadow-blur, $btn-primary-hover-box-shadow-color);
 }
 
 .ch-btn-skin:hover {
-    background-color: $btn-secondary-bg-hover;
+    background-color: $btn-secondary-hover-bg-color;
     /* Bourbon output */
-    @include background-image(linear-gradient($btn-secondary-top-bg-hover 0, $btn-secondary-bottom-bg-hover 100%));
-    -webkit-box-shadow: inset 0 1px $btn-secondary-box-shadow-hover;
-    box-shadow: inset 0 1px $btn-secondary-box-shadow-hover;
+    @include background-image(linear-gradient($btn-secondary-hover-bg-color, $btn-secondary-hover-bg-color-secondary));
+    /* Mixin output */
+    @include box-shadow($btn-secondary-hover-box-shadow-top, $btn-secondary-hover-box-shadow-left, $btn-secondary-hover-box-shadow-blur, $btn-secondary-hover-box-shadow-color);
 }
 
 /* Colors on Active */
 .ch-btn:active {
-    background-color: $btn-primary-active;
+    background-color: $btn-primary-active-bg-color;
     /* Bourbon output */
-    @include background-image(linear-gradient($btn-primary-active-top-bg 0, $btn-primary-active-bottom-bg 100%));
-    -webkit-box-shadow: inset 0 1px 6px $btn-primary-shadow-active;
-    box-shadow: inset 0 1px 6px $btn-primary-shadow-active;
+    @include background-image(linear-gradient($btn-primary-active-bg-color, $btn-primary-active-bg-color-secondary));
+    /* Mixin output */
+    @include box-shadow($btn-primary-active-box-shadow-top, $btn-primary-active-box-shadow-left, $btn-primary-active-box-shadow-blur, $btn-primary-active-box-shadow-color);
     border-color: $btn-primary-border-active;
 }
 
 .ch-btn-skin:active {
-    background-color: $btn-secondary-bg-active;
+    background-color: $btn-secondary-active-bg-color;
     /* Bourbon output */
-    @include background-image(linear-gradient($btn-secondary-top-bg-active 0, $btn-secondary-bg-active 100%));
-    -webkit-box-shadow: inset 0 1px 6px $btn-secondary-shadow-active;
-    box-shadow: inset 0 1px 6px $btn-secondary-shadow-active;
+    @include background-image(linear-gradient($btn-secondary-active-bg-color, $btn-secondary-active-bg-color-secondary));
+    /* Mixin output */
+    @include box-shadow($btn-secondary-active-box-shadow-top, $btn-secondary-active-box-shadow-left, $btn-secondary-active-box-shadow-blur, $btn-secondary-active-box-shadow-color);
     border-color: $btn-secondary-border-active;
 }
 
@@ -123,14 +122,15 @@ input.ch-btn-small::-moz-focus-inner {
 [class*="ch-btn"][disabled]:hover,
 [class*="ch-btn"][disabled]:active,
 [class*="ch-btn"][disabled]:focus {
-    background-color: $btn-disabled-bg;
+    background-color: $btn-disabled-bg-color;
     /* Bourbon output */
-    @include background-image(linear-gradient($btn-disabled-top-bg 0, $btn-disabled-bottom-bg 100%));
+    @include background-image(linear-gradient($btn-disabled-bg-color, $btn-disabled-bg-color-secondary));
     border: 1px solid $btn-disabled-border !important; /* important for links */
-    -webkit-box-shadow: inset 0px 1px $btn-disabled-box-shadow;
-    box-shadow: inset 0px 1px rgba(240, 240, 240, 1);
-    color: #999 !important; /* important for links */
+    /* Mixin output */
+    @include box-shadow($btn-disabled-box-shadow-left, $btn-disabled-box-shadow-top, $btn-disabled-box-shadow-blur, $btn-disabled-box-shadow-color);
+    color: $btn-disabled-text-color !important; /* important for links */
     cursor: not-allowed;
-    opacity: 0.5;
+     /* Mixin output */   
+    @include opacity($btn-disabled-opacity);
     text-shadow: $btn-disabled-text-shadow;
 }

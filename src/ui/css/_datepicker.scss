@@ -1,13 +1,15 @@
+@import 'datepicker/datepicker-variables-ml';
+
 /**
  * Date Picker
  */
 .ch-datepicker {
-    background-image: none;
+    background-image: $datepicker-bg-image;
     position: absolute;
     z-index: 300;
-    background-color: $white;
-    border: 1px solid #dedede;
-    min-width: 240px;
+    background-color: $datepicker-bg-color;
+    border: $datepicker-border;
+    min-width: $datepicker-min-width;
 }
 
 .ch-datepicker-trigger {

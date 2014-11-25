@@ -1,8 +1,11 @@
+@import 'popover/popover-variables-ml';
+
 /**
  * Popover
  */
 .ch-popover {
-    box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.2);
+    /* Mixin output */
+    @include box-shadow($popover-box-shadow-top, $popover-box-shadow-left, $popover-box-shadow-blur, $popover-box-shadow-color);
 }
 
 .ch-shownby-pointertap {
@@ -35,11 +38,11 @@
 }
 
 .ch-cone .ch-popover-content:before {
-    border-width: 10px;
+    border-width: 10px; // $cone-size-backward;
 }
 
 .ch-cone .ch-popover-content:after {
-    border-width: 9px;
+    border-width: 9px;  // $cone-size-foreward;
 }
 
 /**

@@ -1,3 +1,5 @@
+@import 'form/form-variables-ml';
+
 /* Generic input & textarea */
 input[type="text"],
 input[type="url"],
@@ -15,8 +17,8 @@ input[type="password"],
 textarea,
 select[multiple],
 .ch-form-select-multiple {
-    font-size: 13px;
-    margin: 5px 0;
+    font-size: $form-input-text-size;
+    margin: $form-input-margin;
 }
 
 /* Inner Icons */
@@ -34,21 +36,22 @@ select[multiple],
 
 /* Title module */
 .ch-form legend {
-    padding-bottom: 15px;
+    padding: $form-legend-padding;
 }
 
 /* Label */
 .ch-form-row label {
-    font-size: 13px;
-    text-align: right;
-    width: 130px;
+    font-size: $form-label-text-size;
+    text-align: $form-label-text-align;
+    width: $form-label-width;
 }
 
 /* Checkbox inline */
 .ch-form-checkbox-inline {
-    margin-left: 11px;
+    margin: $form-checkbox-inline-margin;
 }
 
+// este estilo no lo vi... lo que modifica es mínimo cuando lo aplique al campo Numeric range
 /* Range */
 .ch-form-range {
     padding: 4px;
@@ -57,28 +60,28 @@ select[multiple],
 
 /* Select */
 .ch-form-row select {
-    margin: 5px 0;
+    margin: $form-select-margin;
 }
 
 /* Help bottom line that helps the user */
 .ch-form-row .ch-form-hint {
-    margin-left: 145px;
+    margin: $form-hint-margin;
 }
 
 /* Options */
 .ch-form-options {
-    margin: 0 0 15px 20px;
+    margin: $form-options-margin;
 }
 
 /* Subtitle in options */
 .ch-form-options .ch-form-subtitle {
-    margin-bottom: 15px;
+    margin: $form-options-subtitle-margin;
     margin-left: -20px;
 }
 
 /* Disabled status */
 .ch-form-disabled label {
-    color: #999999;
+    color: $form-label-disabled-text-color;
 }
 
 .ch-form-disabled input,
@@ -91,13 +94,13 @@ select[multiple],
 
 /* Actions */
 .ch-form-actions {
-    margin-left: 145px;
+    margin: $form-actions-margin;
 }
 
 .lt-ie10 .ch-form-options input[type=radio] {
-    margin-top: -11px;
+    margin: $ie-form-input-radio-margin;
 }
 
 .lt-ie10 .ch-form-options input[type=checkbox]  {
-    margin-top: -11px;
+    margin: $ie-form-input-checkbox-margin;
 }

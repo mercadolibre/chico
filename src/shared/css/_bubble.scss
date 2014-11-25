@@ -4,7 +4,7 @@
  * Bubble
  */
 .ch-bubble {
-    font-size: $bubble-font-size;
+    font-size: $bubble-text-size;
     padding: $bubble-padding;
     border: $bubble-border;
     position: absolute;
@@ -12,8 +12,8 @@
 
 /* Error icon */
 .ch-bubble .ch-icon-remove-sign {
-    top: $bubble-error-icon-top;
-    left: $bubble-error-icon-left;
+    top: $bubble-icon-error-top;
+    left: $bubble-icon-error-left;
 }
 
 /**

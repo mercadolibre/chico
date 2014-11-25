@@ -39,7 +39,7 @@ $calendar-day-disabled-color:				#c6c6c6;
 
 $calendar-day-selected-bg-color:			#a9a9a9 !important;
 $calendar-day-selected-color:				#fff !important;
-$calendar-day-selected-font-weight:			bold !important;
+$calendar-day-selected-text-weight:			bold !important;
 
 // ----- Header controls ----- //
 
@@ -57,19 +57,19 @@ $calendar-head-control-next-icon-position:	15px;
 
 // ----- General ----- //
 
-$calendar-font-size: 						$font__smaller;
+$calendar-text-size: 						$font__smaller;
 $calendar-width: 							240px;
 
 // ----- Title ----- //
 
-$calendar-title-font-size:					$font__normal;
+$calendar-title-text-size:					$font__normal;
 $calendar-title-line-heigth:				28px;
 
 $calendar-day-height:						26px;
 $calendar-day-line-height:					26px;
 
-$calendar-head-font-size:					$font__smallest;
-$calendar-head-font-weigth:					normal;
+$calendar-head-text-size:					$font__smallest;
+$calendar-head-text-weigth:					normal;
 
 // ----- Header controls ----- //
 

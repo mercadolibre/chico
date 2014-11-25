@@ -2,8 +2,6 @@
  * Boxes
  */
 .ch-box {
-    background-image: -webkit-linear-gradient(#F0F0F0, #fff 25px, #fff);
-    background-image: -moz-linear-gradient(#F0F0F0, #fff 25px, #fff);
-    background-image: -o-linear-gradient(#F0F0F0, #fff 25px, #fff);
-    background-image: linear-gradient(#F0F0F0, #fff 25px, #fff);
+	/* Bourbon output*/
+	@include linear-gradient(#F0F0F0, #fff 25px, #fff);
 }

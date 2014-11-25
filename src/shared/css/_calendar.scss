@@ -9,8 +9,8 @@
     caption {
         background-color: $calendar-title-bg-color;
         /* Bourbon output */
-        @include background-image(linear-gradient($white 0%, $calendar-title-bg-color 100%));
-        font-size: $calendar-title-font-size;
+        @include background-image(linear-gradient($white, $calendar-title-bg-color));
+        font-size: $calendar-title-text-size;
         line-height: $calendar-title-line-heigth;
         text-shadow: $calendar-title-shadow;
         border-bottom: none;
@@ -28,8 +28,8 @@
     }
 
     th {
-        font-size: $calendar-head-font-size;
-        font-weight: $calendar-head-font-weigth;
+        font-size: $calendar-head-text-size;
+        font-weight: $calendar-head-text-weigth;
         width: 14.28%;
     }
 
@@ -41,7 +41,7 @@
 }
 
 .ch-calendar-month {
-    font-size: $calendar-font-size;
+    font-size: $calendar-text-size;
     text-align: $calendar-text-align;
     width: $calendar-width;
 }
@@ -74,7 +74,7 @@
 .ch-calendar-selected.ch-today {
     background-color: $calendar-day-selected-bg-color;
     color: $calendar-day-selected-color;
-    font-weight: $calendar-day-selected-font-weight;
+    font-weight: $calendar-day-selected-text-weight;
 }
 
 .ch-calendar-prev,

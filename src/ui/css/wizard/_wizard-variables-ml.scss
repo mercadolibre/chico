@@ -1,0 +1,39 @@
+// *************************************
+//
+//   Wizard
+//
+// *************************************
+
+// -------------------------------------
+//   Skin variables
+// -------------------------------------
+
+$wizard-bg-color:						#fff;
+$wizard-border:							1px solid #DEDEDE;
+$wizard-border-radius:					5px;
+
+// ----- Actions ----- //
+
+$wizard-actions-bg-color:				#F0F0F0;
+$wizard-actions-border:					1px solid #DEDEDE;
+$wizard-actions-border-radius:			0 0 5px 5px;
+
+// ----- Breadcrumb ----- //
+
+$wizard-breadcrumb-border-bottom:		1px solid #DEDEDE;
+$wizard-breadcrumb-text-position:		center;
+$wizard-breadcrumb-text-color:			#CCCCCC;
+
+$wizard-breadcrumb-current-text-weight: bold;
+$wizard-breadcrumb-current-text-color:	#333333;
+
+// ----- Breadcrumb link ----- //
+
+$wizard-breadcrumb-link-bg-color:		#F0F0F0;
+
+// -------------------------------------
+//   Structure variables
+// -------------------------------------
+
+$wizard-margin:							0 0 10px 0;
+$wizard-actions-padding:				10px 20px;

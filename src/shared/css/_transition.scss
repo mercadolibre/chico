@@ -5,6 +5,6 @@
 .ch-transition {
     overflow: auto;
     padding:$transition-padding;
-    box-shadow: $transition-box-shadow; // skin
+    @include box-shadow($transition-box-shadow-top, $transition-box-shadow-left, $transition-box-shadow-blur, $transition-box-shadow-color);
     text-align: center;
 }

@@ -23,9 +23,9 @@ table {
 .ch-datagrid-controls caption,
 .ch-datagrid caption {
     text-align: $table-title-text-align;
-    font-weight: $table-title-font-weight;
+    font-weight: $table-title-text-weight;
     margin: $table-title-margin;
-    font-size: $table-title-font-size;
+    font-size: $table-title-text-size;
 }
 
 .ch-datagrid-controls thead tr,
@@ -37,7 +37,7 @@ table {
 .ch-datagrid th {
     background-color: $table-header-bg-color;
     border-left: $table-header-row-border-left;
-    font-size: $table-header-row-font-size;
+    font-size: $table-header-row-text-size;
     line-height: $table-header-row-line-height;
     padding: $table-header-row-padding;
     text-align: $table-header-row-text-align;
@@ -49,13 +49,13 @@ table {
 .ch-datagrid-controls th {
     background-color: $table-header-controls-bg-color;
     /* Bourbon output */
-    @include background-image(linear-gradient($table-header-controls-bg-color 0, $table-header-controls-bg-color-bottom 100%));
+    @include background-image(linear-gradient($table-header-controls-bg-color, $table-header-controls-bg-color-secondary));
     cursor: pointer;
 
     &:hover {
         background: $table-header-controls-hover-bg-color;
         /* Bourbon output */
-        @include background-image(linear-gradient($table-header-controls-hover-bg-color 0, $table-header-controls-hover-bg-color-bottom 100%));     
+        @include background-image(linear-gradient($table-header-controls-hover-bg-color, $table-header-controls-hover-bg-color-secondary));     
     }
 }
 
@@ -63,7 +63,7 @@ table {
 .ch-datagrid-controls th.ch-datagrid-selected {
     background: $table-header-controls-active-bg-color;
         /* Bourbon output */
-        @include background-image(linear-gradient($table-header-controls-active-bg-color 0, $table-header-controls-active-bg-bottom 100%));
+        @include background-image(linear-gradient($table-header-controls-active-bg-color, $table-header-controls-active-bg-secondary));
     border-top: $table-header-controls-active-border;
 }
 
@@ -106,16 +106,16 @@ table {
 
 /* IE */
 .lt-ie10 .ch-datagrid-controls th {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-bg-color', endColorstr=' $table-header-controls-bg-color-bottom');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-bg-color', endColorstr=' $table-header-controls-bg-color-secondary');
 }
 
 .lt-ie10 .ch-datagrid-controls th:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-hover-bg-color', endColorstr='$table-header-controls-hover-bg-bottom');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-hover-bg-color', endColorstr='$table-header-controls-hover-bg-secondary');
 }
 
 .lt-ie10 .ch-datagrid-controls th:active,
 .lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-active-bg-color', endColorstr='$table-header-controls-active-bg-bottom');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-active-bg-color', endColorstr='$table-header-controls-active-bg-secondary');
 }
 
 .lt-ie9 .ch-datagrid-controls thead tr,

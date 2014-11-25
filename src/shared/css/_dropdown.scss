@@ -9,7 +9,7 @@
     cursor: $dropdown-trigger-cursor;
     position: relative; 
     display: inline-block;
-    padding-right: $dropdown-trigger-padding;
+    padding: $dropdown-trigger-padding;
 
     /* Trigger Down icon */
     &:after {
@@ -32,8 +32,8 @@
     padding: 0;
     list-style: none;
     white-space: nowrap;
-    -webkit-box-shadow: $box-content-shadow;
-    box-shadow: $box-content-shadow;
+    /* Mixin output*/
+    @include box-shadow(2px, 2px, 2px, rgba(100, 100, 100, .1), inset);
     border-radius: $dropdown-border-radius;
     
     /* Container */
@@ -53,15 +53,14 @@
  * Primary skin
  */
 
-/* Trigger Actived */
+/* Trigger Active */
 .ch-dropdown-trigger-on,
 .ch-dropdown-trigger-on:hover {
     background-color: $trigger-active-bg-color;
     /* Bourbon output */
-    @include background-image(linear-gradient($trigger-active-bg-color-top 0, $trigger-active-bg-color 100%));
-    -webkit-box-shadow: $trigger-active-gradient;
-    box-shadow: $trigger-active-shadow;
-    border-color: $trigger-active-border-color;
+    @include background-image(linear-gradient($trigger-active-bg-color-top, $trigger-active-bg-color));
+    /* Mixin output*/
+    @include box-shadow($trigger-active-box-shadow-top, $trigger-active-box-shadow-left, $trigger-active-box-shadow-blur, $trigger-active-box-shadow-color);
     border-radius: $trigger-active-border-radius;
 }
 
@@ -76,36 +75,36 @@
  */
 /* Trigger */
 .ch-dropdown-trigger-skin {
-    background: $trigger-skin-bg;
+    background: $trigger-skin-bg-color;
     border: $trigger-skin-border;
     border-width: $trigger-skin-border-width;
     border-radius: $trigger-skin-border-radius;
-    color: $trigger-skin-font-color;
-    text-decoration: $trigger-skin-font-decoration;
+    color: $trigger-skin-text-color;
+    text-decoration: $trigger-skin-text-decoration;
     padding: $trigger-skin-padding;
 
     &:after {
-        color: $trigger-skin-font-color-after;  
+        color: $trigger-skin-after-text-color;  
     }
 
     /* Trigger Actived */
     :active {
-        color: $trigger-skin-font-color-active;
+        color: $trigger-skin-active-text-color;
     }
 }
 
 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on,
 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on:hover {
-    background-color: $trigger-on-active-bg-color;
+    background-color: $trigger-on-skin-bg-color;
     background-image: none;
 }
 
 /* Trigger ON */
 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on {
-    border-color: $trigger-on-active-border;
-    -webkit-box-shadow: $trigger-on-active-shadow;
-    box-shadow: $trigger-on-active-shadow;
-    border-radius: $trigger-on-active-border-radius;
+    border-color: $trigger-on-skin-border;
+    /* Mixin output*/
+    @include box-shadow($trigger-on-skin-box-shadow-top,$trigger-on-skin-box-shadow-left,$trigger-on-skin-box-shadow-blur,$trigger-on-skin-box-shadow-color);
+    border-radius: $trigger-on-skin-border-radius;
 }
 
 .ch-dropdown-trigger-skin.ch-btn-skin:active {

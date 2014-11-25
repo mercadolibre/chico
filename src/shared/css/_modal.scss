@@ -6,7 +6,8 @@
 .ch-modal {
     overflow: auto;
     padding: $modal-padding;
-    box-shadow: $modal-box-shadow;
+     /* Mixin output */
+    @include box-shadow($modal-box-shadow-top, $modal-box-shadow-left, $modal-box-shadow-blur, $modal-box-shadow-color);    
 }
 
 .ch-modal-lite {

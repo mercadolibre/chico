@@ -1,26 +1,29 @@
+@import 'wizard/wizard-variables-ml';
+
 /**
  * Wizard
  */
+
 .ch-wizard {
-    background-color: #fff;
-    border: 1px solid #DEDEDE;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    background-color: $wizard-bg-color;
+    border: $wizard-border;
+    border-radius: $wizard-border-radius;
+    margin: $wizard-margin;
 }
 
 .ch-wizard .ch-actions {
-    border-top: 1px solid #DEDEDE;
-    padding: 10px 20px;
-    border-radius: 0 0 5px 5px;
+    background: $wizard-actions-bg-color;
+    border-top: $wizard-actions-border;
+    padding: $wizard-actions-padding;
+    border-radius: $wizard-actions-border-radius;
 }
 
-.ch-wizard .ch-actions,
 .ch-wizard-breadcrumb a {
-    background: #F0F0F0;
+    background: $wizard-breadcrumb-link-bg-color;
 }
 
 .ch-wizard-breadcrumb {
-    list-style: none;
+    list-style: none; 
     margin: 0 0 5px;
     overflow: hidden;
     padding: 0;
@@ -29,8 +32,8 @@
 .ch-wizard-breadcrumb li {
     float: left;
     position: relative;
-    color: #CCCCCC;
-    text-align: center;
+    color: $wizard-breadcrumb-text-color;
+    text-align: $wizard-breadcrumb-text-position;
 }
 
 .ch-steps-two li {
@@ -56,14 +59,14 @@
 .ch-wizard-breadcrumb a,
 .ch-wizard-current,
 .ch-wizard-step {
-    border-bottom: 1px solid #DEDEDE;
+    border-bottom: $wizard-breadcrumb-border-bottom;
     display: block;
     line-height: 42px;
 }
 
 .ch-wizard-breadcrumb .ch-wizard-current {
-    font-weight: bold;
-    color: #333333;
+    font-weight: $wizard-breadcrumb-current-text-weight;
+    color:  $wizard-breadcrumb-current-text-color;
     border-bottom-color: transparent;
 }
 

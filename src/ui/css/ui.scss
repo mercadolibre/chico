@@ -3,9 +3,9 @@
 
 @import '../../../vendor/bourbon/bourbon';
 
-@import '../../shared/css/common/variables-ml';
+@import '../../shared/css/common/mixines';
 
-@import 'common/variables-ml';
+@import '../../shared/css/common/variables-ml';
 
 // Meyer's Reset
 //---------------------------------------------------------------
@@ -29,7 +29,7 @@
 
 // Autocomplete
 @import '../../shared/css/autocomplete';
-@import 'autocomplete';
+
 
 // badges
 @import 'badges';

@@ -18,13 +18,13 @@ $close-button-font: 							normal Arial;
 
 $close-button-active-color:						#fff;
 $close-button-active-bg-color:					#BF0602;
-$close-button-active-bg-color-bottom:			#8F2F00;
+$close-button-active-bg-color-secondary:		#8F2F00;
 
 // ----- Close button focus and hover ----- //
 
 $close-button-focus-hover-color: 				#fff;
 $close-button-focus-hover-bg-color: 			#FA5900;
-$close-button-focus-hover-bg-color-bottom:		#CA0C02;
+$close-button-focus-hover-bg-color-secondary:	#CA0C02;
 
 // -------------------------------------
 //   Structure variables
@@ -32,10 +32,19 @@ $close-button-focus-hover-bg-color-bottom:		#CA0C02;
 
 // ----- Close button ----- //
 
-$close-button-border:					1px solid #DEDEDE;
-$close-button-border-radius:			3px;
+$close-button-border:							1px solid #DEDEDE;
+$close-button-border-radius:					3px;
+$close-button-position-right:					10px;
+$close-button-position-top:						10px;
 
 // ----- Close button active, hover and focus ----- //
 
-$close-button-shadow:					0 1px 0 rgba(0,0,0,.5);
-$close-button-border:					none;
+$close-button-shadow:							0 1px 0 rgba(0,0,0,.5);
+$close-button-border:							none;
+
+// -------------------------------------
+//   Actions
+// -------------------------------------
+
+$actions-box-margin:							20px 0 0 0;
+$action-box-links-margin:						0 0 0 15px;

@@ -4,6 +4,6 @@
  * Layer
  */
 .ch-layer {
-    box-shadow: $layer-box-shadow;
+    @include box-shadow($layer-box-shadow-top, $layer-box-shadow-left, $layer-box-shadow-blur, $layer-box-shadow-color);
     position: absolute;
 }

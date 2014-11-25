@@ -5,27 +5,12 @@
 // *************************************
 
 // -------------------------------------
-//   General
+//   Skin variables
 // -------------------------------------
-
-$dropdown-trigger-cursor:			pointer;
-$dropdown-trigger-padding:			0 2em 0 0;
-$dropdown-border-radius:			0 5px 5px;
-
-// -------------------------------------
-//   Primary skin
-// -------------------------------------
-
-$box-content-shadow:				2px 2px 2px rgba(100, 100, 100, .1);
-$box-content-min-width:				120px;
 
 // ----- List-item ----- //
 
 $list-item-color:					#000;
-$list-item-height:					25px;
-$list-item-line-height: 			25px; // same as $dropdown-list-element-height
-$list-item-margin:					5px 0;
-$list-item-padding: 				2px 35px 2px 10px;
 $list-item-decoration:				none;
 
 // ----- Focus-item-list ----- //
@@ -35,42 +20,93 @@ $list-item-focus-outline: 			none;
 
 // ----- Trigger ----- //
 
-$trigger-active-bg-color:			#7AB6DC;
-$trigger-active-bg-color-top:		#A2C9E1;
+$trigger-active-bg-color:			#7ab6dc;
+$trigger-active-bg-color-top:		#a2c9e1;
 
-$trigger-active-gradient:			inset 0 1px 6px rgba(71, 98, 116, .6);
-$trigger-active-shadow:				0 1px 6px rgba(71, 98, 116, .6);
-$trigger-active-border-color:		#79A8C7;
+$trigger-active-border-color:		#79a8c7;
 $trigger-active-border-radius:		3px 3px 0 0;
 
-// ----- Trigger-ON ----- //
+// ----- Trigger active ----- //
 
-$trigger-on-active-bg-color:		#fff;
-$trigger-on-active-border:			#DEDEDE;
-$trigger-on-active-shadow:			2px 0 0 rgba(100, 100, 100, .1);
-$trigger-on-active-border-radius:	0;
+$trigger-active-bg-color:		#fff;
+$trigger-active-border:			#dedede;
+$trigger-active-border-radius:	0;
+
+	// Box shadow
+
+	$trigger-active-box-shadow-top:		0;
+	$trigger-active-box-shadow-left:	1px;
+	$trigger-active-box-shadow-blur:	6px;
+	$trigger-active-box-shadow-color:	rgba(71, 98, 116, .6);
 
 // -------------------------------------
 //   Secondary skin
 // -------------------------------------
 
-$skin-box-padding:					5px 10px;
-
-$skin-list-item-margin:				5px 0;
-
 $skin-list-item-bg-color:			none;
 $skin-list-item-color:				$blue-main;
+
+// ----- Trigger ----- //
+
+$trigger-skin-bg-color:				transparent;
+$trigger-skin-border:				1px solid transparent;
+$trigger-skin-border-radius:		0;
+$trigger-skin-text-color:			$blue-main;
+$trigger-skin-text-decoration:		none;
+
+// ----- Trigger after ----- //
+
+$trigger-skin-after-text-color: 	#999;
+
+// ----- Trigger active ----- //
+
+$trigger-skin-active-text-color:	#00d;
+
+// ----- Trigger on ----- //
+
+ $trigger-on-skin-bg-color:			#fff;
+ $trigger-on-skin-border:			#ededed;
+ $trigger-on-skin-border-radius:	0;
+
+	// Box shadow
+
+	$trigger-on-skin-box-shadow-top:   2px;
+	$trigger-on-skin-box-shadow-left:  0;
+	$trigger-on-skin-box-shadow-blur:  0;
+	$trigger-on-skin-box-shadow-color: rgba(100, 100, 100, .1);
+
+// -------------------------------------
+//   Structure variables
+// -------------------------------------
+
+// ----- General ----- //
+
+$dropdown-trigger-cursor:			pointer;
+$dropdown-trigger-padding:			5px 2em 5px 8px;
+$dropdown-border-radius:			0 5px 5px;
+
+// ----- Primary skin ----- //
+
+$box-content-min-width:				120px;
+
+// ----- List item ----- //
+
+$list-item-height:					25px;
+$list-item-line-height: 			25px; // same as $dropdown-list-element-height
+$list-item-margin:					5px 0;
+$list-item-padding: 				2px 35px 2px 10px;
+
+// ----- Secondary skin ----- //
+
+$skin-box-padding:					5px 10px;
+
+// ----- List item ----- //
+
+$skin-list-item-margin:				5px 0;
 $skin-list-item-line-height:		20px;
 $skin-list-item-padding:			0;
 
-$trigger-skin-bg:					transparent;
-$trigger-skin-border:				1px solid transparent;
-$trigger-skin-border-width:			0 1px;
-$trigger-skin-border-radius:		0;
-$trigger-skin-font-color:			$blue-main;
-$trigger-skin-font-decoration:		none;
-$trigger-skin-padding:				0 28px 0 13px;
-$trigger-skin-font-color-after: 	#999;
-$trigger-skin-font-color-active:	#00D;
+// ----- Trigger ----- //
 
-// >> Skin
+$trigger-skin-padding:				0 28px 0 13px;
+$trigger-skin-border-width:			0 1px;

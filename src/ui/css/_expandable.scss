@@ -1,21 +1,23 @@
+@import 'expandable/expandable-variables-ml';
+
 /**
  * expandable
  */
 /* Trigger */
 .ch-expandable-trigger {
-    color: #0033BB;
+    color: $expandable-trigger-text-color;
     cursor: pointer;
     position: relative;
-    padding-left: 16px;
-    font-size: 1em;
+    padding: $expandable-trigger-padding;
+    font-size: $expandable-trigger-text-size;
 
     &:active {
-        color: #00D;    
+        color: $expandable-trigger-active-text-color;  
     &:visited {
-        color: #800080;   
+        color: $expandable-trigger-visited-text-color;   
     }
     &:hover {
-        text-decoration: underline;        
+        text-decoration: $expandable-trigger-visited-text-decoration;       
     }
 }
 

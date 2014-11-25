@@ -1,3 +1,5 @@
+@import 'zoom/zoom-variables-ml';
+
 /* Anchor */
 .ch-zoom-trigger {
     position: relative;
@@ -8,32 +10,39 @@
 
 .ch-zoom-loading,
 .ch-zoom-seeker {
-    border: 1px solid #ccc;
     position: absolute;
-    z-index: 2;
+    z-index: 2;      
+}
+
+.ch-zoom-loading {
+    border: $zoom-loading-border;
+}
+
+.ch-zoom-seeker {
+    border: $zoom-seeker-border;
 }
 
 /* Loading transition */
 .ch-zoom-loading {
-    width: 100px;
-    height: 100px;
-    border-radius: 5px;
-    font-size: 11px;
-    color: #333;
+    width: $zoom-loading-width;
+    height: $zoom-loading-height;
+    border-radius: $zoom-loading-border-radius;
+    font-size: $zoom-loading-text-size;
+    color: $zoom-loading-text-color;
     text-align: center;
-    background-color: rgba(240, 240, 240, 0.75);
+    background-color: $zoom-loading-bg-color;
 }
 
 /* Seeker shape */
 .ch-zoom-seeker {
     cursor: crosshair;
-    background-color: rgba(240, 240, 240, 0.4);
+    background-color: $zoom-seeker-bg-color;
 }
 
 /* Zoomed area */
 .ch-zoom {
-    border: 1px solid #ccc;
-    background-color: #fff;
+    border: $zoom-area-border;
+    background-color: $zoom-area-bg-color;
     position: absolute;
 }
 
@@ -52,11 +61,11 @@
 
 /* IE8- */
 .lt-ie9 .ch-zoom-loading {
-    background-color: #f0f0f0;
-    filter: alpha(opacity=90);
+    background-color: $zoom-loading-ie9-bg-color;
+    filter: alpha(opacity=$zoom-loading-ie9-opacity);
 }
 
 .lt-ie9 .ch-zoom-seeker {
-    background-color: #f0f0f0;
-    filter: alpha(opacity=50);
+    background-color: $zoom-seeker-ie9-bg-color;
+    filter: alpha(opacity=$zoom-seeker-ie9-opacity);
 }

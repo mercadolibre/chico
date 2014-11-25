@@ -4,5 +4,11 @@
 //
 // *************************************
 
-$transition-padding:			40px;
-$transition-box-shadow:			0 3px 14px #444;
+$transition-padding:				40px;
+
+	// Box shadow
+
+	$transition-box-shadow-top:		0;
+	$transition-box-shadow-left:	3px;
+	$transition-box-shadow-blur:	14px;
+	$transition-box-shadow-color:	#444;

@@ -1,63 +1,63 @@
+@import 'tabs/tabs-variables-ml';
+
 /**
  * Tab Navigator
  */
 .ch-tabs {
-    margin: 10px 0;
+    margin: $tabs-component-margin;
 
     .ch-tabs-triggers {
         position: relative;
         top: 1px;
         z-index: 10;
         padding: 0;
-        margin: 0 0 0 10px;
+        margin: $tab-group-margin;
         list-style: none;
         overflow: hidden;
 
         & li {
             cursor: pointer;
             display: inline;
-            margin-right: 0;           
+            margin: $tab-margin;
         }
     }
 }
 
 /* Triggers */
 .ch-tab {
-    border: 1px solid #DEDEDE;
+    border: $tab-border;
     display: inline-block;
-    padding: 3px 12px;
-    margin-right: 2px;
-    text-decoration: none !important;
-    color: #333333 !important;
-    background-color: #fff;
-    border-radius: 5px 5px 0 0;
+    padding: $tab-padding;
+    margin: $tab-margin;
+    text-decoration: $tab-text-underline !important;
+    color: $tab-text-color !important; 
+    background-color: $tab-bg-color;
+    border-radius: $tab-border-radius;
 
     &:hover {
-        background-color: #F0F0F0;   
+        background-color: $tab-hover-bg-color;
     }
 
     &:active {
-        background-color: #F0F0F0;   
+        background-color: $tab-active-bg-color;
     }
 }
 
 /* Trigger ON */
 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F0F0F0), color-stop(100%, #FFFFFF));
-    background-image: -webkit-linear-gradient(#F0F0F0, #FFFFFF 25px);
-    background-image: -moz-linear-gradient(#F0F0F0, #FFFFFF 25px);
-    background-image: -o-linear-gradient(#F0F0F0, #FFFFFF 25px);
-    background-image: linear-gradient(#F0F0F0, #FFFFFF 25px);
-    border-bottom: 1px solid #FFFFFF;
+    /* Bourbon mixin */
+    @include linear-gradient($tab-trigger-bg-color, $tab-trigger-bg-color-secondary);
+    border-bottom: 1px solid #FFFFFF; // $tab-trigger-border-bottom;
     cursor: default;
-    font-weight: bold;
-    text-shadow: 2px 0 2px rgba(255, 255, 255, .5);
+    font-weight: bold; // $tab-trigger-text-weigth;
+     /* Mixin output */
+    @include box-shadow($tab-trigger-box-shadow-top, $tab-trigger-box-shadow-left, $tab-trigger-box-shadow-blur, $tab-trigger-box-shadow-color);
 }
 
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F0F0F0', endColorstr='#FFFFFF');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$tab-trigger-bg-color', endColorstr='$tab-trigger-bg-color-secondary');
 }
 
 /* Container */
