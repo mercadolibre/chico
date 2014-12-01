@@ -1,11 +1,11 @@
-var countdown = $('#input_user').countdown(),
-    countdown2 = $('#input_location').countdown(10),
+var countdown = new ch.Countdown(document.getElementById('input_user')),
+    countdown2 = new ch.Countdown(document.getElementById('input_location'), {'max': 10}),
     readyEvent = jasmine.createSpy('readyEvent'),
     exceedEvent = jasmine.createSpy('exceedEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
     layoutChangeEvent = jasmine.createSpy('layoutChangeEvent');
 
-$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
+ch.util.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Countdown', function () {
     countdown
@@ -18,11 +18,6 @@ describe('Countdown', function () {
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Countdown')).toBeTruthy();
         expect(typeof ch.Countdown).toEqual('function');
-    });
-
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('countdown')).toBeTruthy();
-        expect(typeof $.fn.countdown).toEqual('function');
     });
 
     it('should be return a new instance', function () {
@@ -39,16 +34,16 @@ describe('Countdown', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.$trigger', function () {
-        expect(countdown.$trigger).not.toEqual(undefined);
-        expect(countdown.$trigger[0].nodeType).toEqual(1);
-        expect(countdown.$trigger instanceof $).toBeTruthy();
+    it('.trigger', function () {
+        expect(countdown.trigger).not.toEqual(undefined);
+        expect(countdown.trigger.nodeType).toEqual(1);
+        expect(countdown.trigger instanceof HTMLElement).toBeTruthy();
     });
 
-    it('.$container', function () {
-        expect(countdown.$container).not.toEqual(undefined);
-        expect(countdown.$container[0].nodeType).toEqual(1);
-        expect(countdown.$container instanceof $).toBeTruthy();
+    it('.container', function () {
+        expect(countdown.container).not.toEqual(undefined);
+        expect(countdown.container.nodeType).toEqual(1);
+        expect(countdown.container instanceof HTMLElement).toBeTruthy();
     });
 
     it('.name', function () {
@@ -85,49 +80,52 @@ describe('It should have the following public methods:', function () {
 });
 
 describe('It should create a container', function () {
-    var $container = countdown.$container;
+    var container = countdown.container;
 
     it('should exists.', function () {
-        expect($container).not.toEqual(undefined);
-        expect($container[0].nodeType).toEqual(1);
+        expect(container).not.toEqual(undefined);
+        expect(container.nodeType).toEqual(1);
     });
 
     it('should add "ch-form-hint" classname to the element', function () {
-       expect($container.hasClass('ch-form-hint')).toBeTruthy();
+       expect(ch.util.classList(container).contains('ch-form-hint')).toBeTruthy();
     });
 
     it('should set this message by default: "500 characters left."', function () {
-       expect($container.text()).toEqual('500 characters left.');
+       expect(container.innerText).toEqual('500 characters left.');
     });
 });
 
 describe('It should create a message container', function () {
-    var $container = countdown.$container;
+    var container = countdown.container;
 
     it('should exists.', function () {
-        expect($container).not.toEqual(undefined);
-        expect($container[0].nodeType).toEqual(1);
+        expect(container).not.toEqual(undefined);
+        expect(container.nodeType).toEqual(1);
     });
 
     it('should add "ch-form-hint" classname to the element', function () {
-       expect($container.hasClass('ch-form-hint')).toBeTruthy();
+       expect(ch.util.classList(container).contains('ch-form-hint')).toBeTruthy();
     });
 
     it('should set this message by default: "500 characters left."', function () {
-       expect($container.text()).toEqual('500 characters left.');
+       expect(container.innerText).toEqual('500 characters left.');
     });
 });
 
 describe('It should update the number on the message', function () {
-    var $container = countdown2.$container;
+    var container = countdown2.container;
 
     it('if it exceeds the number should add errors classnames: "ch-countdown-exceeded" and "ch-validation-error"', function () {
-        countdown2.$trigger.attr('value', '12345678901234567890').keyup();
+        countdown2.trigger.setAttribute('value', '12345678901234567890');
+        ch.util.Event.createCustom('keyup');
+        ch.util.Event.dispatchEvent(countdown2.trigger,'keyup');
+
         waits(50);
         runs(function(){
-            expect($container.text()).toEqual('-10 characters left.');
-            expect($container.hasClass('ch-countdown-exceeded')).toBeTruthy();
-            expect(countdown2.$trigger.hasClass('ch-validation-error')).toBeTruthy();
+            expect(container.innerText).toEqual('-10 characters left.');
+            expect(ch.util.classList(container).contains('ch-countdown-exceeded')).toBeTruthy();
+            expect(ch.util.classList(countdown2.trigger).contains('ch-validation-error')).toBeTruthy();
         });
     });
 
@@ -137,10 +135,13 @@ describe('It should update the number on the message', function () {
 
 
     it('if doesn\'t exceed the number should update the number to 0', function () {
-        countdown2.$trigger.attr('value', '1234567890').keyup();
+        countdown2.trigger.setAttribute('value', '1234567890');
+        ch.util.Event.createCustom('keyup');
+        ch.util.Event.dispatchEvent(countdown2.trigger,'keyup');
+
         waits(50);
         runs(function(){
-            expect($container.text()).toEqual('0 characters left.');
+            expect(container.innerText).toEqual('0 characters left.');
         });
     });
 
@@ -148,17 +149,13 @@ describe('It should update the number on the message', function () {
 
 describe('Its destroy() method', function () {
 
-    it('should remove the $container', function () {
+    it('should remove the container', function () {
         countdown2.destroy();
-        expect(countdown2.$container.parent().length === 0).toBeTruthy();
+        expect(countdown2.container.parentNode === null).toBeTruthy();
     });
 
     it('should remove ".countdown" events', function () {
-        expect($._data(countdown2.$trigger[0], 'events')).toBeUndefined();
-    });
-
-    it('should remove the instance from the element', function () {
-        expect(countdown2._$el.data('countdown')).toBeUndefined();
+        expect(ch.Component.instances[countdown2.uid]).toBeUndefined();
     });
 
     it('should emit the "layoutchange" event', function () {

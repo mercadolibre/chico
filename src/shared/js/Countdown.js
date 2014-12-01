@@ -47,7 +47,7 @@
          */
         var that = this;
 
-        that._init(el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -67,7 +67,7 @@
          *     // Some code here!
          * });
          */
-        window.setTimeout(function () { that.emit("ready"); }, 50);
+        window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
     // Inheritance
@@ -274,7 +274,8 @@
 
         // this.$trigger.off('.countdown');
 
-        this.container.remove();
+        var parentElement = ch.util.parentElement(this.container);
+            parentElement.removeChild(this.container);
 
         ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
 
