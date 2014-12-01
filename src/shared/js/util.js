@@ -542,20 +542,19 @@
             var parent = el.parentNode,
                 tag = tagname ? tagname.toUpperCase() : tagname;
 
+            if (parent === null) { return parent; }
 
-            if (parent !== null) {
-                if (parent.nodeType !== document.ELEMENT_NODE) {
-                    return this.parentElement(parent, tag);
-                } else {
-                    if (tagname !== undefined && parent.tagName === tag) {
-                        return parent;
-                    } else if (tagname !== undefined && parent.tagName !== tag) {
-                        return this.parentElement(parent, tag);
-                    } else if (tagname === undefined) {
-                        return parent;
-                    }
-                }
+            if (parent.nodeType !== document.ELEMENT_NODE) {
+                return this.parentElement(parent, tag);
+            }
+
+            if (tagname !== undefined && parent.tagName === tag) {
+                return parent;
+            } else if (tagname !== undefined && parent.tagName !== tag) {
+                return this.parentElement(parent, tag);
+            } else if (tagname === undefined) {
                 return parent;
             }
+
         }
     };
