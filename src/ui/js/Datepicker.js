@@ -528,9 +528,8 @@
      * datepicker.destroy();
      */
     Datepicker.prototype.destroy = function () {
-        var parent = ch.util.parentElement(this.trigger);
 
-        parent.removeChild(this.trigger);
+        ch.util.parentElement(this.trigger).removeChild(this.trigger);
 
         this._el.removeAttribute('aria-describedby');
         this._el.type = 'date';
