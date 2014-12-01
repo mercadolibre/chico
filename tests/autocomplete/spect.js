@@ -66,7 +66,7 @@ describe('It should have the following public properties:', function () {
         expect(autocomplete._el instanceof HTMLInputElement).toBeTruthy();
     });
 
-    it('.$trigger', function () {
+    it('.trigger', function () {
         expect(autocomplete.trigger).not.toEqual(undefined);
         expect(autocomplete.trigger instanceof HTMLElement).toBeTruthy();
     });
