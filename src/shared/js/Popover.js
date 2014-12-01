@@ -633,8 +633,8 @@
             this.trigger.removeAttribute('data-align');
             this.trigger.removeAttribute('role');
 
-            this.setAttribute('alt', this._snippet.alt);
-            this.setAttribute('title', this._snippet.title);
+            this._snippet.alt ? this.trigger.setAttribute('alt', this._snippet.alt) : null;
+            this._snippet.title ? this.trigger.setAttribute('title', this._snippet.title) : null;
         }
 
         ch.util.Event.removeListener(document, ch.onlayoutchange, this._refreshPositionListener);
