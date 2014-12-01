@@ -142,12 +142,13 @@
          */
         this._items = (function () {
                 var item,
-                    collection = that._list.children,
+                    // uses querySelectorAll because it need a static collection
+                    collection = that._list.querySelectorAll('li'),
                     collectionLength = collection.length;
 
-                for (item = 0; item < collectionLength; item++) {
-                    ch.util.classList(collection[item]).add('ch-carousel-item');
-                }
+                Array.prototype.forEach.call(collection, function(item){
+                    ch.util.classList(item).add('ch-carousel-item');
+                });
 
                 return collection;
             }());
@@ -379,8 +380,8 @@
             ].join(''),
             // It stores <LI> that will be added to the DOM collection
             items = '',
-            // Wrapped items
-            $items;
+            // It stores the items that must be added, it helps to slice the items in the list
+            counter = 0;
 
         // Load only when there are items to add
         if (amount < 1) { return; }
@@ -392,13 +393,15 @@
         while (amount) {
             items += item;
             amount -= 1;
+            counter += 1;
         }
 
         // Add sample items to the list
         this._list.insertAdjacentHTML('beforeend', items);
 
         // Update items collection
-        this._items = this._list.children;
+        // uses querySelectorAll because it need a static collection
+        this._items = this._list.querySelectorAll('li');
 
         // Set WAI-ARIA properties to each item
         this._updateARIA();
@@ -420,7 +423,7 @@
          *     });
          * });
          */
-        this.emit('itemsadd', $items);
+        this.emit('itemsadd', Array.prototype.slice.call(this._items, -counter));
     };
 
     /**
@@ -620,7 +623,7 @@
         // Do it before item resizing to make space to all items
         // Delete efects on list to change width instantly
         this._standbyFX(function () {
-            this._list.style.width = this._pageWidth * this._pages;
+            this._list.style.cssText = this._list.style.cssText + ' ' + 'width:' + (this._pageWidth * this._pages) + 'px;';
         });
 
         // Get the height using new width and relation between width and height of item (ratio)
@@ -670,10 +673,12 @@
      */
     Carousel.prototype._disableArrows = function (prev, next) {
         this._prevArrow.setAttribute('aria-disabled', prev);
+        this._prevArrow.setAttribute('aria-hidden', prev);
         ch.util.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
 
         this._nextArrow.setAttribute('aria-disabled', next);
-        ch.util.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
+        this._nextArrow.setAttribute('aria-hidden', next);
+        ch.util.classList(this._nextArrow)[next ? 'add' : 'remove']('ch-carousel-disabled');
     };
 
     /**
@@ -791,7 +796,8 @@
         // Update items collection
         if (this._list.children.length !== this._items.length) {
             // Update the entire reference to items
-            this._items = this._list.children;
+            // uses querySelectorAll because it need a static collection
+            this._items = this._list.querySelectorAll('li');
             // Calculates the total amount of pages and executes internal methods
             this._updatePages();
             // Go to the last page in case that the current page no longer exists
