@@ -138,10 +138,13 @@
         });
 
         // Bind the reset
-        ch.util.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
-            ch.util.prevent(event);
-            that.reset();
-        });
+        if (this.container.querySelector('input[type="reset"]')) {
+            ch.util.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
+                ch.util.prevent(event);
+                that.reset();
+            });
+        }
+
 
         // Clean validations
         this.on('disable', this.clear);
