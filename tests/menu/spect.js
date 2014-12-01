@@ -1,16 +1,16 @@
-var menu1 = $("#menu-1").menu({'fx': false}),
-    menu2 = $("#menu-2").menu(),
+var menu1 = new ch.Menu(document.getElementById('menu-1'), {'fx': false}),
+    menu2 = new ch.Menu(document.getElementById('menu-2')),
     readyEvent = jasmine.createSpy('readyEvent'),
     showEvent = jasmine.createSpy('showEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
     layoutChangeEvent = jasmine.createSpy('layoutChangeEvent'),
-    $container = menu1.$container,
-    $children = menu1.$container.children(),
-    $expandable = menu1.folds[0],
-    $bellows = menu1.$container.children(':last-child');
+    container = menu1.container,
+    children = menu1.container.children,
+    expandable = menu1.folds[0],
+    bellows = menu1.container.lastElementChild;
 
-$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
+ch.util.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Menu', function () {
     menu1.on('ready', function () { readyEvent(); });
@@ -18,11 +18,6 @@ describe('Menu', function () {
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Menu')).toBeTruthy();
         expect(typeof ch.Menu).toEqual('function');
-    });
-
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('menu')).toBeTruthy();
-        expect(typeof $.fn.menu).toEqual('function');
     });
 
     it('should be return a new instance', function () {
@@ -45,9 +40,9 @@ describe('Menu', function () {
 describe('It should have the following public properties:', function () {
 
     it('.$container', function () {
-        expect($container).not.toEqual(undefined);
-        expect($container[0].nodeType).toEqual(1);
-        expect($container instanceof $).toBeTruthy();
+        expect(container).not.toEqual(undefined);
+        expect(container.nodeType).toEqual(1);
+        expect(container instanceof HTMLElement).toBeTruthy();
     });
 
     it('.name', function () {
@@ -86,37 +81,37 @@ describe('It should have the following public methods:', function () {
 describe('It should have a container and', function () {
 
     it('should have the ".ch-menu" class name', function () {
-        expect($container.hasClass('ch-menu')).toBeTruthy();
+        expect(ch.util.classList(container).contains('ch-menu')).toBeTruthy();
     });
 
     it('should have the WAI-ARIA role "navigation"', function () {
-       expect($container.attr('role')).toEqual('navigation');
+       expect(container.getAttribute('role')).toEqual('navigation');
     });
 });
 
 describe('It should have children and it', function () {
 
     it('have a "ch-menu-fold" class name', function () {
-        expect($children.hasClass('ch-menu-fold')).toBeTruthy();
+        expect(ch.util.classList(children[0]).contains('ch-menu-fold')).toBeTruthy();
     });
 
     describe('should be Expandables and', function () {
         it('should exist', function () {
-            expect($expandable instanceof ch.Expandable).toBeTruthy();
+            expect(expandable instanceof ch.Expandable).toBeTruthy();
         });
 
         it('its container should have the WAI-ARIA role "menu"', function () {
-            expect($children.children(':last-child').attr('role')).toEqual('menu');
+            expect(children[0].children[children[0].children.length - 1].getAttribute('role')).toEqual('menu');
         });
 
         it('the links insid its container should have the WAI-ARIA role "menuitem"', function () {
-            expect($children.children(':last-child').children().children().attr('role')).toEqual('menuitem');
+            expect(children[0].children[children[0].children.length - 1].children[0].children[0].getAttribute('role')).toEqual('menuitem');
         });
 
     });
 
     it('should have the WAI-ARIA role "presentation" if it\'s not expandables', function () {
-        expect($bellows.attr('role')).toEqual('presentation');
+        expect(bellows.getAttribute('role')).toEqual('presentation');
     });
 
 });
@@ -128,7 +123,7 @@ describe('Its show() method', function () {
 
     it('should be call with parameters', function () {
         instance = menu1.show(1);
-        expect($children.eq(0).children(':last-child').hasClass('ch-hide')).toBeFalsy();
+        expect(ch.util.classList(children[0].children[children[0].children.length - 1]).contains('ch-hide')).toBeFalsy();
     });
 
     it('should emit the "show" event', function () {
@@ -147,7 +142,7 @@ describe('Its hide() method', function () {
 
     it('should be call with parameters', function () {
         instance = menu1.hide(1);
-        expect($children.eq(0).children(':last-child').hasClass('ch-hide')).toBeTruthy();
+        expect(ch.util.classList(children[0].children[children[0].children.length - 1]).contains('ch-hide')).toBeTruthy();
     });
 
     it('should emit the "hide" event', function () {
@@ -161,7 +156,7 @@ describe('Its hide() method', function () {
 
 describe('An instance by default', function () {
     it('should has its containers hidden', function () {
-        expect($children.eq(0).children(':last-child').hasClass('ch-hide')).toBeTruthy();
+        expect(ch.util.classList(children[0].children[children[0].children.length - 1]).contains('ch-hide') ).toBeTruthy();
     });
 });
 
@@ -171,13 +166,13 @@ describe('Its disable() method', function () {
     it('should receive an optional fold to disable', function () {
         instance = menu1.disable(1);
         menu1.show(1);
-        expect(menu1.folds[0].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(menu1.folds[0].trigger).contains('ch-expandable-trigger-on')).toBeFalsy();
     });
 
     it('should prevent to show new folds', function () {
         instance = menu1.disable();
         menu1.show(2);
-        expect(menu1.folds[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(menu1.folds[1].trigger).contains('ch-expandable-trigger-on')).toBeFalsy();
     });
 
     it('should return the same instance than initialized component', function () {
@@ -191,13 +186,13 @@ describe('Its enable() method', function () {
     it('should receive an optional fold to enable', function () {
         instance = menu1.enable(1);
         menu1.show(1);
-        expect(menu1.folds[0].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        expect(ch.util.classList(menu1.folds[0].trigger).contains('ch-expandable-trigger-on')).toBeTruthy();
     });
 
     it('should prevent to show its container', function () {
         instance = menu1.enable();
         menu1.show(2);
-        expect(menu1.folds[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        expect(ch.util.classList(menu1.folds[1].trigger).contains('ch-expandable-trigger-on')).toBeTruthy();
     });
 
     it('should return the same instance than initialized component', function () {
@@ -210,13 +205,13 @@ describe('Its enable() method', function () {
 describe('Its destroy() method', function () {
     menu2.on('destroy', function () { destroyEvent(); });
 
-    it('should reset the $container', function () {
+    it('should reset the container', function () {
         menu2.destroy();
-        expect(menu2.$container.parent().length === 0).toBeTruthy();
+        expect(ch.util.parentElement(menu2.container) === null).toBeTruthy();
     });
 
     it('should remove the instance from the element', function () {
-        expect(menu2._$el.data('menu')).toBeUndefined();
+        expect(ch.Component.instances[menu2.uid]).toBeUndefined();
     });
 
     it('should emit the "layoutchange" event', function () {
