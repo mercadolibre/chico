@@ -1,4 +1,4 @@
-var expandable1 = $("#expandable-1").expandable(),
+var expandable1 = new ch.Expandable(document.getElementById('expandable-1')),
     beforeshowEvent = jasmine.createSpy('beforeshowEvent'),
     showEvent = jasmine.createSpy('showEvent'),
     beforehideEvent = jasmine.createSpy('beforehideEvent'),
@@ -6,15 +6,15 @@ var expandable1 = $("#expandable-1").expandable(),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
     layoutChangeEvent = jasmine.createSpy('layoutChangeEvent'),
-    expandable2 = $("#expandable-2").expandable({
-        'container': $('#container-2')
+    expandable2 = new ch.Expandable(document.getElementById('expandable-2'), {
+        'container': document.getElementById('container-2')
     }),
-    expandable3 = $("#expandable-3").expandable({
+    expandable3 = new ch.Expandable(document.getElementById('expandable-3'), {
             'toggle': false
         })
         .on('destroy', destroyEvent);
 
-$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
+ch.util.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Expandable', function () {
     expandable1
@@ -27,11 +27,6 @@ describe('Expandable', function () {
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Expandable')).toBeTruthy();
         expect(typeof ch.Expandable).toEqual('function');
-    });
-
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('expandable')).toBeTruthy();
-        expect(typeof $.fn.expandable).toEqual('function');
     });
 
     it('should be return a new instance', function () {
@@ -65,16 +60,16 @@ describe('Expandable', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.$trigger', function () {
-        expect(expandable1.$trigger).not.toEqual(undefined);
-        expect(expandable1.$trigger[0].nodeType).toEqual(1);
-        expect(expandable1.$trigger instanceof $).toBeTruthy();
+    it('.trigger', function () {
+        expect(expandable1.trigger).not.toEqual(undefined);
+        expect(expandable1.trigger.nodeType).toEqual(1);
+        expect(expandable1.trigger instanceof HTMLElement).toBeTruthy();
     });
 
-    it('.$container', function () {
-        expect(expandable1.$container).not.toEqual(undefined);
-        expect(expandable1.$container[0].nodeType).toEqual(1);
-        expect(expandable1.$container instanceof $).toBeTruthy();
+    it('.container', function () {
+        expect(expandable1.container).not.toEqual(undefined);
+        expect(expandable1.container.nodeType).toEqual(1);
+        expect(expandable1.container instanceof HTMLElement).toBeTruthy();
     });
 
     it('.name', function () {
@@ -111,66 +106,66 @@ describe('It should have the following public methods:', function () {
 });
 
 describe('It should have a trigger and', function () {
-    var $trigger = expandable1.$trigger;
+    var trigger = expandable1.trigger;
 
     it('should have the WAI-ARIA attribute "aria-controls"', function () {
-       expect($trigger.attr('aria-controls')).toEqual(expandable1.$container[0].id);
+       expect(trigger.getAttribute('aria-controls')).toEqual(expandable1.container.getAttribute('id'));
     });
 
     describe('should have the following class names:', function () {
 
         it('.ch-expandable-trigger', function () {
-            expect($trigger.hasClass('ch-expandable-trigger')).toBeTruthy();
+            expect(ch.util.classList(trigger).contains('ch-expandable-trigger')).toBeTruthy();
         });
 
         it('.ch-expandable-ico', function () {
-            expect($trigger.hasClass('ch-expandable-ico')).toBeTruthy();
+            expect(ch.util.classList(trigger).contains('ch-expandable-ico')).toBeTruthy();
         });
 
         it('.ch-user-no-select', function () {
-            expect($trigger.hasClass('ch-user-no-select')).toBeTruthy();
+            expect(ch.util.classList(trigger).contains('ch-user-no-select')).toBeTruthy();
         });
     });
 
 });
 
 describe('It should have a container and', function () {
-    var $container = expandable1.$container;
+    var container = expandable1.container;
 
     it('shold be hidden', function () {
-        expect($container.hasClass('ch-hide')).toBeTruthy();
+        expect(ch.util.classList(container).contains('ch-hide')).toBeTruthy();
     });
 
     it('should have the WAI-ARIA attribute "aria-expanded" in "false"', function () {
-       expect($container.attr('aria-expanded')).toEqual('false');
+       expect(container.getAttribute('aria-expanded')).toEqual('false');
     });
 
     describe('Should have the following class names:', function () {
 
         it('.ch-expandable-container', function () {
-            expect($container.hasClass('ch-expandable-container')).toBeTruthy();
+            expect(ch.util.classList(container).contains('ch-expandable-container')).toBeTruthy();
         });
 
     });
 });
 
 describe('Its show() method', function () {
-    var $trigger = expandable1.$trigger,
-        $container = expandable1.$container,
+    var trigger = expandable1.trigger,
+        container = expandable1.container,
         instance;
 
     it('should add "ch-expandable-trigger-on" class name to trigger', function () {
-        expect($trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(trigger).contains('ch-expandable-trigger-on')).toBeFalsy();
         instance = expandable1.show();
-        expect($trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        expect(ch.util.classList(trigger).contains('ch-expandable-trigger-on')).toBeTruthy();
     });
 
     it('should remove "ch-hide" class name from container.', function () {
-        expect($container.hasClass('ch-hide')).toBeFalsy();
+        expect(ch.util.classList(container).contains('ch-hide')).toBeFalsy();
     });
 
     it('should update the WAI-ARIA attribute "aria-expanded" to "true" on container', function () {
-        expect($container.attr('aria-expanded')).toEqual('true');
+        expect(container.getAttribute('aria-expanded')).toEqual('true');
     });
 
     it('should emit the "beforeshow" and "show" events', function () {
@@ -184,21 +179,21 @@ describe('Its show() method', function () {
 });
 
 describe('Its hide() method', function () {
-    var $trigger = expandable1.$trigger,
-        $container = expandable1.$container,
+    var trigger = expandable1.trigger,
+        container = expandable1.container,
         instance;
 
     it('should remove "ch-expandable-trigger-on" class name to trigger', function () {
         instance = expandable1.hide();
-        expect($trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(trigger).contains('ch-expandable-trigger-on')).toBeFalsy();
     });
 
     it('should add "ch-hide" class name to container', function () {
-        expect($container.hasClass('ch-hide')).toBeTruthy();
+        expect(ch.util.classList(container).contains('ch-hide')).toBeTruthy();
     });
 
     it('should update the WAI-ARIA attribute "aria-expanded" to "false" on container', function () {
-        expect($container.attr('aria-expanded')).toEqual('false');
+        expect(container.getAttribute('aria-expanded')).toEqual('false');
     });
 
     it('should emit the "beforehide" and "hide" events', function () {
@@ -239,7 +234,7 @@ describe('Its disable() method', function () {
     it('should prevent to show its container', function () {
         instance = expandable1.disable();
         expandable1.show();
-        expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(expandable1.trigger).contains('ch-expandable-trigger-on')).toBeFalsy();
     });
 
     it('should return the same instance than initialized component', function () {
@@ -253,7 +248,7 @@ describe('Its enable() method', function () {
     it('should prevent to show its container', function () {
         instance = expandable1.enable();
         expandable1.show();
-        expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        expect(ch.util.classList(expandable1.trigger).contains('ch-expandable-trigger-on')).toBeTruthy();
     });
 
     it('should return the same instance than initialized component', function () {
@@ -266,42 +261,45 @@ describe('Its enable() method', function () {
 describe('Instance an Expandable configured', function () {
 
     it('with custom container', function () {
-        var $container = expandable2.$container;
-        expect($container).not.toEqual(undefined);
-        expect($container[0].nodeType).toEqual(1);
-        expect($container instanceof $).toBeTruthy();
-        expect($container).toEqual($('#container-2'));
+        var container = expandable2.container;
+        expect(container).not.toEqual(undefined);
+        expect(container.nodeType).toEqual(1);
+        expect(container instanceof HTMLElement).toBeTruthy();
+        expect(container).toEqual(document.getElementById('container-2'));
     });
 
     it('without toggle', function () {
         expandable3.show();
-        expect(expandable3.$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        expect(ch.util.classList(expandable3.trigger).contains('ch-expandable-trigger-on')).toBeTruthy();
 
         expandable3.hide();
-        expect(expandable3.$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(expandable3.trigger).contains('ch-expandable-trigger-on')).toBeFalsy();
     });
 });
 
 describe('Its destroy() method', function () {
 
-    it('should reset the $trigger', function () {
+    it('should reset the trigger', function () {
         expandable3.destroy();
-        expect(expandable3.$trigger.hasClass('ch-expandable-trigger ch-expandable-ico ch-user-no-select')).toBeFalsy();
-        expect(expandable3.$trigger.attr('aria-controls')).toBeUndefined();
+        expect(ch.util.classList(expandable3.trigger).contains('ch-expandable-trigger')).toBeFalsy();
+        expect(ch.util.classList(expandable3.trigger).contains('ch-user-no-select')).toBeFalsy();
+        expect(ch.util.classList(expandable3.trigger).contains('ch-expandable-ico')).toBeFalsy();
+        expect(ch.util.classList(expandable3.trigger).contains('ch-user-no-select')).toBeFalsy();
+        expect(expandable3.trigger.getAttribute('aria-controls')).toEqual(null);
     });
 
-    it('should reset the $container', function () {
-        expect(expandable3.$container.hasClass('ch-expandable-container')).toBeFalsy();
-        expect(expandable3.$container.attr('aria-expanded')).toBeUndefined();
-        expect(expandable3.$container.attr('aria-hidden')).toBeUndefined();
+    it('should reset the container', function () {
+        expect(ch.util.classList(expandable3.container).contains('ch-expandable-container')).toBeFalsy();
+        expect(expandable3.container.getAttribute('aria-expanded')).toEqual(null);
+        expect(expandable3.container.getAttribute('aria-hidden')).toEqual(null);
     });
 
     it('should remove ".expandable" events', function () {
-        expect($._data(expandable3.$trigger[0], 'events')).toBeUndefined();
+        expect($._data(expandable3.trigger, 'events')).toBeUndefined();
     });
 
     it('should remove the instance from the element', function () {
-        expect(expandable3._$el.data('expandable')).toBeUndefined();
+        expect(ch.Component.instances[expandable3.uid]).toBeUndefined();
     });
 
     it('should emit the "layoutchange" event', function () {
