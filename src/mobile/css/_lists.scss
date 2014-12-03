@@ -1,37 +1,38 @@
+@import 'lists/lists-variables-ml';
 /**
  * List
  */
 .ch-list {
-	margin-bottom: 10px;
+	margin: $list-margin;
 
 	li {
-		margin-left: 10px;
-		padding: 3px 0;
-		line-height: 1.286em; /* 18px */		
+		margin-left: $list-item-margin;
+		padding: $list-item-padding;
+		line-height: $list-item-line-height;
 	}
 }
 
 ul.ch-list {
-	list-style: disc inside;
+	list-style: $list-ordered-bullet;	
 }
 
 ol.ch-list {
-	list-style: decimal inside;
+	list-style: $list-unordered-bullet;
 }
 
 dl.ch-list {
-	margin-bottom: 18px;
+	margin:$list-definition-margin;
 }
 
 dl.ch-list dt,
 dl.ch-list dd {
-	line-height: 1.286em; /* 18px */
+	line-height: $list-definition-item-line-height;
 }
 
 dl.ch-list dt {
-	font-weight: bold;
+	font-weight: $list-definition-term-text-weight;
 }
 
 dl.ch-list dd {
-	margin: 5px 0 10px 10px;
+	margin: $list-definition-description-element-margin;
 }

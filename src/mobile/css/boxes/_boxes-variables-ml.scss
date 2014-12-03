@@ -1,0 +1,36 @@
+// *************************************
+//
+//   Boxes Mobile
+//
+// *************************************
+
+$box-bg-color: 						 #F0F0F0;
+
+// ----- Box list ----- //
+
+$box-list-bg-color: 				 #f4f4f4;
+$box-list-border: 					 1px solid #dedede;
+$box-list-padding: 					 0;
+
+// ----- Box list item ----- //
+
+$box-list-item-border-bottom: 		 1px dotted #ccc;
+$box-list-item-color: 				 #666;
+$box-list-item-text-size: 			 16px;
+$box-list-item-padding: 			 14px 42px 14px 20px;
+
+	// List item text shadow
+
+	$box-list-item-left:		 	 0;
+	$box-list-item-top:		 		 1px;
+	$box-list-item-blur:			 0;
+	$box-list-item-color:			 rgba(255, 255, 255, .5);
+
+// ----- Box list item active ----- //
+
+$box-list-item-active-bg-color: 	 #e9e9e9;
+
+// ----- List boxes link ----- //
+
+$box-list-item-link-line-height: 	 25px;
+$box-list-item-link-text-decoration: none;

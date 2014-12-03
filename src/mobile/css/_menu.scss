@@ -1,10 +1,10 @@
+@import 'menu/menu-variables-ml';
 /**
  * Menu
  */
 .ch-menu {
-	border: 1px solid #dedede;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
+	border: $menu-border;
+	border-radius: $menu-border-radius
 }
 
 .ch-fold-trigger,
@@ -15,15 +15,15 @@
 	border: none;
 	-webkit-border-radius: 0;
 	border-radius: 0;
-    border-bottom: 1px dotted #ccc;
+    border-bottom: $menu-row-border-bottom;
 }
 
 .ch-menu .ch-expandable-trigger:after {
-    color: #999;
+    color: $menu-row-icon-color
 }
 
 .ch-menu .ch-expandable-container {
-    border-bottom: 1px solid #dedede;
+    border-bottom: 1px solid #dedede; // $menu-list-border-bottom;
 }
 
 .ch-menu-fold:last-of-type .ch-fold-trigger,

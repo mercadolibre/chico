@@ -37,23 +37,23 @@
 }
 
 .ch-steps-two li {
-    width: 50%;
+    width: (100%/2);
 }
 
 .ch-steps-three li {
-    width: 33.333333%;
+    width: (100%/3);
 }
 
 .ch-steps-four li {
-    width: 25%;
+    width:  (100%/4);
 }
 
 .ch-steps-five li {
-    width: 20%;
+    width:  (100%/5);
 }
 
 .ch-steps-six li {
-    width: 16.666666%;
+    width: (100%/6);
 }
 
 .ch-wizard-breadcrumb a,
@@ -61,7 +61,7 @@
 .ch-wizard-step {
     border-bottom: $wizard-breadcrumb-border-bottom;
     display: block;
-    line-height: 42px;
+    line-height: $wizard-breadcrumb-height;
 }
 
 .ch-wizard-breadcrumb .ch-wizard-current {
@@ -86,25 +86,25 @@
 
 .ch-wizard-step:before,
 .ch-wizard-current:before {
-    border-width: 23px 11px;
-    border-left-color: #DDD;
+    border-width: $wizard-breadcrumb-pointer-border-size;
+    border-left-color: #ddd;
 }
 
 .ch-wizard-step:after,
 .ch-wizard-current:after {
-    border-left-color: #FFFFFF;
-    border-width: 24px 12px;
+    border-left-color: #fff;
+    border-width: $wizard-breadcrumb-pointer-content-size; 
     top: -2px;
 }
 
 .ch-wizard-breadcrumb li a:before {
-    border-width: 23px 11px;
-    border-left-color: #DEDEDE;
+    border-width: $wizard-breadcrumb-pointer-border-size;
+    border-left-color: $wizard-breadcrumb-border-color;
 }
 
 .ch-wizard-breadcrumb li a:after {
-    border-left-color: #F0F0F0;
-    border-width: 24px 12px;
+    border-left-color: #f2f2f2;
+    border-width: $wizard-breadcrumb-pointer-content-size;
     top: -2px;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .ch-modal .ch-wizard .ch-actions {
-    background-color: #FFF;
+    background-color: #fff;
     border: none;
 }
 

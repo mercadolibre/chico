@@ -55,5 +55,3 @@
     -moz-box-shadow:$top $left $blur $color #{$inset};
     box-shadow:$top $left $blur $color #{$inset};
 }
-
-// @include box-shadow(0, 1px, 1px, rgba(0, 0, 0, 0.075), inset);

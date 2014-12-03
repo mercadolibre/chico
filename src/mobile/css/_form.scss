@@ -1,3 +1,5 @@
+@import 'form/form-variables-ml';
+
 /* Generic input & textarea */
 input[type="text"],
 input[type="url"],
@@ -15,13 +17,11 @@ input[type="password"],
 textarea,
 select,
 select[multiple] {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    @include box-sizing(border-box);
     display: block;
-    font-size: 16px;
-    line-height: 22px;
-    margin: 0 0 5px 0;
+    font-size: $generic-input-text-size;
+    line-height: $generic-input-line-height;
+    margin: $generic-input-margin;
     width: 100%;
 }
 
@@ -45,14 +45,14 @@ select[multiple] {
 
 input,
 input:focus {
-    padding: 6px 0;
+    padding: $generic-input-padding;
 }
 
 input[type="radio"],
 input[type="checkbox"],
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-    padding: 0;
+    padding: $input-options-padding;
 }
 
 /* Inner Icons */
@@ -82,14 +82,14 @@ input[type="checkbox"]:focus {
 
 /* Title module */
 .ch-form legend {
-    font-size: 16px;
-    padding-bottom: 8px;
+    font-size: $legend-text-size;
+    padding-bottom: $legend-padding;
 }
 
 /* Label */
 .ch-form-row label {
-    font-size: 14px;
-    padding-bottom: 2px;
+    font-size: $label-text-size;
+    padding-bottom: $label-padding;
 }
 
 
@@ -100,9 +100,9 @@ input[type="checkbox"]:focus {
 
 /* Select */
 .ch-form-row select {
-    height: 36px;
-    border-color: #ccc;
-    margin: 0 0 5px 0;
+    height: $select-height;
+    border-color: $select-border-color;
+    margin: $select-margin
 }
 
 /* Select Multiple */
@@ -112,11 +112,11 @@ input[type="checkbox"]:focus {
 }
 
 .ch-form-row .ch-form-hint {
-    margin-left: 2px;
+    margin-left: $form-text-hint-margin;
 }
 
 .ch-validation-message {
-    color: #B94A48;
+    color: $form-validation-message-text-color;
     padding: 0;
     margin: 0;
 }
@@ -127,16 +127,14 @@ input[type="checkbox"]:focus {
 
 .ch-box-list .ch-form-row,
 .ch-box-list.ch-form-row {
-    padding: 0;
+    padding: $form-box-list-padding;
 }
 
 .ch-box-list input + label {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    font-size: 16px;
+    @include box-sizing(border-box);
+    font-size: $form-box-list-label-text-size;
     width: 100%;
-    padding: 14px 0 14px 38px;
+    padding: $form-box-list-label-padding;
 }
 
 .ch-box-list input[type="radio"],

@@ -8,7 +8,7 @@
 //   Primary
 // -------------------------------------
 
-$button-cursor:								pointer;
+$btn-cursor:								pointer;
 
 // ----- Normal state ----- //
 
@@ -114,10 +114,6 @@ $btn-disabled-opacity:						0.5;
 	$btn-disabled-box-shadow-top: 			1px;
 	$btn-disabled-box-shadow-blur:			1px;
 	$btn-disabled-box-shadow-color:			#fefefe;
-
-// -------------------------------------
-//   Structure variables
-// -------------------------------------
 
 $btn-font-size:		    		$font__large; 
 $btn-big-font-size:		    	$font__x__large;

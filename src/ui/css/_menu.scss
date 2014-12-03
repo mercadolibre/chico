@@ -4,13 +4,13 @@
  * Menu
  */
 .ch-menu {
-    max-width: 300px;
-    margin: 0;
-    padding: 0;
+    max-width: $menu-max-width;
+    margin: $menu-margin;
+    padding: $menu-padding;
     overflow: hidden;
     list-style: none;
-    -webkit-box-shadow: 0 8px 4px -4px #eee;
-    box-shadow: 0 8px 4px -4px #eee;
+     /* Mixin output */
+    @include box-shadow($menu-box-shadow-top, $menu-box-shadow-left, $menu-box-shadow-blur, $menu-box-shadow-color);    
 }
 
 .ch-accordion {
@@ -28,7 +28,7 @@
 }
 
 .ch-menu .ch-expandable {
-    margin: 5px 0;
+    margin: $menu-expandable-margin;
 }
 
 /* L1 and L2 items */
@@ -40,9 +40,9 @@
 .ch-menu .ch-expandable-container a {
     cursor: pointer;
     text-decoration: none!important;
-    color: #333!important;
+    color: $menu-item-text-color!important;
     display: block;
-    padding: 5px 10px;
+    padding: $menu-item-padding;
 }
 
 /* L1 and L2 items hover */
@@ -52,7 +52,7 @@
 .ch-menu .ch-expandable-trigger:hover,
 .ch-menu .ch-expandable-container a:hover {
     background-color: $menu-bg-color-hover;
-    border-radius: 5px;
+    border-radius: $menu-boder-radius;
 }
 
 /* L1 items */
@@ -84,7 +84,7 @@
 /* L2 items */
 .no-js .ch-menu > li ul li a,
 .ch-menu .ch-expandable-container a {
-    padding: 2px 15px;
+    padding: $menu-nojs-padding;
     /*
         Fix based on David Baron comment on the Firefox bug:
         https://bugzilla.mozilla.org/show_bug.cgi?id=36854#c7
@@ -96,8 +96,8 @@
 /* Selected child */
 .no-js .ch-menu > li:hover span,
 .ch-menu .ch-expandable-trigger-on {
-    background-color: #F0F0F0;
-    border-radius: 5px;
+    background-color: $menu-nojs-item-hover-bg-color;
+    border-radius: $menu-nojs-item-hover-border-radius;
 }
 
 .ch-menu-on {

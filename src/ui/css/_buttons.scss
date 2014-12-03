@@ -13,8 +13,8 @@
 /* Large h: ~39px */
 .ch-btn-large,
 .ch-btn-large:focus {
-    line-height: $btn-big-line-height;
-    padding: $btn-big-padding;
+    line-height: $btn-large-line-height;
+    padding: $btn-large-padding;
 }
 
 a.ch-btn-large,
@@ -34,29 +34,29 @@ a.ch-btn-large:focus {
 .lt-ie10 .ch-btn,
 .lt-ie10 .ch-btn:focus,
 .lt-ie10 .ch-btn:visited {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-ie-filter-start-color', endColorstr='$btn-ie-filter-end-color');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-ie-filter-start-bg-color', endColorstr='$btn-ie-filter-end-bg-color');
 }
 
 .lt-ie10 .ch-btn-skin,
 .lt-ie10 .ch-btn-skin:focus,
 .lt-ie10 .ch-btn-skin:visited {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-ie-filter-start-color', endColorstr='$btn-skin-ie-filter-end-color');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-ie-filter-start-bg-color', endColorstr='$btn-skin-ie-filter-end-bg-color');
 }
 
 .lt-ie10 .ch-btn:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-hover-ie-filter-start-color', endColorstr='$btn-hover-ie-filter-end-color');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-hover-ie-filter-start-bg-color', endColorstr='$btn-hover-ie-filter-end-bg-color');
 }
 
 .lt-ie10 .ch-btn-skin:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-hover-ie-filter-start-color', endColorstr='$btn-skin-hover-ie-filter-end-color');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-hover-ie-filter-start-bg-color', endColorstr='$btn-skin-hover-ie-filter-end-bg-color');
 }
 
 .lt-ie10 .ch-btn:active {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-active-ie-filter-start-color', endColorstr='$btn-active-ie-filter-end-color');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-active-ie-filter-start-bg-color', endColorstr='$btn-active-ie-filter-end-bg-color');
 }
 
 .lt-ie10 .ch-btn-skin:active {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-active-ie-filter-start-color', endColorstr='$btn-skin-active-ie-filter-end-color');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-active-ie-filter-start-bg-color', endColorstr='$btn-skin-active-ie-filter-end-bg-color');
 }
 
 .lt-ie10 .ch-btn.ch-btn-disabled,
@@ -68,8 +68,8 @@ a.ch-btn-large:focus {
 .lt-ie10 [class*="ch-btn"][disabled]:hover,
 .lt-ie10 [class*="ch-btn"][disabled]:active,
 .lt-ie10 [class*="ch-btn"][disabled]:focus {
-    filter: alpha(opacity=50);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEFEFE', endColorstr='#E6E6E6');
+    filter: alpha(opacity=$btn-skin-disabled-ie-opacity);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-disabled-ie-filter-start-bg-color', endColorstr='#$btn-skin-disabled-ie-filter-end-bg-color');
 }
 
 .ie8 [class*="ch-btn"]:focus,

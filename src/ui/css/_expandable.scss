@@ -6,7 +6,7 @@
 /* Trigger */
 .ch-expandable-trigger {
     color: $expandable-trigger-text-color;
-    cursor: pointer;
+    cursor: $expandable-trigger-cursor;
     position: relative;
     padding: $expandable-trigger-padding;
     font-size: $expandable-trigger-text-size;

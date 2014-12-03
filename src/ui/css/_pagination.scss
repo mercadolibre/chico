@@ -4,24 +4,24 @@
  * Pagination
  */
 .ch-pagination .ch-pagination-current a:hover {
-    border: $pagination-current-border-hover;
-    background-color: $pagination-current-bg-hover;
-    color: $pagination-current-font-color-hover;
+    border: $pagination-current-hover-border;
+    background-color: $pagination-current-hover-bg-color;
+    color: $pagination-current-hover-text-color;
 }
 
 .ch-pagination li a:hover {
-    color: $pagination-to-select-font-color-hover;
+    color: $pagination-to-select-hover-text-color;
     text-decoration: none;
-    background-color: $pagination-to-select-bg-hover;
-    border: 1px solid $pagination-to-select-border-hover;
+    background-color: $pagination-to-select-hover-bg-color;
+    border: 1px solid $pagination-to-select-hover-border;
 }
 
 .ch-pagination a[type="prev"]:hover,
 .ch-pagination a[type="next"]:hover {
-    border-color: $pagination-link-pages-hover;
+    border-color: $pagination-next-and-prev-hover-border;
 }
 
 .ch-pagination a[type="prev"],
 .ch-pagination a[type="next"] {
-    border-color: $pagination-link-pages;
+    border-color: $pagination-next-and-prev-border;
 }

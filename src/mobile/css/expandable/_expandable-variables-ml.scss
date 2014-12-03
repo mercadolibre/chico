@@ -1,0 +1,38 @@
+// *************************************
+//
+//   Expandable Mobile
+//
+// *************************************
+
+$expandable-cursor:					pointer;
+$expandable-text-color:				#666;
+$expandable-text-size:				$font__medium;
+$expandable-text-weigth:			normal;
+
+	// Text-shadow
+
+	$expandable-text-shadow-top:		0;
+	$expandable-text-shadow-left:		1px;
+	$expandable-text-shadow-blur:		0;
+	$expandable-text-shadow-color:		rgba(255, 255, 255, 0.5);
+
+$expandable-bg-color:				#f4f4f4;
+$expandable-border:					1px solid #dedede;
+$expandable-border-radius:			5px;
+
+$expandable-icon-text-size:			$font__x__large; // la original es 19px;
+$expandable-icon-text-color:		#999;
+$expandable-icon-active-text-color: #333;
+
+$expandable-list-text-size:			$font__x__small;
+$expandable-list-link-text-color:	#333;
+
+$expandable-content-bg-color:		#fff;
+
+$expandable-padding:				14px 40px 14px 20px;
+
+$expandable-content-margin:			0;
+$expandable-content-padding:		14px 20px;
+$expandable-content-border:			1px solid #e8e8e8;
+
+$expandable-list-padding:			0;

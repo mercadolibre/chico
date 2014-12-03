@@ -54,6 +54,12 @@ $input-read-only-padding:				 5px 0;
 $input-inner-icon-opacity:				 .3;
 $input-inner-icon-focus-opacity:		 .7;
 
+$input-inner-icon-padding:				 0 24px 0 0;
+$input-inner-icon-focus-padding:		 0 23px 0 0;
+
+$input-big-inner-icon-padding:			 0 30px 0 0;
+$input-big-inner-icon-focus-padding:	 0 29px 0 0;
+
 // -- Required icon (*) -- //
 
 $icon-required-position-right:			 3px;
@@ -83,6 +89,10 @@ $input-row-label-padding:			7px 11px 5px 0;
 // --- Label required --- //
 
 $input-row-label-required-text-weight:	bold;
+
+// --- Multiple --- //
+
+$input-select-multiple-margin:		10px 0 0 0;
 
 // -------------------------------------
 //   Disabled inputs

@@ -11,7 +11,7 @@
     border-radius:4px;
     /* Mixin output */
     @include box-shadow(0,0,0,none);
-    cursor: $button-cursor;
+    cursor: $btn-cursor;
     display: inline-block;
     height: auto;
     text-decoration: none;

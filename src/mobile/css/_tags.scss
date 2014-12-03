@@ -1,3 +1,4 @@
+@import 'tags/tags-variables-ml';
 /*
  * Tags
  */
@@ -7,22 +8,21 @@ a.ch-tag, /* Specificity to colorize links */
 .ch-tag:hover,
 .ch-tag:active,
 .ch-tag:visited {
-	background-color: #f4f4f4;
-	border: 1px solid #dedede;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	color: #666;
-    font-size: 14px;
-	margin: 4px 0 0;
-	padding: 3px 30px 3px 10px;
-	text-shadow: 0 1px 1px #fff;
+	background-color: $tag-bg-color;
+	border: $tag-border;
+	border-radius: $tag-border-radius;
+	color: $tag-text-color;
+    font-size: $tag-text-size;
+	margin: $tag-margin;
+	padding: $tag-padding;
+	text-shadow: $tag-text-shadow-top, $tag-text-shadow-left, $tag-text-shadow-blur, $tag-text-shadow-color;
 	display: inline-block;
 	text-decoration: none;
 	position: relative;
 }
 
 .ch-tag:active {
-	background-color: #e9e9e9;
+	background-color: $tag-active-bg-color;
 }
 
 .ch-tag:after {
@@ -32,6 +32,6 @@ a.ch-tag, /* Specificity to colorize links */
 	top: 50%;
 	right: 10px;
 	left: auto;
-	margin-top: -9px;
-	color: #999;
+	margin: $tag-icon-margin;
+	color: $tag-icon-text-color;
 }

@@ -83,7 +83,6 @@ select[multiple],
     border-radius: 3px;
     padding: $generic-input-padding;
 
-    // Para hablar el viernes, el tema del focus.
     &:focus {
         border: $generic-input-focus-border;
         padding: $generic-input-focus-padding;
@@ -122,21 +121,22 @@ input[readonly]:focus {
     @include opacity($input-inner-icon-focus-opacity);
 }
 
-// para hablar el viernes
+/* Icon inside input */
+
 input.ch-form-icon-input {
-    padding-right: 24px;
+    padding: $input-inner-icon-padding;
 }
 
 input.ch-form-icon-input:focus {
-    padding-right: 23px;
+    padding-right: $input-inner-icon-focus-padding;
 }
 
 .ch-form-big .ch-form-row .ch-form-icon-input {
-    padding-right: 30px;
+    padding-right: $input-big-inner-icon-padding;
 }
 
 .ch-form-big .ch-form-row .ch-form-icon-input:focus {
-    padding-right: 29px;
+    padding-right: $input-big-inner-icon-focus-padding;
 }
 
 /* Module */
@@ -217,19 +217,11 @@ input.ch-form-icon-input:focus {
     border: none;
 }
 
-// revisar el viernes
-/* Range
-input[type=range],*/
-.ch-form-range {
-    padding: 4px;
-    vertical-align: middle;
-}
-
 /* Select Multiple */
 .ch-form-row select[multiple],
 .ch-form-select-multiple {
     vertical-align: top;
-    margin-top: 10px;
+    margin: $input-select-multiple-margin;
 }
 
 /* Textarea */

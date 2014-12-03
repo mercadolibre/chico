@@ -5,7 +5,7 @@
     position: relative;
     overflow: hidden;
     display: inline-block;
-    cursor: crosshair;
+    cursor: $zoom-cursor;
 }
 
 .ch-zoom-loading,
@@ -35,7 +35,7 @@
 
 /* Seeker shape */
 .ch-zoom-seeker {
-    cursor: crosshair;
+    cursor: $zoom-cursor;
     background-color: $zoom-seeker-bg-color;
 }
 
@@ -61,11 +61,11 @@
 
 /* IE8- */
 .lt-ie9 .ch-zoom-loading {
-    background-color: $zoom-loading-ie9-bg-color;
-    filter: alpha(opacity=$zoom-loading-ie9-opacity);
+    background-color: $zoom-loading-ie-bg-color;
+    filter: alpha(opacity=$zoom-loading-ie-opacity);
 }
 
 .lt-ie9 .ch-zoom-seeker {
-    background-color: $zoom-seeker-ie9-bg-color;
-    filter: alpha(opacity=$zoom-seeker-ie9-opacity);
+    background-color: $zoom-seeker-ie-bg-color;
+    filter: alpha(opacity=$zoom-seeker-ie-opacity);
 }

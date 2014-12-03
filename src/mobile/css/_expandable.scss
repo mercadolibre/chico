@@ -1,32 +1,32 @@
+@import 'expandable/expandable-variables-ml';
 /*
 * Expandable
 */
 .ch-fold-trigger,
 .ch-expandable-trigger {
-	cursor: pointer;
+	cursor: $expandable-cursor;
 	display: block;
 	margin: 0;
-    padding: 14px 40px 14px 20px;
+    padding: $expandable-padding;
     position: relative;
-    color: #666;
-    font-size: 16px;
-    font-weight: normal;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-	background-color: #f4f4f4;
-    border: 1px solid #dedede;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    color: $expandable-text-color;
+    font-size: $expandable-text-size;
+    font-weight: $expandable-text-weigth;
+    text-shadow: $expandable-text-shadow-top, $expandable-text-shadow-left, $expandable-text-shadow-blur, $expandable-text-shadow-color;
+	background-color: $expandable-bg-color;
+    border: $expandable-border;
+    border-radius: $expandable-border-radius;
 }
 
 .ch-expandable-trigger:after {
     content: '\f078';
-    font-size: 19px;
+    font-size: $expandable-icon-text-size;
     position: absolute;
     right: 20px;
     top: 50%;
     margin-top: -10px;
     font-family: icons;
-    color: #999;
+    color:$expandable-icon-text-color;
     overflow: hidden;
 }
 
@@ -39,15 +39,15 @@
 
 .ch-expandable-trigger-on:after {
 	content: '\f077';
-	color: #333;
+	color: $expandable-icon-active-text-color;
 }
 
 .ch-expandable-container {
-    background-color: #fff;
-	margin: 0;
-	padding: 14px 20px;
+    background-color: $expandable-content-bg-color;
+	margin: $expandable-content-margin;
+	padding: $expandable-content-padding;
 	overflow: hidden;
-	border: 1px solid #e8e8e8;
+	border: $expandable-content-border;
     border-top: none;
 	-webkit-border-bottom-left-radius: 5px;
 	-webkit-border-bottom-right-radius: 5px;
@@ -56,7 +56,7 @@
 }
 
 .ch-expandable-container.ch-box-list {
-    padding: 0;
+    padding: $expandable-list-padding;
     -webkit-border-top-left-radius: 0;
     -webkit-border-top-right-radius: 0;
     border-top-left-radius: 0;
@@ -64,10 +64,10 @@
 }
 
 .ch-expandable-container.ch-box-list li {
-    font-size: 14px;
+    font-size: $expandable-list-text-size;
 
     a:after {
-        color: #333;  
+        color: $expandable-list-link-text-color;
     }
 }
 

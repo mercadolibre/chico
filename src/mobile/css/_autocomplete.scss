@@ -1,24 +1,24 @@
+@import 'autocomplete/autocomplete-variables-ml';
+
 .ch-autocomplete {
-    padding: 0;
+    padding: $autocomplete-padding;
 }
 
 .ch-autocomplete-item {
-    -webkit-border-radius: 0;
-    border-radius: 0;
-    border-bottom: 1px dotted #CCC;
+    border-radius: $autocomplete-item-border-radius;
+    border-bottom: $autocomplete-item-border-bottom;
     min-height: 45px;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    line-height: 45px;
+    text-shadow: $autocomplete-item-left, $autocomplete-item-top,  $autocomplete-item-blur,  $autocomplete-item-color;
     position: relative;
-    text-indent: 12px;
+    text-indent: $autocomplete-item-text-indent;
 }
 
 .ch-autocomplete-item:last-of-type {
     border-bottom: none;
-    -webkit-border-bottom-left-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: $autocomplete-lastitem-border-bottom-left;
+    -webkit-border-bottom-right-radius: $autocomplete-lastitem-border-bottom-right;
+    border-bottom-left-radius: $autocomplete-lastitem-border-bottom-left;
+    border-bottom-right-radius: $autocomplete-lastitem-border-bottom-right;
 }
 
 .ch-autocomplete-list .ch-icon-arrow-up[data-js="ch-autocomplete-complete-query"] {
@@ -27,21 +27,21 @@
     position: absolute;
     top: 0;
     right: 0;
-    border-radius: 3px;
-    color: #f4f4f4;
-    background-color: #C9C9C9;
-    width: 40px;
-    height: 40px;
+    border-radius: $autocomplete-item-icon-border-radius;
+    color: $autocomplete-item-icon-text-color;
+    background-color: $autocomplete-item-icon-bg-color;
+    width: $autocomplete-item-icon-width;
+    height: $autocomplete-item-icon-height;
 
     &:before {
-        color: #F4F4F4;
+        color: $autocomplete-item-icon-before-text-color;
         display: block;
         transform: rotate(-45deg);
         -webkit-transform: rotate(-45deg);
         -moz-transform: rotate(-45deg);
-        font-size: 30px;
+        font-size: $autocomplete-item-icon-before-text-size;
         overflow: hidden;
-        line-height: 50px;
-        text-indent: 10px;        
+        line-height: $autocomplete-item-icon-before-line-height;
+        text-indent: $autocomplete-item-icon-before-text-indent;
     }
 }

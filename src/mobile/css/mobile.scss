@@ -1,13 +1,11 @@
 // Variables
 //---------------------------------------------------------------
 
-// Flavor
-@import '../../shared/css/common/variables-ml';
-@import 'common/variables-mp';
+@import '../../../vendor/bourbon/bourbon';
 
-// Structure
-// @import '../../shared/css/structure/variables-mp';
-// @import 'structure/variables-mp';
+@import '../../shared/css/common/mixines';
+
+@import '../../shared/css/common/variables-ml';
 
 // Meyer's Reset
 //---------------------------------------------------------------
@@ -76,6 +74,9 @@
 
 // Popover
 @import '../../shared/css/popover';
+
+// Tags
+@import 'tags';
 
 // Tooltip
 @import '../../shared/css/tooltip';
