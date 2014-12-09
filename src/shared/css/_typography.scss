@@ -7,7 +7,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: $font-weigth__normal;
+    font-weight: normal;
     margin: $margin-headers;
 }
 
@@ -53,12 +53,12 @@ h6 {
 a,
 a:active,
 a:link {
-    color: $blue-main;
-    text-decoration: $font-no-underline;
+    color: $main-primary-color;
+    text-decoration: none;
 }
 
 a:visited {
-    color: $links-visited;
+    color: $links-visited-color;
 }
 
 a:hover,
@@ -70,9 +70,9 @@ a:focus {
  * Price
  */
 .ch-price {
-    color: $price;
+    color: $price-color;
     font-size: $font__medium;
-    font-weight: $font-weigth__bold;
+    font-weight: bold;
 
     sup {
         font-size: $font__mini;
@@ -81,9 +81,9 @@ a:focus {
     }
 
     span {
-        color: $gray-light;
+        color: $gray-700;
         font-size: $font__normal;
-        font-weight: $font-weigth__normal;
+        font-weight: normal;
     }
 
 }

@@ -4,32 +4,31 @@
 //
 // *************************************
 
-@import 'wizard-constants-ml';
-
-$wizard-bg-color:						 #fff;
-$wizard-border-color:					 #dedede;
+$wizard-bg-color:						 $main-neutral-color;
+$wizard-border-color:					 $main-border-color;
 $wizard-border:							 1px solid $wizard-border-color;
 $wizard-border-radius:					 5px;
 
 // ----- Actions ----- //
 
-$wizard-actions-bg-color:				 #f0f0f0;
-$wizard-actions-border:					 1px solid #dedede;
+$wizard-actions-bg-color:				 $gray-100; // #f0f0f0;
+$wizard-actions-border:					 1px solid $main-border-color;
 $wizard-actions-border-radius:			 0 0 5px 5px;
 
 // ----- Breadcrumb ----- //
 
-$wizard-breadcrumb-border-bottom:		 1px solid #dedede;
+$wizard-breadcrumb-border-bottom:		 1px solid $main-border-color;
 $wizard-breadcrumb-text-position:		 center;
-$wizard-breadcrumb-text-color:			 #ccc;
+$wizard-breadcrumb-text-color:			 $gray-500; //$gray-lightest;
 
 $wizard-breadcrumb-height:				 42px;
-$wizard-breadcrumb-border-color:		 $wizard-actions-bg-color;
+$wizard-breadcrumb-border-color:		 $gray-400;
 
 // ----- Breadcrumb pointer ----- //
 
 $wizard-breadcrumb-current-text-weight:  bold;
-$wizard-breadcrumb-current-text-color:	 #333;
+$wizard-breadcrumb-current-text-color:	 $gray-900;
+$wizard-breadcrumb-pointer-content-color: $gray-100;
 
 // ************************************* //
 // Constants

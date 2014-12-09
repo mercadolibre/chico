@@ -4,17 +4,17 @@
 //
 // *************************************
 
-$box-bg-color: 						 #F0F0F0;
+$box-bg-color: 						 $gray-100; // #F0F0F0;
 
 // ----- Box list ----- //
 
-$box-list-bg-color: 				 #f4f4f4;
-$box-list-border: 					 1px solid #dedede;
+$box-list-bg-color: 				 $gray-100; // #f4f4f4;
+$box-list-border: 					 1px solid $main-border-color;
 $box-list-padding: 					 0;
 
 // ----- Box list item ----- //
 
-$box-list-item-border-bottom: 		 1px dotted #ccc;
+$box-list-item-border-bottom: 		 1px dotted $gray-500;
 $box-list-item-color: 				 #666;
 $box-list-item-text-size: 			 16px;
 $box-list-item-padding: 			 14px 42px 14px 20px;

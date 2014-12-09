@@ -24,10 +24,11 @@ $popover-border-width: 1px;
 // -------------------------------------
 
 $popover-cone-size: 10px;
-$popover-cone-size-content: $popover-cone-size - $popover-border-width;
 
-$popover-border: #ddd;
-$popover-content: #fff;
+$popover-border: $main-border-color; // ddd
+$popover-content: $main-neutral-color;
+
+$popover-cone-size-content: $popover-cone-size - $popover-border-width;
 
 	// Top alignment
 

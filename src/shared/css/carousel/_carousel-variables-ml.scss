@@ -4,43 +4,34 @@
 //
 // *************************************
 
-// -------------------------------------
-//   Skin variables
-// -------------------------------------
-
 $carousel-mask:							0 50px;
 $carousel-control-cursor:				pointer;
 
 // ----- Carousel control ----- //
 
-$carousel-control-color:			#666;
-$carousel-control-font-size:		2em;
-$carousel-control-line-height:	3.3em;
-$carousel-control-hover:			0.7;
+$carousel-control-color:				#666;
+$carousel-control-font-size:			2em;
+$carousel-control-line-height:			3.3em;
+$carousel-control-hover:				0.7;
 
 // ----- Carousel pagination ----- //
 
-$carousel-pagination-bg-color:			#f0f0f0;
-$carousel-pagination-shadow:			inset 1px 1px #888;
+$carousel-pagination-bg-color:			$gray-100; //#f0f0f0;
+$carousel-pagination-shadow:			inset 1px 1px $gray-700; // #888
 
 $carousel-pagination-selected-bg-color: #16232f;
 
-// -------------------------------------
-//   Structure variables
-// -------------------------------------
-
 // ----- Carousel control ----- //
 
-$carousel-control-margin: -40px 0 0 0;
+$carousel-control-margin: 				-40px 0 0 0;
 $carousel-control-vertical-position:	50%;
-$carousel-control-width: 47px;
-$carousel-control-height: 80px;
+$carousel-control-width: 				47px;
+$carousel-control-height: 				80px;
 
-$carousel-control-prev-position: 17px;
-$carousel-control-next-position: 17px;
+$carousel-control-position: 			17px;
 
 // ----- Carousel pagination ----- //
 
-$carousel-pagination-width:			10px;	
-$carousel-pagination-height:		10px;
-$carousel-pagination-margin:		10px 5px;
+$carousel-pagination-width:				10px;	
+$carousel-pagination-height:			10px;
+$carousel-pagination-margin:			10px 5px;

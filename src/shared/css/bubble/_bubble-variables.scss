@@ -4,8 +4,8 @@
 //
 // *************************************
 
-$bubble-bg-color:				#F5E6E6;
-$bubble-border-color:			#EED3D7;
+$bubble-bg-color:				$error-bg-color;
+$bubble-border-color:			#eed3d7;
 
 $bubble-border:					1px solid $bubble-border-color;
 

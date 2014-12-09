@@ -4,18 +4,14 @@
 //
 // *************************************
 
-// -------------------------------------
-//   Skin variables
-// -------------------------------------
-
 // ----- General ----- //
 
 $calendar-text-align: 						center;
 
 // ----- Title ----- //
 
-$calendar-title-bg-color: 					#f0f0f0;
-$calendar-title-shadow:						0 1px 0 $white;
+$calendar-title-bg-color: 					$gray-100; // #f0f0f0;
+$calendar-title-shadow:						0 1px 0 $main-neutral-color;
 
 // ----- Day cell ----- //
 
@@ -23,11 +19,11 @@ $calendar-day-cursor:						default;
 
 // ----- Today cell ----- //
 
-$calendar-day-today-bg-color:				#fefbd6;
+$calendar-day-today-bg-color:				#FEFBD6;
 
 // ----- Empty day cell ----- //
 
-$calendar-day-empty-color:					#c6c6c6;
+$calendar-day-empty-color:					$gray-500; //#c6c6c6;
 $calendar-day-empty-cursor:					default !important;
 
 // ----- Diseabled day cell ----- //
@@ -37,23 +33,19 @@ $calendar-day-disabled-color:				#c6c6c6;
 
 // ----- Calendar selected ----- //
 
-$calendar-day-selected-bg-color:			#a9a9a9 !important;
-$calendar-day-selected-color:				#fff !important;
-$calendar-day-selected-text-weight:			bold !important;
+$calendar-day-selected-bg-color:			$gray-700; // #a9a9a9 
+$calendar-day-selected-color:				$main-neutral-color !important;
+$calendar-day-selected-text-weight:			$font-weigth__bold !important;
 
 // ----- Header controls ----- //
 
 $calendar-head-control-pointer:				pointer;
 
 $calendar-head-control-icon-color:			#666;
-$calendar-head-control-icon-shadow:			0 1px #fff;
+$calendar-head-control-icon-shadow:			0 1px $main-neutral-color;
 
 $calendar-head-control-prev-icon-position:	15px;
 $calendar-head-control-next-icon-position:	15px;
-
-// -------------------------------------
-//   Structure variables
-// -------------------------------------
 
 // ----- General ----- //
 
@@ -69,7 +61,7 @@ $calendar-day-height:						26px;
 $calendar-day-line-height:					26px;
 
 $calendar-head-text-size:					$font__smallest;
-$calendar-head-text-weigth:					normal;
+$calendar-head-text-weigth:					$font-weigth__normal;
 
 // ----- Header controls ----- //
 

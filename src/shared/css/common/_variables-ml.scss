@@ -8,35 +8,48 @@
 //   Global colors
 // -------------------------------------
 
-$white:							#fff;
-$gray: 							#333;
+// -------------------------------------
+//   Primary palette
+// -------------------------------------
 
-$gray-light:					lighten($gray, 10%); // #4d4d4d
-$gray-lighter:					lighten($gray, 30%); // grey
-$gray-lightest:					lighten($gray, 60%); // #cccccc
-$gray-dark:						darken($gray, 10%);
-$gray-darker:					darken($gray, 30%);
-$gray-darkest:					darken($gray, 60%);
+$main-primary-color:   			#03b; // main-blue
 
-$yellow-main:   				#FFF059; // revisar nombre
-$price:   						#900;
-$blue-main:   					#03b; // revisar nombre
+$price-color:   				#900; // price
+$links-color:					$main-primary-color; // links
+$error-bg-color:				#f5e6e6; // error
 
-// >> Main components hover background color
-// --------------------------------------------------------------------
+// -------------------------------------
+//   Secondary palette
+// -------------------------------------
 
-$components-hover-bg-color:		#fdf9d5;
+$main-secondary-color:			#fdf9d5; //$components-hover-bg-color
+$links-visited-color:			#809; // links-visited
 
-// >> Links
-// --------------------------------------------------------------------
+// -------------------------------------
+//   Neutral colors
+// -------------------------------------
 
-$main-text:						$gray;
-$links:							$blue-main;
-$links-visited:					#880099;
+$main-neutral-color:			#fff; // white
+$main-neutral-accent-color:		#000;
+
+$gray-100:						#f4f4f4;
+$gray-400:						#dedede;
+
+$gray-500:						#ccc;
+
+$gray-700:						#999;
+$gray-900:						#333;
+
+$main-text-color:				$gray-900;
+$main-border-color:				$gray-400; // components-border
+
+
+
+// $main-disabled-color
 
 // *************************************
 //
-//   COMMON MP STRUCTURE VARIABLES
+//   COMMON SHARED STRUCTURE VARIABLES
 //
 // *************************************
 

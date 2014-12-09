@@ -1,3 +1,4 @@
+@import 'layer/layer-variables-ml';
 /*
 * Layer
 */
@@ -29,11 +30,11 @@
 }
 
 .ch-cone:after {
-	border-width: 8px;
+	border-width: $layer-cone-border - $layer-border-width;
 }
 
 .ch-cone:before {
-	border-width: 9px;
+	border-width: $layer-cone-size;
 }
 
 .ch-cone.ch-points-ctcb:after,
@@ -92,7 +93,7 @@
 
 .ch-cone.ch-points-ltlb:after,
 .ch-cone.ch-points-lblt:after {
-	left: 8px;
+	left: $layer-cone-size - $layer-border-width;
 }
 
 .ch-cone.ch-points-ltlb:before,
@@ -102,7 +103,7 @@
 
 .ch-cone.ch-points-rtrb:after,
 .ch-cone.ch-points-rbrt:after {
-	right: 8px;
+	right: $layer-cone-size - $layer-border-width;
 }
 
 .ch-cone.ch-points-rtrb:before,
@@ -112,7 +113,7 @@
 
 .ch-cone.ch-points-ltrt:after,
 .ch-cone.ch-points-rtlt:after {
-	top: 4px;
+	top: $layer-cone-size / 2;
 }
 
 .ch-cone.ch-points-ltrt:before,
@@ -122,7 +123,7 @@
 
 .ch-cone.ch-points-lbrb:after,
 .ch-cone.ch-points-rblb:after {
-	bottom: 4px;
+	bottom: $layer-cone-size / 2;
 }
 
 .ch-cone.ch-points-lbrb:before,
@@ -132,22 +133,22 @@
 
 .ch-cone.ch-points-ctcb:after,
 .ch-cone.ch-points-cbct:after {
-	margin-left: -8px;
+	margin-left: -$layer-cone-border;
 }
 
 .ch-cone.ch-points-lmrm:after,
 .ch-cone.ch-points-rmlm:after {
-	margin-top: -8px;
+	margin-top: -$layer-cone-border;
 }
 
 .ch-cone.ch-points-ctcb:before,
 .ch-cone.ch-points-cbct:before {
-	margin-left: -9px;
+	margin-left: -($layer-cone-border + 1)
 }
 
 .ch-cone.ch-points-lmrm:before,
 .ch-cone.ch-points-rmlm:before {
-	margin-top: -9px;
+	margin-top: -($layer-cone-border + 1)
 }
 
 
@@ -159,12 +160,12 @@
 .ch-layer-content.ch-points-ltlb:after,
 .ch-layer-content.ch-points-ctcb:after,
 .ch-layer-content.ch-points-rtrb:after {
-	border-bottom-color: #F4F4F4;
+	border-bottom-color: $layer-border-primary-bg-color;
 }
 .ch-layer-content.ch-points-ltlb:before,
 .ch-layer-content.ch-points-ctcb:before,
 .ch-layer-content.ch-points-rtrb:before {
-	border-bottom-color: #EEEEEE;
+	border-bottom-color: $layer-border-secondary-bg-color;
 }
 
 /* Top */
@@ -172,12 +173,12 @@
 .ch-layer-content.ch-points-lblt:after,
 .ch-layer-content.ch-points-cbct:after,
 .ch-layer-content.ch-points-rbrt:after {
-	border-top-color: #F4F4F4;
+	border-top-color: $layer-border-primary-bg-color;
 }
 .ch-layer-content.ch-points-lblt:before,
 .ch-layer-content.ch-points-cbct:before,
 .ch-layer-content.ch-points-rbrt:before {
-	border-top-color: #EEEEEE;
+	border-top-color: $layer-border-secondary-bg-color;
 }
 
 /* Right */
@@ -185,12 +186,12 @@
 .ch-layer-content.ch-points-ltrt:after,
 .ch-layer-content.ch-points-lmrm:after,
 .ch-layer-content.ch-points-lbrb:after {
-	border-right-color: #F4F4F4;
+	border-right-color: $layer-border-primary-bg-color;
 }
 .ch-layer-content.ch-points-ltrt:before,
 .ch-layer-content.ch-points-lmrm:before,
 .ch-layer-content.ch-points-lbrb:before {
-	border-right-color: #EEEEEE;
+	border-right-color: $layer-border-secondary-bg-color;
 }
 
 /* Left */
@@ -198,32 +199,32 @@
 .ch-layer-content.ch-points-rtlt:after,
 .ch-layer-content.ch-points-rmlm:after,
 .ch-layer-content.ch-points-rblb:after {
-	border-left-color: #F4F4F4;
+	border-left-color: $layer-border-primary-bg-color;
 }
 
 .ch-layer-content.ch-points-rtlt:before,
 .ch-layer-content.ch-points-rmlm:before,
 .ch-layer-content.ch-points-rblb:before {
-	border-left-color: #EEEEEE;
+	border-left-color: $layer-border-secondary-bg-color;
 }
 
 /* Cone Y position */
 .ch-layer-content.ch-cone.ch-points-ltrt:after,
 .ch-layer-content.ch-cone.ch-points-rtlt:after {
-	top: 8px;
+	top: $layer-cone-border - $layer-border-width;
 }
 
 .ch-layer-content.ch-cone.ch-points-ltrt:before,
 .ch-layer-content.ch-cone.ch-points-rtlt:before {
-	top: 7px;
+	top: $layer-cone-border - ($layer-border-width * 2);
 }
 
 .ch-layer-content.ch-cone.ch-points-lbrb:after,
 .ch-layer-content.ch-cone.ch-points-rblb:after {
-	bottom: 8px;
+	bottom: $layer-cone-border - $layer-border-width;
 }
 
 .ch-layer-content.ch-cone.ch-points-lbrb:before,
 .ch-layer-content.ch-cone.ch-points-rblb:before {
-	bottom: 7px;
+	bottom: $layer-cone-border - ($layer-border-width * 2);
 }

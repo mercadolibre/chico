@@ -8,7 +8,7 @@
     border-radius: $autocomplete-item-border-radius;
     border-bottom: $autocomplete-item-border-bottom;
     min-height: 45px;
-    text-shadow: $autocomplete-item-left, $autocomplete-item-top,  $autocomplete-item-blur,  $autocomplete-item-color;
+    text-shadow: $autocomplete-text-shadow;
     position: relative;
     text-indent: $autocomplete-item-text-indent;
 }

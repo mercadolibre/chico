@@ -7,24 +7,24 @@
 // ----- Tab ----- //
 
 $tab-border-width: 					1px;
-$tab-border: 						$tab-border-width solid #dedede;
-$tab-bg-color: 						#fff;
+$tab-border: 						$tab-border-width solid $gray-400;
+$tab-bg-color: 						$main-neutral-color;
 $tab-border-radius: 				5px 5px 0 0;
 $tab-cursor:						pointer;
 
 $tab-text-decoration: 				none;
-$tab-text-color: 					#333;
+$tab-text-color: 					$gray-900;
 
 // ----- Tab hover ----- //
 
-$tab-hover-bg-color: 				#f0f0f0;
+$tab-hover-bg-color: 				$gray-100; // #f0f0f0;
 
 // ----- Tab active ----- //
 
-$tab-active-bg-color: 				#f0f0f0;
+$tab-active-bg-color: 				$gray-100; // #f0f0f0;
 
-$tab-trigger-bg-color: 				#f0f0f0;
-$tab-trigger-bg-color-secondary: 	#fff 25px;
+$tab-trigger-bg-color: 				$gray-100; // #f0f0f0;
+$tab-trigger-bg-color-secondary: 	$main-neutral-color 25px;
 
 	// Box shadow
 

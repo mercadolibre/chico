@@ -124,11 +124,11 @@ input[readonly]:focus {
 /* Icon inside input */
 
 input.ch-form-icon-input {
-    padding: $input-inner-icon-padding;
+    padding-right: $input-inner-icon-padding-right;
 }
 
 input.ch-form-icon-input:focus {
-    padding-right: $input-inner-icon-focus-padding;
+    padding-right: $input-inner-icon-padding-right - 1;
 }
 
 .ch-form-big .ch-form-row .ch-form-icon-input {
@@ -198,8 +198,8 @@ input.ch-form-icon-input:focus {
     .ch-form-required em {
         display: block;
         position: absolute;
-        right: $icon-required-position-right;
-        top: $icon-required-position-top;
+        right: $icon-required-position;
+        top: $icon-required-position;
     }
 /* Icon indication of required in options */
     .ch-form-required.ch-form-options em {

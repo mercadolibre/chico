@@ -9,7 +9,7 @@
     caption {
         background-color: $calendar-title-bg-color;
         /* Bourbon output */
-        @include background-image(linear-gradient($white, $calendar-title-bg-color));
+        @include background-image(linear-gradient($main-neutral-color, $calendar-title-bg-color));
         font-size: $calendar-title-text-size;
         line-height: $calendar-title-line-heigth;
         text-shadow: $calendar-title-shadow;
@@ -47,7 +47,7 @@
 }
 
 .lt-ie10 .ch-calendar caption {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$white', endColorstr='#f0f0f0');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$main-neutral-color', endColorstr='$gray-100');
 }
 
 .ch-calendar-today {
@@ -72,7 +72,7 @@
 .ch-calendar-selected,
 .ch-calendar-selected:hover,
 .ch-calendar-selected.ch-today {
-    background-color: $calendar-day-selected-bg-color;
+    background-color: $calendar-day-selected-bg-color!important;
     color: $calendar-day-selected-color;
     font-weight: $calendar-day-selected-text-weight;
 }

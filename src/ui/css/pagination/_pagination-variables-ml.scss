@@ -4,13 +4,13 @@
 //
 // *************************************
 
-$pagination-current-hover-bg-color:		#e9e9e9;
-$pagination-current-hover-border:		1px solid #e9e9e9;
-$pagination-current-hover-text-color:   $blue-main;
+$pagination-current-hover-bg-color:			$main-border-color;
+$pagination-current-hover-border:			1px solid $main-border-color;
+$pagination-current-hover-text-color:   	$main-primary-color;
 
-$pagination-next-and-prev-border:			#fff;
-$pagination-next-and-prev-hover-border:		$blue-main;
+$pagination-next-and-prev-border:			$main-neutral-color;
+$pagination-next-and-prev-hover-border:		$main-primary-color;
 
-$pagination-to-select-hover-bg-color:	#2b37b2;
-$pagination-to-select-hover-border:		#2b37b2;
-$pagination-to-select-hover-text-color:	#fff;
+$pagination-to-select-hover-bg-color:		#2b37b2;
+$pagination-to-select-hover-border:			#2b37b2;
+$pagination-to-select-hover-text-color:		$main-neutral-color;

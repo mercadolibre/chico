@@ -4,13 +4,9 @@
 //
 // *************************************
 
-// -------------------------------------
-//   Skin variables
-// -------------------------------------
-
 // ----- List-item ----- //
 
-$list-item-color:					#000;
+$list-item-color:					$main-neutral-accent-color;
 $list-item-decoration:				none;
 
 // ----- Focus-item-list ----- //
@@ -28,9 +24,8 @@ $trigger-active-border-radius:		3px 3px 0 0;
 
 // ----- Trigger active ----- //
 
-$trigger-active-bg-color:		#fff;
-$trigger-active-border:			#dedede;
-$trigger-active-border-radius:	0;
+$trigger-active-border:				$main-border-color;
+$trigger-active-border-radius:		0;
 
 	// Box shadow
 
@@ -39,24 +34,20 @@ $trigger-active-border-radius:	0;
 	$trigger-active-box-shadow-blur:	6px;
 	$trigger-active-box-shadow-color:	rgba(71, 98, 116, .6);
 
-// -------------------------------------
-//   Secondary skin
-// -------------------------------------
-
 $skin-list-item-bg-color:			none;
-$skin-list-item-color:				$blue-main;
+$skin-list-item-color:				$main-primary-color;
 
 // ----- Trigger ----- //
 
 $trigger-skin-bg-color:				transparent;
 $trigger-skin-border:				1px solid transparent;
 $trigger-skin-border-radius:		0;
-$trigger-skin-text-color:			$blue-main;
+$trigger-skin-text-color:			$main-primary-color;
 $trigger-skin-text-decoration:		none;
 
 // ----- Trigger after ----- //
 
-$trigger-skin-after-text-color: 	#999;
+$trigger-skin-after-text-color: 	$gray-700;
 
 // ----- Trigger active ----- //
 
@@ -64,8 +55,8 @@ $trigger-skin-active-text-color:	#00d;
 
 // ----- Trigger on ----- //
 
- $trigger-on-skin-bg-color:			#fff;
- $trigger-on-skin-border:			#ededed;
+ $trigger-on-skin-bg-color:			$main-neutral-color;
+ $trigger-on-skin-border:			$gray-400; // #ededed;
  $trigger-on-skin-border-radius:	0;
 
 	// Box shadow
@@ -74,10 +65,6 @@ $trigger-skin-active-text-color:	#00d;
 	$trigger-on-skin-box-shadow-left:  0;
 	$trigger-on-skin-box-shadow-blur:  0;
 	$trigger-on-skin-box-shadow-color: rgba(100, 100, 100, .1);
-
-// -------------------------------------
-//   Structure variables
-// -------------------------------------
 
 // ----- General ----- //
 

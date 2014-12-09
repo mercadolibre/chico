@@ -72,12 +72,12 @@
 
 .ch-carousel-prev:after {
     content: "\f053";
-    left: $carousel-control-prev-position;
+    left: $carousel-control-position;
 }
 
 .ch-carousel-next:after {
     content: "\f054";
-    right: $carousel-control-next-position;
+    right: $carousel-control-position;
 }
 
 .ch-carousel-prev:hover,

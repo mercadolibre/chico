@@ -6,35 +6,35 @@
 
 // ----- Error box ----- //
 
-$box-error-bg-color:			#F5E6E6;
-$box-error-text-color:			#B84A46;
-$box-error-visited-text-color:	$blue-main;
+$box-error-bg-color:			$error-bg-color;
+$box-error-text-color:			#b84a46;
+$box-error-visited-text-color:	$main-primary-color;
 
 // ----- Help box ----- //
 
-$box-help-bg-color:				#F0F0F0;
-$box-help-text-color:			#888888;
+$box-help-bg-color:				#f0f0f0;
+$box-help-text-color:			#888;
 
 // ----- Info box ----- //
 
-$box-info-bg-color:				#E4F2F9;
-$box-info-text-color:			#3A87AD;
+$box-info-bg-color:				#e4f2f9;
+$box-info-text-color:			#3a87ad;
 $box-info-link-underline:		none;
 
 // ----- Warning box ----- //
 
-$box-warning-bg-color:			#FFF0BA;
-$box-warning-font-color:		#AA8749;
-$icon-warning-text-color:		#F5CC00;
+$box-warning-bg-color:			#fff0ba;
+$box-warning-font-color:		#aa8749;
+$icon-warning-text-color:		#f5cc00;
 
 // ----- Ok box ----- //
 
-$box-ok-bg-color:				#E9F4E4;
+$box-ok-bg-color:				#e9f4e4;
 $box-ok-text-color:				#468847;
 
-$box-lite-bg-color:				$white;
+$box-lite-bg-color:				$main-neutral-color;
 
-$box-border:					1px solid #dedede;
+$box-border:					1px solid $main-border-color;
 $box-margin:					0 0 10px 0;
 $box-padding:					10px;
 $box-border-radius:				5px;

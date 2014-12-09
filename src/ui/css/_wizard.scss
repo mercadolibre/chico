@@ -103,7 +103,7 @@
 }
 
 .ch-wizard-breadcrumb li a:after {
-    border-left-color: #f2f2f2;
+    border-left-color: $wizard-breadcrumb-pointer-content-color;
     border-width: $wizard-breadcrumb-pointer-content-size;
     top: -2px;
 }

@@ -1,48 +1,48 @@
 // *************************************
 //
-//   Forms
+//   Forms UI
 //
 // *************************************
 
 // ----- Generic inputs ----- //
 
-$form-input-text-size: 13px;
-$form-input-margin: 5px 0;
+$form-input-text-size: 				$font__normal;
+$form-input-margin: 				5px 0;
 
 // ----- Legend ----- //
 
-$form-legend-padding: 0 0 15px 0;
+$form-legend-padding: 				0 0 15px 0;
 
 // ----- Label ----- //
 
-$form-label-text-size: 13px;
-$form-label-text-align: right;
-$form-label-width: 130px;
+$form-label-text-size: 				$font__normal;
+$form-label-text-align: 			right;
+$form-label-width: 					130px;
 
-$form-label-disabled-text-color: #999;
+$form-label-disabled-text-color: 	$gray-700;
 
 // ----- Checkbox ----- //
 
-$form-checkbox-inline-margin: 0 0 0 11px;
+$form-checkbox-inline-margin: 		0 0 0 11px;
 
 // ----- Select ----- //
 
-$form-select-margin: 5px 0;
+$form-select-margin: 				5px 0;
 
 // ----- Hint ----- //
 
-$form-hint-margin: 0 0 0 145px;
+$form-hint-margin: 					0 0 0 145px;
 
 // ----- Options ----- //
 
-$form-options-margin: 0 0 15px 20px;
-$form-options-subtitle-margin: 0 0 15px 0;
+$form-options-margin: 				0 0 15px 20px;
+$form-options-subtitle-margin: 		0 0 15px 0;
 
 // ----- Actions ----- //
 
-$form-actions-margin: 0 0 0 145px;
+$form-actions-margin: 				0 0 0 145px;
 
 // ----- IE ----- //
 
-$ie-form-input-radio-margin: -11px 0 0 0;
-$ie-form-input-checkbox-margin: -11px 0 0 0;
+$ie-form-input-radio-margin: 		-11px 0 0 0;
+$ie-form-input-checkbox-margin: 	-11px 0 0 0;

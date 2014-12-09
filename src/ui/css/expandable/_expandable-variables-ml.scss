@@ -4,7 +4,7 @@
 //
 // *************************************
 
-$expandable-trigger-text-color:				$blue-main;
+$expandable-trigger-text-color:				$main-primary-color;
 $expandable-trigger-cursor:					pointer;
 
 $expandable-trigger-active-text-color:		#00D;
@@ -13,4 +13,4 @@ $expandable-trigger-visited-text-color:		#800080;
 $expandable-trigger-visited-text-decoration: underline;
 
 $expandable-trigger-padding:				0 0 0 16px;
-$expandable-trigger-text-size:				1em;
+$expandable-trigger-text-size:				$font__normal;

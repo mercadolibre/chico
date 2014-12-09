@@ -12,38 +12,38 @@ $btn-cursor:								pointer;
 
 // ----- Normal state ----- //
 
-$btn-primary-color:							#fff;
-$btn-primary-bg-color:						#3E52A1;
-$btn-primary-bg-color-secondary:			#2D3277;
-$btn-primary-active:  						#29358F;
-$btn-primary-border:						#2D3277;
-$btn-primary-shadow:						#8EA2DF;
+$btn-primary-color:							$main-neutral-color;
+$btn-primary-bg-color:						#3e52a1;
+$btn-primary-bg-color-secondary:			#2d3277;
+$btn-primary-active:  						#29358f;
+$btn-primary-border:						#2d3277;
+$btn-primary-shadow:						#8ea2df;
 
 	// Box shadow mixin
 
 	$btn-primary-box-shadow-top:			0;
 	$btn-primary-box-shadow-left:			1px;
 	$btn-primary-box-shadow-blur:			0;
-	$btn-primary-box-shadow-color:			#7A89E8;
+	$btn-primary-box-shadow-color:			#7a89e8;
 
 // ----- Hover state ----- //
 
-$btn-primary-box-hover:   					#4051D0;
-$btn-primary-box-hover-bg-color:			#4355D2;
-$btn-primary-box-hover-bg-color-secondary: 	#2F33AE;
+$btn-primary-box-hover:   					#4051d0;
+$btn-primary-box-hover-bg-color:			#4355d2;
+$btn-primary-box-hover-bg-color-secondary: 	#2f33ae;
 
 	// Box shadow mixin
 
 	$btn-primary-hover-box-shadow-top:		0;
 	$btn-primary-hover-box-shadow-left:		1px;
 	$btn-primary-hover-box-shadow-blur:		0;
-	$btn-primary-hover-box-shadow-color:	#7A89E8;
+	$btn-primary-hover-box-shadow-color:	#7a89e8;
 
 // ----- Active state ----- //
 
-$btn-primary-active-bg-color:   			#292F66;
+$btn-primary-active-bg-color:   			#292f66;
 $btn-primary-active-bg-color-secondary: 	#202388;
-$btn-primary-border-active:					#181E39;
+$btn-primary-border-active:					#181e39;
 
 	// Box shadow mixin
 
@@ -59,10 +59,10 @@ $btn-primary-border-active:					#181E39;
 // ----- Normal state ----- //
 
 $btn-secondary-color:						#476274;
-$btn-secondary-bg-color:					#CCE3F7;
-$btn-secondary-bg-color-secondary:  		#AAD0EF;
-$btn-secondary-border:						#79A8C7;
-$btn-secondary-active:  					#7C9CB2;
+$btn-secondary-bg-color:					#cce3f7;
+$btn-secondary-bg-color-secondary:  		#aaD0ef;
+$btn-secondary-border:						#79a8c7;
+$btn-secondary-active:  					#7c9cB2;
 $btn-secondary-shadow:						none;
 
 	// Box shadow mixin values
@@ -74,22 +74,22 @@ $btn-secondary-shadow:						none;
 
 // ----- Hover state ----- //
 
-$btn-secondary-hover-bg-color:   			#DCECFB;
-$btn-secondary-hover-bg-color-secondary:	#C5DFF5;
+$btn-secondary-hover-bg-color:   			#dcecfb;
+$btn-secondary-hover-bg-color-secondary:	#c5dff5;
 
 	// Box shadow mixin values
 
 	$btn-secondary-hover-box-shadow-top:	0;
 	$btn-secondary-hover-box-shadow-left:	1px;
 	$btn-secondary-hover-box-shadow-blur:	0;
-	$btn-secondary-hover-box-shadow-color:	#E5F2FC;
+	$btn-secondary-hover-box-shadow-color:	#e5f2fc;
 
 // ----- Active state ----- //
 
-$btn-secondary-active-bg-color:				#A2C9E1;
-$btn-secondary-active-bg-color-secondary:	#7AB6DC;
+$btn-secondary-active-bg-color:				#a2c9e1;
+$btn-secondary-active-bg-color-secondary:	#7ab6dc;
 $btn-secondary-shadow-active:				#476274; // rgba(71, 98, 116, .6);
-$btn-secondary-border-active:				#79A8C7;
+$btn-secondary-border-active:				#79a8c7;
 
 	// Box shadow mixin values
 
@@ -100,12 +100,12 @@ $btn-secondary-border-active:				#79A8C7;
 
 // ----- Disabled state ----- //
 
-$btn-disabled-color:						#CCC;
-$btn-disabled-bg-color:						#fefefe;
+$btn-disabled-color:						$gray-500;
+$btn-disabled-bg-color:						$main-neutral-color; //#fefefe;
 $btn-disabled-bg-color-secondary: 			darken($btn-disabled-bg-color,15%);
-$btn-disabled-border:						$gray-lightest;
+$btn-disabled-border:						$gray-500;
 $btn-disabled-text-shadow:					none;
-$btn-disabled-text-color:					#999;
+$btn-disabled-text-color:					$gray-700;
 $btn-disabled-opacity:						0.5;
 
 	// Box shadow mixin values
@@ -113,7 +113,7 @@ $btn-disabled-opacity:						0.5;
 	$btn-disabled-box-shadow-left: 			0;
 	$btn-disabled-box-shadow-top: 			1px;
 	$btn-disabled-box-shadow-blur:			1px;
-	$btn-disabled-box-shadow-color:			#fefefe;
+	$btn-disabled-box-shadow-color:			$main-neutral-color; //#fefefe;
 
 $btn-font-size:		    		$font__large; 
 $btn-big-font-size:		    	$font__x__large;

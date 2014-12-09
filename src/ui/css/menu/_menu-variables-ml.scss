@@ -9,11 +9,11 @@ $menu-margin: 							0;
 $menu-padding: 							0;
 $menu-boder-radius:						5px;
 
-$menu-item-text-color: 					#333;
+$menu-item-text-color: 					$gray-900;
 $menu-item-padding: 					5px 10px;
 
 
-$menu-bg-color-hover:					$components-hover-bg-color;
+$menu-bg-color-hover:					$main-secondary-color;
 
 	// box shadow
 	$menu-box-shadow-top:				0;
@@ -24,5 +24,5 @@ $menu-bg-color-hover:					$components-hover-bg-color;
 $menu-expandable-margin:				5px 0;
 
 $menu-nojs-padding: 					2px 15px;
-$menu-nojs-item-hover-bg-color:			#F0F0F0;
+$menu-nojs-item-hover-bg-color:			$gray-100; // f0f0f0
 $menu-nojs-item-hover-border-radius:	5px;

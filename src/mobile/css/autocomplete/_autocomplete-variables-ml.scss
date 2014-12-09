@@ -7,7 +7,7 @@
 $autocomplete-padding:						0;
 
 $autocomplete-item-border-radius:			0;
-$autocomplete-item-border-bottom:			1px dotted #ccc;
+$autocomplete-item-border-bottom:			1px dotted $main-border-color;
 $autocomplete-item-line-height:				45px;
 $autocomplete-item-text-indent:				12px;
 
@@ -15,19 +15,13 @@ $autocomplete-lastitem-border-bottom-left: 	5px;
 $autocomplete-lastitem-border-bottom-right: 5px;
 
 $autocomplete-item-icon-border-radius:		3px;
-$autocomplete-item-icon-text-color:			#f4f4f4;
-$autocomplete-item-icon-bg-color:			#c9c9c9;
+$autocomplete-item-icon-text-color:			$gray-100;
+$autocomplete-item-icon-bg-color:			$gray-500; //#c9c9c9
 $autocomplete-item-icon-width:				40px;
 $autocomplete-item-icon-height:				40px;
-
-	// Item text-shadow
-
-	$autocomplete-item-left:				0;
-	$autocomplete-item-top:					1px;
-	$autocomplete-item-blur:				0;
-	$autocomplete-item-color:				rgba(255,255,255,0.5);
-
-$autocomplete-item-icon-before-text-color:  #f4f4f4;
+$autocomplete-text-shadow:					0 1px 0 rgba(255,255,255,0.5);
+				
+$autocomplete-item-icon-before-text-color:  $gray-100;
 $autocomplete-item-icon-before-text-size:	30px;
 $autocomplete-item-icon-before-line-height: 50px;
 $autocomplete-item-icon-before-text-indent: 10px;

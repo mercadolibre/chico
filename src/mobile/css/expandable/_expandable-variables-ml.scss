@@ -7,7 +7,7 @@
 $expandable-cursor:					pointer;
 $expandable-text-color:				#666;
 $expandable-text-size:				$font__medium;
-$expandable-text-weigth:			normal;
+$expandable-text-weigth:			bold; // weigth es weight // no usar las variables de font-weight
 
 	// Text-shadow
 
@@ -16,18 +16,18 @@ $expandable-text-weigth:			normal;
 	$expandable-text-shadow-blur:		0;
 	$expandable-text-shadow-color:		rgba(255, 255, 255, 0.5);
 
-$expandable-bg-color:				#f4f4f4;
-$expandable-border:					1px solid #dedede;
+$expandable-bg-color:				$gray-100;
+$expandable-border:					1px solid $gray-400;
 $expandable-border-radius:			5px;
 
-$expandable-icon-text-size:			$font__x__large; // la original es 19px;
-$expandable-icon-text-color:		#999;
-$expandable-icon-active-text-color: #333;
+$expandable-icon-text-size:			19px; // actualizar nombres de variables
+$expandable-icon-text-color:		$gray-700;
+$expandable-icon-active-text-color: $gray-900;
 
 $expandable-list-text-size:			$font__x__small;
-$expandable-list-link-text-color:	#333;
+$expandable-list-link-text-color:	$gray-900;
 
-$expandable-content-bg-color:		#fff;
+$expandable-content-bg-color:		$main-neutral-color;
 
 $expandable-padding:				14px 40px 14px 20px;
 

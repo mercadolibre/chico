@@ -4,24 +4,16 @@
 //
 // *************************************
 
-// -------------------------------------
-//   Skin variables
-// -------------------------------------
-
 // ----- Link-to-page ----- //
 
-$pagination-page-bg-color:				#fff;
-$pagination-page-border:				1px solid #DEDEDE;
+$pagination-page-bg-color:				$main-neutral-color;
+$pagination-page-border:				1px solid $main-border-color;
 
 // ----- Current-page ----- //
 
-$pagination-current-page-border:		1px solid #E9E9E9; 
-$pagination-current-page-bg-color:		#e9e9e9; 
-$pagination-current-page-text-color:	#03b;
-
-// -------------------------------------
-//   Structure variables
-// -------------------------------------
+$pagination-current-page-border:		1px solid $main-border-color; 
+$pagination-current-page-bg-color:		$main-border-color; 
+$pagination-current-page-text-color:	$main-primary-color;
 
 $pagination-padding:   					0;
 $pagination-margin:    					10px 0;

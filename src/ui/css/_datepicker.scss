@@ -43,14 +43,14 @@
 }
 
 .ch-datepicker .ch-calendar-day:hover {
-    //background-color: $datepicker-day-hover;
-    color: $gray;
+    background-color: $datepicker-day-hover-bg-color;
+    color: $datepicker-day-hover-text-color;
     font-weight: normal;
     cursor:pointer;
 }
 
 .ch-datepicker .ch-calendar-day.ch-calendar-disabled:hover {
-    background-color: $white;
+    background-color: $main-neutral-color;
     color: #c6c6c6;
     cursor: not-allowed;
 }

@@ -4,35 +4,40 @@
 //
 // *************************************
 
+$btn-padding:							7px 14px;
+
+$btn-line-height:						1.4em;
+
+$btn-small-line-height:					1.4em;
+$btn-small-padding:						5px 10px;
+$btn-small-text-size:					normal;
+
+$btn-large-line-height:					1.5em;
+
 // -------------------------------------
 //   Action
 // -------------------------------------
 
 $btn-action-color:						#666;
-
-	// text-shadow
-
-	$btn-action-text-shadow-top: 		0;
-	$btn-action-text-shadow-left: 		1px;
-	$btn-action-text-shadow-blur:		1px;
-	$btn-action-text-shadow-color:		rgba(255, 255, 255, 0.75);
+$btn-action-text-shadow:				0 1px 1px rgba(255, 255, 255, 0.75);
+// variable global. chequear en cuantos lugares está.
 
 	// box-shadow
 	$btn-action-box-shadow-top:			0;
 	$btn-action-box-shadow-left:		1px;
 	$btn-action-box-shadow-blur:		0;
-	$btn-action-box-shadow-color:		#fff;
+	$btn-action-box-shadow-color:		$main-neutral-color;
 
-$btn-action-bg-color:					#EDEDED;
-$btn-action-bottom-bg-color: 			#D0D0D0;
+$btn-action-bg-color:					$gray-400; // #ededed;
+$btn-action-bottom-bg-color: 			$gray-500; // #d0d0d0;
 
 $btn-action-active:  					#116DC4; // ?
 $btn-action-border:						#bbb;
 
 // ----- Action hover ----- //
 
-$btn-action-hover-bg-color:   			#FEFEFE;
-$btn-action-hover-bottom-bg-color: 		#E6E6E6;
+$btn-action-hover-bg-color:   			$main-neutral-color; // #fefefe;
+$btn-action-hover-bottom-bg-color: 		$gray-400; // #e6e6e6;
 
 	// box-shadow
 	$btn-action-active-box-shadow-top:		0;
@@ -42,17 +47,8 @@ $btn-action-hover-bottom-bg-color: 		#E6E6E6;
 
 // ----- Action active ----- //
 
-$btn-action-active-bg-color:   			#ADADAD;
-$btn-action-active-bottom-bg-color: 	#B1B1B1;
+$btn-action-active-bg-color:   			#adadad;
+$btn-action-active-bottom-bg-color: 	#b1b1b1;
 
-$btn-action-shadow-active:				#949494;
-$btn-action-border-active:				#969696;
-
-$btn-padding:							7px 14px;
-$btn-small-padding:						5px 10px;
-
-$btn-line-height:						1.4em;
-$btn-large-line-height:					1.5em;
-$btn-small-line-height:					1.4em;
-
-$btn-small-text-size:					$font__normal;
+$btn-action-shadow-active:				$gray-700; // #949494;
+$btn-action-border-active:				$gray-700; // #969696;
