@@ -571,10 +571,10 @@ body {
  */
 .ch-box-help,
 .ch-icon-help-sign {
-  color: #888; }
+  color: #999; }
 
 .ch-box-help {
-  background-color: #f0f0f0; }
+  background-color: #f4f4f4; }
 
 /**
  * Info
@@ -915,7 +915,7 @@ a.ch-btn-large:focus {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$main-neutral-color', endColorstr='$gray-100'); }
 
 .ch-calendar-today {
-  background-color: #FEFBD6; }
+  background-color: #fefbd6; }
 
 .ch-calendar-other {
   color: #ccc;
@@ -2027,9 +2027,9 @@ dl.ch-list dd {
   overflow: auto;
   padding: 20px;
   /* Mixin output */
-  -webkit-box-shadow: 0 3px 14px #444 ;
-  -moz-box-shadow: 0 3px 14px #444 ;
-  box-shadow: 0 3px 14px #444 ; }
+  -webkit-box-shadow: 0 3px 14px #333 ;
+  -moz-box-shadow: 0 3px 14px #333 ;
+  box-shadow: 0 3px 14px #333 ; }
 
 .ch-modal-lite {
   text-align: center;
@@ -2371,9 +2371,9 @@ dl.ch-list dd {
 .ch-transition {
   overflow: auto;
   padding: 40px;
-  -webkit-box-shadow: 0 3px 14px #444 ;
-  -moz-box-shadow: 0 3px 14px #444 ;
-  box-shadow: 0 3px 14px #444 ;
+  -webkit-box-shadow: 0 3px 14px #333 ;
+  -moz-box-shadow: 0 3px 14px #333 ;
+  box-shadow: 0 3px 14px #333 ;
   text-align: center; }
 
 /**

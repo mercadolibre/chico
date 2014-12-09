@@ -4,10 +4,10 @@
 //
 // *************************************
 
-$tag-bg-color:				#f4f4f4;
+$tag-bg-color:				$gray-100;
 $tag-border:				1px solid $main-border-color;
 $tag-border-radius:			5px;
-$tag-text-color:			#666;
+$tag-text-color:			$gray-800;
 $tag-text-size:				14px;
 
 $tag-margin:				4px 0 0;
@@ -21,7 +21,7 @@ $tag-padding:				3px 30px 3px 10px;
 	$tag-text-shadow-blur:	1px;
 	$tag-text-shadow-color: $main-neutral-color;
 
-$tag-active-bg-color:		#e9e9e9;
+$tag-active-bg-color:		$gray-200;
 
 $tag-icon-margin:			-9px 0 0 0;
 $tag-icon-text-color:		$gray-700; // los iconos tomarlos como iconos, no como texto

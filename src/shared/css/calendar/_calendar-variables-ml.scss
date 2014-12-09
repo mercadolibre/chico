@@ -19,7 +19,7 @@ $calendar-day-cursor:						default;
 
 // ----- Today cell ----- //
 
-$calendar-day-today-bg-color:				#FEFBD6;
+$calendar-day-today-bg-color:				#fefbd6;
 
 // ----- Empty day cell ----- //
 
@@ -41,7 +41,7 @@ $calendar-day-selected-text-weight:			$font-weigth__bold !important;
 
 $calendar-head-control-pointer:				pointer;
 
-$calendar-head-control-icon-color:			#666;
+$calendar-head-control-icon-color:			$gray-800;
 $calendar-head-control-icon-shadow:			0 1px $main-neutral-color;
 
 $calendar-head-control-prev-icon-position:	15px;

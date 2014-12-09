@@ -47,8 +47,8 @@ $btn-action-hover-bottom-bg-color: 		$gray-400; // #e6e6e6;
 
 // ----- Action active ----- //
 
-$btn-action-active-bg-color:   			#adadad;
-$btn-action-active-bottom-bg-color: 	#b1b1b1;
+$btn-action-active-bg-color:   			$gray-600;
+$btn-action-active-bottom-bg-color: 	$gray-500; // #b1b1b1;
 
 $btn-action-shadow-active:				$gray-700; // #949494;
 $btn-action-border-active:				$gray-700; // #969696;

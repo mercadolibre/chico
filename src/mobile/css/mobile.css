@@ -576,10 +576,10 @@ img {
  */
 .ch-box-help,
 .ch-icon-help-sign {
-  color: #888; }
+  color: #999; }
 
 .ch-box-help {
-  background-color: #f0f0f0; }
+  background-color: #f4f4f4; }
 
 /**
  * Info
@@ -829,8 +829,8 @@ input.ch-btn-small::-moz-focus-inner {
 
 .ch-btn-action:active {
   background-color: #adadad;
-  background-image: -webkit-linear-gradient(#adadad, #b1b1b1);
-  background-image: linear-gradient(#adadad, #b1b1b1);
+  background-image: -webkit-linear-gradient(#adadad, #ccc);
+  background-image: linear-gradient(#adadad, #ccc);
   border-color: #999;
   -webkit-box-shadow: 0 1px 6px rgba(255, 255, 255, 0.75) ;
   -moz-box-shadow: 0 1px 6px rgba(255, 255, 255, 0.75) ;
@@ -2144,9 +2144,9 @@ a.ch-tag,
 .ch-transition {
   overflow: auto;
   padding: 40px;
-  -webkit-box-shadow: 0 3px 14px #444 ;
-  -moz-box-shadow: 0 3px 14px #444 ;
-  box-shadow: 0 3px 14px #444 ;
+  -webkit-box-shadow: 0 3px 14px #333 ;
+  -moz-box-shadow: 0 3px 14px #333 ;
+  box-shadow: 0 3px 14px #333 ;
   text-align: center; }
 
 /**
