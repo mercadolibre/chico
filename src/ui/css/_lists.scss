@@ -4,12 +4,12 @@
  */
 .ch-list {
     margin: $list-margin;
-}
 
-.ch-list li {
-    margin:$list-item-margin;
-    padding:$list-item-padding;
-    line-height: $list-item-line-height;
+    li {
+        margin: $list-item-margin;
+        padding: $list-item-padding;
+        line-height: $list-item-line-height;
+    }
 }
 
 ul.ch-list {
@@ -21,7 +21,7 @@ ol.ch-list {
 }
 
 dl.ch-list {
-    margin-bottom: $list-definition-margin;
+    margin: $list-definition-margin;
 }
 
 dl.ch-list dt,

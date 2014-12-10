@@ -12,7 +12,7 @@
     background-color: $btn-action-bg-color;
     @include background-image(linear-gradient($btn-action-bg-color, $btn-action-bottom-bg-color));
     border: 1px solid $btn-action-border;
-    @include box-shadow($btn-action-box-shadow-top, $btn-action-box-shadow-left, $btn-action-box-shadow-blur, $btn-action-box-shadow-color);
+    box-shadow: $btn-action-box-shadow;
     color: $btn-action-color;
     text-shadow: $btn-action-text-shadow;
 }
@@ -28,7 +28,7 @@
     background-color: $btn-action-active-bg-color;
     @include background-image(linear-gradient($btn-action-active-bg-color, $btn-action-active-bottom-bg-color));    
     border-color: $btn-action-border-active;
-    @include box-shadow($btn-action-active-box-shadow-top, $btn-action-active-box-shadow-left, $btn-action-active-box-shadow-blur, $btn-action-active-box-shadow-color);
+    box-shadow: $btn-action-active-box-shadow;
 }
 
 /* Default h: ~38px */

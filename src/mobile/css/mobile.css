@@ -682,9 +682,7 @@ button:focus {
   background-color: #3e52a1;
   background-image: -webkit-linear-gradient(#3e52a1, #2d3277);
   background-image: linear-gradient(#3e52a1, #2d3277);
-  -webkit-box-shadow: 0 1px 0 #7a89e8 ;
-  -moz-box-shadow: 0 1px 0 #7a89e8 ;
-  box-shadow: 0 1px 0 #7a89e8 ;
+  box-shadow: 0 1px 0 #7a89e8, inset;
   border: 1px solid #2d3277;
   color: #fff; }
 
@@ -695,9 +693,7 @@ button:focus {
   background-image: -webkit-linear-gradient(#cce3f7, #aaD0ef);
   background-image: linear-gradient(#cce3f7, #aaD0ef);
   border: 1px solid #79a8c7;
-  -webkit-box-shadow: 0 1px 0 #e5f2fc ;
-  -moz-box-shadow: 0 1px 0 #e5f2fc ;
-  box-shadow: 0 1px 0 #e5f2fc ;
+  box-shadow: 0 1px 0 #e5f2fc, inset;
   color: #476274;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); }
 
@@ -711,35 +707,27 @@ button:focus {
   background-color: #4355d2;
   background-image: -webkit-linear-gradient(#4355d2, #2f33ae);
   background-image: linear-gradient(#4355d2, #2f33ae);
-  -webkit-box-shadow: 0 1px 0 #7a89e8 ;
-  -moz-box-shadow: 0 1px 0 #7a89e8 ;
-  box-shadow: 0 1px 0 #7a89e8 ; }
+  box-shadow: 0 1px 0 #7a89e8, inset; }
 
 .ch-btn-skin:hover {
   background-color: #dcecfb;
   background-image: -webkit-linear-gradient(#dcecfb, #c5dff5);
   background-image: linear-gradient(#dcecfb, #c5dff5);
-  -webkit-box-shadow: 0 1px 0 #e5f2fc ;
-  -moz-box-shadow: 0 1px 0 #e5f2fc ;
-  box-shadow: 0 1px 0 #e5f2fc ; }
+  box-shadow: 0 1px 0 #e5f2fc, inset; }
 
 /* Colors on Active */
 .ch-btn:active {
   background-color: #292f66;
   background-image: -webkit-linear-gradient(#292f66, #202388);
   background-image: linear-gradient(#292f66, #202388);
-  -webkit-box-shadow: 0 1px 6px #141452 ;
-  -moz-box-shadow: 0 1px 6px #141452 ;
-  box-shadow: 0 1px 6px #141452 ;
+  box-shadow: 0 1px 6px #141452, inset;
   border-color: #181e39; }
 
 .ch-btn-skin:active {
   background-color: #a2c9e1;
   background-image: -webkit-linear-gradient(#a2c9e1, #7ab6dc);
   background-image: linear-gradient(#a2c9e1, #7ab6dc);
-  -webkit-box-shadow: 0 1px 6px #476274 ;
-  -moz-box-shadow: 0 1px 6px #476274 ;
-  box-shadow: 0 1px 6px #476274 ;
+  box-shadow: 0 1px 6px #476274, inset;
   border-color: #79a8c7; }
 
 /* Size */
@@ -769,9 +757,7 @@ input.ch-btn-small::-moz-focus-inner {
   background-image: linear-gradient(#fff, #d9d9d9);
   border: 1px solid #ccc !important;
   /* important for links */
-  -webkit-box-shadow: 0 1px 1px #fff ;
-  -moz-box-shadow: 0 1px 1px #fff ;
-  box-shadow: 0 1px 1px #fff ;
+  box-shadow: 0 1px 1px #fff, inset;
   color: #999 !important;
   /* important for links */
   cursor: not-allowed;
@@ -790,9 +776,7 @@ input.ch-btn-small::-moz-focus-inner {
   background-image: -webkit-linear-gradient(#dedede, #ccc);
   background-image: linear-gradient(#dedede, #ccc);
   border: 1px solid #bbb;
-  -webkit-box-shadow: 0 1px 0 #fff ;
-  -moz-box-shadow: 0 1px 0 #fff ;
-  box-shadow: 0 1px 0 #fff ;
+  box-shadow: 0 1px 0 #fff;
   color: #666;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); }
 
@@ -807,9 +791,7 @@ input.ch-btn-small::-moz-focus-inner {
   background-image: -webkit-linear-gradient(#adadad, #ccc);
   background-image: linear-gradient(#adadad, #ccc);
   border-color: #999;
-  -webkit-box-shadow: 0 1px 6px rgba(255, 255, 255, 0.75) ;
-  -moz-box-shadow: 0 1px 6px rgba(255, 255, 255, 0.75) ;
-  box-shadow: 0 1px 6px rgba(255, 255, 255, 0.75) ; }
+  box-shadow: 0 1px 6px rgba(255, 255, 255, 0.75); }
 
 /* Default h: ~38px */
 .ch-btn,
@@ -1079,9 +1061,7 @@ table {
   padding: 0;
   list-style: none;
   white-space: nowrap;
-  -webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1) inset;
-  -moz-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1) inset;
-  box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1) inset;
+  box-shadow: 2px, 2px, 2px, rgba(100, 100, 100, 0.1), inset;
   border-radius: 0 5px 5px;
   /* Container */
   /* List of links */ }
@@ -1103,9 +1083,7 @@ table {
   background-color: #7ab6dc;
   background-image: -webkit-linear-gradient(#a2c9e1, #7ab6dc);
   background-image: linear-gradient(#a2c9e1, #7ab6dc);
-  -webkit-box-shadow: 0 1px 6px rgba(71, 98, 116, 0.6) ;
-  -moz-box-shadow: 0 1px 6px rgba(71, 98, 116, 0.6) ;
-  box-shadow: 0 1px 6px rgba(71, 98, 116, 0.6) ;
+  box-shadow: 0 1px 6px rgba(71, 98, 116, 0.6);
   border-radius: 0; }
 
 /* Interaction of list */
@@ -1139,10 +1117,7 @@ table {
 /* Trigger ON */
 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on {
   border-color: #dedede;
-  /* Mixin output*/
-  -webkit-box-shadow: 2px 0 0 rgba(100, 100, 100, 0.1) ;
-  -moz-box-shadow: 2px 0 0 rgba(100, 100, 100, 0.1) ;
-  box-shadow: 2px 0 0 rgba(100, 100, 100, 0.1) ;
+  box-shadow: 2px 0 0 rgba(100, 100, 100, 0.1);
   border-radius: 0; }
 
 .ch-dropdown-trigger-skin.ch-btn-skin:active {
@@ -1196,7 +1171,7 @@ table {
   color: #666;
   font-size: 16px;
   font-weight: bold;
-  text-shadow: 0, 1px, 0, rgba(255, 255, 255, 0.5);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #f4f4f4;
   border: 1px solid #dedede;
   border-radius: 5px; }
@@ -1728,15 +1703,15 @@ dl.ch-list {
 .ch-list {
   margin: 0 0 10px 0; }
   .ch-list li {
-    margin-left: 0 0 0 10px;
+    margin: 0 0 0 10px;
     padding: 3px 0;
     line-height: 18px; }
 
 ul.ch-list {
-  list-style: decimal inside; }
+  list-style: disc inside; }
 
 ol.ch-list {
-  list-style: disc inside; }
+  list-style: decimal inside; }
 
 dl.ch-list {
   margin: 0 0 18px 0; }
@@ -2035,7 +2010,7 @@ a.ch-tag,
   font-size: 14px;
   margin: 4px 0 0;
   padding: 3px 30px 3px 10px;
-  text-shadow: 0, 1px, 1px, #fff;
+  text-shadow: 0 1px 1px #fff;
   display: inline-block;
   text-decoration: none;
   position: relative; }
@@ -2109,9 +2084,7 @@ a.ch-tag,
 .ch-transition {
   overflow: auto;
   padding: 40px;
-  -webkit-box-shadow: 0 3px 14px #333 ;
-  -moz-box-shadow: 0 3px 14px #333 ;
-  box-shadow: 0 3px 14px #333 ;
+  box-shadow: 0 3px 14px #333;
   text-align: center; }
 
 /**

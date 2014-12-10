@@ -27,14 +27,7 @@ $tab-trigger-bg-color: 				$gray-100; // #f0f0f0;
 $tab-trigger-bg-color-secondary: 	$main-neutral-color 25px;
 $tab-trigger-border-bottom:			1px solid $main-neutral-color;
 $tab-trigger-text-weigth:			bold;
-
-
-	// Box shadow
-
-	$tab-trigger-box-shadow-top: 	2px;
-	$tab-trigger-box-shadow-left: 	0;
-	$tab-trigger-box-shadow-blur: 	2px;
-	$tab-trigger-box-shadow-color: 	rgba(255, 255, 255, .5);
+$tab-trigger-box-shadow:			2px 0 2px rgba(255, 255, 255, .5);
 
 $tabs-component-margin: 			10px 0;
 

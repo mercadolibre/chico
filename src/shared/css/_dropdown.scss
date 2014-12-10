@@ -32,7 +32,7 @@
     padding: 0;
     list-style: none;
     white-space: nowrap;
-    @include box-shadow(2px, 2px, 2px, rgba(100, 100, 100, .1), inset);
+    box-shadow: $dropdown-box-shadow, inset;
     border-radius: $dropdown-border-radius;
     
     /* Container */
@@ -57,7 +57,7 @@
 .ch-dropdown-trigger-on:hover {
     background-color: $trigger-active-bg-color;
     @include background-image(linear-gradient($trigger-active-bg-color-top, $trigger-active-bg-color));
-    @include box-shadow($trigger-active-box-shadow-top, $trigger-active-box-shadow-left, $trigger-active-box-shadow-blur, $trigger-active-box-shadow-color);
+    box-shadow: $trigger-active-box-shadow;
     border-radius: $trigger-active-border-radius;
 }
 
@@ -99,8 +99,7 @@
 /* Trigger ON */
 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on {
     border-color: $trigger-on-skin-border;
-    /* Mixin output*/
-    @include box-shadow($trigger-on-skin-box-shadow-top,$trigger-on-skin-box-shadow-left,$trigger-on-skin-box-shadow-blur,$trigger-on-skin-box-shadow-color);
+    box-shadow: $trigger-on-skin-box-shadow;
     border-radius: $trigger-on-skin-border-radius;
 }
 

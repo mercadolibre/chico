@@ -18,39 +18,21 @@ $btn-primary-bg-color-secondary:			#2d3277;
 $btn-primary-active:  						#29358f;
 $btn-primary-border:						#2d3277;
 $btn-primary-shadow:						#8ea2df;
-
-	// Box shadow mixin
-
-	$btn-primary-box-shadow-top:			0;
-	$btn-primary-box-shadow-left:			1px;
-	$btn-primary-box-shadow-blur:			0;
-	$btn-primary-box-shadow-color:			#7a89e8;
+$btn-primary-box-shadow:					0 1px 0 #7a89e8;
 
 // ----- Hover state ----- //
 
 $btn-primary-box-hover:   					#4051d0;
 $btn-primary-box-hover-bg-color:			#4355d2;
 $btn-primary-box-hover-bg-color-secondary: 	#2f33ae;
-
-	// Box shadow mixin
-
-	$btn-primary-hover-box-shadow-top:		0;
-	$btn-primary-hover-box-shadow-left:		1px;
-	$btn-primary-hover-box-shadow-blur:		0;
-	$btn-primary-hover-box-shadow-color:	#7a89e8;
+$btn-primary-hover-box-shadow:				0 1px 0 #7a89e8;
 
 // ----- Active state ----- //
 
 $btn-primary-active-bg-color:   			#292f66;
 $btn-primary-active-bg-color-secondary: 	#202388;
-$btn-primary-border-active:					#181e39;
-
-	// Box shadow mixin
-
-	$btn-primary-active-box-shadow-top:		0;
-	$btn-primary-active-box-shadow-left:	1px;
-	$btn-primary-active-box-shadow-blur:	6px;
-	$btn-primary-active-box-shadow-color:	#141452;
+$btn-primary-active-border:					#181e39;
+$btn-primary-active-box-shadow:				0 1px 6px #141452;
 
 // -------------------------------------
 //   Skin
@@ -64,25 +46,13 @@ $btn-secondary-bg-color-secondary:  		#aaD0ef;
 $btn-secondary-border:						#79a8c7;
 $btn-secondary-active:  					#7c9cB2;
 $btn-secondary-shadow:						none;
-
-	// Box shadow mixin values
-
-	$btn-secondary-box-shadow-top:			0;
-	$btn-secondary-box-shadow-left:			1px;
-	$btn-secondary-box-shadow-blur:			0;
-	$btn-secondary-box-shadow-color:		#e5f2fc;
+$btn-secondary-box-shadow:					0 1px 0 #e5f2fc;
 
 // ----- Hover state ----- //
 
 $btn-secondary-hover-bg-color:   			#dcecfb;
 $btn-secondary-hover-bg-color-secondary:	#c5dff5;
-
-	// Box shadow mixin values
-
-	$btn-secondary-hover-box-shadow-top:	0;
-	$btn-secondary-hover-box-shadow-left:	1px;
-	$btn-secondary-hover-box-shadow-blur:	0;
-	$btn-secondary-hover-box-shadow-color:	#e5f2fc;
+$btn-secondary-hover-box-shadow:			0 1px 0 #e5f2fc;
 
 // ----- Active state ----- //
 
@@ -90,13 +60,7 @@ $btn-secondary-active-bg-color:				#a2c9e1;
 $btn-secondary-active-bg-color-secondary:	#7ab6dc;
 $btn-secondary-shadow-active:				#476274; // rgba(71, 98, 116, .6);
 $btn-secondary-border-active:				#79a8c7;
-
-	// Box shadow mixin values
-
-	$btn-secondary-active-box-shadow-top:	0;
-	$btn-secondary-active-box-shadow-left:	1px;
-	$btn-secondary-active-box-shadow-blur:	6px;
-	$btn-secondary-active-box-shadow-color:	#476274;
+$btn-secondary-active-box-shadow:			0 1px 6px #476274;
 
 // ----- Disabled state ----- //
 
@@ -107,13 +71,7 @@ $btn-disabled-border:						$gray-500;
 $btn-disabled-text-shadow:					none;
 $btn-disabled-text-color:					$gray-700;
 $btn-disabled-opacity:						0.5;
-
-	// Box shadow mixin values
-
-	$btn-disabled-box-shadow-left: 			0;
-	$btn-disabled-box-shadow-top: 			1px;
-	$btn-disabled-box-shadow-blur:			1px;
-	$btn-disabled-box-shadow-color:			$main-neutral-color; //#fefefe;
+$btn-disabled-box-shadow:					0 1px 1px $main-neutral-color; //#fefefe;
 
 $btn-font-size:		    		$font__large; 
 $btn-big-font-size:		    	$font__x__large;

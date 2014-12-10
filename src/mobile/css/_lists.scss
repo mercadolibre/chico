@@ -6,22 +6,22 @@
 	margin: $list-margin;
 
 	li {
-		margin-left: $list-item-margin;
+		margin: $list-item-margin;
 		padding: $list-item-padding;
 		line-height: $list-item-line-height;
 	}
 }
 
 ul.ch-list {
-	list-style: $list-ordered-bullet;	
+	list-style: $list-unordered-bullet;	
 }
 
 ol.ch-list {
-	list-style: $list-unordered-bullet;
+	list-style: $list-ordered-bullet;
 }
 
 dl.ch-list {
-	margin:$list-definition-margin;
+	margin: $list-definition-margin;
 }
 
 dl.ch-list dt,

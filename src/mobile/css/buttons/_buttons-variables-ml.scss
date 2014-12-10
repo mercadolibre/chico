@@ -22,12 +22,7 @@ $btn-action-color:						#666;
 $btn-action-text-shadow:				0 1px 1px rgba(255, 255, 255, 0.75);
 // variable global. chequear en cuantos lugares está.
 
-	// box-shadow
-	$btn-action-box-shadow-top:			0;
-	$btn-action-box-shadow-left:		1px;
-	$btn-action-box-shadow-blur:		0;
-	$btn-action-box-shadow-color:		$main-neutral-color;
-
+$btn-action-box-shadow:					0 1px 0 $main-neutral-color;
 $btn-action-bg-color:					$gray-400; // #ededed;
 $btn-action-bottom-bg-color: 			$gray-500; // #d0d0d0;
 
@@ -38,12 +33,7 @@ $btn-action-border:						#bbb;
 
 $btn-action-hover-bg-color:   			$main-neutral-color; // #fefefe;
 $btn-action-hover-bottom-bg-color: 		$gray-400; // #e6e6e6;
-
-	// box-shadow
-	$btn-action-active-box-shadow-top:		0;
-	$btn-action-active-box-shadow-left:		1px;
-	$btn-action-active-box-shadow-blur:		6px;
-	$btn-action-active-box-shadow-color:	rgba(255, 255, 255, 0.75);
+$btn-action-active-box-shadow:			0 1px 6px rgba(255, 255, 255, 0.75);
 
 // ----- Action active ----- //
 

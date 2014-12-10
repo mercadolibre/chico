@@ -35,7 +35,7 @@ button:focus {
 .ch-btn:visited {
     background-color: $btn-primary-bg-color;
     @include background-image(linear-gradient($btn-primary-bg-color, $btn-primary-bg-color-secondary));
-    @include box-shadow($btn-primary-box-shadow-top, $btn-primary-box-shadow-left, $btn-primary-box-shadow-blur, $btn-primary-box-shadow-color);
+    box-shadow: $btn-primary-box-shadow, inset;
     border: 1px solid $btn-primary-border;
     color: $btn-primary-color;
 }
@@ -46,7 +46,7 @@ button:focus {
     background-color: $btn-secondary-bg-color;
     @include background-image(linear-gradient($btn-secondary-bg-color, $btn-secondary-bg-color-secondary));
     border: 1px solid $btn-secondary-border;
-    @include box-shadow($btn-secondary-box-shadow-top, $btn-secondary-box-shadow-left, $btn-secondary-box-shadow-blur,$btn-secondary-box-shadow-color); 
+    box-shadow: $btn-secondary-box-shadow, inset;
     color: $btn-secondary-color;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
@@ -61,27 +61,27 @@ button:focus {
 .ch-btn:hover {
     background-color: $btn-primary-box-hover-bg-color;
     @include background-image(linear-gradient($btn-primary-box-hover-bg-color, $btn-primary-box-hover-bg-color-secondary));
-    @include box-shadow($btn-primary-hover-box-shadow-top, $btn-primary-hover-box-shadow-left, $btn-primary-hover-box-shadow-blur, $btn-primary-hover-box-shadow-color);
+    box-shadow: $btn-primary-hover-box-shadow, inset;
 }
 
 .ch-btn-skin:hover {
     background-color: $btn-secondary-hover-bg-color;
     @include background-image(linear-gradient($btn-secondary-hover-bg-color, $btn-secondary-hover-bg-color-secondary));
-    @include box-shadow($btn-secondary-hover-box-shadow-top, $btn-secondary-hover-box-shadow-left, $btn-secondary-hover-box-shadow-blur, $btn-secondary-hover-box-shadow-color);
+    box-shadow: $btn-secondary-hover-box-shadow, inset;
 }
 
 /* Colors on Active */
 .ch-btn:active {
     background-color: $btn-primary-active-bg-color;
     @include background-image(linear-gradient($btn-primary-active-bg-color, $btn-primary-active-bg-color-secondary));
-    @include box-shadow($btn-primary-active-box-shadow-top, $btn-primary-active-box-shadow-left, $btn-primary-active-box-shadow-blur, $btn-primary-active-box-shadow-color);
-    border-color: $btn-primary-border-active;
+    box-shadow: $btn-primary-active-box-shadow, inset;
+    border-color: $btn-primary-active-border;
 }
 
 .ch-btn-skin:active {
     background-color: $btn-secondary-active-bg-color;
     @include background-image(linear-gradient($btn-secondary-active-bg-color, $btn-secondary-active-bg-color-secondary));
-    @include box-shadow($btn-secondary-active-box-shadow-top, $btn-secondary-active-box-shadow-left, $btn-secondary-active-box-shadow-blur, $btn-secondary-active-box-shadow-color);
+    box-shadow: $btn-secondary-active-box-shadow, inset;
     border-color: $btn-secondary-border-active;
 }
 
@@ -112,7 +112,7 @@ input.ch-btn-small::-moz-focus-inner {
     background-color: $btn-disabled-bg-color;
     @include background-image(linear-gradient($btn-disabled-bg-color, $btn-disabled-bg-color-secondary));
     border: 1px solid $btn-disabled-border !important; /* important for links */
-    @include box-shadow($btn-disabled-box-shadow-left, $btn-disabled-box-shadow-top, $btn-disabled-box-shadow-blur, $btn-disabled-box-shadow-color);
+    box-shadow: $btn-disabled-box-shadow, inset;
     color: $btn-disabled-text-color !important; /* important for links */
     cursor: not-allowed;
     @include opacity($btn-disabled-opacity);

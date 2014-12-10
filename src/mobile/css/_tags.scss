@@ -15,7 +15,7 @@ a.ch-tag, /* Specificity to colorize links */
     font-size: $tag-text-size;
 	margin: $tag-margin;
 	padding: $tag-padding;
-	text-shadow: $tag-text-shadow-top, $tag-text-shadow-left, $tag-text-shadow-blur, $tag-text-shadow-color;
+	text-shadow: $tag-text-shadow;
 	display: inline-block;
 	text-decoration: none;
 	position: relative;

@@ -50,7 +50,7 @@
     border-bottom: $tab-trigger-border-bottom;
     cursor: default;
     font-weight: $tab-trigger-text-weigth;
-    @include box-shadow($tab-trigger-box-shadow-top, $tab-trigger-box-shadow-left, $tab-trigger-box-shadow-blur, $tab-trigger-box-shadow-color);
+    box-shadow: $tab-trigger-box-shadow;
 }
 
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
