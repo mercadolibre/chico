@@ -655,9 +655,7 @@ body {
 [class*="ch-btn"]:focus {
   font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
   border-radius: 4px;
-  -webkit-box-shadow: 0 0 0 none ;
-  -moz-box-shadow: 0 0 0 none ;
-  box-shadow: 0 0 0 none ;
+  box-shadow: 0,0,0,none;
   cursor: pointer;
   display: inline-block;
   height: auto;
@@ -1797,35 +1795,6 @@ dl.ch-list {
     margin: 5px 0 10px 10px; }
 
 /**
- * List
- */
-.ch-list {
-  margin: 0 0 10px 0; }
-  .ch-list li {
-    margin: 0 0 0 10px;
-    padding: 3px 0;
-    line-height: 18px; }
-
-ul.ch-list {
-  list-style: disc inside; }
-
-ol.ch-list {
-  list-style: decimal inside; }
-
-dl.ch-list {
-  margin: 0 0 18px 0; }
-
-dl.ch-list dt,
-dl.ch-list dd {
-  line-height: 18px; }
-
-dl.ch-list dt {
-  font-weight: bold; }
-
-dl.ch-list dd {
-  margin: 5px 0 10px 10px; }
-
-/**
  * Transitions
  */
 .ch-loading-large,
@@ -2033,10 +2002,7 @@ dl.ch-list dd {
  * Popover
  */
 .ch-popover {
-  /* Mixin output */
-  -webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.2) ;
-  -moz-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.2) ;
-  box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.2) ; }
+  box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.2); }
 
 .ch-shownby-pointertap {
   cursor: pointer; }

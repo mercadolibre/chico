@@ -4,8 +4,7 @@
  * Popover
  */
 .ch-popover {
-    /* Mixin output */
-    @include box-shadow($popover-box-shadow-top, $popover-box-shadow-left, $popover-box-shadow-blur, $popover-box-shadow-color);
+    box-shadow: $popover-box-shadow;
 }
 
 .ch-shownby-pointertap {
