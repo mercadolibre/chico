@@ -48,13 +48,11 @@ table {
 
 .ch-datagrid-controls th {
     background-color: $table-header-controls-bg-color;
-    /* Bourbon output */
     @include background-image(linear-gradient($table-header-controls-bg-color, $table-header-controls-bg-color-secondary));
     cursor: pointer;
 
     &:hover {
         background: $table-header-controls-hover-bg-color;
-        /* Bourbon output */
         @include background-image(linear-gradient($table-header-controls-hover-bg-color, $table-header-controls-hover-bg-color-secondary));     
     }
 }
@@ -62,7 +60,6 @@ table {
 .ch-datagrid-controls th:active,
 .ch-datagrid-controls th.ch-datagrid-selected {
     background: $table-header-controls-active-bg-color;
-        /* Bourbon output */
         @include background-image(linear-gradient($table-header-controls-active-bg-color, $table-header-controls-active-bg-secondary));
     border-top: $table-header-controls-active-border;
 }

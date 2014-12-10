@@ -2,6 +2,5 @@
  * Boxes
  */
 .ch-box {
-	/* Bourbon output*/
-	@include linear-gradient(#F0F0F0, #fff 25px, #fff);
+	@include linear-gradient($gray-100, $main-neutral-color 25px, $main-neutral-color);
 }

@@ -365,13 +365,11 @@ body {
   display: none; }
 
 .ch-hidden {
-  /* Mixin output */
   visibility: hidden;
   position: absolute !important;
   top: -9999px !important; }
 
 .ch-ellipsis {
-  /* Mixin output */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; }
@@ -383,7 +381,6 @@ body {
 
 /* do not select text */
 .ch-user-no-select {
-  /* Mixin output */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -396,7 +393,6 @@ body {
 .ch-close:visited,
 .ch-close:focus {
   background-color: transparent;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1) 100%);
   background-image: linear-gradient(to   , rgba(100, 100, 100, 0.1) 100%);
   border: none;
@@ -411,7 +407,6 @@ body {
   position: absolute;
   right: 10px;
   top: 10px;
-  /* Bourbon output */
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -422,7 +417,6 @@ body {
 .ch-close:active {
   color: #fff;
   background-color: #bf0602;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#bf0602, #8f2f00);
   background-image: linear-gradient(#bf0602, #8f2f00); }
 
@@ -439,7 +433,6 @@ body {
 .ch-close:hover {
   color: #fff;
   background-color: #fA5900;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#fA5900, #ca0c02);
   background-image: linear-gradient(#fA5900, #ca0c02);
   text-decoration: none; }
@@ -472,11 +465,9 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BF0602', endColorstr='#8F2F00'); }
 
 .ch-autocomplete {
-  /* Bourbon output */
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-top: none;
-  /* Bourbon output */
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
@@ -602,10 +593,9 @@ body {
  * Boxes
  */
 .ch-box {
-  /* Bourbon output*/
-  background-color: #F0F0F0;
-  background-image: -webkit-linear-gradient(#F0F0F0, #fff 25px, #fff);
-  background-image: linear-gradient(#F0F0F0, #fff 25px, #fff); }
+  background-color: #f4f4f4;
+  background-image: -webkit-linear-gradient(#f4f4f4, #fff 25px, #fff);
+  background-image: linear-gradient(#f4f4f4, #fff 25px, #fff); }
 
 /**
  * Bubble
@@ -665,7 +655,6 @@ body {
 [class*="ch-btn"]:focus {
   font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
   border-radius: 4px;
-  /* Mixin output */
   -webkit-box-shadow: 0 0 0 none ;
   -moz-box-shadow: 0 0 0 none ;
   box-shadow: 0 0 0 none ;
@@ -691,10 +680,8 @@ button:focus {
 .ch-btn:focus,
 .ch-btn:visited {
   background-color: #3e52a1;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#3e52a1, #2d3277);
   background-image: linear-gradient(#3e52a1, #2d3277);
-  /* Mixin output */
   -webkit-box-shadow: 0 1px 0 #7a89e8 ;
   -moz-box-shadow: 0 1px 0 #7a89e8 ;
   box-shadow: 0 1px 0 #7a89e8 ;
@@ -705,11 +692,9 @@ button:focus {
 .ch-btn-skin:focus,
 .ch-btn-skin:visited {
   background-color: #cce3f7;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#cce3f7, #aaD0ef);
   background-image: linear-gradient(#cce3f7, #aaD0ef);
   border: 1px solid #79a8c7;
-  /* Mixin output */
   -webkit-box-shadow: 0 1px 0 #e5f2fc ;
   -moz-box-shadow: 0 1px 0 #e5f2fc ;
   box-shadow: 0 1px 0 #e5f2fc ;
@@ -724,20 +709,16 @@ button:focus {
 /* Colors on Hover */
 .ch-btn:hover {
   background-color: #4355d2;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#4355d2, #2f33ae);
   background-image: linear-gradient(#4355d2, #2f33ae);
-  /* Mixin output */
   -webkit-box-shadow: 0 1px 0 #7a89e8 ;
   -moz-box-shadow: 0 1px 0 #7a89e8 ;
   box-shadow: 0 1px 0 #7a89e8 ; }
 
 .ch-btn-skin:hover {
   background-color: #dcecfb;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#dcecfb, #c5dff5);
   background-image: linear-gradient(#dcecfb, #c5dff5);
-  /* Mixin output */
   -webkit-box-shadow: 0 1px 0 #e5f2fc ;
   -moz-box-shadow: 0 1px 0 #e5f2fc ;
   box-shadow: 0 1px 0 #e5f2fc ; }
@@ -745,10 +726,8 @@ button:focus {
 /* Colors on Active */
 .ch-btn:active {
   background-color: #292f66;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#292f66, #202388);
   background-image: linear-gradient(#292f66, #202388);
-  /* Mixin output */
   -webkit-box-shadow: 0 1px 6px #141452 ;
   -moz-box-shadow: 0 1px 6px #141452 ;
   box-shadow: 0 1px 6px #141452 ;
@@ -756,10 +735,8 @@ button:focus {
 
 .ch-btn-skin:active {
   background-color: #a2c9e1;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#a2c9e1, #7ab6dc);
   background-image: linear-gradient(#a2c9e1, #7ab6dc);
-  /* Mixin output */
   -webkit-box-shadow: 0 1px 6px #476274 ;
   -moz-box-shadow: 0 1px 6px #476274 ;
   box-shadow: 0 1px 6px #476274 ;
@@ -788,19 +765,16 @@ input.ch-btn-small::-moz-focus-inner {
 [class*="ch-btn"][disabled]:active,
 [class*="ch-btn"][disabled]:focus {
   background-color: #fff;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#fff, #d9d9d9);
   background-image: linear-gradient(#fff, #d9d9d9);
   border: 1px solid #ccc !important;
   /* important for links */
-  /* Mixin output */
   -webkit-box-shadow: 0 1px 1px #fff ;
   -moz-box-shadow: 0 1px 1px #fff ;
   box-shadow: 0 1px 1px #fff ;
   color: #999 !important;
   /* important for links */
   cursor: not-allowed;
-  /* Mixin output */
   opacity: 0.5;
   filter: alpha(opacity=50);
   text-shadow: none; }
@@ -883,7 +857,6 @@ a.ch-btn-large:focus {
   display: inline-block; }
   .ch-calendar caption {
     background-color: #f4f4f4;
-    /* Bourbon output */
     background-image: -webkit-linear-gradient(#fff, #f4f4f4);
     background-image: linear-gradient(#fff, #f4f4f4);
     font-size: 13px;
@@ -979,7 +952,6 @@ a.ch-btn-large:focus {
   overflow: auto;
   position: relative;
   /* Enable hardware acceleration */
-  /* Bourbon */
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
@@ -995,7 +967,6 @@ a.ch-btn-large:focus {
 .ch-carousel > ul,
 .ch-carousel-list {
   overflow: hidden;
-  /* Bourbon */
   -webkit-transition: all 0.8s ease;
   -moz-transition: all 0.8s ease;
   transition: all 0.8s ease;
@@ -1007,7 +978,6 @@ a.ch-btn-large:focus {
   list-style: none; }
 
 .ch-carousel ul.ch-carousel-nofx {
-  /* Bourbon */
   -webkit-transition: none;
   -moz-transition: none;
   transition: none; }
@@ -1124,20 +1094,17 @@ table {
 
 .ch-datagrid-controls th {
   background-color: #fff;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#fff, #f4f4f4);
   background-image: linear-gradient(#fff, #f4f4f4);
   cursor: pointer; }
   .ch-datagrid-controls th:hover {
     background: #fff;
-    /* Bourbon output */
     background-image: -webkit-linear-gradient(#fff, #f4f4f4);
     background-image: linear-gradient(#fff, #f4f4f4); }
 
 .ch-datagrid-controls th:active,
 .ch-datagrid-controls th.ch-datagrid-selected {
   background: #dedede;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#dedede, #ccc);
   background-image: linear-gradient(#dedede, #ccc);
   border-top: 1px solid #dedede; }
@@ -1272,7 +1239,6 @@ table {
   padding: 0;
   list-style: none;
   white-space: nowrap;
-  /* Mixin output*/
   -webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1) inset;
   -moz-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1) inset;
   box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.1) inset;
@@ -1295,10 +1261,8 @@ table {
 .ch-dropdown-trigger-on,
 .ch-dropdown-trigger-on:hover {
   background-color: #7ab6dc;
-  /* Bourbon output */
   background-image: -webkit-linear-gradient(#a2c9e1, #7ab6dc);
   background-image: linear-gradient(#a2c9e1, #7ab6dc);
-  /* Mixin output*/
   -webkit-box-shadow: 0 1px 6px rgba(71, 98, 116, 0.6) ;
   -moz-box-shadow: 0 1px 6px rgba(71, 98, 116, 0.6) ;
   box-shadow: 0 1px 6px rgba(71, 98, 116, 0.6) ;
@@ -1470,7 +1434,6 @@ input[type="search"] {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  /* Bourbon output*/
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -1936,7 +1899,6 @@ dl.ch-list dd {
   padding: 0;
   overflow: hidden;
   list-style: none;
-  /* Mixin output */
   -webkit-box-shadow: 0 8px 4px #eee ;
   -moz-box-shadow: 0 8px 4px #eee ;
   box-shadow: 0 8px 4px #eee ; }
@@ -2026,7 +1988,6 @@ dl.ch-list dd {
 .ch-modal {
   overflow: auto;
   padding: 20px;
-  /* Mixin output */
   -webkit-box-shadow: 0 3px 14px #333 ;
   -moz-box-shadow: 0 3px 14px #333 ;
   box-shadow: 0 3px 14px #333 ; }
@@ -2295,14 +2256,12 @@ dl.ch-list dd {
 /* Trigger ON */
 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-  /* Bourbon mixin */
   background-color: #f4f4f4;
   background-image: -webkit-linear-gradient(#f4f4f4, #fff 25px);
   background-image: linear-gradient(#f4f4f4, #fff 25px);
-  border-bottom: 1px solid #FFFFFF;
+  border-bottom: 1px solid #fff;
   cursor: default;
   font-weight: bold;
-  /* Mixin output */
   -webkit-box-shadow: 2px 0 2px rgba(255, 255, 255, 0.5) ;
   -moz-box-shadow: 2px 0 2px rgba(255, 255, 255, 0.5) ;
   box-shadow: 2px 0 2px rgba(255, 255, 255, 0.5) ; }

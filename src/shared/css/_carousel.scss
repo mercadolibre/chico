@@ -6,7 +6,6 @@
     overflow: auto;
     position: relative;
     /* Enable hardware acceleration */
-    /* Bourbon */
     @include transform(translateZ(0));
 }
 
@@ -20,7 +19,6 @@
 .ch-carousel > ul,
 .ch-carousel-list {
     overflow: hidden;
-    /* Bourbon */
     @include transition(all .8s ease);
     width: -webkit-max-content;
     width: -moz-max-content;
@@ -31,7 +29,6 @@
 }
 
 .ch-carousel ul.ch-carousel-nofx {
-    /* Bourbon */
     @include transition(none);
 }
 

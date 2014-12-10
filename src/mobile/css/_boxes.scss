@@ -17,9 +17,9 @@
     li {
         position: relative;
         border-bottom: $box-list-item-border-bottom;
-        color: $box-list-item-color;
+        color: $box-list-item-text-color;
         font-size: $box-list-item-text-size;
-        text-shadow: $box-list-item-left, $box-list-item-top, $box-list-item-blur, $box-list-item-color;
+        text-shadow: $box-list-item-text-shadow;
 
         &:last-child {
             border-bottom: none; 

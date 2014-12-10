@@ -9,7 +9,6 @@
     padding: $menu-padding;
     overflow: hidden;
     list-style: none;
-     /* Mixin output */
     @include box-shadow($menu-box-shadow-top, $menu-box-shadow-left, $menu-box-shadow-blur, $menu-box-shadow-color);    
 }
 

@@ -32,7 +32,6 @@
     padding: 0;
     list-style: none;
     white-space: nowrap;
-    /* Mixin output*/
     @include box-shadow(2px, 2px, 2px, rgba(100, 100, 100, .1), inset);
     border-radius: $dropdown-border-radius;
     
@@ -57,9 +56,7 @@
 .ch-dropdown-trigger-on,
 .ch-dropdown-trigger-on:hover {
     background-color: $trigger-active-bg-color;
-    /* Bourbon output */
     @include background-image(linear-gradient($trigger-active-bg-color-top, $trigger-active-bg-color));
-    /* Mixin output*/
     @include box-shadow($trigger-active-box-shadow-top, $trigger-active-box-shadow-left, $trigger-active-box-shadow-blur, $trigger-active-box-shadow-color);
     border-radius: $trigger-active-border-radius;
 }

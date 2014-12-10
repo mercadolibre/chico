@@ -8,7 +8,6 @@
 
     caption {
         background-color: $calendar-title-bg-color;
-        /* Bourbon output */
         @include background-image(linear-gradient($main-neutral-color, $calendar-title-bg-color));
         font-size: $calendar-title-text-size;
         line-height: $calendar-title-line-heigth;

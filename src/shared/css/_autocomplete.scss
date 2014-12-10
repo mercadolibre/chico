@@ -1,10 +1,8 @@
 @import 'autocomplete/autocomplete-variables-ml';
 
 .ch-autocomplete {
-    /* Bourbon output */
     @include border-top-radius(0);
     border-top: none;
-    /* Bourbon output */
     @include box-sizing(border-box);
 }
 

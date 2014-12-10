@@ -9,7 +9,6 @@
 [class*="ch-btn"]:focus {
     font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
     border-radius:4px;
-    /* Mixin output */
     @include box-shadow(0,0,0,none);
     cursor: $btn-cursor;
     display: inline-block;
@@ -35,9 +34,7 @@ button:focus {
 .ch-btn:focus,
 .ch-btn:visited {
     background-color: $btn-primary-bg-color;
-    /* Bourbon output */
     @include background-image(linear-gradient($btn-primary-bg-color, $btn-primary-bg-color-secondary));
-     /* Mixin output */
     @include box-shadow($btn-primary-box-shadow-top, $btn-primary-box-shadow-left, $btn-primary-box-shadow-blur, $btn-primary-box-shadow-color);
     border: 1px solid $btn-primary-border;
     color: $btn-primary-color;
@@ -47,10 +44,8 @@ button:focus {
 .ch-btn-skin:focus,
 .ch-btn-skin:visited {
     background-color: $btn-secondary-bg-color;
-    /* Bourbon output */
     @include background-image(linear-gradient($btn-secondary-bg-color, $btn-secondary-bg-color-secondary));
     border: 1px solid $btn-secondary-border;
-     /* Mixin output */
     @include box-shadow($btn-secondary-box-shadow-top, $btn-secondary-box-shadow-left, $btn-secondary-box-shadow-blur,$btn-secondary-box-shadow-color); 
     color: $btn-secondary-color;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
@@ -65,35 +60,27 @@ button:focus {
 /* Colors on Hover */
 .ch-btn:hover {
     background-color: $btn-primary-box-hover-bg-color;
-    /* Bourbon output */
     @include background-image(linear-gradient($btn-primary-box-hover-bg-color, $btn-primary-box-hover-bg-color-secondary));
-     /* Mixin output */
     @include box-shadow($btn-primary-hover-box-shadow-top, $btn-primary-hover-box-shadow-left, $btn-primary-hover-box-shadow-blur, $btn-primary-hover-box-shadow-color);
 }
 
 .ch-btn-skin:hover {
     background-color: $btn-secondary-hover-bg-color;
-    /* Bourbon output */
     @include background-image(linear-gradient($btn-secondary-hover-bg-color, $btn-secondary-hover-bg-color-secondary));
-    /* Mixin output */
     @include box-shadow($btn-secondary-hover-box-shadow-top, $btn-secondary-hover-box-shadow-left, $btn-secondary-hover-box-shadow-blur, $btn-secondary-hover-box-shadow-color);
 }
 
 /* Colors on Active */
 .ch-btn:active {
     background-color: $btn-primary-active-bg-color;
-    /* Bourbon output */
     @include background-image(linear-gradient($btn-primary-active-bg-color, $btn-primary-active-bg-color-secondary));
-    /* Mixin output */
     @include box-shadow($btn-primary-active-box-shadow-top, $btn-primary-active-box-shadow-left, $btn-primary-active-box-shadow-blur, $btn-primary-active-box-shadow-color);
     border-color: $btn-primary-border-active;
 }
 
 .ch-btn-skin:active {
     background-color: $btn-secondary-active-bg-color;
-    /* Bourbon output */
     @include background-image(linear-gradient($btn-secondary-active-bg-color, $btn-secondary-active-bg-color-secondary));
-    /* Mixin output */
     @include box-shadow($btn-secondary-active-box-shadow-top, $btn-secondary-active-box-shadow-left, $btn-secondary-active-box-shadow-blur, $btn-secondary-active-box-shadow-color);
     border-color: $btn-secondary-border-active;
 }
@@ -123,14 +110,11 @@ input.ch-btn-small::-moz-focus-inner {
 [class*="ch-btn"][disabled]:active,
 [class*="ch-btn"][disabled]:focus {
     background-color: $btn-disabled-bg-color;
-    /* Bourbon output */
     @include background-image(linear-gradient($btn-disabled-bg-color, $btn-disabled-bg-color-secondary));
     border: 1px solid $btn-disabled-border !important; /* important for links */
-    /* Mixin output */
     @include box-shadow($btn-disabled-box-shadow-left, $btn-disabled-box-shadow-top, $btn-disabled-box-shadow-blur, $btn-disabled-box-shadow-color);
     color: $btn-disabled-text-color !important; /* important for links */
     cursor: not-allowed;
-     /* Mixin output */   
     @include opacity($btn-disabled-opacity);
     text-shadow: $btn-disabled-text-shadow;
 }

@@ -15,16 +15,10 @@ $box-list-padding: 					 0;
 // ----- Box list item ----- //
 
 $box-list-item-border-bottom: 		 1px dotted $gray-500;
-$box-list-item-color: 				 $gray-800;
+$box-list-item-text-color: 			 $gray-800;
 $box-list-item-text-size: 			 16px;
 $box-list-item-padding: 			 14px 42px 14px 20px;
-
-	// List item text shadow
-
-	$box-list-item-left:		 	 0;
-	$box-list-item-top:		 		 1px;
-	$box-list-item-blur:			 0;
-	$box-list-item-color:			 rgba(255, 255, 255, .5);
+$box-list-item-text-shadow:			 0 1px 0 rgba(255, 255, 255, .5);
 
 // ----- Box list item active ----- //
 

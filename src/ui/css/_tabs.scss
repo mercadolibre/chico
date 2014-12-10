@@ -46,12 +46,10 @@
 /* Trigger ON */
 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-    /* Bourbon mixin */
     @include linear-gradient($tab-trigger-bg-color, $tab-trigger-bg-color-secondary);
-    border-bottom: 1px solid #FFFFFF; // $tab-trigger-border-bottom;
+    border-bottom: $tab-trigger-border-bottom;
     cursor: default;
-    font-weight: bold; // $tab-trigger-text-weigth;
-     /* Mixin output */
+    font-weight: $tab-trigger-text-weigth;
     @include box-shadow($tab-trigger-box-shadow-top, $tab-trigger-box-shadow-left, $tab-trigger-box-shadow-blur, $tab-trigger-box-shadow-color);
 }
 
