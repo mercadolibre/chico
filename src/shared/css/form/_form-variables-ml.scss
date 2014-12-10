@@ -46,7 +46,7 @@ $input-checkbox-margin:							 -8px 0 0 0;
 // -- Read-only focus -- //
 
 $input-read-only-border:						 none;
-$input-read-only-color:							 $gray-700;
+$input-read-only-text-color:					 $gray-700;
 $input-read-only-padding:				 		 5px 0;
 
 // -- Icons -- //
@@ -67,17 +67,17 @@ $icon-required-position:			 			3px;
 
 $form-fieldset-margin:					 		0 0 10px 0;
 
-$fieldset-title-color:							#dc7b1c;
-$fieldset-title-font-weigth:					bold;
+$fieldset-title-text-color:						#dc7b1c;
+$fieldset-title-text-weight:					bold;
 
-$fieldset-subtitle-font-size:					normal;
-$fieldset-subtitle-font-weigth:					bold;
+$fieldset-subtitle-text-size:					normal;
+$fieldset-subtitle-text-weight:					bold;
 
 // ----- Hint text ----- //
 
-$form-text-hint-color:							$gray-700;
-$form-text-hint-size:							12px;
-$form-text-hint-line-heigth:					12px;
+$form-hint-text-color:							$gray-700;
+$form-hint-text-size:							12px;
+$form-hint-line-heigth:							12px;
 
 // ----- Input row ----- //
 

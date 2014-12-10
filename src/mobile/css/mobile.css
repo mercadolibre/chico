@@ -1740,7 +1740,7 @@ dl.ch-list {
  * Menu
  */
 .ch-menu {
-  border: 1px solid bold;
+  border: 1px solid #dedede;
   border-radius: 5px; }
 
 .ch-fold-trigger,
@@ -2129,5 +2129,16 @@ a:focus {
 /* IE */
 .lt-ie9 .ch-price sup {
   font-size: 12px; }
+
+/**
+ * Boxes Headings
+ */
+[class*="ch-box"] h1,
+[class*="ch-box"] h2,
+[class*="ch-box"] h3,
+[class*="ch-box"] h4,
+[class*="ch-box"] h5,
+[class*="ch-box"] h6 {
+  margin-bottom: 5px; }
 
 /*# sourceMappingURL=mobile.css.map */

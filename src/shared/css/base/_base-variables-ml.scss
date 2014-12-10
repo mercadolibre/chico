@@ -14,13 +14,13 @@ $close-button-font: 							normal Arial;
 
 // ----- Close button active ----- //
 
-$close-button-active-color:						$main-neutral-color;
+$close-button-active-text-color:				$main-neutral-color;
 $close-button-active-bg-color:					#bf0602;
 $close-button-active-bg-color-secondary:		#8f2f00;
 
 // ----- Close button focus and hover ----- //
 
-$close-button-focus-hover-color: 				$main-neutral-color;
+$close-button-focus-hover-text-color: 			$main-neutral-color;
 $close-button-focus-hover-bg-color: 			#fA5900;
 $close-button-focus-hover-bg-color-secondary:	#ca0c02;
 
@@ -33,7 +33,7 @@ $close-button-position-top:						10px;
 
 // ----- Close button active, hover and focus ----- //
 
-$close-button-shadow:							0 1px 0 rgba(0,0,0,.5);
+$close-button-text-shadow:						0 1px 0 rgba(0,0,0,.5);
 $close-button-border:							none;
 
 // ----- Actions ----- //

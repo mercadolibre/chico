@@ -100,7 +100,7 @@ select:focus {
 input[readonly],
 input[readonly]:focus {
     border: $input-read-only-border;
-    color: $input-read-only-color;
+    color: $input-read-only-text-color;
     padding: $input-read-only-padding;
 }
 
@@ -145,20 +145,20 @@ input.ch-form-icon-input:focus {
 
     /* Title module */
     .ch-form legend {
-        color: $fieldset-title-color;
-        font-weight: $fieldset-title-font-weigth;
+        color: $fieldset-title-text-color;
+        font-weight: $fieldset-title-text-weight;
     }
 
     .ch-form-subtitle {
-        font-size: $fieldset-subtitle-font-size;
-        font-weight: $fieldset-subtitle-font-weigth;
+        font-size: $fieldset-subtitle-text-size;
+        font-weight: $fieldset-subtitle-text-weight;
     }
 
 /* Required specification or another */
 .ch-form-hint {
-    color: $form-text-hint-color;
-    font-size: $form-text-hint-size;
-    line-height: $form-text-hint-line-heigth;
+    color: $form-hint-text-color;
+    font-size: $form-hint-text-size;
+    line-height: $form-hint-line-heigth;
 }
 
 /* Basic wrapper for horizontal view */

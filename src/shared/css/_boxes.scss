@@ -42,7 +42,7 @@
 
 .ch-box-warn {
     background-color: $box-warning-bg-color;
-    color: $box-warning-font-color;
+    color: $box-warning-text-color;
 }
 
 
@@ -87,7 +87,7 @@
     background-color: $box-info-bg-color;
 
     a {
-        text-decoration: $box-info-link-underline;
+        text-decoration: $box-info-link-text-decoration;
     }
 }
 

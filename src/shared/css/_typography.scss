@@ -1,3 +1,5 @@
+@import 'typography/typography-variables-ml';
+
 /**
  * Headings
  */
@@ -7,32 +9,32 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: normal;
-    margin: $margin-headers;
+    font-weight: $headings-text-weigth;
+    margin: $headings-margin;
 }
 
 h1 {
-    font-size: $font__xx__large;
+    font-size: $heading-h1;
 }
 
 h2 {
-    font-size: $font__x__large;
+    font-size: $heading-h2;
 }
 
 h3 {
-    font-size: $font__large;
+    font-size: $heading-h3;
 }
 
 h4 {
-    font-size: $font__medium;
+    font-size: $heading-h4;
 }
 
 h5 {
-    font-size: $font__small;
+    font-size: $heading-h5;
 }
 
 h6 {
-    font-size: $font__x__small;
+    font-size: $heading-h6;
 }
 
 /**
@@ -44,7 +46,7 @@ h6 {
 [class*="ch-box"] h4,
 [class*="ch-box"] h5,
 [class*="ch-box"] h6 {
-    margin-top: $margin-box-headings;
+    margin-top: $headings-boxes-margin-top;
 }
 
 /**
@@ -63,7 +65,7 @@ a:visited {
 
 a:hover,
 a:focus {
-    text-decoration: $font-underline;
+    text-decoration: $links-visited-text-decoration;
 }
 
 /**

@@ -37,7 +37,7 @@ button:focus {
     @include background-image(linear-gradient($btn-primary-bg-color, $btn-primary-bg-color-secondary));
     box-shadow: $btn-primary-box-shadow, inset;
     border: 1px solid $btn-primary-border;
-    color: $btn-primary-color;
+    color: $btn-primary-text-color;
 }
 
 .ch-btn-skin,
@@ -47,8 +47,8 @@ button:focus {
     @include background-image(linear-gradient($btn-secondary-bg-color, $btn-secondary-bg-color-secondary));
     border: 1px solid $btn-secondary-border;
     box-shadow: $btn-secondary-box-shadow, inset;
-    color: $btn-secondary-color;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    color: $btn-secondary-text-color;
+    text-shadow: $btn-secondary-text-shadow;
 }
 
 /* Hover */

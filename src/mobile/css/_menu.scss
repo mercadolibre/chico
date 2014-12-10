@@ -19,11 +19,11 @@
 }
 
 .ch-menu .ch-expandable-trigger:after {
-    color: $menu-row-icon-color
+    color: $menu-row-icon-text-color;
 }
 
 .ch-menu .ch-expandable-container {
-    border-bottom: 1px solid #dedede; // $menu-list-border-bottom;
+    border-bottom: $menu-list-border-bottom;
 }
 
 .ch-menu-fold:last-of-type .ch-fold-trigger,

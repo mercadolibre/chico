@@ -28,14 +28,14 @@
 
     th {
         font-size: $calendar-head-text-size;
-        font-weight: $calendar-head-text-weigth;
+        font-weight: $calendar-head-text-weight;
         width: 14.28%;
     }
 
     caption,
     thead,
     td {
-        border: 1px solid #dedede; // $calendar-general-border       
+        border: $calendar-border;   
     }
 }
 
@@ -55,7 +55,7 @@
 
 .ch-calendar-other {
     color: $calendar-day-empty-color;
-    cursor: $calendar-day-empty-cursor;
+    cursor: $calendar-day-empty-cursor!important;
     overflow: hidden;
     text-indent: -99px;
 }
@@ -63,7 +63,7 @@
 .ch-calendar-disabled,
 .ch-calendar-disabled:hover {
     background-color: $calendar-day-disabled-bg-color;
-    color: $calendar-day-disabled-color;
+    color: $calendar-day-disabled-text-color;
     cursor: not-allowed;
 }
 
@@ -72,8 +72,8 @@
 .ch-calendar-selected:hover,
 .ch-calendar-selected.ch-today {
     background-color: $calendar-day-selected-bg-color!important;
-    color: $calendar-day-selected-color;
-    font-weight: $calendar-day-selected-text-weight;
+    color: $calendar-day-selected-text-color!important;
+    font-weight: $calendar-day-selected-text-weight!important;
 }
 
 .ch-calendar-prev,

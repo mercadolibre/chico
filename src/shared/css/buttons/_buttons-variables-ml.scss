@@ -12,7 +12,7 @@ $btn-cursor:								pointer;
 
 // ----- Normal state ----- //
 
-$btn-primary-color:							$main-neutral-color;
+$btn-primary-text-color:					$main-neutral-color;
 $btn-primary-bg-color:						#3e52a1;
 $btn-primary-bg-color-secondary:			#2d3277;
 $btn-primary-active:  						#29358f;
@@ -40,13 +40,14 @@ $btn-primary-active-box-shadow:				0 1px 6px #141452;
 
 // ----- Normal state ----- //
 
-$btn-secondary-color:						#476274;
+$btn-secondary-text-color:					#476274;
 $btn-secondary-bg-color:					#cce3f7;
 $btn-secondary-bg-color-secondary:  		#aaD0ef;
 $btn-secondary-border:						#79a8c7;
 $btn-secondary-active:  					#7c9cB2;
 $btn-secondary-shadow:						none;
 $btn-secondary-box-shadow:					0 1px 0 #e5f2fc;
+$btn-secondary-text-shadow:					0 1px 1px rgba(255, 255, 255, 0.75);
 
 // ----- Hover state ----- //
 

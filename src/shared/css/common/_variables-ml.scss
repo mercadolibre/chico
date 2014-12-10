@@ -14,7 +14,6 @@
 
 $main-primary-color:   			#03b;
 
-$price-color:   				#900;
 $links-color:					$main-primary-color;
 $error-bg-color:				#f5e6e6;
 
@@ -23,7 +22,6 @@ $error-bg-color:				#f5e6e6;
 // -------------------------------------
 
 $main-secondary-color:			#fdf9d5;
-$links-visited-color:			#809;
 
 // -------------------------------------
 //   Neutral colors
@@ -71,12 +69,6 @@ $font__smallest:					11px;
 
 $font__normal:						13px;
 $font__mini:						10px;
-		
-$font-weigth__normal:				normal;
-$font-weigth__bold:					bold;
-
-$font-underline:					underline;
-$font-no-underline:					none;	
 
 // -------------------------------------
 //   Icons
@@ -91,8 +83,3 @@ $icon-medium-box:				16px;
 $icon-large-box:				24px;
 $icon-larger-box:				32px;
 $icon-largest-box:				64px;
-
-$margin-box-headings:			0;
-
-$margin-headers:				10px 0;
-

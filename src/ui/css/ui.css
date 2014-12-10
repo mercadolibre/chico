@@ -883,7 +883,7 @@ a.ch-btn-large:focus {
 .ch-calendar-disabled,
 .ch-calendar-disabled:hover {
   background-color: #fff;
-  color: #c6c6c6;
+  color: #ccc;
   cursor: not-allowed; }
 
 .ch-calendar-selected,
