@@ -9,7 +9,7 @@ $zoom-cursor:						crosshair;
 // ----- Seeker ----- //
 
 $zoom-seeker-border:				1px solid $main-border-color;
-$zoom-seeker-bg-color:				rgba(240, 240, 240, 0.4);
+$zoom-seeker-bg-color:				rgba(240, 240, 240, .4);
 
 $zoom-seeker-ie-bg-color:			$gray-100; // #f0f0f0;
 $zoom-seeker-ie-opacity:			50;
@@ -20,7 +20,7 @@ $zoom-loading-border:				1px solid $main-border-color;
 $zoom-loading-border-radius:		5px;
 $zoom-loading-text-size:			$font__smallest;
 $zoom-loading-text-color:			$gray-900;
-$zoom-loading-bg-color:				rgba(240, 240, 240, 0.75);
+$zoom-loading-bg-color:				rgba(240, 240, 240, .75);
 
 $zoom-loading-ie-bg-color:			$gray-100; // #f0f0f0;
 $zoom-loading-ie-opacity:			90;

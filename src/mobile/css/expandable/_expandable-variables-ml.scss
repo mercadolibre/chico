@@ -8,7 +8,7 @@ $expandable-cursor:					pointer;
 $expandable-text-color:				$gray-800;
 $expandable-text-size:				$font__medium;
 $expandable-text-weight:			bold;
-$expandable-text-shadow:			0 1px 0 rgba(255, 255, 255, 0.5);
+$expandable-text-shadow:			0 1px 0 $main-text-shadow-color;
 $expandable-bg-color:				$gray-100;
 $expandable-border:					1px solid $gray-400;
 $expandable-border-radius:			5px;

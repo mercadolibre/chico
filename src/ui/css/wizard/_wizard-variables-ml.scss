@@ -34,8 +34,8 @@ $wizard-breadcrumb-pointer-content-color: $gray-100;
 // Constants
 // ************************************* //
 
-$pointer-content-primary: ($wizard-breadcrumb-height / 2) + 3;
-$pointer-content-secondary: $pointer-content-primary / 2;
+$pointer-content-primary: 				 ($wizard-breadcrumb-height / 2) + 3;
+$pointer-content-secondary: 			 $pointer-content-primary / 2;
 $wizard-breadcrumb-pointer-content-size: $pointer-content-primary $pointer-content-secondary;
 
 $pointer-border-primary:				 $pointer-content-primary - 1;

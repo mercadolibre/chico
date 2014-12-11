@@ -47,7 +47,7 @@ $btn-secondary-border:						#79a8c7;
 $btn-secondary-active:  					#7c9cB2;
 $btn-secondary-shadow:						none;
 $btn-secondary-box-shadow:					0 1px 0 #e5f2fc;
-$btn-secondary-text-shadow:					0 1px 1px rgba(255, 255, 255, 0.75);
+$btn-secondary-text-shadow:					0 1px 1px $main-text-shadow-color;
 
 // ----- Hover state ----- //
 

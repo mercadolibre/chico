@@ -19,7 +19,7 @@ $autocomplete-item-icon-text-color:			$gray-100;
 $autocomplete-item-icon-bg-color:			$gray-500; //#c9c9c9
 $autocomplete-item-icon-width:				40px;
 $autocomplete-item-icon-height:				40px;
-$autocomplete-text-shadow:					0 1px 0 rgba(255,255,255,0.5);
+$autocomplete-text-shadow:					0 1px 0 $main-text-shadow-color;
 				
 $autocomplete-item-icon-before-text-color:  $gray-100;
 $autocomplete-item-icon-before-text-size:	30px;

@@ -19,7 +19,7 @@ $btn-large-line-height:					1.5em;
 // -------------------------------------
 
 $btn-action-color:						#666;
-$btn-action-text-shadow:				0 1px 1px rgba(255, 255, 255, 0.75);
+$btn-action-text-shadow:				0 1px 1px $main-text-shadow-color;
 // variable global. chequear en cuantos lugares está.
 
 $btn-action-box-shadow:					0 1px 0 $main-neutral-color;
@@ -33,7 +33,7 @@ $btn-action-border:						#bbb;
 
 $btn-action-hover-bg-color:   			$main-neutral-color; // #fefefe;
 $btn-action-hover-bottom-bg-color: 		$gray-400; // #e6e6e6;
-$btn-action-active-box-shadow:			0 1px 6px rgba(255, 255, 255, 0.75);
+$btn-action-active-box-shadow:			0 1px 6px $main-text-shadow-color;
 
 // ----- Action active ----- //
 

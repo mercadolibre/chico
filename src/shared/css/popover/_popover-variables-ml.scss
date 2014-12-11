@@ -4,21 +4,21 @@
 //
 // *************************************
 
-$popover-box-shadow:				2px 2px 2px rgba(100, 100, 100, 0.2);
+$popover-box-shadow:				2px 2px 2px rgba(100, 100, 100, .2);
 
 // ----- Close Button ----- //
 
-$popover-close-btn-margin: 0 24px 0 0;
+$popover-close-btn-margin: 			0 24px 0 0;
 
 // ----- Border width ----- //
 
-$popover-border-width: 1px;
+$popover-border-width: 				1px;
 
 // -------------------------------------
 //   Cone
 // -------------------------------------
 
-$popover-cone-size: 10px;
+$popover-cone-size: 				10px;
 
 $popover-border: $main-border-color; // ddd
 $popover-content: $main-neutral-color;

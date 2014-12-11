@@ -693,7 +693,7 @@ button:focus {
   border: 1px solid #79a8c7;
   box-shadow: 0 1px 0 #e5f2fc, inset;
   color: #476274;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); }
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5); }
 
 /* Hover */
 .ch-btn:hover,
