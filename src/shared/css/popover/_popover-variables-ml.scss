@@ -20,8 +20,8 @@ $popover-border-width: 				1px;
 
 $popover-cone-size: 				10px;
 
-$popover-border: $main-border-color; // ddd
-$popover-content: $main-neutral-color;
+$popover-border-color: 				$main-border-color; // ddd
+$popover-content-bg-color: 			$main-neutral-color;
 
 $popover-cone-size-content: $popover-cone-size - $popover-border-width;
 

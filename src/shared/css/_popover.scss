@@ -61,11 +61,11 @@
     }
 
     .ch-popover-content:before {
-        border-bottom-color: $popover-border;
+        border-bottom-color: $popover-border-color;
     }
 
     .ch-popover-content:after {
-        border-bottom-color: $popover-content;
+        border-bottom-color: $popover-content-bg-color;
     }    
 }
 
@@ -82,11 +82,11 @@
     }
 
     .ch-popover-content:before {
-        border-top-color: $popover-border;
+        border-top-color: $popover-border-color;
     }
 
     .ch-popover-content:after {
-        border-top-color: $popover-content;
+        border-top-color: $popover-content-bg-color;
     }
 }
 
@@ -103,11 +103,11 @@
     }
 
     .ch-popover-content:before {
-        border-right-color: $popover-border;
+        border-right-color: $popover-border-color;
     }
 
     .ch-popover-content:after {
-        border-right-color: $popover-content;
+        border-right-color: $popover-content-bg-color;
     }
 }
 
@@ -123,11 +123,11 @@
     }
 
     .ch-popover-content:before {
-        border-left-color: $popover-border;
+        border-left-color: $popover-border-color;
     }
 
     .ch-popover-content:after {
-        border-left-color: $popover-content;
+        border-left-color: $popover-content-bg-color;
     }
 }
 

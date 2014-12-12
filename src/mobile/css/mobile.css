@@ -403,7 +403,7 @@ img {
   cursor: pointer;
   display: inline-block;
   padding: 0;
-  text-indent: 1px;
+  text-indent: -1px;
   color: #ccc;
   font: normal Arial;
   text-align: center;

@@ -25,5 +25,5 @@
 }
 
 .ch-autocomplete-loading {
-    background: url('../assets/loading-small.gif') no-repeat right 10px center;
+    background: url('../assets/loading-small.gif') no-repeat right $autocomplete-loading-position-right center;
 }

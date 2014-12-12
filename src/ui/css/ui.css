@@ -400,7 +400,7 @@ body {
   cursor: pointer;
   display: inline-block;
   padding: 0;
-  text-indent: 1px;
+  text-indent: -1px;
   color: #ccc;
   font: normal Arial;
   text-align: center;
@@ -1938,7 +1938,7 @@ dl.ch-list {
   text-align: center;
   padding: 40px; }
   .ch-modal-lite h2 {
-    margin-bottom: 0 0 0 0; }
+    margin: 0; }
 
 /**
  * Underlay
