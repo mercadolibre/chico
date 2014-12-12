@@ -59,27 +59,6 @@ You can run our tests in your browser:
 
 **We are going to automate it! :)**
 
-## Theme setup
-1. Install sass:
-
-        $ sudo gem install sass
-
-2. Watch sass to alert for changes and compile:
-
-        $ sass --watch .
-
-3. At the folder tree, go to `src/ui/css/chico.scss`
-
-4. Change Flavor and Structure variables. 
-
--ml : MercadoLibre
--mp : MercadoPago
-
-5. Save the file (sass will compile the new css created).
-
-6. Overwrite the css from `src/ui/css/chico.css` to `vendor/chico.css`
-
-7. Refresh the url
 
 ## Get in touch
 
