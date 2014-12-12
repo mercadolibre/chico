@@ -25,32 +25,32 @@ $popover-content: $main-neutral-color;
 
 $popover-cone-size-content: $popover-cone-size - $popover-border-width;
 
-	// Top alignment
+// Top alignment
 
-	$popover-cone-toTop-border-align: $popover-cone-size / 2;
-	$popover-cone-toTop-content-align: ($popover-cone-size / 2) - $popover-border-width;
+$popover-cone-toTop-border-align: $popover-cone-size / 2;
+$popover-cone-toTop-content-align: ($popover-cone-size / 2) - $popover-border-width;
 
-	// Right alignment
+// Right alignment
 
-	$popover-cone-toRight-border-align: $popover-cone-size - 2;
-	$popover-cone-toRight-content-align: ($popover-cone-size - 2) - $popover-border-width;
+$popover-cone-toRight-border-align: $popover-cone-size - 2;
+$popover-cone-toRight-content-align: ($popover-cone-size - 2) - $popover-border-width;
 
-	// Bottom alignment
+// Bottom alignment
 
-	$popover-cone-toBottom-border-align: $popover-cone-size / 2;
-	$popover-cone-toBottom-content-align: ($popover-cone-size / 2) - $popover-border-width;
+$popover-cone-toBottom-border-align: $popover-cone-size / 2;
+$popover-cone-toBottom-content-align: ($popover-cone-size / 2) - $popover-border-width;
 
-	// Left alignment
+// Left alignment
 
-	$popover-cone-toLeft-border-align: $popover-cone-size - 2;
-	$popover-cone-toLeft-content-align: ($popover-cone-size - 2) - $popover-border-width;
- 
-	// Top/Bottom margin left
+$popover-cone-toLeft-border-align: $popover-cone-size - 2;
+$popover-cone-toLeft-content-align: ($popover-cone-size - 2) - $popover-border-width;
 
-	$popover-cone-center-border-margin-left: -$popover-cone-size;
-	$popover-cone-center-content-margin-left: -$popover-cone-size - $popover-border-width;
+// Top/Bottom margin left
 
-	// Right/Left margin top
+$popover-cone-center-border-margin-left: -$popover-cone-size;
+$popover-cone-center-content-margin-left: -$popover-cone-size - $popover-border-width;
 
-	$popover-cone-center-atSides-border-margin-top: -$popover-cone-size;
-	$popover-cone-center-atSides-content-margin-top: -$popover-cone-size - $popover-border-width;
+// Right/Left margin top
+
+$popover-cone-center-atSides-border-margin-top: -$popover-cone-size;
+$popover-cone-center-atSides-content-margin-top: -$popover-cone-size - $popover-border-width;

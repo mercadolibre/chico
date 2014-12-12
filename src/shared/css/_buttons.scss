@@ -14,7 +14,8 @@
     display: inline-block;
     height: auto;
     text-decoration: none;
-    font-size: $font__large;
+    font-size: $btn-text-size;
+    font-size: $btn-text-size;
 }
 
 /* Focus */
@@ -96,7 +97,7 @@ input.ch-btn-small::-moz-focus-inner {
 /* Large */
 .ch-btn-large,
 .ch-btn-large:focus {
-    font-size: $font__x__large;
+    font-size: $btn-large-text-size;
     text-align: center;
 }
 
