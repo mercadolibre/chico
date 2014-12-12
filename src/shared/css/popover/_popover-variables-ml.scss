@@ -22,35 +22,3 @@ $popover-cone-size: 				10px;
 
 $popover-border-color: 				$main-border-color; // ddd
 $popover-content-bg-color: 			$main-neutral-color;
-
-$popover-cone-size-content: $popover-cone-size - $popover-border-width;
-
-// Top alignment
-
-$popover-cone-toTop-border-align: $popover-cone-size / 2;
-$popover-cone-toTop-content-align: ($popover-cone-size / 2) - $popover-border-width;
-
-// Right alignment
-
-$popover-cone-toRight-border-align: $popover-cone-size - 2;
-$popover-cone-toRight-content-align: ($popover-cone-size - 2) - $popover-border-width;
-
-// Bottom alignment
-
-$popover-cone-toBottom-border-align: $popover-cone-size / 2;
-$popover-cone-toBottom-content-align: ($popover-cone-size / 2) - $popover-border-width;
-
-// Left alignment
-
-$popover-cone-toLeft-border-align: $popover-cone-size - 2;
-$popover-cone-toLeft-content-align: ($popover-cone-size - 2) - $popover-border-width;
-
-// Top/Bottom margin left
-
-$popover-cone-center-border-margin-left: -$popover-cone-size;
-$popover-cone-center-content-margin-left: -$popover-cone-size - $popover-border-width;
-
-// Right/Left margin top
-
-$popover-cone-center-atSides-border-margin-top: -$popover-cone-size;
-$popover-cone-center-atSides-content-margin-top: -$popover-cone-size - $popover-border-width;

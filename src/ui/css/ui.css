@@ -2141,22 +2141,22 @@ dl.ch-list {
  */
 .ch-cone[data-side=bottom][data-align=center] .ch-popover-content:after,
 .ch-cone[data-side=top][data-align=center] .ch-popover-content:after {
-  margin-left: -11px;
+  margin-left: -10px;
   left: 50%; }
 
 .ch-cone[data-side=bottom][data-align=center] .ch-popover-content:before,
 .ch-cone[data-side=top][data-align=center] .ch-popover-content:before {
-  margin-left: -10px;
+  margin-left: -11px;
   left: 50%; }
 
 .ch-cone[data-side=right][data-align=center] .ch-popover-content:after,
 .ch-cone[data-side=left][data-align=center] .ch-popover-content:after {
-  margin-top: -11px;
+  margin-top: -10px;
   top: 50%; }
 
 .ch-cone[data-side=right][data-align=center] .ch-popover-content:before,
 .ch-cone[data-side=left][data-align=center] .ch-popover-content:before {
-  margin-top: -10px;
+  margin-top: -11px;
   top: 50%; }
 
 /**
