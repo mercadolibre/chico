@@ -3,6 +3,7 @@
 .cache
 .project
 .settings
+.sass-cache
 nbproject
 thumb.db
 experiment
