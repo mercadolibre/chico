@@ -2419,7 +2419,7 @@ a:focus {
 
 .ch-wizard-step:before,
 .ch-wizard-current:before {
-  border-width: 23px 11px;
+  border-width: 23px 22px;
   border-left-color: #ddd; }
 
 .ch-wizard-step:after,
@@ -2429,7 +2429,7 @@ a:focus {
   top: -2px; }
 
 .ch-wizard-breadcrumb li a:before {
-  border-width: 23px 11px;
+  border-width: 23px 22px;
   border-left-color: #dedede; }
 
 .ch-wizard-breadcrumb li a:after {

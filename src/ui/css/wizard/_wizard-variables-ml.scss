@@ -30,20 +30,6 @@ $wizard-breadcrumb-current-text-weight:  bold;
 $wizard-breadcrumb-current-text-color:	 $gray-900;
 $wizard-breadcrumb-pointer-content-color: $gray-100;
 
-// ************************************* //
-// Constants
-// ************************************* //
-
-$pointer-content-primary: 				 ($wizard-breadcrumb-height / 2) + 3;
-$pointer-content-secondary: 			 $pointer-content-primary / 2;
-$wizard-breadcrumb-pointer-content-size: $pointer-content-primary $pointer-content-secondary;
-
-$pointer-border-primary:				 $pointer-content-primary - 1;
-$pointer-border-secondary:				 $pointer-content-secondary - 1; 
-$wizard-breadcrumb-pointer-border-size:  $pointer-border-primary $pointer-border-secondary;
-
-// ************************************* //
-
 // ----- Breadcrumb link ----- //
 
 $wizard-breadcrumb-link-bg-color:		 $wizard-actions-bg-color;

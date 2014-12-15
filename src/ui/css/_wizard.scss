@@ -86,25 +86,25 @@
 
 .ch-wizard-step:before,
 .ch-wizard-current:before {
-    border-width: $wizard-breadcrumb-pointer-border-size;
+    border-width: ($wizard-breadcrumb-height / 2) + 2 ($wizard-breadcrumb-height / 2) + 1;
     border-left-color: #ddd;
 }
 
 .ch-wizard-step:after,
 .ch-wizard-current:after {
     border-left-color: #fff;
-    border-width: $wizard-breadcrumb-pointer-content-size; 
+    border-width: ($wizard-breadcrumb-height / 2) + 3 (($wizard-breadcrumb-height / 2) + 3) / 2; 
     top: -2px;
 }
 
 .ch-wizard-breadcrumb li a:before {
-    border-width: $wizard-breadcrumb-pointer-border-size;
+    border-width: ($wizard-breadcrumb-height / 2) + 2 ($wizard-breadcrumb-height / 2) + 1;
     border-left-color: $wizard-breadcrumb-border-color;
 }
 
 .ch-wizard-breadcrumb li a:after {
     border-left-color: $wizard-breadcrumb-pointer-content-color;
-    border-width: $wizard-breadcrumb-pointer-content-size;
+    border-width: ($wizard-breadcrumb-height / 2) + 3 (($wizard-breadcrumb-height / 2) + 3) / 2;
     top: -2px;
 }
 
