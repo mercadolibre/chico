@@ -77,11 +77,12 @@ module.exports = function (grunt) {
         'sass': {
             'dist': {
                 'options': {
-                    'banner': '<%= banner.full %>'
+                    'banner': '<%= banner.full %>',
+                    'style': 'compact'
                 },
-                'files': [{
-                        'ui.css': 'src/' + environment + '/css/' + environment + '.scss'
-                    }],
+                'files': {
+                        'build/ui/chico-theme-ui.css': 'src/' + environment + '/css/' + environment + '.scss'
+                    },
             }
         },
 
