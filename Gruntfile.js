@@ -7,7 +7,15 @@ module.exports = function (grunt) {
             'mobile': 'Zepto',
             'ui': 'jQuery'
         },
-        files = require('./libs/files/' + environment);
+        files = require('./libs/files/' + environment),
+
+        sassOrigin = 'src/' + environment + '/css/' + environment + '.scss',
+        sassDestination = destination + '/' + environment + '/<%= pkg.name %>-theme-' + environment + '.css',
+        sassEasyDestination = environment + '.css';
+
+
+
+
 
     // Project configuration.
     grunt.initConfig({
@@ -16,7 +24,7 @@ module.exports = function (grunt) {
         'banner': {
             'full': [
                 '/*!',
-                ' * Chico UI v<%= pkg.version %>',
+                ' * Chico Theme UI v<%= pkg.version %>',
                 ' * http://chico-ui.com.ar/',
                 ' *',
                 ' * Copyright (c) <%= grunt.template.today("yyyy") %>, MercadoLibre.com',
@@ -49,7 +57,11 @@ module.exports = function (grunt) {
             'js': {
                 'src': ['temp/' + environment + '/core.tmp.js'].concat(files.JS.abilities).concat(files.JS.components),
                 'dest': destination + '/' + environment + '/<%= pkg.name %>.js'
-            },
+            }
+
+
+            /*
+            ,
 
             'css': {
                 'options': {
@@ -58,7 +70,19 @@ module.exports = function (grunt) {
                 'src': files.CSS.resetML.concat(files.CSS.core).concat(files.CSS.components),
                 'dest': destination + '/' + environment + '/<%= pkg.name %>.css'
             }
+            */
 
+        },
+
+        'sass': {
+            'dist': {
+                'options': {
+                    'banner': '<%= banner.full %>'
+                },
+                'files': [{
+                        'ui.css': 'src/' + environment + '/css/' + environment + '.scss'
+                    }],
+            }
         },
 
         'uglify': {
@@ -131,6 +155,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-text-replace');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-jsdoc');
@@ -139,6 +164,6 @@ module.exports = function (grunt) {
     grunt.registerTask('default', []);
     grunt.registerTask('lint', ['jslint']);
     grunt.registerTask('doc', ['jsdoc']);
-    grunt.registerTask('dev', ['concat', 'clean']);
-    grunt.registerTask('dist', ['concat', 'replace', 'uglify', 'cssmin', 'clean']);
+    grunt.registerTask('dev', ['sass', 'concat', 'clean']);
+    grunt.registerTask('dist', ['sass', 'concat', 'replace', 'uglify', 'cssmin', 'clean']);
 };
