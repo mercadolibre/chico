@@ -1773,17 +1773,17 @@ select[multiple],
  * List
  */
 .ch-list {
-  margin-bottom: 0 0 10px 0; }
+  margin: 0 0 10px 0; }
   .ch-list li {
     margin: 0 0 0 10px;
     padding: 3px 0;
     line-height: 18px; }
 
 ul.ch-list {
-  list-style: disc; }
+  list-style: disc inside; }
 
 ol.ch-list {
-  list-style: disc; }
+  list-style: decimal inside; }
 
 dl.ch-list {
   margin-bottom: 0 0 18px 0; }
