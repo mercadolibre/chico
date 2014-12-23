@@ -2,7 +2,7 @@
 	'use strict'
 
     /**
-     * Select is a customizable select
+     * Select is a customizable combo
      * @memberof ch
      * @constructor
      * @augments ch.Dropdown
@@ -131,7 +131,6 @@
      * @returns {Select}
      */
     Select.prototype._init = function ($el, options) {
-
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -140,15 +139,14 @@
         var that = this,
             options = options || this._defaults,
             /**
-             * Creo lo que voy a usar como trigger con mi option:selected
-             * Agrego formato en el caso de que exista en la config
+             * Create <div> to use as trigger with the option:selected
+             * Add formatting if it exist in the Configuration
              */
             $wrapper = (function () {
                 var wrapper = doc.createElement('div'),
                     $selectedOption = $el.find('option:selected'),
                     trigger = doc.createElement('div');
                 trigger.innerHTML = options.format ? format($selectedOption[0].innerText, options.format) : $selectedOption[0].innerText;
-                trigger.setAttribute('data-value', $selectedOption.attr('value'));
 
                 wrapper.setAttribute('class', 'ch-select-wrapper');
                 wrapper.appendChild(trigger);
@@ -158,7 +156,7 @@
             }()),
 
             /**
-             * Agrego lo que voy a usar de content, lo necesito para instanciar un dropdown
+             * Add <ul> as content needed to instantiate a dropdown
              */
             $list = $('<ul class="ch-hide">');
 
@@ -167,6 +165,9 @@
 
         // Call to its parent init method
         parent._init.call(this, $wrapper.find('div'), options);
+
+        this._$select = $el;
+        this._select = $el[0];
         
         // Overwrites _$navigation of parent
         this._$navigation = (function () {
@@ -187,13 +188,10 @@
             return $list.find('li');
         }());
 
-        if ($el.attr('disabled')) {
-
-            this.disable();
-        }
+        if ($el.attr('disabled')) { this.disable(); }
 
         // Input hidden save selected option
-        this._$input = $('<input type="hidden" value="' + $el.find('option:selected').val() + '" name="' + $el.attr('name') + '">');
+        this._$input = $('<input type="hidden" value="' + $el.find('option:selected').val() + ($el.attr('name') ? '" name="' + $el.attr('name') : '') + '">');
         
         this._$input.insertBefore(that.$trigger);
 
@@ -229,7 +227,7 @@
                 }
             })
 
-            // Save lastSelected
+            // Save last item selected
             that.lastSelected = that._selected;
             $(doc).off('click.select');
         })
@@ -288,7 +286,7 @@
         });
 
        	this.once('destroy', function () {
-            ch.shortcuts.remove(ch.onkeyenter, that.uid);
+            ch.shortcuts.remove(that.uid, ch.onkeyenter);
         });
 
         return this;
@@ -345,9 +343,10 @@
      * select = undefined;
      */
     Select.prototype.destroy = function () {
-
+        this._$select.next().remove();
+        this._$select.removeClass('ch-hide').removeAttr('disabled');
+        this._$select.attr('name', this._$input.attr('name'));
         parent.destroy.call(this);
-
         return;
     };
 

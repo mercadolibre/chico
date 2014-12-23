@@ -1337,20 +1337,20 @@
 
         var dropdown3 = $(".myDropdownSkin").dropdown({'skin': true});
 
-        var customselect = $('.myCustomSelect').select()
+        // var customselect = $('.myCustomSelect').select()
 
-        // var customselect = $('.myCustomSelect').select({
-        //     'format': [{
-        //         'regex': /(\$|u\$s|R\$|¢|S\/\.|€|BsF)\s((\d+)([\.\,]\b)(\d{2}\b)|([\d\.\,]+)|(\d+))/i,
-        //         'replace': '<strong class="ch-price">$1 $3$6$7<sup>$5</sup></strong>'
-        //     },{
-        //         'regex': /\((s.+s)\)/ig,
-        //         'replace': '<span class="cho-color-ok-light">($1)</span>'
-        //     }, {
-        //         'regex': /\(((\$|u\$s|R\$|¢|S\/\.|€|BsF).+\d)\)/ig,
-        //         'replace': '<span class="cho-form-hint">($1)</span>'
-        //     }]
-        // })
+        var customselect = $('.myCustomSelect').select({
+            'format': [{
+                'regex': /(\$|u\$s|R\$|¢|S\/\.|€|BsF)\s((\d+)([\.\,]\b)(\d{2}\b)|([\d\.\,]+)|(\d+))/i,
+                'replace': '<strong class="ch-price">$1 $3$6$7<sup>$5</sup></strong>'
+            },{
+                'regex': /\((s.+s)\)/ig,
+                'replace': '<span class="cho-color-ok-light">($1)</span>'
+            }, {
+                'regex': /\(((\$|u\$s|R\$|¢|S\/\.|€|BsF).+\d)\)/ig,
+                'replace': '<span class="cho-form-hint">($1)</span>'
+            }]
+        })
 
         // Tooltip
         // Bottom

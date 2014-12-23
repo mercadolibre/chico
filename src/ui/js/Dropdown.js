@@ -66,8 +66,8 @@
         });
 
         this.once('destroy', function () {
-            ch.shortcuts.remove(ch.onkeyuparrow, that.uid);
-            ch.shortcuts.remove(ch.onkeydownarrow, that.uid);
+            ch.shortcuts.remove(that.uid, ch.onkeyuparrow);
+            ch.shortcuts.remove(that.uid, ch.onkeydownarrow);
         });
 
         return this;
