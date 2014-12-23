@@ -1510,8 +1510,8 @@ input.ch-form-icon-input:focus {
   font-weight: bold; }
 
 .ch-form-subtitle {
-  font-size: normal;
-  font-weight: bold; }
+  font-size: 13px;
+  font-weight: 700; }
 
 /* Required specification or another */
 .ch-form-hint {
