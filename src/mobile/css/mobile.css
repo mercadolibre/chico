@@ -499,12 +499,12 @@ img {
   top: 0;
   right: 0;
   border-radius: 3px;
-  color: #f4f4f4;
+  color: #f0f0f0;
   background-color: #ccc;
   width: 40px;
   height: 40px; }
   .ch-autocomplete-list .ch-icon-arrow-up[data-js="ch-autocomplete-complete-query"]:before {
-    color: #f4f4f4;
+    color: #f0f0f0;
     display: block;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
@@ -570,7 +570,7 @@ img {
   color: #999; }
 
 .ch-box-help {
-  background-color: #f4f4f4; }
+  background-color: #f0f0f0; }
 
 /**
  * Info
@@ -598,13 +598,13 @@ img {
  * Boxes
  */
 .ch-box {
-  background-color: #f4f4f4; }
+  background-color: #f0f0f0; }
 
 /**
  * List boxes
  */
 .ch-box-list {
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
   border: 1px solid #dedede;
   padding: 0; }
   .ch-box-list li {
@@ -908,7 +908,7 @@ a.ch-btn-large:focus {
   text-align: center;
   width: 100%; }
   .ch-carousel-pages span {
-    background-color: #f4f4f4;
+    background-color: #f0f0f0;
     border-radius: 100%;
     -webkit-box-shadow: inset 1px 1px #999;
     box-shadow: inset 1px 1px #999;
@@ -954,7 +954,7 @@ table {
 
 .ch-datagrid-controls th,
 .ch-datagrid th {
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
   border-left: 1px solid #dedede;
   font-size: 11px;
   line-height: 26px;
@@ -966,13 +966,13 @@ table {
 
 .ch-datagrid-controls th {
   background-color: #fff;
-  background-image: -webkit-linear-gradient(#fff, #f4f4f4);
-  background-image: linear-gradient(#fff, #f4f4f4);
+  background-image: -webkit-linear-gradient(#fff, #f0f0f0);
+  background-image: linear-gradient(#fff, #f0f0f0);
   cursor: pointer; }
   .ch-datagrid-controls th:hover {
     background: #fff;
-    background-image: -webkit-linear-gradient(#fff, #f4f4f4);
-    background-image: linear-gradient(#fff, #f4f4f4); }
+    background-image: -webkit-linear-gradient(#fff, #f0f0f0);
+    background-image: linear-gradient(#fff, #f0f0f0); }
 
 .ch-datagrid-controls th:active,
 .ch-datagrid-controls th.ch-datagrid-selected {
@@ -1171,7 +1171,7 @@ table {
   font-size: 16px;
   font-weight: bold;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
   border: 1px solid #dedede;
   border-radius: 5px; }
 
@@ -1479,7 +1479,7 @@ input.ch-form-icon-input:focus {
 .ch-form-disabled input[disabled],
 .ch-form-disabled textarea,
 .ch-form-disabled textarea[disabled] {
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
   cursor: not-allowed; }
 
 /* Actions */
@@ -1970,7 +1970,7 @@ a.ch-tag,
 .ch-tag:hover,
 .ch-tag:active,
 .ch-tag:visited {
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
   border: 1px solid #dedede;
   border-radius: 5px;
   color: #666;
