@@ -65,6 +65,7 @@
 }
 
 /* Interaction of list */
+/*.ch-dropdown [id$="-selected"],*/
 .ch-dropdown menu a:focus {
     background-color: #fefbd6;
     outline: none;
