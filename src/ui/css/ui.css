@@ -1845,7 +1845,7 @@ dl.ch-list {
   padding: 0;
   overflow: hidden;
   list-style: none;
-  box-shadow: 0 8px 4px #eee; }
+  box-shadow: 0 8px 4px -4px #eee; }
 
 .ch-accordion {
   max-width: none; }
