@@ -83,6 +83,12 @@
             throw new Error('The "el" parameter is not present in the DOM');
         }
 
+        /**
+         * A unique id to identify the instance of a component.
+         * @type {Number}
+         */
+        this.uid = (uid += 1);
+
         // el is HTMLElement
         if (el !== undefined && el.nodeType !== undefined && el.nodeType === document.ELEMENT_NODE) {
 
@@ -103,12 +109,6 @@
             // we extend defaults with the object that is in el parameter object
             this._options = ch.util.extend(defaults, el);
         }
-
-        /**
-         * A unique id to identify the instance of a component.
-         * @type {Number}
-         */
-        this.uid = (uid += 1);
 
         /**
          * Indicates if a component is enabled.
@@ -223,6 +223,7 @@
         this.disable();
 
         if (this._el !== undefined) {
+            console.log(this._el.getAttribute('data-uid'));
             delete ch.instances[this._el.getAttribute('data-uid')];
         }
 
