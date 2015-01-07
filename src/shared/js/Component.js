@@ -53,8 +53,6 @@
 
     ch.util.inherits(Component, ch.EventEmitter);
 
-    Component.instances = {};
-
     /**
      * The name of a component.
      * @memberof! ch.Component.prototype
@@ -81,24 +79,26 @@
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
 
-        // el is a string so query that element
         if (el === null) {
-            throw new Error('The \'' + el + '\' el parameter is not present in the DOM');
+            throw new Error('The "el" parameter is not present in the DOM');
         }
 
         // el is HTMLElement
-        if (el && el.nodeType !== undefined && el.nodeType === document.ELEMENT_NODE) {
+        if (el !== undefined && el.nodeType !== undefined && el.nodeType === document.ELEMENT_NODE) {
 
             this._el = el;
+
+            // set the uid to the element to help search for the instance in the collection instances
+            this._el.setAttribute('data-uid', this.uid);
 
             // we extend defaults with options parameter
             this._options = ch.util.extend(defaults, options);
 
         // el is an object configuration
-        } else if (el === undefined || el.nodeType === undefined) {
+        } else if (el === undefined || el.nodeType === undefined && typeof el === 'object') {
 
             // creates a empty element becouse the user not set a DOM elment to use, but we requires one
-            this._el = document.createElement('div');
+            // this._el = document.createElement('div');
 
             // we extend defaults with the object that is in el parameter object
             this._options = ch.util.extend(defaults, el);
@@ -122,11 +122,8 @@
          * @type {Object}
          * @public
          */
-        Component.instances[this.uid] = this;
-
-        // set the uid to the element to help search for the instance in the collection instances
-        this._el.setAttribute('data-uid', this.uid);
-
+        ch.instances = ch.instances || {};
+        ch.instances[this.uid] = this;
     };
 
 
@@ -226,7 +223,7 @@
         this.disable();
 
         if (this._el !== undefined) {
-            delete Component.instances[this._el.getAttribute('data-uid')];
+            delete ch.instances[this._el.getAttribute('data-uid')];
         }
 
         /**
