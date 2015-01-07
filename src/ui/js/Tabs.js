@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -16,7 +16,7 @@
      * // Create a new Tabs with jQuery or Zepto.
      * var tabs = $(selector).tabs();
      */
-    function Tabs($el, options) {
+    function Tabs(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -25,7 +25,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -113,8 +113,8 @@
      * @private
      * @returns {tabs}
      */
-    Tabs.prototype._init = function ($el, options) {
-        parent._init.call(this, $el, options);
+    Tabs.prototype._init = function (el, options) {
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -138,18 +138,18 @@
 
         /**
          * The tabs container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$container = this._$el
-            .addClass('ch-tabs');
+        this.container = this._el;
+        ch.util.classList(this.container).add('ch-tabs');
 
         /**
          * The tabs triggers.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$triggers = this.$container.children(':first-child')
-            .addClass('ch-tabs-triggers')
-            .attr('role', 'tablist');
+        this.triggers = this.container.children[0];
+        this.triggers.setAttribute('role', 'tablist');
+        ch.util.classList(this.triggers).add('ch-tabs-triggers')
 
         /**
          * A collection of tab panel.
@@ -159,22 +159,24 @@
 
         /**
          * The container of tab panels.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$panel = this.$container.children(':last-child')
-            .addClass('ch-tabs-panel ch-box-lite')
-            .attr('role', 'presentation');
+        this.panel = this.container.children[1];
+        this.panel.setAttribute('role', 'presentation');
+        ch.util.classList(this.panel).add('ch-tabs-panel')
+        ch.util.classList(this.panel).add('ch-box-lite')
+
 
         /**
          * The tab panel's containers.
-         * @type {jQuery}
+         * @type {HTMLElement}
          * @private
          */
-        this._$tabsPanels = this.$panel.children();
+        this._tabsPanels = this.panel.children;
 
         // Creates tab
-        this.$triggers.find('a').each(function (i, e) {
-            that._createTab(i, e);
+        Array.prototype.forEach.call(this.triggers.getElementsByTagName('a'), function (el, index) {
+            that._createTab(index, el);
         });
 
         // Set the default shown tab.
@@ -201,19 +203,22 @@
         var that = this,
             tab,
 
-            $panel = this._$tabsPanels.eq(i),
+            panel = this._tabsPanels[i],
 
             // Create Tab panel's options
             options = {
                 '_classNameTrigger': 'ch-tab',
-                '_classNameContainer': 'ch-tabpanel ch-hide',
+                '_classNameContainer': 'ch-tabpanel',
                 'toggle': false
             };
 
         // Tab panel async configuration
-        if ($panel[0] === undefined) {
+        if (panel === undefined) {
 
-            $panel = $('<div id="' + e.href.split('#')[1] + '">').appendTo(this.$panel);
+            panel = document.createElement('div');
+            panel.setAttribute('id', e.href.split('#')[1]);
+
+            this.panel.appendChild(panel);
 
             options.content = e.href;
             options.waiting = this._options.waiting;
@@ -222,17 +227,17 @@
         }
 
         // Tab panel container configuration
-        options.container = $panel;
+        options.container = panel;
 
         // Creates new Tab panel
-        tab = new ch.Expandable($(e), options);
+        tab = new ch.Expandable(e, options);
 
         // Creates tab's hash
         tab._hash = e.href.split('#')[1];
 
         // Add ARIA roles
-        tab.$trigger.attr('role', 'tab');
-        tab.$container.attr('role', 'tabpanel');
+        tab.trigger.setAttribute('role', 'tab');
+        tab.container.setAttribute('role', 'tabpanel');
 
         // Binds show event
         tab.on('show', function () {
@@ -459,4 +464,4 @@
      */
     ch.factory(Tabs);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

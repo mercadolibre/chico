@@ -1,11 +1,11 @@
-var tabs1 = $('#tabs-1').tabs(),
-    tabs2 = $('#tabs-2').tabs(),
+var tabs1 = new ch.Tabs(document.getElementById('tabs-1')),
+    tabs2 = new ch.Tabs(document.getElementById('tabs-2')),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    layoutChangeEvent = jasmine.gcreateSpy('layoutChangeEvent'),
+    layoutChangeEvent = jasmine.createSpy('layoutChangeEvent'),
     showEvent = jasmine.createSpy('showEvent');
 
-$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
+ch.util.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Tabs', function () {
     tabs1.on('ready', function () { readyEvent(); });
@@ -13,11 +13,6 @@ describe('Tabs', function () {
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Tabs')).toBeTruthy();
         expect(typeof ch.Tabs).toEqual('function');
-    });
-
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('tabs')).toBeTruthy();
-        expect(typeof $.fn.tabs).toEqual('function');
     });
 
     it('should emit the "ready" event when it\'s created', function () {
@@ -28,16 +23,17 @@ describe('Tabs', function () {
     });
 
     it('with an ajax tab should create a tabpanel', function () {
-        expect($('#ajax', tabs1.$container)[0].nodeType).toEqual(1);
+
+        expect(document.getElementById('ajax').nodeType).toEqual(1);
     });
 });
 
 describe('It should have the following public properties:', function () {
 
-    it('.$container', function () {
-        expect(tabs1.$container).not.toEqual(undefined);
-        expect(tabs1.$container[0].nodeType).toEqual(1);
-        expect(tabs1.$container instanceof $).toBeTruthy();
+    it('.container', function () {
+        expect(tabs1.container).not.toEqual(undefined);
+        expect(tabs1.container.nodeType).toEqual(1);
+        expect(tabs1.container instanceof HTMLElement).toBeTruthy();
     });
 
     it('.name', function () {
@@ -73,50 +69,50 @@ describe('It should have the following public methods:', function () {
 });
 
 describe('It should have a wrapper and', function () {
-    var $container = tabs1.$container;
+    var container = tabs1.container;
 
     it('should have the ".ch-tabs" class name', function () {
-        expect($container.hasClass('ch-tabs')).toBeTruthy();
+        expect(ch.util.classList(container).contains('ch-tabs')).toBeTruthy();
     });
 
 });
 
 describe('It should have a list of triggers and', function () {
-    var $triggers = tabs1.$triggers,
-        $trigger = $triggers.children(':first-child').children();
+    var triggers = tabs1.triggers,
+        trigger = triggers.children[0].children[0];
 
     it('should exist', function () {
-        expect($triggers).not.toEqual(undefined);
-        expect($triggers[0].nodeType).toEqual(1);
-        expect($triggers instanceof $).toBeTruthy();
+        expect(triggers).not.toEqual(undefined);
+        expect(triggers.nodeType).toEqual(1);
+        expect(triggers instanceof HTMLElement).toBeTruthy();
     });
 
     it('should have the WAI-ARIA role "tablist"', function () {
-       expect($triggers.attr('role')).toEqual('tablist');
+       expect(triggers.getAttribute('role')).toEqual('tablist');
     });
 
     it('should have the "ch-tabs-triggers" class name', function () {
-        expect($triggers.hasClass('ch-tabs-triggers')).toBeTruthy();
+        expect(ch.util.classList(triggers).contains('ch-tabs-triggers')).toBeTruthy();
     });
 
     describe('its trigger', function () {
         it('should exist', function () {
-            expect($trigger).not.toEqual(undefined);
-            expect($trigger[0].nodeType).toEqual(1);
-            expect($trigger instanceof $).toBeTruthy();
+            expect(trigger).not.toEqual(undefined);
+            expect(trigger.nodeType).toEqual(1);
+            expect(trigger instanceof HTMLElement).toBeTruthy();
         });
 
         it('should have the WAI-ARIA role "tab"', function () {
-            expect($trigger.attr('role')).toEqual('tab');
+            expect(trigger.getAttribute('role')).toEqual('tab');
         });
 
         describe('should have the following class name:', function () {
             it('.ch-tab', function () {
-                expect($trigger.hasClass('ch-tab')).toBeTruthy();
+                expect(ch.util.classList(trigger).contains('ch-tab')).toBeTruthy();
             });
 
             it('.ch-user-no-select', function () {
-                expect($trigger.hasClass('ch-user-no-select')).toBeTruthy();
+                expect(ch.util.classList(trigger).contains('ch-user-no-select')).toBeTruthy();
             });
         });
     });
@@ -124,37 +120,37 @@ describe('It should have a list of triggers and', function () {
 });
 
 describe('It should have a list of panels and', function () {
-    var $panel = tabs1.$panel,
-        $tabpanel = tabs1.$panel.children(':first-child');
+    var panel = tabs1.panel,
+        tabpanel = tabs1.panel.children[0];
 
     it('should exist', function () {
-        expect($panel).not.toEqual(undefined);
-        expect($panel[0].nodeType).toEqual(1);
-        expect($panel instanceof $).toBeTruthy();
+        expect(panel).not.toEqual(undefined);
+        expect(panel.nodeType).toEqual(1);
+        expect(panel instanceof HTMLElement).toBeTruthy();
     });
 
     it('should have the WAI-ARIA role "presentation"', function () {
-       expect($panel.attr('role')).toEqual('presentation');
+       expect(panel.getAttribute('role')).toEqual('presentation');
     });
 
     it('should have the "ch-tabs-panel" class name', function () {
-        expect($panel.hasClass('ch-tabs-panel')).toBeTruthy();
+        expect(ch.util.classList(panel).contains('ch-tabs-panel')).toBeTruthy();
     });
 
     describe('its tabpanel', function () {
 
         it('should exist', function () {
-            expect($tabpanel).not.toEqual(undefined);
-            expect($tabpanel[0].nodeType).toEqual(1);
-            expect($tabpanel instanceof $).toBeTruthy();
+            expect(tabpanel).not.toEqual(undefined);
+            expect(tabpanel.nodeType).toEqual(1);
+            expect(tabpanel instanceof HTMLElement).toBeTruthy();
         });
 
         it('should have the WAI-ARIA role "tabpanel"', function () {
-            expect($tabpanel.attr('role')).toEqual('tabpanel');
+            expect(tabpanel.getAttribute('role')).toEqual('tabpanel');
         });
 
         it('should have the "ch-tabpanel" class name', function () {
-            expect($tabpanel.hasClass('ch-tabpanel')).toBeTruthy();
+            expect(ch.util.classList(tabpanel).contains('ch-tabpanel')).toBeTruthy();
         });
     });
 
@@ -191,13 +187,13 @@ describe('Its disable() method', function () {
     it('should receive an optional tab to disable', function () {
         instance = tabs1.disable(3);
         tabs1.show(3);
-        expect(tabs1.tabpanels[2].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(tabs1.tabpanels[2].trigger).contains('ch-expandable-trigger-on')).toBeFalsy();
     });
 
     it('should prevent to show new tab panels', function () {
         instance = tabs1.disable();
         tabs1.show(2);
-        expect(tabs1.tabpanels[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(tabs1.tabpanels[1].trigger).contains('ch-expandable-trigger-on')).toBeFalsy();
     });
 
     it('should return the same instance than initialized component', function () {
@@ -211,13 +207,13 @@ describe('Its enable() method', function () {
     it('should receive an optional tab to enable', function () {
         instance = tabs1.enable(3);
         tabs1.show(3);
-        expect(tabs1.tabpanels[2].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        expect(ch.util.classList(tabs1.tabpanels[2].trigger).contains('ch-expandable-trigger-on')).toBeTruthy();
     });
 
     it('should prevent to show its container', function () {
         instance = tabs1.enable();
         tabs1.show(2);
-        expect(tabs1.tabpanels[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        expect(ch.util.classList(tabs1.tabpanels[1].trigger).contains('ch-expandable-trigger-on')).toBeTruthy();
     });
 
     it('should return the same instance than initialized component', function () {
@@ -230,13 +226,13 @@ describe('Its enable() method', function () {
 describe('Its destroy() method', function () {
     tabs2.on('destroy', function () { destroyEvent(); });
 
-    it('should reset the $container', function () {
+    it('should reset the container', function () {
         tabs2.destroy();
-        expect(tabs2.$container.parent().length === 0).toBeTruthy();
+        expect(ch.util.parentElement(tabs2.container) === null).toBeTruthy();
     });
 
     it('should remove the instance from the element', function () {
-        expect(tabs2._$el.data('tabs')).toBeUndefined();
+        expect(ch.instances[tabs2.uid]).toBeUndefined();
     });
 
     it('should emit the "layoutchange" event', function () {
