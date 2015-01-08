@@ -121,7 +121,7 @@
                 i = 0;
 
             if (arguments.length < 1) {
-                throw new Error('"ch.util.avoidTextSelection(selector);": The selector parameter is required.');
+                throw new Error('"ch.util.avoidTextSelection(HTMLElement);": At least one Element is required.');
             }
 
             for (i; i < len; i += 1) {
@@ -365,14 +365,14 @@
                     if (isClassList) {
                         el.classList.add(className);
                     } else {
-                        el.className += ' ' + className;
+                        el.setAttribute('class', el.getAttribute('class') + ' ' + className);
                     }
                 },
                 'remove': function remove(className) {
                     if (isClassList) {
                         el.classList.remove(className)
                     } else {
-                        el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+                        el.setAttribute('class', el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' '));
                     }
                 },
                 'contains': function contains(className) {
