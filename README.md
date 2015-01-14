@@ -22,13 +22,17 @@ Get things done, quickly.
 
         $ npm install grunt-cli -g
 
-6. Run a local web server:
+6. Install [sass](http://sass-lang.com/install).
+
+7. Install [bourbon](http://bourbon.io/).
+
+7. Run a local web server:
 
         $ npm start
 
     Navigate [http://localhost:3040](http://localhost:3040/) and [http://localhost:3040/mobile](http://localhost:3040/mobile).
 
-7. Develop! :)
+8. Develop! :)
 
 **NOTE**
 
