@@ -27,6 +27,10 @@
 @import '../../shared/css/base';
 @import 'base';
 
+// Typography
+@import '../../shared/css/typography';
+@import 'typography';
+
 // Autocomplete
 @import '../../shared/css/autocomplete';
 @import 'autocomplete';
@@ -79,7 +83,3 @@
 
 // Transition
 @import '../../shared/css/transition';
-
-// Typography
-@import '../../shared/css/typography';
-@import 'typography';
