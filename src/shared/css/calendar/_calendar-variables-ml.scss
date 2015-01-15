@@ -11,7 +11,7 @@ $calendar-text-align: 						center;
 
 // ----- Title ----- //
 
-$calendar-title-bg-color: 					$gray-100; // #f0f0f0;
+$calendar-title-bg-color: 					$gray-100;
 $calendar-title-shadow:						0 1px 0 $main-neutral-color;
 
 // ----- Day cell ----- //
@@ -24,17 +24,17 @@ $calendar-day-today-bg-color:				#fefbd6;
 
 // ----- Empty day cell ----- //
 
-$calendar-day-empty-color:					$gray-500; // #c6c6c6;
+$calendar-day-empty-color:					$gray-500;
 $calendar-day-empty-cursor:					default;
 
 // ----- Diseabled day cell ----- //
 
 $calendar-day-disabled-bg-color:			$main-neutral-color;
-$calendar-day-disabled-text-color:			$gray-500; // #c6c6c6;
+$calendar-day-disabled-text-color:			$gray-500;
 
 // ----- Calendar selected ----- //
 
-$calendar-day-selected-bg-color:			$gray-700; // #a9a9a9 
+$calendar-day-selected-bg-color:			$gray-700;
 $calendar-day-selected-text-color:			$main-neutral-color;
 $calendar-day-selected-text-weight:			bold;
 

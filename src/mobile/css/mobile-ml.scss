@@ -24,43 +24,43 @@
 //---------------------------------------------------------------
 
 // Base
-@import '../../shared/css/base';
+@import '../../shared/css/base/base-variables-ml';
 @import 'base';
 
 // Typography
-@import '../../shared/css/typography';
+@import '../../shared/css/typography/typography-variables-ml';
 @import 'typography';
 
 // Autocomplete
-@import '../../shared/css/autocomplete';
+@import '../../shared/css/autocomplete/autocomplete-variables-ml';
 @import 'autocomplete';
 
 // Boxes
-@import '../../shared/css/boxes';
+@import '../../shared/css/boxes/boxes-variables-ml';
 @import 'boxes';
 
 // Buttons
-@import '../../shared/css/buttons';
+@import '../../shared/css/buttons/buttons-variables-ml';
 @import 'buttons';
 
 // Carousel
-@import '../../shared/css/carousel';
+@import '../../shared/css/carousel/carousel-variables-ml';
 
 // Datagrid
-@import '../../shared/css/datagrid';
+@import '../../shared/css/datagrid/datagrid-variables-ml';
 
 // Dropdown
-@import '../../shared/css/dropdown';
+@import '../../shared/css/dropdown/dropdown-variables-ml';
 
 // Expandable
 @import 'expandable';
 
 // Forms
-@import '../../shared/css/form';
+@import '../../shared/css/form/form-variables-ml';
 @import 'form';
 
 // lists
-@import '../../shared/css/lists';
+@import '../../shared/css/lists/lists-variables-ml';
 
 // Loading
 @import '../../shared/css/loading';
@@ -69,17 +69,17 @@
 @import 'menu';
 
 // Pagination
-@import '../../shared/css/pagination';
+@import '../../shared/css/pagination/pagination-variables-ml';
 @import 'pagination';
 
 // Popover
-@import '../../shared/css/popover';
+@import '../../shared/css/popover/popover-variables-ml';
 
 // Tags
 @import 'tags';
 
 // Tooltip
-@import '../../shared/css/tooltip';
+@import '../../shared/css/tooltip/tooltip-variables-ml';
 
 // Transition
-@import '../../shared/css/transition';
+@import '../../shared/css/transition/transition-variables-ml';

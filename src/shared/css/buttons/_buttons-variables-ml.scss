@@ -59,20 +59,20 @@ $btn-secondary-hover-box-shadow:			0 1px 0 #e5f2fc;
 
 $btn-secondary-active-bg-color:				#a2c9e1;
 $btn-secondary-active-bg-color-secondary:	#7ab6dc;
-$btn-secondary-shadow-active:				#476274; // rgba(71, 98, 116, .6);
+$btn-secondary-shadow-active:				#476274;
 $btn-secondary-border-active:				#79a8c7;
 $btn-secondary-active-box-shadow:			0 1px 6px #476274;
 
 // ----- Disabled state ----- //
 
 $btn-disabled-color:						$gray-500;
-$btn-disabled-bg-color:						$main-neutral-color; //#fefefe;
+$btn-disabled-bg-color:						$main-neutral-color;
 $btn-disabled-bg-color-secondary: 			darken($btn-disabled-bg-color,15%);
 $btn-disabled-border:						$gray-500;
 $btn-disabled-text-shadow:					none;
 $btn-disabled-text-color:					$gray-700;
 $btn-disabled-opacity:						0.5;
-$btn-disabled-box-shadow:					0 1px 1px $main-neutral-color; //#fefefe;
+$btn-disabled-box-shadow:					0 1px 1px $main-neutral-color;
 
 $btn-text-size:		    					$font__large; 
 $btn-large-text-size:		    			$font__x__large;

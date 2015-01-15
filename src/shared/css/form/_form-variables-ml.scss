@@ -22,13 +22,13 @@ $generic-input-padding:			 				6px;
 
 // ----- Focus state ----- //
 
-$generic-input-focus-border:					2px solid $gray-700; // #9a9a9a
+$generic-input-focus-border:					2px solid $gray-700;
 $generic-input-focus-padding:	 				5px;
 
 // ----- Input outline ----- //
 // types file, checkbox, range, radio & select //
 
-$input-options-focus-outline:		 	 		1px dotted $gray-700; // #9a9a9a
+$input-options-focus-outline:		 	 		1px dotted $gray-700;
 $input-options-subtitle-margin:		 	 		0 0 15px -20px;
 $input-required-options-subtitle-font-weight: 	bold;
 
@@ -97,7 +97,7 @@ $input-select-multiple-margin:					10px 0 0 0;
 // -------------------------------------
 
 $input-disabled-label-color:					$gray-700;	
-$input-disabled-bg-color:						$gray-100; // #f2f2f2;
+$input-disabled-bg-color:						$gray-100;
 
 // -------------------------------------
 //   Big form inputs (input, textarea, select)

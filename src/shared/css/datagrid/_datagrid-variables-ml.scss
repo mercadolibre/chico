@@ -16,7 +16,7 @@ $table-title-text-weight:							normal;
 
 // ----- Table header row ----- //
 
-$table-header-bg-color:								$gray-100; //#f0f0f0;
+$table-header-bg-color:								$gray-100;
 $table-header-row-border:							1px solid $main-border-color;
 $table-header-row-border-left:						1px solid $main-border-color;
 $table-header-row-text-align:						left;
@@ -31,18 +31,18 @@ $table-row-border: 									1px solid $main-border-color;
 
 // ----- Table header with controls ----- //
 
-$table-header-controls-bg-color: 			   		$main-neutral-color; // #fafafa;
-$table-header-controls-bg-color-secondary: 	   		$gray-100; //#ececec;
+$table-header-controls-bg-color: 			   		$main-neutral-color;
+$table-header-controls-bg-color-secondary: 	   		$gray-100;
 
 // ----- Table header with controls hover ----- //
 
-$table-header-controls-hover-bg-color:	 	   		$main-neutral-color; // #fafafa;
-$table-header-controls-hover-bg-color-secondary:  	$gray-100; //#f2f2f2;
+$table-header-controls-hover-bg-color:	 	   		$main-neutral-color;
+$table-header-controls-hover-bg-color-secondary:  	$gray-100;
 
 // ----- Table header with controls active ----- //
 
-$table-header-controls-active-bg-color:	 			$gray-400; //#e5e5e5
-$table-header-controls-active-bg-secondary: 		$gray-500; // #d8d8d8;
+$table-header-controls-active-bg-color:	 			$gray-400;
+$table-header-controls-active-bg-secondary: 		$gray-500;
 $table-header-controls-active-border:	 			1px solid $main-border-color;
 
 // ----- Table Title ----- //

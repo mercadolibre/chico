@@ -26,53 +26,53 @@
 //---------------------------------------------------------------
 
 // Base
-@import '../../shared/css/base';
+@import '../../shared/css/base/base-variables-ml';
 @import 'base';
 
 // Autocomplete
-@import '../../shared/css/autocomplete';
+@import '../../shared/css/autocomplete/autocomplete-variables-ml';
 
 // badges
 @import 'badges';
 
 // boxes
-@import '../../shared/css/boxes';
+@import '../../shared/css/boxes/boxes-variables-ml';
 @import 'boxes';
 
 // bubble
-@import '../../shared/css/bubble';
+@import '../../shared/css/bubble/bubble-variables-ml';
 
 // buttons
-@import '../../shared/css/buttons';
+@import '../../shared/css/buttons/buttons-variables-ml';
 @import 'buttons'; // ui
 
 // calendar
-@import '../../shared/css/calendar';
+@import '../../shared/css/calendar/calendar-variables-ml';
 
 // carousel
-@import '../../shared/css/carousel';
+@import '../../shared/css/carousel/carousel-variables-ml';
 
 // datagrid
-@import '../../shared/css/datagrid';
+@import '../../shared/css/datagrid/datagrid-variables-ml';
 
 // datepicker
 @import 'datepicker';
 
 // dropdown
-@import '../../shared/css/dropdown';
+@import '../../shared/css/dropdown/dropdown-variables-ml';
 
 // expandable
 @import 'expandable';
 
 // forms
-@import '../../shared/css/form';
+@import '../../shared/css/form/form-variables-ml';
 @import 'form';
 
 // Layer
-@import '../../shared/css/layer';
+@import '../../shared/css/layer/layer-variables-ml';
 
 // lists
-@import '../../shared/css/lists';
+@import '../../shared/css/lists/lists-variables-ml';
 
 // Loading
 @import '../../shared/css/loading';
@@ -81,26 +81,26 @@
 @import 'menu';
 
 // Modal
-@import '../../shared/css/modal';
+@import '../../shared/css/modal/modal-variables-ml';
 
 // Pagination
-@import '../../shared/css/pagination';
+@import '../../shared/css/pagination/pagination-variables-ml';
 @import 'pagination';
 
 // Popover
-@import '../../shared/css/popover';
+@import '../../shared/css/popover/popover-variables-ml';
 
 // Tabs
 @import 'tabs';
 
 // Tooltip
-@import '../../shared/css/tooltip';
+@import '../../shared/css/tooltip/tooltip-variables-ml';
 
 // Transition
-@import '../../shared/css/transition';
+@import '../../shared/css/transition/transition-variables-ml';
 
 // Typography
-@import '../../shared/css/typography';
+@import '../../shared/css/typography/typography-variables-ml';
 
 // Wizard
 @import 'wizard';
