@@ -52,15 +52,13 @@ table {
     cursor: pointer;
 
     &:hover {
-        background: $table-header-controls-hover-bg-color;
-        @include background-image(linear-gradient($table-header-controls-hover-bg-color, $table-header-controls-hover-bg-color-secondary));     
+        background: $table-header-controls-hover-bg-color;   
     }
 }
 
 .ch-datagrid-controls th:active,
 .ch-datagrid-controls th.ch-datagrid-selected {
     background: $table-header-controls-active-bg-color;
-        @include background-image(linear-gradient($table-header-controls-active-bg-color, $table-header-controls-active-bg-secondary));
     border-top: $table-header-controls-active-border;
 }
 

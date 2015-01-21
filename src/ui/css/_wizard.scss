@@ -86,7 +86,7 @@
 
 .ch-wizard-step:before,
 .ch-wizard-current:before {
-    border-width: ($wizard-breadcrumb-height / 2) + 2 ($wizard-breadcrumb-height / 2) + 1;
+    border-width: ($wizard-breadcrumb-height / 2) + 2 (($wizard-breadcrumb-height / 2) + 1) / 2;
     border-left-color: #ddd;
 }
 
@@ -98,7 +98,7 @@
 }
 
 .ch-wizard-breadcrumb li a:before {
-    border-width: ($wizard-breadcrumb-height / 2) + 2 ($wizard-breadcrumb-height / 2) + 1;
+    border-width: ($wizard-breadcrumb-height / 2) + 2 (($wizard-breadcrumb-height / 2) + 1) / 2;
     border-left-color: $wizard-breadcrumb-border-color;
 }
 

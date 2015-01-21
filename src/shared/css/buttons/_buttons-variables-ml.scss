@@ -66,8 +66,8 @@ $btn-secondary-active-box-shadow:			0 1px 6px #476274;
 // ----- Disabled state ----- //
 
 $btn-disabled-color:						$gray-500;
-$btn-disabled-bg-color:						$main-neutral-color;
-$btn-disabled-bg-color-secondary: 			darken($btn-disabled-bg-color,15%);
+$btn-disabled-bg-color:						$gray-50;
+$btn-disabled-bg-color-secondary: 			$gray-400;
 $btn-disabled-border:						$gray-500;
 $btn-disabled-text-shadow:					none;
 $btn-disabled-text-color:					$gray-700;

@@ -31,18 +31,16 @@ $table-row-border: 									1px solid $main-border-color;
 
 // ----- Table header with controls ----- //
 
-$table-header-controls-bg-color: 			   		$main-neutral-color;
-$table-header-controls-bg-color-secondary: 	   		$gray-100;
+$table-header-controls-bg-color: 			   		$gray-50;
+$table-header-controls-bg-color-secondary: 	   		$gray-200;
 
 // ----- Table header with controls hover ----- //
 
-$table-header-controls-hover-bg-color:	 	   		$main-neutral-color;
-$table-header-controls-hover-bg-color-secondary:  	$gray-100;
+$table-header-controls-hover-bg-color:	 	   		$gray-50;
 
 // ----- Table header with controls active ----- //
 
 $table-header-controls-active-bg-color:	 			$gray-400;
-$table-header-controls-active-bg-secondary: 		$gray-500;
 $table-header-controls-active-border:	 			1px solid $main-border-color;
 
 // ----- Table Title ----- //
