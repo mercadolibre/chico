@@ -404,7 +404,7 @@ img {
   display: inline-block;
   padding: 0;
   text-indent: -1px;
-  color: #ccc;
+  color: red;
   font: normal Arial;
   text-align: center;
   position: absolute;
@@ -588,7 +588,7 @@ a:focus {
   right: 0;
   border-radius: 3px;
   color: #f0f0f0;
-  background-color: #ccc;
+  background-color: red;
   width: 40px;
   height: 40px; }
   .ch-autocomplete-list .ch-icon-arrow-up[data-js="ch-autocomplete-complete-query"]:before {
@@ -697,7 +697,7 @@ a:focus {
   padding: 0; }
   .ch-box-list li {
     position: relative;
-    border-bottom: 1px dotted #ccc;
+    border-bottom: 1px dotted red;
     color: #666;
     font-size: 16px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
@@ -842,7 +842,7 @@ input.ch-btn-small::-moz-focus-inner {
   background-color: #F9F9F9;
   background-image: -webkit-linear-gradient(#F9F9F9, #dedede);
   background-image: linear-gradient(#F9F9F9, #dedede);
-  border: 1px solid #ccc !important;
+  border: 1px solid red !important;
   /* important for links */
   box-shadow: 0 1px 1px #fff inset;
   color: #999 !important;
@@ -860,8 +860,8 @@ input.ch-btn-small::-moz-focus-inner {
 .ch-btn-action:focus,
 .ch-btn-action:visited {
   background-color: #dedede;
-  background-image: -webkit-linear-gradient(#dedede, #ccc);
-  background-image: linear-gradient(#dedede, #ccc);
+  background-image: -webkit-linear-gradient(#dedede, red);
+  background-image: linear-gradient(#dedede, red);
   border: 1px solid #bbb;
   box-shadow: 0 1px 0 #fff;
   color: #666;
@@ -875,8 +875,8 @@ input.ch-btn-small::-moz-focus-inner {
 
 .ch-btn-action:active {
   background-color: #a9a9a9;
-  background-image: -webkit-linear-gradient(#a9a9a9, #ccc);
-  background-image: linear-gradient(#a9a9a9, #ccc);
+  background-image: -webkit-linear-gradient(#a9a9a9, red);
+  background-image: linear-gradient(#a9a9a9, red);
   border-color: #999;
   box-shadow: 0 1px 6px rgba(255, 255, 255, 0.5); }
 
@@ -1383,7 +1383,7 @@ input[type="password"],
 textarea,
 select[multiple],
 .ch-form-select-multiple {
-  border: 1px solid #ccc;
+  border: 1px solid red;
   border-radius: 3px;
   padding: 6px; }
   input[type="text"]:focus,
@@ -1712,7 +1712,7 @@ input[type="checkbox"]:focus {
 /* Select */
 .ch-form-row select {
   height: 36px;
-  border-color: #ccc;
+  border-color: red;
   margin: 0 0 5px 0; }
 
 /* Select Multiple */
@@ -1835,7 +1835,7 @@ dl.ch-list {
   border: none;
   -webkit-border-radius: 0;
   border-radius: 0;
-  border-bottom: 1px dotted #ccc; }
+  border-bottom: 1px dotted red; }
 
 .ch-menu .ch-expandable-trigger:after {
   color: #999; }

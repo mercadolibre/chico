@@ -7,15 +7,7 @@ module.exports = function (grunt) {
             'mobile': 'Zepto',
             'ui': 'jQuery'
         },
-        files = require('./libs/files/' + environment),
-
-        sassOrigin = 'src/' + environment + '/css/' + environment + '.scss',
-        sassDestination = destination + '/' + environment + '/<%= pkg.name %>-theme-' + environment + '.css',
-        sassEasyDestination = environment + '.css';
-
-
-
-
+        files = require('./libs/files/' + environment)
 
     // Project configuration.
     grunt.initConfig({
@@ -78,11 +70,12 @@ module.exports = function (grunt) {
             'dist': {
                 'options': {
                     'banner': '<%= banner.full %>',
-                    'style': 'compact'
+                    'style': 'compressed'
                 },
                 'files': {
-                        'build/ui/chico-theme-ui.css': 'src/' + environment + '/css/' + environment + '.scss'
-                    },
+                    'build/ui/new-theme-ui.css': 'src/ui/css/ui-ml.scss',
+                    'build/mobile/new-theme-mobile.css': 'src/mobile/css/mobile-ml.css'        
+                },
             }
         },
 

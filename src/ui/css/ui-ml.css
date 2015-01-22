@@ -401,7 +401,7 @@ body {
   display: inline-block;
   padding: 0;
   text-indent: -1px;
-  color: #ccc;
+  color: red;
   font: normal Arial;
   text-align: center;
   position: absolute;
@@ -754,7 +754,7 @@ input.ch-btn-small::-moz-focus-inner {
   background-color: #F9F9F9;
   background-image: -webkit-linear-gradient(#F9F9F9, #dedede);
   background-image: linear-gradient(#F9F9F9, #dedede);
-  border: 1px solid #ccc !important;
+  border: 1px solid red !important;
   /* important for links */
   box-shadow: 0 1px 1px #fff inset;
   color: #999 !important;
@@ -876,7 +876,7 @@ a.ch-btn-large:focus {
   background-color: #fefbd6; }
 
 .ch-calendar-other {
-  color: #ccc;
+  color: red;
   cursor: default !important;
   overflow: hidden;
   text-indent: -99px; }
@@ -884,7 +884,7 @@ a.ch-btn-large:focus {
 .ch-calendar-disabled,
 .ch-calendar-disabled:hover {
   background-color: #fff;
-  color: #ccc;
+  color: red;
   cursor: not-allowed; }
 
 .ch-calendar-selected,
@@ -1432,7 +1432,7 @@ input[type="password"],
 textarea,
 select[multiple],
 .ch-form-select-multiple {
-  border: 1px solid #ccc;
+  border: 1px solid red;
   border-radius: 3px;
   padding: 6px; }
   input[type="text"]:focus,
@@ -2370,7 +2370,7 @@ a:focus {
 .ch-wizard-breadcrumb li {
   float: left;
   position: relative;
-  color: #ccc;
+  color: red;
   text-align: center; }
 
 .ch-steps-two li {
