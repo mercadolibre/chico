@@ -48,13 +48,13 @@ The API doc may also be run locally by running:
 
 Navigate `./doc` directory and enjoy!
 
-## How to use Chico Themes
+## How to use sass Chico Themes 
 
 This is the structure and a small file reference guide:
 
 ### Base folder (chico/src)
 
-In the folder "src" are Sass files, from here you can may make changes that affect the UI project in a fast and organized way.
+In the folder "src" are sass files. From here you can may make changes that affect the UI project in a fast and organized way.
 
 ```
 src/
@@ -116,13 +116,13 @@ In this folder is a list of each of the individual components within each are th
 
 Note - _mobile.scsss and _ui.scsss these files are used to choose which components we have available at the final css.
 
-### Favors folder
+### Sass watch
 
-In this folder are the themes that will impact colors punctually in the container scope (mobile, shared or ui). This folder is where you create a new theme in reference to the above.
+Sass watch is an automatic task that runs with:
 
-### Estructure folder
-
-In this folder are the themes that will impact font sizes, margins, padding and other that impacted on the container scope (mobile, shared or ui). This folder is where you create a new theme in reference to the above.
+        $ grunt sass
+        
+Both, the ui and the mobile file, will be saved inside the build folder. The name of ...
 
 ## Tests
 
