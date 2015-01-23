@@ -22,17 +22,13 @@ Get things done, quickly.
 
         $ npm install grunt-cli -g
 
-6. Install [sass](http://sass-lang.com/install).
-
-7. Install [bourbon](http://bourbon.io/).
-
-7. Run a local web server:
+6. Run a local web server:
 
         $ npm start
 
     Navigate [http://localhost:3040](http://localhost:3040/) and [http://localhost:3040/mobile](http://localhost:3040/mobile).
 
-8. Develop! :)
+7. Develop! :)
 
 **NOTE**
 
@@ -52,7 +48,83 @@ The API doc may also be run locally by running:
 
 Navigate `./doc` directory and enjoy!
 
+## How to use Chico Themes
+
+This is the structure and a small file reference guide:
+
+### Base folder (chico/src)
+
+In the folder "src" are Sass files, from here you can may make changes that affect the UI project in a fast and organized way.
+
+src/
+|
+|– mobile/ # Properties only for Mobile 
+|   |
+|   |– css/ # Components list
+|   |   |– _autocomplete.scss  # Autocomplete rules
+|   |   |– _base.scss          # Base rules
+|   |   |– _boxes.scsss        # Boxes rules
+|   |   |– _mobile.scsss       # Imports the components to show
+|   |   ...                    # Etc…
+|   |
+|   |- flavors/ 
+|   |   |– _variables-ml.scss  # Custom colors for a components
+|   |   `– _variables-mp.scss  # Custom colors for a components
+|   |
+|   `- structure/ 
+|       |– _variables-ml.scss  # Custom fonts sizes, margin, etc for a components
+|       `– _variables-mp.scss  # Custom fonts sizes, margin, etc for a components
+|   
+|– shared/ # Properties shared in Mobile and UI
+|   |
+|   |– css/ # Components list
+|   |   |– _autocomplete.scss  # Autocomplete rules
+|   |   |– _base.scss          # Base rules
+|   |   |– _boxes.scsss        # Boxes rules
+|   |   ...                    # Etc…
+|   |
+|   |- flavors/ 
+|   |   |– _variables-ml.scss  # Custom colors for a components
+|   |   `– _variables-mp.scss  # Custom colors for a components
+|   |
+|   `- structure/ 
+|       |– _variables-ml.scss  # Custom fonts sizes, margin, etc for a components
+|       `– _variables-mp.scss  # Custom fonts sizes, margin, etc for a components
+|
+`– ui/ # Properties only for Desktop Bowsers
+    |
+    |– css/ # Components list
+    |   |– _autocomplete.scss  # Autocomplete rules
+    |   |– _badges.scss        # Badges rules
+    |   |– _base.scsss         # Base rules
+    |   |– _ui.scsss           # Imports the components to shows
+    |   ...                    # Etc…
+    |
+    |- flavors/ 
+    |   |– _variables-ml.scss  # Custom colors for a components
+    |   `– _variables-mp.scss  # Custom colors for a components
+    |
+    `- structure/ 
+        |– _variables-ml.scss  # Custom fonts sizes, margin, etc for a components
+        `– _variables-mp.scss  # Custom fonts sizes, margin, etc for a components
+
+
+### Css folder (inside mobile, shared or ui)
+
+In this folder is a list of each of the individual components within each are the unique properties.
+
+Note - _mobile.scsss and _ui.scsss these files are used to choose which components we have available at the final css.
+
+### Favors folder
+
+In this folder are the themes that will impact colors punctually in the container scope (mobile, shared or ui). This folder is where you create a new theme in reference to the above.
+
+### Estructure folder
+
+In this folder are the themes that will impact font sizes, margins, padding and other that impacted on the container scope (mobile, shared or ui). This folder is where you create a new theme in reference to the above.
+
 ## Tests
+
 You can run our tests in your browser:
 
 1. Run the local web server:
@@ -63,6 +135,27 @@ You can run our tests in your browser:
 
 **We are going to automate it! :)**
 
+## Theme setup
+1. Install sass:
+
+        $ sudo gem install sass
+
+2. Watch sass to alert for changes and compile:
+
+        $ sass --watch .
+
+3. At the folder tree, go to `src/ui/css/chico.scss`
+
+4. Change Flavor and Structure variables. 
+
+-ml : MercadoLibre
+-mp : MercadoPago
+
+5. Save the file (sass will compile the new css created).
+
+6. Overwrite the css from `src/ui/css/chico.css` to `vendor/chico.css`
+
+7. Refresh the url
 
 ## Get in touch
 
