@@ -56,6 +56,7 @@ This is the structure and a small file reference guide:
 
 In the folder "src" are Sass files, from here you can may make changes that affect the UI project in a fast and organized way.
 
+```
 src/
 |
 |– mobile/ # Properties only for Mobile 
@@ -107,7 +108,7 @@ src/
     `- structure/ 
         |– _variables-ml.scss  # Custom fonts sizes, margin, etc for a components
         `– _variables-mp.scss  # Custom fonts sizes, margin, etc for a components
-
+```
 
 ### Css folder (inside mobile, shared or ui)
 
