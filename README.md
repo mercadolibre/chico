@@ -39,6 +39,7 @@ Get things done, quickly.
 Please read through our code style guides:
 - [HTML](https://github.com/mercadolibre/html-style-guide)
 - [CSS](https://github.com/mercadolibre/css-style-guide)
+- [SASS] (https://github.com/mercadolibre/ui-sass_style_guide)
 - [JavaScript](https://github.com/mercadolibre/javascript-style-guide)
 
 ## API Doc
