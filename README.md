@@ -5,6 +5,7 @@ Chico UI is a free and open source collection of easy-to-use UI components for d
 Get things done, quickly.
 
 ## Development setup
+
 1. Install [Git](http://git-scm.com/) and [NodeJS](http://nodejs.org/).
 2. Open your terminal and clone `mercadolibre/chico` by running:
 
@@ -80,9 +81,9 @@ src/
 |       |– _base.scss          # Base rules
 |       |– _boxes.scsss        # Boxes rules
 |       ...                    # Etc…
-|		|
-|		`- common/ # Common shared skin and structure variables
-|    		`– _variables-ml.scss  # Common shared skin and structure variables for ML
+|       |
+|       `- common/ # Common shared skin and structure variables
+|           `– _variables-ml.scss  # Common shared skin and structure variables for ML
 |
 `– ui/ # Properties only for Desktop Bowsers
     |
@@ -109,12 +110,34 @@ Inside this folder (src/shared/css/common) you will find the sass file that is s
 Example:
 
 ```
-			_autocomplete.scss
-			autocomplete/
-				`– _autocomplete-variables-ml.scss  # Extra custom properties
+            _autocomplete.scss
+            autocomplete/
+                `– _autocomplete-variables-ml.scss  # Extra custom properties
 ```
 
 In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a folder (_autocomplete-variables-ml.scss ) and includes the extra custom propieties on the component.
+
+### How to create a new skin
+
+#### 1. Create your own commons shared variables
+
+a. Duplicate the commons shared variables.
+b. Change the name of the duplicated file(s).
+
+> E.g.: _variables-ml.scss to _variables-yourThemeName.scss
+
+#### 2. Create your own style for a components variables
+
+a. Duplicate de sass components variables you need and follow the components structure explained above (or create a new one).
+b. Change the name of the duplicated file(s).
+
+> E.g.: _autocomplete-variables-ml.scss to _autocomplete-variables-yourThemeName.scss
+
+> If the component does not have a folder, create this with the same name of the component and next, create the custom variables file.
+
+#### 3. Update and invoque the new theme elements
+
+a. Update mobile-theme.scss and ui-theme.scss with the name of your new theme (1.b).
 
 ## Tests
 You can run our tests in your browser:
