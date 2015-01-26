@@ -62,59 +62,53 @@ src/
 |– mobile/ # Properties only for Mobile 
 |   |
 |   |– css/ # Components list
-|   |   |– _autocomplete.scss  # Autocomplete rules
-|   |   |– _base.scss          # Base rules
-|   |   |– _boxes.scsss        # Boxes rules
-|   |   |– _mobile.scsss       # Imports the components to show
-|   |   ...                    # Etc…
-|   |
-|   |- flavors/ 
-|   |   |– _variables-ml.scss  # Custom colors for a components
-|   |   `– _variables-mp.scss  # Custom colors for a components
-|   |
-|   `- structure/ 
-|       |– _variables-ml.scss  # Custom fonts sizes, margin, etc for a components
-|       `– _variables-mp.scss  # Custom fonts sizes, margin, etc for a components
+|       |– _autocomplete.scss  # Autocomplete rules
+|       |– _base.scss          # Base rules
+|       |– _boxes.scss         # Boxes rules
+|       `– mobile-ml.scss      # Imports the components to show
+|       ...                    # Etc…
 |   
 |– shared/ # Properties shared in Mobile and UI
 |   |
 |   |– css/ # Components list
-|   |   |– _autocomplete.scss  # Autocomplete rules
-|   |   |– _base.scss          # Base rules
-|   |   |– _boxes.scsss        # Boxes rules
-|   |   ...                    # Etc…
-|   |
-|   |- flavors/ 
-|   |   |– _variables-ml.scss  # Custom colors for a components
-|   |   `– _variables-mp.scss  # Custom colors for a components
-|   |
-|   `- structure/ 
-|       |– _variables-ml.scss  # Custom fonts sizes, margin, etc for a components
-|       `– _variables-mp.scss  # Custom fonts sizes, margin, etc for a components
+|       |– _autocomplete.scss  # Autocomplete rules
+|       |– _base.scss          # Base rules
+|       |– _boxes.scsss        # Boxes rules
+|       ...                    # Etc…
+|		|
+|		`- common/ # Common shared skin and structure variables
+|    		`– _variables-ml.scss  # Common shared skin and structure variables for ML
 |
 `– ui/ # Properties only for Desktop Bowsers
     |
-    |– css/ # Components list
-    |   |– _autocomplete.scss  # Autocomplete rules
-    |   |– _badges.scss        # Badges rules
-    |   |– _base.scsss         # Base rules
-    |   |– _ui.scsss           # Imports the components to shows
-    |   ...                    # Etc…
-    |
-    |- flavors/ 
-    |   |– _variables-ml.scss  # Custom colors for a components
-    |   `– _variables-mp.scss  # Custom colors for a components
-    |
-    `- structure/ 
-        |– _variables-ml.scss  # Custom fonts sizes, margin, etc for a components
-        `– _variables-mp.scss  # Custom fonts sizes, margin, etc for a components
+    `– css/ # Components list
+        |– _autocomplete.scss  # Autocomplete rules
+        |– _badges.scss        # Badges rules
+        |– _base.scss          # Base rules
+        |– ui-ml.scss          # Imports the components to show
+        ...                    # Etc…
 ```
 
 ### Css folder (inside mobile, shared or ui)
 
 In this folder is a list of each of the individual components within each are the unique properties.
 
-Note - _mobile.scsss and _ui.scsss these files are used to choose which components we have available at the final css.
+Note - mobile-ml.scss and ui-ml.scss these files are used to choose which components we have available at the final css. You can also edit the file and choose wich components you want to render.
+
+### Common folder
+
+Inside this folder (src/shared/css/common) you can find a Sass  files, they have a common shared skin and structure variables for Mobile and UI, from here you can make changes in a Moblie and UI interface. This is CHICO Themes! For example here are the main color palette.
+
+### Components estructure
+
+Example:
+```
+			_autocomplete.scss
+			autocomplete/
+				`– _autocomplete-variables-ml.scss  # Extra custom properties
+```
+
+In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a folder (_autocomplete-variables-ml.scss ) and includes the extra custom propieties on the component.
 
 ### Sass watch
 
