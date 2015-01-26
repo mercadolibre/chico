@@ -22,13 +22,17 @@ Get things done, quickly.
 
         $ npm install grunt-cli -g
 
-6. Run a local web server:
+6. Install [sass](http://sass-lang.com/install).
+
+7. Install [bourbon](http://bourbon.io/).
+
+7. Run a local web server:
 
         $ npm start
 
     Navigate [http://localhost:3040](http://localhost:3040/) and [http://localhost:3040/mobile](http://localhost:3040/mobile).
 
-7. Develop! :)
+8. Develop! :)
 
 **NOTE**
 
@@ -48,15 +52,14 @@ The API doc may also be run locally by running:
 
 Navigate `./doc` directory and enjoy!
 
-## How to use sass Chico Themes 
+## How to use Chico Themes
 
 This is the structure and a small file reference guide:
 
 ### Base folder (chico/src)
 
-In the folder "src" are sass files. From here you can may make changes that affect the UI project in a fast and organized way.
+In the folder "src" are Sass files, from here you can may make changes that affect the UI project in a fast and organized way.
 
-```
 src/
 |
 |– mobile/ # Properties only for Mobile 
@@ -87,39 +90,28 @@ src/
         |– _base.scss          # Base rules
         |– ui-ml.scss          # Imports the components to show
         ...                    # Etc…
-```
+
 
 ### Css folder (inside mobile, shared or ui)
 
-In this folder is a list of each of the individual components within each are the unique properties.
+This folder have a list of each individual components, within each are the unique properties.
 
 Note - mobile-ml.scss and ui-ml.scss these files are used to choose which components we have available at the final css. You can also edit the file and choose wich components you want to render.
 
 ### Common folder
 
-Inside this folder (src/shared/css/common) you can find a Sass  files, they have a common shared skin and structure variables for Mobile and UI, from here you can make changes in a Moblie and UI interface. This is CHICO Themes! For example here are the main color palette.
+Inside this folder (src/shared/css/common) you will find the sass file that is shared between Mobile and UI. From here you can change the main variables in Moblie and UI interface.
 
 ### Components estructure
 
 Example:
-```
 			_autocomplete.scss
 			autocomplete/
 				`– _autocomplete-variables-ml.scss  # Extra custom properties
-```
 
 In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a folder (_autocomplete-variables-ml.scss ) and includes the extra custom propieties on the component.
 
-### Sass watch
-
-Sass watch is an automatic task that runs with:
-
-        $ grunt sass
-        
-Both, the ui and the mobile file, will be saved inside the build folder. The name of ...
-
 ## Tests
-
 You can run our tests in your browser:
 
 1. Run the local web server:
@@ -130,27 +122,6 @@ You can run our tests in your browser:
 
 **We are going to automate it! :)**
 
-## Theme setup
-1. Install sass:
-
-        $ sudo gem install sass
-
-2. Watch sass to alert for changes and compile:
-
-        $ sass --watch .
-
-3. At the folder tree, go to `src/ui/css/chico.scss`
-
-4. Change Flavor and Structure variables. 
-
--ml : MercadoLibre
--mp : MercadoPago
-
-5. Save the file (sass will compile the new css created).
-
-6. Overwrite the css from `src/ui/css/chico.css` to `vendor/chico.css`
-
-7. Refresh the url
 
 ## Get in touch
 
