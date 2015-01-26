@@ -60,6 +60,7 @@ This is the structure and a small file reference guide:
 
 In the folder "src" are Sass files, from here you can may make changes that affect the UI project in a fast and organized way.
 
+```
 src/
 |
 |– mobile/ # Properties only for Mobile 
@@ -90,7 +91,7 @@ src/
         |– _base.scss          # Base rules
         |– ui-ml.scss          # Imports the components to show
         ...                    # Etc…
-
+```
 
 ### Css folder (inside mobile, shared or ui)
 
@@ -105,9 +106,12 @@ Inside this folder (src/shared/css/common) you will find the sass file that is s
 ### Components estructure
 
 Example:
+
+```
 			_autocomplete.scss
 			autocomplete/
 				`– _autocomplete-variables-ml.scss  # Extra custom properties
+```
 
 In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a folder (_autocomplete-variables-ml.scss ) and includes the extra custom propieties on the component.
 
