@@ -72,9 +72,9 @@ module.exports = function (grunt) {
                     'banner': '<%= banner.full %>',
                     'style': 'compressed'
                 },
-                'files': {
-                    'build/ui/new-theme-ui.css': 'src/ui/css/ui-ml.scss',
-                    'build/mobile/new-theme-mobile.css': 'src/mobile/css/mobile-ml.css'        
+                'files': {    
+                    'vendor/ui-theme.css': 'src/ui/css/ui-theme.scss',
+                    'vendor/mobile-theme.css': 'src/mobile/css/mobile-theme.scss'        
                 },
             }
         },
