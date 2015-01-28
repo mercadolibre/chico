@@ -25,9 +25,9 @@ input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="file"]::-webkit-file-upload-button:focus,
 button:focus {
-    outline: thin dotted;
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
+    outline: $btn-outline-style;
+    outline: $btn-outline;
+    outline-offset: $btn-outline-offset;
 }
 
 /* Colors */
@@ -36,7 +36,7 @@ button:focus {
 .ch-btn:visited {
     background-color: $btn-primary-bg-color;
     @include background-image(linear-gradient($btn-primary-bg-color, $btn-primary-bg-color-secondary));
-    box-shadow: $btn-primary-box-shadow inset;
+    box-shadow: $btn-primary-box-shadow;
     border: $btn-primary-border;
     color: $btn-primary-text-color;
 }
@@ -46,8 +46,8 @@ button:focus {
 .ch-btn-skin:visited {
     background-color: $btn-secondary-bg-color;
     @include background-image(linear-gradient($btn-secondary-bg-color, $btn-secondary-bg-color-secondary));
-    border: 1px solid $btn-secondary-border;
-    box-shadow: $btn-secondary-box-shadow inset;
+    border: $btn-secondary-border;
+    box-shadow: $btn-secondary-box-shadow;
     color: $btn-secondary-text-color;
     text-shadow: $btn-secondary-text-shadow;
 }
@@ -62,27 +62,27 @@ button:focus {
 .ch-btn:hover {
     background-color: $btn-primary-box-hover-bg-color;
     @include background-image(linear-gradient($btn-primary-box-hover-bg-color, $btn-primary-box-hover-bg-color-secondary));
-    box-shadow: $btn-primary-hover-box-shadow inset;
+    box-shadow: $btn-primary-hover-box-shadow;
 }
 
 .ch-btn-skin:hover {
     background-color: $btn-secondary-hover-bg-color;
     @include background-image(linear-gradient($btn-secondary-hover-bg-color, $btn-secondary-hover-bg-color-secondary));
-    box-shadow: $btn-secondary-hover-box-shadow inset;
+    box-shadow: $btn-secondary-hover-box-shadow;
 }
 
 /* Colors on Active */
 .ch-btn:active {
     background-color: $btn-primary-active-bg-color;
     @include background-image(linear-gradient($btn-primary-active-bg-color, $btn-primary-active-bg-color-secondary));
-    box-shadow: $btn-primary-active-box-shadow inset;
+    box-shadow: $btn-primary-active-box-shadow;
     border-color: $btn-primary-active-border;
 }
 
 .ch-btn-skin:active {
     background-color: $btn-secondary-active-bg-color;
     @include background-image(linear-gradient($btn-secondary-active-bg-color, $btn-secondary-active-bg-color-secondary));
-    box-shadow: $btn-secondary-active-box-shadow inset;
+    box-shadow: $btn-secondary-active-box-shadow;
     border-color: $btn-secondary-border-active;
 }
 

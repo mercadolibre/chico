@@ -743,7 +743,7 @@ a:focus {
 [class*="ch-btn"]:focus {
   font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
   border-radius: 4px;
-  box-shadow: 0,0,0,none;
+  box-shadow: 0, 0, 0, none;
   cursor: pointer;
   display: inline-block;
   height: auto;
