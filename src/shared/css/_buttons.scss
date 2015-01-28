@@ -7,13 +7,13 @@
 /* Global */
 [class*="ch-btn"],
 [class*="ch-btn"]:focus {
-    font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
-    border-radius:4px;
-    box-shadow: 0,0,0,none;
+    font-family: $btn-text-family;
+    border-radius: $btn-border-radius;
+    box-shadow: $btn-box-shadow;
     cursor: $btn-cursor;
     display: inline-block;
     height: auto;
-    text-decoration: none;
+    text-decoration: $btn-text-decoration;
     font-size: $btn-text-size;
     font-size: $btn-text-size;
 }
@@ -37,7 +37,7 @@ button:focus {
     background-color: $btn-primary-bg-color;
     @include background-image(linear-gradient($btn-primary-bg-color, $btn-primary-bg-color-secondary));
     box-shadow: $btn-primary-box-shadow inset;
-    border: 1px solid $btn-primary-border;
+    border: $btn-primary-border;
     color: $btn-primary-text-color;
 }
 
@@ -112,7 +112,7 @@ input.ch-btn-small::-moz-focus-inner {
 [class*="ch-btn"][disabled]:focus {
     background-color: $btn-disabled-bg-color;
     @include background-image(linear-gradient($btn-disabled-bg-color, $btn-disabled-bg-color-secondary));
-    border: 1px solid $btn-disabled-border !important; /* important for links */
+    border: $btn-disabled-border !important; /* important for links */
     box-shadow: $btn-disabled-box-shadow inset;
     color: $btn-disabled-text-color !important; /* important for links */
     cursor: not-allowed;

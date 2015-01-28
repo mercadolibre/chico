@@ -26,17 +26,19 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "express": "3.x",
     "ejs": "*",
+    "express": "3.x",
     "grunt": "~0.4.1",
-    "grunt-jslint": "0.2.6",
-    "grunt-contrib-concat": "0.3.0",
-    "grunt-contrib-uglify": "0.2.2",
+    "grunt-browser-sync": "^1.9.1",
     "grunt-contrib-clean": "0.4.1",
+    "grunt-contrib-concat": "0.3.0",
     "grunt-contrib-cssmin": "0.6.1",
+    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-uglify": "0.2.2",
+    "grunt-contrib-watch": "^0.6.1",
     "grunt-jsdoc": "~0.4.0",
-    "grunt-text-replace": "~0.3.11",
-    "grunt-contrib-sass": "^0.8.1"
+    "grunt-jslint": "0.2.6",
+    "grunt-text-replace": "~0.3.11"
   },
   "license": "MIT",
   "engine": "node >= 0.8.6"

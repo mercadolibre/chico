@@ -66,6 +66,16 @@ module.exports = function (grunt) {
 
         },
 
+        'watch': {
+            'sass': {
+                'files': [
+                    'vendor/ui-theme.css', 
+                    'vendor/mobile-theme.css'
+                ],
+                'tasks': ['sass']
+            }
+        },
+
         'sass': {
             'dist': {
                 'options': {
@@ -77,6 +87,23 @@ module.exports = function (grunt) {
                     'vendor/mobile-theme.css': 'src/mobile/css/mobile-theme.scss'        
                 },
             }
+        },
+
+        'browserSync': {
+          'default_options': {
+            'bsFiles': {
+              'src': [
+                'vendor/ui-theme.css',
+                'vendor/mobile-theme.css'
+                ]
+            },
+            'options': {
+              'watchTask': true,
+              'server': {
+                'baseDir': "./"
+              }
+            }
+          }
         },
 
         'uglify': {
@@ -92,17 +119,17 @@ module.exports = function (grunt) {
 
         },
 
-        'cssmin': {
-            'options': {
-                'banner': '<%= banner.min %>',
-                'keepSpecialComments': 0
-            },
+        // 'cssmin': {
+        //     'options': {
+        //         'banner': '<%= banner.min %>',
+        //         'keepSpecialComments': 0
+        //     },
 
-            'chico': {
-                'src': ['<%= concat.css.dest %>'],
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.min.css'
-            }
-        },
+        //     'chico': {
+        //         'src': ['<%= concat.css.dest %>'],
+        //         'dest': destination + '/' + environment + '/<%= pkg.name %>.min.css'
+        //     }
+        // },
 
         'clean': ['temp'],
 
@@ -147,9 +174,11 @@ module.exports = function (grunt) {
     // Load plugins
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    //grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-text-replace');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-jsdoc');
@@ -159,5 +188,5 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['jslint']);
     grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('dev', ['sass', 'concat', 'clean']);
-    grunt.registerTask('dist', ['sass', 'concat', 'replace', 'uglify', 'cssmin', 'clean']);
+    grunt.registerTask('dist', ['sass', 'browserSync', 'watch','concat', 'replace', 'uglify', 'clean']);
 };
