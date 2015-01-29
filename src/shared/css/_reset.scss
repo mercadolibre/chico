@@ -68,10 +68,10 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
-    padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
-    background-color: #FFF;
-    color: #333;
+    font-family: $theme-body-text-family;
+    padding: $theme-body-padding; /* Prevent layout "sticking" to the edge of the browser */
+    background-color: $theme-body-bg-color;
+    color: $theme-text-color;
     margin: 0 auto;
 }
 
@@ -80,7 +80,7 @@ body {
  */
 hr {
     border: none;
-    border-bottom: 1px dashed #CCC;
+    border-bottom: $theme-horizontal-line;
 }
 
 a img {
@@ -88,5 +88,5 @@ a img {
 }
 
 p + p {
-    margin-top: 1em;
+    margin: $theme-paragraph-spacing;
 }
