@@ -3,7 +3,7 @@
 
 @import '../../../vendor/bourbon/bourbon';
 
-@import '../../shared/css/common/mixines'; // TODO MIXINS
+@import '../../shared/css/common/mixins';
 
 @import '../../shared/css/common/variables-ml';
 
@@ -70,10 +70,10 @@
 // ------------------------------------------------------
 
 // Shared
-@import '../../shared/css/buttons/buttons-varibles-ml';
+@import '../../shared/css/buttons/buttons-variables-ml';
 @import '../../shared/css/buttons';
 // Mobile
-@import 'buttons/buttons-varibles-ml';
+@import 'buttons/buttons-variables-ml';
 @import 'buttons';
 
 // >> Carousel

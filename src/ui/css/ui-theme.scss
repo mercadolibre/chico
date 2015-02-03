@@ -3,7 +3,7 @@
 
 @import '../../../vendor/bourbon/bourbon';
 
-@import '../../shared/css/common/mixines';
+@import '../../shared/css/common/mixins';
 
 @import '../../shared/css/common/variables-ml';
 
@@ -13,7 +13,7 @@
 // Shared
 @import '../../shared/css/reset/reset-variables-ml';
 @import '../../shared/css/reset';
-// Mobile (do not use variables)
+// UI (do not use variables)
 @import 'reset';
 
 // > Utils
@@ -55,9 +55,6 @@
 // Shared
 @import '../../shared/css/boxes/boxes-variables-ml';
 @import '../../shared/css/boxes';
-// UI
-@import 'boxes/boxes-variables-ml';
-@import 'boxes';
 
 // >> Bubble
 // ------------------------------------------------------
@@ -70,10 +67,10 @@
 // ------------------------------------------------------
 
 // Shared
-@import '../../shared/css/buttons/buttons-varibles-ml';
+@import '../../shared/css/buttons/buttons-variables-ml';
 @import '../../shared/css/buttons';
 // UI
-@import 'buttons/buttons-varibles-ml';
+@import 'buttons/buttons-variables-ml';
 @import 'buttons';
 
 // >> Calendar
@@ -124,7 +121,7 @@
 // Shared
 @import '../../shared/css/form/form-variables-ml';
 @import '../../shared/css/form';
-// Mobile
+// UI
 @import 'form/form-variables-ml';
 @import 'form';
 
@@ -168,8 +165,8 @@
 // Shared
 @import '../../shared/css/pagination/pagination-variables-ml';
 @import '../../shared/css/pagination';
-// Mobile
-@import 'pagination/pagination-variabes-ml';
+// UI
+@import 'pagination/pagination-variables-ml';
 @import 'pagination';
 
 // >> Popover
