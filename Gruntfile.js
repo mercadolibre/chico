@@ -27,6 +27,7 @@ module.exports = function (grunt) {
             'min': '/*! Chico UI v<%= pkg.version %> chico-ui.com.ar | chico-ui.com.ar/license */'
         },
 
+        // Concatenate files.
         'concat': {
             'options': {
                 'stripBanners': {
@@ -51,21 +52,9 @@ module.exports = function (grunt) {
                 'dest': destination + '/' + environment + '/<%= pkg.name %>.js'
             }
 
-
-            /*
-            ,
-
-            'css': {
-                'options': {
-                    'banner': '<%= banner.full %>'
-                },
-                'src': files.CSS.resetML.concat(files.CSS.core).concat(files.CSS.components),
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.css'
-            }
-            */
-
         },
 
+        // Uses Grunt to compile our Sass.
         'watch': {
             'sass': {
                 'files': [
@@ -76,6 +65,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // Compile sass files to css.
         'sass': {
             'dist': {
                 'options': {
@@ -89,6 +79,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // Auto-refresh page.
         'browserSync': {
           'default_options': {
             'bsFiles': {
@@ -106,6 +97,7 @@ module.exports = function (grunt) {
           }
         },
 
+        // Minify files with UglifyJS.
         'uglify': {
             'options': {
                 'mangle': true,
@@ -119,21 +111,11 @@ module.exports = function (grunt) {
 
         },
 
-        // 'cssmin': {
-        //     'options': {
-        //         'banner': '<%= banner.min %>',
-        //         'keepSpecialComments': 0
-        //     },
-
-        //     'chico': {
-        //         'src': ['<%= concat.css.dest %>'],
-        //         'dest': destination + '/' + environment + '/<%= pkg.name %>.min.css'
-        //     }
-        // },
-
+        // Clean files and folders.
         'clean': ['temp'],
 
-        'jslint': { // configure the task
+        // Validates JavaScript files with JSLint as a grunt task.
+        'jslint': {
             'files': files.JS.abilities.concat(files.JS.components),
             'directives': {
                 'browser': true,
@@ -174,7 +156,6 @@ module.exports = function (grunt) {
     // Load plugins
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    //grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');

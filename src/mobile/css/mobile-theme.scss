@@ -1,85 +1,172 @@
-// Variables
-//---------------------------------------------------------------
+// > Dependencies
+// ----------------------------------------------------------------
 
 @import '../../../vendor/bourbon/bourbon';
 
-@import '../../shared/css/common/mixines';
+@import '../../shared/css/common/mixines'; // TODO MIXINS
 
 @import '../../shared/css/common/variables-ml';
 
-// Meyer's Reset
-//---------------------------------------------------------------
+// > Meyer's Reset
+// ----------------------------------------------------------------
 
+// Shared
+@import '../../shared/css/reset/reset-variables-ml';
 @import '../../shared/css/reset';
+// Mobile (do not use variables)
 @import 'reset';
 
-// Utils
-//---------------------------------------------------------------
+// > Utils
+// ----------------------------------------------------------------
 
-// Icons
+// >> Icons
+// ------------------------------------------------------
+// Shared (do not use variables)
 @import '../../shared/css/icons';
 
+// > Components
+// ----------------------------------------------------------------
 
-// Components
-//---------------------------------------------------------------
 
-// Base
+// >> Base
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/base/base-variables-ml';
 @import '../../shared/css/base';
+// Mobile (do not use variables)
 @import 'base';
 
-// Typography
+// >> Typography
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/typography/typography-variables-ml';
 @import '../../shared/css/typography';
+// Mobile (do not use variables)
 @import 'typography';
 
-// Autocomplete
+// >> Autocomplete
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/autocomplete/autocomplete-variables-ml';
 @import '../../shared/css/autocomplete';
+// Mobile
+@import 'autocomplete/autocomplete-variables-ml';
 @import 'autocomplete';
 
-// Boxes
+// >> Boxes
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/boxes/boxes-variables-ml';
 @import '../../shared/css/boxes';
+// Mobile
+@import 'boxes/boxes-variables-ml';
 @import 'boxes';
 
-// Buttons
+// >> Buttons
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/buttons/buttons-varibles-ml';
 @import '../../shared/css/buttons';
+// Mobile
+@import 'buttons/buttons-varibles-ml';
 @import 'buttons';
 
-// Carousel
+// >> Carousel
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/carousel/carousel-variables-ml';
 @import '../../shared/css/carousel';
 
-// Datagrid
+// >> Datagrid
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/datagrid/datagrid-variables-ml';
 @import '../../shared/css/datagrid';
 
-// Dropdown
+// >> Dropdown
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/dropdown/dropdown-variables-ml';
 @import '../../shared/css/dropdown';
 
-// Expandable
+// >> Expandable
+// ------------------------------------------------------
+
+// Mobile
+@import 'expandable/expandable-variables-ml';
 @import 'expandable';
 
-// Forms
+// >> Forms
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/form/form-variables-ml';
 @import '../../shared/css/form';
+// Mobile
+@import 'form/form-variables-ml';
 @import 'form';
 
-// lists
+// >> Lists
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/lists/lists-variables-ml';
 @import '../../shared/css/lists';
 
-// Loading
+// >> Loading
+// ------------------------------------------------------
+
+// Shared (do not use variables)
 @import '../../shared/css/loading';
 
-// Menu
+// >> Menu
+// ------------------------------------------------------
+
+// Mobile
+@import 'menu/menu-variables-ml';
 @import 'menu';
 
-// Pagination
+// >> Pagination
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/pagination/pagination-variables-ml';
 @import '../../shared/css/pagination';
+// Mobile
+@import 'pagination/pagination-variabes-ml';
 @import 'pagination';
 
-// Popover
+// >> Popover
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/popover/popover-variables-ml';
 @import '../../shared/css/popover';
 
-// Tags
+// >> Tags
+// ------------------------------------------------------
+// Mobile
+@import 'tags/tags-variables-ml';
 @import 'tags';
 
-// Tooltip
+// >> Tooltip
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/tooltip/tooltip-variables-ml';
 @import '../../shared/css/tooltip';
 
-// Transition
+// >> Transition
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/transition/transition-variables-ml';
 @import '../../shared/css/transition';
