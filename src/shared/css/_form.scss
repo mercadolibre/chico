@@ -99,7 +99,6 @@ select:focus {
 input[readonly],
 input[readonly]:focus {
     border: $input-read-only-border;
-    color: $input-read-only-text-color;
     padding: $input-read-only-padding;
 }
 
