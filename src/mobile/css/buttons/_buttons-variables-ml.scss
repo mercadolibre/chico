@@ -4,40 +4,40 @@
 //
 // *************************************
 
-$btn-padding:							7px 14px;
+$btn-padding: 7px 14px;
 
-$btn-line-height:						1.4em;
+$btn-line-height: 1.4em;
 
-$btn-small-line-height:					1.4em;
-$btn-small-padding:						5px 10px;
-$btn-small-text-size:					normal;
+$btn-small-line-height:	1.4em;
+$btn-small-padding:	5px 10px;
+$btn-small-text-size: 13px;
 
-$btn-large-line-height:					1.5em;
+$btn-large-line-height: 1.5em;
 
 // -------------------------------------
 //   Action
 // -------------------------------------
 
-$btn-action-color:						#666;
-$btn-action-text-shadow:				0 1px 1px $main-text-shadow-color;
+$btn-action-color: #666;
+$btn-action-text-shadow: 0 1px 1px $main-text-shadow-color;
 
-$btn-action-box-shadow:					0 1px 0 $main-neutral-color;
-$btn-action-bg-color:					$gray-400;
-$btn-action-bottom-bg-color: 			$gray-500;
+$btn-action-box-shadow:	0 1px 0 $main-neutral-color;
+$btn-action-bg-color: $gray-400;
+$btn-action-bottom-bg-color: $gray-500;
 
-$btn-action-active:  					#116DC4;
-$btn-action-border:						#bbb;
+$btn-action-active: #116DC4;
+$btn-action-border:	#bbb;
 
 // ----- Action hover ----- //
 
-$btn-action-hover-bg-color:   			$main-neutral-color;
-$btn-action-hover-bottom-bg-color: 		$gray-400;
-$btn-action-active-box-shadow:			0 1px 6px $main-text-shadow-color;
+$btn-action-hover-bg-color: $main-neutral-color;
+$btn-action-hover-bottom-bg-color: $gray-400;
+$btn-action-active-box-shadow: 0 1px 6px $main-text-shadow-color;
 
 // ----- Action active ----- //
 
-$btn-action-active-bg-color:   			$gray-600;
-$btn-action-active-bottom-bg-color: 	$gray-500;
+$btn-action-active-bg-color: $gray-600;
+$btn-action-active-bottom-bg-color: $gray-500;
 
-$btn-action-shadow-active:				$gray-700;
-$btn-action-border-active:				$gray-700;
+$btn-action-shadow-active: $gray-700;
+$btn-action-border-active: $gray-700;
