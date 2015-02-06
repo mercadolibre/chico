@@ -134,6 +134,16 @@
 @import 'menu/menu-variables-ml';
 @import 'menu';
 
+// >> Modal
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/modal/modal-variables-ml';
+@import '../../shared/css/modal';
+// Mobile
+@import 'modal/modal-variables-ml';
+@import 'modal';
+
 // >> Pagination
 // ------------------------------------------------------
 
