@@ -33,6 +33,7 @@
 .ch-btn,
 .ch-btn:focus {
 	line-height: $btn-line-height;
+    outline: 0;
 	padding: $btn-padding;
 }
 

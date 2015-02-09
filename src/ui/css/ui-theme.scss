@@ -36,14 +36,6 @@
 // UI (do not use variables)
 @import 'base';
 
-
-// >> Autocomplete
-// ------------------------------------------------------
-
-// Shared
-@import '../../shared/css/autocomplete/autocomplete-variables-ml';
-@import '../../shared/css/autocomplete';
-
 // >> Badges
 // ------------------------------------------------------
 // UI (do not use variables)
@@ -217,3 +209,13 @@
 // UI
 @import 'zoom/zoom-variables-ml';
 @import 'zoom';
+
+// >> Autocomplete
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/autocomplete/autocomplete-variables-ml';
+@import '../../shared/css/autocomplete';
+// UI
+@import 'autocomplete/autocomplete-variables-ml';
+@import 'autocomplete';
