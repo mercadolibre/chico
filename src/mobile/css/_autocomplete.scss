@@ -7,6 +7,7 @@
     border-bottom: $autocomplete-item-border-bottom;
     min-height: 45px;
     text-shadow: $autocomplete-text-shadow;
+    line-height: $autocomplete-line-height;
     position: relative;
     text-indent: $autocomplete-item-text-indent;
 }

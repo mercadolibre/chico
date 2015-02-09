@@ -6,56 +6,56 @@
 
 // ----- General ----- //
 
-$table-border:										1px solid $main-border-color;
-$table-text-align:									left;
+$table-border: 1px solid $main-border-color;
+$table-text-align: left;
 
 // ----- Table Title ----- //
 
-$table-title-text-align:							left;
-$table-title-text-weight:							normal;
+$table-title-text-align: left;
+$table-title-text-weight: normal;
 
 // ----- Table header row ----- //
 
-$table-header-bg-color:								$gray-100;
-$table-header-row-border:							1px solid $main-border-color;
-$table-header-row-border-left:						1px solid $main-border-color;
-$table-header-row-text-align:						left;
-$table-header-row-text-shadow:						0 1px 0 $main-neutral-color;
-$table-header-row-v-align:							middle;
-$table-header-row-color:							#666;
+$table-header-bg-color:	$gray-100;
+$table-header-row-border: 1px solid $main-border-color;
+$table-header-row-border-left: 1px solid $main-border-color;
+$table-header-row-text-align: left;
+$table-header-row-text-shadow: 0 1px 0 $main-neutral-color;
+$table-header-row-v-align: middle;
+$table-header-row-color: #666;
 
 // ----- Table row selected----- //
 
-$table-row-selected-bg-color:						$main-secondary-color;
-$table-row-border: 									1px solid $main-border-color;
+$table-row-selected-bg-color: $main-secondary-color;
+$table-row-border: 1px solid $main-border-color;
 
 // ----- Table header with controls ----- //
 
-$table-header-controls-bg-color: 			   		$gray-50;
-$table-header-controls-bg-color-secondary: 	   		$gray-200;
+$table-header-controls-bg-color: $gray-50;
+$table-header-controls-bg-color-secondary: $gray-200;
 
 // ----- Table header with controls hover ----- //
 
-$table-header-controls-hover-bg-color:	 	   		$gray-50;
+$table-header-controls-hover-bg-color: $gray-50;
 
 // ----- Table header with controls active ----- //
 
-$table-header-controls-active-bg-color:	 			$gray-400;
-$table-header-controls-active-border:	 			1px solid $main-border-color;
+$table-header-controls-active-bg-color:	$gray-400;
+$table-header-controls-active-border: 1px solid $main-border-color;
 
 // ----- Table Title ----- //
 
-$table-title-margin: 								10px 0;
-$table-title-text-size:								$font__large;
+$table-title-margin: 10px 0;
+$table-title-text-size: $font__large;
 
 // ----- Table header row ----- //
 
-$table-header-row-text-size:						$font__smallest;
-$table-header-row-line-height:						26px;
-$table-header-row-padding:							0 10px;
+$table-header-row-text-size: $font__smallest;
+$table-header-row-line-height: 26px;
+$table-header-row-padding: 0 10px;
 
 // ----- Table row selected----- //
 
-$table-row-selected-height:							40px;
-$table-row-selected-padding: 						0 10px;
-$table-row-selected-v-align:						middle;
+$table-row-selected-height:	40px;
+$table-row-selected-padding: 0 10px;
+$table-row-selected-v-align: middle;

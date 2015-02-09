@@ -46,16 +46,6 @@
 // Mobile (do not use variables)
 @import 'typography';
 
-// >> Autocomplete
-// ------------------------------------------------------
-
-// Shared
-@import '../../shared/css/autocomplete/autocomplete-variables-ml';
-@import '../../shared/css/autocomplete';
-// Mobile
-@import 'autocomplete/autocomplete-variables-ml';
-@import 'autocomplete';
-
 // >> Boxes
 // ------------------------------------------------------
 
@@ -180,3 +170,13 @@
 // Shared
 @import '../../shared/css/transition/transition-variables-ml';
 @import '../../shared/css/transition';
+
+// >> Autocomplete
+// ------------------------------------------------------
+
+// Shared
+@import '../../shared/css/autocomplete/autocomplete-variables-ml';
+@import '../../shared/css/autocomplete';
+// Mobile
+@import 'autocomplete/autocomplete-variables-ml';
+@import 'autocomplete';
