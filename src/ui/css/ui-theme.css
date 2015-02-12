@@ -65,7 +65,7 @@ body {
   font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
   padding: 0 10px;
   /* Prevent layout "sticking" to the edge of the browser */
-  background-color: #FFF;
+  background-color: #fff;
   color: #333;
   margin: 0 auto; }
 
@@ -74,13 +74,13 @@ body {
  */
 hr {
   border: none;
-  border-bottom: 1px dashed #CCC; }
+  border-bottom: 1px dashed #ccc; }
 
 a img {
   border: none; }
 
 p + p {
-  margin-top: 1em; }
+  margin: 1em 0 0 0; }
 
 /**
  * Reset
@@ -464,32 +464,6 @@ body {
 .lt-ie10 .ch-close:active {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BF0602', endColorstr='#8F2F00'); }
 
-.ch-autocomplete {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-top: none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-
-.ch-autocomplete-item,
-.ch-autocomplete-highlighted {
-  margin: 0;
-  padding: 3px 5px;
-  cursor: pointer; }
-
-.ch-autocomplete-list {
-  margin: 0;
-  padding: 0;
-  list-style: none; }
-
-.ch-autocomplete-highlighted {
-  background-color: #fdf9d5;
-  border-radius: 5px; }
-
-.ch-autocomplete-loading {
-  background: url("../assets/loading-small.gif") no-repeat right 10px center; }
-
 /*
  * Badges
  */
@@ -577,7 +551,7 @@ body {
 .ch-box-info {
   background-color: #e4f2f9; }
   .ch-box-info a {
-    text-decoration: none; }
+    text-decoration: underline !important; }
 
 /**
  * Ok
@@ -588,14 +562,6 @@ body {
 
 .ch-box-ok {
   background-color: #e9f4e4; }
-
-/**
- * Boxes
- */
-.ch-box {
-  background-color: #f0f0f0;
-  background-image: -webkit-linear-gradient(#f0f0f0, #fff 25px, #fff);
-  background-image: linear-gradient(#f0f0f0, #fff 25px, #fff); }
 
 /**
  * Bubble
@@ -751,9 +717,9 @@ input.ch-btn-small::-moz-focus-inner {
 [class*="ch-btn"][disabled]:hover,
 [class*="ch-btn"][disabled]:active,
 [class*="ch-btn"][disabled]:focus {
-  background-color: #F9F9F9;
-  background-image: -webkit-linear-gradient(#F9F9F9, #dedede);
-  background-image: linear-gradient(#F9F9F9, #dedede);
+  background-color: #f9f9f9;
+  background-image: -webkit-linear-gradient(#f9f9f9, #dedede);
+  background-image: linear-gradient(#f9f9f9, #dedede);
   border: 1px solid #cdcdcd !important;
   /* important for links */
   box-shadow: 0 1px 1px #fff inset;
@@ -771,7 +737,8 @@ input.ch-btn-small::-moz-focus-inner {
 .ch-btn,
 .ch-btn:focus {
   line-height: 20px;
-  padding: 5px 10px; }
+  padding: 5px 10px;
+  margin: 0 7px 0 0; }
 
 /* Large h: ~39px */
 .ch-btn-large,
@@ -1078,12 +1045,12 @@ table {
   color: #666; }
 
 .ch-datagrid-controls th {
-  background-color: #F9F9F9;
-  background-image: -webkit-linear-gradient(#F9F9F9, #e9e9e9);
-  background-image: linear-gradient(#F9F9F9, #e9e9e9);
+  background-color: #f9f9f9;
+  background-image: -webkit-linear-gradient(#f9f9f9, #e9e9e9);
+  background-image: linear-gradient(#f9f9f9, #e9e9e9);
   cursor: pointer; }
   .ch-datagrid-controls th:hover {
-    background: #F9F9F9; }
+    background: #f9f9f9; }
 
 .ch-datagrid-controls th:active,
 .ch-datagrid-controls th.ch-datagrid-selected {
@@ -1465,7 +1432,6 @@ select:focus {
 input[readonly],
 input[readonly]:focus {
   border: none;
-  color: #999;
   padding: 5px 0; }
 
 /* Icons */
@@ -1969,7 +1935,7 @@ dl.ch-list {
       background-color: #fff; }
 
 .ch-pagination .ch-pagination-current a {
-  border: 1px solid #dedede;
+  border: 1px solid #e9e9e9;
   background-color: #dedede;
   color: #03b; }
 
@@ -2505,5 +2471,37 @@ a:focus {
 .lt-ie9 .ch-zoom-seeker {
   background-color: #f0f0f0;
   filter: alpha(opacity=50); }
+
+.ch-autocomplete {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.ch-autocomplete-item,
+.ch-autocomplete-highlighted {
+  margin: 0;
+  padding: 3px 5px;
+  cursor: pointer; }
+
+.ch-autocomplete-list {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.ch-autocomplete-highlighted {
+  background-color: #fdf9d5;
+  border-radius: 5px; }
+
+.ch-autocomplete-loading {
+  background: url("../assets/loading-small.gif") no-repeat right 10px center; }
+
+.ch-autocomplete {
+  padding: 0; }
+
+.ch-autocomplete-list .ch-icon-arrow-up {
+  display: none; }
 
 /*# sourceMappingURL=ui-theme.css.map */
