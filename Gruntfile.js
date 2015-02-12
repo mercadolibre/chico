@@ -75,26 +75,21 @@ module.exports = function (grunt) {
                 'files': {    
                     'vendor/ui-theme.css': 'src/ui/css/ui-theme.scss',
                     'vendor/mobile-theme.css': 'src/mobile/css/mobile-theme.scss'        
-                },
+                }
             }
         },
 
         // Auto-refresh page.
         'browserSync': {
-          'default_options': {
-            'bsFiles': {
-              'src': [
-                'vendor/ui-theme.css',
-                'vendor/mobile-theme.css'
-                ]
-            },
-            'options': {
-              'watchTask': true,
-              'server': {
-                'baseDir': "./"
-              }
+            'default_options': {
+                'bsFiles': {
+                  'src': ['vendor/*.css']
+                },
+                'options': {
+                    'watchTask': true,
+                    'proxy': "localhost:3040/ui"
+                }
             }
-          }
         },
 
         // Minify files with UglifyJS.
@@ -169,5 +164,6 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['jslint']);
     grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('dev', ['sass', 'concat', 'clean']);
-    grunt.registerTask('dist', ['sass', 'browserSync', 'watch','concat', 'replace', 'uglify', 'clean']);
+    grunt.registerTask('sync', ['browserSync', 'watch']);
+    grunt.registerTask('dist', ['sass', 'concat', 'replace', 'uglify', 'clean']);
 };
