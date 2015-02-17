@@ -1,33 +1,45 @@
 # Chico UI  ![Get things done, quickly.](http://isitmaintained.com/badge/resolution/mercadolibre/chico.svg "Get things done, quickly.")
 
-Chico UI is a free and open source collection of easy-to-use UI components for designers and developers.
-
+Chico UI is a free and open source collection of easy-to-use UI components for
+designers and developers.
 
 > Get things done, quickly.
 
 ## Development setup
+
 1. Install [Git](http://git-scm.com/) and [NodeJS](http://nodejs.org/).
 2. Open your terminal and clone `mercadolibre/chico` by running:
 
-        $ git clone git@github.com:mercadolibre/chico.git
+    ```sh
+    $ git clone git@github.com:mercadolibre/chico.git
+    ```
 
 3. Now go to the project's folder:
 
-        $ cd chico
+    ```sh
+    $ cd chico
+    ```
 
 4. Install its dependencies:
 
-        $ npm install
+    ```sh
+    $ npm install
+    ```
 
 5. Install `grunt-cli`:
 
-        $ npm install grunt-cli -g
+    ```sh
+    $ npm install grunt-cli -g
+    ```
 
 6. Run a local web server:
 
-        $ npm start
+    ```sh
+    $ npm start
+    ```
 
-    Navigate [http://localhost:3040](http://localhost:3040/) and [http://localhost:3040/mobile](http://localhost:3040/mobile).
+    Navigate [http://localhost:3040](http://localhost:3040/) and
+    [http://localhost:3040/mobile](http://localhost:3040/mobile).
 
 7. Develop! :)
 
@@ -44,17 +56,22 @@ You can read our [API Doc](http://chico.mercadolibre.com/).
 
 The API doc may also be run locally by running:
 
-    grunt doc -env=ui
-    grunt doc -env=mobile
+```sh
+$ grunt doc -env=ui
+$ grunt doc -env=mobile
+```
 
 Navigate `./doc` directory and enjoy!
 
 ## Tests
+
 You can run our tests in your browser:
 
 1. Run the local web server:
 
-        $ npm start
+    ```sh
+    $ npm start
+    ```
 
 2. Navigate `http://localhost:3040/test/:component`
 
@@ -77,12 +94,12 @@ You can run our tests in your browser:
 - Natan Santolo ([@natos](https://twitter.com/natos)). Creator and former leader, now traveling around the world, drinking beer and looking for the secret of eternal life.
 - Nati Devalle ([@taly](https://twitter.com/taly)). Because we love her. She is awesome!
 
-
 ## Credits
 
 ![MercadoLibre](http://static.mlstatic.com/org-img/chico/img/logo-mercadolibre-new.png)
 
 ## License
+
 Licensed under the MIT license.
 
-Copyright (c) 2014 [MercadoLibre](http://github.com/mercadolibre).
+Copyright (c) 2015 [MercadoLibre](http://github.com/mercadolibre).
