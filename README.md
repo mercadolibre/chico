@@ -134,11 +134,13 @@ In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a f
 #### 1. Create your own commons shared variables
 
 a. Duplicate the commons shared variables (src/common/_variables-ml.scss).
+
 b. Change the name of the duplicated file(s) as you want (For example, _variables-yourThemeName.scss.)
 
 #### 2. Create your own style for a components variables
 
 a. Duplicate the Sass components variables you need and follow the components structure explained above (or create a new one).
+
 b. Change the name of the duplicated file(s).
 
 > E.g.: _autocomplete-variables-ml.scss to _autocomplete-variables-yourThemeName.scss
@@ -148,6 +150,7 @@ b. Change the name of the duplicated file(s).
 #### 3. Update and invoque the new theme elements
 
 a. Open mobile-theme.scss or ui-theme.scss (depending of wich framework you've been working at). Both files are inside de src/mobile/css or src/ui/scc folders
+
 b. Once there, update the name of the variable file with the one you've created. If you've change de boxes component, simply change the _boxes-variables-ml to _boxes-variables-yourThemeName. 
 
 ## Tests
