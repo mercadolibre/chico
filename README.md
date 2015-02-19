@@ -33,6 +33,10 @@ Get things done, quickly.
 
         $ npm start
 
+10. Run watch tasks
+
+        $ grunt sync
+
     Navigate [http://localhost:3040](http://localhost:3040/) and [http://localhost:3040/mobile](http://localhost:3040/mobile).
 
 10. Develop! :)
