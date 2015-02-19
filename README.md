@@ -27,13 +27,15 @@ Get things done, quickly.
 
 7. Install [bourbon](http://bourbon.io/).
 
-7. Run a local web server:
+8. Install [browser-sync](http://www.browsersync.io/).
+
+9. Run a local web server:
 
         $ npm start
 
     Navigate [http://localhost:3040](http://localhost:3040/) and [http://localhost:3040/mobile](http://localhost:3040/mobile).
 
-8. Develop! :)
+10. Develop! :)
 
 **NOTE**
 
@@ -60,7 +62,7 @@ This is the structure and a small file reference guide:
 
 ### Base folder (chico/src)
 
-In the folder "src" are Sass files, from here you can may make changes that affect the UI project in a fast and organized way.
+In the "src" folder you'll find all Sass files. From here you can may make changes that affect the UI project in a fast and organized way.
 
 ```
 src/
@@ -97,15 +99,21 @@ src/
 
 ### Css folder (inside mobile, shared or ui)
 
-This folder have a list of each individual components, within each are the unique properties.
+This folder have a list of each individual component, within each are there unique properties.
 
-Note - mobile-ml.scss and ui-ml.scss these files are used to choose which components we have available at the final css. You can also edit the file and choose wich components you want to render.
+Note:
+
+mobile-ml.scss and ui-ml.scss these files are used to choose which components we have available at the final css. You can also edit the file and choose wich components you want to render.
 
 ### Common folder
 
 Inside this folder (src/shared/css/common) you will find the sass file that is shared between Mobile and UI. From here you can change the main variables in Moblie and UI interface.
 
-### Components estructure
+### Reset.scss
+
+This file is very important becouse it handles all the basic css definition, such as font-familiy, color,etc...
+
+### Components structure
 
 Example:
 
