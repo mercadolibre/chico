@@ -154,6 +154,10 @@ You can run our tests in your browser:
 
         $ npm start
 
+2. Run sass and browser-sync watching tasks:
+
+        $ grunt sync
+
 2. Navigate `http://localhost:3040/test/:component`
 
 **We are going to automate it! :)**
