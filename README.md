@@ -77,7 +77,7 @@ src/
 |       |– _autocomplete.scss  # Autocomplete rules
 |       |– _base.scss          # Base rules
 |       |– _boxes.scss         # Boxes rules
-|       `– mobile-ml.scss      # Imports the components to show
+|       `– mobile-theme.scss   # Imports the components to show
 |       ...                    # Etc…
 |   
 |– shared/ # Properties shared in Mobile and UI
@@ -97,7 +97,7 @@ src/
         |– _autocomplete.scss  # Autocomplete rules
         |– _badges.scss        # Badges rules
         |– _base.scss          # Base rules
-        |– ui-ml.scss          # Imports the components to show
+        |– ui-theme.scss       # Imports the components to show
         ...                    # Etc…
 ```
 
@@ -133,14 +133,12 @@ In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a f
 
 #### 1. Create your own commons shared variables
 
-a. Duplicate the commons shared variables.
-b. Change the name of the duplicated file(s).
-
-> E.g.: _variables-ml.scss to _variables-yourThemeName.scss
+a. Duplicate the commons shared variables (src/common/_variables-ml.scss).
+b. Change the name of the duplicated file(s) as you want (For example, _variables-yourThemeName.scss.)
 
 #### 2. Create your own style for a components variables
 
-a. Duplicate de sass components variables you need and follow the components structure explained above (or create a new one).
+a. Duplicate the Sass components variables you need and follow the components structure explained above (or create a new one).
 b. Change the name of the duplicated file(s).
 
 > E.g.: _autocomplete-variables-ml.scss to _autocomplete-variables-yourThemeName.scss
@@ -149,7 +147,8 @@ b. Change the name of the duplicated file(s).
 
 #### 3. Update and invoque the new theme elements
 
-a. Update mobile-theme.scss and ui-theme.scss with the name of your new theme (1.b).
+a. Open mobile-theme.scss or ui-theme.scss (depending of wich framework you've been working at). Both files are inside de src/mobile/css or src/ui/scc folders
+b. Once there, update the name of the variable file with the one you've created. If you've change de boxes component, simply change the _boxes-variables-ml to _boxes-variables-yourThemeName. 
 
 ## Tests
 You can run our tests in your browser:
@@ -161,6 +160,8 @@ You can run our tests in your browser:
 2. Run sass and browser-sync watching tasks:
 
         $ grunt sync
+        
+With this command you'll be automatically creating the css files :)
 
 2. Navigate `http://localhost:3040/test/:component`
 
