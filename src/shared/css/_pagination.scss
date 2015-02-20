@@ -24,4 +24,5 @@
     border: $pagination-current-page-border;
     background-color: $pagination-current-page-bg-color;
     color: $pagination-current-page-text-color;
+    pointer-events: none;
 }
