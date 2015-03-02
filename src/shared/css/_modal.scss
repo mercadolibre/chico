@@ -2,9 +2,15 @@
  * Modal
  */
 .ch-modal {
+<<<<<<< HEAD
     overflow: auto;
     padding: $modal-padding;
     box-shadow: $modal-box-shadow;
+=======
+    overflow: auto; // estructura
+    padding: 20px; // skin
+    box-shadow: 0 3px 14px #444; //skin
+>>>>>>> master
 }
 
 .ch-modal-lite {
@@ -12,7 +18,11 @@
     padding: $modal-lite-padding; 
 
     h2 {
+<<<<<<< HEAD
         margin: $modal-lite-title-margin;
+=======
+        margin-bottom: 0; // no cerrarlo a un h2. Visual o estructura.
+>>>>>>> master
     }
 }
 
@@ -20,12 +30,21 @@
  * Underlay
  */
 .ch-underlay {
+<<<<<<< HEAD
     position: fixed;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
     background-color: $modal-underlay-bg-color;
+=======
+    position: fixed; // estructura
+    left: 0; // estructura
+    top: 0; // estructura
+    right: 0; // estructura
+    bottom: 0; // estructura
+    background-color: rgba(0, 0, 0, 0.5); //skin
+>>>>>>> master
 }
 
 .ie8 .ch-underlay {

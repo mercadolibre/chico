@@ -1,8 +1,9 @@
-# Chico UI
+# Chico UI  ![Get things done, quickly.](http://isitmaintained.com/badge/resolution/mercadolibre/chico.svg "Get things done, quickly.")
 
 Chico UI is a free and open source collection of easy-to-use UI components for designers and developers.
 
-Get things done, quickly.
+
+> Get things done, quickly.
 
 ## Development setup
 

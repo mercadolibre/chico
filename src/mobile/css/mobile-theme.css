@@ -466,8 +466,14 @@ h1 {
 h2 {
   font-size: 20px; }
 
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
 h3 {
   font-size: 18px; }
+=======
+.ch-autocomplete-highlighted {
+  background-color: #e8f6fd;
+  border-radius: 5px; }
+>>>>>>> master:src/mobile/css/mobile.css
 
 h4 {
   font-size: 16px; }
@@ -700,16 +706,29 @@ button:focus {
 .ch-btn,
 .ch-btn:focus,
 .ch-btn:visited {
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
   background-color: #3e52a1;
   background-image: -webkit-linear-gradient(#3e52a1, #2d3277);
   background-image: linear-gradient(#3e52a1, #2d3277);
   box-shadow: 0 1px 0 #7a89e8 inset;
   border: 1px solid #2d3277;
+=======
+  background-color: #36a1f1;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4055A5), color-stop(100%, #283077));
+  background-image: -webkit-linear-gradient(#349FEF, #0f79c9);
+  background-image: -moz-linear-gradient(#349FEF, #0f79c9);
+  background-image: -o-linear-gradient(#349FEF, #0f79c9);
+  background-image: linear-gradient(#349FEF, #0f79c9);
+  -webkit-box-shadow: inset 0 1px #97dcff;
+  box-shadow: inset 0 1px #97dcff;
+  border: 1px solid #0E70B9;
+>>>>>>> master:src/mobile/css/mobile.css
   color: #fff; }
 
 .ch-btn-skin,
 .ch-btn-skin:focus,
 .ch-btn-skin:visited {
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
   background-color: #cce3f7;
   background-image: -webkit-linear-gradient(#cce3f7, #aaD0ef);
   background-image: linear-gradient(#cce3f7, #aaD0ef);
@@ -717,6 +736,19 @@ button:focus {
   box-shadow: 0 1px 0 #e5f2fc inset;
   color: #476274;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5); }
+=======
+  background-color: #DAF1FC;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #DAF1FC), color-stop(100%, #C2E2F3));
+  background-image: -webkit-linear-gradient(#DAF1FC, #C2E2F3);
+  background-image: -moz-linear-gradient(#DAF1FC, #C2E2F3);
+  background-image: -o-linear-gradient(#DAF1FC, #C2E2F3);
+  background-image: linear-gradient(#DAF1FC, #C2E2F3);
+  border: 1px solid #7AB0D9;
+  -webkit-box-shadow: inset 0 1px #EFF7FD;
+  box-shadow: inset 0 1px #EFF7FD;
+  color: #295D8F;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); }
+>>>>>>> master:src/mobile/css/mobile.css
 
 /* Hover */
 .ch-btn:hover,
@@ -725,6 +757,7 @@ button:focus {
 
 /* Colors on Hover */
 .ch-btn:hover {
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
   background-color: #4355d2;
   background-image: -webkit-linear-gradient(#4355d2, #2f33ae);
   background-image: linear-gradient(#4355d2, #2f33ae);
@@ -750,6 +783,47 @@ button:focus {
   background-image: linear-gradient(#a2c9e1, #7ab6dc);
   box-shadow: 0 1px 6px #476274 inset;
   border-color: #79a8c7; }
+=======
+  background-color: #4BBFF8;
+  background-image: -webkit-linear-gradient(#4BBFF8, #1699DF);
+  background-image: -moz-linear-gradient(#4BBFF8, #1699DF);
+  background-image: -o-linear-gradient(#4BBFF8, #1699DF);
+  background-image: linear-gradient(#4BBFF8, #1699DF);
+  -webkit-box-shadow: inset 0 1px #97DCFF;
+  box-shadow: inset 0 1px #97DCFF; }
+
+.ch-btn-skin:hover {
+  background-color: #EAF7FE;
+  background-image: -webkit-linear-gradient(#EAF7FE, #EAF7FE);
+  background-image: -moz-linear-gradient(#EAF7FE, #EAF7FE);
+  background-image: -o-linear-gradient(#EAF7FE, #EAF7FE);
+  background-image: linear-gradient(#EAF7FE, #EAF7FE);
+  -webkit-box-shadow: inset 0 1px #F7FAFE;
+  box-shadow: inset 0 1px #F7FAFE; }
+
+/* Colors on Active */
+.ch-btn:active {
+  background-color: #095DA4;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #095DA4), color-stop(100%, #202388));
+  background-image: -webkit-linear-gradient(#095DA4, #1071BA);
+  background-image: -moz-linear-gradient(#095DA4, #1071BA);
+  background-image: -o-linear-gradient(#095DA4, #1071BA);
+  background-image: linear-gradient(#095DA4, #1071BA);
+  -webkit-box-shadow: inset 0 1px 6px #095CA3;
+  box-shadow: inset 0 1px 6px #095CA3;
+  border-color: #0D68AC; }
+
+.ch-btn-skin:active {
+  background-color: #8DB7D0;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8DB7D0), color-stop(100%, #8DB7D0));
+  background-image: -webkit-linear-gradient(#8DB7D0, #A4D2F0);
+  background-image: -moz-linear-gradient(#8DB7D0, #A4D2F0);
+  background-image: -o-linear-gradient(#8DB7D0, #A4D2F0);
+  background-image: linear-gradient(#8DB7D0, #A4D2F0);
+  -webkit-box-shadow: inset 0 1px 6px #85AEC7;
+  box-shadow: inset 0 1px 6px #85AEC7;
+  border-color: #7BABCB; }
+>>>>>>> master:src/mobile/css/mobile.css
 
 /* Size */
 input.ch-btn::-moz-focus-inner,
@@ -1021,7 +1095,7 @@ table {
   border-top: 1px solid #dedede; }
 
 .ch-datagrid-selected {
-  background-color: #fdf9d5; }
+  background-color: #e8f6fd; }
 
 .ch-datagrid-controls td,
 .ch-datagrid td {
@@ -2054,9 +2128,15 @@ a.ch-tag,
  * Tooltip
  */
 .ch-tooltip {
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
   color: #aa8749;
+=======
+  background-color: #EBF9FF;
+  border: 1px solid #C6E2FF;
+  color: #333;
+>>>>>>> master:src/mobile/css/mobile.css
   padding: 8px 10px;
   border-radius: 5px; }
 
@@ -2065,40 +2145,68 @@ a.ch-tag,
  * ltlb, ctcb, rtrb
  */
 .ch-tooltip.ch-cone[data-side=bottom] .ch-popover-content:before {
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
   border-bottom-color: #fbeed5; }
 
 .ch-tooltip.ch-cone[data-side=bottom] .ch-popover-content:after {
   border-bottom-color: #fcf8e3; }
+=======
+  border-bottom-color: #C6E2FF; }
+
+.ch-tooltip.ch-cone[data-side=bottom] .ch-popover-content:after {
+  border-bottom-color: #EBF9FF; }
+>>>>>>> master:src/mobile/css/mobile.css
 
 /**
  * Top side
  * lblt, cbct, rbrt
  */
 .ch-tooltip.ch-cone[data-side=top] .ch-popover-content:before {
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
   border-top-color: #fbeed5; }
 
 .ch-tooltip.ch-cone[data-side=top] .ch-popover-content:after {
   border-top-color: #fcf8e3; }
+=======
+  border-top-color: #C6E2FF; }
+
+.ch-tooltip.ch-cone[data-side=top] .ch-popover-content:after {
+  border-top-color: #EBF9FF; }
+>>>>>>> master:src/mobile/css/mobile.css
 
 /**
  * Right side
  * ltrt, lmrm, lbrb
  */
 .ch-tooltip.ch-cone[data-side=right] .ch-popover-content:before {
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
   border-right-color: #fbeed5; }
 
 .ch-tooltip.ch-cone[data-side=right] .ch-popover-content:after {
   border-right-color: #fcf8e3; }
+=======
+  border-right-color: #C6E2FF; }
+
+.ch-tooltip.ch-cone[data-side=right] .ch-popover-content:after {
+  border-right-color: #EBF9FF; }
+>>>>>>> master:src/mobile/css/mobile.css
 
 /**
  * Left side
  * rtlt, rmlm, rblb
  */
 .ch-tooltip.ch-cone[data-side=left] .ch-popover-content:before {
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
   border-left-color: #fbeed5; }
 
 .ch-tooltip.ch-cone[data-side=left] .ch-popover-content:after {
   border-left-color: #fcf8e3; }
+=======
+  border-left-color: #C6E2FF; }
+
+.ch-tooltip.ch-cone[data-side=left] .ch-popover-content:after {
+  border-left-color: #EBF9FF; }
+>>>>>>> master:src/mobile/css/mobile.css
 
 /**
  * Transition
@@ -2132,8 +2240,19 @@ a.ch-tag,
   background-color: #fdf9d5;
   border-radius: 5px; }
 
+<<<<<<< HEAD:src/mobile/css/mobile-theme.css
 .ch-autocomplete-loading {
   background: url("../assets/loading-small.gif") no-repeat right 10px center; }
+=======
+/**
+ * Links
+ */
+a,
+a:active,
+a:link {
+  color: #0066CC;
+  text-decoration: none; }
+>>>>>>> master:src/mobile/css/mobile.css
 
 .ch-autocomplete {
   padding: 0; }

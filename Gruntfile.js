@@ -92,7 +92,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // Minify files with UglifyJS.
         'uglify': {
             'options': {
                 'mangle': true,
@@ -149,6 +148,7 @@ module.exports = function (grunt) {
     });
 
     // Load plugins
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -158,9 +158,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-text-replace');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-jsdoc');
+    
 
     // Resgister task(s).
     grunt.registerTask('default', []);
+    //grunt.registerTask('sass', ['sass']);
     grunt.registerTask('lint', ['jslint']);
     grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('dev', ['sass', 'concat', 'clean']);
