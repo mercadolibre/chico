@@ -1,30 +1,31 @@
-// *************************************
-//
-//   Boxes Mobile
-//
-// *************************************
+// > Boxes Mobile
+// ----------------------------------------------------------------
 
-$box-bg-color: 						 $gray-100;
+$box-bg-color: $gray-100;
 
-// ----- Box list ----- //
+// >> Box list
+// ------------------------------------------------------
 
-$box-list-bg-color: 				 $gray-100;
-$box-list-border: 					 1px solid $main-border-color;
-$box-list-padding: 					 0;
+$box-list-bg-color: $gray-100;
+$box-list-border: 1px solid $main-border-color;
+$box-list-padding: 0;
 
-// ----- Box list item ----- //
+// >> Box list item
+// ------------------------------------------------------
 
-$box-list-item-border-bottom: 		 1px dotted $gray-500;
-$box-list-item-text-color: 			 $gray-800;
-$box-list-item-text-size: 			 16px;
-$box-list-item-padding: 			 14px 42px 14px 20px;
-$box-list-item-text-shadow:			 0 1px 0 $main-text-shadow-color;
+$box-list-item-border-bottom: 1px dotted $gray-500;
+$box-list-item-text-color: $gray-800;
+$box-list-item-text-size: 16px;
+$box-list-item-padding: 14px 42px 14px 20px;
+$box-list-item-text-shadow: 0 1px 0 $main-text-shadow-color;
 
-// ----- Box list item active ----- //
+// >> Box list item active
+// ------------------------------------------------------
 
-$box-list-item-active-bg-color: 	 #e9e9e9;
+$box-list-item-active-bg-color: #e9e9e9;
 
-// ----- List boxes link ----- //
+// >> List boxes link
+// ------------------------------------------------------
 
-$box-list-item-link-line-height: 	 25px;
+$box-list-item-link-line-height: 25px;
 $box-list-item-link-text-decoration: none;

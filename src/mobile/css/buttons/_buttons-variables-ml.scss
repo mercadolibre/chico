@@ -1,40 +1,38 @@
-// *************************************
-//
-//   Buttons Mobile
-//
-// *************************************
+// > Buttons Mobile
+// ----------------------------------------------------------------
 
 $btn-padding: 7px 14px;
 
 $btn-line-height: 1.4em;
 
-$btn-small-line-height:	1.4em;
-$btn-small-padding:	5px 10px;
+$btn-small-line-height: 1.4em;
+$btn-small-padding: 5px 10px;
 $btn-small-text-size: 13px;
 
 $btn-large-line-height: 1.5em;
 
-// -------------------------------------
-//   Action
-// -------------------------------------
+// >> Action
+// ------------------------------------------------------
 
 $btn-action-color: #666;
 $btn-action-text-shadow: 0 1px 1px $main-text-shadow-color;
 
-$btn-action-box-shadow:	0 1px 0 $main-neutral-color;
+$btn-action-box-shadow: 0 1px 0 $main-neutral-color;
 $btn-action-bg-color: $gray-400;
 $btn-action-bottom-bg-color: $gray-500;
 
 $btn-action-active: #116DC4;
-$btn-action-border:	#bbb;
+$btn-action-border: #bbb;
 
-// ----- Action hover ----- //
+// >>> Action hover
+// --------------------------------------------
 
 $btn-action-hover-bg-color: $main-neutral-color;
 $btn-action-hover-bottom-bg-color: $gray-400;
 $btn-action-active-box-shadow: 0 1px 6px $main-text-shadow-color;
 
-// ----- Action active ----- //
+// >>> Action active
+// --------------------------------------------
 
 $btn-action-active-bg-color: $gray-600;
 $btn-action-active-bottom-bg-color: $gray-500;
