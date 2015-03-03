@@ -1,8 +1,5 @@
-// *************************************
-//
-//   Lists
-//
-// *************************************
+// > Lists
+// ----------------------------------------------------------------
 
 $unordered-list-icon: disc inside;
 $ordered-list-icon:	decimal inside;
@@ -13,12 +10,14 @@ $definition-description-margin: 5px 0 10px 10px;
 
 $definition-term-text-weight: bold;
 
-// ----- List item ----- //
+// >>> List item
+// --------------------------------------------
 
 $list-item-margin: 0 0 0 10px;
-$list-item-padding:	3px 0; 
+$list-item-padding:	3px 0;
 $list-item-line-height: 18px;
 
-// ----- DL items (DT or DD) ----- //
+// >>> DL items (DT or DD)
+// --------------------------------------------
 
 $definition-list-elements-line-height: 18px;

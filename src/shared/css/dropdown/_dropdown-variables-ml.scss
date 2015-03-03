@@ -1,20 +1,20 @@
-// *************************************
-//
-//   Dropdown
-//
-// *************************************
+// > Dropdown
+// ----------------------------------------------------------------
 
-// ----- List-item ----- //
+// >>> List item
+// --------------------------------------------
 
 $list-item-color: $main-neutral-accent-color;
 $list-item-decoration: none;
 
-// ----- Focus-item-list ----- //
+// >>> Focus-item list
+// --------------------------------------------
 
 $list-item-focus-bg-color: #fefbd6;
 $list-item-focus-outline: none;
 
-// ----- Trigger ----- //
+// >>> Trigger
+// --------------------------------------------
 
 $trigger-active-bg-color: #7ab6dc;
 $trigger-active-bg-color-top: #a2c9e1;
@@ -22,7 +22,8 @@ $trigger-active-bg-color-top: #a2c9e1;
 $trigger-active-border-color: #79a8c7;
 $trigger-active-border-radius: 3px 3px 0 0;
 
-// ----- Trigger active ----- //
+// >>> Trigger active
+// --------------------------------------------
 
 $trigger-active-border:	$main-border-color;
 $trigger-active-box-shadow:	0 1px 6px rgba(71, 98, 116, .6);
@@ -30,7 +31,8 @@ $trigger-active-box-shadow:	0 1px 6px rgba(71, 98, 116, .6);
 $skin-list-item-bg-color: none;
 $skin-list-item-color: $main-primary-color;
 
-// ----- Trigger ----- //
+// >>> Trigger
+// --------------------------------------------
 
 $trigger-skin-bg-color:	transparent;
 $trigger-skin-border: 1px solid transparent;
@@ -38,50 +40,59 @@ $trigger-skin-border-radius: 0;
 $trigger-skin-text-color: $main-primary-color;
 $trigger-skin-text-decoration: none;
 
-// ----- Trigger after ----- //
+// >>> Trigger after
+// --------------------------------------------
 
 $trigger-skin-after-text-color: $gray-700;
 
-// ----- Trigger active ----- //
+// >>> Trigger active
+// --------------------------------------------
 
 $trigger-skin-active-text-color: #00d;
 
-// ----- Trigger on ----- //
+// >>> Trigger on
+// --------------------------------------------
 
 $trigger-on-skin-bg-color: $main-neutral-color;
 $trigger-on-skin-border: $gray-400;
 $trigger-on-skin-border-radius:	0;
 $trigger-on-skin-box-shadow: 2px 0 0 rgba(100, 100, 100, .2);
 
-// ----- General ----- //
+// >> General
+// ------------------------------------------------------
 
 $dropdown-trigger-cursor: pointer;
 $dropdown-trigger-padding: 5px 2em 5px 8px;
 $dropdown-border-radius: 0 5px 5px;
 $dropdown-box-shadow: 2px, 2px, 2px, rgba(100, 100, 100, .2);
 
-// ----- Primary skin ----- //
+// >> Primary skin
+// ------------------------------------------------------
 
 $box-content-min-width: 120px;
 
-// ----- List item ----- //
+// >>> List item
+// --------------------------------------------
 
 $list-item-height: 25px;
 $list-item-line-height: 25px;
 $list-item-margin: 5px 0;
 $list-item-padding: 2px 35px 2px 10px;
 
-// ----- Secondary skin ----- //
+// >> Secondary skin
+// ------------------------------------------------------
 
 $skin-box-padding: 5px 10px;
 
-// ----- List item ----- //
+// >>> List item
+// --------------------------------------------
 
 $skin-list-item-margin:	5px 0;
 $skin-list-item-line-height: 20px;
 $skin-list-item-padding: 0;
 
-// ----- Trigger ----- //
+// >>> Trigger
+// --------------------------------------------
 
 $trigger-skin-padding: 0 28px 0 13px;
 $trigger-skin-border-width:	0 1px;

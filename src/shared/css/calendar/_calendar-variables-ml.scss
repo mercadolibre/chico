@@ -1,38 +1,42 @@
-// *************************************
-//
-//   Calendar
-//
-// *************************************
+// > Calendar
+// ----------------------------------------------------------------
 
-// ----- General ----- //
+// >>> General
+// --------------------------------------------
 
 $calendar-border: 1px solid $main-border-color;
 $calendar-text-align: center;
 
-// ----- Title ----- //
+// >>> Title
+// --------------------------------------------
 
 $calendar-title-bg-color: $gray-100;
 $calendar-title-shadow:	0 1px 0 $main-neutral-color;
 
-// ----- Day cell ----- //
+// >>> Day cell
+// --------------------------------------------
 
 $calendar-day-cursor: default;
 
-// ----- Today cell ----- //
+// >>> Today cell
+// --------------------------------------------
 
 $calendar-day-today-bg-color: #fefbd6;
 
-// ----- Empty day cell ----- //
+// >>> Empty day cell
+// --------------------------------------------
 
 $calendar-day-empty-color: $gray-500;
 $calendar-day-empty-cursor:	default;
 
-// ----- Diseabled day cell ----- //
+// >>> Disabled day cell
+// --------------------------------------------
 
 $calendar-day-disabled-bg-color: $main-neutral-color;
 $calendar-day-disabled-text-color: $gray-500;
 
-// ----- Calendar selected ----- //
+// >>> Calendar selected
+// --------------------------------------------
 
 $calendar-day-selected-bg-color: $gray-700;
 $calendar-day-selected-text-color: $main-neutral-color;
@@ -66,7 +70,7 @@ $calendar-head-text-weight:	normal;
 
 // ----- Header controls ----- //
 
-$calendar-head-control-padding:	0px 20px; 
-$calendar-head-control-height: 28px; 
+$calendar-head-control-padding:	0px 20px;
+$calendar-head-control-height: 28px;
 $calendar-head-control-line-height: 18px;
 $calendar-head-control-font-size: .9em;

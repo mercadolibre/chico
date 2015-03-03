@@ -1,38 +1,39 @@
-// *************************************
-//
-//   Wizard UI
-//
-// *************************************
+// > Wizard UI
+// ----------------------------------------------------------------
 
-$wizard-bg-color:						 $main-neutral-color;
-$wizard-border-color:					 $main-border-color;
-$wizard-border:							 1px solid $wizard-border-color;
-$wizard-border-radius:					 5px;
+$wizard-bg-color: $main-neutral-color;
+$wizard-border-color: $main-border-color;
+$wizard-border: 1px solid $wizard-border-color;
+$wizard-border-radius: 5px;
 
-// ----- Actions ----- //
+// >>> Actions
+// --------------------------------------------
 
-$wizard-actions-bg-color:				 $gray-100;
-$wizard-actions-border:					 1px solid $main-border-color;
-$wizard-actions-border-radius:			 0 0 5px 5px;
+$wizard-actions-bg-color: $gray-100;
+$wizard-actions-border: 1px solid $main-border-color;
+$wizard-actions-border-radius: 0 0 5px 5px;
 
-// ----- Breadcrumb ----- //
+// >>> Breadcrumb
+// --------------------------------------------
 
-$wizard-breadcrumb-border-bottom:		 1px solid $main-border-color;
-$wizard-breadcrumb-text-position:		 center;
-$wizard-breadcrumb-text-color:			 $gray-500;
+$wizard-breadcrumb-border-bottom: 1px solid $main-border-color;
+$wizard-breadcrumb-text-position: center;
+$wizard-breadcrumb-text-color: $gray-500;
 
-$wizard-breadcrumb-height:				 42px;
-$wizard-breadcrumb-border-color:		 $gray-400;
+$wizard-breadcrumb-height: 42px;
+$wizard-breadcrumb-border-color: $gray-400;
 
-// ----- Breadcrumb pointer ----- //
+// >>> Breadcrumb pointer
+// --------------------------------------------
 
-$wizard-breadcrumb-current-text-weight:  bold;
-$wizard-breadcrumb-current-text-color:	 $gray-900;
+$wizard-breadcrumb-current-text-weight: bold;
+$wizard-breadcrumb-current-text-color: $gray-900;
 $wizard-breadcrumb-pointer-content-color: $gray-100;
 
-// ----- Breadcrumb link ----- //
+// >>> Breadcrumb link
+// --------------------------------------------
 
-$wizard-breadcrumb-link-bg-color:		 $wizard-actions-bg-color;
+$wizard-breadcrumb-link-bg-color: $wizard-actions-bg-color;
 
-$wizard-margin:							0 0 10px 0;
-$wizard-actions-padding:				10px 20px;
+$wizard-margin: 0 0 10px 0;
+$wizard-actions-padding: 10px 20px;

@@ -1,8 +1,5 @@
-// *************************************
-//
-//   Forms
-//
-// *************************************
+// > Form
+// ----------------------------------------------------------------
 
 $fieldset-border: none;
 $fieldset-margin: 0;
@@ -13,20 +10,20 @@ $legend-padding: 0;
 
 $form-actions-text-align: left;
 
-// -------------------------------------
-//   Form inputs (input, textarea, select)
-// -------------------------------------
+// >> Inputs (input, textarea, select)
+// ------------------------------------------------------
 
 $generic-input-border: 1px solid $gray-500;
 $generic-input-padding:	6px;
 
-// ----- Focus state ----- //
+// >>> Focus state
+// --------------------------------------------
 
 $generic-input-focus-border: 2px solid $gray-700;
 $generic-input-focus-padding: 5px;
 
-// ----- Input outline ----- //
-// types file, checkbox, range, radio & select //
+// >>> Input outline (file, checkbox, range, radio & select)
+// --------------------------------------------
 
 $input-options-focus-outline: 1px dotted $gray-700;
 $input-options-subtitle-margin:	0 0 15px -20px;
@@ -35,20 +32,24 @@ $input-required-options-subtitle-font-weight: bold;
 $input-options-label-padding: 0 0 0 22px;
 $input-options-label-margin: 0;
 
-// ----- Input Radio ----- //
+// >>> Input radio
+// --------------------------------------------
 
 $input-radio-margin: -9px 0 0 0;
 
-// ----- Input Checkbox ----- //
+// >>> Input checkbox
+// --------------------------------------------
 
 $input-checkbox-margin:	 -8px 0 0 0;
 
-// -- Read-only focus -- //
+// >>> Read-only focus
+// --------------------------------------------
 
 $input-read-only-border:  none;
 $input-read-only-padding: 5px 0;
 
-// -- Icons -- //
+// >>> Icons
+// --------------------------------------------
 
 $input-inner-icon-opacity: .3;
 $input-inner-icon-focus-opacity: .7;
@@ -58,11 +59,13 @@ $input-inner-icon-padding-right: 24px;
 $input-big-inner-icon-padding: 0 30px 0 0;
 $input-big-inner-icon-focus-padding: 0 29px 0 0;
 
-// -- Required icon (*) -- //
+// >>> Required icon (*)
+// --------------------------------------------
 
 $icon-required-position: 3px;
 
-// --- Form Fieldset --- //
+// >>> Form fieldset
+// --------------------------------------------
 
 $form-fieldset-margin: 0 0 10px 0;
 
@@ -72,47 +75,49 @@ $fieldset-title-text-weight: bold;
 $fieldset-subtitle-text-size: 13px;
 $fieldset-subtitle-text-weight:	700;
 
-// ----- Hint text ----- //
+// >>> Hint text
+// --------------------------------------------
 
 $form-hint-text-color: $gray-700;
 $form-hint-text-size: 12px;
 $form-hint-line-heigth:	12px;
 
-// ----- Input row ----- //
+// >>> Input row
+// --------------------------------------------
 
 $input-row-padding:	5px 0;
 $input-row-label-padding: 7px 11px 5px 0;
 
-// --- Label required --- //
+// >>> Label required
+// --------------------------------------------
 
 $input-row-label-required-text-weight: bold;
 
-// --- Multiple --- //
+// >>> Multiple
+// --------------------------------------------
 
 $input-select-multiple-margin: 10px 0 0 0;
 
-// -------------------------------------
-//   Disabled inputs
-// -------------------------------------
+// >> Disabled input
+// ------------------------------------------------------
 
-$input-disabled-label-color: $gray-700;	
+$input-disabled-label-color: $gray-700;
 $input-disabled-bg-color: $gray-100;
 
-// -------------------------------------
-//   Big form inputs (input, textarea, select)
-// -------------------------------------
+// >> Big form inputs (input, textarea, select)
+// ------------------------------------------------------
 
 $input-big-padding: 12px 10px;
 $input-big-margin: 5px 0;
 $input-big-border-radius: 3px;
 
-// ----- Focus state ----- //
+// >>> Focus state
+// --------------------------------------------
 
 $input-big-focus-padding: 11px 9px;
 
-// -------------------------------------
-//   Input Errors
-// -------------------------------------
+// >> Input errors
+// ------------------------------------------------------
 
 $input-error-border-color: #f99;
 $input-error-focus-border-width: 2px;
