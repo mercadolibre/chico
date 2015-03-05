@@ -1,11 +1,16 @@
 # OS or Editor folders
 .DS_Store
+thumb.db
 .cache
+.sass-cache/
 .project
 .settings
-.sass-cache/
+.idea
 nbproject
-thumb.db
+*.sublime-project
+*.sublime-workspace
+
+# Project's folders to ignore
 experiment
 node_modules
 npm-debug.log
