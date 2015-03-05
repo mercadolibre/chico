@@ -1,3 +1,0 @@
-[submodule "lib/grunt-contrib-sass"]
-	path = lib/grunt-contrib-sass
-	url = https://github.com/gruntjs/grunt-contrib-sass
