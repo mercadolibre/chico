@@ -1,6 +1,8 @@
 /**
  * Popover
  */
+@import 'popover-variables';
+
 .ch-popover {
     box-shadow: $popover-box-shadow;
 }

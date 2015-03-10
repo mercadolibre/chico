@@ -1,6 +1,8 @@
 /**
  * Date Picker
  */
+@import 'datepicker-variables';
+
 .ch-datepicker {
     background-image: $datepicker-bg-image;
     position: absolute;

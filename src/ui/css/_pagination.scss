@@ -1,6 +1,8 @@
 /**
  * Pagination
  */
+@import 'pagination-variables';
+
 .ch-pagination .ch-pagination-current a:hover {
     border: $pagination-current-hover-border;
     background-color: $pagination-current-hover-bg-color;

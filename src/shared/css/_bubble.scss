@@ -1,6 +1,8 @@
 /**
  * Bubble
  */
+@import 'bubble-variables';
+
 .ch-bubble {
     font-size: $bubble-text-size;
     padding: $bubble-padding;

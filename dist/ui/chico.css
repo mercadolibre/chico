@@ -2061,9 +2061,9 @@ select[multiple],
   margin: 0 0 10px 0;
 }
 .ch-list li {
-  margin: 0 0 0 10px;
-  padding: 3px 0;
-  line-height: 18px;
+  margin: 5px 0;
+  padding: 2px 35px 2px 10px;
+  line-height: 25px;
 }
 
 ul.ch-list {
@@ -2536,7 +2536,7 @@ dl.ch-list dd {
 .ch-tabs .ch-tabs-triggers li {
   cursor: pointer;
   display: inline;
-  margin: 0 0 0 2px;
+  margin: 0;
 }
 
 /* Triggers */
@@ -2544,7 +2544,7 @@ dl.ch-list dd {
   border: 1px solid #dedede;
   display: inline-block;
   padding: 3px 12px;
-  margin: 0 0 0 2px;
+  margin: 0;
   text-decoration: none !important;
   color: #333 !important;
   background-color: #fff;
@@ -2966,7 +2966,7 @@ a:focus {
 }
 
 .ch-autocomplete {
-  padding: 0;
+  padding: 3px 5px;
 }
 
 .ch-autocomplete-list .ch-icon-arrow-up {

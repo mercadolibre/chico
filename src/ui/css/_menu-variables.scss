@@ -1,0 +1,20 @@
+// > Menu UI
+// ----------------------------------------------------------------
+
+$menu-max-width: 300px !default;
+$menu-margin: 0 !default;
+$menu-padding: 0 !default;
+$menu-boder-radius: 5px !default;
+
+$menu-item-text-color: $gray-900 !default;
+$menu-item-padding: 5px 10px !default;
+
+
+$menu-hover-bg-color: $main-secondary-color !default;
+$menu-box-shadow: 0 8px 4px -4px #eee !default;
+
+$menu-expandable-margin: 5px 0 !default;
+
+$menu-nojs-padding: 2px 15px !default;
+$menu-nojs-item-hover-bg-color: $gray-100 !default;
+$menu-nojs-item-hover-border-radius: 5px !default;

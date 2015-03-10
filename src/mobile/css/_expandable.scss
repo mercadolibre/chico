@@ -1,6 +1,8 @@
 /*
 * Expandable
 */
+@import 'expandable-variables';
+
 .ch-fold-trigger,
 .ch-expandable-trigger {
 	cursor: $expandable-cursor;

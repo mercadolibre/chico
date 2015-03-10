@@ -60,7 +60,7 @@ module.exports = function (grunt) {
             }
         },
 
-        // Uses Grunt to compile our Sass.
+        // Watches for the changes in a project
         watch: {
             options: {
                 debounceDelay: 500
@@ -101,7 +101,7 @@ module.exports = function (grunt) {
             }
         },
 
-        // Compile sass files to css.
+        // Compile sass files to css
         sass: {
             options: {
                 style: 'expanded', // nested, compact, compressed, expanded
@@ -120,6 +120,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // Minify project's CSS
         cssmin: {
             options: {
                 compatibility: 'ie8',
@@ -139,6 +140,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // Put banners in dist files
         usebanner: {
             full: {
                 options: {
@@ -231,6 +233,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // Minify JS
         uglify: {
             options: {
                 preserveComments: false,
@@ -247,6 +250,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // Copies an assets
         copy: {
             assets: {
                 cwd: 'src/shared/assets/',
@@ -256,7 +260,7 @@ module.exports = function (grunt) {
             }
         },
 
-        // Clean files and folders.
+        // Cleans files and folders.
         'clean': ['temp'],
 
         // Validates JavaScript files with JSLint as a grunt task.
@@ -274,6 +278,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // Builds an API documentation
         jsdoc: {
             ui: {
                 'src': uiFiles.JS.core.concat(uiFiles.JS.abilities).concat(uiFiles.JS.components),

@@ -1,6 +1,8 @@
 /**
  * Pagination
  */
+@import 'pagination-variables';
+
 .ch-pagination {
     padding: $pagination-padding;
     list-style: none;

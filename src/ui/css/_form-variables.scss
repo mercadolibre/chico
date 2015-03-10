@@ -1,0 +1,54 @@
+// > Forms UI
+// ----------------------------------------------------------------
+
+// >>> Generic inputs
+// --------------------------------------------
+
+$form-input-text-size: $font__normal !default;
+$form-input-margin: 5px 0 !default;
+
+// >>> Legend
+// --------------------------------------------
+
+$form-legend-padding: 0 0 15px 0 !default;
+
+// >>> Label
+// --------------------------------------------
+
+$form-label-text-size: $font__normal !default;
+$form-label-text-align: right !default;
+$form-label-width: 130px !default;
+
+$form-label-disabled-text-color: $gray-700 !default;
+
+// >>>Checkbox
+// --------------------------------------------
+
+$form-checkbox-inline-margin: 0 0 0 11px !default;
+
+// >>> Select
+// --------------------------------------------
+
+$form-select-margin: 5px 0 !default;
+
+// >>> Hint
+// --------------------------------------------
+
+$form-hint-margin: 0 0 0 145px !default;
+
+// >>> Options
+// --------------------------------------------
+
+$form-options-margin: 0 0 15px 20px !default;
+$form-options-subtitle-margin: 0 0 15px 0 !default;
+
+// >>> Actions
+// --------------------------------------------
+
+$form-actions-margin: 0 0 0 145px !default;
+
+// >>> IE
+// --------------------------------------------
+
+$ie-form-input-radio-margin: -11px 0 0 0 !default;
+$ie-form-input-checkbox-margin: -11px 0 0 0 !default;

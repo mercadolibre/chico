@@ -1,6 +1,8 @@
 /**
  * Boxes
  */
+@import 'boxes-variables';
+
 [class*='ch-box'] {
     border-radius: $box-border-radius;
     margin: $box-margin;

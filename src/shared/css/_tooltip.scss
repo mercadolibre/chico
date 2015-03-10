@@ -1,6 +1,8 @@
 /**
  * Tooltip
  */
+@import 'tooltip-variables';
+
 .ch-tooltip {
     background-color: $tooltip-bg-color;
     border: 1px solid $tooltip-border-color;

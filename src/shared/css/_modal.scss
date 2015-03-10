@@ -1,6 +1,8 @@
 /**
  * Modal
  */
+@import 'modal-variables';
+
 .ch-modal {
     overflow: auto;
     padding: $modal-padding;
