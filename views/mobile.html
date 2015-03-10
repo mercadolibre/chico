@@ -872,6 +872,12 @@
 
         var expado = $(".categories").expandable();
         var menu = $(".myMenu").menu();
+
+        [].forEach.call(document.querySelectorAll('a[href="#"], a[href=""]'), function(a) {
+            a.addEventListener('click', function(e){
+                e.preventDefault();
+            });
+        });
     </script>
 </body>
 </html>

@@ -1609,6 +1609,12 @@
         var validation12 = $('.required-option').required(message('option'));
         var validation13 = $('#double').required(message('link')).and().number();
         var validation14 = $('#textarea2').required();
+
+        [].forEach.call(document.querySelectorAll('a[href="#"]'), function(a) {
+            a.addEventListener('click', function(e){
+                e.preventDefault();
+            });
+        });
     </script>
 </body>
 </html>
