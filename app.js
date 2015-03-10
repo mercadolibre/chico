@@ -11,7 +11,7 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.favicon());
 app.use(app.router);
-app.use('/assets', express.static(__dirname + '/src/shared/assets'));
+//app.use('/assets', express.static(__dirname + '/src/shared/assets'));
 app.use('/vendor', express.static(__dirname + '/vendor'));
 app.use('/assets/demo', express.static(__dirname + '/views/assets'));
 app.use('/static', express.static(__dirname + '/views/static'));

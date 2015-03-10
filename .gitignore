@@ -2,7 +2,6 @@
 .DS_Store
 thumb.db
 .cache
-.sass-cache/
 .project
 .settings
 .idea
@@ -11,6 +10,7 @@ nbproject
 *.sublime-workspace
 
 # Project's folders to ignore
+.sass-cache/
 experiment
 node_modules
 npm-debug.log

@@ -48,7 +48,7 @@ app.get('/:version/:type?/:file?', isAnotherFile, isView, function (req, res, ne
 
     var min = ((req.query.min) ? '.min' : ''),
         filename = req.params.file || 'chico',
-        path = '/build/' + req.params.version + '/' + filename + min + '.' + req.params.type;
+        path = '/dist/' + req.params.version + '/' + filename + min + '.' + req.params.type;
 
     if (filename !== 'chico') {
         path = '/src/' + req.params.version + '/' + req.params.type + '/' + filename + '.' + req.params.type;
