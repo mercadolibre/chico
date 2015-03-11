@@ -7,39 +7,39 @@
 // >>> Primary palette
 // --------------------------------------------
 
-$main-primary-color: #03b;
+$main-primary-color: #03b !default;
 
-$links-color: $main-primary-color;
-$error-bg-color: #f5e6e6;
+$links-color: $main-primary-color !default;
+$error-bg-color: #f5e6e6 !default;
 
 // >>> Secondary palette
 // --------------------------------------------
 
-$main-secondary-color: #fdf9d5;
+$main-secondary-color: #fdf9d5 !default;
 
 // >>> Neutral colors
 // --------------------------------------------
 
-$main-neutral-color: #fff;
-$main-neutral-accent-color: #000;
+$main-neutral-color: #fff !default;
+$main-neutral-accent-color: #000 !default;
 
-$gray-50: #f9f9f9;
+$gray-50: #f9f9f9 !default;
 
-$gray-100: #f0f0f0;
-$gray-200: #e9e9e9;
-$gray-400: #dedede;
+$gray-100: #f0f0f0 !default;
+$gray-200: #e9e9e9 !default;
+$gray-400: #dedede !default;
 
-$gray-500: #cdcdcd;
+$gray-500: #cdcdcd !default;
 
-$gray-600: #a9a9a9;
-$gray-700: #999;
-$gray-800: #666;
-$gray-900: #333;
+$gray-600: #a9a9a9 !default;
+$gray-700: #999 !default;
+$gray-800: #666 !default;
+$gray-900: #333 !default;
 
-$main-text-color: $gray-900;
-$main-border-color: $gray-400;
+$main-text-color: $gray-900 !default;
+$main-border-color: $gray-400 !default;
 
-$main-text-shadow-color: rgba(255,255,255,.5);
+$main-text-shadow-color: rgba(255,255,255,.5) !default;
 
 // $main-disabled-color
 
@@ -49,27 +49,19 @@ $main-text-shadow-color: rgba(255,255,255,.5);
 // >> Fonts
 // ------------------------------------------------------
 
-$font__xx__large: 22px;
-$font__x__large: 20px;
-$font__large: 18px;
-$font__medium: 16px;
-$font__small: 15px;
-$font__x__small: 14px;
-$font__smaller:	12px;
-$font__smallest: 11px;
+$font__xx__large: 22px !default;
+$font__x__large: 20px !default;
+$font__large: 18px !default;
+$font__medium: 16px !default;
+$font__small: 15px !default;
+$font__x__small: 14px !default;
+$font__smaller:	12px !default;
+$font__smallest: 11px !default;
 
-$font__normal: 13px;
-$font__mini: 10px; // ver en donde se usa
+$font__normal: 13px !default;
+$font__mini: 10px !default; // ver en donde se usa
 
-// >> Icons
+// >> Assets
 // ------------------------------------------------------
 
-$icon-medium: 19px;
-$icon-large: 26px;
-$icon-larger: 34px;
-$icon-largest: 66px;
-
-$icon-medium-box: 16px;
-$icon-large-box: 24px;
-$icon-larger-box: 32px;
-$icon-largest-box: 64px;
+$assets-path: '../assets';

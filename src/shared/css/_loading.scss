@@ -8,19 +8,19 @@
 }
 
 .ch-loading-large {
-    background-image: url('../assets/loading-big.gif');
+    background-image: url('#{$assets-path}/loading-big.gif');
     width: 36px;
     height: 36px;
 }
 
 .ch-loading {
-    background-image: url('../assets/loading.gif');
+    background-image: url('#{$assets-path}/loading.gif');
     width: 24px;
     height: 24px;
 }
 
 .ch-loading-small {
-    background-image: url('../assets/loading-small.gif');
+    background-image: url('#{$assets-path}/loading-small.gif');
     display: inline-block;
     width: 16px;
     height: 16px;

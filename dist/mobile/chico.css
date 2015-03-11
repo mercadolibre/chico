@@ -9,6 +9,9 @@
 
 /**
  * Reset
+ */
+/**
+ * Reset
  * @based on: Eric Meyer
  */
 html, body, div, span, object, iframe,
@@ -103,9 +106,6 @@ p + p {
   margin: 1em 0 0 0;
 }
 
-/**
- * Reset
- */
 body {
   font-size: 14px;
   line-height: 21px;
@@ -665,6 +665,9 @@ a:focus {
 /**
  * Boxes
  */
+/**
+ * Boxes
+ */
 [class*='ch-box'] {
   border-radius: 5px;
   margin: 0 0 10px 0;
@@ -759,9 +762,6 @@ a:focus {
   background-color: #e9f4e4;
 }
 
-/**
- * Boxes
- */
 .ch-box {
   background-color: #f0f0f0;
 }
@@ -821,6 +821,9 @@ a:focus {
   padding-left: 48px;
 }
 
+/**
+ * Buttons
+ */
 /**
  * Buttons
  */
@@ -949,9 +952,6 @@ input.ch-btn-small::-moz-focus-inner {
   text-shadow: none;
 }
 
-/**
- * Buttons
- */
 /* Action button */
 .ch-btn-action,
 .ch-btn-action:focus,
@@ -1478,6 +1478,7 @@ table {
   margin-left: 0;
 }
 
+/* Generic input & textarea */
 /* ==========================================================================
      Forms
      ========================================================================== */
@@ -1492,7 +1493,7 @@ fieldset {
 
 legend {
   margin: 0;
-  padding: 0;
+  padding: 8px;
 }
 
 /*
@@ -1835,7 +1836,6 @@ input.ch-form-icon-input:focus {
   border-width: 2px;
 }
 
-/* Generic input & textarea */
 input[type="text"],
 input[type="url"],
 input[type="email"],
@@ -1919,7 +1919,7 @@ input[type="checkbox"]:focus {
 /* Title module */
 .ch-form legend {
   font-size: 16px;
-  padding-bottom: 0;
+  padding-bottom: 8px;
 }
 
 /* Label */
@@ -2106,6 +2106,7 @@ dl.ch-list dd {
   border-bottom-right-radius: 5px;
 }
 
+/* MODAL */
 /**
  * Modal
  */
@@ -2140,7 +2141,6 @@ dl.ch-list dd {
   -ms-filter: "alpha(opacity=50)";
 }
 
-/* MODAL */
 .ch-modal {
   background-color: #fff;
   width: 100%;
@@ -2150,6 +2150,9 @@ dl.ch-list dd {
   background-color: #000;
 }
 
+/**
+ * Pagination
+ */
 /**
  * Pagination
  */
@@ -2177,9 +2180,6 @@ dl.ch-list dd {
   pointer-events: none;
 }
 
-/**
- * Pagination
- */
 .ch-pagination {
   font-size: 16px;
 }
@@ -2499,7 +2499,7 @@ a.ch-tag,
 .ch-autocomplete-item,
 .ch-autocomplete-highlighted {
   margin: 0;
-  padding: 3px 5px;
+  padding: 0;
   cursor: pointer;
 }
 
@@ -2519,7 +2519,7 @@ a.ch-tag,
 }
 
 .ch-autocomplete {
-  padding: 3px 5px;
+  padding: 0;
 }
 
 .ch-autocomplete-item {

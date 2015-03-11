@@ -2,6 +2,7 @@
  * Pagination
  */
 @import 'pagination-variables';
+@import '../../shared/css/pagination';
 
 .ch-pagination .ch-pagination-current a:hover {
     border: $pagination-current-hover-border;

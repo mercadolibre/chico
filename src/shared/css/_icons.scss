@@ -1,6 +1,8 @@
 /**
  * Icons
  */
+@import 'icons-variables';
+
 @font-face {
     font-family: 'icons';
     /*
@@ -10,11 +12,11 @@
      * Safari, Android, iOS
      * Legacy iOS
      */
-    src: url('../assets/icons.eot');
-    src: url('../assets/icons.eot?#iefix') format('embedded-opentype'),
-         url('../assets/icons.woff') format('woff'),
-         url('../assets/icons.ttf') format('truetype'),
-         url('../assets/icons.svg#icons') format('svg');
+    src: url('#{$assets-path}/icons.eot');
+    src: url('#{$assets-path}/icons.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/icons.woff') format('woff'),
+         url('#{$assets-path}/icons.ttf') format('truetype'),
+         url('#{$assets-path}/icons.svg#icons') format('svg');
     font-weight: normal;
     font-style: normal;
 }

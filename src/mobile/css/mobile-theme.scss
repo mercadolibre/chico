@@ -10,7 +10,6 @@
 
 // > Reset
 // ----------------------------------------------------------------
-@import '../../shared/css/reset';
 @import 'reset';
 
 
@@ -19,7 +18,7 @@
 
 // >> Icons
 // ------------------------------------------------------
-@import '../../shared/css/icons';
+@import 'icons';
 
 
 // > Components
@@ -27,35 +26,31 @@
 
 // >> Base
 // ------------------------------------------------------
-@import '../../shared/css/base';
 @import 'base';
 
 // >> Typography
 // ------------------------------------------------------
-@import '../../shared/css/typography';
 @import 'typography';
 
 // >> Boxes
 // ------------------------------------------------------
-@import '../../shared/css/boxes';
 @import 'boxes';
 
 // >> Buttons
 // ------------------------------------------------------
-@import '../../shared/css/buttons';
 @import 'buttons';
 
 // >> Carousel
 // ------------------------------------------------------
-@import '../../shared/css/carousel';
+@import 'carousel';
 
 // >> Datagrid
 // ------------------------------------------------------
-@import '../../shared/css/datagrid';
+@import 'datagrid';
 
 // >> Dropdown
 // ------------------------------------------------------
-@import '../../shared/css/dropdown';
+@import 'dropdown';
 
 // >> Expandable
 // ------------------------------------------------------
@@ -63,16 +58,15 @@
 
 // >> Forms
 // ------------------------------------------------------
-@import '../../shared/css/form';
 @import 'form';
 
 // >> Lists
 // ------------------------------------------------------
-@import '../../shared/css/lists';
+@import 'lists';
 
 // >> Loading
 // ------------------------------------------------------
-@import '../../shared/css/loading';
+@import 'loading';
 
 // >> Menu
 // ------------------------------------------------------
@@ -80,17 +74,15 @@
 
 // >> Modal
 // ------------------------------------------------------
-@import '../../shared/css/modal';
 @import 'modal';
 
 // >> Pagination
 // ------------------------------------------------------
-@import '../../shared/css/pagination';
 @import 'pagination';
 
 // >> Popover
 // ------------------------------------------------------
-@import '../../shared/css/popover';
+@import 'popover';
 
 // >> Tags
 // ------------------------------------------------------
@@ -98,13 +90,12 @@
 
 // >> Tooltip
 // ------------------------------------------------------
-@import '../../shared/css/tooltip';
+@import 'tooltip';
 
 // >> Transition
 // ------------------------------------------------------
-@import '../../shared/css/transition';
+@import 'transition';
 
 // >> Autocomplete
 // ------------------------------------------------------
-@import '../../shared/css/autocomplete';
 @import 'autocomplete';
