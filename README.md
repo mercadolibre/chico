@@ -7,7 +7,7 @@ Chico UI is a free and open source collection of easy-to-use UI components for d
 
 ## Development setup
 
-1. Install [Git](http://git-scm.com/) and [NodeJS](http://nodejs.org/).
+1. Install [Git](http://git-scm.com/), [NodeJS](http://nodejs.org/) and [Sass](http://sass-lang.com/install).
 2. Open your terminal and clone `mercadolibre/chico` by running:
 
         $ git clone git@github.com:mercadolibre/chico.git
@@ -24,21 +24,23 @@ Chico UI is a free and open source collection of easy-to-use UI components for d
 
         $ npm install grunt-cli -g
 
-6. Install [sass](http://sass-lang.com/install).
+6. Install `BrowserSync`:
 
-7. Install [bourbon](http://bourbon.io/).
+        $ npm install browser-sync -g
 
-8. Install [browser-sync](http://www.browsersync.io/).
+7. Install `bower` package manager by running
 
-9. Run a local web server:
+        $ npm install -g bower
 
-        $ npm start
+8. Install project dependencies:
 
-10. Run watch tasks
+        $ bower install
 
-        $ grunt sync
+9. Run dev task
 
-    Navigate [http://localhost:3040](http://localhost:3040/) and [http://localhost:3040/mobile](http://localhost:3040/mobile).
+        $ grunt dev
+
+    [http://localhost:3040](http://localhost:3040/) will open in a default browser. Mobile version is located at [http://localhost:3040/mobile](http://localhost:3040/mobile).
 
 10. Develop! :)
 
@@ -56,8 +58,7 @@ You can read our [API Doc](http://chico.mercadolibre.com/).
 
 The API doc may also be run locally by running:
 
-    grunt doc -env=ui
-    grunt doc -env=mobile
+    grunt doc
 
 Navigate `./doc` directory and enjoy!
 
@@ -89,10 +90,9 @@ src/
 |       |– _boxes.scsss        # Boxes rules
 |       ...                    # Etc…
 |       |
-|       `- common/ # Common shared skin and structure variables
-|           `– _variables-ml.scss  # Common shared skin and structure variables for ML
+|       `– _variables.scss  # Shared skin and structure variables
 |
-`– ui/ # Properties only for Desktop Bowsers
+`– ui/ # Properties only for Desktop Browsers
     |
     `– css/ # Components list
         |– _autocomplete.scss  # Autocomplete rules
@@ -112,11 +112,11 @@ mobile-ml.scss and ui-ml.scss these files are used to choose which components we
 
 ### Common folder
 
-Inside this folder (src/shared/css/common) you will find the sass file that is shared between Mobile and UI. From here you can change the main variables in Moblie and UI interface.
+Inside this folder (src/shared/css/common) you will find the sass files that is shared between Mobile and UI. From here you can change the main variables in Moblie and UI interface.
 
 ### Reset.scss
 
-This file is very important becouse it handles all the basic css definition, such as font-familiy, color,etc...
+This file is very important because it handles all the basic css definitions, such as font-familiy, color, etc...
 
 ### Components structure
 
@@ -124,8 +124,7 @@ Example:
 
 ```
             _autocomplete.scss
-            autocomplete/
-                `– _autocomplete-variables-ml.scss  # Extra custom properties
+            `– _autocomplete-variables.scss  # Local component only variables
 ```
 
 In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a folder (_autocomplete-variables-ml.scss ) and includes the extra custom propieties on the component.
@@ -155,19 +154,13 @@ a. Open mobile-theme.scss or ui-theme.scss (depending of wich framework you've b
 b. Once there, update the name of the variable file with the one you've created. If you've change de boxes component, simply change the _boxes-variables-ml to _boxes-variables-yourThemeName. 
 
 ## Tests
-You can run our tests in your browser:
+You can run our tests in a browser:
 
 1. Run the local web server:
 
-        $ npm start
-
-2. Run sass and browser-sync watching tasks:
-
-        $ grunt sync
+        $ grunt test
         
-With this command you'll be automatically creating the css files :)
-
-2. Navigate `http://localhost:3040/test/:component`
+This will open `http://localhost:3040/tests/` in your browser. Navigate to `http://localhost:3040/test/:component` to run a specific tests.
 
 **We are going to automate it! :)**
 
