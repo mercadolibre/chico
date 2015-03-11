@@ -1,7 +1,8 @@
 // > Dependencies
 // ----------------------------------------------------------------
 
-@import '../../../vendor/bourbon/bourbon';
+// Don't forget to put bourbon stylesheets directory in loadPath
+@import 'bourbon';
 
 @import '../../shared/css/mixins';
 

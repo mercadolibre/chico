@@ -1,5 +1,5 @@
 /*!
- * Chico Theme UI v1.1.1
+ * Chico Theme UI v1.2.0
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2015, MercadoLibre.com
@@ -838,7 +838,7 @@ ch.factory = function (Klass, fn) {
 
     // Exposse private $ (Zepto) into ch.$
     ch.$ = $;
-	ch.version = '1.1.1';
+	ch.version = '1.2.0';
 	window.ch = ch;
 }(this, this.$));
 (function (ch) {

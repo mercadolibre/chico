@@ -106,7 +106,11 @@ module.exports = function (grunt) {
             options: {
                 style: 'expanded', // nested, compact, compressed, expanded
                 lineNumbers: false,
-                sourcemap: 'auto' // auto, file, inline, none
+                sourcemap: 'auto', // auto, file, inline, none
+                loadPath: [
+                    'bower_components/bourbon/app/assets/stylesheets/',
+                    './'
+                ]
             },
             ui: {
                 files: {
@@ -216,9 +220,10 @@ module.exports = function (grunt) {
                     startPath: '/tests',
                     directory: true,
                     server: {
-                        baseDir: ['./'],
+                        baseDir: ['./', './views/'],
                         routes: {
-                            '/test': "tests"
+                            '/test': 'tests',
+                            '/static': 'views/static'
                         }
                     }
                 },

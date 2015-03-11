@@ -94,7 +94,7 @@ describe('It should have the following public properties:', function () {
 
     it('.form', function () {
         expect(validation1.form).not.toEqual(undefined);
-        expect(typeof validation1.form).toEqual('number');
+        expect(typeof validation1.form).toEqual('object');
     });
 
 });

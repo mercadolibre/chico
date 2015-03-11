@@ -13,8 +13,7 @@ nbproject
 .sass-cache/
 experiment
 node_modules
+bower_components
 npm-debug.log
 temp
-build
 doc
-vendor/bourbon
