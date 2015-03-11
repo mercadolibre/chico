@@ -1,9 +1,7 @@
 module.exports = function (grunt) {
     'use strict';
 
-    var environment = grunt.option('env') || 'ui',
-        destination = grunt.option('dest') || 'dist',
-        uiFiles = require('./libs/files/ui'),
+    var uiFiles = require('./libs/files/ui'),
         mobileFiles = require('./libs/files/mobile');
 
     // Project configuration.
@@ -301,17 +299,6 @@ module.exports = function (grunt) {
                     'private': false
                 }
             }
-        },
-
-        'replace': {
-            'example': {
-                'src': ['<%= concat.css.dest %>'],
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.css',
-                'replacements': [{
-                    'from': '../assets/',
-                    'to': '../../assets/0.3/'
-                }]
-            }
         }
     });
 
@@ -326,7 +313,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-banner');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browser-sync');
-    grunt.loadNpmTasks('grunt-text-replace');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-jsdoc');
 
