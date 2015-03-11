@@ -31,7 +31,7 @@
 .ch-close:visited,
 .ch-close:focus {
     background-color: $close-button-bg-color;
-    @include background-image(linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1) 100%));
+    @include background-image(linear-gradient(to bottom, transparent 15%, rgba(100, 100, 100, 0.1) 100%));
     border: $close-button-border;
     border-radius: $close-button-border-radius;
     cursor: $close-button-cursor;

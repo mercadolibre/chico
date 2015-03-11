@@ -496,8 +496,8 @@ body {
 .ch-close:visited,
 .ch-close:focus {
   background-color: transparent;
-  background-image: -webkit-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1) 100%);
-  background-image: linear-gradient(to   , rgba(100, 100, 100, 0.1) 100%);
+  background-image: -webkit-linear-gradient( top , transparent 15%, rgba(100, 100, 100, 0.1) 100%);
+  background-image: linear-gradient(to bottom, transparent 15%, rgba(100, 100, 100, 0.1) 100%);
   border: 1px solid #dedede;
   border-radius: 3px;
   cursor: pointer;
@@ -505,7 +505,7 @@ body {
   padding: 0;
   text-indent: -1px;
   color: #cdcdcd;
-  font: normal Arial;
+  font: normal 100% Arial, sans-serif;
   text-align: center;
   position: absolute;
   right: 10px;
@@ -777,7 +777,7 @@ body {
 [class*="ch-btn"]:focus {
   font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
   border-radius: 4px;
-  box-shadow: 0, 0, 0, none;
+  box-shadow: none;
   cursor: pointer;
   display: inline-block;
   height: auto;
@@ -1432,7 +1432,7 @@ table {
   padding: 0;
   list-style: none;
   white-space: nowrap;
-  box-shadow: 2px, 2px, 2px, rgba(100, 100, 100, 0.2), inset;
+  box-shadow: inset 2px 2px 2px rgba(100, 100, 100, 0.2);
   border-radius: 0 5px 5px;
   /* Container */
   /* List of links */
@@ -1742,11 +1742,11 @@ input.ch-form-icon-input:focus {
 }
 
 .ch-form-big .ch-form-row .ch-form-icon-input {
-  padding-right: 0 30px 0 0;
+  padding-right: 30px;
 }
 
 .ch-form-big .ch-form-row .ch-form-icon-input:focus {
-  padding-right: 0 29px 0 0;
+  padding-right: 29px;
 }
 
 /* Module */
@@ -2084,7 +2084,7 @@ ol.ch-list {
 }
 
 dl.ch-list {
-  margin-bottom: 0 0 18px 0;
+  margin: 0 0 18px 0;
 }
 dl.ch-list dt,
 dl.ch-list dd {
