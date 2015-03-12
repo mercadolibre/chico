@@ -34,7 +34,8 @@
     "views",
     "app.js",
     "Gruntfile.js",
-    "History.md"
+    "History.md",
+    "package.json"
   ],
   "dependencies": {},
   "devDependencies": {

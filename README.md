@@ -131,27 +131,55 @@ In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a f
 
 ### How to create a new skin
 
-#### 1. Create your own commons shared variables
+  * Install `Chico UI` via bower using `bower install git@github.com:mercadolibre/chico.git#>=1.2.0`
+  * Install `bourbon` via bower using `bower install bourbon`
+  * Create a theme folder and put a theme file into. E.g. `mkdir mytheme && touch mytheme/mytheme-ui.scss`
+  * Edit the `mytheme/mytheme-ui.scss` and put into a minimal required content
 
-a. Duplicate the commons shared variables (src/common/_variables-ml.scss).
+```
+@import 'bourbon';
+@import '../bower_components/chico/src/shared/css/mixins';
+@import '../bower_components/chico/src/shared/css/variables';
+```
 
-b. Change the name of the duplicated file(s) as you want (For example, _variables-yourThemeName.scss.)
+  * Import all required components
 
-#### 2. Create your own style for a components variables
+```
+...
+@import '../bower_components/chico/src/shared/css/icons';
+...
+```
 
-a. Duplicate the Sass components variables you need and follow the components structure explained above (or create a new one).
+  * Compile a theme. The fastest way is using a `sass` command line tool
 
-b. Change the name of the duplicated file(s).
+```sass -I ./bower_components/bourbon/app/assets/stylesheets/ mytheme/mytheme-ui.scss mytheme/mytheme-ui.css```
 
-> E.g.: _autocomplete-variables-ml.scss to _autocomplete-variables-yourThemeName.scss
+Strictly recommended to use some task runner such `grunt` or `gulp`. Typical gulp task may look like
 
-> If the component does not have a folder, create this with the same name of the component and next, create the custom variables file.
+```js
+gulp.task('sass:ui', function () {
+    return gulp.src('mytheme/mytheme-ui.scss')
+        .pipe($.sass({
+            includePaths: [
+                'bower_components/bourbon/app/assets/stylesheets/',
+                './'
+            ]
+        }))
+        .pipe(gulp.dest('mytheme/'));
+});
+```
+  * If you are not interested in components personalization and just want to override default theme's variables
+    typical theme file may look like this
 
-#### 3. Update and invoque the new theme elements
+```
+// File that contain all overrides
+@import 'settings';
+// Default theme with all components
+@import '../bower_components/chico/src/ui/css/ui-theme';
+```
 
-a. Open mobile-theme.scss or ui-theme.scss (depending of wich framework you've been working at). Both files are inside de src/mobile/css or src/ui/scc folders
+**Note**: Variables reference is pending
 
-b. Once there, update the name of the variable file with the one you've created. If you've change de boxes component, simply change the _boxes-variables-ml to _boxes-variables-yourThemeName. 
 
 ## Tests
 You can run our tests in a browser:

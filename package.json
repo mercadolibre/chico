@@ -39,8 +39,7 @@
     "grunt-contrib-uglify": "^0.8.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-jsdoc": "~0.4.0",
-    "grunt-jslint": "0.2.6",
-    "grunt-text-replace": "~0.3.11"
+    "grunt-jslint": "0.2.6"
   },
   "license": "MIT",
   "engine": "node >= 0.8.6"
