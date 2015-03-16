@@ -28,11 +28,6 @@ describe('ch.Autocomplete', function () {
         expect(typeof ch.Autocomplete).toEqual('function');
     });
 
-    it('should be defined in $ object', function () {
-        expect(ch.hasOwnProperty('Autocomplete')).toBeTruthy();
-        expect(typeof ch.Autocomplete).toEqual('function');
-    });
-
     it('should be return a new instance', function () {
         expect(autocomplete instanceof ch.Autocomplete).toBeTruthy();
     });
@@ -162,8 +157,7 @@ describe('It should emits typing event and',function(){
 describe('Its suggest() method', function () {
 
     describe('shows the suggetion list', function () {
-        var itemsHighilighted,
-            $suggestionList;
+        var itemsHighilighted;
 
         it('open when suggestions are given', function () {
             autocomplete._el.focus();
@@ -242,8 +236,7 @@ describe('Its isShown() method', function () {
 });
 
 describe('Its disable() method', function () {
-    var instance,
-        isShown;
+    var instance;
 
     it('should prevent to suggest', function () {
         autocomplete._el.focus();
@@ -258,8 +251,7 @@ describe('Its disable() method', function () {
 });
 
 describe('Its enable() method', function () {
-    var instance,
-        isShown;
+    var instance;
 
     it('should suggest', function () {
         instance = autocomplete.enable();
@@ -281,7 +273,7 @@ describe('Instance an AutoComplete configured to show HTML', function () {
         autocompleteHTML._el.focus();
         autocompleteHTML.emit('type', autocompleteHTML._el.value);
 
-        // this wait is for the focu
+        // this wait is for the focus
         waits(300);
         runs(function () {
             var itemAdded = autocompleteHTML.container.querySelector('.ch-autocomplete-item .HTMLAdded');
@@ -296,9 +288,9 @@ describe('Its destroy() method', function () {
 
     it('should reset the "trigger"', function () {
         autocomplete.destroy();
-        expect(autocomplete.trigger.getAttribute('aria-haspopup')).toBeUndefined();
-        expect(autocomplete.trigger.getAttribute('aria-owns')).toBeUndefined();
-        expect(autocomplete.trigger.getAttribute('aria-autocomplete')).toBeUndefined();
+        expect(autocomplete.trigger.getAttribute('aria-haspopup')).toBeNull();
+        expect(autocomplete.trigger.getAttribute('aria-owns')).toBeNull();
+        expect(autocomplete.trigger.getAttribute('aria-autocomplete')).toBeNull();
     });
 
     it('should remove ".autocomplete" events', function () {
@@ -306,7 +298,7 @@ describe('Its destroy() method', function () {
     });
 
     it('should remove the instance from the element', function () {
-        expect(ch.Component.instances[autocomplete._el.uid]).toBeUndefined();
+        expect(ch.instances[autocomplete._el.uid]).toBeUndefined();
     });
 
 });
