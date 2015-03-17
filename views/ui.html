@@ -1297,7 +1297,7 @@
             });
         });
 
-        var expandable2 = new ch.Expandable({
+        var expandable2 = new ch.Expandable(qS('.YOUR_SELECTOR_expandable2'), {
             'content': './static/ajax.html',
             'container': qS('.container_expandable2')
         });
@@ -1497,7 +1497,7 @@
         // Zoom
         var zoom1 = new ch.Zoom(qS('#zoom-default'));
 
-        var zoom2 = new ch.Zoom(qS('#zoom-default'));
+        var zoom2 = new ch.Zoom(qS('#zoom-preload'));
         // Preload image
         zoom2.loadImage();
 
