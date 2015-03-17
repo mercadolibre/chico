@@ -104,7 +104,7 @@ describe('It should have children and it', function () {
             expect(children[0].children[children[0].children.length - 1].getAttribute('role')).toEqual('menu');
         });
 
-        it('the links insid its container should have the WAI-ARIA role "menuitem"', function () {
+        it('the links inside its container should have the WAI-ARIA role "menuitem"', function () {
             expect(children[0].children[children[0].children.length - 1].children[0].children[0].getAttribute('role')).toEqual('menuitem');
         });
 
@@ -211,7 +211,7 @@ describe('Its destroy() method', function () {
     });
 
     it('should remove the instance from the element', function () {
-        expect(ch.Component.instances[menu2.uid]).toBeUndefined();
+        expect(ch.instances[menu2.uid]).toBeUndefined();
     });
 
     it('should emit the "layoutchange" event', function () {
