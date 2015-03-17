@@ -48,7 +48,7 @@ describe('It should have an underlay', function () {
         expect(document.querySelector('.ch-underlay').getAttribute('tabindex')).toEqual('-1');
     });
 
-    it('that dissapears when Modal closes', function () {
+    it('that disappears when Modal closes', function () {
         modal.hide();
         expect(document.querySelectorAll('.ch-underlay').length).toEqual(0);
     });
