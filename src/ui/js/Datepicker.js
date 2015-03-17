@@ -151,7 +151,7 @@
          * @type {ch.Calendar}
          * @private
          */
-        this._calendar = new ch.Calendar(options);
+        this._calendar = new ch.Calendar(document.createElement('div'), options);
 
         /**
          * Reference to the Popover component instanced.
