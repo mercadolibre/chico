@@ -401,7 +401,7 @@ describe('Its destroy() method', function () {
 
     it('should remove the instance from the element', function () {
 
-        expect(ch.Component.instances[calendar1.uid]).toBeUndefined();
+        expect(ch.instances[calendar1.uid]).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {
