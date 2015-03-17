@@ -51,5 +51,8 @@ describe('It should close', function () {
         expect(layer2.isShown()).toBeTruthy();
 
         layer2.hide();
+
+        expect(layer1.isShown()).toBeFalsy();
+        expect(layer2.isShown()).toBeFalsy();
     });
 });
