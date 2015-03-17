@@ -8,11 +8,6 @@ describe('Bubble', function () {
         expect(typeof ch.Bubble).toEqual('function');
     });
 
-    it('should be defined on $ object', function () {
-        expect(ch.hasOwnProperty('Bubble')).toBeTruthy();
-        expect(typeof ch.Bubble).toEqual('function');
-    });
-
     it('should return a new instance of Bubble', function () {
         expect(bubble instanceof ch.Bubble).toBeTruthy();
     });
