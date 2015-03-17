@@ -259,7 +259,7 @@ describe('Its destroy() method', function () {
     });
 
     it('should remove the calendar icon', function () {
-        expect(document.querySelectorAll('#datepicker-2 + i').length).toEqual(0);
+        expect(datepicker2.field.nextElementSibling).toBeNull();
     });
 
     it('should emit the "destroy" event', function () {
