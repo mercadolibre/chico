@@ -130,6 +130,8 @@ describe('Its show() method', function () {
         expect(ch.util.classList(trigger).contains('ch-popover-trigger-on')).toBeTruthy();
 
         popover1.hide();
+
+        expect(ch.util.classList(trigger).contains('ch-popover-trigger-on')).toBeFalsy();
     });
 
 	describe('should create an element at the bottom of body that', function () {
@@ -370,7 +372,7 @@ describe('Its destroy() method', function () {
     });
 
     it('should remove ".popover" events', function () {
-        expect(ch.Component.instances[uid]).toBeUndefined();
+        expect(ch.instances[uid]).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {
