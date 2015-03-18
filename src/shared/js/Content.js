@@ -1,4 +1,4 @@
-(function (ch, reqwest) {
+(function (ch, fetch) {
     'use strict';
 
     /**
@@ -107,17 +107,13 @@
          * @private
          */
         function getAsyncContent(url, options) {
+            var requestCfg;
             // Initial options to be merged with the user's options
             options = ch.util.extend({
                 'method': 'GET',
                 'params': '',
-                'async': true,
                 'waiting': '<div class="ch-loading-large"></div>'
             }, options || defaults);
-
-            if (options.cache !== undefined) {
-                that._options.cache = options.cache;
-            }
 
             // Set loading
             setAsyncContent({
@@ -125,39 +121,51 @@
                 'response': options.waiting
             });
 
-            // Make async request
-            reqwest({
-                'url': url,
-                'type': options.method,
-                'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
-                'cache': that._options.cache,
-                'async': options.async,
-                'headers': {
+            if (options.cache !== undefined) {
+                that._options.cache = options.cache;
+            }
+
+            if (options.cache === false && ['GET', 'HEAD'].indexOf(options.method.toUpperCase()) === 0) {
+                options.params += (options.params ? '&' : '') + '&_=' + Date.now();
+            }
+
+            requestCfg = {
+                method: options.method,
+                headers: {
                     'X-Requested-With': 'XMLHttpRequest'
-                },
-                'success': function (data) {
+                }
+            };
+
+            if (options.params) {
+                url += (url.indexOf('?') !== -1 || options.params[0] === '?' ? '' : '?') + options.params;
+            }
+
+            // Make a request
+            fetch(url, requestCfg)
+                .then(function(response) {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.text();
+                    } else {
+                        return this.reject(new Error(response.statusText));
+                    }
+                })
+                .then(function(body) {
                     // Send the result data to the client
                     setAsyncContent({
                         'status': 'done',
-                        'response': data.response
+                        'response': body
                     });
-                    console.log(data, data.statusText);
-                },
-                'error': function (data) {
+                })
+                .catch(function(err) {
                     // Send a defined error message
                     setAsyncContent({
                         'status': 'error',
                         'response': '<p>Error on ajax call.</p>',
 
-                         // Grab all the parameters into a JSON to send to the client
-                        'data': {
-                            'jqXHR': data,
-                            //'textStatus': textStatus,
-                            'errorThrown': data.statusText
-                        }
+                        // Grab all the parameters into a JSON to send to the client
+                        'data': err
                     });
-                }
-            });
+                });
         }
 
         /**
@@ -168,8 +176,7 @@
          * @param {Object} [options] A custom options to be used with content loaded by ajax.
          * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
          * @param {String} [options.params] Params like query string to be sent to the server.
-         * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
-         * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+         * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true. false value will work only with HEAD and GET requests
          * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
          * @example
          * // Update content with some string.
@@ -235,4 +242,4 @@
 
     ch.Content = Content;
 
-}(this.ch, this.reqwest));
+}(this.ch, this.fetch));
