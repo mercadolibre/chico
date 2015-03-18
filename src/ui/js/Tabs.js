@@ -7,14 +7,12 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Expandable
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Tabs.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Tabs.
+     * @param {Object} [options] Options to customize an instance.
      * @returns {tabs} Returns a new instance of Tabs.
      * @example
      * // Create a new Tabs.
-     * var tabs = new ch.Tabs($el);
-     * @example
-     * // Create a new Tabs with jQuery or Zepto.
-     * var tabs = $(selector).tabs();
+     * var tabs = new ch.Tabs(el);
      */
     function Tabs(el, options) {
 
@@ -384,13 +382,13 @@
     /**
      * Allows to manage the tabs content.
      * @param {Number} tab A given tab to change its content.
-     * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a tabpanel.
+     * @param {HTMLElement} content The content that will be used by a tabpanel.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second tab with some string.
      * tabs.content(2, 'http://ajax.com', {'cache': false});

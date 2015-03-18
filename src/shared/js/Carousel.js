@@ -15,10 +15,7 @@
      * @returns {carousel} Returns a new instance of Carousel.
      * @example
      * // Create a new carousel.
-     * var carousel = new ch.Carousel($el, [options]);
-     * @example
-     * // Create a new Carousel with jQuery or Zepto.
-     * var carousel = new ch.Carousel(el,[options]);
+     * var carousel = new ch.Carousel(el, [options]);
      * @example
      * // Create a new Carousel with disabled effects.
      * var carousel = new ch.Carousel(el, {

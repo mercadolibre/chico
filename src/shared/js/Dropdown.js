@@ -33,9 +33,6 @@
      * // Create a new Dropdown.
      * var dropdown = new ch.Dropdown([el], [options]);
      * @example
-     * // Create a new Dropdown with jQuery or Zepto.
-     * var dropdown = new ch.Dropdown([options]);
-     * @example
      * // Create a new skinned Dropdown.
      * var dropdown = new ch.Dropdown({
      *     'skin': true

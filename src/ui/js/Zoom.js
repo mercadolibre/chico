@@ -25,8 +25,8 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
+     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
      * @returns {zoom} Returns a new instance of Zoom.
      * @example
      * // Create a new Zoom.
@@ -151,8 +151,8 @@
 
 
         /**
-         * jQuery/Zepto Element (shape) with visual feedback to the relative size of the zoomed area.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * HTML Element shape with visual feedback to the relative size of the zoomed area.
+         * @type {HTMLDivElement}
          * @private
          */
         this._seeker = (function (){
@@ -163,13 +163,6 @@
         }());
 
         this.trigger.appendChild(this._seeker);
-
-        /**
-         * HTML Element shape with visual feedback to the relative size of the zoomed area.
-         * @type {HTMLDivElement}
-         * @private
-         */
-        this._seeker = this._seeker;
 
         /**
          * The main specified image with original size (not zoomed).
@@ -389,13 +382,13 @@
      * Shows the zoom container and the Seeker, or show a loading feedback until the zoomed image loads.
      * @memberof! ch.Zoom.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by dropdown.
+     * @param {(String | HTMLElement)} [content] The content that will be used by dropdown.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {zoom}
      * @example
      * // Shows a basic zoom.

@@ -31,9 +31,6 @@
      * // Create a new Transition.
      * var transition = new ch.Transition([el], [options]);
      * @example
-     * // Create a new Transition with jQuery or Zepto.
-     * var transition = new ch.Transition([options]);
-     * @example
      * // Create a new Transition with disabled effects.
      * var transition = new ch.Transition({
      *     'fx': 'none'

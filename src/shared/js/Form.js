@@ -23,10 +23,7 @@
      * @returns {form} Returns a new instance of Form.
      * @example
      * // Create a new Form.
-     * var form = new ch.Form($el, [options]);
-     * @example
-     * // Create a new Form with jQuery or Zepto.
-     * var form = new ch.Form();
+     * var form = new ch.Form(el, [options]);
      * @example
      * // Create a new Form with custom messages.
      * var form = new ch.Form({

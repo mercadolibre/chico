@@ -7,7 +7,7 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Calendar
-     * @param {String} selector A jQuery or Zepto Selector to create an instance of ch.Datepicker.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Datepicker.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. Default: "DD/MM/YYYY".
      * @param {String} [options.selected] Sets a date that should be selected by default. Default: "today".
@@ -15,8 +15,8 @@
      * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be "YYYY/MM/DD".
      * @param {Array} [options.monthsNames] A collection of months names. Default: ["Enero", ... , "Diciembre"].
      * @param {Array} [options.weekdays] A collection of weekdays. Default: ["Dom", ... , "Sab"].
-     * @param {Boolean} [conf.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {Boolean} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
+     * @param {HTMLElement} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally.

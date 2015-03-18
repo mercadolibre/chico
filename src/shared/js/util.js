@@ -474,10 +474,9 @@
                 target = {};
             }
 
-            // Extend jQuery itself if only one argument is passed
-            if (i === length) {
-                target = this;
-                i--;
+            // Nothing to extend, return original object
+            if (length <= i) {
+                return target;
             }
 
             for (; i < length; i++) {
