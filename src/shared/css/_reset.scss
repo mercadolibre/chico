@@ -70,7 +70,9 @@ html {
 }
 
 body {
-    font-family: $theme-body-text-family;
+    font-family: $theme-body-font-family;
+    font-size: $theme-body-font-size;
+    line-height: $theme-body-line-height;
     padding: $theme-body-padding; /* Prevent layout "sticking" to the edge of the browser */
     background-color: $theme-body-bg-color;
     color: $theme-text-color;

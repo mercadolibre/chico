@@ -9,9 +9,6 @@
 
 /**
  * Reset
- */
-/**
- * Reset
  * @based on: Eric Meyer
  */
 html, body, div, span, object, iframe,
@@ -83,6 +80,8 @@ html {
 
 body {
   font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
+  font-size: 13px;
+  line-height: 20px;
   padding: 0 10px;
   /* Prevent layout "sticking" to the edge of the browser */
   background-color: #fff;
@@ -104,11 +103,6 @@ a img {
 
 p + p {
   margin: 1em 0 0 0;
-}
-
-body {
-  font-size: 13px;
-  line-height: 20px;
 }
 
 /**

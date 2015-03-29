@@ -1,12 +1,5 @@
-/**
- * Reset
- */
+@import "reset-variables";
 @import '../../shared/css/reset';
-
-body {
-	font-size: 14px;
-	line-height: 21px;
-}
 
 img {
 	max-width: 100%;
