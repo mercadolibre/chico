@@ -491,7 +491,9 @@ body {
   user-select: none;
 }
 
-/* Close*/
+/**
+ * Close button
+ */
 .ch-close,
 .ch-close:visited,
 .ch-close:focus {
@@ -503,9 +505,11 @@ body {
   cursor: pointer;
   display: inline-block;
   padding: 0;
-  text-indent: -1px;
+  text-indent: 0;
   color: #cdcdcd;
-  font: normal 100% Arial, sans-serif;
+  width: 16px;
+  height: 16px;
+  font: normal 20px/16px Arial, sans-serif;
   text-align: center;
   position: absolute;
   right: 10px;
@@ -543,16 +547,6 @@ body {
   background-image: -webkit-linear-gradient(#fA5900, #ca0c02);
   background-image: linear-gradient(#fA5900, #ca0c02);
   text-decoration: none;
-}
-
-/* Close*/
-.ch-close,
-.ch-close:visited,
-.ch-close:focus {
-  width: 15px;
-  height: 16px;
-  font-size: 20px;
-  line-height: 16px;
 }
 
 /* IE */
