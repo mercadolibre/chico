@@ -7,7 +7,7 @@ Chico UI is a free and open source collection of easy-to-use UI components for d
 
 ## Development setup
 
-1. Install [Git](http://git-scm.com/), [NodeJS](http://nodejs.org/) and [Sass](http://sass-lang.com/install).
+1. Install [Git](http://git-scm.com/), [NodeJS](http://nodejs.org/) and [Sass](http://sass-lang.com/install), requires Sass v3.4.x or above.
 2. Open your terminal and clone `mercadolibre/chico` by running:
 
         $ git clone git@github.com:mercadolibre/chico.git
@@ -102,21 +102,17 @@ src/
         ...                    # Etc…
 ```
 
-### Css folder (inside mobile, shared or ui)
+### Styles folder (inside mobile, shared or ui)
 
 This folder have a list of each individual component, within each are there unique properties.
 
 Note:
 
-mobile-ml.scss and ui-ml.scss these files are used to choose which components we have available at the final css. You can also edit the file and choose wich components you want to render.
-
-### Common folder
-
-Inside this folder (src/shared/styles/common) you will find the sass files that is shared between Mobile and UI. From here you can change the main variables in Moblie and UI interface.
+mobile-theme.scss and ui-theme.scss these files are used to choose which components we have available at the final css. You can also edit the file and choose which components you want to render.
 
 ### Reset.scss
 
-This file is very important because it handles all the basic css definitions, such as font-familiy, color, etc...
+This file is very important because it handles all the basic css definitions, such as font-family, color, etc...
 
 ### Components structure
 
@@ -124,10 +120,10 @@ Example:
 
 ```
             _autocomplete.scss
-            `– _autocomplete-variables.scss  # Local component only variables
+            `– _autocomplete-variables.scss  # Local component's only variables
 ```
 
-In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a folder (_autocomplete-variables-ml.scss ) and includes the extra custom propieties on the component.
+In the example, the first Sass file (_autocomplete.scss) imports the Sass file from the same folder (_autocomplete-variables.scss ) and includes the extra custom properties on the component.
 
 ### How to create a new skin
 
@@ -188,7 +184,7 @@ You can run our tests in a browser:
 
         $ grunt test
         
-This will open `http://localhost:3040/tests/` in your browser. Navigate to `http://localhost:3040/test/:component` to run a specific tests.
+This will open `http://localhost:3040/tests/` in your browser. Navigate to `http://localhost:3040/test/:component` to run a specific test.
 
 **We are going to automate it! :)**
 
