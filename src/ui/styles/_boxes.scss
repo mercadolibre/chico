@@ -1,0 +1,9 @@
+/**
+ * Boxes
+ */
+@import '../../shared/styles/boxes';
+
+.ch-box {
+  @include linear-gradient(to bottom, $gray-100, $main-neutral-color 25px, $main-neutral-color);
+}
+

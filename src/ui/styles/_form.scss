@@ -1,0 +1,107 @@
+@import 'form-variables';
+@import '../../shared/styles/form';
+
+/* Generic input & textarea */
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="search"],
+input[type="date"],
+input[type="datatime"],
+input[type="datatime-local"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+textarea,
+select[multiple],
+.ch-form-select-multiple {
+    font-size: $form-input-text-size;
+    margin: $form-input-margin;
+}
+
+/* Inner Icons */
+.ch-form-icon-inner {
+    position: relative;
+    left: -30px;
+    top: -1px;
+}
+
+/* BigForm Inner Icons */
+.ch-form-big .ch-form-icon-inner {
+    left: -33px;
+    top: -2px;
+}
+
+/* Title module */
+.ch-form legend {
+    padding: $form-legend-padding;
+}
+
+/* Label */
+.ch-form-row label {
+    font-size: $form-label-text-size;
+    text-align: $form-label-text-align;
+    width: $form-label-width;
+}
+
+/* Checkbox inline */
+.ch-form-checkbox-inline {
+    margin: $form-checkbox-inline-margin;
+}
+
+// este estilo no lo vi... lo que modifica es mínimo cuando lo aplique al campo Numeric range
+/* Range */
+.ch-form-range {
+    padding: 4px;
+    vertical-align: middle;
+}
+
+/* Select */
+.ch-form-row select {
+    margin: $form-select-margin;
+}
+
+/* Help bottom line that helps the user */
+.ch-form-row .ch-form-hint {
+    margin: $form-hint-margin;
+}
+
+/* Options */
+.ch-form-options {
+    margin: $form-options-margin;
+}
+
+/* Subtitle in options */
+.ch-form-options .ch-form-subtitle {
+    margin: $form-options-subtitle-margin;
+    margin-left: -20px;
+}
+
+/* Disabled status */
+.ch-form-disabled label {
+    color: $form-label-disabled-text-color;
+}
+
+.ch-form-disabled input,
+.ch-form-disabled input[disabled],
+.ch-form-disabled textarea,
+.ch-form-disabled textarea[disabled] {
+    background-color: #F2F2F2;
+    cursor: not-allowed;
+}
+
+/* Actions */
+.ch-form-actions {
+    margin: $form-actions-margin;
+}
+
+.lt-ie10 .ch-form-options input[type=radio] {
+    margin: $ie-form-input-radio-margin;
+}
+
+.lt-ie10 .ch-form-options input[type=checkbox]  {
+    margin: $ie-form-input-checkbox-margin;
+}

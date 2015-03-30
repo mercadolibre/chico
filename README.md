@@ -75,7 +75,7 @@ src/
 |
 |– mobile/ # Properties only for Mobile 
 |   |
-|   |– css/ # Components list
+|   |– styles/ # Components list
 |       |– _autocomplete.scss  # Autocomplete rules
 |       |– _base.scss          # Base rules
 |       |– _boxes.scss         # Boxes rules
@@ -84,7 +84,7 @@ src/
 |   
 |– shared/ # Properties shared in Mobile and UI
 |   |
-|   |– css/ # Components list
+|   |– styles/ # Components list
 |       |– _autocomplete.scss  # Autocomplete rules
 |       |– _base.scss          # Base rules
 |       |– _boxes.scsss        # Boxes rules
@@ -94,7 +94,7 @@ src/
 |
 `– ui/ # Properties only for Desktop Browsers
     |
-    `– css/ # Components list
+    `– styles/ # Components list
         |– _autocomplete.scss  # Autocomplete rules
         |– _badges.scss        # Badges rules
         |– _base.scss          # Base rules
@@ -112,7 +112,7 @@ mobile-ml.scss and ui-ml.scss these files are used to choose which components we
 
 ### Common folder
 
-Inside this folder (src/shared/css/common) you will find the sass files that is shared between Mobile and UI. From here you can change the main variables in Moblie and UI interface.
+Inside this folder (src/shared/styles/common) you will find the sass files that is shared between Mobile and UI. From here you can change the main variables in Moblie and UI interface.
 
 ### Reset.scss
 
@@ -138,15 +138,15 @@ In the example, the first Sass (_autocomplete.scss) invokes the Sass file in a f
 
 ```
 @import 'bourbon';
-@import '../bower_components/chico/src/shared/css/mixins';
-@import '../bower_components/chico/src/shared/css/variables';
+@import '../bower_components/chico/src/shared/styles/mixins';
+@import '../bower_components/chico/src/shared/styles/variables';
 ```
 
   * Import all required components
 
 ```
 ...
-@import '../bower_components/chico/src/shared/css/icons';
+@import '../bower_components/chico/src/shared/styles/icons';
 ...
 ```
 
@@ -175,7 +175,7 @@ gulp.task('sass:ui', function () {
 // File that contain all overrides
 @import 'settings';
 // Default theme with all components
-@import '../bower_components/chico/src/ui/css/ui-theme';
+@import '../bower_components/chico/src/ui/styles/ui-theme';
 ```
 
 **Note**: Variables reference is pending

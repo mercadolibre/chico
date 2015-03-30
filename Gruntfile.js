@@ -112,12 +112,12 @@ module.exports = function (grunt) {
             },
             ui: {
                 files: {
-                    'dist/ui/<%= pkg.name %>.css': 'src/ui/css/ui-theme.scss'
+                    'dist/ui/<%= pkg.name %>.css': 'src/ui/styles/ui-theme.scss'
                 }
             },
             mobile: {
                 files: {
-                    'dist/mobile/<%= pkg.name %>.css': 'src/mobile/css/mobile-theme.scss'
+                    'dist/mobile/<%= pkg.name %>.css': 'src/mobile/styles/mobile-theme.scss'
                 }
             }
         },

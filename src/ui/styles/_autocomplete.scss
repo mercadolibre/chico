@@ -1,0 +1,10 @@
+@import 'autocomplete-variables';
+@import '../../shared/styles/autocomplete';
+
+.ch-autocomplete {
+	padding: $autocomplete-padding;
+}
+
+.ch-autocomplete-list .ch-icon-arrow-up {
+    display: none;
+}

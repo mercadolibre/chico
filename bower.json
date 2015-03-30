@@ -13,8 +13,8 @@
   "homepage": "http://chico-ui.com.ar/",
   "license": "MIT",
   "main": [
-    "src/ui/css/ui-theme.scss",
-    "src/mobile/css/mobile-theme.scss",
+    "src/ui/styles/ui-theme.scss",
+    "src/mobile/styles/mobile-theme.scss",
     "dist/ui/chico.css",
     "dist/ui/chico.js",
     "dist/mobile/chico.css",

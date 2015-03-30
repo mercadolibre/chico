@@ -1,0 +1,49 @@
+@import 'autocomplete-variables';
+@import '../../shared/styles/autocomplete';
+
+.ch-autocomplete {
+    padding: $autocomplete-padding;
+}
+
+.ch-autocomplete-item {
+    border-radius: $autocomplete-item-border-radius;
+    border-bottom: $autocomplete-item-border-bottom;
+    min-height: 45px;
+    text-shadow: $autocomplete-text-shadow;
+    line-height: $autocomplete-line-height;
+    position: relative;
+    text-indent: $autocomplete-item-text-indent;
+}
+
+.ch-autocomplete-item:last-of-type {
+    border-bottom: none;
+    -webkit-border-bottom-left-radius: $autocomplete-lastitem-border-bottom-left;
+    -webkit-border-bottom-right-radius: $autocomplete-lastitem-border-bottom-right;
+    border-bottom-left-radius: $autocomplete-lastitem-border-bottom-left;
+    border-bottom-right-radius: $autocomplete-lastitem-border-bottom-right;
+}
+
+.ch-autocomplete-list .ch-icon-arrow-up[data-js="ch-autocomplete-complete-query"] {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: $autocomplete-item-icon-border-radius;
+    color: $autocomplete-item-icon-color;
+    background-color: $autocomplete-item-icon-bg-color;
+    width: $autocomplete-item-icon-width;
+    height: $autocomplete-item-icon-height;
+
+    &:before {
+        color: $autocomplete-item-icon-before-text-color;
+        display: block;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        font-size: $autocomplete-item-icon-before-text-size;
+        overflow: hidden;
+        line-height: $autocomplete-item-icon-before-line-height;
+        text-indent: $autocomplete-item-icon-before-text-indent;
+    }
+}
