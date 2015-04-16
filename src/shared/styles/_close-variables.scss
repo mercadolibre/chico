@@ -1,0 +1,37 @@
+// > Close button
+// ----------------------------------------------------------------
+
+// ----- Close button defaults ----- //
+
+$close-button-width: 16px !default;
+$close-button-height: 16px !default;
+
+$close-button-bg-color: transparent !default;
+$close-button-cursor: pointer !default;
+$close-button-text-indent: 0 !default;
+$close-button-font-family: Arial, sans-serif !default;
+$close-button-font-size: 20px !default;
+$close-button-line-height: $close-button-height !default;
+
+// ----- Close button active ----- //
+
+$close-button-active-text-color: $main-neutral-color !default;
+$close-button-active-bg-color: #bf0602 !default;
+$close-button-active-bg-color-secondary: #8f2f00 !default;
+
+// ----- Close button focus and hover ----- //
+
+$close-button-focus-hover-text-color: $main-neutral-color !default;
+$close-button-focus-hover-bg-color: #fA5900 !default;
+$close-button-focus-hover-bg-color-secondary: #ca0c02 !default;
+
+// ----- Close button ----- //
+
+$close-button-border: 1px solid $main-border-color !default;
+$close-button-border-radius: 3px !default;
+$close-button-position-right: 10px !default;
+$close-button-position-top:	10px !default;
+
+// ----- Close button active, hover and focus ----- //
+
+$close-button-text-shadow: 0 1px 0 rgba(0,0,0,.5) !default;

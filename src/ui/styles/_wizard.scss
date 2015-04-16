@@ -1,0 +1,126 @@
+/**
+ * Wizard
+ */
+@import 'wizard-variables';
+
+.ch-wizard {
+    background-color: $wizard-bg-color;
+    border: $wizard-border;
+    border-radius: $wizard-border-radius;
+    margin: $wizard-margin;
+}
+
+.ch-wizard .ch-actions {
+    background: $wizard-actions-bg-color;
+    border-top: $wizard-actions-border;
+    padding: $wizard-actions-padding;
+    border-radius: $wizard-actions-border-radius;
+}
+
+.ch-wizard-breadcrumb a {
+    background: $wizard-breadcrumb-link-bg-color;
+}
+
+.ch-wizard-breadcrumb {
+    list-style: none; 
+    margin: 0 0 5px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.ch-wizard-breadcrumb li {
+    float: left;
+    position: relative;
+    color: $wizard-breadcrumb-text-color;
+    text-align: $wizard-breadcrumb-text-position;
+}
+
+.ch-steps-two li {
+    width: (100%/2);
+}
+
+.ch-steps-three li {
+    width: (100%/3);
+}
+
+.ch-steps-four li {
+    width:  (100%/4);
+}
+
+.ch-steps-five li {
+    width:  (100%/5);
+}
+
+.ch-steps-six li {
+    width: (100%/6);
+}
+
+.ch-wizard-breadcrumb a,
+.ch-wizard-current,
+.ch-wizard-step {
+    border-bottom: $wizard-breadcrumb-border-bottom;
+    display: block;
+    line-height: $wizard-breadcrumb-height;
+}
+
+.ch-wizard-breadcrumb .ch-wizard-current {
+    font-weight: $wizard-breadcrumb-current-text-weight;
+    color:  $wizard-breadcrumb-current-text-color;
+    border-bottom-color: transparent;
+}
+
+.ch-wizard-step:after,
+.ch-wizard-step:before,
+.ch-wizard-current:after,
+.ch-wizard-current:before,
+.ch-wizard-breadcrumb li a:after,
+.ch-wizard-breadcrumb li a:before {
+    border: solid transparent;
+    content: " ";
+    position: absolute;
+    top: -1px;
+    right: -24px;
+    z-index: 1;
+}
+
+.ch-wizard-step:before,
+.ch-wizard-current:before {
+    border-width: ($wizard-breadcrumb-height / 2) + 2 (($wizard-breadcrumb-height / 2) + 1) / 2;
+    border-left-color: #ddd;
+}
+
+.ch-wizard-step:after,
+.ch-wizard-current:after {
+    border-left-color: #fff;
+    border-width: ($wizard-breadcrumb-height / 2) + 3 (($wizard-breadcrumb-height / 2) + 3) / 2; 
+    top: -2px;
+}
+
+.ch-wizard-breadcrumb li a:before {
+    border-width: ($wizard-breadcrumb-height / 2) + 2 (($wizard-breadcrumb-height / 2) + 1) / 2;
+    border-left-color: $wizard-breadcrumb-border-color;
+}
+
+.ch-wizard-breadcrumb li a:after {
+    border-left-color: $wizard-breadcrumb-pointer-content-color;
+    border-width: ($wizard-breadcrumb-height / 2) + 3 (($wizard-breadcrumb-height / 2) + 3) / 2;
+    top: -2px;
+}
+
+
+/* Wizard in modal */
+.ch-modal .ch-wizard {
+    margin: -20px -44px -20px -20px;
+    border: none;
+}
+
+.ch-modal .ch-wizard .ch-actions {
+    background-color: #fff;
+    border: none;
+}
+
+/* IE */
+.ie8 .ch-wizard-breadcrumb li a {
+    position: relative;
+    zoom: 1;
+}

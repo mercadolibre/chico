@@ -1,0 +1,68 @@
+// > Datagrid
+// ----------------------------------------------------------------
+
+// >>> General
+// --------------------------------------------
+
+$table-border: 1px solid $main-border-color !default;
+$table-text-align: left !default;
+
+// >>> Table title
+// --------------------------------------------
+
+$table-title-text-align: left !default;
+$table-title-text-weight: normal !default;
+
+// >>> Table header row
+// --------------------------------------------
+
+$table-header-bg-color:	$gray-100 !default;
+$table-header-row-border: 1px solid $main-border-color !default;
+$table-header-row-border-left: 1px solid $main-border-color !default;
+$table-header-row-text-align: left !default;
+$table-header-row-text-shadow: 0 1px 0 $main-neutral-color !default;
+$table-header-row-v-align: middle !default;
+$table-header-row-color: #666 !default;
+
+// >>> Table row selected
+// --------------------------------------------
+
+$table-row-selected-bg-color: $main-secondary-color !default;
+$table-row-border: 1px solid $main-border-color !default;
+
+// >>> Table header with controls
+// --------------------------------------------
+
+$table-header-controls-bg-color: $gray-50 !default;
+$table-header-controls-bg-color-secondary: $gray-200 !default;
+
+// >>> Table header with controls hover
+// --------------------------------------------
+
+$table-header-controls-hover-bg-color: $gray-50 !default;
+
+// >>> Table header with controls active
+// --------------------------------------------
+
+$table-header-controls-active-bg-color:	$gray-400 !default;
+$table-header-controls-active-border: 1px solid $main-border-color !default;
+
+// >>> Table title
+// --------------------------------------------
+
+$table-title-margin: 10px 0 !default;
+$table-title-text-size: $font__large !default;
+
+// >>> Table header row
+// --------------------------------------------
+
+$table-header-row-text-size: $font__smallest !default;
+$table-header-row-line-height: 26px !default;
+$table-header-row-padding: 0 10px !default;
+
+// >>> Table row selected
+// --------------------------------------------
+
+$table-row-selected-height:	40px !default;
+$table-row-selected-padding: 0 10px !default;
+$table-row-selected-v-align: middle !default;

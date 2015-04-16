@@ -1,8 +1,8 @@
 /*!
- * Chico UI v1.1.1
+ * Chico Theme UI v1.2.0
  * http://chico-ui.com.ar/
  *
- * Copyright (c) 2014, MercadoLibre.com
+ * Copyright (c) 2015, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
@@ -752,7 +752,7 @@ ch.factory = function (Klass, fn) {
 
     // Exposse private $ (jQuery) into ch.$
     ch.$ = window.$;
-	ch.version = '1.1.1';
+	ch.version = '1.2.0';
 	window.ch = ch;
 }(this, this.$));
 (function (ch) {
@@ -3596,8 +3596,8 @@ ch.factory = function (Klass, fn) {
             'align': that._options.align,
             'side': that._options.side,
             'offsetY': that._options.offsetY,
-            'offsetX': that._options.offsetX,
-            'position': that._options.position
+            'offsetX': that._options.offsetX
+            // 'position': that._options.position
         });
 
     };

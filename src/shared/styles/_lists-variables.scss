@@ -1,0 +1,23 @@
+// > Lists
+// ----------------------------------------------------------------
+
+$unordered-list-icon: disc inside !default;
+$ordered-list-icon:	decimal inside !default;
+
+$list-margin: 0 0 10px 0 !default;
+$definition-list-margin: 0 0 18px 0 !default;
+$definition-description-margin: 5px 0 10px 10px !default;
+
+$definition-term-text-weight: bold !default;
+
+// >>> List item
+// --------------------------------------------
+
+$list-item-margin: 0 0 0 10px !default;
+$list-item-padding:	3px 0 !default;
+$list-item-line-height: 18px !default;
+
+// >>> DL items (DT or DD)
+// --------------------------------------------
+
+$definition-list-elements-line-height: 18px !default;

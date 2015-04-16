@@ -1,0 +1,212 @@
+/**
+ * Popover
+ */
+@import 'popover-variables';
+
+.ch-popover {
+    box-shadow: $popover-box-shadow;
+}
+
+.ch-shownby-pointertap {
+    cursor: pointer;
+}
+
+.ch-shownby-pointerenter {
+    cursor: default;
+}
+
+/**
+ * Close button: must generate a space
+ */
+.ch-popover .ch-close + div {
+    margin: $popover-close-btn-margin;
+}
+
+/**
+ * Cone
+ */
+.ch-cone .ch-popover-content:before,
+.ch-cone .ch-popover-content:after {
+    border: outset transparent; /* border transparent bug on FF: http://stackoverflow.com/a/6225439 */
+    content: '';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+}
+
+/*
+* Triangle with border.
+*/
+
+.ch-cone .ch-popover-content:before {
+    border-width: $popover-cone-size;
+}
+
+.ch-cone .ch-popover-content:after {
+    border-width: $popover-cone-size - $popover-border-width;
+}
+
+/**
+ * Bottom side
+ * ltlb, ctcb, rtrb
+ */
+
+.ch-cone[data-side=bottom] {
+    .ch-popover-content:before,
+    .ch-popover-content:after {
+        bottom: 100%;
+        border-bottom-style: solid;
+    }
+
+    .ch-popover-content:before {
+        border-bottom-color: $popover-border-color;
+    }
+
+    .ch-popover-content:after {
+        border-bottom-color: $popover-content-bg-color;
+    }    
+}
+
+/**
+ * Top side
+ * lblt, cbct, rbrt
+ */
+
+.ch-cone[data-side=top] {
+    .ch-popover-content:before,
+    .ch-popover-content:after {
+        top: 100%;
+        border-top-style: solid;
+    }
+
+    .ch-popover-content:before {
+        border-top-color: $popover-border-color;
+    }
+
+    .ch-popover-content:after {
+        border-top-color: $popover-content-bg-color;
+    }
+}
+
+/**
+ * Right side
+ * ltrt, lmrm, lbrb
+ */
+
+.ch-cone[data-side=right] {
+    .ch-popover-content:before,
+    .ch-popover-content:after {
+        right: 100%;
+        border-right-style: solid;
+    }
+
+    .ch-popover-content:before {
+        border-right-color: $popover-border-color;
+    }
+
+    .ch-popover-content:after {
+        border-right-color: $popover-content-bg-color;
+    }
+}
+
+/**
+ * Left side
+ * rtlt, rmlm, rblb
+ */
+.ch-cone[data-side=left] {
+    .ch-popover-content:before,
+    .ch-popover-content:after {
+        left: 100%;
+        border-left-style: solid;
+    }
+
+    .ch-popover-content:before {
+        border-left-color: $popover-border-color;
+    }
+
+    .ch-popover-content:after {
+        border-left-color: $popover-content-bg-color;
+    }
+}
+
+/**
+ * Top alignment
+ */
+.ch-cone[data-side=right][data-align=top] .ch-popover-content:after,
+.ch-cone[data-side=left][data-align=top] .ch-popover-content:after {
+    top: $popover-cone-size / 2;
+}
+
+.ch-cone[data-side=right][data-align=top] .ch-popover-content:before,
+.ch-cone[data-side=left][data-align=top] .ch-popover-content:before {
+    top: ($popover-cone-size / 2) - $popover-border-width;
+}
+
+/**
+ * Right alignment
+ */
+.ch-cone[data-side=bottom][data-align=right] .ch-popover-content:after,
+.ch-cone[data-side=top][data-align=right] .ch-popover-content:after {
+    right: $popover-cone-size - 2;
+}
+
+.ch-cone[data-side=bottom][data-align=right] .ch-popover-content:before,
+.ch-cone[data-side=top][data-align=right] .ch-popover-content:before {
+    right: ($popover-cone-size - 2) - $popover-border-width;
+}
+
+/**
+ * Bottom alignment
+ */
+.ch-cone[data-side=right][data-align=bottom] .ch-popover-content:after,
+.ch-cone[data-side=left][data-align=bottom] .ch-popover-content:after {
+    bottom: $popover-cone-size / 2;
+}
+
+.ch-cone[data-side=right][data-align=bottom] .ch-popover-content:before,
+.ch-cone[data-side=left][data-align=bottom] .ch-popover-content:before {
+    bottom: ($popover-cone-size / 2) - $popover-border-width;
+}
+
+/**
+ * Left alignment
+ */
+.ch-cone[data-side=bottom][data-align=left] .ch-popover-content:after,
+.ch-cone[data-side=top][data-align=left] .ch-popover-content:after {
+    left: $popover-cone-size - 2;
+}
+
+.ch-cone[data-side=bottom][data-align=left] .ch-popover-content:before,
+.ch-cone[data-side=top][data-align=left] .ch-popover-content:before {
+    left: ($popover-cone-size - 2) - $popover-border-width;
+}
+
+/**
+ * Center alignment
+ */
+.ch-cone[data-side=bottom][data-align=center] .ch-popover-content:after,
+.ch-cone[data-side=top][data-align=center] .ch-popover-content:after {
+    margin-left: -$popover-cone-size;
+    left: 50%;
+}
+
+.ch-cone[data-side=bottom][data-align=center] .ch-popover-content:before,
+.ch-cone[data-side=top][data-align=center] .ch-popover-content:before {
+    margin-left: -$popover-cone-size - $popover-border-width;
+    left: 50%;
+}
+
+.ch-cone[data-side=right][data-align=center] .ch-popover-content:after,
+.ch-cone[data-side=left][data-align=center] .ch-popover-content:after {
+    margin-top: -$popover-cone-size;
+    top: 50%;
+}
+
+.ch-cone[data-side=right][data-align=center] .ch-popover-content:before,
+.ch-cone[data-side=left][data-align=center] .ch-popover-content:before {
+    margin-top: -$popover-cone-size - $popover-border-width;
+    top: 50%;
+}
+

@@ -1,0 +1,78 @@
+/*
+* Expandable
+*/
+@import 'expandable-variables';
+
+.ch-fold-trigger,
+.ch-expandable-trigger {
+	cursor: $expandable-cursor;
+	display: block;
+	margin: 0;
+    padding: $expandable-padding;
+    position: relative;
+    color: $expandable-text-color;
+    font-size: $expandable-text-size;
+    font-weight: $expandable-text-weight;
+    text-shadow: $expandable-text-shadow;
+	background-color: $expandable-bg-color;
+    border: $expandable-border;
+    border-radius: $expandable-border-radius;
+}
+
+.ch-expandable-trigger:after {
+    content: '\f078';
+    font-size: $expandable-icon-text-size;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -10px;
+    font-family: icons;
+    color:$expandable-icon-text-color;
+    overflow: hidden;
+}
+
+.ch-expandable-trigger-on {
+	-webkit-border-bottom-left-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.ch-expandable-trigger-on:after {
+	content: '\f077';
+	color: $expandable-icon-active-text-color;
+}
+
+.ch-expandable-container {
+    background-color: $expandable-content-bg-color;
+	margin: $expandable-content-margin;
+	padding: $expandable-content-padding;
+	overflow: hidden;
+	border: $expandable-content-border;
+    border-top: none;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.ch-expandable-container.ch-box-list {
+    padding: $expandable-list-padding;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.ch-expandable-container.ch-box-list li {
+    font-size: $expandable-list-text-size;
+
+    a:after {
+        color: $expandable-list-link-text-color;
+    }
+}
+
+.ch-expandable-container.ch-list,
+.ch-expandable-container.ch-list li {
+    margin-left: 0;
+}

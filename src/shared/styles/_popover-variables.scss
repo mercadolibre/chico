@@ -1,0 +1,22 @@
+// > Popover
+// ----------------------------------------------------------------
+
+$popover-box-shadow: 2px 2px 2px rgba(100, 100, 100, .2) !default;
+
+// >>> Close button
+// --------------------------------------------
+
+$popover-close-btn-margin: 0 24px 0 0 !default;
+
+// >>>Border width
+// --------------------------------------------
+
+$popover-border-width: 1px !default;
+
+// >> Cone
+// ------------------------------------------------------
+
+$popover-cone-size: 10px !default;
+
+$popover-border-color: $main-border-color !default;
+$popover-content-bg-color: $main-neutral-color !default;

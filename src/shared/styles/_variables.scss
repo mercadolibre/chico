@@ -1,0 +1,67 @@
+// > COMMON SHARED SKIN VARIABLES
+// ----------------------------------------------------------------
+
+// >> Global colors
+// ------------------------------------------------------
+
+// >>> Primary palette
+// --------------------------------------------
+
+$main-primary-color: #03b !default;
+
+$links-color: $main-primary-color !default;
+$error-bg-color: #f5e6e6 !default;
+
+// >>> Secondary palette
+// --------------------------------------------
+
+$main-secondary-color: #fdf9d5 !default;
+
+// >>> Neutral colors
+// --------------------------------------------
+
+$main-neutral-color: #fff !default;
+$main-neutral-accent-color: #000 !default;
+
+$gray-50: #f9f9f9 !default;
+
+$gray-100: #f0f0f0 !default;
+$gray-200: #e9e9e9 !default;
+$gray-400: #dedede !default;
+
+$gray-500: #cdcdcd !default;
+
+$gray-600: #a9a9a9 !default;
+$gray-700: #999 !default;
+$gray-800: #666 !default;
+$gray-900: #333 !default;
+
+$main-text-color: $gray-900 !default;
+$main-border-color: $gray-400 !default;
+
+$main-text-shadow-color: rgba(255,255,255,.5) !default;
+
+// $main-disabled-color
+
+// > COMMON SHARED STRUCTURE VARIABLES
+// ----------------------------------------------------------------
+
+// >> Fonts
+// ------------------------------------------------------
+
+$font__xx__large: 22px !default;
+$font__x__large: 20px !default;
+$font__large: 18px !default;
+$font__medium: 16px !default;
+$font__small: 15px !default;
+$font__x__small: 14px !default;
+$font__smaller:	12px !default;
+$font__smallest: 11px !default;
+
+$font__normal: 13px !default;
+$font__mini: 10px !default; // ver en donde se usa
+
+// >> Assets
+// ------------------------------------------------------
+
+$assets-path: '../assets';

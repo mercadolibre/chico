@@ -1,0 +1,25 @@
+// > Pagination
+// ----------------------------------------------------------------
+
+// >>> Link to page
+// --------------------------------------------
+
+$pagination-page-bg-color: $main-neutral-color !default;
+$pagination-page-border: 1px solid $main-border-color !default;
+
+// >>> Current page
+// --------------------------------------------
+
+$pagination-current-page-border: 1px solid $gray-200 !default;
+$pagination-current-page-bg-color: $gray-100 !default;
+$pagination-current-page-text-color: $gray-800 !default;
+
+$pagination-padding: 0 !default;
+$pagination-margin: 10px 0 !default;
+$pagination-page-margin: 0 4px !default;
+
+// >>> Link to page
+// --------------------------------------------
+
+$pagination-page-border-radius: 3px !default;
+$pagination-page-padding: 5px 8px !default;

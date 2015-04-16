@@ -1,0 +1,40 @@
+// > Mixins
+// ----------------------------------------------------------------
+
+// >> Hide text
+// ------------------------------------------------------
+
+@mixin hide-text {
+    visibility: hidden;
+    position: absolute !important;
+    top: -9999px !important;
+}
+
+// >> Opacity
+// ------------------------------------------------------
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    filter: unquote("alpha(opacity=#{$opacity * 100})");
+}
+
+// >> No-select
+// ------------------------------------------------------
+
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+// >> Ellipsis
+// ------------------------------------------------------
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

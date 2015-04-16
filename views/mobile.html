@@ -17,7 +17,8 @@
     <meta http-equiv="cleartype" content="on">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/mobile/css">
+    <!--<link rel="stylesheet" href="/mobile/css">-->
+    <link rel="stylesheet" href="/dist/mobile/chico.css">
 
     <style>
         .body {
@@ -81,7 +82,6 @@
 
     <h2>List of components</h2>
     <ul class="ch-list">
-        <li><a href="#headers">Headers</a></li>
         <li><a href="#headings">Headings</a></li>
         <li><a href="#paragraphs">Paragraphs</a></li>
         <li><a href="#links">Links</a></li>
@@ -104,22 +104,6 @@
         <li><a href="#countdown">Countdown</a></li>
         <li><a href="#forms">Forms</a></li>
     </ul>
-
-    <h2 id="headers">Headers</h2>
-    <div class="ch-header">
-        <h1>Preguntas</h1>
-        <nav>
-            <a class="ch-btn-header ch-action-left" href="http://homes-frontend.mercadolibre.com.ar">Inicio</a>
-        </nav>
-    </div>
-
-    <div class="ch-header-skin">
-        <h1>Pregunta</h1>
-        <div class="ch-nav">
-            <a class="ch-btn-header ch-action-left" href="questions.html">Cancelar</a>
-            <a class="ch-btn-header ch-action-right makeAnswer" href="#make-answer">Responder</a>
-        </div>
-    </div>
 
     <div class="ch-box-lite">
         <h1 id="headings">Headings</h1>
@@ -773,8 +757,8 @@
     </div>
 
 
-    <script src="/vendor/zepto-data-fx_methods-touch.js"></script>
-    <script src="/mobile/js"></script>
+    <script src="/bower_components/zepto-full/zepto.js"></script>
+    <script src="/dist/mobile/chico.js"></script>
     <script>
 
         // Exnted carousel
@@ -888,6 +872,12 @@
 
         var expado = $(".categories").expandable();
         var menu = $(".myMenu").menu();
+
+        [].forEach.call(document.querySelectorAll('a[href="#"], a[href=""]'), function(a) {
+            a.addEventListener('click', function(e){
+                e.preventDefault();
+            });
+        });
     </script>
 </body>
 </html>

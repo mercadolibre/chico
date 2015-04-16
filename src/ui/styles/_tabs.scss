@@ -1,0 +1,64 @@
+/**
+ * Tab Navigator
+ */
+@import 'tabs-variables';
+
+.ch-tabs {
+    margin: $tabs-component-margin;
+
+    .ch-tabs-triggers {
+        position: relative;
+        top: 1px;
+        z-index: 10;
+        padding: 0;
+        margin: $tab-group-margin;
+        list-style: none;
+        overflow: hidden;
+
+        & li {
+            cursor: $tab-cursor;
+            display: inline;
+            margin: $tab-margin;
+        }
+    }
+}
+
+/* Triggers */
+.ch-tab {
+    border: $tab-border;
+    display: inline-block;
+    padding: $tab-padding;
+    margin: $tab-margin;
+    text-decoration: $tab-text-decoration !important;
+    color: $tab-text-color !important; 
+    background-color: $tab-bg-color;
+    border-radius: $tab-border-radius;
+
+    &:hover {
+        background-color: $tab-hover-bg-color;
+    }
+
+    &:active {
+        background-color: $tab-active-bg-color;
+    }
+}
+
+/* Trigger ON */
+.ch-tabs .ch-tab.ch-expandable-trigger-on,
+.ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
+    @include linear-gradient($tab-trigger-bg-color, $tab-trigger-bg-color-secondary);
+    border-bottom: $tab-trigger-border-bottom;
+    cursor: default;
+    font-weight: $tab-trigger-text-weigth;
+    box-shadow: $tab-trigger-box-shadow;
+}
+
+.lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
+.lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$tab-trigger-bg-color', endColorstr='$tab-trigger-bg-color-secondary');
+}
+
+/* Container */
+.ch-tabs .ch-box-lite {
+    border-radius: 0;
+}

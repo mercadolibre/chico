@@ -1,0 +1,115 @@
+/**
+ * Carousel
+ */
+@import 'carousel-variables';
+
+.ch-carousel {
+    overflow: auto;
+    position: relative;
+    /* Enable hardware acceleration */
+    @include transform(translateZ(0));
+}
+
+.ch-carousel-mask {
+    overflow: hidden;
+    position: relative;
+    margin: $carousel-mask;
+}
+
+/* Both are the same elements, but it can apply styles before the component initialization */
+.ch-carousel > ul,
+.ch-carousel-list {
+    overflow: hidden;
+    @include transition(all .8s ease);
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ch-carousel ul.ch-carousel-nofx {
+    @include transition(none);
+}
+
+/* Both are the same elements, but it can apply styles before the component initialization */
+.ch-carousel > ul > li,
+.ch-carousel-item {
+    display: inline-block;
+    float: left; /* Fixes the inline-block inner space between li elements */
+}
+
+.ch-carousel-prev,
+.ch-carousel-next {
+    cursor: $carousel-control-cursor;
+    position: absolute;
+    z-index: 2;
+    width: $carousel-control-width;
+    height: $carousel-control-height;
+    font-size: $carousel-control-font-size;
+    line-height: $carousel-control-line-height;
+    color:$carousel-control-color;
+    top: $carousel-control-vertical-position;
+    margin: $carousel-control-margin;
+}
+
+.ch-carousel-prev {
+    left: 0;
+}
+
+.ch-carousel-next {
+    right: 0;
+}
+
+.ch-carousel-prev:after,
+.ch-carousel-next:after {
+    font-family: icons;
+    position: absolute;
+}
+
+.ch-carousel-prev:after {
+    content: "\f053";
+    left: $carousel-control-position;
+}
+
+.ch-carousel-next:after {
+    content: "\f054";
+    right: $carousel-control-position;
+}
+
+.ch-carousel-prev:hover,
+.ch-carousel-next:hover {
+    opacity: $carousel-control-hover;
+}
+
+.ch-carousel-disabled {
+    display: none;
+}
+
+/* Pagination */
+.ch-carousel-pages {
+    font-size: 0;
+    line-height: 0;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+
+    span {
+        background-color: $carousel-pagination-bg-color;
+        border-radius: 100%; 
+        -webkit-box-shadow: $carousel-pagination-shadow;
+        box-shadow: $carousel-pagination-shadow;
+        cursor: pointer;
+        display: inline-block;
+        height: $carousel-pagination-height;
+        margin: $carousel-pagination-margin;
+        overflow: hidden;
+        text-indent: -99px;
+        width: $carousel-pagination-width;
+    }
+}
+
+.ch-carousel-pages .ch-carousel-selected {
+    background-color: $carousel-pagination-selected-bg-color;
+}

@@ -1,0 +1,71 @@
+@import 'zoom-variables';
+
+/* Anchor */
+.ch-zoom-trigger {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: $zoom-cursor;
+}
+
+.ch-zoom-loading,
+.ch-zoom-seeker {
+    position: absolute;
+    z-index: 2;      
+}
+
+.ch-zoom-loading {
+    border: $zoom-loading-border;
+}
+
+.ch-zoom-seeker {
+    border: $zoom-seeker-border;
+}
+
+/* Loading transition */
+.ch-zoom-loading {
+    width: $zoom-loading-size;
+    height: $zoom-loading-size;
+    border-radius: $zoom-loading-border-radius;
+    font-size: $zoom-loading-text-size;
+    color: $zoom-loading-text-color;
+    text-align: center;
+    background-color: $zoom-loading-bg-color;
+}
+
+/* Seeker shape */
+.ch-zoom-seeker {
+    cursor: $zoom-cursor;
+    background-color: $zoom-seeker-bg-color;
+}
+
+/* Zoomed area */
+.ch-zoom {
+    border: $zoom-area-border;
+    background-color: $zoom-area-bg-color;
+    position: absolute;
+}
+
+/* Zoomed container */
+.ch-zoom .ch-popover-content {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Zoomed image */
+.ch-zoom img {
+    position: absolute;
+}
+
+/* IE8- */
+.lt-ie9 .ch-zoom-loading {
+    background-color: $zoom-loading-ie-bg-color;
+    filter: alpha(opacity=$zoom-loading-ie-opacity);
+}
+
+.lt-ie9 .ch-zoom-seeker {
+    background-color: $zoom-seeker-ie-bg-color;
+    filter: alpha(opacity=$zoom-seeker-ie-opacity);
+}

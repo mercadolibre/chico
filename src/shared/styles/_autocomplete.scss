@@ -1,0 +1,29 @@
+@import 'autocomplete-variables';
+
+.ch-autocomplete {
+    @include border-top-radius(0);
+    border-top: none;
+    @include box-sizing(border-box);
+}
+
+.ch-autocomplete-item,
+.ch-autocomplete-highlighted {
+    margin: 0;
+    padding: $autocomplete-padding;
+    cursor: $autocomplete-trigger-cursor;
+}
+
+.ch-autocomplete-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ch-autocomplete-highlighted {
+    background-color: $autocomplete-highlighted;
+    border-radius: $autocomplete-highlighted-border-radius;
+}
+
+.ch-autocomplete-loading {
+    background: url('#{$assets-path}/loading-small.gif') no-repeat right $autocomplete-loading-position-right center;
+}

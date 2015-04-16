@@ -1,0 +1,31 @@
+// > Boxes Mobile
+// ----------------------------------------------------------------
+
+$box-bg-color: $gray-100 !default;
+
+// >> Box list
+// ------------------------------------------------------
+
+$box-list-bg-color: $gray-100 !default;
+$box-list-border: 1px solid $main-border-color !default;
+$box-list-padding: 0 !default;
+
+// >> Box list item
+// ------------------------------------------------------
+
+$box-list-item-border-bottom: 1px dotted $gray-500 !default;
+$box-list-item-text-color: $gray-800 !default;
+$box-list-item-text-size: 16px !default;
+$box-list-item-padding: 14px 42px 14px 20px !default;
+$box-list-item-text-shadow: 0 1px 0 $main-text-shadow-color !default;
+
+// >> Box list item active
+// ------------------------------------------------------
+
+$box-list-item-active-bg-color: #e9e9e9 !default;
+
+// >> List boxes link
+// ------------------------------------------------------
+
+$box-list-item-link-line-height: 25px !default;
+$box-list-item-link-text-decoration: none !default;

@@ -1,0 +1,36 @@
+/**
+ * Modal
+ */
+@import 'modal-variables';
+
+.ch-modal {
+    overflow: auto;
+    padding: $modal-padding;
+    box-shadow: $modal-box-shadow;
+}
+
+.ch-modal-lite {
+    text-align: center;
+    padding: $modal-lite-padding; 
+
+    h2 {
+        margin: $modal-lite-title-margin;
+    }
+}
+
+/**
+ * Underlay
+ */
+.ch-underlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $modal-underlay-bg-color;
+}
+
+.ie8 .ch-underlay {
+    background-color: #000;
+    -ms-filter: "alpha(opacity=50)";
+}

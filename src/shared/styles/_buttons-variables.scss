@@ -1,0 +1,93 @@
+// > Buttons
+// ----------------------------------------------------------------
+
+// >> General
+// ------------------------------------------------------
+
+$btn-text-family: Arial, Helvetica, "Nimbus Sans L", sans-serif !default;
+$btn-border-radius: 4px !default;
+$btn-box-shadow: none !default;
+$btn-text-decoration: none !default;
+$btn-text-size: $font__large !default;
+$btn-large-text-size: $font__x__large !default;
+
+// >> Primary
+// ------------------------------------------------------
+
+$btn-cursor: pointer;
+
+// >>> Normal state
+// --------------------------------------------
+
+$btn-primary-text-color: $main-neutral-color !default;
+$btn-primary-bg-color: #3e52a1 !default;
+$btn-primary-bg-color-secondary: #2d3277 !default;
+$btn-primary-active: #29358f !default;
+$btn-primary-border: 1px solid #2d3277 !default;
+$btn-primary-shadow: #8ea2df !default;
+$btn-primary-box-shadow: 0 1px 0 #7a89e8 inset !default;
+
+// >>> Hover state
+// --------------------------------------------
+
+$btn-primary-box-hover: #4051d0 !default;
+$btn-primary-box-hover-bg-color: #4355d2 !default;
+$btn-primary-box-hover-bg-color-secondary: #2f33ae !default;
+$btn-primary-hover-box-shadow: 0 1px 0 #7a89e8 inset !default;
+
+// >>> Active state
+// --------------------------------------------
+
+$btn-primary-active-bg-color: #292f66 !default;
+$btn-primary-active-bg-color-secondary: #202388 !default;
+$btn-primary-active-border: #181e39 !default;
+$btn-primary-active-box-shadow:	0 1px 6px #141452 inset !default;
+
+// >> Skin
+// ------------------------------------------------------
+
+// >>> Normal state
+// --------------------------------------------
+
+$btn-secondary-text-color: #476274 !default;
+$btn-secondary-bg-color: #cce3f7 !default;
+$btn-secondary-bg-color-secondary: #aaD0ef !default;
+$btn-secondary-border: 1px solid #79a8c7 !default;
+$btn-secondary-active: #7c9cB2 !default;
+$btn-secondary-shadow: none !default;
+$btn-secondary-box-shadow: 0 1px 0 #e5f2fc inset !default;
+$btn-secondary-text-shadow:	0 1px 1px $main-text-shadow-color !default;
+
+// >>> Hover state
+// --------------------------------------------
+
+$btn-secondary-hover-bg-color: #dcecfb !default;
+$btn-secondary-hover-bg-color-secondary: #c5dff5 !default;
+$btn-secondary-hover-box-shadow: 0 1px 0 #e5f2fc inset !default;
+
+// >>> Active state
+// --------------------------------------------
+
+$btn-secondary-active-bg-color: #a2c9e1 !default;
+$btn-secondary-active-bg-color-secondary: #7ab6dc !default;
+$btn-secondary-shadow-active: #476274 !default;
+$btn-secondary-border-active: #79a8c7 !default;
+$btn-secondary-active-box-shadow: 0 1px 6px #476274 inset !default;
+
+// >>> Disabled state
+// --------------------------------------------
+
+$btn-disabled-bg-color: $gray-50 !default;
+$btn-disabled-bg-color-secondary: $gray-400 !default;
+$btn-disabled-border: 1px solid $gray-500 !default;
+$btn-disabled-text-shadow: none !default;
+$btn-disabled-text-color: $gray-700 !default;
+$btn-disabled-opacity: 0.5 !default;
+$btn-disabled-box-shadow: 0 1px 1px $main-neutral-color !default;
+
+// >>> Active state
+// --------------------------------------------
+
+$btn-outline-style: thin dotted !default;
+$btn-outline: 5px auto -webkit-focus-ring-color !default;
+$btn-outline-offset: -2px !default;

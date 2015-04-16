@@ -1,0 +1,39 @@
+// > Wizard UI
+// ----------------------------------------------------------------
+
+$wizard-bg-color: $main-neutral-color !default;
+$wizard-border-color: $main-border-color !default;
+$wizard-border: 1px solid $wizard-border-color !default;
+$wizard-border-radius: 5px !default;
+
+// >>> Actions
+// --------------------------------------------
+
+$wizard-actions-bg-color: $gray-100 !default;
+$wizard-actions-border: 1px solid $main-border-color !default;
+$wizard-actions-border-radius: 0 0 5px 5px !default;
+
+// >>> Breadcrumb
+// --------------------------------------------
+
+$wizard-breadcrumb-border-bottom: 1px solid $main-border-color !default;
+$wizard-breadcrumb-text-position: center !default;
+$wizard-breadcrumb-text-color: $gray-500 !default;
+
+$wizard-breadcrumb-height: 42px !default;
+$wizard-breadcrumb-border-color: $gray-400 !default;
+
+// >>> Breadcrumb pointer
+// --------------------------------------------
+
+$wizard-breadcrumb-current-text-weight: bold !default;
+$wizard-breadcrumb-current-text-color: $gray-900 !default;
+$wizard-breadcrumb-pointer-content-color: $gray-100 !default;
+
+// >>> Breadcrumb link
+// --------------------------------------------
+
+$wizard-breadcrumb-link-bg-color: $wizard-actions-bg-color !default;
+
+$wizard-margin: 0 0 10px 0 !default;
+$wizard-actions-padding: 10px 20px !default;

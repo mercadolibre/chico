@@ -1,0 +1,69 @@
+/**
+ * Boxes
+ */
+@import 'boxes-variables';
+@import '../../shared/styles/boxes';
+
+.ch-box {
+    background-color: $box-bg-color;
+}
+
+/**
+ * List boxes
+ */
+.ch-box-list {
+    background-color: $box-list-bg-color;
+    border: $box-list-border;
+    padding: $box-list-padding;
+
+    li {
+        position: relative;
+        border-bottom: $box-list-item-border-bottom;
+        color: $box-list-item-text-color;
+        font-size: $box-list-item-text-size;
+        text-shadow: $box-list-item-text-shadow;
+
+        &:last-child {
+            border-bottom: none; 
+        }
+
+        &:active {
+            background-color: $box-list-item-active-bg-color;
+        }
+    }
+}
+
+/**
+ * List boxes: anchors within
+ */
+.ch-box-list li a {
+    line-height: $box-list-item-link-line-height;
+    text-decoration: $box-list-item-link-text-decoration;
+    display: block;
+    padding: $box-list-item-padding;
+    position: relative;
+
+    &:after {
+        content: '\f054';
+        font-size: 19px;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        margin-top: -11px;
+        color: #999;        
+    }
+}
+
+/**
+ * List boxes: icons within
+ */
+.ch-box-list [class*='ch-icon'] {
+    position: absolute;
+    top: .75em;
+    left: 16px;
+    color: #999;
+
+    & + a {
+        padding-left: 48px;
+    }
+}

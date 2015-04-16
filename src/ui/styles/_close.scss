@@ -1,0 +1,24 @@
+@import '../../shared/styles/close';
+
+/* IE */
+.lt-ie9 .ch-close {
+  text-indent: 0;
+  line-height: 13px;
+}
+
+.ie9 .ch-close {
+  line-height: 17px;
+}
+
+.lt-ie10 .ch-close {
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F7F7F7', endColorstr='#EEEEEE');
+}
+
+.lt-ie10 .ch-close:hover,
+.lt-ie10 .ch-close:focus {
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FA5900', endColorstr='#CA0C02');
+}
+
+.lt-ie10 .ch-close:active {
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BF0602', endColorstr='#8F2F00');
+}

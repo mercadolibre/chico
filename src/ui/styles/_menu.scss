@@ -1,0 +1,104 @@
+/**
+ * Menu
+ */
+@import 'menu-variables';
+
+.ch-menu {
+    max-width: $menu-max-width;
+    margin: $menu-margin;
+    padding: $menu-padding;
+    overflow: hidden;
+    list-style: none;
+    box-shadow: $menu-box-shadow;
+}
+
+.ch-accordion {
+    max-width: none;
+}
+
+/* Hides the folds */
+.no-js .ch-menu > li > ul {
+    display: none;
+}
+
+/* Show the folds */
+.no-js .ch-menu > li:hover ul {
+    display: block;
+}
+
+.ch-menu .ch-expandable {
+    margin: $menu-expandable-margin;
+}
+
+/* L1 and L2 items */
+.no-js .ch-menu > li span,
+.no-js .ch-menu > li ul a,
+.no-js .ch-menu > li a,
+.ch-fold-trigger,
+.ch-menu .ch-expandable-trigger,
+.ch-menu .ch-expandable-container a {
+    cursor: pointer;
+    text-decoration: none!important;
+    color: $menu-item-text-color!important;
+    display: block;
+    padding: $menu-item-padding;
+}
+
+/* L1 and L2 items hover */
+.no-js .ch-menu > li:hover span:hover,
+.no-js .ch-menu > li a:hover,
+.ch-fold-trigger:hover,
+.ch-menu .ch-expandable-trigger:hover,
+.ch-menu .ch-expandable-container a:hover {
+    background-color: $menu-hover-bg-color;
+    border-radius: $menu-boder-radius;
+}
+
+/* L1 items */
+.no-js .ch-menu > li span,
+.no-js .ch-menu > li ul,
+.no-js .ch-menu > li a,
+.ch-fold-trigger,
+.ch-menu .ch-expandable-trigger,
+.ch-menu .ch-expandable-container {
+    position: relative;
+}
+
+/* L1 items icon */
+.no-js .ch-menu > li span:after,
+.ch-menu .ch-expandable-trigger:after {
+    top: 50%;
+    margin-top: -8px;
+    right: 10px;
+    left: auto;
+}
+
+/* L2 items list */
+.no-js .ch-menu > li ul,
+.ch-menu .ch-expandable-container {
+    font-size: 0.9em;
+    margin: 10px 0;
+}
+
+/* L2 items */
+.no-js .ch-menu > li ul li a,
+.ch-menu .ch-expandable-container a {
+    padding: $menu-nojs-padding;
+    /*
+        Fix based on David Baron comment on the Firefox bug:
+        https://bugzilla.mozilla.org/show_bug.cgi?id=36854#c7
+     */
+    list-style: disc inside;
+    display: list-item;
+}
+
+/* Selected child */
+.no-js .ch-menu > li:hover span,
+.ch-menu .ch-expandable-trigger-on {
+    background-color: $menu-nojs-item-hover-bg-color;
+    border-radius: $menu-nojs-item-hover-border-radius;
+}
+
+.ch-menu-on {
+    font-weight: bold;
+}
