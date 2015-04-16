@@ -15,7 +15,7 @@
 
 @mixin opacity($opacity) {
     opacity: $opacity;
-    filter: unquote("alpha(opacity=(#{$opacity * 100}))");
+    filter: unquote("alpha(opacity=#{$opacity * 100})");
 }
 
 // >> No-select
