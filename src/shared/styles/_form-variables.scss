@@ -1,0 +1,123 @@
+// > Form
+// ----------------------------------------------------------------
+
+$fieldset-border: none !default;
+$fieldset-margin: 0 !default;
+$fieldset-padding: 0 !default;
+
+$legend-margin:	0 !default;
+$legend-padding: 0 !default;
+
+$form-actions-text-align: left !default;
+
+// >> Inputs (input, textarea, select)
+// ------------------------------------------------------
+
+$generic-input-border: 1px solid $gray-500 !default;
+$generic-input-padding:	6px !default;
+
+// >>> Focus state
+// --------------------------------------------
+
+$generic-input-focus-border: 2px solid $gray-700 !default;
+$generic-input-focus-padding: 5px !default;
+
+// >>> Input outline (file, checkbox, range, radio & select)
+// --------------------------------------------
+
+$input-options-focus-outline: 1px dotted $gray-700 !default;
+$input-options-subtitle-margin:	0 0 15px -20px !default;
+$input-required-options-subtitle-font-weight: bold !default;
+
+$input-options-label-padding: 0 0 0 22px !default;
+$input-options-label-margin: 0 !default;
+
+// >>> Input radio
+// --------------------------------------------
+
+$input-radio-margin: -9px 0 0 0 !default;
+
+// >>> Input checkbox
+// --------------------------------------------
+
+$input-checkbox-margin:	 -8px 0 0 0 !default;
+
+// >>> Read-only focus
+// --------------------------------------------
+
+$input-read-only-border:  none !default;
+$input-read-only-padding: 5px 0 !default;
+
+// >>> Icons
+// --------------------------------------------
+
+$input-inner-icon-opacity: .3 !default;
+$input-inner-icon-focus-opacity: .7 !default;
+
+$input-inner-icon-padding-right: 24px !default;
+
+$input-big-inner-icon-padding-right: 30px !default;
+$input-big-inner-icon-focus-padding-right: 29px !default;
+
+// >>> Required icon (*)
+// --------------------------------------------
+
+$icon-required-position: 3px !default;
+
+// >>> Form fieldset
+// --------------------------------------------
+
+$form-fieldset-margin: 0 0 10px 0 !default;
+
+$fieldset-title-text-color:	#dc7b1c !default;
+$fieldset-title-text-weight: bold !default;
+
+$fieldset-subtitle-text-size: 13px !default;
+$fieldset-subtitle-text-weight:	700 !default;
+
+// >>> Hint text
+// --------------------------------------------
+
+$form-hint-text-color: $gray-700 !default;
+$form-hint-text-size: 12px !default;
+$form-hint-line-heigth:	12px !default;
+
+// >>> Input row
+// --------------------------------------------
+
+$input-row-padding:	5px 0 !default;
+$input-row-label-padding: 7px 11px 5px 0 !default;
+
+// >>> Label required
+// --------------------------------------------
+
+$input-row-label-required-text-weight: bold !default;
+
+// >>> Multiple
+// --------------------------------------------
+
+$input-select-multiple-margin: 10px 0 0 0 !default;
+
+// >> Disabled input
+// ------------------------------------------------------
+
+$input-disabled-label-color: $gray-700 !default;
+$input-disabled-bg-color: $gray-100 !default;
+
+// >> Big form inputs (input, textarea, select)
+// ------------------------------------------------------
+
+$input-big-padding: 12px 10px !default;
+$input-big-margin: 5px 0 !default;
+$input-big-border-radius: 3px !default;
+
+// >>> Focus state
+// --------------------------------------------
+
+$input-big-focus-padding: 11px 9px !default;
+
+// >> Input errors
+// ------------------------------------------------------
+
+$input-error-border-color: #f99 !default;
+$input-error-focus-border-width: 2px !default;

@@ -1,0 +1,22 @@
+/*
+ * Badges
+ */
+[class*='ch-badge'] {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    font-size: 34px;
+    padding: 16px;
+    border-radius: 100%;
+    margin: 10px;
+    color: #FFF;
+    background-color: #F5CC00;
+
+    &.ch-icon-warning-sign {
+        color: #FFF;        
+    }
+}
+
+.ch-badge-skin {
+    background-color: #3A87AD;
+}

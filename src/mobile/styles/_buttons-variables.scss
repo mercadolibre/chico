@@ -1,0 +1,41 @@
+// > Buttons Mobile
+// ----------------------------------------------------------------
+
+$btn-padding: 7px 14px !default;
+
+$btn-line-height: 1.4em !default;
+
+$btn-small-line-height: 1.4em !default;
+$btn-small-padding: 5px 10px !default;
+$btn-small-text-size: 13px !default;
+
+$btn-large-line-height: 1.5em !default;
+
+// >> Action
+// ------------------------------------------------------
+
+$btn-action-color: #666 !default;
+$btn-action-text-shadow: 0 1px 1px $main-text-shadow-color !default;
+
+$btn-action-box-shadow: 0 1px 0 $main-neutral-color !default;
+$btn-action-bg-color: $gray-400 !default;
+$btn-action-bottom-bg-color: $gray-500 !default;
+
+$btn-action-active: #116DC4 !default;
+$btn-action-border: #bbb !default;
+
+// >>> Action hover
+// --------------------------------------------
+
+$btn-action-hover-bg-color: $main-neutral-color !default;
+$btn-action-hover-bottom-bg-color: $gray-400 !default;
+$btn-action-active-box-shadow: 0 1px 6px $main-text-shadow-color !default;
+
+// >>> Action active
+// --------------------------------------------
+
+$btn-action-active-bg-color: $gray-600 !default;
+$btn-action-active-bottom-bg-color: $gray-500 !default;
+
+$btn-action-shadow-active: $gray-700 !default;
+$btn-action-border-active: $gray-700 !default;

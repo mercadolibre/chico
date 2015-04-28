@@ -1,0 +1,25 @@
+// > Autocomplete Mobile
+// ----------------------------------------------------------------
+
+$autocomplete-padding: 0 !default;
+
+$autocomplete-item-border-radius: 0 !default;
+$autocomplete-item-border-bottom: 1px dotted $main-border-color !default;
+$autocomplete-item-line-height: 45px !default;
+$autocomplete-item-text-indent:	12px !default;
+$autocomplete-line-height: 45px !default;
+
+$autocomplete-lastitem-border-bottom-left: 5px !default;
+$autocomplete-lastitem-border-bottom-right: 5px !default;
+
+$autocomplete-item-icon-border-radius: 3px !default;
+$autocomplete-item-icon-color: $gray-100 !default;
+$autocomplete-item-icon-bg-color: $gray-500 !default;
+$autocomplete-item-icon-width: 40px !default;
+$autocomplete-item-icon-height:	40px !default;
+$autocomplete-text-shadow: 0 1px 0 $main-text-shadow-color !default;
+
+$autocomplete-item-icon-before-text-color: $gray-100 !default;
+$autocomplete-item-icon-before-text-size: 30px !default;
+$autocomplete-item-icon-before-line-height: 50px !default;
+$autocomplete-item-icon-before-text-indent: 10px !default;

@@ -8,56 +8,56 @@ var JS = {},
  * JS: Core
  */
 JS.core = [
-    "src/shared/js/helpers.js",
-    "src/shared/js/util.js",
-    "src/shared/js/support.js",
-    "src/shared/js/events.js",
-    "src/ui/js/events.js",
-    "src/shared/js/factory.js",
-    "src/ui/js/init.js"
+    "src/shared/scripts/helpers.js",
+    "src/shared/scripts/util.js",
+    "src/shared/scripts/support.js",
+    "src/shared/scripts/events.js",
+    "src/ui/scripts/events.js",
+    "src/shared/scripts/factory.js",
+    "src/ui/scripts/init.js"
 ];
 
 /*
  * JS: Abilities
  */
 JS.abilities = [
-    "src/shared/js/EventEmitter.js",
-    "src/shared/js/Content.js",
-    "src/shared/js/Collapsible.js",
-    "src/shared/js/Viewport.js",
-    "src/shared/js/Positioner.js",
-    "src/ui/js/shortcuts.js"
+    "src/shared/scripts/EventEmitter.js",
+    "src/shared/scripts/Content.js",
+    "src/shared/scripts/Collapsible.js",
+    "src/shared/scripts/Viewport.js",
+    "src/shared/scripts/Positioner.js",
+    "src/ui/scripts/shortcuts.js"
 ];
 
 /*
  * JS: Components
  */
 JS.components = [
-    "src/shared/js/onImagesLoads.js",
-    "src/shared/js/Component.js",
-    "src/shared/js/Form.js",
-    "src/shared/js/Condition.js",
-    "src/shared/js/Validation.js",
-    "src/ui/js/Validation.js",
-    "src/shared/js/Expandable.js",
-    "src/shared/js/Menu.js",
-    "src/shared/js/Popover.js",
-    "src/ui/js/Popover.js",
-    "src/shared/js/Layer.js",
-    "src/shared/js/Tooltip.js",
-    "src/shared/js/Bubble.js",
-    "src/shared/js/Modal.js",
-    "src/shared/js/Transition.js",
-    "src/ui/js/Zoom.js",
-    "src/shared/js/Calendar.js",
-    "src/shared/js/Dropdown.js",
-    "src/ui/js/Dropdown.js",
-    "src/ui/js/Tabs.js",
-    "src/shared/js/Carousel.js",
-    "src/shared/js/Countdown.js",
-    "src/ui/js/Datepicker.js",
-    "src/shared/js/Autocomplete.js",
-    "src/ui/js/Autocomplete.js"
+    "src/shared/scripts/onImagesLoads.js",
+    "src/shared/scripts/Component.js",
+    "src/shared/scripts/Form.js",
+    "src/shared/scripts/Condition.js",
+    "src/shared/scripts/Validation.js",
+    "src/ui/scripts/Validation.js",
+    "src/shared/scripts/Expandable.js",
+    "src/shared/scripts/Menu.js",
+    "src/shared/scripts/Popover.js",
+    "src/ui/scripts/Popover.js",
+    "src/shared/scripts/Layer.js",
+    "src/shared/scripts/Tooltip.js",
+    "src/shared/scripts/Bubble.js",
+    "src/shared/scripts/Modal.js",
+    "src/shared/scripts/Transition.js",
+    "src/ui/scripts/Zoom.js",
+    "src/shared/scripts/Calendar.js",
+    "src/shared/scripts/Dropdown.js",
+    "src/ui/scripts/Dropdown.js",
+    "src/ui/scripts/Tabs.js",
+    "src/shared/scripts/Carousel.js",
+    "src/shared/scripts/Countdown.js",
+    "src/ui/scripts/Datepicker.js",
+    "src/shared/scripts/Autocomplete.js",
+    "src/ui/scripts/Autocomplete.js"
 ];
 
 
@@ -69,52 +69,52 @@ JS.components = [
  * CSS: Reset
  */
 CSS.resetML = [
-    "src/shared/css/reset.css",
-    "src/ui/css/reset.css",
-    "src/shared/css/typography.css"
+    "src/shared/styles/reset.css",
+    "src/ui/styles/reset.css",
+    "src/shared/styles/typography.css"
 ];
 
 /*
  * CSS: Core
  */
 CSS.core = [
-    "src/shared/css/base.css",
-    "src/ui/css/base.css",
-    "src/shared/css/icons.css",
-    "src/ui/css/badges.css",
-    "src/shared/css/boxes.css",
-    "src/ui/css/boxes.css",
-    "src/shared/css/loading.css"
+    "src/shared/styles/base.css",
+    "src/ui/styles/base.css",
+    "src/shared/styles/icons.css",
+    "src/ui/styles/badges.css",
+    "src/shared/styles/boxes.css",
+    "src/ui/styles/boxes.css",
+    "src/shared/styles/loading.css"
 ];
 
 /*
  * CSS: Components
  */
 CSS.components = [
-    "src/shared/css/buttons.css",
-    "src/ui/css/buttons.css",
-    "src/shared/css/datagrid.css",
-    "src/shared/css/lists.css",
-    "src/shared/css/pagination.css",
-    "src/ui/css/pagination.css",
-    "src/shared/css/Form.css",
-    "src/ui/css/Form.css",
-    "src/shared/css/Popover.css",
-    "src/shared/css/Tooltip.css",
-    "src/shared/css/Bubble.css",
-    "src/shared/css/Modal.css",
-    "src/shared/css/Transition.css",
-    "src/ui/css/Zoom.css",
-    "src/ui/css/wizard.css",
-    "src/shared/css/Calendar.css",
-    "src/shared/css/Carousel.css",
-    "src/shared/css/Dropdown.css",
-    "src/ui/css/Expandable.css",
-    "src/ui/css/Menu.css",
-    "src/ui/css/Tabs.css",
-    "src/ui/css/Datepicker.css",
-    "src/shared/css/Autocomplete.css",
-    "src/ui/css/Autocomplete.css"
+    "src/shared/styles/buttons.css",
+    "src/ui/styles/buttons.css",
+    "src/shared/styles/datagrid.css",
+    "src/shared/styles/lists.css",
+    "src/shared/styles/pagination.css",
+    "src/ui/styles/pagination.css",
+    "src/shared/styles/Form.css",
+    "src/ui/styles/Form.css",
+    "src/shared/styles/Popover.css",
+    "src/shared/styles/Tooltip.css",
+    "src/shared/styles/Bubble.css",
+    "src/shared/styles/Modal.css",
+    "src/shared/styles/Transition.css",
+    "src/ui/styles/Zoom.css",
+    "src/ui/styles/wizard.css",
+    "src/shared/styles/Calendar.css",
+    "src/shared/styles/Carousel.css",
+    "src/shared/styles/Dropdown.css",
+    "src/ui/styles/Expandable.css",
+    "src/ui/styles/Menu.css",
+    "src/ui/styles/Tabs.css",
+    "src/ui/styles/Datepicker.css",
+    "src/shared/styles/Autocomplete.css",
+    "src/ui/styles/Autocomplete.css"
 ];
 
 /*

@@ -1,0 +1,27 @@
+@import 'base-variables';
+
+[hidden],
+.ch-hide {
+    display: none;
+}
+
+.ch-hidden {
+    @include hide-text();
+}
+
+.ch-ellipsis {
+    @include ellipsis();
+}
+
+.ch-actions {
+    margin: $actions-box-margin;
+
+    a {
+        margin: $action-box-links-margin;
+    }
+}
+
+/* do not select text */
+.ch-user-no-select {
+    @include no-select();
+}

@@ -1,0 +1,76 @@
+// > Calendar
+// ----------------------------------------------------------------
+
+// >>> General
+// --------------------------------------------
+
+$calendar-border: 1px solid $main-border-color !default ;
+$calendar-text-align: center !default ;
+
+// >>> Title
+// --------------------------------------------
+
+$calendar-title-bg-color: $gray-100 !default ;
+$calendar-title-shadow:	0 1px 0 $main-neutral-color !default ;
+
+// >>> Day cell
+// --------------------------------------------
+
+$calendar-day-cursor: default !default ;
+
+// >>> Today cell
+// --------------------------------------------
+
+$calendar-day-today-bg-color: #fefbd6 !default ;
+
+// >>> Empty day cell
+// --------------------------------------------
+
+$calendar-day-empty-color: $gray-500 !default ;
+$calendar-day-empty-cursor:	default !default ;
+
+// >>> Disabled day cell
+// --------------------------------------------
+
+$calendar-day-disabled-bg-color: $main-neutral-color !default ;
+$calendar-day-disabled-text-color: $gray-500 !default ;
+
+// >>> Calendar selected
+// --------------------------------------------
+
+$calendar-day-selected-bg-color: $gray-700 !default ;
+$calendar-day-selected-text-color: $main-neutral-color !default ;
+$calendar-day-selected-text-weight:	bold !default ;
+
+// ----- Header controls ----- //
+
+$calendar-head-control-pointer:	pointer !default ;
+
+$calendar-head-control-icon-color: $gray-800 !default ;
+$calendar-head-control-icon-shadow:	0 1px $main-neutral-color !default ;
+
+$calendar-head-control-prev-icon-position: 15px !default ;
+$calendar-head-control-next-icon-position: 15px !default ;
+
+// ----- General ----- //
+
+$calendar-text-size: $font__smaller !default ;
+$calendar-width: 240px !default ;
+
+// ----- Title ----- //
+
+$calendar-title-text-size: $font__normal !default ;
+$calendar-title-line-heigth: 28px !default ;
+
+$calendar-day-height: 26px !default ;
+$calendar-day-line-height: 26px !default ;
+
+$calendar-head-text-size: $font__smallest !default ;
+$calendar-head-text-weight:	normal !default ;
+
+// ----- Header controls ----- //
+
+$calendar-head-control-padding:	0px 20px !default ;
+$calendar-head-control-height: 28px !default ;
+$calendar-head-control-line-height: 18px !default ;
+$calendar-head-control-font-size: .9em !default ;

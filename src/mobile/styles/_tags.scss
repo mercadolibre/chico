@@ -1,0 +1,38 @@
+/*
+ * Tags
+ */
+@import 'tags-variables';
+
+.ch-tag,
+a.ch-tag, /* Specificity to colorize links */
+.ch-tag:focus,
+.ch-tag:hover,
+.ch-tag:active,
+.ch-tag:visited {
+	background-color: $tag-bg-color;
+	border: $tag-border;
+	border-radius: $tag-border-radius;
+	color: $tag-text-color;
+    font-size: $tag-text-size;
+	margin: $tag-margin;
+	padding: $tag-padding;
+	text-shadow: $tag-text-shadow;
+	display: inline-block;
+	text-decoration: none;
+	position: relative;
+}
+
+.ch-tag:active {
+	background-color: $tag-active-bg-color;
+}
+
+.ch-tag:after {
+	font-size: 1em;
+	content: '\f00d';
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	left: auto;
+	margin: $tag-icon-margin;
+	color: $tag-icon-color;
+}

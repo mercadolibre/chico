@@ -1,0 +1,104 @@
+/**
+ * Boxes
+ */
+@import 'boxes-variables';
+
+[class*='ch-box'] {
+    border-radius: $box-border-radius;
+    margin: $box-margin;
+    padding: $box-padding;
+}
+
+.ch-box-lite,
+.ch-box {
+    border: $box-border;
+}
+
+.ch-box-lite {
+    background-color: $box-lite-bg-color;
+}
+
+/**
+ * Message boxes
+ */
+.ch-box-icon {
+    position: relative;
+    padding-left: 32px;
+
+    [class*='ch-icon-'] {
+        position: absolute;
+        top: 7px;
+        left: 5px;
+    }
+}
+
+
+/**
+ * Warn
+ */
+.ch-icon-warning-sign {
+    color: $icon-warning-text-color;
+}
+
+.ch-box-warn {
+    background-color: $box-warning-bg-color;
+    color: $box-warning-text-color;
+}
+
+
+/**
+ * Error
+ */
+.ch-box-error,
+.ch-icon-remove-sign {
+    color: $box-error-text-color;
+}
+
+.ch-box-error {
+    background-color: $box-error-bg-color;
+
+    a:visited {
+        color: $box-error-visited-text-color;
+    }
+
+}
+
+/**
+ * Help
+ */
+.ch-box-help,
+.ch-icon-help-sign {
+    color: $box-help-text-color;
+}
+
+.ch-box-help {
+    background-color: $box-help-bg-color;
+}
+
+/**
+ * Info
+ */
+.ch-box-info,
+.ch-icon-info-sign {
+    color: $box-info-text-color;
+}
+
+.ch-box-info {
+    background-color: $box-info-bg-color;
+
+    a {
+        text-decoration: $box-info-link-text-decoration!important;
+    }
+}
+
+/**
+ * Ok
+ */
+.ch-box-ok,
+.ch-icon-ok-sign  {
+    color: $box-ok-text-color;
+}
+
+.ch-box-ok {
+    background-color: $box-ok-bg-color;
+}

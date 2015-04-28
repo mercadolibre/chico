@@ -1,0 +1,51 @@
+/**
+ * expandable
+ */
+@import 'expandable-variables';
+
+/* Trigger */
+.ch-expandable-trigger {
+    color: $expandable-trigger-text-color;
+    cursor: $expandable-trigger-cursor;
+    position: relative;
+    padding: $expandable-trigger-padding;
+    font-size: $expandable-trigger-text-size;
+
+    &:active {
+        color: $expandable-trigger-active-text-color;  
+    &:visited {
+        color: $expandable-trigger-visited-text-color;   
+    }
+    &:hover {
+        text-decoration: $expandable-trigger-visited-text-decoration;       
+    }
+}
+
+}
+
+/* Trigger icon */
+.ch-expandable-trigger.ch-expandable-ico:after {
+    font-family: icons;
+    content: "\f0da";
+    position:absolute;
+    top: 2px;
+    left: 5px;
+    color: #999;
+    text-decoration: none;
+}
+
+/* Trigger icon on */
+.ch-expandable-trigger-on.ch-expandable-ico:after {
+    content: "\f0d7";
+    left: 2px;
+}
+
+/* Content */
+.no-js .ch-expandable-trigger + .ch-hide,
+.ch-expandable-container {
+    margin: 0 0 5px 16px;
+}
+
+.no-js .ch-expandable-trigger + .ch-hide {
+    display: block;
+}

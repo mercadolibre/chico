@@ -1,0 +1,96 @@
+@import 'typography-variables';
+
+/**
+ * Headings
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: $headings-text-weight;
+    margin: $headings-margin;
+}
+
+h1 {
+    font-size: $heading-h1;
+}
+
+h2 {
+    font-size: $heading-h2;
+}
+
+h3 {
+    font-size: $heading-h3;
+}
+
+h4 {
+    font-size: $heading-h4;
+}
+
+h5 {
+    font-size: $heading-h5;
+}
+
+h6 {
+    font-size: $heading-h6;
+}
+
+/**
+ * Box Headings
+ */
+[class*="ch-box"] h1,
+[class*="ch-box"] h2,
+[class*="ch-box"] h3,
+[class*="ch-box"] h4,
+[class*="ch-box"] h5,
+[class*="ch-box"] h6 {
+    margin-top: $headings-boxes-margin-top;
+}
+
+/**
+ * Links
+ */
+a,
+a:active,
+a:link {
+    color: $main-primary-color;
+    text-decoration: none;
+}
+
+a:visited {
+    color: $links-visited-color;
+}
+
+a:hover,
+a:focus {
+    text-decoration: $links-visited-text-decoration;
+}
+
+/**
+ * Price
+ */
+.ch-price {
+    color: $price-color;
+    font-size: $font__medium;
+    font-weight: bold;
+
+    sup {
+        font-size: $font__mini;
+        vertical-align: text-top;
+        line-height: 1em;
+    }
+
+    span {
+        color: $gray-700;
+        font-size: $font__normal;
+        font-weight: normal;
+    }
+
+}
+
+/* IE */
+.lt-ie9 .ch-price sup {
+    font-size: $font__smaller;
+}

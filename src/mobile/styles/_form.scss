@@ -1,0 +1,153 @@
+/* Generic input & textarea */
+@import 'form-variables';
+@import '../../shared/styles/form';
+
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="search"],
+input[type="date"],
+input[type="datatime"],
+input[type="datatime-local"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+textarea,
+select,
+select[multiple] {
+    @include box-sizing(border-box);
+    display: block;
+    font-size: $generic-input-text-size;
+    line-height: $generic-input-line-height;
+    margin: $generic-input-margin;
+    width: 100%;
+}
+
+.ch-form-row-inline input[type="text"],
+.ch-form-row-inline input[type="url"],
+.ch-form-row-inline input[type="email"],
+.ch-form-row-inline input[type="search"],
+.ch-form-row-inline input[type="date"],
+.ch-form-row-inline input[type="datatime"],
+.ch-form-row-inline input[type="datatime-local"],
+.ch-form-row-inline input[type="month"],
+.ch-form-row-inline input[type="week"],
+.ch-form-row-inline input[type="time"],
+.ch-form-row-inline input[type="tel"],
+.ch-form-row-inline input[type="number"],
+.ch-form-row-inline input[type="password"],
+.ch-form-row-inline select {
+    display: inline-block;
+    width: auto;
+}
+
+input,
+input:focus {
+    padding: $generic-input-padding;
+}
+
+input[type="radio"],
+input[type="checkbox"],
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+    padding: $input-options-padding;
+}
+
+/* Inner Icons */
+.ch-form-icon-inner {
+    display: block;
+    left: auto;
+    right: 2px;
+    top: 41px;
+    position: absolute;
+}
+
+/* BigForm Inner Icons */
+.ch-form-big .ch-form-icon-inner {
+    top: 54px;
+}
+
+
+/* Icon & button alignment */
+.ch-form-row input + .ch-btn,
+.ch-form-row input + .ch-form-icon {
+    position: absolute;
+    top: 76px;
+    right: 0;
+    margin-right: 0;
+    z-index: 2;
+}
+
+/* Title module */
+.ch-form legend {
+    font-size: $legend-text-size;
+    padding-bottom: $legend-padding;
+}
+
+/* Label */
+.ch-form-row label {
+    font-size: $label-text-size;
+    padding-bottom: $label-padding;
+}
+
+
+/* Checkbox inline */
+.ch-form-checkbox-inline{
+    margin-left: 0;
+}
+
+/* Select */
+.ch-form-row select {
+    height: $select-height;
+    border-color: $select-border-color;
+    margin: $select-margin
+}
+
+/* Select Multiple */
+.ch-form-row select[multiple],
+.ch-form-select-multiple {
+    height: auto;
+}
+
+.ch-form-row .ch-form-hint {
+    margin-left: $form-text-hint-margin;
+}
+
+.ch-validation-message {
+    color: $form-validation-message-text-color;
+    padding: 0;
+    margin: 0;
+}
+
+/**
+ * Forms within list boxes
+ */
+
+.ch-box-list .ch-form-row,
+.ch-box-list.ch-form-row {
+    padding: $form-box-list-padding;
+}
+
+.ch-box-list input + label {
+    @include box-sizing(border-box);
+    font-size: $form-box-list-label-text-size;
+    width: 100%;
+    padding: $form-box-list-label-padding;
+}
+
+.ch-box-list input[type="radio"],
+.ch-box-list input[type="checkbox"] {
+    top: 25px;
+    left: 13px;
+}
+
+.ch-list-box input[type="radio"] {
+    margin-top: -5px;
+}
+
+.ch-list-box input[type="checkbox"] {
+    margin-top: -4px;
+}

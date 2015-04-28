@@ -1,0 +1,98 @@
+// > Dropdown
+// ----------------------------------------------------------------
+
+// >>> List item
+// --------------------------------------------
+
+$list-item-color: $main-neutral-accent-color !default;
+$list-item-decoration: none !default;
+
+// >>> Focus-item list
+// --------------------------------------------
+
+$list-item-focus-bg-color: #fefbd6 !default;
+$list-item-focus-outline: none !default;
+
+// >>> Trigger
+// --------------------------------------------
+
+$trigger-active-bg-color: #7ab6dc !default;
+$trigger-active-bg-color-top: #a2c9e1 !default;
+
+$trigger-active-border-color: #79a8c7 !default;
+$trigger-active-border-radius: 3px 3px 0 0 !default;
+
+// >>> Trigger active
+// --------------------------------------------
+
+$trigger-active-border:	$main-border-color !default;
+$trigger-active-box-shadow:	0 1px 6px rgba(71, 98, 116, .6) !default;
+
+$skin-list-item-bg-color: none !default;
+$skin-list-item-color: $main-primary-color !default;
+
+// >>> Trigger
+// --------------------------------------------
+
+$trigger-skin-bg-color:	transparent !default;
+$trigger-skin-border: 1px solid transparent !default;
+$trigger-skin-border-radius: 0 !default;
+$trigger-skin-text-color: $main-primary-color !default;
+$trigger-skin-text-decoration: none !default;
+
+// >>> Trigger after
+// --------------------------------------------
+
+$trigger-skin-after-text-color: $gray-700 !default;
+
+// >>> Trigger active
+// --------------------------------------------
+
+$trigger-skin-active-text-color: #00d !default;
+
+// >>> Trigger on
+// --------------------------------------------
+
+$trigger-on-skin-bg-color: $main-neutral-color !default;
+$trigger-on-skin-border: $gray-400 !default;
+$trigger-on-skin-border-radius:	0 !default;
+$trigger-on-skin-box-shadow: 2px 0 0 rgba(100, 100, 100, .2) !default;
+
+// >> General
+// ------------------------------------------------------
+
+$dropdown-trigger-cursor: pointer !default;
+$dropdown-trigger-padding: 5px 2em 5px 8px !default;
+$dropdown-border-radius: 0 5px 5px !default;
+$dropdown-box-shadow: inset 2px 2px 2px rgba(100, 100, 100, .2) !default;
+
+// >> Primary skin
+// ------------------------------------------------------
+
+$box-content-min-width: 120px !default;
+
+// >>> List item
+// --------------------------------------------
+
+$list-item-height: 25px !default;
+$list-item-line-height: 25px !default;
+$list-item-margin: 5px 0 !default;
+$list-item-padding: 2px 35px 2px 10px !default;
+
+// >> Secondary skin
+// ------------------------------------------------------
+
+$skin-box-padding: 5px 10px !default;
+
+// >>> List item
+// --------------------------------------------
+
+$skin-list-item-margin:	5px 0 !default;
+$skin-list-item-line-height: 20px !default;
+$skin-list-item-padding: 0 !default;
+
+// >>> Trigger
+// --------------------------------------------
+
+$trigger-skin-padding: 0 28px 0 13px !default;
+$trigger-skin-border-width:	0 1px !default;

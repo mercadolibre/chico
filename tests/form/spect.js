@@ -110,7 +110,6 @@ describe('When the form is submitted it', function () {
     it('should run "validate" method', function () {
         spyOn(form, 'validate').andCallThrough();
 
-        ch.util.Event.createCustom('submit');
         ch.util.Event.dispatchEvent(form.container, 'submit');
         //form.container.submit();
 
@@ -145,7 +144,6 @@ describe('Its validate() method', function () {
     it('should emit "success" event when it has not got errors', function () {
         input.setAttribute('value', 'success');
 
-        ch.util.Event.createCustom('submit');
         ch.util.Event.dispatchEvent(form.container, 'submit');
         //form.container.submit();
 

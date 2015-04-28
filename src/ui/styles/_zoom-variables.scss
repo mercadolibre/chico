@@ -1,0 +1,36 @@
+// > Zoom UI
+// ----------------------------------------------------------------
+
+$zoom-cursor:						crosshair !default;
+
+// >>> Seeker
+// --------------------------------------------
+
+$zoom-seeker-border:				1px solid $main-border-color !default;
+$zoom-seeker-bg-color:				rgba(240, 240, 240, .4) !default;
+
+$zoom-seeker-ie-bg-color:			$gray-100 !default;
+$zoom-seeker-ie-opacity:			50 !default;
+
+// >>> Loading
+// --------------------------------------------
+
+$zoom-loading-border:				1px solid $main-border-color !default;
+$zoom-loading-border-radius:		5px !default;
+$zoom-loading-text-size:			$font__smallest !default;
+$zoom-loading-text-color:			$gray-900 !default;
+$zoom-loading-bg-color:				rgba(240, 240, 240, .75) !default;
+
+$zoom-loading-ie-bg-color:			$gray-100 !default;
+$zoom-loading-ie-opacity:			90 !default;
+
+// >>> Zoom area
+// --------------------------------------------
+
+$zoom-area-border:					1px solid $main-border-color !default;
+$zoom-area-bg-color:				$main-neutral-color !default;
+
+// >>> Loading
+// --------------------------------------------
+
+$zoom-loading-size:					100px !default;

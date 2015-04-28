@@ -1,0 +1,150 @@
+/**
+ * Dropdown
+ */
+@import 'dropdown-variables';
+ 
+/* Trigger */
+.ch-dropdown-trigger {
+    cursor: $dropdown-trigger-cursor;
+    position: relative; 
+    display: inline-block;
+    padding: $dropdown-trigger-padding;
+
+    /* Trigger Down icon */
+    &:after {
+        font-family: icons;
+        content: "\f0d7";
+        position: absolute;
+        top: 50%;
+        margin-top: -7px;
+        right: 8px;
+        font-style: normal;
+        line-height: 1.2em;
+    }
+}
+
+/* Container */
+.ch-dropdown {
+    min-width: $box-content-min-width;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+    box-shadow: $dropdown-box-shadow;
+    border-radius: $dropdown-border-radius;
+    
+    /* Container */
+    /* List of links */
+    menu a {
+        color: $list-item-color;
+        display: block;
+        height: $list-item-height;
+        line-height:$list-item-line-height;
+        margin: $list-item-margin;
+        padding: $list-item-padding;
+        text-decoration: $list-item-decoration;
+    }
+}
+
+/**
+ * Primary skin
+ */
+
+/* Trigger Active */
+.ch-dropdown-trigger-on,
+.ch-dropdown-trigger-on:hover {
+    background-color: $trigger-active-bg-color;
+    @include background-image(linear-gradient($trigger-active-bg-color-top, $trigger-active-bg-color));
+    box-shadow: $trigger-active-box-shadow;
+    border-radius: $trigger-active-border-radius;
+}
+
+/* Interaction of list */
+.ch-dropdown menu a:focus {
+    background-color: $list-item-focus-bg-color;
+    outline:  $list-item-focus-outline;
+}
+
+/**
+ * Skin
+ */
+/* Trigger */
+.ch-dropdown-trigger-skin {
+    background: $trigger-skin-bg-color;
+    border: $trigger-skin-border;
+    border-width: $trigger-skin-border-width;
+    border-radius: $trigger-skin-border-radius;
+    color: $trigger-skin-text-color;
+    text-decoration: $trigger-skin-text-decoration;
+    padding: $trigger-skin-padding;
+
+    &:after {
+        color: $trigger-skin-after-text-color;  
+    }
+
+    /* Trigger Actived */
+    :active {
+        color: $trigger-skin-active-text-color;
+    }
+}
+
+.ch-dropdown-trigger-skin.ch-dropdown-trigger-on,
+.ch-dropdown-trigger-skin.ch-dropdown-trigger-on:hover {
+    background-color: $trigger-on-skin-bg-color;
+    background-image: none;
+}
+
+/* Trigger ON */
+.ch-dropdown-trigger-skin.ch-dropdown-trigger-on {
+    border-color: $trigger-on-skin-border;
+    box-shadow: $trigger-on-skin-box-shadow;
+    border-radius: $trigger-on-skin-border-radius;
+}
+
+.ch-dropdown-trigger-skin.ch-btn-skin:active {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* Trigger Hover */
+.ch-dropdown-trigger-skin:hover {
+    text-decoration: underline;
+}
+
+/* Container */
+.ch-dropdown-skin {
+    padding: $skin-box-padding;
+}
+
+/* Menu */
+.ch-dropdown-skin menu li {
+    list-style: none;
+    margin: $skin-list-item-margin;
+}
+
+.ch-dropdown-skin menu a {
+    background: $skin-list-item-bg-color;
+    color: $skin-list-item-color;
+    display: inline; 
+    line-height: $skin-list-item-line-height;
+    padding: $skin-list-item-padding;
+
+    /* Interaction of list */
+    &:focus {
+    background: none;
+    text-decoration: underline;
+    }
+}
+
+/* IE */
+.lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on,
+.lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$trigger-active-bg-color-top', endColorstr='$trigger-active-bg-color');
+}
+
+.lt-ie10 .ch-dropdown-trigger-skin,
+.lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on,
+.lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on:hover {
+    filter: none;
+}

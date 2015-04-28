@@ -1,0 +1,37 @@
+// > Boxes
+// ----------------------------------------------------------------
+
+// ----- Error box ----- //
+
+$box-error-bg-color: $error-bg-color !default;
+$box-error-text-color: #b84a46 !default;
+$box-error-visited-text-color: $main-primary-color !default;
+
+// ----- Help box ----- //
+
+$box-help-bg-color: $gray-100 !default;
+$box-help-text-color: $gray-800 !default;
+
+// ----- Info box ----- //
+
+$box-info-bg-color: #e4f2f9 !default;
+$box-info-text-color: #3a87ad !default;
+$box-info-link-text-decoration: underline !default;
+
+// ----- Warning box ----- //
+
+$box-warning-bg-color: #fff0ba !default;
+$box-warning-text-color: #aa8749 !default;
+$icon-warning-text-color: #f5cc00 !default;
+
+// ----- Ok box ----- //
+
+$box-ok-bg-color: #e9f4e4 !default;
+$box-ok-text-color:	#468847 !default;
+
+$box-lite-bg-color: $main-neutral-color !default;
+
+$box-border: 1px solid $main-border-color !default;
+$box-margin: 0 0 10px 0 !default;
+$box-padding: 10px !default;
+$box-border-radius: 5px !default;

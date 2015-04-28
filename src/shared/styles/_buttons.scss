@@ -1,0 +1,119 @@
+/**
+ * Buttons
+ */
+@import 'buttons-variables';
+
+/* Global */
+[class*="ch-btn"],
+[class*="ch-btn"]:focus {
+    font-family: $btn-text-family;
+    border-radius: $btn-border-radius;
+    box-shadow: $btn-box-shadow;
+    cursor: $btn-cursor;
+    display: inline-block;
+    height: auto;
+    text-decoration: $btn-text-decoration;
+    font-size: $btn-text-size;
+}
+
+/* Focus */
+[class*="ch-btn"]:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="file"]::-webkit-file-upload-button:focus,
+button:focus {
+    outline: $btn-outline-style;
+    outline: $btn-outline;
+    outline-offset: $btn-outline-offset;
+}
+
+/* Colors */
+.ch-btn,
+.ch-btn:focus,
+.ch-btn:visited {
+    background-color: $btn-primary-bg-color;
+    @include background-image(linear-gradient($btn-primary-bg-color, $btn-primary-bg-color-secondary));
+    box-shadow: $btn-primary-box-shadow;
+    border: $btn-primary-border;
+    color: $btn-primary-text-color;
+}
+
+.ch-btn-skin,
+.ch-btn-skin:focus,
+.ch-btn-skin:visited {
+    background-color: $btn-secondary-bg-color;
+    @include background-image(linear-gradient($btn-secondary-bg-color, $btn-secondary-bg-color-secondary));
+    border: $btn-secondary-border;
+    box-shadow: $btn-secondary-box-shadow;
+    color: $btn-secondary-text-color;
+    text-shadow: $btn-secondary-text-shadow;
+}
+
+/* Hover */
+.ch-btn:hover,
+.ch-btn-skin:hover {
+    text-decoration: none;
+}
+
+/* Colors on Hover */
+.ch-btn:hover {
+    background-color: $btn-primary-box-hover-bg-color;
+    @include background-image(linear-gradient($btn-primary-box-hover-bg-color, $btn-primary-box-hover-bg-color-secondary));
+    box-shadow: $btn-primary-hover-box-shadow;
+}
+
+.ch-btn-skin:hover {
+    background-color: $btn-secondary-hover-bg-color;
+    @include background-image(linear-gradient($btn-secondary-hover-bg-color, $btn-secondary-hover-bg-color-secondary));
+    box-shadow: $btn-secondary-hover-box-shadow;
+}
+
+/* Colors on Active */
+.ch-btn:active {
+    background-color: $btn-primary-active-bg-color;
+    @include background-image(linear-gradient($btn-primary-active-bg-color, $btn-primary-active-bg-color-secondary));
+    box-shadow: $btn-primary-active-box-shadow;
+    border-color: $btn-primary-active-border;
+}
+
+.ch-btn-skin:active {
+    background-color: $btn-secondary-active-bg-color;
+    @include background-image(linear-gradient($btn-secondary-active-bg-color, $btn-secondary-active-bg-color-secondary));
+    box-shadow: $btn-secondary-active-box-shadow;
+    border-color: $btn-secondary-border-active;
+}
+
+/* Size */
+input.ch-btn::-moz-focus-inner,
+input.ch-btn-large::-moz-focus-inner,
+input.ch-btn-small::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/* Large */
+.ch-btn-large,
+.ch-btn-large:focus {
+    font-size: $btn-large-text-size;
+    text-align: center;
+}
+
+/* Disabled */
+[class*="ch-btn"].ch-btn-disabled,
+.ch-btn-disabled:hover,
+.ch-btn-disabled:active,
+.ch-btn-disabled:focus,
+[class*="ch-btn"][disabled],
+[class*="ch-btn"][disabled]:hover,
+[class*="ch-btn"][disabled]:active,
+[class*="ch-btn"][disabled]:focus {
+    background-color: $btn-disabled-bg-color;
+    @include background-image(linear-gradient($btn-disabled-bg-color, $btn-disabled-bg-color-secondary));
+    border: $btn-disabled-border !important; /* important for links */
+    box-shadow: $btn-disabled-box-shadow inset;
+    color: $btn-disabled-text-color !important; /* important for links */
+    cursor: not-allowed;
+    @include opacity($btn-disabled-opacity);
+    text-shadow: $btn-disabled-text-shadow;
+}

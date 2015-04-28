@@ -1,0 +1,38 @@
+/**
+ * Menu
+ */
+@import 'menu-variables';
+
+.ch-menu {
+	border: $menu-border;
+	border-radius: $menu-border-radius
+}
+
+.ch-fold-trigger,
+.ch-menu .ch-expandable-trigger,
+.ch-menu .ch-expandable-container,
+/* The last fold, if it's an expanded trigger */
+.ch-menu-fold:last-of-type .ch-expandable-trigger.ch-expandable-trigger-on {
+	border: none;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+    border-bottom: $menu-row-border-bottom;
+}
+
+.ch-menu .ch-expandable-trigger:after {
+    color: $menu-row-icon-color;
+}
+
+.ch-menu .ch-expandable-container {
+    border-bottom: $menu-list-border-bottom;
+}
+
+.ch-menu-fold:last-of-type .ch-fold-trigger,
+.ch-menu-fold:last-of-type .ch-expandable-trigger,
+.ch-menu-fold:last-of-type .ch-expandable-container {
+    border-bottom: none;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}

@@ -1,0 +1,38 @@
+// > Carousel
+// ----------------------------------------------------------------
+
+$carousel-mask:	0 50px !default;
+$carousel-control-cursor: pointer !default;
+
+// >>> Carousel control
+// --------------------------------------------
+
+$carousel-control-color: $gray-800 !default;
+$carousel-control-font-size: 2em !default;
+$carousel-control-line-height: 3.3em !default;
+$carousel-control-hover: 0.7 !default;
+
+// >>> Carousel pagination
+// --------------------------------------------
+
+$carousel-pagination-bg-color: $gray-100 !default;
+$carousel-pagination-shadow: inset 1px 1px $gray-700 !default;
+
+$carousel-pagination-selected-bg-color: #16232f !default;
+
+// >>> Carousel control
+// --------------------------------------------
+
+$carousel-control-margin:  -40px 0 0 0 !default;
+$carousel-control-vertical-position: 50% !default;
+$carousel-control-width: 47px !default;
+$carousel-control-height: 80px !default;
+
+$carousel-control-position: 17px !default;
+
+// >>> Carousel pagination
+// --------------------------------------------
+
+$carousel-pagination-width:	10px !default;
+$carousel-pagination-height: 10px !default;
+$carousel-pagination-margin: 10px 5px !default;

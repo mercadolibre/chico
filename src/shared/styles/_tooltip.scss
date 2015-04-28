@@ -1,0 +1,60 @@
+/**
+ * Tooltip
+ */
+@import 'tooltip-variables';
+
+.ch-tooltip {
+    background-color: $tooltip-bg-color;
+    border: 1px solid $tooltip-border-color;
+    color: $tooltip-text-color;
+    padding: $tooltip-padding;
+    border-radius: $tooltip-border-radius;
+}
+
+/**
+ * Bottom side
+ * ltlb, ctcb, rtrb
+ */
+.ch-tooltip.ch-cone[data-side=bottom] .ch-popover-content:before {
+    border-bottom-color: $tooltip-border-color;
+}
+
+.ch-tooltip.ch-cone[data-side=bottom] .ch-popover-content:after {
+    border-bottom-color: $tooltip-bg-color;
+}
+
+/**
+ * Top side
+ * lblt, cbct, rbrt
+ */
+.ch-tooltip.ch-cone[data-side=top] .ch-popover-content:before {
+    border-top-color: $tooltip-border-color;
+}
+
+.ch-tooltip.ch-cone[data-side=top] .ch-popover-content:after {
+    border-top-color: $tooltip-bg-color;
+}
+
+/**
+ * Right side
+ * ltrt, lmrm, lbrb
+ */
+.ch-tooltip.ch-cone[data-side=right] .ch-popover-content:before {
+    border-right-color: $tooltip-border-color;
+}
+
+.ch-tooltip.ch-cone[data-side=right] .ch-popover-content:after {
+    border-right-color: $tooltip-bg-color;
+}
+
+/**
+ * Left side
+ * rtlt, rmlm, rblb
+ */
+.ch-tooltip.ch-cone[data-side=left] .ch-popover-content:before {
+    border-left-color: $tooltip-border-color;
+}
+
+.ch-tooltip.ch-cone[data-side=left] .ch-popover-content:after {
+    border-left-color: $tooltip-bg-color;
+}

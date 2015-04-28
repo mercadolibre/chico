@@ -1,0 +1,30 @@
+/**
+ * Pagination
+ */
+@import 'pagination-variables';
+
+.ch-pagination {
+    padding: $pagination-padding;
+    list-style: none;
+    margin: $pagination-margin;
+    text-align: center;
+
+    li {
+        display: inline-block;
+        margin: $pagination-page-margin;
+
+        a {
+            border-radius: $pagination-page-border-radius;
+            padding: $pagination-page-padding;
+            border: $pagination-page-border;
+            background-color: $pagination-page-bg-color;      
+        }     
+    }
+}
+
+.ch-pagination .ch-pagination-current a {
+    border: $pagination-current-page-border;
+    background-color: $pagination-current-page-bg-color;
+    color: $pagination-current-page-text-color;
+    pointer-events: none;
+}

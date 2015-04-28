@@ -118,8 +118,7 @@ describe('It should update the number on the message', function () {
 
     it('if it exceeds the number should add errors classnames: "ch-countdown-exceeded" and "ch-validation-error"', function () {
         countdown2.trigger.setAttribute('value', '12345678901234567890');
-        ch.util.Event.createCustom('keyup');
-        ch.util.Event.dispatchEvent(countdown2.trigger,'keyup');
+        ch.util.Event.dispatchEvent(countdown2.trigger, 'keyup');
 
         waits(50);
         runs(function(){
@@ -136,8 +135,7 @@ describe('It should update the number on the message', function () {
 
     it('if doesn\'t exceed the number should update the number to 0', function () {
         countdown2.trigger.setAttribute('value', '1234567890');
-        ch.util.Event.createCustom('keyup');
-        ch.util.Event.dispatchEvent(countdown2.trigger,'keyup');
+        ch.util.Event.dispatchEvent(countdown2.trigger, 'keyup');
 
         waits(50);
         runs(function(){
@@ -154,8 +152,8 @@ describe('Its destroy() method', function () {
         expect(countdown2.container.parentNode === null).toBeTruthy();
     });
 
-    it('should remove ".countdown" events', function () {
-        expect(ch.Component.instances[countdown2.uid]).toBeUndefined();
+    it('should remove ".countdown" instance', function () {
+        expect(ch.instances[countdown2.uid]).toBeUndefined();
     });
 
     it('should emit the "layoutchange" event', function () {

@@ -1,0 +1,11 @@
+/**
+ * Transition
+ */
+@import 'transition-variables';
+
+.ch-transition {
+    overflow: auto;
+    padding:$transition-padding;
+    box-shadow: $transition-box-shadow;
+    text-align: center;
+}

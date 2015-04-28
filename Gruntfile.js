@@ -1,13 +1,8 @@
 module.exports = function (grunt) {
     'use strict';
 
-    var environment = grunt.option('env') || 'ui',
-        destination = grunt.option('dest') || 'build',
-        vendor = {
-            'mobile': 'Zepto',
-            'ui': 'jQuery'
-        },
-        files = require('./libs/files/' + environment);
+    var uiFiles = require('./libs/files/ui'),
+        mobileFiles = require('./libs/files/mobile');
 
     // Project configuration.
     grunt.initConfig({
@@ -27,69 +22,253 @@ module.exports = function (grunt) {
             'min': '/*! Chico UI v<%= pkg.version %> chico-ui.com.ar | chico-ui.com.ar/license */'
         },
 
-        'concat': {
-            'options': {
-                'stripBanners': {
-                    'options': {
-                        'block': true,
-                        'line': true
+        // Concatenate files.
+        concat: {
+            options: {
+                stripBanners: {
+                    options: {
+                        block: true,
+                        line: true
                     }
                 }
             },
-
-            'core': {
-                'options': {
-                    'banner': '<%= banner.full %>' + "\n\n(function (window) {\n\t'use strict';\n\n",
-                    'footer': '\n\tch.version = \'<%= pkg.version %>\';\n\twindow.ch = ch;\n}(this));'
+            coreUi: {
+                options: {
+                    banner: "\n(function (window) {\n\t'use strict';\n\n",
+                    footer: '\n\tch.version = \'<%= pkg.version %>\';\n\twindow.ch = ch;\n}(this));'
                 },
-                'src': files.JS.core,
-                'dest': 'temp/' + environment + '/core.tmp.js'
+                src: uiFiles.JS.core,
+                dest: 'temp/ui/core.tmp.js'
             },
-
-            'js': {
-                'src': ['temp/' + environment + '/core.tmp.js'].concat(files.JS.abilities).concat(files.JS.components),
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.js'
-            },
-
-            'css': {
-                'options': {
-                    'banner': '<%= banner.full %>'
+            coreMobile: {
+                options: {
+                    banner: "\n(function (window) {\n\t'use strict';\n\n",
+                    footer: '\n\tch.version = \'<%= pkg.version %>\';\n\twindow.ch = ch;\n}(this));'
                 },
-                'src': files.CSS.resetML.concat(files.CSS.core).concat(files.CSS.components),
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.css'
+                src: mobileFiles.JS.core,
+                dest: 'temp/mobile/core.tmp.js'
+            },
+            jsUi: {
+                src: ['<%= concat.coreUi.dest %>'].concat(uiFiles.JS.abilities).concat(uiFiles.JS.components),
+                dest: 'dist/ui/<%= pkg.name %>.js'
+            },
+            jsMobile: {
+                src: ['<%= concat.coreMobile.dest %>'].concat(mobileFiles.JS.abilities).concat(mobileFiles.JS.components),
+                dest: 'dist/mobile/<%= pkg.name %>.js'
             }
-
         },
 
-        'uglify': {
-            'options': {
-                'mangle': true,
-                'banner': '<%= banner.min %>'
+        // Watches for the changes in a project
+        watch: {
+            options: {
+                debounceDelay: 500
+            },
+            gruntfile: {
+                options: {
+                    reload: true
+                },
+                files: [ 'Gruntfile.js' ]
+            },
+            sassUi: {
+                files: [
+                    './src/shared/**/*.scss',
+                    './src/ui/**/*.scss'
+                ],
+                tasks: ['sass:ui']
+            },
+            sassMobile: {
+                files: [
+                    './src/shared/**/*.scss',
+                    './src/mobile/**/*.scss'
+                ],
+                tasks: ['sass:mobile']
+            },
+            jsUi: {
+                files: [
+                    './src/shared/**/*.js',
+                    './src/ui/**/*.js'
+                ],
+                tasks: ['concat:coreUi', 'concat:jsUi']
+            },
+            jsMobile: {
+                files: [
+                    './src/shared/**/*.js',
+                    './src/mobile/**/*.js'
+                ],
+                tasks: ['concat:coreMobile', 'concat:jsMobile']
+            }
+        },
+
+        // Compile sass files to css
+        sass: {
+            options: {
+                style: 'expanded', // nested, compact, compressed, expanded
+                lineNumbers: false,
+                sourcemap: 'auto', // auto, file, inline, none
+                loadPath: [
+                    'bower_components/bourbon/app/assets/stylesheets/',
+                    './'
+                ]
+            },
+            ui: {
+                files: {
+                    'dist/ui/<%= pkg.name %>.css': 'src/ui/styles/ui-theme.scss'
+                }
+            },
+            mobile: {
+                files: {
+                    'dist/mobile/<%= pkg.name %>.css': 'src/mobile/styles/mobile-theme.scss'
+                }
+            }
+        },
+
+        // Minify project's CSS
+        cssmin: {
+            options: {
+                compatibility: 'ie8',
+                keepSpecialComments: 0,
+                advanced: true // TODO: Validate the output
+            },
+            distUi: {
+                src: 'dist/ui/<%= pkg.name %>.css',
+                dest: 'dist/ui/<%= pkg.name %>.min.css'
+            },
+            distMobile: {
+                options: {
+                    compatibility: '*'
+                },
+                src: 'dist/mobile/<%= pkg.name %>.css',
+                dest: 'dist/mobile/<%= pkg.name %>.min.css'
+            }
+        },
+
+        // Put banners in dist files
+        usebanner: {
+            full: {
+                options: {
+                    position: 'top',
+                    banner: '<%= banner.full %>'
+                },
+                files: {
+                    src: ['dist/**/*.css', 'dist/**/*.js', '!dist/**/*.min.css', '!dist/**/*.min.js']
+                }
+            },
+            min: {
+                options: {
+                    position: 'top',
+                    banner: '<%= banner.min %>'
+                },
+                files: {
+                    src: ['dist/**/*.min.css', 'dist/**/*.min.js']
+                }
+            }
+        },
+
+        // Auto-refresh page
+        browserSync: {
+            dev: {
+                options: {
+                    port: 3040,
+                    watchTask: true,
+                    startPath: '/ui.html',
+                    server: {
+                        baseDir: [
+                            // base path for views and demo assets
+                            'views/',
+                            // root folder for everything else
+                            './'
+                        ],
+                        middleware: [
+                            function(req, res, next) {
+                                var redirectTo;
+
+                                switch (req.url) {
+                                    case '/':
+                                    case '/ui':
+                                        redirectTo = '/ui.html';
+                                        break;
+                                    case '/m':
+                                    case '/mobile':
+                                        redirectTo = '/mobile.html';
+                                        break;
+                                }
+
+                                if (redirectTo) {
+                                    res.writeHead(301, {Location: redirectTo});
+                                    res.end();
+                                } else {
+                                    next();
+                                }
+                            }
+                        ]
+                    }
+                },
+                bsFiles: {
+                    src: [
+                        'dist/**/*.css',
+                        'dist/**/*.js',
+                        'views/*.html'
+                    ]
+                }
+            },
+            test: {
+                options: {
+                    port: 3040,
+                    watchTask: true,
+                    startPath: '/tests',
+                    directory: true,
+                    server: {
+                        baseDir: ['./', './views/'],
+                        routes: {
+                            '/test': 'tests',
+                            '/static': 'views/static'
+                        }
+                    }
+                },
+                bsFiles: {
+                    src: [
+                        'dist/**/*.css',
+                        'dist/**/*.js',
+                        'tests/**/spect.js',
+                        'tests/**/index.html'
+                    ]
+                }
+            }
+        },
+
+        // Minify JS
+        uglify: {
+            options: {
+                preserveComments: false,
+                mangle: true
             },
 
-            'js': {
-                'src': ['<%= concat.js.dest %>'],
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.min.js'
-            }
-
-        },
-
-        'cssmin': {
-            'options': {
-                'banner': '<%= banner.min %>',
-                'keepSpecialComments': 0
+            jsUiDist: {
+                src: ['<%= concat.jsUi.dest %>'],
+                dest: 'dist/ui/<%= pkg.name %>.min.js'
             },
-
-            'chico': {
-                'src': ['<%= concat.css.dest %>'],
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.min.css'
+            jsMobileDist: {
+                src: ['<%= concat.jsMobile.dest %>'],
+                dest: 'dist/mobile/<%= pkg.name %>.min.js'
             }
         },
 
+        // Copies an assets
+        copy: {
+            assets: {
+                cwd: 'src/shared/assets/',
+                expand: true,
+                src: '*',
+                dest: 'dist/assets/'
+            }
+        },
+
+        // Cleans files and folders.
         'clean': ['temp'],
 
-        'jslint': { // configure the task
-            'files': files.JS.abilities.concat(files.JS.components),
+        // Validates JavaScript files with JSLint as a grunt task.
+        'jslint': {
+            'files': uiFiles.JS.abilities.concat(uiFiles.JS.components).concat(mobileFiles.JS.abilities).concat(mobileFiles.JS.components),
             'directives': {
                 'browser': true,
                 'nomen': true,
@@ -98,47 +277,52 @@ module.exports = function (grunt) {
             'options': {
                 'errorsOnly': true, // only display errors
                 'failOnError': false, // defaults to true
-                'shebang': true, // ignore shebang lines
+                'shebang': true // ignore shebang lines
             }
         },
 
-        'jsdoc': {
-            'dist': {
-                'src': files.JS.core.concat(files.JS.abilities).concat(files.JS.components),
+        // Builds an API documentation
+        jsdoc: {
+            ui: {
+                'src': uiFiles.JS.core.concat(uiFiles.JS.abilities).concat(uiFiles.JS.components),
                 'options': {
                     'template': './libs/doc-template',
-                    'destination': './doc/' + environment,
+                    'destination': './doc/ui',
+                    'private': false
+                }
+            },
+            mobile: {
+                'src': mobileFiles.JS.core.concat(mobileFiles.JS.abilities).concat(mobileFiles.JS.components),
+                'options': {
+                    'template': './libs/doc-template',
+                    'destination': './doc/mobile',
                     'private': false
                 }
             }
-        },
-
-        'replace': {
-            'example': {
-                'src': ['<%= concat.css.dest %>'],
-                'dest': destination + '/' + environment + '/<%= pkg.name %>.css',
-                'replacements': [{
-                    'from': '../assets/',
-                    'to': '../../assets/0.3/'
-                }]
-            }
         }
-
     });
 
     // Load plugins
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-text-replace');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-banner');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-jsdoc');
 
     // Resgister task(s).
     grunt.registerTask('default', []);
     grunt.registerTask('lint', ['jslint']);
-    grunt.registerTask('doc', ['jsdoc']);
-    grunt.registerTask('dev', ['concat', 'clean']);
-    grunt.registerTask('dist', ['concat', 'replace', 'uglify', 'cssmin', 'clean']);
+    grunt.registerTask('doc', ['jsdoc:ui', 'jsdoc:mobile']);
+    grunt.registerTask('build', ['copy:assets', 'sass', 'concat', 'clean']);
+    grunt.registerTask('sync', ['browserSync:dev', 'watch']);
+    grunt.registerTask('dev', ['build', 'sync']);
+    grunt.registerTask('test', ['build', 'browserSync:test', 'watch']);
+    grunt.registerTask('dist', ['copy:assets', 'sass', 'cssmin', 'concat', 'uglify:jsUiDist', 'uglify:jsMobileDist', 'usebanner', 'clean']);
 };

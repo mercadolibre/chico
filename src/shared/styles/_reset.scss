@@ -1,0 +1,96 @@
+/**
+ * Reset
+ * @based on: Eric Meyer
+ */
+@import 'reset-variables';
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, address, big, cite, code,
+del, em, img, ins, q, s,
+small, strong, sub, sup,
+b, u, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, audio, canvas,
+datalist, details, dialog, figure, footer,
+header, mark, menu, meter, nav, output,
+progress, section, time, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+}
+
+ol, ul, menu {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+/* remember to highlight inserts somehow!*/
+ins {
+    text-decoration: none;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup*/
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/**
+ * Base
+ */
+
+/*
+ * 1. Sets default font family to sans-serif.
+ * 2. Prevents iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+    font-family: sans-serif; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+    -ms-text-size-adjust: 100%; /* 2 */
+}
+
+body {
+    font-family: $theme-body-font-family;
+    font-size: $theme-body-font-size;
+    line-height: $theme-body-line-height;
+    padding: $theme-body-padding; /* Prevent layout "sticking" to the edge of the browser */
+    background-color: $theme-body-bg-color;
+    color: $theme-text-color;
+    margin: 0 auto;
+}
+
+/**
+ * Misc
+ */
+hr {
+    border: none;
+    border-bottom: $theme-horizontal-line;
+}
+
+a img {
+    border: none;
+}
+
+p + p {
+    margin: $theme-paragraph-spacing;
+}

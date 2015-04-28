@@ -1,0 +1,85 @@
+/**
+ * Buttons
+ */
+@import 'buttons-variables';
+@import '../../shared/styles/buttons';
+
+/* Default h: ~30px*/
+.ch-btn,
+.ch-btn:focus {
+    line-height: $btn-line-height;
+    padding: $btn-padding;
+    margin: $btn-margin;
+}
+
+/* Large h: ~39px */
+.ch-btn-large,
+.ch-btn-large:focus {
+    line-height: $btn-large-line-height;
+    padding: $btn-large-padding;
+}
+
+a.ch-btn-large,
+a.ch-btn-large:focus {
+    display: inline-block;
+}
+
+/* Small h: ~23px */
+.ch-btn-small,
+.ch-btn-small:focus {
+    font-size: $btn-small-text-size;
+    line-height: $btn-small-line-height;
+    padding: $btn-small-padding;
+}
+
+/* IE */
+.lt-ie10 .ch-btn,
+.lt-ie10 .ch-btn:focus,
+.lt-ie10 .ch-btn:visited {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-ie-filter-start-bg-color', endColorstr='$btn-ie-filter-end-bg-color');
+}
+
+.lt-ie10 .ch-btn-skin,
+.lt-ie10 .ch-btn-skin:focus,
+.lt-ie10 .ch-btn-skin:visited {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-ie-filter-start-bg-color', endColorstr='$btn-skin-ie-filter-end-bg-color');
+}
+
+.lt-ie10 .ch-btn:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-hover-ie-filter-start-bg-color', endColorstr='$btn-hover-ie-filter-end-bg-color');
+}
+
+.lt-ie10 .ch-btn-skin:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-hover-ie-filter-start-bg-color', endColorstr='$btn-skin-hover-ie-filter-end-bg-color');
+}
+
+.lt-ie10 .ch-btn:active {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-active-ie-filter-start-bg-color', endColorstr='$btn-active-ie-filter-end-bg-color');
+}
+
+.lt-ie10 .ch-btn-skin:active {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-active-ie-filter-start-bg-color', endColorstr='$btn-skin-active-ie-filter-end-bg-color');
+}
+
+.lt-ie10 .ch-btn.ch-btn-disabled,
+.lt-ie10 .ch-btn-skin.ch-btn-disabled,
+.lt-ie10 .ch-btn-disabled:hover,
+.lt-ie10 .ch-btn-disabled:active,
+.lt-ie10 .ch-btn-disabled:focus,
+.lt-ie10 [class*="ch-btn"][disabled],
+.lt-ie10 [class*="ch-btn"][disabled]:hover,
+.lt-ie10 [class*="ch-btn"][disabled]:active,
+.lt-ie10 [class*="ch-btn"][disabled]:focus {
+    filter: alpha(opacity=$btn-skin-disabled-ie-opacity);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-disabled-ie-filter-start-bg-color', endColorstr='#$btn-skin-disabled-ie-filter-end-bg-color');
+}
+
+.ie8 [class*="ch-btn"]:focus,
+.ie8 input[type="button"]:focus,
+.ie8 input[type="submit"]:focus,
+.ie8 input[type="reset"]:focus,
+.ie8 input[type="file"]:focus,
+.ie8 button:focus {
+    outline: thin dotted;
+    outline-offset: -2px;
+}

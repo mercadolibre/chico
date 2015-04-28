@@ -17,7 +17,7 @@
     <meta http-equiv="cleartype" content="on">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/mobile/css">
+    <link rel="stylesheet" href="/dist/mobile/chico.css">
 
     <style>
         .body {
@@ -322,8 +322,7 @@
                 <p class="ch-form-hint">This is working with the MercadoLibre API</p>
             </div>
             <p class="ch-form-actions">
-                <!--input type="submit" name="autocompleteSubmit" class="ch-btn"-->
-                <button type="submit" name="autocompleteSubmit">Submit</button>
+                <button type="submit" name="autocompleteSubmit" class="ch-btn">Submit</button>
             </p>
         </form>
     </div>
@@ -437,19 +436,19 @@
         <i class="ch-icon-heart myDropdownNav"></i>
         <ul class="ch-hide">
             <li>
-                <img src="/static/ninja.png" width="50">
-                <img src="/static/ninja.png" width="50">
-                <img src="/static/ninja.png" width="50">
+                <img src="static/ninja.png" width="50">
+                <img src="static/ninja.png" width="50">
+                <img src="static/ninja.png" width="50">
             </li>
             <li>
-                <img src="/static/ninja.png" width="50">
-                <img src="/static/ninja.png" width="50">
-                <img src="/static/ninja.png" width="50">
+                <img src="static/ninja.png" width="50">
+                <img src="static/ninja.png" width="50">
+                <img src="static/ninja.png" width="50">
             </li>
             <li>
-                <img src="/static/ninja.png" width="50">
-                <img src="/static/ninja.png" width="50">
-                <img src="/static/ninja.png" width="50">
+                <img src="static/ninja.png" width="50">
+                <img src="static/ninja.png" width="50">
+                <img src="static/ninja.png" width="50">
             </li>
         </ul>
 
@@ -544,7 +543,7 @@
 
     <div class="ch-box-lite">
         <h2 id="datepicker">Date Picker</h2>
-        <form action="/static/ajax.html" class="YOUR_SELECTOR_FormDatepicker ch-form">
+        <form action="static/ajax.html" class="YOUR_SELECTOR_FormDatepicker ch-form">
             <p class="ch-form-row">
                 <label for="val_date">
                     Date:
@@ -889,10 +888,9 @@
         </form>
     </div>
 
-
-    <!--script src="/vendor/zepto-data-fx_methods-touch.js"></script-->
-    <script src="/vendor/fetch.js"></script>
-    <script src="/mobile/js"></script>
+    <script src="/bower_components/es6-promise/promise.min.js"></script>
+    <script src="/bower_components/fetch/fetch.js"></script>
+    <script src="/dist/mobile/chico.js"></script>
     <script>
 
         function qS(selector) { return document.querySelector(selector); };
@@ -913,14 +911,35 @@
             }
         }
 
+        var loadJSONP = (function() {
+            var unique = 0,
+                    head = document.getElementsByTagName('head')[0];
+
+            return function(url, callback, context) {
+                var name = 'jsonp_' + unique++;
+                url += (url.match(/\?/) ? '&' : '?') + 'callback='+name;
+
+                // Create script
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = url;
+
+                // Setup jsonp handler
+                window[name] = function(data) {
+                    callback.call((context || window), data);
+                    head.removeChild(script);
+                    script = null;
+                    delete window[name];
+                };
+
+                // Load JSON
+                head.appendChild(script);
+            };
+        })();
+
         var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
             .on('type', function (userInput) {
-                 reqwest({
-                         'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1',
-                         'type': 'jsonp',
-                         'success': parseResults,
-                         'crossOrigin': true
-                     });
+                    loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1', parseResults);
             });
 
         var expadable1 = new ch.Expandable(qS('.categories1'));
@@ -1212,14 +1231,11 @@
 
         // }())
 
-
-
-
-
-
-
-
-
+        [].forEach.call(document.querySelectorAll('a[href="#"], a[href=""]'), function(a) {
+            a.addEventListener('click', function(e){
+                e.preventDefault();
+            });
+        });
     </script>
 </body>
 </html>

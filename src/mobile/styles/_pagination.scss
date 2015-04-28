@@ -1,0 +1,15 @@
+/**
+ * Pagination
+ */
+@import 'pagination-variabes';
+@import '../../shared/styles/pagination';
+
+.ch-pagination {
+    font-size: $pagination-text-size;
+}
+
+.ch-pagination a[type="prev"],
+.ch-pagination a[type="next"] {
+	background-color: $pagination-next-and-prev-bg-color;
+	border-color: $pagination-next-and-prev-border;
+}

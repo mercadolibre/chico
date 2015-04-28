@@ -1,0 +1,51 @@
+// > Forms Mobile
+// ----------------------------------------------------------------
+
+// >>> Generic Inputs
+// --------------------------------------------
+
+$generic-input-text-size: 16px !default;
+$generic-input-line-height: 22px !default;
+$generic-input-margin: 0 0 5px 0 !default;
+$generic-input-padding: 6px !default;
+
+// >>> Options inputs
+// --------------------------------------------
+
+$input-options-padding: 0 !default;
+
+// >>> Title Module
+// --------------------------------------------
+
+$legend-text-size: 16px !default;
+$legend-padding: 8px !default;
+
+// >>> Label
+// --------------------------------------------
+
+$label-text-size: 14px !default;
+$label-padding: 2px !default;
+
+// >>> Select
+// --------------------------------------------
+
+$select-height: 36px !default;
+$select-border-color: $gray-500 !default;
+$select-margin: 0 0 5px 0 !default;
+
+// >>> Hint text
+// --------------------------------------------
+
+$form-text-hint-margin: 2px !default;
+
+// >>> Validation text
+// --------------------------------------------
+
+$form-validation-message-text-color: #B94A48 !default;
+
+// >>> Forms within list boxes
+// --------------------------------------------
+
+$form-box-list-padding: 0 !default;
+$form-box-list-label-text-size: 16px !default;
+$form-box-list-label-padding: 14px 0 14px 38px !default;

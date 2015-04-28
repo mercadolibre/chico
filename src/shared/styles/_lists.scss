@@ -1,0 +1,39 @@
+/**
+ * List
+ */
+@import 'lists-variables';
+
+.ch-list {
+    margin: $list-margin;
+
+    li {
+        margin:  $list-item-margin;
+        padding: $list-item-padding;
+        line-height: $list-item-line-height;
+    }
+}
+
+ul.ch-list {
+    list-style: $unordered-list-icon;
+}
+
+ol.ch-list {
+    list-style: $ordered-list-icon;
+}
+
+dl.ch-list {
+    margin: $definition-list-margin;
+
+    dt,
+    dd {
+        line-height: $definition-list-elements-line-height;
+    }
+
+    dt {
+        font-weight: $definition-term-text-weight;
+    }
+
+    dd {
+        margin: $definition-description-margin;
+    }
+}
