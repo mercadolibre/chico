@@ -205,6 +205,7 @@
 
             // Create Tab panel's options
             options = {
+                '_classNameIcon': null,
                 '_classNameTrigger': 'ch-tab',
                 '_classNameContainer': 'ch-tabpanel',
                 'toggle': false

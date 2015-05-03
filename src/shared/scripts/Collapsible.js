@@ -23,7 +23,7 @@
          */
         var that = this,
             triggerClass = 'ch-' + this.name + '-trigger-on',
-            fx = this._options.fx,
+            //fx = this._options.fx,
             useEffects = false;
 
         function showCallback() {

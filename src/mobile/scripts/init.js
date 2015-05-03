@@ -15,6 +15,3 @@
 
     // Cancel pointers if the user scroll.
     ch.util.cancelPointerOnScroll();
-
-    // Create a non native browser event before it can be called
-    ch.util.Event.createCustom(ch.onlayoutchange);

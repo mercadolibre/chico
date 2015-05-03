@@ -406,6 +406,17 @@
                 return isStandard ? evt : ('on' + evt);
             }
 
+            // Check for the support of full featured Event
+            function isEvtHasConstructor() {
+                try {
+                    // In IE 9 - 11 the Event object exists but cannot be instantiated
+                    new Event('click');
+                    return true;
+                } catch(e) {
+                    return false;
+                }
+            }
+
             return {
                 'addListener': function addListener(el, evt, fn, bubbles) {
                     el[addHandler](evtUtility(evt), fn, bubbles || false);
@@ -423,17 +434,16 @@
                     el[removeHandler](evtUtility(evt), fn);
                 },
                 'dispatchEvent': function dispatchEvent(el, name) {
-                    el[dispatch](_custom[name]);
-                },
-                'createCustom': function createCustom(name) {
-
-                    if (_custom[name] === undefined) {
-                        _custom[name] = new Event(name);
-                        return _custom[name] ;
+                    if (!_custom[name]) {
+                        if (isEvtHasConstructor()) {
+                            _custom[name] = new Event(name);
+                        } else {
+                            _custom[name] = document.createEvent('UIEvent');
+                            _custom[name].initEvent(name, false, false);
+                        }
                     }
 
-                    return _custom[name];
-
+                    el[dispatch](_custom[name]);
                 }
             }
         }()),

@@ -500,6 +500,17 @@ ch.util = {
                 return isStandard ? evt : ('on' + evt);
             }
 
+            // Check for the support of full featured Event
+            function isEvtHasConstructor() {
+                try {
+                    // In IE 9 - 11 the Event object exists but cannot be instantiated
+                    new Event('click');
+                    return true;
+                } catch(e) {
+                    return false;
+                }
+            }
+
             return {
                 'addListener': function addListener(el, evt, fn, bubbles) {
                     el[addHandler](evtUtility(evt), fn, bubbles || false);
@@ -517,17 +528,16 @@ ch.util = {
                     el[removeHandler](evtUtility(evt), fn);
                 },
                 'dispatchEvent': function dispatchEvent(el, name) {
-                    el[dispatch](_custom[name]);
-                },
-                'createCustom': function createCustom(name) {
-
-                    if (_custom[name] === undefined) {
-                        _custom[name] = new Event(name);
-                        return _custom[name] ;
+                    if (!_custom[name]) {
+                        if (isEvtHasConstructor()) {
+                            _custom[name] = new Event(name);
+                        } else {
+                            _custom[name] = document.createEvent('UIEvent');
+                            _custom[name].initEvent(name, false, false);
+                        }
                     }
 
-                    return _custom[name];
-
+                    el[dispatch](_custom[name]);
                 }
             }
         }()),
@@ -929,9 +939,6 @@ ch.factory = function (Klass, fn) {
 
     // Cancel pointers if the user scroll.
     ch.util.cancelPointerOnScroll();
-
-    // Create a non native browser event before it can be called
-    ch.util.Event.createCustom(ch.onlayoutchange);
 
 	ch.version = '1.2.0';
 	window.ch = ch;
@@ -1387,7 +1394,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this,
             triggerClass = 'ch-' + this.name + '-trigger-on',
-            fx = this._options.fx,
+            //fx = this._options.fx,
             useEffects = false;
 
         function showCallback() {
