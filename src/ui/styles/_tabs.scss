@@ -55,7 +55,7 @@
 
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$tab-trigger-bg-color', endColorstr='$tab-trigger-bg-color-secondary');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$tab-trigger-bg-color}', endColorstr='#{$tab-trigger-bg-color-secondary}');
 }
 
 /* Container */
