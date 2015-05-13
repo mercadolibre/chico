@@ -450,7 +450,6 @@
 
         // Delete input value
         this.field.value = '';
-        this._calendar.reset();
 
         /**
          * Event emitter when the datepicker is reseted.
