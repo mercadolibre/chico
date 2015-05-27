@@ -4,12 +4,12 @@ var beforeshowEvent = jasmine.createSpy('beforeshowEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    popover1 = new ch.Popover(document.getElementById('popover1'))
-        .on('beforeshow', function () { beforeshowEvent(); })
-        .on('show', function () { showEvent(); })
-        .on('beforehide', function () { beforehideEvent(); })
-        .on('hide', function () { hideEvent(); })
-        .on('ready', function () { readyEvent(); }),
+    popover1 = new ch.Popover(document.getElementById('popover1'), {fx: false})
+        .on('beforeshow', beforeshowEvent)
+        .on('show', showEvent)
+        .on('beforehide', beforehideEvent)
+        .on('hide', hideEvent)
+        .on('ready', readyEvent),
     trigger = popover1.trigger,
     popover2 = new ch.Popover(document.getElementById('popover2'), {
         'addClass': 'test',
@@ -139,11 +139,6 @@ describe('Its show() method', function () {
 		var container = popover1.container,
             close = container.children[0];
 
-		it('be the same than the "container" property', function () {
-            console.log(document.getElementsByTagName('body')[0].children);
-            expect(document.body.children[document.body.children.length - 1].getAttribute('id')).toEqual(container.getAttribute('id'));
-		});
-
 		it('should have the same ID than the "aria-owns" attribute', function () {
 			expect(container.getAttribute('id')).toEqual(trigger.getAttribute('aria-owns'));
 		});
@@ -200,16 +195,16 @@ describe('Its hide() method', function () {
         expect(ch.util.classList(trigger).contains('ch-popover-trigger-on')).toBeFalsy();
     });
 
-	it('should delete the element at the bottom of body', function () {
+	it('should delete the element from the DOM when it hidden', function () {
 
-		var flag = false;
+		var id = trigger.getAttribute('aria-owns');
 
-		expect(document.body.children[document.body.children.length - 1].getAttribute('id')).toEqual(trigger.getAttribute('aria-owns'));
+        popover1.show();
+		expect(document.getElementById(id)).toNotBe(null);
 		popover1.hide();
-		waits(500);
 
 		runs(function () {
-			expect(document.body.children[document.body.children.length - 1].getAttribute('id')).not.toEqual(trigger.getAttribute('aria-owns'));
+			expect(document.getElementById(trigger.getAttribute('aria-owns'))).toBe(null);
 		});
 	});
 

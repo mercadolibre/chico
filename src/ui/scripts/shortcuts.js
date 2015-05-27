@@ -177,7 +177,7 @@
             }
         };
 
-    ch.util.Event.addListener(document, 'keydown', shortcutsEmitter);
+    ch.Event.addListener(document, 'keydown', shortcutsEmitter);
 
     ch.shortcuts = shortcuts;
 

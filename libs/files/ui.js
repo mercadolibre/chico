@@ -5,6 +5,15 @@ var JS = {},
     CSS = {};
 
 /*
+ * JS: Polyfills
+ */
+JS.polyfills = [
+    "bower_components/es6-promise/promise.js",
+    "src/shared/scripts/polyfills/fetch.js",
+    "src/shared/scripts/polyfills/pointerEvents.js"
+];
+
+/*
  * JS: Core
  */
 JS.core = [

@@ -28,7 +28,7 @@ var calendar1 = new ch.Calendar(document.querySelector('#calendar-1')),
         }
     })();
 
-ch.util.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
+ch.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Calendar', function () {
     calendar1

@@ -110,6 +110,17 @@
         },
 
         /**
+         * Detects an Internet Explorer and returns the version if so.
+         *
+         * @see From <a href="https://github.com/ded/bowser/blob/master/bowser.js">bowser</a>
+         * @returns {Boolean|Number}
+         */
+        'isMsie': function() {
+            return (/(msie|trident)/i).test(navigator.userAgent) ?
+                navigator.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+        },
+
+        /**
          * Adds CSS rules to disable text selection highlighting.
          * @param {HTMLElement} HTMLElement to disable text selection highlighting.
          * @example
@@ -222,8 +233,10 @@
          * ch.util.prevent(event);
          */
         prevent: function (event) {
-            if (typeof event === 'object') {
+            if (typeof event === 'object' && event.preventDefault) {
                 event.preventDefault();
+            } else {
+                return false;
             }
         },
 
@@ -388,67 +401,6 @@
         },
 
         /**
-         * Event utility
-         * @constant
-         * @memberof ch.util
-         * @type {Object}
-         * @example
-         * ch.util.Event.addListener(document, 'click', function(){}, false);
-         */
-         'Event': (function() {
-            var isStandard = document.addEventListener ? true : false,
-                addHandler = document.addEventListener ? 'addEventListener' : 'attachEvent',
-                removeHandler = document.removeEventListener ? 'removeEventListener' : 'detachEvent',
-                dispatch = document.dispatchEvent ? 'dispatchEvent' : 'fireEvent',
-                _custom = {};
-
-            function evtUtility(evt) {
-                return isStandard ? evt : ('on' + evt);
-            }
-
-            // Check for the support of full featured Event
-            function isEvtHasConstructor() {
-                try {
-                    // In IE 9 - 11 the Event object exists but cannot be instantiated
-                    new Event('click');
-                    return true;
-                } catch(e) {
-                    return false;
-                }
-            }
-
-            return {
-                'addListener': function addListener(el, evt, fn, bubbles) {
-                    el[addHandler](evtUtility(evt), fn, bubbles || false);
-                },
-                'addListenerOne': function addListener(el, evt, fn, bubbles) {
-
-                    function oneRemove(){
-                        el[removeHandler](evtUtility(evt), fn);
-                    }
-                    // must remove the event after executes one time
-                    el[addHandler](evtUtility(evt), fn, bubbles || false);
-                    el[addHandler](evtUtility(evt), function(){ oneRemove() }, bubbles || false);
-                },
-                'removeListener': function removeListener(el, evt, fn) {
-                    el[removeHandler](evtUtility(evt), fn);
-                },
-                'dispatchEvent': function dispatchEvent(el, name) {
-                    if (!_custom[name]) {
-                        if (isEvtHasConstructor()) {
-                            _custom[name] = new Event(name);
-                        } else {
-                            _custom[name] = document.createEvent('UIEvent');
-                            _custom[name].initEvent(name, false, false);
-                        }
-                    }
-
-                    el[dispatch](_custom[name]);
-                }
-            }
-        }()),
-
-        /**
          * Extends an object with other object
          * @name extend
          * @param {Object} target The destination of the other objects
@@ -553,7 +505,8 @@
 
             if (parent === null) { return parent; }
 
-            if (parent.nodeType !== document.ELEMENT_NODE) {
+            // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+            if (parent.nodeType !== 1) {
                 return this.parentElement(parent, tag);
             }
 
@@ -565,5 +518,161 @@
                 return parent;
             }
 
-        }
+        },
+
+        /**
+         * IE8 safe method to get the next element sibling
+         *
+         * @param {HTMLElement} el A given HTMLElement.
+         * @returns {HTMLElement}
+         *
+         * @example
+         * ch.util.nextElementSibling(el);
+         */
+        'nextElementSibling': function(element) {
+            function next(el) {
+                do {
+                    el = el.nextSibling;
+                } while (el && el.nodeType !== 1);
+
+                return el;
+            }
+
+            return element.nextElementSibling || next(element);
+        },
+
+        /**
+         * JSONP handler based on Promises
+         *
+         * @memberof ch.util
+         * @param {String} url
+         * @param {Object} [options] Optional options.
+         * @param {String} [options.callback] Callback prefix. Default: "__jsonp"
+         * @param {String} [options.param] QS parameter. Default: "callback"
+         * @param {Number} [options.timeout] How long after the request until a timeout error
+         *   will occur. Default: 15000
+         *
+         * @return {Object} Returns a response promise and a cancel handler.
+         *
+         * @example
+         * var req = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=smartphone&v=1');
+         * req.promise
+         *   .then(function(results){
+         *     console.log(results)
+         *   })
+         *   .catch(function(err){
+         *     console.error(err);
+         *   });
+         * if (something) {
+         *   req.cancel();
+         * }
+         */
+        loadJSONP: (function() {
+            var noop = function() {},
+                // document.head is not available in IE<9
+                head = document.getElementsByTagName('head')[0],
+                jsonpCount = 0;
+
+            return function (url, options) {
+                var script,
+                    timer,
+                    cleanup,
+                    promise,
+                    cancel;
+
+                options = ch.util.extend({
+                    prefix: '__jsonp',
+                    param: 'callback',
+                    timeout : 15000
+                }, options);
+
+                // Generate a unique id for the request.
+                var id = options.prefix + (jsonpCount++);
+
+                cleanup = function() {
+                    // Remove the script tag.
+                    if (script && script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+
+                    window[id] = noop;
+
+                    if (timer) {
+                        clearTimeout(timer);
+                    }
+                };
+
+                promise = new Promise(function(resolve, reject) {
+                    if (options.timeout) {
+                        timer = setTimeout(function() {
+                            cleanup();
+                            reject(new Error('Timeout'));
+                        }, options.timeout);
+                    }
+
+                    window[id] = function(data) {
+                        cleanup();
+                        resolve(data);
+                    };
+
+                    // Add querystring component
+                    url += (~url.indexOf('?') ? '&' : '?') + options.param + '=' + encodeURIComponent(id);
+                    url = url.replace('?&', '?');
+
+                    // Create script element
+                    script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.src = url;
+                    script.onerror = function(e) {
+                        cleanup();
+                        reject(new Error(e.message || 'Script Error'));
+                    };
+                    head.appendChild(script);
+
+                    // TODO: move cancel fn definition outside of promise
+                    cancel = function() {
+                        if (window[id]) {
+                            cleanup();
+                            reject(new Error('Canceled'));
+                        }
+                    };
+                });
+
+                return {
+                    promise: promise,
+                    cancel: cancel
+                };
+            }
+        })()
+        /*
+        loadJSONP: (function () {
+            var unique = 0,
+                head = document.getElementsByTagName('head')[0];
+
+            return function (url, callback, context) {
+                var name = 'jsonp_' + unique++;
+                url += (~url.indexOf('?') ? '&' : '?') ? '&' : '?') + 'callback=' + name;
+
+                // Create script
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = url;
+
+                // Setup jsonp handler
+                window[name] = function (data) {
+                    callback.call((context || window), data);
+                    head.removeChild(script);
+                    script = null;
+                    try {
+                        delete window[name];
+                    } catch (e) {
+                        window[name] = undefined;
+                    }
+                };
+
+                // Load JSON
+                head.appendChild(script);
+            };
+        })()
+        */
     };

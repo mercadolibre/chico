@@ -22,7 +22,7 @@
 
         images.forEach(function (image, i) {
 
-            ch.util.Event.addListenerOne(image, 'load', function () {
+            ch.Event.addListenerOne(image, 'load', function () {
                 var len = images.length;
 
                 window.setTimeout(function () {

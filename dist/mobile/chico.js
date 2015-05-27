@@ -7,6 +7,1893 @@
  * http://chico-ui.com.ar/license
  */
 
+/*!
+ * @overview es6-promise - a tiny implementation of Promises/A+.
+ * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
+ * @license   Licensed under MIT license
+ *            See https://raw.githubusercontent.com/jakearchibald/es6-promise/master/LICENSE
+ * @version   2.1.0
+ */
+
+(function() {
+    "use strict";
+    function lib$es6$promise$utils$$objectOrFunction(x) {
+      return typeof x === 'function' || (typeof x === 'object' && x !== null);
+    }
+
+    function lib$es6$promise$utils$$isFunction(x) {
+      return typeof x === 'function';
+    }
+
+    function lib$es6$promise$utils$$isMaybeThenable(x) {
+      return typeof x === 'object' && x !== null;
+    }
+
+    var lib$es6$promise$utils$$_isArray;
+    if (!Array.isArray) {
+      lib$es6$promise$utils$$_isArray = function (x) {
+        return Object.prototype.toString.call(x) === '[object Array]';
+      };
+    } else {
+      lib$es6$promise$utils$$_isArray = Array.isArray;
+    }
+
+    var lib$es6$promise$utils$$isArray = lib$es6$promise$utils$$_isArray;
+    var lib$es6$promise$asap$$len = 0;
+    var lib$es6$promise$asap$$toString = {}.toString;
+    var lib$es6$promise$asap$$vertxNext;
+    function lib$es6$promise$asap$$asap(callback, arg) {
+      lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len] = callback;
+      lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len + 1] = arg;
+      lib$es6$promise$asap$$len += 2;
+      if (lib$es6$promise$asap$$len === 2) {
+        // If len is 2, that means that we need to schedule an async flush.
+        // If additional callbacks are queued before the queue is flushed, they
+        // will be processed by this flush that we are scheduling.
+        lib$es6$promise$asap$$scheduleFlush();
+      }
+    }
+
+    var lib$es6$promise$asap$$default = lib$es6$promise$asap$$asap;
+
+    var lib$es6$promise$asap$$browserWindow = (typeof window !== 'undefined') ? window : undefined;
+    var lib$es6$promise$asap$$browserGlobal = lib$es6$promise$asap$$browserWindow || {};
+    var lib$es6$promise$asap$$BrowserMutationObserver = lib$es6$promise$asap$$browserGlobal.MutationObserver || lib$es6$promise$asap$$browserGlobal.WebKitMutationObserver;
+    var lib$es6$promise$asap$$isNode = typeof process !== 'undefined' && {}.toString.call(process) === '[object process]';
+
+    // test for web worker but not in IE10
+    var lib$es6$promise$asap$$isWorker = typeof Uint8ClampedArray !== 'undefined' &&
+      typeof importScripts !== 'undefined' &&
+      typeof MessageChannel !== 'undefined';
+
+    // node
+    function lib$es6$promise$asap$$useNextTick() {
+      var nextTick = process.nextTick;
+      // node version 0.10.x displays a deprecation warning when nextTick is used recursively
+      // setImmediate should be used instead instead
+      var version = process.versions.node.match(/^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/);
+      if (Array.isArray(version) && version[1] === '0' && version[2] === '10') {
+        nextTick = setImmediate;
+      }
+      return function() {
+        nextTick(lib$es6$promise$asap$$flush);
+      };
+    }
+
+    // vertx
+    function lib$es6$promise$asap$$useVertxTimer() {
+      return function() {
+        lib$es6$promise$asap$$vertxNext(lib$es6$promise$asap$$flush);
+      };
+    }
+
+    function lib$es6$promise$asap$$useMutationObserver() {
+      var iterations = 0;
+      var observer = new lib$es6$promise$asap$$BrowserMutationObserver(lib$es6$promise$asap$$flush);
+      var node = document.createTextNode('');
+      observer.observe(node, { characterData: true });
+
+      return function() {
+        node.data = (iterations = ++iterations % 2);
+      };
+    }
+
+    // web worker
+    function lib$es6$promise$asap$$useMessageChannel() {
+      var channel = new MessageChannel();
+      channel.port1.onmessage = lib$es6$promise$asap$$flush;
+      return function () {
+        channel.port2.postMessage(0);
+      };
+    }
+
+    function lib$es6$promise$asap$$useSetTimeout() {
+      return function() {
+        setTimeout(lib$es6$promise$asap$$flush, 1);
+      };
+    }
+
+    var lib$es6$promise$asap$$queue = new Array(1000);
+    function lib$es6$promise$asap$$flush() {
+      for (var i = 0; i < lib$es6$promise$asap$$len; i+=2) {
+        var callback = lib$es6$promise$asap$$queue[i];
+        var arg = lib$es6$promise$asap$$queue[i+1];
+
+        callback(arg);
+
+        lib$es6$promise$asap$$queue[i] = undefined;
+        lib$es6$promise$asap$$queue[i+1] = undefined;
+      }
+
+      lib$es6$promise$asap$$len = 0;
+    }
+
+    function lib$es6$promise$asap$$attemptVertex() {
+      try {
+        var r = require;
+        var vertx = r('vertx');
+        lib$es6$promise$asap$$vertxNext = vertx.runOnLoop || vertx.runOnContext;
+        return lib$es6$promise$asap$$useVertxTimer();
+      } catch(e) {
+        return lib$es6$promise$asap$$useSetTimeout();
+      }
+    }
+
+    var lib$es6$promise$asap$$scheduleFlush;
+    // Decide what async method to use to triggering processing of queued callbacks:
+    if (lib$es6$promise$asap$$isNode) {
+      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useNextTick();
+    } else if (lib$es6$promise$asap$$BrowserMutationObserver) {
+      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useMutationObserver();
+    } else if (lib$es6$promise$asap$$isWorker) {
+      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useMessageChannel();
+    } else if (lib$es6$promise$asap$$browserWindow === undefined && typeof require === 'function') {
+      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$attemptVertex();
+    } else {
+      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useSetTimeout();
+    }
+
+    function lib$es6$promise$$internal$$noop() {}
+
+    var lib$es6$promise$$internal$$PENDING   = void 0;
+    var lib$es6$promise$$internal$$FULFILLED = 1;
+    var lib$es6$promise$$internal$$REJECTED  = 2;
+
+    var lib$es6$promise$$internal$$GET_THEN_ERROR = new lib$es6$promise$$internal$$ErrorObject();
+
+    function lib$es6$promise$$internal$$selfFullfillment() {
+      return new TypeError("You cannot resolve a promise with itself");
+    }
+
+    function lib$es6$promise$$internal$$cannotReturnOwn() {
+      return new TypeError('A promises callback cannot return that same promise.');
+    }
+
+    function lib$es6$promise$$internal$$getThen(promise) {
+      try {
+        return promise.then;
+      } catch(error) {
+        lib$es6$promise$$internal$$GET_THEN_ERROR.error = error;
+        return lib$es6$promise$$internal$$GET_THEN_ERROR;
+      }
+    }
+
+    function lib$es6$promise$$internal$$tryThen(then, value, fulfillmentHandler, rejectionHandler) {
+      try {
+        then.call(value, fulfillmentHandler, rejectionHandler);
+      } catch(e) {
+        return e;
+      }
+    }
+
+    function lib$es6$promise$$internal$$handleForeignThenable(promise, thenable, then) {
+       lib$es6$promise$asap$$default(function(promise) {
+        var sealed = false;
+        var error = lib$es6$promise$$internal$$tryThen(then, thenable, function(value) {
+          if (sealed) { return; }
+          sealed = true;
+          if (thenable !== value) {
+            lib$es6$promise$$internal$$resolve(promise, value);
+          } else {
+            lib$es6$promise$$internal$$fulfill(promise, value);
+          }
+        }, function(reason) {
+          if (sealed) { return; }
+          sealed = true;
+
+          lib$es6$promise$$internal$$reject(promise, reason);
+        }, 'Settle: ' + (promise._label || ' unknown promise'));
+
+        if (!sealed && error) {
+          sealed = true;
+          lib$es6$promise$$internal$$reject(promise, error);
+        }
+      }, promise);
+    }
+
+    function lib$es6$promise$$internal$$handleOwnThenable(promise, thenable) {
+      if (thenable._state === lib$es6$promise$$internal$$FULFILLED) {
+        lib$es6$promise$$internal$$fulfill(promise, thenable._result);
+      } else if (promise._state === lib$es6$promise$$internal$$REJECTED) {
+        lib$es6$promise$$internal$$reject(promise, thenable._result);
+      } else {
+        lib$es6$promise$$internal$$subscribe(thenable, undefined, function(value) {
+          lib$es6$promise$$internal$$resolve(promise, value);
+        }, function(reason) {
+          lib$es6$promise$$internal$$reject(promise, reason);
+        });
+      }
+    }
+
+    function lib$es6$promise$$internal$$handleMaybeThenable(promise, maybeThenable) {
+      if (maybeThenable.constructor === promise.constructor) {
+        lib$es6$promise$$internal$$handleOwnThenable(promise, maybeThenable);
+      } else {
+        var then = lib$es6$promise$$internal$$getThen(maybeThenable);
+
+        if (then === lib$es6$promise$$internal$$GET_THEN_ERROR) {
+          lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$GET_THEN_ERROR.error);
+        } else if (then === undefined) {
+          lib$es6$promise$$internal$$fulfill(promise, maybeThenable);
+        } else if (lib$es6$promise$utils$$isFunction(then)) {
+          lib$es6$promise$$internal$$handleForeignThenable(promise, maybeThenable, then);
+        } else {
+          lib$es6$promise$$internal$$fulfill(promise, maybeThenable);
+        }
+      }
+    }
+
+    function lib$es6$promise$$internal$$resolve(promise, value) {
+      if (promise === value) {
+        lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$selfFullfillment());
+      } else if (lib$es6$promise$utils$$objectOrFunction(value)) {
+        lib$es6$promise$$internal$$handleMaybeThenable(promise, value);
+      } else {
+        lib$es6$promise$$internal$$fulfill(promise, value);
+      }
+    }
+
+    function lib$es6$promise$$internal$$publishRejection(promise) {
+      if (promise._onerror) {
+        promise._onerror(promise._result);
+      }
+
+      lib$es6$promise$$internal$$publish(promise);
+    }
+
+    function lib$es6$promise$$internal$$fulfill(promise, value) {
+      if (promise._state !== lib$es6$promise$$internal$$PENDING) { return; }
+
+      promise._result = value;
+      promise._state = lib$es6$promise$$internal$$FULFILLED;
+
+      if (promise._subscribers.length !== 0) {
+        lib$es6$promise$asap$$default(lib$es6$promise$$internal$$publish, promise);
+      }
+    }
+
+    function lib$es6$promise$$internal$$reject(promise, reason) {
+      if (promise._state !== lib$es6$promise$$internal$$PENDING) { return; }
+      promise._state = lib$es6$promise$$internal$$REJECTED;
+      promise._result = reason;
+
+      lib$es6$promise$asap$$default(lib$es6$promise$$internal$$publishRejection, promise);
+    }
+
+    function lib$es6$promise$$internal$$subscribe(parent, child, onFulfillment, onRejection) {
+      var subscribers = parent._subscribers;
+      var length = subscribers.length;
+
+      parent._onerror = null;
+
+      subscribers[length] = child;
+      subscribers[length + lib$es6$promise$$internal$$FULFILLED] = onFulfillment;
+      subscribers[length + lib$es6$promise$$internal$$REJECTED]  = onRejection;
+
+      if (length === 0 && parent._state) {
+        lib$es6$promise$asap$$default(lib$es6$promise$$internal$$publish, parent);
+      }
+    }
+
+    function lib$es6$promise$$internal$$publish(promise) {
+      var subscribers = promise._subscribers;
+      var settled = promise._state;
+
+      if (subscribers.length === 0) { return; }
+
+      var child, callback, detail = promise._result;
+
+      for (var i = 0; i < subscribers.length; i += 3) {
+        child = subscribers[i];
+        callback = subscribers[i + settled];
+
+        if (child) {
+          lib$es6$promise$$internal$$invokeCallback(settled, child, callback, detail);
+        } else {
+          callback(detail);
+        }
+      }
+
+      promise._subscribers.length = 0;
+    }
+
+    function lib$es6$promise$$internal$$ErrorObject() {
+      this.error = null;
+    }
+
+    var lib$es6$promise$$internal$$TRY_CATCH_ERROR = new lib$es6$promise$$internal$$ErrorObject();
+
+    function lib$es6$promise$$internal$$tryCatch(callback, detail) {
+      try {
+        return callback(detail);
+      } catch(e) {
+        lib$es6$promise$$internal$$TRY_CATCH_ERROR.error = e;
+        return lib$es6$promise$$internal$$TRY_CATCH_ERROR;
+      }
+    }
+
+    function lib$es6$promise$$internal$$invokeCallback(settled, promise, callback, detail) {
+      var hasCallback = lib$es6$promise$utils$$isFunction(callback),
+          value, error, succeeded, failed;
+
+      if (hasCallback) {
+        value = lib$es6$promise$$internal$$tryCatch(callback, detail);
+
+        if (value === lib$es6$promise$$internal$$TRY_CATCH_ERROR) {
+          failed = true;
+          error = value.error;
+          value = null;
+        } else {
+          succeeded = true;
+        }
+
+        if (promise === value) {
+          lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$cannotReturnOwn());
+          return;
+        }
+
+      } else {
+        value = detail;
+        succeeded = true;
+      }
+
+      if (promise._state !== lib$es6$promise$$internal$$PENDING) {
+        // noop
+      } else if (hasCallback && succeeded) {
+        lib$es6$promise$$internal$$resolve(promise, value);
+      } else if (failed) {
+        lib$es6$promise$$internal$$reject(promise, error);
+      } else if (settled === lib$es6$promise$$internal$$FULFILLED) {
+        lib$es6$promise$$internal$$fulfill(promise, value);
+      } else if (settled === lib$es6$promise$$internal$$REJECTED) {
+        lib$es6$promise$$internal$$reject(promise, value);
+      }
+    }
+
+    function lib$es6$promise$$internal$$initializePromise(promise, resolver) {
+      try {
+        resolver(function resolvePromise(value){
+          lib$es6$promise$$internal$$resolve(promise, value);
+        }, function rejectPromise(reason) {
+          lib$es6$promise$$internal$$reject(promise, reason);
+        });
+      } catch(e) {
+        lib$es6$promise$$internal$$reject(promise, e);
+      }
+    }
+
+    function lib$es6$promise$enumerator$$Enumerator(Constructor, input) {
+      var enumerator = this;
+
+      enumerator._instanceConstructor = Constructor;
+      enumerator.promise = new Constructor(lib$es6$promise$$internal$$noop);
+
+      if (enumerator._validateInput(input)) {
+        enumerator._input     = input;
+        enumerator.length     = input.length;
+        enumerator._remaining = input.length;
+
+        enumerator._init();
+
+        if (enumerator.length === 0) {
+          lib$es6$promise$$internal$$fulfill(enumerator.promise, enumerator._result);
+        } else {
+          enumerator.length = enumerator.length || 0;
+          enumerator._enumerate();
+          if (enumerator._remaining === 0) {
+            lib$es6$promise$$internal$$fulfill(enumerator.promise, enumerator._result);
+          }
+        }
+      } else {
+        lib$es6$promise$$internal$$reject(enumerator.promise, enumerator._validationError());
+      }
+    }
+
+    lib$es6$promise$enumerator$$Enumerator.prototype._validateInput = function(input) {
+      return lib$es6$promise$utils$$isArray(input);
+    };
+
+    lib$es6$promise$enumerator$$Enumerator.prototype._validationError = function() {
+      return new Error('Array Methods must be provided an Array');
+    };
+
+    lib$es6$promise$enumerator$$Enumerator.prototype._init = function() {
+      this._result = new Array(this.length);
+    };
+
+    var lib$es6$promise$enumerator$$default = lib$es6$promise$enumerator$$Enumerator;
+
+    lib$es6$promise$enumerator$$Enumerator.prototype._enumerate = function() {
+      var enumerator = this;
+
+      var length  = enumerator.length;
+      var promise = enumerator.promise;
+      var input   = enumerator._input;
+
+      for (var i = 0; promise._state === lib$es6$promise$$internal$$PENDING && i < length; i++) {
+        enumerator._eachEntry(input[i], i);
+      }
+    };
+
+    lib$es6$promise$enumerator$$Enumerator.prototype._eachEntry = function(entry, i) {
+      var enumerator = this;
+      var c = enumerator._instanceConstructor;
+
+      if (lib$es6$promise$utils$$isMaybeThenable(entry)) {
+        if (entry.constructor === c && entry._state !== lib$es6$promise$$internal$$PENDING) {
+          entry._onerror = null;
+          enumerator._settledAt(entry._state, i, entry._result);
+        } else {
+          enumerator._willSettleAt(c.resolve(entry), i);
+        }
+      } else {
+        enumerator._remaining--;
+        enumerator._result[i] = entry;
+      }
+    };
+
+    lib$es6$promise$enumerator$$Enumerator.prototype._settledAt = function(state, i, value) {
+      var enumerator = this;
+      var promise = enumerator.promise;
+
+      if (promise._state === lib$es6$promise$$internal$$PENDING) {
+        enumerator._remaining--;
+
+        if (state === lib$es6$promise$$internal$$REJECTED) {
+          lib$es6$promise$$internal$$reject(promise, value);
+        } else {
+          enumerator._result[i] = value;
+        }
+      }
+
+      if (enumerator._remaining === 0) {
+        lib$es6$promise$$internal$$fulfill(promise, enumerator._result);
+      }
+    };
+
+    lib$es6$promise$enumerator$$Enumerator.prototype._willSettleAt = function(promise, i) {
+      var enumerator = this;
+
+      lib$es6$promise$$internal$$subscribe(promise, undefined, function(value) {
+        enumerator._settledAt(lib$es6$promise$$internal$$FULFILLED, i, value);
+      }, function(reason) {
+        enumerator._settledAt(lib$es6$promise$$internal$$REJECTED, i, reason);
+      });
+    };
+    function lib$es6$promise$promise$all$$all(entries) {
+      return new lib$es6$promise$enumerator$$default(this, entries).promise;
+    }
+    var lib$es6$promise$promise$all$$default = lib$es6$promise$promise$all$$all;
+    function lib$es6$promise$promise$race$$race(entries) {
+      /*jshint validthis:true */
+      var Constructor = this;
+
+      var promise = new Constructor(lib$es6$promise$$internal$$noop);
+
+      if (!lib$es6$promise$utils$$isArray(entries)) {
+        lib$es6$promise$$internal$$reject(promise, new TypeError('You must pass an array to race.'));
+        return promise;
+      }
+
+      var length = entries.length;
+
+      function onFulfillment(value) {
+        lib$es6$promise$$internal$$resolve(promise, value);
+      }
+
+      function onRejection(reason) {
+        lib$es6$promise$$internal$$reject(promise, reason);
+      }
+
+      for (var i = 0; promise._state === lib$es6$promise$$internal$$PENDING && i < length; i++) {
+        lib$es6$promise$$internal$$subscribe(Constructor.resolve(entries[i]), undefined, onFulfillment, onRejection);
+      }
+
+      return promise;
+    }
+    var lib$es6$promise$promise$race$$default = lib$es6$promise$promise$race$$race;
+    function lib$es6$promise$promise$resolve$$resolve(object) {
+      /*jshint validthis:true */
+      var Constructor = this;
+
+      if (object && typeof object === 'object' && object.constructor === Constructor) {
+        return object;
+      }
+
+      var promise = new Constructor(lib$es6$promise$$internal$$noop);
+      lib$es6$promise$$internal$$resolve(promise, object);
+      return promise;
+    }
+    var lib$es6$promise$promise$resolve$$default = lib$es6$promise$promise$resolve$$resolve;
+    function lib$es6$promise$promise$reject$$reject(reason) {
+      /*jshint validthis:true */
+      var Constructor = this;
+      var promise = new Constructor(lib$es6$promise$$internal$$noop);
+      lib$es6$promise$$internal$$reject(promise, reason);
+      return promise;
+    }
+    var lib$es6$promise$promise$reject$$default = lib$es6$promise$promise$reject$$reject;
+
+    var lib$es6$promise$promise$$counter = 0;
+
+    function lib$es6$promise$promise$$needsResolver() {
+      throw new TypeError('You must pass a resolver function as the first argument to the promise constructor');
+    }
+
+    function lib$es6$promise$promise$$needsNew() {
+      throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");
+    }
+
+    var lib$es6$promise$promise$$default = lib$es6$promise$promise$$Promise;
+    /**
+      Promise objects represent the eventual result of an asynchronous operation. The
+      primary way of interacting with a promise is through its `then` method, which
+      registers callbacks to receive either a promise’s eventual value or the reason
+      why the promise cannot be fulfilled.
+
+      Terminology
+      -----------
+
+      - `promise` is an object or function with a `then` method whose behavior conforms to this specification.
+      - `thenable` is an object or function that defines a `then` method.
+      - `value` is any legal JavaScript value (including undefined, a thenable, or a promise).
+      - `exception` is a value that is thrown using the throw statement.
+      - `reason` is a value that indicates why a promise was rejected.
+      - `settled` the final resting state of a promise, fulfilled or rejected.
+
+      A promise can be in one of three states: pending, fulfilled, or rejected.
+
+      Promises that are fulfilled have a fulfillment value and are in the fulfilled
+      state.  Promises that are rejected have a rejection reason and are in the
+      rejected state.  A fulfillment value is never a thenable.
+
+      Promises can also be said to *resolve* a value.  If this value is also a
+      promise, then the original promise's settled state will match the value's
+      settled state.  So a promise that *resolves* a promise that rejects will
+      itself reject, and a promise that *resolves* a promise that fulfills will
+      itself fulfill.
+
+
+      Basic Usage:
+      ------------
+
+      ```js
+      var promise = new Promise(function(resolve, reject) {
+        // on success
+        resolve(value);
+
+        // on failure
+        reject(reason);
+      });
+
+      promise.then(function(value) {
+        // on fulfillment
+      }, function(reason) {
+        // on rejection
+      });
+      ```
+
+      Advanced Usage:
+      ---------------
+
+      Promises shine when abstracting away asynchronous interactions such as
+      `XMLHttpRequest`s.
+
+      ```js
+      function getJSON(url) {
+        return new Promise(function(resolve, reject){
+          var xhr = new XMLHttpRequest();
+
+          xhr.open('GET', url);
+          xhr.onreadystatechange = handler;
+          xhr.responseType = 'json';
+          xhr.setRequestHeader('Accept', 'application/json');
+          xhr.send();
+
+          function handler() {
+            if (this.readyState === this.DONE) {
+              if (this.status === 200) {
+                resolve(this.response);
+              } else {
+                reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
+              }
+            }
+          };
+        });
+      }
+
+      getJSON('/posts.json').then(function(json) {
+        // on fulfillment
+      }, function(reason) {
+        // on rejection
+      });
+      ```
+
+      Unlike callbacks, promises are great composable primitives.
+
+      ```js
+      Promise.all([
+        getJSON('/posts'),
+        getJSON('/comments')
+      ]).then(function(values){
+        values[0] // => postsJSON
+        values[1] // => commentsJSON
+
+        return values;
+      });
+      ```
+
+      @class Promise
+      @param {function} resolver
+      Useful for tooling.
+      @constructor
+    */
+    function lib$es6$promise$promise$$Promise(resolver) {
+      this._id = lib$es6$promise$promise$$counter++;
+      this._state = undefined;
+      this._result = undefined;
+      this._subscribers = [];
+
+      if (lib$es6$promise$$internal$$noop !== resolver) {
+        if (!lib$es6$promise$utils$$isFunction(resolver)) {
+          lib$es6$promise$promise$$needsResolver();
+        }
+
+        if (!(this instanceof lib$es6$promise$promise$$Promise)) {
+          lib$es6$promise$promise$$needsNew();
+        }
+
+        lib$es6$promise$$internal$$initializePromise(this, resolver);
+      }
+    }
+
+    lib$es6$promise$promise$$Promise.all = lib$es6$promise$promise$all$$default;
+    lib$es6$promise$promise$$Promise.race = lib$es6$promise$promise$race$$default;
+    lib$es6$promise$promise$$Promise.resolve = lib$es6$promise$promise$resolve$$default;
+    lib$es6$promise$promise$$Promise.reject = lib$es6$promise$promise$reject$$default;
+
+    lib$es6$promise$promise$$Promise.prototype = {
+      constructor: lib$es6$promise$promise$$Promise,
+
+    /**
+      The primary way of interacting with a promise is through its `then` method,
+      which registers callbacks to receive either a promise's eventual value or the
+      reason why the promise cannot be fulfilled.
+
+      ```js
+      findUser().then(function(user){
+        // user is available
+      }, function(reason){
+        // user is unavailable, and you are given the reason why
+      });
+      ```
+
+      Chaining
+      --------
+
+      The return value of `then` is itself a promise.  This second, 'downstream'
+      promise is resolved with the return value of the first promise's fulfillment
+      or rejection handler, or rejected if the handler throws an exception.
+
+      ```js
+      findUser().then(function (user) {
+        return user.name;
+      }, function (reason) {
+        return 'default name';
+      }).then(function (userName) {
+        // If `findUser` fulfilled, `userName` will be the user's name, otherwise it
+        // will be `'default name'`
+      });
+
+      findUser().then(function (user) {
+        throw new Error('Found user, but still unhappy');
+      }, function (reason) {
+        throw new Error('`findUser` rejected and we're unhappy');
+      }).then(function (value) {
+        // never reached
+      }, function (reason) {
+        // if `findUser` fulfilled, `reason` will be 'Found user, but still unhappy'.
+        // If `findUser` rejected, `reason` will be '`findUser` rejected and we're unhappy'.
+      });
+      ```
+      If the downstream promise does not specify a rejection handler, rejection reasons will be propagated further downstream.
+
+      ```js
+      findUser().then(function (user) {
+        throw new PedagogicalException('Upstream error');
+      }).then(function (value) {
+        // never reached
+      }).then(function (value) {
+        // never reached
+      }, function (reason) {
+        // The `PedgagocialException` is propagated all the way down to here
+      });
+      ```
+
+      Assimilation
+      ------------
+
+      Sometimes the value you want to propagate to a downstream promise can only be
+      retrieved asynchronously. This can be achieved by returning a promise in the
+      fulfillment or rejection handler. The downstream promise will then be pending
+      until the returned promise is settled. This is called *assimilation*.
+
+      ```js
+      findUser().then(function (user) {
+        return findCommentsByAuthor(user);
+      }).then(function (comments) {
+        // The user's comments are now available
+      });
+      ```
+
+      If the assimliated promise rejects, then the downstream promise will also reject.
+
+      ```js
+      findUser().then(function (user) {
+        return findCommentsByAuthor(user);
+      }).then(function (comments) {
+        // If `findCommentsByAuthor` fulfills, we'll have the value here
+      }, function (reason) {
+        // If `findCommentsByAuthor` rejects, we'll have the reason here
+      });
+      ```
+
+      Simple Example
+      --------------
+
+      Synchronous Example
+
+      ```javascript
+      var result;
+
+      try {
+        result = findResult();
+        // success
+      } catch(reason) {
+        // failure
+      }
+      ```
+
+      Errback Example
+
+      ```js
+      findResult(function(result, err){
+        if (err) {
+          // failure
+        } else {
+          // success
+        }
+      });
+      ```
+
+      Promise Example;
+
+      ```javascript
+      findResult().then(function(result){
+        // success
+      }, function(reason){
+        // failure
+      });
+      ```
+
+      Advanced Example
+      --------------
+
+      Synchronous Example
+
+      ```javascript
+      var author, books;
+
+      try {
+        author = findAuthor();
+        books  = findBooksByAuthor(author);
+        // success
+      } catch(reason) {
+        // failure
+      }
+      ```
+
+      Errback Example
+
+      ```js
+
+      function foundBooks(books) {
+
+      }
+
+      function failure(reason) {
+
+      }
+
+      findAuthor(function(author, err){
+        if (err) {
+          failure(err);
+          // failure
+        } else {
+          try {
+            findBoooksByAuthor(author, function(books, err) {
+              if (err) {
+                failure(err);
+              } else {
+                try {
+                  foundBooks(books);
+                } catch(reason) {
+                  failure(reason);
+                }
+              }
+            });
+          } catch(error) {
+            failure(err);
+          }
+          // success
+        }
+      });
+      ```
+
+      Promise Example;
+
+      ```javascript
+      findAuthor().
+        then(findBooksByAuthor).
+        then(function(books){
+          // found books
+      }).catch(function(reason){
+        // something went wrong
+      });
+      ```
+
+      @method then
+      @param {Function} onFulfilled
+      @param {Function} onRejected
+      Useful for tooling.
+      @return {Promise}
+    */
+      then: function(onFulfillment, onRejection) {
+        var parent = this;
+        var state = parent._state;
+
+        if (state === lib$es6$promise$$internal$$FULFILLED && !onFulfillment || state === lib$es6$promise$$internal$$REJECTED && !onRejection) {
+          return this;
+        }
+
+        var child = new this.constructor(lib$es6$promise$$internal$$noop);
+        var result = parent._result;
+
+        if (state) {
+          var callback = arguments[state - 1];
+          lib$es6$promise$asap$$default(function(){
+            lib$es6$promise$$internal$$invokeCallback(state, child, callback, result);
+          });
+        } else {
+          lib$es6$promise$$internal$$subscribe(parent, child, onFulfillment, onRejection);
+        }
+
+        return child;
+      },
+
+    /**
+      `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
+      as the catch block of a try/catch statement.
+
+      ```js
+      function findAuthor(){
+        throw new Error('couldn't find that author');
+      }
+
+      // synchronous
+      try {
+        findAuthor();
+      } catch(reason) {
+        // something went wrong
+      }
+
+      // async with promises
+      findAuthor().catch(function(reason){
+        // something went wrong
+      });
+      ```
+
+      @method catch
+      @param {Function} onRejection
+      Useful for tooling.
+      @return {Promise}
+    */
+      'catch': function(onRejection) {
+        return this.then(null, onRejection);
+      }
+    };
+    function lib$es6$promise$polyfill$$polyfill() {
+      var local;
+
+      if (typeof global !== 'undefined') {
+          local = global;
+      } else if (typeof self !== 'undefined') {
+          local = self;
+      } else {
+          try {
+              local = Function('return this')();
+          } catch (e) {
+              throw new Error('polyfill failed because global object is unavailable in this environment');
+          }
+      }
+
+      var P = local.Promise;
+
+      if (P && Object.prototype.toString.call(P.resolve()) === '[object Promise]' && !P.cast) {
+        return;
+      }
+
+      local.Promise = lib$es6$promise$promise$$default;
+    }
+    var lib$es6$promise$polyfill$$default = lib$es6$promise$polyfill$$polyfill;
+
+    var lib$es6$promise$umd$$ES6Promise = {
+      'Promise': lib$es6$promise$promise$$default,
+      'polyfill': lib$es6$promise$polyfill$$default
+    };
+
+    /* global define:true module:true window: true */
+    if (typeof define === 'function' && define['amd']) {
+      define(function() { return lib$es6$promise$umd$$ES6Promise; });
+    } else if (typeof module !== 'undefined' && module['exports']) {
+      module['exports'] = lib$es6$promise$umd$$ES6Promise;
+    } else if (typeof this !== 'undefined') {
+      this['ES6Promise'] = lib$es6$promise$umd$$ES6Promise;
+    }
+
+    lib$es6$promise$polyfill$$default();
+}).call(this);
+
+
+(function () {
+    'use strict';
+
+    if (self.fetch) {
+        return
+    }
+
+    function Headers(headers) {
+        this.map = {};
+
+        var self = this;
+        if (headers instanceof Headers) {
+            headers.forEach(function (name, values) {
+                values.forEach(function (value) {
+                    self.append(name, value)
+                })
+            })
+
+        } else if (headers) {
+            Object.getOwnPropertyNames(headers).forEach(function (name) {
+                self.append(name, headers[name])
+            })
+        }
+    }
+
+    Headers.prototype.append = function (name, value) {
+        name = name.toLowerCase();
+        var list = this.map[name];
+        if (!list) {
+            list = [];
+            this.map[name] = list
+        }
+        list.push(value)
+    };
+
+    Headers.prototype['delete'] = function (name) {
+        delete this.map[name.toLowerCase()]
+    };
+
+    Headers.prototype.get = function (name) {
+        var values = this.map[name.toLowerCase()]
+        return values ? values[0] : null
+    };
+
+    Headers.prototype.getAll = function (name) {
+        return this.map[name.toLowerCase()] || []
+    };
+
+    Headers.prototype.has = function (name) {
+        return this.map.hasOwnProperty(name.toLowerCase())
+    };
+
+    Headers.prototype.set = function (name, value) {
+        this.map[name.toLowerCase()] = [value]
+    };
+
+    // Instead of iterable for now.
+    Headers.prototype.forEach = function (callback) {
+        var self = this;
+        Object.getOwnPropertyNames(this.map).forEach(function (name) {
+            callback(name, self.map[name])
+        })
+    };
+
+    function consumed(body) {
+        if (body.bodyUsed) {
+            return Promise.reject(new TypeError('Already read'))
+        }
+        body.bodyUsed = true
+    }
+
+    function fileReaderReady(reader) {
+        return new Promise(function (resolve, reject) {
+            reader.onload = function () {
+                resolve(reader.result)
+            };
+            reader.onerror = function () {
+                reject(reader.error)
+            }
+        })
+    }
+
+    function readBlobAsArrayBuffer(blob) {
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(blob);
+        return fileReaderReady(reader)
+    }
+
+    function readBlobAsText(blob) {
+        var reader = new FileReader();
+        reader.readAsText(blob);
+        return fileReaderReady(reader)
+    }
+
+    var support = {
+        blob: 'FileReader' in self && 'Blob' in self && (function () {
+            try {
+                new Blob();
+                return true
+            } catch (e) {
+                return false
+            }
+        })(),
+        formData: 'FormData' in self
+    }
+
+    function Body() {
+        this.bodyUsed = false
+
+        if (support.blob) {
+            this._initBody = function (body) {
+                this._bodyInit = body;
+                if (typeof body === 'string') {
+                    this._bodyText = body
+                } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+                    this._bodyBlob = body
+                } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+                    this._bodyFormData = body
+                } else if (!body) {
+                    this._bodyText = ''
+                } else {
+                    throw new Error('unsupported BodyInit type')
+                }
+            };
+
+            this.blob = function () {
+                var rejected = consumed(this);
+                if (rejected) {
+                    return rejected
+                }
+
+                if (this._bodyBlob) {
+                    return Promise.resolve(this._bodyBlob)
+                } else if (this._bodyFormData) {
+                    throw new Error('could not read FormData body as blob')
+                } else {
+                    return Promise.resolve(new Blob([this._bodyText]))
+                }
+            };
+
+            this.arrayBuffer = function () {
+                return this.blob().then(readBlobAsArrayBuffer)
+            };
+
+            this.text = function () {
+                var rejected = consumed(this);
+                if (rejected) {
+                    return rejected
+                }
+
+                if (this._bodyBlob) {
+                    return readBlobAsText(this._bodyBlob)
+                } else if (this._bodyFormData) {
+                    throw new Error('could not read FormData body as text')
+                } else {
+                    return Promise.resolve(this._bodyText)
+                }
+            }
+        } else {
+            this._initBody = function (body) {
+                this._bodyInit = body;
+                if (typeof body === 'string') {
+                    this._bodyText = body
+                } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+                    this._bodyFormData = body
+                } else if (!body) {
+                    this._bodyText = ''
+                } else {
+                    throw new Error('unsupported BodyInit type')
+                }
+            };
+
+            this.text = function () {
+                var rejected = consumed(this)
+                return rejected ? rejected : Promise.resolve(this._bodyText)
+            }
+        }
+
+        if (support.formData) {
+            this.formData = function () {
+                return this.text().then(decode)
+            }
+        }
+
+        this.json = function () {
+            return this.text().then(JSON.parse)
+        };
+
+        return this
+    }
+
+    // HTTP methods whose capitalization should be normalized
+    var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+    function normalizeMethod(method) {
+        var upcased = method.toUpperCase();
+        return (methods.indexOf(upcased) > -1) ? upcased : method
+    }
+
+    function Request(url, options) {
+        options = options || {};
+        this.url = url;
+
+        this.credentials = options.credentials || 'omit';
+        this.headers = new Headers(options.headers);
+        this.method = normalizeMethod(options.method || 'GET');
+        this.mode = options.mode || null;
+        this.referrer = null;
+
+        if ((this.method === 'GET' || this.method === 'HEAD') && options.body) {
+            throw new TypeError('Body not allowed for GET or HEAD requests')
+        }
+        this._initBody(options.body)
+    }
+
+    function decode(body) {
+        var form = new FormData();
+        body.trim().split('&').forEach(function (bytes) {
+            if (bytes) {
+                var split = bytes.split('=');
+                var name = split.shift().replace(/\+/g, ' ');
+                var value = split.join('=').replace(/\+/g, ' ');
+                form.append(decodeURIComponent(name), decodeURIComponent(value))
+            }
+        });
+        return form
+    }
+
+    function headers(xhr) {
+        var head = new Headers();
+        var pairs = xhr.getAllResponseHeaders().trim().split('\n');
+        pairs.forEach(function (header) {
+            var split = header.trim().split(':');
+            var key = split.shift().trim();
+            var value = split.join(':').trim();
+            head.append(key, value)
+        });
+        return head
+    }
+
+    Request.prototype.fetch = function () {
+        var self = this;
+
+        return new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            if (self.credentials === 'cors') {
+                xhr.withCredentials = true;
+            }
+
+            function responseURL() {
+                if ('responseURL' in xhr) {
+                    return xhr.responseURL
+                }
+
+                // Avoid security warnings on getResponseHeader when not allowed by CORS
+                if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
+                    return xhr.getResponseHeader('X-Request-URL')
+                }
+
+                return;
+            }
+
+            // Use onreadystatechange instead of onload because of IE8
+            xhr.onreadystatechange = function () {
+                //ready?
+                if (xhr.readyState !== 4) {
+                    return;
+                }
+
+                //get status:
+                var status = (xhr.status === 1223) ? 204 : xhr.status;
+                if (status < 100 || status > 599) {
+                    reject(new TypeError('Network request failed'));
+                    return;
+                }
+
+                var options = {
+                    status: status,
+                    statusText: xhr.statusText,
+                    headers: headers(xhr),
+                    url: responseURL()
+                };
+                var body = 'response' in xhr ? xhr.response : xhr.responseText;
+                resolve(new Response(body, options));
+            };
+
+            xhr.onerror = function () {
+                reject(new TypeError('Network request failed'))
+            };
+
+            xhr.open(self.method, self.url, true);
+            if ('responseType' in xhr && support.blob) {
+                xhr.responseType = 'blob'
+            }
+
+            self.headers.forEach(function (name, values) {
+                values.forEach(function (value) {
+                    xhr.setRequestHeader(name, value)
+                })
+            });
+
+            xhr.send(typeof self._bodyInit === 'undefined' ? null : self._bodyInit);
+        })
+    };
+
+    Body.call(Request.prototype);
+
+    function Response(bodyInit, options) {
+        if (!options) {
+            options = {}
+        }
+
+        this._initBody(bodyInit);
+        this.type = 'default';
+        this.url = null;
+        this.status = options.status;
+        this.statusText = options.statusText;
+        this.headers = options.headers;
+        this.url = options.url || '';
+    }
+
+    Body.call(Response.prototype);
+
+    self.Headers = Headers;
+    self.Request = Request;
+    self.Response = Response;
+
+    self.fetch = function (url, options) {
+        return new Request(url, options).fetch()
+    };
+    self.fetch.polyfill = true
+})();
+
+(function(window) {
+    'use strict';
+
+    var POINTER_TYPE_TOUCH = "touch";
+    var POINTER_TYPE_PEN = "pen";
+    var POINTER_TYPE_MOUSE = "mouse";
+
+    // Due to polyfill IE8 can has document.createEvent but it has no support for
+    // custom Mouse Events
+    var supportsMouseEvents = !!window.MouseEvent;
+
+    // If the user agent already supports Pointer Events, do nothing
+    if (window.PointerEvent) {
+        return;
+    }
+
+    // The list of standardized pointer events http://www.w3.org/TR/pointerevents/
+    var upperCaseEventsNames = ["PointerDown", "PointerUp", "PointerMove", "PointerOver", "PointerOut", "PointerCancel", "PointerEnter", "PointerLeave"];
+    var supportedEventsNames = upperCaseEventsNames.map(function(name) {
+        return name.toLowerCase();
+    });
+
+    var previousTargets = {};
+
+    var checkPreventDefault = function (node) {
+        while (node && !node.ch_forcePreventDefault) {
+            node = node.parentNode;
+        }
+        return !!node || window.ch_forcePreventDefault;
+    };
+
+    // Touch events
+    var generateTouchClonedEvent = function (sourceEvent, newName, canBubble, target, relatedTarget) {
+        // Considering touch events are almost like super mouse events
+        var evObj;
+
+        if (document.createEvent && supportsMouseEvents) {
+            evObj = document.createEvent('MouseEvents');
+            // TODO: Replace 'initMouseEvent' with 'new MouseEvent'
+            evObj.initMouseEvent(newName, canBubble, true, window, 1, sourceEvent.screenX, sourceEvent.screenY,
+                sourceEvent.clientX, sourceEvent.clientY, sourceEvent.ctrlKey, sourceEvent.altKey,
+                sourceEvent.shiftKey, sourceEvent.metaKey, sourceEvent.button, relatedTarget || sourceEvent.relatedTarget);
+        } else {
+            evObj = document.createEventObject();
+            evObj.screenX = sourceEvent.screenX;
+            evObj.screenY = sourceEvent.screenY;
+            evObj.clientX = sourceEvent.clientX;
+            evObj.clientY = sourceEvent.clientY;
+            evObj.ctrlKey = sourceEvent.ctrlKey;
+            evObj.altKey = sourceEvent.altKey;
+            evObj.shiftKey = sourceEvent.shiftKey;
+            evObj.metaKey = sourceEvent.metaKey;
+            evObj.button = sourceEvent.button;
+            evObj.relatedTarget = relatedTarget || sourceEvent.relatedTarget;
+        }
+        // offsets
+        if (evObj.offsetX === undefined) {
+            if (sourceEvent.offsetX !== undefined) {
+
+                // For Opera which creates readonly properties
+                if (Object && Object.defineProperty !== undefined) {
+                    Object.defineProperty(evObj, "offsetX", {
+                        writable: true
+                    });
+                    Object.defineProperty(evObj, "offsetY", {
+                        writable: true
+                    });
+                }
+
+                evObj.offsetX = sourceEvent.offsetX;
+                evObj.offsetY = sourceEvent.offsetY;
+            } else if (Object && Object.defineProperty !== undefined) {
+                Object.defineProperty(evObj, "offsetX", {
+                    get: function () {
+                        if (this.currentTarget && this.currentTarget.offsetLeft) {
+                            return sourceEvent.clientX - this.currentTarget.offsetLeft;
+                        }
+                        return sourceEvent.clientX;
+                    }
+                });
+                Object.defineProperty(evObj, "offsetY", {
+                    get: function () {
+                        if (this.currentTarget && this.currentTarget.offsetTop) {
+                            return sourceEvent.clientY - this.currentTarget.offsetTop;
+                        }
+                        return sourceEvent.clientY;
+                    }
+                });
+            }
+            else if (sourceEvent.layerX !== undefined) {
+                evObj.offsetX = sourceEvent.layerX - sourceEvent.currentTarget.offsetLeft;
+                evObj.offsetY = sourceEvent.layerY - sourceEvent.currentTarget.offsetTop;
+            }
+        }
+
+        // adding missing properties
+
+        if (sourceEvent.isPrimary !== undefined)
+            evObj.isPrimary = sourceEvent.isPrimary;
+        else
+            evObj.isPrimary = true;
+
+        if (sourceEvent.pressure)
+            evObj.pressure = sourceEvent.pressure;
+        else {
+            var button = 0;
+
+            if (sourceEvent.which !== undefined)
+                button = sourceEvent.which;
+            else if (sourceEvent.button !== undefined) {
+                button = sourceEvent.button;
+            }
+            evObj.pressure = (button === 0) ? 0 : 0.5;
+        }
+
+        if (sourceEvent.rotation)
+            evObj.rotation = sourceEvent.rotation;
+        else
+            evObj.rotation = 0;
+
+        // Timestamp
+        if (sourceEvent.hwTimestamp)
+            evObj.hwTimestamp = sourceEvent.hwTimestamp;
+        else
+            evObj.hwTimestamp = 0;
+
+        // Tilts
+        if (sourceEvent.tiltX)
+            evObj.tiltX = sourceEvent.tiltX;
+        else
+            evObj.tiltX = 0;
+
+        if (sourceEvent.tiltY)
+            evObj.tiltY = sourceEvent.tiltY;
+        else
+            evObj.tiltY = 0;
+
+        // Width and Height
+        if (sourceEvent.height)
+            evObj.height = sourceEvent.height;
+        else
+            evObj.height = 0;
+
+        if (sourceEvent.width)
+            evObj.width = sourceEvent.width;
+        else
+            evObj.width = 0;
+
+        // preventDefault
+        evObj.preventDefault = function () {
+            if (sourceEvent.preventDefault !== undefined)
+                sourceEvent.preventDefault();
+        };
+
+        // stopPropagation
+        if (evObj.stopPropagation !== undefined) {
+            var current = evObj.stopPropagation;
+            evObj.stopPropagation = function () {
+                if (sourceEvent.stopPropagation !== undefined)
+                    sourceEvent.stopPropagation();
+                current.call(this);
+            };
+        }
+
+        // Pointer values
+        evObj.pointerId = sourceEvent.pointerId;
+        evObj.pointerType = sourceEvent.pointerType;
+
+        switch (evObj.pointerType) {// Old spec version check
+            case 2:
+                evObj.pointerType = POINTER_TYPE_TOUCH;
+                break;
+            case 3:
+                evObj.pointerType = POINTER_TYPE_PEN;
+                break;
+            case 4:
+                evObj.pointerType = POINTER_TYPE_MOUSE;
+                break;
+        }
+
+        // Fire event
+        if (target)
+            target.dispatchEvent(evObj);
+        else if (sourceEvent.target && supportsMouseEvents) {
+            sourceEvent.target.dispatchEvent(evObj);
+        } else {
+            sourceEvent.srcElement.fireEvent("on" + getMouseEquivalentEventName(newName), evObj); // We must fallback to mouse event for very old browsers
+        }
+    };
+
+    var generateMouseProxy = function (evt, eventName, canBubble, target, relatedTarget) {
+        evt.pointerId = 1;
+        evt.pointerType = POINTER_TYPE_MOUSE;
+        generateTouchClonedEvent(evt, eventName, canBubble, target, relatedTarget);
+    };
+
+    var generateTouchEventProxy = function (name, touchPoint, target, eventObject, canBubble, relatedTarget) {
+        var touchPointId = touchPoint.identifier + 2; // Just to not override mouse id
+
+        touchPoint.pointerId = touchPointId;
+        touchPoint.pointerType = POINTER_TYPE_TOUCH;
+        touchPoint.currentTarget = target;
+
+        if (eventObject.preventDefault !== undefined) {
+            touchPoint.preventDefault = function () {
+                eventObject.preventDefault();
+            };
+        }
+
+        generateTouchClonedEvent(touchPoint, name, canBubble, target, relatedTarget);
+    };
+
+    var checkEventRegistration = function (node, eventName) {
+        return node.__chGlobalRegisteredEvents && node.__chGlobalRegisteredEvents[eventName];
+    };
+    var findEventRegisteredNode = function (node, eventName) {
+        while (node && !checkEventRegistration(node, eventName))
+            node = node.parentNode;
+        if (node)
+            return node;
+        else if (checkEventRegistration(window, eventName))
+            return window;
+    };
+
+    var generateTouchEventProxyIfRegistered = function (eventName, touchPoint, target, eventObject, canBubble, relatedTarget) { // Check if user registered this event
+        if (findEventRegisteredNode(target, eventName)) {
+            generateTouchEventProxy(eventName, touchPoint, target, eventObject, canBubble, relatedTarget);
+        }
+    };
+
+    var getMouseEquivalentEventName = function (eventName) {
+        return eventName.toLowerCase().replace("pointer", "mouse");
+    };
+
+    var getPrefixEventName = function (prefix, eventName) {
+        var upperCaseIndex = supportedEventsNames.indexOf(eventName);
+        var newEventName = prefix + upperCaseEventsNames[upperCaseIndex];
+
+        return newEventName;
+    };
+
+    var registerOrUnregisterEvent = function (item, name, func, enable) {
+        if (item.__chRegisteredEvents === undefined) {
+            item.__chRegisteredEvents = [];
+        }
+
+        if (enable) {
+            if (item.__chRegisteredEvents[name] !== undefined) {
+                item.__chRegisteredEvents[name]++;
+                return;
+            }
+
+            item.__chRegisteredEvents[name] = 1;
+            item.addEventListener(name, func, false);
+        } else {
+
+            if (item.__chRegisteredEvents.indexOf(name) !== -1) {
+                item.__chRegisteredEvents[name]--;
+
+                if (item.__chRegisteredEvents[name] !== 0) {
+                    return;
+                }
+            }
+            item.removeEventListener(name, func);
+            item.__chRegisteredEvents[name] = 0;
+        }
+    };
+
+    var setTouchAware = function (item, eventName, enable) {
+        // Leaving tokens
+        if (!item.__chGlobalRegisteredEvents) {
+            item.__chGlobalRegisteredEvents = [];
+        }
+        if (enable) {
+            if (item.__chGlobalRegisteredEvents[eventName] !== undefined) {
+                item.__chGlobalRegisteredEvents[eventName]++;
+                return;
+            }
+            item.__chGlobalRegisteredEvents[eventName] = 1;
+        } else {
+            if (item.__chGlobalRegisteredEvents[eventName] !== undefined) {
+                item.__chGlobalRegisteredEvents[eventName]--;
+                if (item.__chGlobalRegisteredEvents[eventName] < 0) {
+                    item.__chGlobalRegisteredEvents[eventName] = 0;
+                }
+            }
+        }
+
+        var nameGenerator;
+        var eventGenerator;
+        if (window.MSPointerEvent) {
+            nameGenerator = function (name) { return getPrefixEventName("MS", name); };
+            eventGenerator = generateTouchClonedEvent;
+        }
+        else {
+            nameGenerator = getMouseEquivalentEventName;
+            eventGenerator = generateMouseProxy;
+        }
+        switch (eventName) {
+            case "pointerenter":
+            case "pointerleave":
+                var targetEvent = nameGenerator(eventName);
+                if (item['on' + targetEvent.toLowerCase()] !== undefined) {
+                    registerOrUnregisterEvent(item, targetEvent, function (evt) { eventGenerator(evt, eventName); }, enable);
+                }
+                break;
+        }
+    };
+
+    // Intercept addEventListener calls by changing the prototype
+    var interceptAddEventListener = function (root) {
+        var current = root.prototype ? root.prototype.addEventListener : root.addEventListener;
+
+        var customAddEventListener = function (name, func, capture) {
+            // Branch when a PointerXXX is used
+            if (supportedEventsNames.indexOf(name) !== -1) {
+                setTouchAware(this, name, true);
+            }
+
+            if (current === undefined) {
+                this.attachEvent("on" + getMouseEquivalentEventName(name), func);
+            } else {
+                current.call(this, name, func, capture);
+            }
+        };
+
+        if (root.prototype) {
+            root.prototype.addEventListener = customAddEventListener;
+        } else {
+            root.addEventListener = customAddEventListener;
+        }
+    };
+
+    // Intercept removeEventListener calls by changing the prototype
+    var interceptRemoveEventListener = function (root) {
+        var current = root.prototype ? root.prototype.removeEventListener : root.removeEventListener;
+
+        var customRemoveEventListener = function (name, func, capture) {
+            // Release when a PointerXXX is used
+            if (supportedEventsNames.indexOf(name) !== -1) {
+                setTouchAware(this, name, false);
+            }
+
+            if (current === undefined) {
+                this.detachEvent(getMouseEquivalentEventName(name), func);
+            } else {
+                current.call(this, name, func, capture);
+            }
+        };
+        if (root.prototype) {
+            root.prototype.removeEventListener = customRemoveEventListener;
+        } else {
+            root.removeEventListener = customRemoveEventListener;
+        }
+    };
+
+    // Hooks
+    interceptAddEventListener(window);
+    interceptAddEventListener(window.HTMLElement || window.Element);
+    interceptAddEventListener(document);
+    interceptAddEventListener(HTMLBodyElement);
+    interceptAddEventListener(HTMLDivElement);
+    interceptAddEventListener(HTMLImageElement);
+    interceptAddEventListener(HTMLUListElement);
+    interceptAddEventListener(HTMLAnchorElement);
+    interceptAddEventListener(HTMLLIElement);
+    interceptAddEventListener(HTMLTableElement);
+    if (window.HTMLSpanElement) {
+        interceptAddEventListener(HTMLSpanElement);
+    }
+    if (window.HTMLCanvasElement) {
+        interceptAddEventListener(HTMLCanvasElement);
+    }
+    if (window.SVGElement) {
+        interceptAddEventListener(SVGElement);
+    }
+
+    interceptRemoveEventListener(window);
+    interceptRemoveEventListener(window.HTMLElement || window.Element);
+    interceptRemoveEventListener(document);
+    interceptRemoveEventListener(HTMLBodyElement);
+    interceptRemoveEventListener(HTMLDivElement);
+    interceptRemoveEventListener(HTMLImageElement);
+    interceptRemoveEventListener(HTMLUListElement);
+    interceptRemoveEventListener(HTMLAnchorElement);
+    interceptRemoveEventListener(HTMLLIElement);
+    interceptRemoveEventListener(HTMLTableElement);
+    if (window.HTMLSpanElement) {
+        interceptRemoveEventListener(HTMLSpanElement);
+    }
+    if (window.HTMLCanvasElement) {
+        interceptRemoveEventListener(HTMLCanvasElement);
+    }
+    if (window.SVGElement) {
+        interceptRemoveEventListener(SVGElement);
+    }
+
+    // Prevent mouse event from being dispatched after Touch Events action
+    var touching = false;
+    var touchTimer = -1;
+
+    function setTouchTimer() {
+        touching = true;
+        clearTimeout(touchTimer);
+        touchTimer = setTimeout(function () {
+            touching = false;
+        }, 700);
+        // 1. Mobile browsers dispatch mouse events 300ms after touchend
+        // 2. Chrome for Android dispatch mousedown for long-touch about 650ms
+        // Result: Blocking Mouse Events for 700ms.
+    }
+
+    function getFirstCommonNode(x, y) {
+        while (x) {
+            if (x.contains(y))
+                return x;
+            x = x.parentNode;
+        }
+        return null;
+    }
+
+    //generateProxy receives a node to dispatch the event
+    function dispatchPointerEnter(currentTarget, relatedTarget, generateProxy) {
+        var commonParent = getFirstCommonNode(currentTarget, relatedTarget);
+        var node = currentTarget;
+        var nodelist = [];
+        while (node && node !== commonParent) {//target range: this to the direct child of parent relatedTarget
+            if (checkEventRegistration(node, "pointerenter")) //check if any parent node has pointerenter
+                nodelist.push(node);
+            node = node.parentNode;
+        }
+        while (nodelist.length > 0)
+            generateProxy(nodelist.pop());
+    }
+
+    //generateProxy receives a node to dispatch the event
+    function dispatchPointerLeave(currentTarget, relatedTarget, generateProxy) {
+        var commonParent = getFirstCommonNode(currentTarget, relatedTarget);
+        var node = currentTarget;
+        while (node && node !== commonParent) {//target range: this to the direct child of parent relatedTarget
+            if (checkEventRegistration(node, "pointerleave"))//check if any parent node has pointerleave
+                generateProxy(node);
+            node = node.parentNode;
+        }
+    }
+
+    // Handling events on window to prevent unwanted super-bubbling
+    // All mouse events are affected by touch fallback
+    function applySimpleEventTunnels(nameGenerator, eventGenerator) {
+        ["pointerdown", "pointermove", "pointerup", "pointerover", "pointerout"].forEach(function (eventName) {
+            window.addEventListener(nameGenerator(eventName), function (evt) {
+                if (!touching && findEventRegisteredNode(evt.target, eventName))
+                    eventGenerator(evt, eventName, true);
+            });
+        });
+        if (window['on' + nameGenerator("pointerenter").toLowerCase()] === undefined)
+            window.addEventListener(nameGenerator("pointerover"), function (evt) {
+                if (touching)
+                    return;
+                var foundNode = findEventRegisteredNode(evt.target, "pointerenter");
+                if (!foundNode || foundNode === window)
+                    return;
+                else if (!foundNode.contains(evt.relatedTarget)) {
+                    dispatchPointerEnter(foundNode, evt.relatedTarget, function (targetNode) {
+                        eventGenerator(evt, "pointerenter", false, targetNode, evt.relatedTarget);
+                    });
+                }
+            });
+        if (window['on' + nameGenerator("pointerleave").toLowerCase()] === undefined)
+            window.addEventListener(nameGenerator("pointerout"), function (evt) {
+                if (touching)
+                    return;
+                var foundNode = findEventRegisteredNode(evt.target, "pointerleave");
+                if (!foundNode || foundNode === window)
+                    return;
+                else if (!foundNode.contains(evt.relatedTarget)) {
+                    dispatchPointerLeave(foundNode, evt.relatedTarget, function (targetNode) {
+                        eventGenerator(evt, "pointerleave", false, targetNode, evt.relatedTarget);
+                    });
+                }
+            });
+    }
+
+    (function () {
+        if (window.MSPointerEvent) {
+            //IE 10
+            applySimpleEventTunnels(
+                function (name) { return getPrefixEventName("MS", name); },
+                generateTouchClonedEvent);
+        }
+        else {
+            applySimpleEventTunnels(getMouseEquivalentEventName, generateMouseProxy);
+
+            // Handling move on window to detect pointerleave/out/over
+            if (window.ontouchstart !== undefined) {
+                window.addEventListener('touchstart', function (eventObject) {
+                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
+                        var touchPoint = eventObject.changedTouches[i];
+                        previousTargets[touchPoint.identifier] = touchPoint.target;
+
+                        generateTouchEventProxyIfRegistered("pointerover", touchPoint, touchPoint.target, eventObject, true);
+
+                        //pointerenter should not be bubbled
+                        dispatchPointerEnter(touchPoint.target, null, function (targetNode) {
+                            generateTouchEventProxy("pointerenter", touchPoint, targetNode, eventObject, false);
+                        });
+
+                        generateTouchEventProxyIfRegistered("pointerdown", touchPoint, touchPoint.target, eventObject, true);
+                    }
+                    setTouchTimer();
+                });
+
+                window.addEventListener('touchend', function (eventObject) {
+                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
+                        var touchPoint = eventObject.changedTouches[i];
+                        var currentTarget = previousTargets[touchPoint.identifier];
+
+                        generateTouchEventProxyIfRegistered("pointerup", touchPoint, currentTarget, eventObject, true);
+                        generateTouchEventProxyIfRegistered("pointerout", touchPoint, currentTarget, eventObject, true);
+
+                        //pointerleave should not be bubbled
+                        dispatchPointerLeave(currentTarget, null, function (targetNode) {
+                            generateTouchEventProxy("pointerleave", touchPoint, targetNode, eventObject, false);
+                        });
+                    }
+                    setTouchTimer();
+                });
+
+                window.addEventListener('touchmove', function (eventObject) {
+                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
+                        var touchPoint = eventObject.changedTouches[i];
+                        var newTarget = document.elementFromPoint(touchPoint.clientX, touchPoint.clientY);
+                        var currentTarget = previousTargets[touchPoint.identifier];
+
+                        // If force preventDefault
+                        if (currentTarget && checkPreventDefault(currentTarget) === true)
+                            eventObject.preventDefault();
+
+                        generateTouchEventProxyIfRegistered("pointermove", touchPoint, currentTarget, eventObject, true);
+
+                        if (currentTarget === newTarget) {
+                            continue; // We can skip this as the pointer is effectively over the current target
+                        }
+
+                        if (currentTarget) {
+                            // Raise out
+                            generateTouchEventProxyIfRegistered("pointerout", touchPoint, currentTarget, eventObject, true, newTarget);
+
+                            // Raise leave
+                            if (!currentTarget.contains(newTarget)) { // Leave must be called if the new target is not a child of the current
+                                dispatchPointerLeave(currentTarget, newTarget, function (targetNode) {
+                                    generateTouchEventProxy("pointerleave", touchPoint, targetNode, eventObject, false, newTarget);
+                                });
+                            }
+                        }
+
+                        if (newTarget) {
+                            // Raise over
+                            generateTouchEventProxyIfRegistered("pointerover", touchPoint, newTarget, eventObject, true, currentTarget);
+
+                            // Raise enter
+                            if (!newTarget.contains(currentTarget)) { // Leave must be called if the new target is not the parent of the current
+                                dispatchPointerEnter(newTarget, currentTarget, function (targetNode) {
+                                    generateTouchEventProxy("pointerenter", touchPoint, targetNode, eventObject, false, currentTarget);
+                                })
+                            }
+                        }
+                        previousTargets[touchPoint.identifier] = newTarget;
+                    }
+                    setTouchTimer();
+                });
+
+                window.addEventListener('touchcancel', function (eventObject) {
+                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
+                        var touchPoint = eventObject.changedTouches[i];
+
+                        generateTouchEventProxyIfRegistered("pointercancel", touchPoint, previousTargets[touchPoint.identifier], eventObject, true);
+                    }
+                });
+            }
+        }
+    })();
+
+    // Extension to navigator
+    if (navigator.pointerEnabled === undefined) {
+
+        // Indicates if the browser will fire pointer events for pointing input
+        navigator.pointerEnabled = true;
+
+        // IE
+        if (navigator.msPointerEnabled) {
+            navigator.maxTouchPoints = navigator.msMaxTouchPoints;
+        }
+    }
+})(window);
+
 
 (function (window) {
 	'use strict';
@@ -67,35 +1954,8 @@ var ch = {},
          * @private
          * @constructor
          */
-        Array = window.Array,
+        Array = window.Array;
 
-        /**
-         * Reference to the vendor prefix of the current browser.
-         * @constant
-         * @private
-         * @type {String}
-         * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
-         */
-        VENDOR_PREFIX = (function () {
-
-            var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
-                styleDeclaration = document.getElementsByTagName('script')[0].style,
-                prop;
-
-            for (prop in styleDeclaration) {
-                if (regex.test(prop)) {
-                    return prop.match(regex)[0].toLowerCase();
-                }
-            }
-
-            // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
-            // However (prop in style) returns the correct value, so we'll have to test for
-            // the precence of a specific property
-            if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
-            if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
-
-            return '';
-        }());
 ch.util = {
 
         /**
@@ -201,6 +2061,17 @@ ch.util = {
             24. http://ui.ml.com:8080:8080/ajax.html
             */
             return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(url));
+        },
+
+        /**
+         * Detects an Internet Explorer and returns the version if so.
+         *
+         * @see From <a href="https://github.com/ded/bowser/blob/master/bowser.js">bowser</a>
+         * @returns {Boolean|Number}
+         */
+        'isMsie': function() {
+            return (/(msie|trident)/i).test(navigator.userAgent) ?
+                navigator.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
         },
 
         /**
@@ -316,8 +2187,10 @@ ch.util = {
          * ch.util.prevent(event);
          */
         prevent: function (event) {
-            if (typeof event === 'object') {
+            if (typeof event === 'object' && event.preventDefault) {
                 event.preventDefault();
+            } else {
+                return false;
             }
         },
 
@@ -482,67 +2355,6 @@ ch.util = {
         },
 
         /**
-         * Event utility
-         * @constant
-         * @memberof ch.util
-         * @type {Object}
-         * @example
-         * ch.util.Event.addListener(document, 'click', function(){}, false);
-         */
-         'Event': (function() {
-            var isStandard = document.addEventListener ? true : false,
-                addHandler = document.addEventListener ? 'addEventListener' : 'attachEvent',
-                removeHandler = document.removeEventListener ? 'removeEventListener' : 'detachEvent',
-                dispatch = document.dispatchEvent ? 'dispatchEvent' : 'fireEvent',
-                _custom = {};
-
-            function evtUtility(evt) {
-                return isStandard ? evt : ('on' + evt);
-            }
-
-            // Check for the support of full featured Event
-            function isEvtHasConstructor() {
-                try {
-                    // In IE 9 - 11 the Event object exists but cannot be instantiated
-                    new Event('click');
-                    return true;
-                } catch(e) {
-                    return false;
-                }
-            }
-
-            return {
-                'addListener': function addListener(el, evt, fn, bubbles) {
-                    el[addHandler](evtUtility(evt), fn, bubbles || false);
-                },
-                'addListenerOne': function addListener(el, evt, fn, bubbles) {
-
-                    function oneRemove(){
-                        el[removeHandler](evtUtility(evt), fn);
-                    }
-                    // must remove the event after executes one time
-                    el[addHandler](evtUtility(evt), fn, bubbles || false);
-                    el[addHandler](evtUtility(evt), function(){ oneRemove() }, bubbles || false);
-                },
-                'removeListener': function removeListener(el, evt, fn) {
-                    el[removeHandler](evtUtility(evt), fn);
-                },
-                'dispatchEvent': function dispatchEvent(el, name) {
-                    if (!_custom[name]) {
-                        if (isEvtHasConstructor()) {
-                            _custom[name] = new Event(name);
-                        } else {
-                            _custom[name] = document.createEvent('UIEvent');
-                            _custom[name].initEvent(name, false, false);
-                        }
-                    }
-
-                    el[dispatch](_custom[name]);
-                }
-            }
-        }()),
-
-        /**
          * Extends an object with other object
          * @name extend
          * @param {Object} target The destination of the other objects
@@ -647,7 +2459,8 @@ ch.util = {
 
             if (parent === null) { return parent; }
 
-            if (parent.nodeType !== document.ELEMENT_NODE) {
+            // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+            if (parent.nodeType !== 1) {
                 return this.parentElement(parent, tag);
             }
 
@@ -659,7 +2472,163 @@ ch.util = {
                 return parent;
             }
 
-        }
+        },
+
+        /**
+         * IE8 safe method to get the next element sibling
+         *
+         * @param {HTMLElement} el A given HTMLElement.
+         * @returns {HTMLElement}
+         *
+         * @example
+         * ch.util.nextElementSibling(el);
+         */
+        'nextElementSibling': function(element) {
+            function next(el) {
+                do {
+                    el = el.nextSibling;
+                } while (el && el.nodeType !== 1);
+
+                return el;
+            }
+
+            return element.nextElementSibling || next(element);
+        },
+
+        /**
+         * JSONP handler based on Promises
+         *
+         * @memberof ch.util
+         * @param {String} url
+         * @param {Object} [options] Optional options.
+         * @param {String} [options.callback] Callback prefix. Default: "__jsonp"
+         * @param {String} [options.param] QS parameter. Default: "callback"
+         * @param {Number} [options.timeout] How long after the request until a timeout error
+         *   will occur. Default: 15000
+         *
+         * @return {Object} Returns a response promise and a cancel handler.
+         *
+         * @example
+         * var req = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=smartphone&v=1');
+         * req.promise
+         *   .then(function(results){
+         *     console.log(results)
+         *   })
+         *   .catch(function(err){
+         *     console.error(err);
+         *   });
+         * if (something) {
+         *   req.cancel();
+         * }
+         */
+        loadJSONP: (function() {
+            var noop = function() {},
+                // document.head is not available in IE<9
+                head = document.getElementsByTagName('head')[0],
+                jsonpCount = 0;
+
+            return function (url, options) {
+                var script,
+                    timer,
+                    cleanup,
+                    promise,
+                    cancel;
+
+                options = ch.util.extend({
+                    prefix: '__jsonp',
+                    param: 'callback',
+                    timeout : 15000
+                }, options);
+
+                // Generate a unique id for the request.
+                var id = options.prefix + (jsonpCount++);
+
+                cleanup = function() {
+                    // Remove the script tag.
+                    if (script && script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+
+                    window[id] = noop;
+
+                    if (timer) {
+                        clearTimeout(timer);
+                    }
+                };
+
+                promise = new Promise(function(resolve, reject) {
+                    if (options.timeout) {
+                        timer = setTimeout(function() {
+                            cleanup();
+                            reject(new Error('Timeout'));
+                        }, options.timeout);
+                    }
+
+                    window[id] = function(data) {
+                        cleanup();
+                        resolve(data);
+                    };
+
+                    // Add querystring component
+                    url += (~url.indexOf('?') ? '&' : '?') + options.param + '=' + encodeURIComponent(id);
+                    url = url.replace('?&', '?');
+
+                    // Create script element
+                    script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.src = url;
+                    script.onerror = function(e) {
+                        cleanup();
+                        reject(new Error(e.message || 'Script Error'));
+                    };
+                    head.appendChild(script);
+
+                    // TODO: move cancel fn definition outside of promise
+                    cancel = function() {
+                        if (window[id]) {
+                            cleanup();
+                            reject(new Error('Canceled'));
+                        }
+                    };
+                });
+
+                return {
+                    promise: promise,
+                    cancel: cancel
+                };
+            }
+        })()
+        /*
+        loadJSONP: (function () {
+            var unique = 0,
+                head = document.getElementsByTagName('head')[0];
+
+            return function (url, callback, context) {
+                var name = 'jsonp_' + unique++;
+                url += (~url.indexOf('?') ? '&' : '?') ? '&' : '?') + 'callback=' + name;
+
+                // Create script
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = url;
+
+                // Setup jsonp handler
+                window[name] = function (data) {
+                    callback.call((context || window), data);
+                    head.removeChild(script);
+                    script = null;
+                    try {
+                        delete window[name];
+                    } catch (e) {
+                        window[name] = undefined;
+                    }
+                };
+
+                // Load JSON
+                head.appendChild(script);
+            };
+        })()
+        */
     };
 ch.util.fixLabels = function () {
         var labels = document.getElementsByTagName('label'),
@@ -678,7 +2647,7 @@ ch.util.fixLabels = function () {
 
         for (; labels[i]; i += 1) {
             if (labels[i].getAttribute('for')) {
-                ch.util.Event.addListener(labels[i], ch.onpointertap, labelTap);
+                ch.Event.addListener(labels[i], ch.onpointertap, labelTap);
             }
         }
     };
@@ -697,10 +2666,10 @@ ch.util.fixLabels = function () {
                 ch.pointerCanceled = false;
             }
 
-            ch.util.Event.addListenerOne(document, 'touchend', unblockPointer);
+            ch.Event.addListenerOne(document, 'touchend', unblockPointer);
         }
 
-        ch.util.Event.addListener(document, 'touchmove', blockPointer);
+        ch.Event.addListener(document, 'touchmove', blockPointer);
     };
 
     /*!
@@ -798,14 +2767,27 @@ ch.support = {
 
         /**
          * Verify that CSS Transitions are supported (or any of its browser-specific implementations).
-         * @type {Boolean}
-         * @link http://gist.github.com/373874
+         *
+         * @static
+         * @type {Boolean|Object}
          * @example
          * if (ch.support.transition) {
          *     // Some code here!
          * }
          */
-        'transition': body.style.WebkitTransition !== undefined || body.style.MozTransition !== undefined || body.style.MSTransition !== undefined || body.style.OTransition !== undefined || body.style.transition !== undefined,
+        'transition': transitionEnd(),
+
+        /**
+         * Verify that CSS Animations are supported (or any of its browser-specific implementations).
+         *
+         * @static
+         * @type {Boolean|Object}
+         * @example
+         * if (ch.support.animation) {
+         *     // Some code here!
+         * }
+         */
+        'animation': animationEnd(),
 
         /**
          * Checks if the User Agent support touch events.
@@ -815,87 +2797,360 @@ ch.support = {
          *     // Some code here!
          * }
          */
-        'touch': 'createTouch' in document
+        'touch': 'ontouchend' in document,
+
+        /**
+         * Checks is the User Agent supports custom events.
+         * @type {Boolean}
+         * @example
+         * if (ch.support.customEvent) {
+         *     // Some code here!
+         * }
+         */
+        'customEvent': (function() {
+            // TODO: find better solution for CustomEvent check
+            try {
+                // IE8 has no support for CustomEvent, in IE gte 9 it cannot be
+                // instantiated but exist
+                new CustomEvent(name, data);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        })()
     };
+
+    /**
+     * Checks for the CSS Transitions support (http://www.modernizr.com/)
+     *
+     * @function
+     * @private
+     */
+    function transitionEnd() {
+        var el = document.createElement('ch');
+
+        var transEndEventNames = {
+            WebkitTransition : 'webkitTransitionEnd',
+            MozTransition    : 'transitionend',
+            OTransition      : 'oTransitionEnd otransitionend',
+            transition       : 'transitionend'
+        };
+
+        for (var name in transEndEventNames) {
+            if (transEndEventNames.hasOwnProperty(name) && el.style[name] !== undefined) {
+                return { end: transEndEventNames[name] }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks for the CSS Animations support
+     *
+     * @function
+     * @private
+     */
+    function animationEnd() {
+        var el = document.createElement('ch');
+
+        var animEndEventNames = {
+            WebkitAnimation : 'webkitAnimationEnd',
+            MozAnimation    : 'animationend',
+            OAnimation      : 'oAnimationEnd oanimationend',
+            animation       : 'animationend'
+        };
+
+        for (var name in animEndEventNames) {
+            if (animEndEventNames.hasOwnProperty(name) && el.style[name] !== undefined) {
+                return { end: animEndEventNames[name] }
+            }
+        }
+
+        return false;
+    }
+
 ch.onlayoutchange = 'layoutchange';
 
-    /**
-     * Equivalent to 'resize'.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     */
-    ch.onresize = 'resize';
+/**
+ * Equivalent to 'resize'.
+ * @constant
+ * @memberof ch
+ * @type {String}
+ */
+ch.onresize = 'resize';
+
+/**
+ * Equivalent to 'scroll'.
+ * @constant
+ * @memberof ch
+ * @type {String}
+ */
+ch.onscroll = 'scroll';
+
+/**
+ * Equivalent to 'touchstart' or 'mousedown', depending on device capabilities.
+ * @constant
+ * @memberof ch
+ * @type {String}
+ * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerdown | Pointer Events W3C Working Draft
+ */
+ch.onpointerdown = window.MouseEvent ? 'pointerdown' : 'mousedown';
+
+/**
+ * Equivalent to 'touchend' or 'mouseup', depending on device capabilities.
+ * @constant
+ * @memberof ch
+ * @type {String}
+ * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerup | Pointer Events W3C Working Draft
+ */
+ch.onpointerup = window.MouseEvent ? 'pointerup' : 'mouseup';
+
+/**
+ * Equivalent to 'touchmove' or 'mousemove', depending on device capabilities.
+ * @constant
+ * @memberof ch
+ * @type {String}
+ * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointermove | Pointer Events W3C Working Draft
+ */
+ch.onpointermove = window.MouseEvent ? 'pointermove' : 'mousemove';
+
+/**
+ * Equivalent to 'touchend' or 'click', depending on device capabilities.
+ * @constant
+ * @memberof ch
+ * @type {String}
+ * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#list-of-pointer-events | Pointer Events W3C Working Draft
+ */
+ch.onpointertap = (ch.support.touch && window.MouseEvent) ? 'pointertap' : 'click';
+
+/**
+ * Equivalent to 'touchstart' or 'mouseenter', depending on device capabilities.
+ * @constant
+ * @memberof ch
+ * @type {String}
+ * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerenter | Pointer Events W3C Working Draft
+ */
+ch.onpointerenter = window.MouseEvent ? 'pointerenter' : 'mouseenter';
+
+/**
+ * Equivalent to 'touchend' or 'mouseleave', depending on device capabilities.
+ * @constant
+ * @memberof ch
+ * @type {String}
+ * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerleave | Pointer Events W3C Working Draft
+ */
+ch.onpointerleave = window.MouseEvent ? 'pointerleave' : 'mouseleave';
+
+/**
+ * Alphanumeric keys event.
+ * @constant
+ * @memberof ch
+ * @type {String}
+ */
+ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';
+
+/**
+ * Event utility
+ * @constant
+ * @memberof ch.util
+ * @type {Object}
+ * @example
+ * ch.Event.addListener(document, 'click', function(){}, false);
+ */
+ch.Event = (function () {
+    var isStandard = document.addEventListener ? true : false,
+        addHandler = isStandard ? 'addEventListener' : 'attachEvent',
+        removeHandler = isStandard ? 'removeEventListener' : 'detachEvent',
+        dispatch = isStandard ? 'dispatchEvent' : 'fireEvent',
+        _custom = {};
+
+    function evtUtility(evt) {
+        return isStandard ? evt : ('on' + evt);
+    }
+
+    return {
+        'addListener': function addListener(el, evt, fn, bubbles) {
+            el[addHandler](evtUtility(evt), fn, bubbles || false);
+        },
+        'addListenerOne': function addListener(el, evt, fn, bubbles) {
+
+            function oneRemove() {
+                el[removeHandler](evtUtility(evt), fn);
+            }
+
+            // must remove the event after executes one time
+            el[addHandler](evtUtility(evt), fn, bubbles || false);
+            // TODO: Review this method, wrong looks like has wrong behavior
+            el[addHandler](evtUtility(evt), function () {
+                oneRemove()
+            }, bubbles || false);
+        },
+        'removeListener': function removeListener(el, evt, fn) {
+            el[removeHandler](evtUtility(evt), fn);
+        },
+        'dispatchEvent': function dispatchEvent(el, e) {
+            var event = e;
+
+            if (typeof e === 'string') {
+                event = document.createEvent('Event');
+                event.initEvent(e, true, true);
+            }
+            el[dispatch](event);
+        },
+        'dispatchCustomEvent': function dispatchCustomEvent(el, name, params) {
+            if (!_custom[name]) {
+                var data = ch.util.extend({
+                        bubbles: false,
+                        cancelable: false,
+                        detail: undefined
+                    }, params),
+                    eventName = window.CustomEvent ? 'CustomEvent' : 'Event';
+
+                if (ch.support.customEvent) {
+                    _custom[name] = new CustomEvent(name, data);
+                } else {
+                    _custom[name] = document.createEvent(eventName);
+                    _custom[name]['init' + eventName](name, data.bubbles, data.cancelable, data.detail);
+                }
+            }
+
+            el[dispatch](_custom[name]);
+        }
+    }
+}());
+
+/**
+ * Normalizes touch/touch+click events into a 'pointertap' event that is not
+ * part of standard.
+ * Uses pointerEvents polyfill or native PointerEvents when supported.
+ *
+ * @example
+ * // Use pointertap as fastclick on touch enabled devices
+ * document.querySelector('.btn').addEventListener(ch.pointertap, function(e) {
+ *   console.log('tap');
+ * });
+ */
+(function () {
+    'use strict';
+
+    // IE8 has no support for custom Mouse Events, fallback to onclick
+    // Use an original click on UAs with no touch
+    if (!window.MouseEvent || !ch.support.touch) {
+        return;
+    }
+
+    var POINTER_TYPE_TOUCH = "touch";
+    var POINTER_TYPE_PEN = "pen";
+    var POINTER_TYPE_MOUSE = "mouse";
+
+    var isScrolling = false;
+    var scrollTimeout = false;
+    var sDistX = 0;
+    var sDistY = 0;
+    var activePointer;
+
+    window.addEventListener('scroll', function () {
+        if (!isScrolling) {
+            sDistX = window.pageXOffset;
+            sDistY = window.pageYOffset;
+        }
+        isScrolling = true;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function () {
+            isScrolling = false;
+            sDistX = 0;
+            sDistY = 0;
+        }, 100);
+    });
+
+    window.addEventListener('pointerdown', pointerDown);
+    window.addEventListener('pointerup', pointerUp);
+    window.addEventListener('pointerleave', pointerLeave);
+
+    window.addEventListener('pointermove', function (e) {
+        //console.log(activePointer);
+    });
 
     /**
-     * Equivalent to 'scroll'.
-     * @constant
-     * @memberof ch
-     * @type {String}
+     * Handles the 'pointerdown' event from pointerEvents polyfill or native PointerEvents when supported.
+     *
+     * @private
+     * @param {MouseEvent|PointerEvent} e Event.
      */
-    ch.onscroll = 'scroll';
+    function pointerDown(e) {
+        // don't register an activePointer if more than one touch is active.
+        var singleFinger = e.pointerType === POINTER_TYPE_MOUSE ||
+            e.pointerType === POINTER_TYPE_PEN ||
+            (e.pointerType === POINTER_TYPE_TOUCH && e.isPrimary);
+
+        if (!isScrolling && singleFinger) {
+            activePointer = {
+                id: e.pointerId,
+                clientX: e.clientX,
+                clientY: e.clientY,
+                x: e.x,
+                y: e.y,
+                type: e.pointerType
+            }
+        }
+    }
 
     /**
-     * Equivalent to 'touchstart' or 'mousedown', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerdown | Pointer Events W3C Working Draft
+     * Handles the 'pointerleave' event from pointerEvents polyfill or native PointerEvents when supported.
+     *
+     * @private
+     * @param {MouseEvent|PointerEvent} e Event.
      */
-    ch.onpointerdown = (ch.support.touch) ? 'touchstart' : 'mousedown';
+    function pointerLeave(e) {
+        activePointer = null;
+    }
 
     /**
-     * Equivalent to 'touchend' or 'mouseup', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerup | Pointer Events W3C Working Draft
+     * Handles the 'pointerup' event from pointerEvents polyfill or native PointerEvents when supported.
+     *
+     * @private
+     * @param {MouseEvent|PointerEvent} e Event.
      */
-    ch.onpointerup = (ch.support.touch) ? 'touchend' : 'mouseup';
+    function pointerUp(e) {
+        // Does our event is the same as the activePointer set by pointerdown?
+        if (activePointer && activePointer.id === e.pointerId) {
+            // Have we moved too much?
+            if (Math.abs(activePointer.x - e.x) < 5 &&
+                Math.abs(activePointer.y - e.y) < 5) {
+                // Have we scrolled too much?
+                if (!isScrolling ||
+                    (Math.abs(sDistX - window.pageXOffset) < 5 &&
+                    Math.abs(sDistY - window.pageYOffset) < 5)) {
+                    makePointertapEvent(e);
+                }
+            }
+        }
+        activePointer = null;
+    }
 
     /**
-     * Equivalent to 'touchmove' or 'mousemove', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointermove | Pointer Events W3C Working Draft
+     * Creates the pointertap event that is not part of standard.
+     *
+     * @private
+     * @param {MouseEvent|PointerEvent} sourceEvent An event to use as a base for pointertap.
      */
-    ch.onpointermove = (ch.support.touch) ? 'touchmove' : 'mousemove';
+    function makePointertapEvent(sourceEvent) {
+        var evt = document.createEvent('MouseEvents');
+        var newTarget = document.elementFromPoint(sourceEvent.clientX, sourceEvent.clientY);
 
-    /**
-     * Equivalent to 'touchend' or 'click', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#list-of-pointer-events | Pointer Events W3C Working Draft
-     */
-    ch.onpointertap = (ch.support.touch) ? 'touchend' : 'click';
+        // TODO: Replace 'initMouseEvent' with 'new MouseEvent'
+        evt.initMouseEvent('pointertap', true, true, window, 1, sourceEvent.screenX, sourceEvent.screenY,
+            sourceEvent.clientX, sourceEvent.clientY, sourceEvent.ctrlKey, sourceEvent.altKey,
+            sourceEvent.shiftKey, sourceEvent.metaKey, sourceEvent.button, newTarget);
 
-    /**
-     * Equivalent to 'touchstart' or 'mouseenter', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerenter | Pointer Events W3C Working Draft
-     */
-    ch.onpointerenter = (ch.support.touch) ? 'touchstart' : 'mouseenter';
+        evt.maskedEvent = sourceEvent;
+        newTarget.dispatchEvent(evt);
 
-    /**
-     * Equivalent to 'touchend' or 'mouseleave', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerleave | Pointer Events W3C Working Draft
-     */
-    ch.onpointerleave = (ch.support.touch) ? 'touchend' : 'mouseleave';
+        return evt;
+    }
+})();
 
-    /**
-     * Alphanumeric keys event.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     */
-    ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';
 ch.factory = function (Klass, fn) {
         /**
          * Identification of the constructor, in lowercases.
@@ -1394,15 +3649,28 @@ ch.factory = function (Klass, fn) {
          */
         var that = this,
             triggerClass = 'ch-' + this.name + '-trigger-on',
-            //fx = this._options.fx,
-            useEffects = false;
+            fx = this._options.fx,
+            useEffects = (ch.support.transition && fx !== 'none' && fx !== false),
+            pt, pb;
 
-        function showCallback() {
+        function showCallback(e) {
+            if (useEffects) {
+                ch.util.classList(that.container).remove('ch-fx-' + fx);
+
+                // TODO: Use original height when it is defined
+                if (/^slide/.test(fx)) {
+                    that.container.style.height = '';
+                }
+            }
             ch.util.classList(that.container).remove('ch-hide');
             that.container.setAttribute('aria-hidden', 'false');
 
+            if (e) {
+                e.target.removeEventListener(e.type, showCallback);
+            }
+
             /**
-             * Event emitted when the componentg is shown.
+             * Event emitted when the component is shown.
              * @event ch.Collapsible#show
              * @example
              * // Subscribe to "show" event.
@@ -1413,9 +3681,20 @@ ch.factory = function (Klass, fn) {
             that.emit('show');
         }
 
-        function hideCallback() {
+        function hideCallback(e) {
+            if (useEffects) {
+                ch.util.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                that.container.style.display = '';
+                if (/^slide/.test(fx)) {
+                    that.container.style.height = '';
+                }
+            }
             ch.util.classList(that.container).add('ch-hide');
             that.container.setAttribute('aria-hidden', 'true');
+
+            if (e) {
+                e.target.removeEventListener(e.type, hideCallback);
+            }
 
             /**
              * Event emitted when the component is hidden.
@@ -1457,8 +3736,44 @@ ch.factory = function (Klass, fn) {
 
             // Animate or not
             if (useEffects) {
-                // that.$container[fx]('fast', showCallback);
-                showCallback();
+                var _h = 0;
+
+                // Be sure to remove an opposite class that probably exist and
+                // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
+                ch.Event.removeListener(that.container, ch.support.transition.end, hideCallback);
+                ch.util.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+
+                ch.Event.addListener(that.container, ch.support.transition.end, showCallback);
+
+                // Reveal an element before the transition
+                that.container.style.display = 'block';
+
+                // Set margin and padding to 0 to prevent content jumping at the transition end
+                if (/^slide/.test(fx)) {
+                    // Cache the original paddings for the first time
+                    if (!pt || !pb) {
+                        pt = ch.util.getStyles(that.container, 'padding-top');
+                        pb = ch.util.getStyles(that.container, 'padding-bottom');
+
+                        that.container.style.marginTop = that.container.style.marginBottom =
+                            that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
+                    }
+
+                    that.container.style.opacity = '0.01';
+                    _h = that.container.offsetHeight;
+                    that.container.style.opacity = '';
+                    that.container.style.height = '0px';
+                }
+
+                // Transition cannot be applied at the same time when changing the display property
+                setTimeout(function() {
+                    if (/^slide/.test(fx)) {
+                        that.container.style.height = _h + 'px';
+                    }
+                    that.container.style.paddingTop = pt;
+                    that.container.style.paddingBottom = pb;
+                    ch.util.classList(that.container).add('ch-fx-' + fx);
+                }, 0);
             } else {
                 showCallback();
             }
@@ -1478,7 +3793,7 @@ ch.factory = function (Klass, fn) {
             that._shown = false;
 
             if (that.trigger !== undefined) {
-                ch.util.classList(this.trigger).remove(triggerClass);
+                ch.util.classList(that.trigger).remove(triggerClass);
             }
 
             /**
@@ -1494,8 +3809,26 @@ ch.factory = function (Klass, fn) {
 
             // Animate or not
             if (useEffects) {
-                // that.$container[toggleEffects[fx]]('fast', hideCallback);
-                hideCallback();
+                // Be sure to remove an opposite class that probably exist and
+                // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
+                ch.Event.removeListener(that.container, ch.support.transition.end, showCallback);
+                ch.util.classList(that.container).remove('ch-fx-' + fx);
+
+                ch.Event.addListener(that.container, ch.support.transition.end, hideCallback);
+                // Set margin and padding to 0 to prevent content jumping at the transition end
+                if (/^slide/.test(fx)) {
+                    that.container.style.height = ch.util.getStyles(that.container, 'height');
+                    // Uses nextTick to trigger the height change
+                    setTimeout(function() {
+                        that.container.style.height = '0px';
+                        that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
+                        ch.util.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                    }, 0);
+                } else {
+                    setTimeout(function() {
+                        ch.util.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                    }, 0);
+                }
             } else {
                 hideCallback();
             }
@@ -1684,7 +4017,7 @@ ch.factory = function (Klass, fn) {
          * // Checks if the bottom client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 900) ? 'Yes': 'No';
          */
-        this.bottom = this.el.innerHeight;
+        this.bottom = Math.max(this.el.innerHeight || 0, document.documentElement.clientHeight);
 
         /**
          * The current right client rect of the viewport (in pixels).
@@ -1695,7 +4028,7 @@ ch.factory = function (Klass, fn) {
          * // Checks if the right client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 1200) ? 'Yes': 'No';
          */
-        this.right = this.el.innerWidth;
+        this.right = Math.max(this.el.innerWidth || 0, document.documentElement.clientWidth);
 
         return this;
     };
@@ -2098,21 +4431,21 @@ ch.factory = function (Klass, fn) {
      */
     Positioner.prototype._setPoint = function () {
         var side = this._options.side,
-            oritentation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
+            orientation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
             coors,
-            oritentationMap;
+            orientationMap;
 
         // take the side and calculate the alignment and make the CSSpoint
-        if (oritentation === 'center') {
+        if (orientation === 'center') {
             // calculates the coordinates related to the center side to locate the target
             coors = {
                 'top': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
                 'left': (this._reference.left + (this._reference.width / 2 - this._target.width / 2))
             };
 
-        } else if (oritentation === 'horizontal') {
+        } else if (orientation === 'horizontal') {
             // calculates the coordinates related to the top or bottom side to locate the target
-            oritentationMap = {
+            orientationMap = {
                 'left': this._reference.left,
                 'center': (this._reference.left + (this._reference.width / 2 - this._target.width / 2)),
                 'right': (this._reference.left + this._reference.width - this._target.width),
@@ -2121,13 +4454,13 @@ ch.factory = function (Klass, fn) {
             };
 
             coors = {
-                'top': oritentationMap[side],
-                'left': oritentationMap[this._options.align]
+                'top': orientationMap[side],
+                'left': orientationMap[this._options.align]
             };
 
         } else {
             // calculates the coordinates related to the right or left side to locate the target
-            oritentationMap = {
+            orientationMap = {
                 'top': this._reference.top,
                 'center': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
                 'bottom': (this._reference.top + this._reference.height - this._target.height),
@@ -2136,8 +4469,8 @@ ch.factory = function (Klass, fn) {
             };
 
             coors = {
-                'top': oritentationMap[this._options.align],
-                'left': oritentationMap[side]
+                'top': orientationMap[this._options.align],
+                'left': orientationMap[side]
             };
         }
 
@@ -2245,7 +4578,8 @@ ch.factory = function (Klass, fn) {
         this.uid = (uid += 1);
 
         // el is HTMLElement
-        if (el !== undefined && el.nodeType !== undefined && el.nodeType === document.ELEMENT_NODE) {
+        // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+        if (el !== undefined && el.nodeType !== undefined && el.nodeType === 1) {
 
             this._el = el;
 
@@ -2378,8 +4712,8 @@ ch.factory = function (Klass, fn) {
         this.disable();
 
         if (this._el !== undefined) {
-            console.log(this._el.getAttribute('data-uid'));
             delete ch.instances[this._el.getAttribute('data-uid')];
+            this._el.removeAttribute('data-uid');
         }
 
         /**
@@ -2535,7 +4869,7 @@ ch.factory = function (Klass, fn) {
         this.trigger = this._el;
         ch.util.classList(this.trigger).add(this._options._classNameTrigger);
         ch.util.classList(this.trigger).add(this._options._classNameIcon);
-        ch.util.Event.addListener(this.trigger, ch.onpointertap, function (event) {
+        ch.Event.addListener(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
             }
@@ -2556,9 +4890,13 @@ ch.factory = function (Klass, fn) {
          * // Gets the expandable container.
          * expandable.container;
          */
-        this.container = this._content = (this._options.container ? this._options.container : this._el.nextElementSibling);
+        this.container = this._content = (this._options.container ?
+            this._options.container : ch.util.nextElementSibling(this._el));
         ch.util.classList(this.container).add(this._options._classNameContainer);
         ch.util.classList(this.container).add('ch-hide');
+        if (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
+            ch.util.classList(this.container).add('ch-fx');
+        }
         this.container.setAttribute('aria-expanded', 'false');
 
         /**
@@ -2572,10 +4910,10 @@ ch.factory = function (Klass, fn) {
 
         this
             .on('show', function () {
-                ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
             })
             .on('hide', function () {
-                ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
             });
 
         ch.util.avoidTextSelection(this.trigger);
@@ -2688,7 +5026,7 @@ ch.factory = function (Klass, fn) {
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -2923,7 +5261,7 @@ ch.factory = function (Klass, fn) {
                         that.emit('hide');
                     });
 
-                menu = child.nextElementSibling;
+                menu = ch.util.nextElementSibling(child);
                 menu.setAttribute('role', 'menu');
 
                 Array.prototype.forEach.call(menu.children, function (item){
@@ -3027,7 +5365,7 @@ ch.factory = function (Klass, fn) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -3176,16 +5514,16 @@ ch.factory = function (Klass, fn) {
          * @private
          */
         var that = this,
-
             container = document.createElement('div');
 
         container.innerHTML = [
             '<div',
-            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass + '"',
+            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass +
+                (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
-            '>'
+            '></div>'
         ].join('');
 
         /**
@@ -3194,7 +5532,7 @@ ch.factory = function (Klass, fn) {
          */
         this.container = container.querySelector('div');
 
-        ch.util.Event.addListener(this.container, ch.onpointertap, function (event) {
+        ch.Event.addListener(this.container, ch.onpointertap, function (event) {
             event.stopPropagation();
         });
 
@@ -3251,7 +5589,7 @@ ch.factory = function (Klass, fn) {
 
         // Refresh position:
         // on layout change
-        ch.util.Event.addListener(document, ch.onlayoutchange, this._refreshPositionListener)
+        ch.Event.addListener(document, ch.onlayoutchange, this._refreshPositionListener)
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -3315,7 +5653,8 @@ ch.factory = function (Klass, fn) {
 
             ch.util.classList(this._el).add('ch-shownby-' + this._options.shownby);
 
-            ch.util.Event.addListener(this._el, shownbyEvent[this._options.shownby], function (event) {
+            ch.Event.addListener(this._el, shownbyEvent[this._options.shownby], function (event) {
+                event.stopPropagation();
                 ch.util.prevent(event);
                 showHandler();
             });
@@ -3378,11 +5717,11 @@ ch.factory = function (Klass, fn) {
         // Hide by leaving the component
         if (hiddenby === 'pointerleave' && this.trigger !== undefined) {
 
-            ch.util.Event.addListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.util.Event.addListener(this.trigger, ch.onpointerleave, this._hideTimer);
+            ch.Event.addListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            ch.Event.addListener(this.trigger, ch.onpointerleave, this._hideTimer);
 
-            ch.util.Event.addListener(this.container, ch.onpointerenter, this._hideTimerCleaner);
-            ch.util.Event.addListener(this.container, ch.onpointerleave, this._hideTimer);
+            ch.Event.addListener(this.container, ch.onpointerenter, this._hideTimerCleaner);
+            ch.Event.addListener(this.container, ch.onpointerleave, this._hideTimer);
 
         }
 
@@ -3392,7 +5731,7 @@ ch.factory = function (Klass, fn) {
             dummy.innerHTML = '<i class="ch-close" role="button" aria-label="Close"></i>';
             button = dummy.querySelector('i');
 
-            ch.util.Event.addListener(button, ch.onpointertap, function () {
+            ch.Event.addListener(button, ch.onpointertap, function () {
                 that.hide();
             });
 
@@ -3413,7 +5752,8 @@ ch.factory = function (Klass, fn) {
      * @function
      */
     Popover.prototype._normalizeOptions = function (options) {
-        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType !== undefined && options.nodeType === document.ELEMENT_NODE)) {
+        // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType !== undefined && options.nodeType === 1)) {
             options = {
                 'content': options
             };
@@ -3478,18 +5818,25 @@ ch.factory = function (Klass, fn) {
      * // Close a popover
      * popover.hide();
      */
-    Popover.prototype.hide = function () {
-        var parent;
+    Popover.prototype.hide = function() {
+        var self = this,
+            parent;
         // Don't execute when it's disabled
         if (!this._enabled || !this._shown) {
             return this;
         }
 
+        // Detach the container from the DOM when it is hidden
+        this.once('hide', function() {
+            // Due to transitions this._shown can be outdated here
+            parent = self.container.parentNode;
+            if (parent !== null) {
+                parent.removeChild(self.container);
+            }
+        });
+
         // Close the collapsible
         this._hide();
-
-        parent = this.container.parentNode;
-        parent.removeChild(this.container);
 
         return this;
     };
@@ -3661,8 +6008,8 @@ ch.factory = function (Klass, fn) {
 
         if (this.trigger !== undefined) {
 
-            ch.util.Event.removeListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.util.Event.removeListener(this.trigger, ch.onpointerleave, this._hideTimer);
+            ch.Event.removeListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            ch.Event.removeListener(this.trigger, ch.onpointerleave, this._hideTimer);
 
             ch.util.classList(this.trigger).remove('ch-' + this.name + '-trigger');
 
@@ -3677,7 +6024,7 @@ ch.factory = function (Klass, fn) {
             this._snippet.title ? this.trigger.setAttribute('title', this._snippet.title) : null;
         }
 
-        ch.util.Event.removeListener(document, ch.onlayoutchange, this._refreshPositionListener);
+        ch.Event.removeListener(document, ch.onlayoutchange, this._refreshPositionListener);
 
         ch.viewport.off(ch.onresize, this._refreshPositionListener);
 
@@ -3929,10 +6276,11 @@ ch.factory = function (Klass, fn) {
     var document = window.document,
         body = document.body,
         underlay = (function () {
-                        var dummyElement = document.createElement('div')
-                            dummyElement.innerHTML = '<div class="ch-underlay ch-hide" tabindex="-1"></div>';
-                            return dummyElement.querySelector('div');
-                }()),
+            var dummyElement = document.createElement('div');
+            dummyElement.innerHTML = '<div class="ch-underlay" tabindex="-1"></div>';
+
+            return dummyElement.querySelector('div');
+        }()),
         // Inheritance
         parent = ch.util.inherits(Modal, ch.Popover);
 
@@ -3973,18 +6321,28 @@ ch.factory = function (Klass, fn) {
      * @private
      */
     Modal.prototype._showUnderlay = function () {
+        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
+            cl = ch.util.classList(underlay);
 
         underlay.style.zIndex = ch.util.zIndex;
 
         body.appendChild(underlay);
 
-        // if (this._options.fx !== 'none') {
-        //     $underlay.fadeIn(function () {
-        //         $underlay.removeClass('ch-hide');
-        //     });
-        // } else {
-        ch.util.classList(underlay).remove('ch-hide');
-        // }
+        function showCallback(e) {
+            cl.remove(fxName + '-enter-active');
+            cl.remove(fxName + '-enter');
+
+            ch.Event.removeListener(e.target, e.type, showCallback);
+        }
+
+        if (useAnimation) {
+            cl.add(fxName + '-enter');
+            setTimeout(function() {
+                cl.add(fxName + '-enter-active');
+            },10);
+            ch.Event.addListener(underlay, ch.support.transition.end, showCallback);
+        }
     };
 
     /**
@@ -3994,13 +6352,28 @@ ch.factory = function (Klass, fn) {
      * @private
      */
     Modal.prototype._hideUnderlay = function () {
-        var parent = underlay.parentNode;
-        // if (this._options.fx !== 'none') {
-        //     $underlay.fadeOut('normal', function () { $underlay.remove(null, true); });
-        // } else {
-        ch.util.classList(underlay).add('ch-hide')
-        parent.removeChild(underlay);
-        // }
+        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
+            cl = ch.util.classList(underlay),
+            parent = underlay.parentNode;
+
+        function hideCallback(e) {
+            cl.remove(fxName + '-leave-active');
+            cl.remove(fxName + '-leave');
+
+            ch.Event.removeListener(e.target, e.type, hideCallback);
+            parent.removeChild(underlay);
+        }
+
+        if (useAnimation) {
+            cl.add(fxName + '-leave');
+            setTimeout(function() {
+                cl.add(fxName + '-leave-active');
+            },10);
+            ch.Event.addListener(underlay, ch.support.transition.end, hideCallback);
+        } else {
+            parent.removeChild(underlay);
+        }
     };
 
     /**
@@ -4041,16 +6414,19 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
+        function hideByUnderlay(e) {
+            that.hide();
+            // Allow only one click to analyze the config every time and to close ONLY THIS modal
+            e.target.removeEventListener(e.type, hideByUnderlay);
+        }
+
         // Add to the underlay the ability to hide the component
         if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
-            // Allow only one click to analize the config every time and to close ONLY THIS modal
-            ch.util.Event.addListenerOne(underlay, ch.onpointertap, function () {
-                that.hide();
-            });
+            ch.Event.addListener(underlay, ch.onpointertap, hideByUnderlay);
         }
 
         // Show the underlay
-        this._showUnderlay();
+            this._showUnderlay();
         // Execute the original show()
         parent.show.call(this, content, options);
 
@@ -4072,7 +6448,7 @@ ch.factory = function (Klass, fn) {
         }
 
         // Delete the underlay listener
-        ch.util.Event.removeListener(underlay, ch.onpointertap)
+        ch.Event.removeListener(underlay, ch.onpointertap)
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()
@@ -4310,7 +6686,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this,
             // The second element of the HTML snippet (the dropdown content)
-            content = this.trigger.nextElementSibling;
+            content = ch.util.nextElementSibling(this.trigger);
 
         /**
          * The dropdown trigger. It's the element that will show and hide the container.
@@ -4341,7 +6717,7 @@ ch.factory = function (Klass, fn) {
             var items = content.querySelectorAll('a');
             Array.prototype.forEach.call(items, function (item, index) {
                 item.setAttribute('role', 'option');
-                ch.util.Event.addListener(item, ch.onpointerenter, function () {
+                ch.Event.addListener(item, ch.onpointerenter, function () {
                     that._navigation[that._selected = index].focus();
                 });
             });
@@ -4436,7 +6812,7 @@ ch.factory = function (Klass, fn) {
         // this.$trigger.off('.dropdown');
         // this.$container.off('.dropdown');
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         // $.each(this._$navigation, function (i, e) {
         //     $(e).off(ch.onpointerenter);
@@ -4584,14 +6960,14 @@ ch.factory = function (Klass, fn) {
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-        ch.util.Event.addListener(this.container, 'submit', function (event) {
+        ch.Event.addListener(this.container, 'submit', function (event) {
             // Runs validations
             that.validate(event);
         });
 
         // Bind the reset
         if (this.container.querySelector('input[type="reset"]')) {
-            ch.util.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
+            ch.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
                 ch.util.prevent(event);
                 that.reset();
             });
@@ -5300,7 +7676,7 @@ ch.factory = function (Klass, fn) {
             previousValue;
 
         // It must happen only once.
-        ch.util.Event.addListener(this.trigger, this._validationEvent, function () {
+        ch.Event.addListener(this.trigger, this._validationEvent, function () {
 
             if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
                 previousValue = this.value;
@@ -5760,16 +8136,16 @@ ch.factory = function (Klass, fn) {
          * countdown.trigger;
          */
         this.trigger = this._el;
-        ch.util.Event.addListener(this.trigger, 'keyup', function () { that._count(); });
-        ch.util.Event.addListener(this.trigger, 'keypress', function () { that._count(); });
-        ch.util.Event.addListener(this.trigger, 'keydown', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'keyup', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'keypress', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'keydown', function () { that._count(); });
 
         // IE8 doesn't work
-        ch.util.Event.addListener(this.trigger, 'input', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'input', function () { that._count(); });
 
         // IE8 - IE10 doesn't work
-        ch.util.Event.addListener(this.trigger, 'paste', function () { that._count(); });
-        ch.util.Event.addListener(this.trigger, 'cut', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'paste', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'cut', function () { that._count(); });
 
 
         /**
@@ -5788,7 +8164,7 @@ ch.factory = function (Klass, fn) {
          */
         that.container = (function () {
             var parent = ch.util.parentElement(that._el);
-                parent.insertAdjacentHTML('beforeend', '<p class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>');
+                parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
 
             return parent.querySelector('#' + messageID);
         }());
@@ -5896,7 +8272,7 @@ ch.factory = function (Klass, fn) {
         var parentElement = ch.util.parentElement(this.container);
             parentElement.removeChild(this.container);
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -6171,7 +8547,7 @@ ch.factory = function (Klass, fn) {
         this._prevArrow.setAttribute('role', 'button');
         this._prevArrow.setAttribute('aria-hidden', 'true');
         this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
-        ch.util.Event.addListener(this._prevArrow, pointertap, function () { that.prev(); }, false);
+        ch.Event.addListener(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
         /**
          * UI element of arrow that moves the Carousel to the next page.
@@ -6182,7 +8558,7 @@ ch.factory = function (Klass, fn) {
         this._nextArrow.setAttribute('role', 'button');
         this._nextArrow.setAttribute('aria-hidden', 'true');
         this._nextArrow.setAttribute('class', 'ch-carousel-next');
-        ch.util.Event.addListener(this._nextArrow, pointertap, function () { that.next(); }, false);
+        ch.Event.addListener(this._nextArrow, pointertap, function () { that.next(); }, false);
 
         /**
          * UI element that contains all the thumbnails for pagination.
@@ -6193,7 +8569,7 @@ ch.factory = function (Klass, fn) {
         this._pagination.setAttribute('role', 'navigation');
         this._pagination.setAttribute('class', 'ch-carousel-pages');
 
-        ch.util.Event.addListener(this._pagination, pointertap, function (event) {
+        ch.Event.addListener(this._pagination, pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
@@ -6207,7 +8583,9 @@ ch.factory = function (Klass, fn) {
         if (!this._options.fx) { ch.util.classList(this._list).add('ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
-        if (!ch.support.transition) { this._list.style.cssText += 'position:absolute;left:0;'; }
+        if (!ch.support.transition) {
+            this._list.style.cssText += 'position:absolute;left:0;';
+        }
 
         // If there are a parameter specifying a pagination, add it
         if (this._options.pagination !== undefined) { this._addPagination(); }
@@ -6414,7 +8792,7 @@ ch.factory = function (Klass, fn) {
         var that = this;
 
         // Do it if is required
-        if (this._options.fx) {
+        if (this._options.fx && ch.support.transition) {
             // Delete efects on list to make changes instantly
             ch.util.classList(this._list).add('ch-carousel-nofx');
             // Execute the custom method
@@ -6529,7 +8907,7 @@ ch.factory = function (Klass, fn) {
         // Do it before item resizing to make space to all items
         // Delete efects on list to change width instantly
         this._standbyFX(function () {
-            this._list.style.cssText = this._list.style.cssText + ' ' + 'width:' + (this._pageWidth * this._pages) + 'px;';
+            this._list.style.cssText = this._list.style.cssText + '; ' + 'width:' + (this._pageWidth * this._pages) + 'px;';
         });
 
         // Get the height using new width and relation between width and height of item (ratio)
@@ -6622,21 +9000,24 @@ ch.factory = function (Klass, fn) {
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform';
+        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform',
+            vendorTransformKey = ch.util.VENDOR_PREFIX ? ch.util.VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
         if (ch.support.transition) {
             return function (displacement) {
+                // Firefox has only "transform", Safari only "webkitTransform",
+                // Chrome has support for both. Applied required minimum
+                if (vendorTransformKey) {
+                    this._list.style[vendorTransformKey] = 'translateX(' + displacement + 'px)';
+                }
                 this._list.style.transform = 'translateX(' + displacement + 'px)';
             };
         }
 
-        // Use JS to move
-        // Ask for fx INTO the method because the "fx" is an instance property
+        // Use left position to move
         return function (displacement) {
-            //this._list[(this._options.fx) ? 'animate' : 'css']({'left': displacement});
-            this._list.style.left = displacement;
-
+            this._list.style.left = displacement + 'px';
         };
     }());
 
@@ -6859,7 +9240,7 @@ ch.factory = function (Klass, fn) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -7217,8 +9598,8 @@ ch.factory = function (Klass, fn) {
 
 
         // Show or hide arrows depending on "from" and "to" limits
-        ch.util.Event.addListener(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        ch.util.Event.addListener(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        ch.Event.addListener(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
+        ch.Event.addListener(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
 
         /**
          * The calendar container.
@@ -7756,7 +10137,7 @@ ch.factory = function (Klass, fn) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -7913,7 +10294,7 @@ ch.factory = function (Klass, fn) {
          * The datepicker trigger.
          * @type {HTMLElement}
          */
-        this.trigger = this.field.nextElementSibling;
+        this.trigger = ch.util.nextElementSibling(this.field);
 
         /**
          * Reference to the Calendar component instanced.
@@ -7939,7 +10320,7 @@ ch.factory = function (Klass, fn) {
             'hiddenby': this._options.hiddenby
         });
 
-        ch.util.Event.addListener(this._popover._content, ch.onpointertap, function (event) {
+        ch.Event.addListener(this._popover._content, ch.onpointertap, function (event) {
             var el = event.target;
 
             // Day selection
@@ -8345,6 +10726,16 @@ ch.factory = function (Klass, fn) {
         return this;
     };
 
+    var specialKeyCodeMap = {
+        9: 'tab',
+        27: 'esc',
+        37: 'left',
+        39: 'right',
+        13: 'enter',
+        38: 'up',
+        40: 'down'
+    };
+
     /**
      * Autocomplete Component shows a list of suggestions for a HTMLInputElement.
      * @memberof ch
@@ -8532,10 +10923,10 @@ ch.factory = function (Klass, fn) {
 
         };
 
-        ch.util.Event.addListener(this.container, highlightEvent, this._highlightSuggestion);
+        ch.Event.addListener(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        ch.util.Event.addListener(this.container, ch.onpointerdown, function itemEvents(event) {
+        ch.Event.addListener(this.container, ch.onpointerdown, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word
@@ -8562,8 +10953,8 @@ ch.factory = function (Klass, fn) {
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
 
-        ch.util.Event.addListener(this.trigger, 'focus', function turnon() { that._turn('on'); })
-        ch.util.Event.addListener(this.trigger, 'blur', function turnoff() {that._turn('off'); });
+        ch.Event.addListener(this.trigger, 'focus', function turnon() { that._turn('on'); })
+        ch.Event.addListener(this.trigger, 'blur', function turnoff() {that._turn('off'); });
 
         // The number of the selected item or null when no selected item is.
         this._highlighted = null;
@@ -8599,10 +10990,6 @@ ch.factory = function (Klass, fn) {
         function turnOn() {
             // .trim()
             that._currentQuery = that._el.value.replace(/^\s+|\s+$/g, '');
-
-            if (that._currentQuery === '') {
-                return that.hide();
-            }
 
             // when the user writes
             window.clearTimeout(that._stopTyping);
@@ -8640,17 +11027,37 @@ ch.factory = function (Klass, fn) {
                  */
                 that.emit('type', that._currentQuery);
             }, that._options.keystrokesTime);
-
         }
 
+        function turnOnFallback(e) {
+            if (specialKeyCodeMap[e.which || e.keyCode]) {
+                return;
+            }
+            // When keydown is fired that.trigger still has an old value
+            setTimeout(turnOn, 1);
+        }
 
         this._originalQuery = this._el.value;
 
+        // IE8 don't support the input event at all
+        // IE9 is the only browser that doesn't fire the input event when characters are removed
         if (turn === 'on') {
-            ch.util.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
+            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
+                ch.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
+            } else {
+                'keydown cut paste'.split(' ').forEach(function(evtName) {
+                    ch.Event.addListener(that.trigger, evtName, turnOnFallback);
+                });
+            }
         } else if (turn === 'off') {
             this.hide();
-            ch.util.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
+            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
+                ch.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
+            } else {
+                'keydown cut paste'.split(' ').forEach(function(evtName) {
+                    ch.Event.removeListener(that.trigger, evtName, turnOnFallback);
+                });
+            }
         }
 
         return this;
@@ -8882,7 +11289,7 @@ ch.factory = function (Klass, fn) {
      */
     Autocomplete.prototype.destroy = function () {
 
-        ch.util.Event.removeListener(this.container, highlightEvent, this._highlightSuggestion);
+        ch.Event.removeListener(this.container, highlightEvent, this._highlightSuggestion);
 
         this.trigger.removeAttribute('autocomplete');
         this.trigger.removeAttribute('aria-autocomplete');

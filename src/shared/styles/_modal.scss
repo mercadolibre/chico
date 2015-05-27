@@ -28,6 +28,29 @@
     right: 0;
     bottom: 0;
     background-color: $modal-underlay-bg-color;
+
+    &.ch-fx-fadein-enter,
+    &.ch-fx-fadein-leave,
+    &.ch-fx-slidedown-enter,
+    &.ch-fx-slidedown-leave {
+        @include transition(opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+    }
+    &.ch-fx-fadein-enter,
+    &.ch-fx-slidedown-enter {
+        opacity: 0;
+    }
+    &.ch-fx-fadein-enter-active,
+    &.ch-fx-slidedown-enter-active {
+        opacity: 1;
+    }
+    &.ch-fx-fadein-leave,
+    &.ch-fx-slidedown-leave {
+        opacity: 1;
+    }
+    &.ch-fx-fadein-leave-active,
+    &.ch-fx-fadein-slidedown-active {
+        opacity: 0;
+    }
 }
 
 .ie8 .ch-underlay {

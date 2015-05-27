@@ -888,8 +888,6 @@
         </form>
     </div>
 
-    <script src="/bower_components/es6-promise/promise.min.js"></script>
-    <script src="/bower_components/fetch/fetch.js"></script>
     <script src="/dist/mobile/chico.js"></script>
     <script>
 
@@ -900,46 +898,34 @@
             '<li class="ch-autocomplete-item" data-suggested="Other Static option">Other static option</li>',
             '</ul>'].join('');
 
-        var parseResults = function (results) {
+        function parseResults(results) {
+
             var data = [];
             if (results[2].suggested_queries !== undefined) {
                 results[2].suggested_queries.forEach(function (e, i) {
                     data.push(e.q);
                 });
 
+                // Show suggestions
                 autocomplete.suggest(data);
+            } else {
+                // Hide possibly active loading indicator
+                autocomplete.suggest([]);
             }
         }
 
-        var loadJSONP = (function() {
-            var unique = 0,
-                    head = document.getElementsByTagName('head')[0];
-
-            return function(url, callback, context) {
-                var name = 'jsonp_' + unique++;
-                url += (url.match(/\?/) ? '&' : '?') + 'callback='+name;
-
-                // Create script
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = url;
-
-                // Setup jsonp handler
-                window[name] = function(data) {
-                    callback.call((context || window), data);
-                    head.removeChild(script);
-                    script = null;
-                    delete window[name];
-                };
-
-                // Load JSON
-                head.appendChild(script);
-            };
-        })();
-
+        var suggestion;
         var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
             .on('type', function (userInput) {
-                    loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1', parseResults);
+                if (suggestion && suggestion.cancel) {
+                    suggestion.cancel();
+                }
+                suggestion = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1');
+                suggestion.promise
+                    .then(parseResults)
+                    .then(function() {
+                        suggestion = null;
+                    });
             });
 
         var expadable1 = new ch.Expandable(qS('.categories1'));
@@ -1017,7 +1003,10 @@
         modal1._content.style.overflow = 'auto';
 
         // Modal with invisible DOM Content
-        var modal2 = new ch.Modal(qS('#modal2'), {'content': document.querySelector('#invisible-content')});
+        var modal2 = new ch.Modal(qS('#modal2'), {
+            'content': document.querySelector('#invisible-content'),
+            'width': '80%'
+        });
 
         // Modal lite
         var modal3 = new ch.Modal(qS('#modal3'), {
@@ -1042,7 +1031,7 @@
             'to': 'today'
         });
 
-        ch.util.Event.addListener(qS('#modal-form'), 'submit', function (e) {
+        ch.Event.addListener(qS('#modal-form'), 'submit', function (e) {
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
@@ -1194,14 +1183,14 @@
 
         // var modal = new ch.Modal(select, {});
 
-        // ch.util.Event.addListener
+        // ch.Event.addListener
 
         // $().on(click.modal)
 
         // $().off(.modal)
 
-        // ch.util.Event.addListenerOne
-        // ch.util.Event.removeListener
+        // ch.Event.addListenerOne
+        // ch.Event.removeListener
 
         // ch.util.parentElement()
 

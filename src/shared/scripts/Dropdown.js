@@ -122,7 +122,7 @@
          */
         var that = this,
             // The second element of the HTML snippet (the dropdown content)
-            content = this.trigger.nextElementSibling;
+            content = ch.util.nextElementSibling(this.trigger);
 
         /**
          * The dropdown trigger. It's the element that will show and hide the container.
@@ -153,7 +153,7 @@
             var items = content.querySelectorAll('a');
             Array.prototype.forEach.call(items, function (item, index) {
                 item.setAttribute('role', 'option');
-                ch.util.Event.addListener(item, ch.onpointerenter, function () {
+                ch.Event.addListener(item, ch.onpointerenter, function () {
                     that._navigation[that._selected = index].focus();
                 });
             });
@@ -248,7 +248,7 @@
         // this.$trigger.off('.dropdown');
         // this.$container.off('.dropdown');
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         // $.each(this._$navigation, function (i, e) {
         //     $(e).off(ch.onpointerenter);

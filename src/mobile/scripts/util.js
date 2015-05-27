@@ -21,7 +21,7 @@
 
         for (; labels[i]; i += 1) {
             if (labels[i].getAttribute('for')) {
-                ch.util.Event.addListener(labels[i], ch.onpointertap, labelTap);
+                ch.Event.addListener(labels[i], ch.onpointertap, labelTap);
             }
         }
     };
@@ -40,10 +40,10 @@
                 ch.pointerCanceled = false;
             }
 
-            ch.util.Event.addListenerOne(document, 'touchend', unblockPointer);
+            ch.Event.addListenerOne(document, 'touchend', unblockPointer);
         }
 
-        ch.util.Event.addListener(document, 'touchmove', blockPointer);
+        ch.Event.addListener(document, 'touchmove', blockPointer);
     };
 
     /*!

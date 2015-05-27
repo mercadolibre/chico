@@ -5,7 +5,7 @@ var tabs1 = new ch.Tabs(document.getElementById('tabs-1')),
     layoutChangeEvent = jasmine.createSpy('layoutChangeEvent'),
     showEvent = jasmine.createSpy('showEvent');
 
-ch.util.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
+ch.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Tabs', function () {
     tabs1.on('ready', function () { readyEvent(); });

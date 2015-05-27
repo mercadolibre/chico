@@ -453,7 +453,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
     };

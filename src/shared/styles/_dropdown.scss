@@ -140,11 +140,11 @@
 /* IE */
 .lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on,
 .lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$trigger-active-bg-color-top', endColorstr='$trigger-active-bg-color');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($trigger-active-bg-color-top)}', endColorstr='#{ie-hex-str($trigger-active-bg-color)}');
 }
 
 .lt-ie10 .ch-dropdown-trigger-skin,
 .lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on,
 .lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on:hover {
-    filter: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }

@@ -5,7 +5,7 @@ var countdown = new ch.Countdown(document.getElementById('input_user')),
     destroyEvent = jasmine.createSpy('destroyEvent'),
     layoutChangeEvent = jasmine.createSpy('layoutChangeEvent');
 
-ch.util.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
+ch.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Countdown', function () {
     countdown
@@ -118,7 +118,7 @@ describe('It should update the number on the message', function () {
 
     it('if it exceeds the number should add errors classnames: "ch-countdown-exceeded" and "ch-validation-error"', function () {
         countdown2.trigger.setAttribute('value', '12345678901234567890');
-        ch.util.Event.dispatchEvent(countdown2.trigger, 'keyup');
+        ch.Event.dispatchEvent(countdown2.trigger, 'keyup');
 
         waits(50);
         runs(function(){
@@ -135,7 +135,7 @@ describe('It should update the number on the message', function () {
 
     it('if doesn\'t exceed the number should update the number to 0', function () {
         countdown2.trigger.setAttribute('value', '1234567890');
-        ch.util.Event.dispatchEvent(countdown2.trigger, 'keyup');
+        ch.Event.dispatchEvent(countdown2.trigger, 'keyup');
 
         waits(50);
         runs(function(){

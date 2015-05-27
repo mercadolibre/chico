@@ -157,7 +157,7 @@
          * // Checks if the bottom client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 900) ? 'Yes': 'No';
          */
-        this.bottom = this.el.innerHeight;
+        this.bottom = Math.max(this.el.innerHeight || 0, document.documentElement.clientHeight);
 
         /**
          * The current right client rect of the viewport (in pixels).
@@ -168,7 +168,7 @@
          * // Checks if the right client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 1200) ? 'Yes': 'No';
          */
-        this.right = this.el.innerWidth;
+        this.right = Math.max(this.el.innerWidth || 0, document.documentElement.clientWidth);
 
         return this;
     };

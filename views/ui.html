@@ -13,7 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="cleartype" content="on">
 
-    <!--[if IE 8]><script src="/bower_components/IE8/build/ie8.js"></script><![endif]-->
+    <!--[if IE 8]>
+    <script src="/bower_components/es5-shim/es5-shim.min.js"></script>
+    <script src="/bower_components/es5-shim/es5-sham.min.js"></script>
+    <script src="/bower_components/IE8/build/ie8.js"></script>
+    <![endif]-->
 
     <link rel="stylesheet" href="/bower_components/mesh/index.css">
     <link rel="stylesheet" href="/dist/ui/chico.css">
@@ -277,7 +281,7 @@
                     <p><input type="button" class="ch-btn ch-btn-disabled" value="Button disabled"></p>
                     <p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled"></p>
                     <p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled"></p>
-                    <p><button class="ch-btn-skin ch-btn-small ch-btn-disabled"><i class="ch-icon-heart"></i>Favorite</button disabled></p>
+                    <p><button class="ch-btn-skin ch-btn-small ch-btn-disabled" disabled><i class="ch-icon-heart"></i>Favorite</button></p>
                 </div>
             </div>
         </div>
@@ -1255,8 +1259,6 @@
         </form>
     </div>
 
-    <script src="/bower_components/es6-promise/promise.min.js"></script>
-    <script src="/bower_components/fetch/fetch.js"></script>
     <script src="/dist/ui/chico.js"></script>
     <script>
 
@@ -1268,47 +1270,39 @@
             '</ul>'].join('');
 
         function parseResults(results) {
-
             var data = [];
             if (results[2].suggested_queries !== undefined) {
                 results[2].suggested_queries.forEach(function (e, i) {
                     data.push(e.q);
                 });
 
+                // Show suggestions
                 autocomplete.suggest(data);
             }
         }
 
-        var loadJSONP = (function() {
-            var unique = 0,
-                    head = document.getElementsByTagName('head')[0];
-
-            return function(url, callback, context) {
-                var name = 'jsonp_' + unique++;
-                url += (url.match(/\?/) ? '&' : '?') + 'callback='+name;
-
-                // Create script
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = url;
-
-                // Setup jsonp handler
-                window[name] = function(data) {
-                    callback.call((context || window), data);
-                    head.removeChild(script);
-                    script = null;
-                    delete window[name];
-                };
-
-                // Load JSON
-                head.appendChild(script);
-            };
-        })();
-
+        var suggestion;
         var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
-            .on('type', function (userInput) {
-                loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', parseResults);
-            });
+                .on('type', function (userInput) {
+                    // Cancel the jsonp callback if any
+                    if (suggestion && suggestion.cancel) {
+                        suggestion.cancel();
+                    }
+                    // Hide possibly active loading indicator
+                    if (!userInput) {
+                        autocomplete.suggest([]);
+                    }
+                    suggestion = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1');
+                    suggestion.promise
+                        .then(parseResults)
+                        .catch(function(err) {
+                            console.error(err);
+                            autocomplete.suggest([]);
+                        })
+                        .then(function () {
+                            suggestion = null;
+                        });
+                });
 
         autocomplete.container.insertAdjacentHTML('beforeend', extraSuggestions);
 
@@ -1318,7 +1312,7 @@
         var expandable1 = new ch.Expandable(qS('.YOUR_SELECTOR_expandable'));
 
         expandable1.on('contentdone', function () {
-            ch.util.Event.addListener(document.querySelector('.test'), 'click', function () {
+            ch.Event.addListener(document.querySelector('.test'), 'click', function () {
                 console.log('contentdone' + that.uid);
             });
         });
@@ -1329,7 +1323,7 @@
         });
         expandable2.on('contentdone', function () {
             var that = this;
-            ch.util.Event.addListener(qS('h2'), 'click', function () {
+            ch.Event.addListener(qS('h2'), 'click', function () {
                 console.log('contentdone' + that.uid);
             });
         });
@@ -1421,7 +1415,6 @@
             'reference': qS('#default')
         });
 
-
         // Layer
         var layer1 = new ch.Layer(qS('#layer1'), {'content': 'foo'});
 
@@ -1496,7 +1489,7 @@
             'hiddenby': 'button'
         });
 
-        ch.util.Event.addListener(qS('#modal-form'), 'submit', function (e) {
+        ch.Event.addListener(qS('#modal-form'), 'submit', function (e) {
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
@@ -1576,7 +1569,7 @@
                      console.log(errors);
                  });
 
-        ch.util.Event.addListener(form._el, 'submit', function (event) {
+        ch.Event.addListener(form._el, 'submit', function (event) {
             if (!form.hasError()) {
                 event.preventDefault();
                 console.log('Ademas hago otra cosa en el submit');

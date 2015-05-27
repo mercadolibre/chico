@@ -90,7 +90,8 @@
         this.uid = (uid += 1);
 
         // el is HTMLElement
-        if (el !== undefined && el.nodeType !== undefined && el.nodeType === document.ELEMENT_NODE) {
+        // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+        if (el !== undefined && el.nodeType !== undefined && el.nodeType === 1) {
 
             this._el = el;
 
@@ -223,8 +224,8 @@
         this.disable();
 
         if (this._el !== undefined) {
-            console.log(this._el.getAttribute('data-uid'));
             delete ch.instances[this._el.getAttribute('data-uid')];
+            this._el.removeAttribute('data-uid');
         }
 
         /**

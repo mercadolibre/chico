@@ -76,10 +76,11 @@
     var document = window.document,
         body = document.body,
         underlay = (function () {
-                        var dummyElement = document.createElement('div')
-                            dummyElement.innerHTML = '<div class="ch-underlay ch-hide" tabindex="-1"></div>';
-                            return dummyElement.querySelector('div');
-                }()),
+            var dummyElement = document.createElement('div');
+            dummyElement.innerHTML = '<div class="ch-underlay" tabindex="-1"></div>';
+
+            return dummyElement.querySelector('div');
+        }()),
         // Inheritance
         parent = ch.util.inherits(Modal, ch.Popover);
 
@@ -120,18 +121,28 @@
      * @private
      */
     Modal.prototype._showUnderlay = function () {
+        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
+            cl = ch.util.classList(underlay);
 
         underlay.style.zIndex = ch.util.zIndex;
 
         body.appendChild(underlay);
 
-        // if (this._options.fx !== 'none') {
-        //     $underlay.fadeIn(function () {
-        //         $underlay.removeClass('ch-hide');
-        //     });
-        // } else {
-        ch.util.classList(underlay).remove('ch-hide');
-        // }
+        function showCallback(e) {
+            cl.remove(fxName + '-enter-active');
+            cl.remove(fxName + '-enter');
+
+            ch.Event.removeListener(e.target, e.type, showCallback);
+        }
+
+        if (useAnimation) {
+            cl.add(fxName + '-enter');
+            setTimeout(function() {
+                cl.add(fxName + '-enter-active');
+            },10);
+            ch.Event.addListener(underlay, ch.support.transition.end, showCallback);
+        }
     };
 
     /**
@@ -141,13 +152,28 @@
      * @private
      */
     Modal.prototype._hideUnderlay = function () {
-        var parent = underlay.parentNode;
-        // if (this._options.fx !== 'none') {
-        //     $underlay.fadeOut('normal', function () { $underlay.remove(null, true); });
-        // } else {
-        ch.util.classList(underlay).add('ch-hide')
-        parent.removeChild(underlay);
-        // }
+        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
+            cl = ch.util.classList(underlay),
+            parent = underlay.parentNode;
+
+        function hideCallback(e) {
+            cl.remove(fxName + '-leave-active');
+            cl.remove(fxName + '-leave');
+
+            ch.Event.removeListener(e.target, e.type, hideCallback);
+            parent.removeChild(underlay);
+        }
+
+        if (useAnimation) {
+            cl.add(fxName + '-leave');
+            setTimeout(function() {
+                cl.add(fxName + '-leave-active');
+            },10);
+            ch.Event.addListener(underlay, ch.support.transition.end, hideCallback);
+        } else {
+            parent.removeChild(underlay);
+        }
     };
 
     /**
@@ -188,16 +214,19 @@
          */
         var that = this;
 
+        function hideByUnderlay(e) {
+            that.hide();
+            // Allow only one click to analyze the config every time and to close ONLY THIS modal
+            e.target.removeEventListener(e.type, hideByUnderlay);
+        }
+
         // Add to the underlay the ability to hide the component
         if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
-            // Allow only one click to analize the config every time and to close ONLY THIS modal
-            ch.util.Event.addListenerOne(underlay, ch.onpointertap, function () {
-                that.hide();
-            });
+            ch.Event.addListener(underlay, ch.onpointertap, hideByUnderlay);
         }
 
         // Show the underlay
-        this._showUnderlay();
+            this._showUnderlay();
         // Execute the original show()
         parent.show.call(this, content, options);
 
@@ -219,7 +248,7 @@
         }
 
         // Delete the underlay listener
-        ch.util.Event.removeListener(underlay, ch.onpointertap)
+        ch.Event.removeListener(underlay, ch.onpointertap)
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()

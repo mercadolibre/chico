@@ -138,16 +138,16 @@
          * countdown.trigger;
          */
         this.trigger = this._el;
-        ch.util.Event.addListener(this.trigger, 'keyup', function () { that._count(); });
-        ch.util.Event.addListener(this.trigger, 'keypress', function () { that._count(); });
-        ch.util.Event.addListener(this.trigger, 'keydown', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'keyup', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'keypress', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'keydown', function () { that._count(); });
 
         // IE8 doesn't work
-        ch.util.Event.addListener(this.trigger, 'input', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'input', function () { that._count(); });
 
         // IE8 - IE10 doesn't work
-        ch.util.Event.addListener(this.trigger, 'paste', function () { that._count(); });
-        ch.util.Event.addListener(this.trigger, 'cut', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'paste', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'cut', function () { that._count(); });
 
 
         /**
@@ -166,7 +166,7 @@
          */
         that.container = (function () {
             var parent = ch.util.parentElement(that._el);
-                parent.insertAdjacentHTML('beforeend', '<p class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>');
+                parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
 
             return parent.querySelector('#' + messageID);
         }());
@@ -274,7 +274,7 @@
         var parentElement = ch.util.parentElement(this.container);
             parentElement.removeChild(this.container);
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

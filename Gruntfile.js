@@ -49,11 +49,17 @@ module.exports = function (grunt) {
                 dest: 'temp/mobile/core.tmp.js'
             },
             jsUi: {
-                src: ['<%= concat.coreUi.dest %>'].concat(uiFiles.JS.abilities).concat(uiFiles.JS.components),
+                src: uiFiles.JS.polyfills
+                    .concat(['<%= concat.coreUi.dest %>'])
+                    .concat(uiFiles.JS.abilities)
+                    .concat(uiFiles.JS.components),
                 dest: 'dist/ui/<%= pkg.name %>.js'
             },
             jsMobile: {
-                src: ['<%= concat.coreMobile.dest %>'].concat(mobileFiles.JS.abilities).concat(mobileFiles.JS.components),
+                src: mobileFiles.JS.polyfills
+                    .concat(['<%= concat.coreMobile.dest %>'])
+                    .concat(mobileFiles.JS.abilities)
+                    .concat(mobileFiles.JS.components),
                 dest: 'dist/mobile/<%= pkg.name %>.js'
             }
         },

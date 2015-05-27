@@ -133,7 +133,7 @@
         this.trigger = this._el;
         ch.util.classList(this.trigger).add(this._options._classNameTrigger);
         ch.util.classList(this.trigger).add(this._options._classNameIcon);
-        ch.util.Event.addListener(this.trigger, ch.onpointertap, function (event) {
+        ch.Event.addListener(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
             }
@@ -154,9 +154,13 @@
          * // Gets the expandable container.
          * expandable.container;
          */
-        this.container = this._content = (this._options.container ? this._options.container : this._el.nextElementSibling);
+        this.container = this._content = (this._options.container ?
+            this._options.container : ch.util.nextElementSibling(this._el));
         ch.util.classList(this.container).add(this._options._classNameContainer);
         ch.util.classList(this.container).add('ch-hide');
+        if (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
+            ch.util.classList(this.container).add('ch-fx');
+        }
         this.container.setAttribute('aria-expanded', 'false');
 
         /**
@@ -170,10 +174,10 @@
 
         this
             .on('show', function () {
-                ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
             })
             .on('hide', function () {
-                ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
             });
 
         ch.util.avoidTextSelection(this.trigger);
@@ -286,7 +290,7 @@
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

@@ -8,14 +8,14 @@
 
 .ch-autocomplete-item,
 .ch-autocomplete-highlighted {
-    margin: 0;
-    padding: $autocomplete-padding;
+    margin: $autocomplete-item-margin;
+    padding: $autocomplete-item-padding;
     cursor: $autocomplete-trigger-cursor;
 }
 
 .ch-autocomplete-list {
-    margin: 0;
-    padding: 0;
+    margin: $autocomplete-list-margin;
+    padding: $autocomplete-list-padding;
     list-style: none;
 }
 

@@ -18,6 +18,16 @@
         return this;
     };
 
+    var specialKeyCodeMap = {
+        9: 'tab',
+        27: 'esc',
+        37: 'left',
+        39: 'right',
+        13: 'enter',
+        38: 'up',
+        40: 'down'
+    };
+
     /**
      * Autocomplete Component shows a list of suggestions for a HTMLInputElement.
      * @memberof ch
@@ -205,10 +215,10 @@
 
         };
 
-        ch.util.Event.addListener(this.container, highlightEvent, this._highlightSuggestion);
+        ch.Event.addListener(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        ch.util.Event.addListener(this.container, ch.onpointerdown, function itemEvents(event) {
+        ch.Event.addListener(this.container, ch.onpointerdown, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word
@@ -235,8 +245,8 @@
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
 
-        ch.util.Event.addListener(this.trigger, 'focus', function turnon() { that._turn('on'); })
-        ch.util.Event.addListener(this.trigger, 'blur', function turnoff() {that._turn('off'); });
+        ch.Event.addListener(this.trigger, 'focus', function turnon() { that._turn('on'); })
+        ch.Event.addListener(this.trigger, 'blur', function turnoff() {that._turn('off'); });
 
         // The number of the selected item or null when no selected item is.
         this._highlighted = null;
@@ -272,10 +282,6 @@
         function turnOn() {
             // .trim()
             that._currentQuery = that._el.value.replace(/^\s+|\s+$/g, '');
-
-            if (that._currentQuery === '') {
-                return that.hide();
-            }
 
             // when the user writes
             window.clearTimeout(that._stopTyping);
@@ -313,17 +319,37 @@
                  */
                 that.emit('type', that._currentQuery);
             }, that._options.keystrokesTime);
-
         }
 
+        function turnOnFallback(e) {
+            if (specialKeyCodeMap[e.which || e.keyCode]) {
+                return;
+            }
+            // When keydown is fired that.trigger still has an old value
+            setTimeout(turnOn, 1);
+        }
 
         this._originalQuery = this._el.value;
 
+        // IE8 don't support the input event at all
+        // IE9 is the only browser that doesn't fire the input event when characters are removed
         if (turn === 'on') {
-            ch.util.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
+            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
+                ch.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
+            } else {
+                'keydown cut paste'.split(' ').forEach(function(evtName) {
+                    ch.Event.addListener(that.trigger, evtName, turnOnFallback);
+                });
+            }
         } else if (turn === 'off') {
             this.hide();
-            ch.util.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
+            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
+                ch.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
+            } else {
+                'keydown cut paste'.split(' ').forEach(function(evtName) {
+                    ch.Event.removeListener(that.trigger, evtName, turnOnFallback);
+                });
+            }
         }
 
         return this;
@@ -555,7 +581,7 @@
      */
     Autocomplete.prototype.destroy = function () {
 
-        ch.util.Event.removeListener(this.container, highlightEvent, this._highlightSuggestion);
+        ch.Event.removeListener(this.container, highlightEvent, this._highlightSuggestion);
 
         this.trigger.removeAttribute('autocomplete');
         this.trigger.removeAttribute('aria-autocomplete');

@@ -345,8 +345,8 @@
 
 
         // Show or hide arrows depending on "from" and "to" limits
-        ch.util.Event.addListener(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        ch.util.Event.addListener(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        ch.Event.addListener(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
+        ch.Event.addListener(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
 
         /**
          * The calendar container.
@@ -884,7 +884,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

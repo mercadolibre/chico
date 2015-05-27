@@ -129,14 +129,14 @@
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-        ch.util.Event.addListener(this.container, 'submit', function (event) {
+        ch.Event.addListener(this.container, 'submit', function (event) {
             // Runs validations
             that.validate(event);
         });
 
         // Bind the reset
         if (this.container.querySelector('input[type="reset"]')) {
-            ch.util.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
+            ch.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
                 ch.util.prevent(event);
                 that.reset();
             });

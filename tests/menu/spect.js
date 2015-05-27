@@ -10,7 +10,7 @@ var menu1 = new ch.Menu(document.getElementById('menu-1'), {'fx': false}),
     expandable = menu1.folds[0],
     bellows = menu1.container.lastElementChild;
 
-ch.util.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
+ch.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Menu', function () {
     menu1.on('ready', function () { readyEvent(); });

@@ -493,13 +493,8 @@ describe('Its destroy() method', function () {
         expect(document.querySelectorAll('.carousel4 li').length).toEqual(itemsAmount);
     });
 
-    it('should remove ".carousel" events', function () {
-        expect($._data($('.carousel4')[0], 'events')).toBeUndefined();
-    });
-
     it('should remove the instance from the element', function () {
-
-        expect(ch.Component.instances[carousel4.uid]).toBeUndefined();
+        expect(ch.instances[carousel4.uid]).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {

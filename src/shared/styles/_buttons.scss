@@ -116,4 +116,6 @@ input.ch-btn-small::-moz-focus-inner {
     cursor: not-allowed;
     @include opacity($btn-disabled-opacity);
     text-shadow: $btn-disabled-text-shadow;
+    -ms-touch-action: none;
+    pointer-events: none;
 }

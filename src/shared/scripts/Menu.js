@@ -222,7 +222,7 @@
                         that.emit('hide');
                     });
 
-                menu = child.nextElementSibling;
+                menu = ch.util.nextElementSibling(child);
                 menu.setAttribute('role', 'menu');
 
                 Array.prototype.forEach.call(menu.children, function (item){
@@ -326,7 +326,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

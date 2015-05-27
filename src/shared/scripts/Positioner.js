@@ -223,21 +223,21 @@
      */
     Positioner.prototype._setPoint = function () {
         var side = this._options.side,
-            oritentation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
+            orientation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
             coors,
-            oritentationMap;
+            orientationMap;
 
         // take the side and calculate the alignment and make the CSSpoint
-        if (oritentation === 'center') {
+        if (orientation === 'center') {
             // calculates the coordinates related to the center side to locate the target
             coors = {
                 'top': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
                 'left': (this._reference.left + (this._reference.width / 2 - this._target.width / 2))
             };
 
-        } else if (oritentation === 'horizontal') {
+        } else if (orientation === 'horizontal') {
             // calculates the coordinates related to the top or bottom side to locate the target
-            oritentationMap = {
+            orientationMap = {
                 'left': this._reference.left,
                 'center': (this._reference.left + (this._reference.width / 2 - this._target.width / 2)),
                 'right': (this._reference.left + this._reference.width - this._target.width),
@@ -246,13 +246,13 @@
             };
 
             coors = {
-                'top': oritentationMap[side],
-                'left': oritentationMap[this._options.align]
+                'top': orientationMap[side],
+                'left': orientationMap[this._options.align]
             };
 
         } else {
             // calculates the coordinates related to the right or left side to locate the target
-            oritentationMap = {
+            orientationMap = {
                 'top': this._reference.top,
                 'center': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
                 'bottom': (this._reference.top + this._reference.height - this._target.height),
@@ -261,8 +261,8 @@
             };
 
             coors = {
-                'top': oritentationMap[this._options.align],
-                'left': oritentationMap[side]
+                'top': orientationMap[this._options.align],
+                'left': orientationMap[side]
             };
         }
 

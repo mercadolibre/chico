@@ -11,7 +11,7 @@ var form = new ch.Form(document.getElementById('form-test')),
         'conditions': [{'name': 'required', 'message': 'This field is required.'}]
     });
 
-    ch.util.Event.addListener(document.getElementById('form-test'),
+    ch.Event.addListener(document.getElementById('form-test'),
         'submit',
         function (event) {
             event.preventDefault();
@@ -110,7 +110,7 @@ describe('When the form is submitted it', function () {
     it('should run "validate" method', function () {
         spyOn(form, 'validate').andCallThrough();
 
-        ch.util.Event.dispatchEvent(form.container, 'submit');
+        ch.Event.dispatchEvent(form.container, 'submit');
         //form.container.submit();
 
         expect(form.validate).toHaveBeenCalled();
@@ -144,7 +144,7 @@ describe('Its validate() method', function () {
     it('should emit "success" event when it has not got errors', function () {
         input.setAttribute('value', 'success');
 
-        ch.util.Event.dispatchEvent(form.container, 'submit');
+        ch.Event.dispatchEvent(form.container, 'submit');
         //form.container.submit();
 
         expect(successEvent).toHaveBeenCalled();

@@ -14,7 +14,7 @@ var expandable1 = new ch.Expandable(document.getElementById('expandable-1')),
         })
         .on('destroy', destroyEvent);
 
-ch.util.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
+ch.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Expandable', function () {
     expandable1

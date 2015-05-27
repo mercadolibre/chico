@@ -36,10 +36,13 @@
      */
     function Tooltip(el, options) {
 
+        // TODO: Review what's going on here with options
+        /*
         if (options === undefined && el !== undefined && el.nodeType !== undefined) {
             options = el;
             el = undefined;
         }
+        */
 
         options = ch.util.extend(ch.util.clone(this._defaults), options);
 

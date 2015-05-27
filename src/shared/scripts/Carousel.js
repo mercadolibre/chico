@@ -262,7 +262,7 @@
         this._prevArrow.setAttribute('role', 'button');
         this._prevArrow.setAttribute('aria-hidden', 'true');
         this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
-        ch.util.Event.addListener(this._prevArrow, pointertap, function () { that.prev(); }, false);
+        ch.Event.addListener(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
         /**
          * UI element of arrow that moves the Carousel to the next page.
@@ -273,7 +273,7 @@
         this._nextArrow.setAttribute('role', 'button');
         this._nextArrow.setAttribute('aria-hidden', 'true');
         this._nextArrow.setAttribute('class', 'ch-carousel-next');
-        ch.util.Event.addListener(this._nextArrow, pointertap, function () { that.next(); }, false);
+        ch.Event.addListener(this._nextArrow, pointertap, function () { that.next(); }, false);
 
         /**
          * UI element that contains all the thumbnails for pagination.
@@ -284,7 +284,7 @@
         this._pagination.setAttribute('role', 'navigation');
         this._pagination.setAttribute('class', 'ch-carousel-pages');
 
-        ch.util.Event.addListener(this._pagination, pointertap, function (event) {
+        ch.Event.addListener(this._pagination, pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
@@ -298,7 +298,9 @@
         if (!this._options.fx) { ch.util.classList(this._list).add('ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
-        if (!ch.support.transition) { this._list.style.cssText += 'position:absolute;left:0;'; }
+        if (!ch.support.transition) {
+            this._list.style.cssText += 'position:absolute;left:0;';
+        }
 
         // If there are a parameter specifying a pagination, add it
         if (this._options.pagination !== undefined) { this._addPagination(); }
@@ -505,7 +507,7 @@
         var that = this;
 
         // Do it if is required
-        if (this._options.fx) {
+        if (this._options.fx && ch.support.transition) {
             // Delete efects on list to make changes instantly
             ch.util.classList(this._list).add('ch-carousel-nofx');
             // Execute the custom method
@@ -620,7 +622,7 @@
         // Do it before item resizing to make space to all items
         // Delete efects on list to change width instantly
         this._standbyFX(function () {
-            this._list.style.cssText = this._list.style.cssText + ' ' + 'width:' + (this._pageWidth * this._pages) + 'px;';
+            this._list.style.cssText = this._list.style.cssText + '; ' + 'width:' + (this._pageWidth * this._pages) + 'px;';
         });
 
         // Get the height using new width and relation between width and height of item (ratio)
@@ -713,21 +715,24 @@
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform';
+        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform',
+            vendorTransformKey = ch.util.VENDOR_PREFIX ? ch.util.VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
         if (ch.support.transition) {
             return function (displacement) {
+                // Firefox has only "transform", Safari only "webkitTransform",
+                // Chrome has support for both. Applied required minimum
+                if (vendorTransformKey) {
+                    this._list.style[vendorTransformKey] = 'translateX(' + displacement + 'px)';
+                }
                 this._list.style.transform = 'translateX(' + displacement + 'px)';
             };
         }
 
-        // Use JS to move
-        // Ask for fx INTO the method because the "fx" is an instance property
+        // Use left position to move
         return function (displacement) {
-            //this._list[(this._options.fx) ? 'animate' : 'css']({'left': displacement});
-            this._list.style.left = displacement;
-
+            this._list.style.left = displacement + 'px';
         };
     }());
 
@@ -950,7 +955,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.util.Event.dispatchEvent(window.document, ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

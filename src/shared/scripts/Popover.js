@@ -136,16 +136,16 @@
          * @private
          */
         var that = this,
-
             container = document.createElement('div');
 
         container.innerHTML = [
             '<div',
-            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass + '"',
+            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass +
+                (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
-            '>'
+            '></div>'
         ].join('');
 
         /**
@@ -154,7 +154,7 @@
          */
         this.container = container.querySelector('div');
 
-        ch.util.Event.addListener(this.container, ch.onpointertap, function (event) {
+        ch.Event.addListener(this.container, ch.onpointertap, function (event) {
             event.stopPropagation();
         });
 
@@ -211,7 +211,7 @@
 
         // Refresh position:
         // on layout change
-        ch.util.Event.addListener(document, ch.onlayoutchange, this._refreshPositionListener)
+        ch.Event.addListener(document, ch.onlayoutchange, this._refreshPositionListener)
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -275,7 +275,8 @@
 
             ch.util.classList(this._el).add('ch-shownby-' + this._options.shownby);
 
-            ch.util.Event.addListener(this._el, shownbyEvent[this._options.shownby], function (event) {
+            ch.Event.addListener(this._el, shownbyEvent[this._options.shownby], function (event) {
+                event.stopPropagation();
                 ch.util.prevent(event);
                 showHandler();
             });
@@ -338,11 +339,11 @@
         // Hide by leaving the component
         if (hiddenby === 'pointerleave' && this.trigger !== undefined) {
 
-            ch.util.Event.addListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.util.Event.addListener(this.trigger, ch.onpointerleave, this._hideTimer);
+            ch.Event.addListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            ch.Event.addListener(this.trigger, ch.onpointerleave, this._hideTimer);
 
-            ch.util.Event.addListener(this.container, ch.onpointerenter, this._hideTimerCleaner);
-            ch.util.Event.addListener(this.container, ch.onpointerleave, this._hideTimer);
+            ch.Event.addListener(this.container, ch.onpointerenter, this._hideTimerCleaner);
+            ch.Event.addListener(this.container, ch.onpointerleave, this._hideTimer);
 
         }
 
@@ -352,7 +353,7 @@
             dummy.innerHTML = '<i class="ch-close" role="button" aria-label="Close"></i>';
             button = dummy.querySelector('i');
 
-            ch.util.Event.addListener(button, ch.onpointertap, function () {
+            ch.Event.addListener(button, ch.onpointertap, function () {
                 that.hide();
             });
 
@@ -373,7 +374,8 @@
      * @function
      */
     Popover.prototype._normalizeOptions = function (options) {
-        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType !== undefined && options.nodeType === document.ELEMENT_NODE)) {
+        // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType !== undefined && options.nodeType === 1)) {
             options = {
                 'content': options
             };
@@ -438,18 +440,25 @@
      * // Close a popover
      * popover.hide();
      */
-    Popover.prototype.hide = function () {
-        var parent;
+    Popover.prototype.hide = function() {
+        var self = this,
+            parent;
         // Don't execute when it's disabled
         if (!this._enabled || !this._shown) {
             return this;
         }
 
+        // Detach the container from the DOM when it is hidden
+        this.once('hide', function() {
+            // Due to transitions this._shown can be outdated here
+            parent = self.container.parentNode;
+            if (parent !== null) {
+                parent.removeChild(self.container);
+            }
+        });
+
         // Close the collapsible
         this._hide();
-
-        parent = this.container.parentNode;
-        parent.removeChild(this.container);
 
         return this;
     };
@@ -621,8 +630,8 @@
 
         if (this.trigger !== undefined) {
 
-            ch.util.Event.removeListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.util.Event.removeListener(this.trigger, ch.onpointerleave, this._hideTimer);
+            ch.Event.removeListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            ch.Event.removeListener(this.trigger, ch.onpointerleave, this._hideTimer);
 
             ch.util.classList(this.trigger).remove('ch-' + this.name + '-trigger');
 
@@ -637,7 +646,7 @@
             this._snippet.title ? this.trigger.setAttribute('title', this._snippet.title) : null;
         }
 
-        ch.util.Event.removeListener(document, ch.onlayoutchange, this._refreshPositionListener);
+        ch.Event.removeListener(document, ch.onlayoutchange, this._refreshPositionListener);
 
         ch.viewport.off(ch.onresize, this._refreshPositionListener);
 

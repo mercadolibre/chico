@@ -20,9 +20,9 @@ describe('It should have a container with', function () {
     });
 
     it('specific CSS class names', function () {
-        expect(c.classList.contains('ch-bubble')).toBeTruthy();
-        expect(c.classList.contains('ch-box-error')).toBeTruthy();
-        expect(c.classList.contains('ch-cone')).toBeTruthy();
+        expect(bubble.container.classList.contains('ch-bubble')).toBeTruthy();
+        expect(bubble.container.classList.contains('ch-box-error')).toBeTruthy();
+        expect(bubble.container.classList.contains('ch-cone')).toBeTruthy();
     });
 
     it('alignment', function () {

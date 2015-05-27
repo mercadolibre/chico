@@ -140,7 +140,7 @@
          *     'waiting': 'My custom message'
          * });
          */
-        this._loading = (function (){
+        this._loading = (function() {
             var dummyElement = document.createElement('div');
                 dummyElement.innerHTML = '<div class="ch-zoom-loading ch-hide"><div class="ch-loading-large"></div><p>' + that._options.waiting + '</p></div>';
 
@@ -194,6 +194,7 @@
         this.on('imageload', function () {
             if (!ch.util.classList(this._loading).contains('ch-hide')) {
                 that.show();
+                ch.util.classList(this._loading).add('ch-hide');
             }
         });
 
@@ -201,10 +202,10 @@
         ch.util.classList(this.trigger).add('ch-zoom-trigger');
 
         // Prevent to redirect to the href
-        ch.util.Event.addListener(this.trigger, 'click', function (event) { ch.util.prevent(event); }, false);
+        ch.Event.addListener(this.trigger, 'click', function (event) { ch.util.prevent(event); }, false);
 
         // Bind move calculations
-        ch.util.Event.addListener(this.trigger, 'mousemove', function (event) { console.log('move'); that._move(event); }, false);
+        ch.Event.addListener(this.trigger, ch.onpointermove, function (event) { that._move(event); }, false);
 
         return this;
     };
@@ -226,8 +227,10 @@
         this.trigger.style.height = height + 'px';
 
         // Loading position centered into the anchor
-        this._loading.style.left = (width - this._loading.width) / 2 + 'px',
-        this._loading.style.top = (height - this._loading.height) / 2 + 'px';
+        this._loading.style.display = 'block';
+        this._loading.style.left = (width - this._loading.clientWidth) / 2 + 'px',
+        this._loading.style.top = (height - this._loading.clientHeight) / 2 + 'px';
+        this._loading.style.display = '';
 
         /**
          * Width of the original specified image.
@@ -344,8 +347,10 @@
 
         // By defining these variables in here, it avoids to make
         // the substraction twice if it's a free movement
-        var seekerLeft = event.pageX - this._seekerHalfWidth,
-            seekerTop = event.pageY - this._seekerHalfHeight,
+        var pageX = (event.pageX || event.clientX + document.documentElement.scrollLeft),
+            pageY = (event.pageY || event.clientY + document.documentElement.scrollTop),
+            seekerLeft = pageX - this._seekerHalfWidth,
+            seekerTop = pageY - this._seekerHalfHeight,
             x,
             y;
 
@@ -353,7 +358,7 @@
         if (seekerLeft <= this._originalOffsetLeft) {
             x = 0;
         // Right side of seeker GREATER THAN right side of image
-        } else if (event.pageX + this._seekerHalfWidth > this._originalWidth + this._originalOffsetLeft) {
+        } else if (pageX + this._seekerHalfWidth > this._originalWidth + this._originalOffsetLeft) {
             x = this._originalWidth - this._seekerWidth - 2;
         // Free move
         } else {
@@ -364,7 +369,7 @@
         if (seekerTop <= this._originalOffsetTop) {
             y = 0;
         // Bottom side of seeker GREATER THAN bottom side of image
-        } else if (event.pageY + this._seekerHalfHeight > this._originalHeight + this._originalOffsetTop) {
+        } else if (pageY + this._seekerHalfHeight > this._originalHeight + this._originalOffsetTop) {
             y = this._originalHeight - this._seekerHeight - 2;
         // Free move
         } else {
@@ -375,7 +380,6 @@
         this._seeker.style.left = x + 'px';
         this._seeker.style.top = y + 'px';
         this._zoomed.style.cssText = 'left:' + (-this._ratioX * x) + 'px;top:' + (-this._ratioY * y) + 'px';
-        console.log(this._zoomed.style.cssText);
     };
 
     /**

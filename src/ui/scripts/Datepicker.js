@@ -144,7 +144,7 @@
          * The datepicker trigger.
          * @type {HTMLElement}
          */
-        this.trigger = this.field.nextElementSibling;
+        this.trigger = ch.util.nextElementSibling(this.field);
 
         /**
          * Reference to the Calendar component instanced.
@@ -170,7 +170,7 @@
             'hiddenby': this._options.hiddenby
         });
 
-        ch.util.Event.addListener(this._popover._content, ch.onpointertap, function (event) {
+        ch.Event.addListener(this._popover._content, ch.onpointertap, function (event) {
             var el = event.target;
 
             // Day selection
