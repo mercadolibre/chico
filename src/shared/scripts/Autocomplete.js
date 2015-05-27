@@ -215,6 +215,10 @@
             this._configureShortcuts();
         }
 
+        if (this._$el.is(':focus')) {
+            this._turnOn();
+        }
+
         return this;
     };
 
