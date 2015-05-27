@@ -917,29 +917,29 @@ a.ch-btn-large:focus {
 .lt-ie10 .ch-btn,
 .lt-ie10 .ch-btn:focus,
 .lt-ie10 .ch-btn:visited {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-ie-filter-start-bg-color', endColorstr='$btn-ie-filter-end-bg-color');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3e52a1', endColorstr='#2d3277');
 }
 
 .lt-ie10 .ch-btn-skin,
 .lt-ie10 .ch-btn-skin:focus,
 .lt-ie10 .ch-btn-skin:visited {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-ie-filter-start-bg-color', endColorstr='$btn-skin-ie-filter-end-bg-color');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cce3f7', endColorstr='#aad0ef');
 }
 
 .lt-ie10 .ch-btn:hover {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-hover-ie-filter-start-bg-color', endColorstr='$btn-hover-ie-filter-end-bg-color');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4355d2', endColorstr='#2f33ae');
 }
 
 .lt-ie10 .ch-btn-skin:hover {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-hover-ie-filter-start-bg-color', endColorstr='$btn-skin-hover-ie-filter-end-bg-color');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dcecfb', endColorstr='#c5dff5');
 }
 
 .lt-ie10 .ch-btn:active {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-active-ie-filter-start-bg-color', endColorstr='$btn-active-ie-filter-end-bg-color');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0f1534', endColorstr='#171c41');
 }
 
 .lt-ie10 .ch-btn-skin:active {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-active-ie-filter-start-bg-color', endColorstr='$btn-skin-active-ie-filter-end-bg-color');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a2c9e1', endColorstr='#7db7dc');
 }
 
 .lt-ie10 .ch-btn.ch-btn-disabled,
@@ -952,7 +952,7 @@ a.ch-btn-large:focus {
 .lt-ie10 [class*="ch-btn"][disabled]:active,
 .lt-ie10 [class*="ch-btn"][disabled]:focus {
   filter: alpha(opacity=50);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$btn-skin-disabled-ie-filter-start-bg-color', endColorstr='#$btn-skin-disabled-ie-filter-end-bg-color');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#e6e6e6');
 }
 
 .ie8 [class*="ch-btn"]:focus,
@@ -1008,7 +1008,7 @@ a.ch-btn-large:focus {
 }
 
 .lt-ie10 .ch-calendar caption {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$main-neutral-color', endColorstr='$gray-100');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#f0f0f0');
 }
 
 .ch-calendar-today {
@@ -1302,16 +1302,16 @@ table {
 
 /* IE */
 .lt-ie10 .ch-datagrid-controls th {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-bg-color', endColorstr=' $table-header-controls-bg-color-secondary');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9');
 }
 
 .lt-ie10 .ch-datagrid-controls th:hover {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-hover-bg-color', endColorstr='$table-header-controls-hover-bg-secondary');
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
 .lt-ie10 .ch-datagrid-controls th:active,
 .lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$table-header-controls-active-bg-color', endColorstr='$table-header-controls-active-bg-secondary');
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
 .lt-ie9 .ch-datagrid-controls thead tr,
@@ -1525,13 +1525,13 @@ table {
 /* IE */
 .lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on,
 .lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on:hover {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$trigger-active-bg-color-top', endColorstr='$trigger-active-bg-color');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a2c9e1', endColorstr='#7ab6dc');
 }
 
 .lt-ie10 .ch-dropdown-trigger-skin,
 .lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on,
 .lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on:hover {
-  filter: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
 /**
@@ -2558,8 +2558,8 @@ dl.ch-list dd {
 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
   background-color: #f0f0f0;
-  background-image: -webkit-linear-gradient(#f0f0f0, #fff 25px);
-  background-image: linear-gradient(#f0f0f0, #fff 25px);
+  background-image: -webkit-linear-gradient(#f0f0f0, #fff);
+  background-image: linear-gradient(#f0f0f0, #fff);
   border-bottom: 1px solid #fff;
   cursor: default;
   font-weight: bold;
@@ -2568,7 +2568,7 @@ dl.ch-list dd {
 
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$tab-trigger-bg-color', endColorstr='$tab-trigger-bg-color-secondary');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f0f0', endColorstr='#fff');
 }
 
 /* Container */

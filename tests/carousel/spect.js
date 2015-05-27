@@ -26,7 +26,8 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
     carousel3 = $('.carousel3').carousel({
         'limitPerPage': 2,
         'async': 5,
-        'fx': false
+        'fx': false,
+        'pagination': false
     }).on('itemsadd', function ($items) {
         $.each($items, function (i, e) {
             e.innerHTML = 'TESTING ASYNCHRONOUS ITEM Nº' + i;
@@ -369,10 +370,20 @@ describe('Its Next and Prev navigation controls', function () {
 describe('Its pagination controls', function () {
 
     var $pages = carousel2._$el.children(':last'),
+        $pagesCarousel1 = carousel1._$el.children(':last'),
+        $pagesCarousel3 = carousel3._$el.children(':last'),
         $thumbs = $pages.children();
+
+    it('shouldn\'t exist by default', function () {
+        expect($pagesCarousel1.hasClass('ch-carousel-pages')).not.toBeTruthy();
+    });
 
     it('should exist when it\'s specified by configuration', function () {
         expect($pages[0].nodeType).toEqual(1);
+    });
+
+    it('shouldn\'t exist when it\'s specified by configuration', function () {
+        expect($pagesCarousel3.hasClass('ch-carousel-pages')).not.toBeTruthy();
     });
 
     it('should have the WAI-ARIA role "navigation"', function () {

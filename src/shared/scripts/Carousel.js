@@ -277,8 +277,8 @@
         // Position absolutelly the list when CSS transitions aren't supported
         if (!ch.support.transition) { this._$list.css({'position': 'absolute', 'left': '0'}); }
 
-        // If there are a parameter specifying a pagination, add it
-        if (this._options.pagination !== undefined) { this._addPagination(); }
+        // If there is a parameter specifying a pagination, add it
+        if (this._options.pagination) { this._addPagination(); }
 
         // Allow to render the arrows
         if (this._options.arrows !== undefined && this._options.arrows !== false) { this._addArrows(); }
@@ -512,7 +512,9 @@
         // Update arrows (when pages === 1, there is no arrows)
         this._updateArrows();
         // Update pagination
-        this._addPagination();
+        if (this._options.pagination) {
+            this._addPagination();
+        }
     };
 
     /**
