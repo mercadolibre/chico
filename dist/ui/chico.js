@@ -3610,7 +3610,7 @@ ch.factory = function (Klass, fn) {
      * @returns {validation}
      */
     ch.Validation.prototype._showErrorMessage = function (message) {
-        this.bubble.show(message);
+        this.bubble.content(message).show();
         this.$trigger.attr('aria-label', 'ch-' + this.bubble.name + '-' + this.bubble.uid);
 
         return this;
