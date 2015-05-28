@@ -1742,6 +1742,7 @@ input.ch-form-icon-input:focus {
   width: 16px;
   height: 16px;
   top: 1.125em;
+  padding: 0;
 }
 
 .ch-form-options input[type=radio] {
