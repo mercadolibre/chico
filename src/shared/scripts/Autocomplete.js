@@ -280,8 +280,7 @@
 
 
         function turnOn() {
-            // .trim()
-            that._currentQuery = that._el.value.replace(/^\s+|\s+$/g, '');
+            that._currentQuery = that._el.value.trim();
 
             // when the user writes
             window.clearTimeout(that._stopTyping);
