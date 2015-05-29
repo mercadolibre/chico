@@ -7013,6 +7013,7 @@ ch.factory = function (Klass, fn) {
             j = that.validations.length,
             validation,
             firstError,
+            firstErrorVisible,
             triggerError;
 
         this.errors.length = 0;
@@ -7033,8 +7034,14 @@ ch.factory = function (Klass, fn) {
         // Is there's an error
         if (that.errors.length > 0) {
             firstError = that.errors[0];
+            firstErrorVisible = firstError.trigger;
 
-            firstError.trigger.scrollIntoView();
+            // Find the closest visible parent if current element is hidden
+            while (ch.util.getStyles(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
+                firstErrorVisible = firstErrorVisible.parentElement;
+            }
+
+            firstErrorVisible.scrollIntoView();
 
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
@@ -10956,6 +10963,11 @@ ch.factory = function (Klass, fn) {
         ch.Event.addListener(this.trigger, 'focus', function turnon() { that._turn('on'); })
         ch.Event.addListener(this.trigger, 'blur', function turnoff() {that._turn('off'); });
 
+        // Turn on when the input element is already has focus
+        if (this._el === document.activeElement && !this._enabled) {
+            this._turn('on');
+        }
+
         // The number of the selected item or null when no selected item is.
         this._highlighted = null;
 
@@ -10988,8 +11000,7 @@ ch.factory = function (Klass, fn) {
 
 
         function turnOn() {
-            // .trim()
-            that._currentQuery = that._el.value.replace(/^\s+|\s+$/g, '');
+            that._currentQuery = that._el.value.trim();
 
             // when the user writes
             window.clearTimeout(that._stopTyping);
