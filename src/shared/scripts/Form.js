@@ -182,6 +182,7 @@
             j = that.validations.length,
             validation,
             firstError,
+            firstErrorVisible,
             triggerError;
 
         this.errors.length = 0;
@@ -202,8 +203,14 @@
         // Is there's an error
         if (that.errors.length > 0) {
             firstError = that.errors[0];
+            firstErrorVisible = firstError.trigger;
 
-            firstError.trigger.scrollIntoView();
+            // Find the closest visible parent if current element is hidden
+            while (ch.util.getStyles(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
+                firstErrorVisible = firstErrorVisible.parentElement;
+            }
+
+            firstErrorVisible.scrollIntoView();
 
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
