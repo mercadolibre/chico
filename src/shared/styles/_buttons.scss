@@ -14,11 +14,6 @@
     height: auto;
     text-decoration: $btn-text-decoration;
     font-size: $btn-text-size;
-
-    // Prevents tap highlight overlap.
-    // Since we have no difference between touch enabled devices and not enabled
-    // buttons are always having :focus and :active states
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 /* Focus */
