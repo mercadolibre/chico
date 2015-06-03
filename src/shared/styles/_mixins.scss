@@ -38,3 +38,15 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+
+// >> Box sizing
+// ------------------------------------------------------
+
+// The box-sizing mixin is deprecated by Bourbon library  and will be removed in
+// the next major version release. We are still going to support older browsers
+// so to prevent Bourbon warnings the mixing is overriding here but without the
+// warn.
+@mixin box-sizing($box) {
+    @include prefixer(box-sizing, $box, webkit moz spec);
+}
