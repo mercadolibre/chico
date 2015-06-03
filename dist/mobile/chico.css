@@ -68,6 +68,8 @@ table {
  * 1. Sets default font family to sans-serif.
  * 2. Prevents iOS text size adjust after orientation change, without disabling
  *    user zoom.
+ * 3. Prevents the overlap of :active state by tap-highlight-color that is
+ *    appears with delay of 300ms
  */
 html {
   font-family: sans-serif;
@@ -76,6 +78,8 @@ html {
   /* 2 */
   -ms-text-size-adjust: 100%;
   /* 2 */
+  -webkit-tap-highlight-color: transparent;
+  /* 3 */
 }
 
 body {
@@ -1147,8 +1151,8 @@ a.ch-btn-large:focus {
 }
 .ch-calendar td {
   cursor: default;
-  height: 26px;
-  line-height: 26px;
+  height: 39px;
+  line-height: 39px;
   width: 14.28%;
 }
 .ch-calendar th {
@@ -1165,7 +1169,7 @@ a.ch-btn-large:focus {
 .ch-calendar-month {
   font-size: 12px;
   text-align: center;
-  width: 240px;
+  width: 280px;
 }
 
 .lt-ie10 .ch-calendar caption {
@@ -1242,14 +1246,24 @@ a.ch-btn-large:focus {
 }
 
 .ch-calendar-month {
-  width: 280px;
+  width: 200px;
 }
 
 .ch-calendar td {
-  height: 39px;
-  line-height: 39px;
+  height: 32px;
+  line-height: 32px;
 }
 
+@media (min-width: 320px) {
+  .ch-calendar-month {
+    width: 280px;
+  }
+
+  .ch-calendar td {
+    height: 39px;
+    line-height: 39px;
+  }
+}
 /**
  * Tables
  */
