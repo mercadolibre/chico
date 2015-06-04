@@ -1,8 +1,7 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
-    var $window = $(window),
-        resized = false,
+    var resized = false,
         scrolled = false,
         requestAnimFrame = (function () {
             return window.requestAnimationFrame ||
@@ -79,39 +78,43 @@
         /**
          * Element representing the visible area.
          * @memberof! ch.viewport#element
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {Object}
          */
-        this.$el = $window;
+        this.el = window;
 
         this.refresh();
 
-        $window
-            .on(ch.onresize + '.viewport', function () {
-                // No changing, exit
-                if (!resized) {
-                    resized = true;
 
-                    /**
-                     * requestAnimationFrame
-                     */
-                    requestAnimFrame(function updateResize() {
-                        update.call(that);
-                    });
-                }
-            })
-            .on(ch.onscroll + '.viewport', function () {
-                // No changing, exit
-                if (!scrolled) {
-                    scrolled = true;
+        function viewportResize() {
+            // No changing, exit
+            if (!resized) {
+                resized = true;
 
-                    /**
-                     * requestAnimationFrame
-                     */
-                    requestAnimFrame(function updateScroll() {
-                        update.call(that);
-                    });
-                }
-            });
+                /**
+                 * requestAnimationFrame
+                 */
+                requestAnimFrame(function updateResize() {
+                    update.call(that);
+                });
+            }
+        };
+
+        function viewportScroll() {
+            // No changing, exit
+            if (!scrolled) {
+                scrolled = true;
+
+                /**
+                 * requestAnimationFrame
+                 */
+                requestAnimFrame(function updateScroll() {
+                    update.call(that);
+                });
+            }
+        };
+
+        window.addEventListener(ch.onscroll, viewportScroll, false);
+        window.addEventListener(ch.onresize, viewportResize, false);
     };
 
     /**
@@ -154,7 +157,7 @@
          * // Checks if the bottom client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 900) ? 'Yes': 'No';
          */
-        this.bottom = this.$el.height();
+        this.bottom = Math.max(this.el.innerHeight || 0, document.documentElement.clientHeight);
 
         /**
          * The current right client rect of the viewport (in pixels).
@@ -165,7 +168,7 @@
          * // Checks if the right client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 1200) ? 'Yes': 'No';
          */
-        this.right = this.$el.width();
+        this.right = Math.max(this.el.innerWidth || 0, document.documentElement.clientWidth);
 
         return this;
     };
@@ -285,7 +288,7 @@
          * // Checks if the orientation is "landscape".
          * (ch.viewport.orientation === 'landscape') ? 'Yes': 'No';
          */
-        this.orientation = (Math.abs(this.$el.orientation) === 90) ? 'landscape' : 'portrait';
+        this.orientation = (Math.abs(this.el.orientation) === 90) ? 'landscape' : 'portrait';
 
         return this;
     };
@@ -342,4 +345,4 @@
     // Creates an instance of the Viewport into ch namespace.
     ch.viewport = new Viewport();
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

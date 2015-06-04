@@ -24,13 +24,27 @@
         var that = this,
             triggerClass = 'ch-' + this.name + '-trigger-on',
             fx = this._options.fx,
-            useEffects = (ch.support.fx && fx !== 'none' && fx !== false);
+            useEffects = (ch.support.transition && fx !== 'none' && fx !== false),
+            pt, pb;
 
-        function showCallback() {
-            that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
+        function showCallback(e) {
+            if (useEffects) {
+                ch.util.classList(that.container).remove('ch-fx-' + fx);
+
+                // TODO: Use original height when it is defined
+                if (/^slide/.test(fx)) {
+                    that.container.style.height = '';
+                }
+            }
+            ch.util.classList(that.container).remove('ch-hide');
+            that.container.setAttribute('aria-hidden', 'false');
+
+            if (e) {
+                e.target.removeEventListener(e.type, showCallback);
+            }
 
             /**
-             * Event emitted when the componentg is shown.
+             * Event emitted when the component is shown.
              * @event ch.Collapsible#show
              * @example
              * // Subscribe to "show" event.
@@ -41,8 +55,20 @@
             that.emit('show');
         }
 
-        function hideCallback() {
-            that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
+        function hideCallback(e) {
+            if (useEffects) {
+                ch.util.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                that.container.style.display = '';
+                if (/^slide/.test(fx)) {
+                    that.container.style.height = '';
+                }
+            }
+            ch.util.classList(that.container).add('ch-hide');
+            that.container.setAttribute('aria-hidden', 'true');
+
+            if (e) {
+                e.target.removeEventListener(e.type, hideCallback);
+            }
 
             /**
              * Event emitted when the component is hidden.
@@ -67,8 +93,8 @@
 
             that._shown = true;
 
-            if (that.$trigger !== undefined) {
-                that.$trigger.addClass(triggerClass);
+            if (that.trigger !== undefined) {
+                ch.util.classList(that.trigger).add(triggerClass);
             }
 
             /**
@@ -84,7 +110,44 @@
 
             // Animate or not
             if (useEffects) {
-                that.$container[fx]('fast', showCallback);
+                var _h = 0;
+
+                // Be sure to remove an opposite class that probably exist and
+                // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
+                ch.Event.removeListener(that.container, ch.support.transition.end, hideCallback);
+                ch.util.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+
+                ch.Event.addListener(that.container, ch.support.transition.end, showCallback);
+
+                // Reveal an element before the transition
+                that.container.style.display = 'block';
+
+                // Set margin and padding to 0 to prevent content jumping at the transition end
+                if (/^slide/.test(fx)) {
+                    // Cache the original paddings for the first time
+                    if (!pt || !pb) {
+                        pt = ch.util.getStyles(that.container, 'padding-top');
+                        pb = ch.util.getStyles(that.container, 'padding-bottom');
+
+                        that.container.style.marginTop = that.container.style.marginBottom =
+                            that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
+                    }
+
+                    that.container.style.opacity = '0.01';
+                    _h = that.container.offsetHeight;
+                    that.container.style.opacity = '';
+                    that.container.style.height = '0px';
+                }
+
+                // Transition cannot be applied at the same time when changing the display property
+                setTimeout(function() {
+                    if (/^slide/.test(fx)) {
+                        that.container.style.height = _h + 'px';
+                    }
+                    that.container.style.paddingTop = pt;
+                    that.container.style.paddingBottom = pb;
+                    ch.util.classList(that.container).add('ch-fx-' + fx);
+                }, 0);
             } else {
                 showCallback();
             }
@@ -103,8 +166,8 @@
 
             that._shown = false;
 
-            if (that.$trigger !== undefined) {
-                that.$trigger.removeClass(triggerClass);
+            if (that.trigger !== undefined) {
+                ch.util.classList(that.trigger).remove(triggerClass);
             }
 
             /**
@@ -120,7 +183,26 @@
 
             // Animate or not
             if (useEffects) {
-                that.$container[toggleEffects[fx]]('fast', hideCallback);
+                // Be sure to remove an opposite class that probably exist and
+                // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
+                ch.Event.removeListener(that.container, ch.support.transition.end, showCallback);
+                ch.util.classList(that.container).remove('ch-fx-' + fx);
+
+                ch.Event.addListener(that.container, ch.support.transition.end, hideCallback);
+                // Set margin and padding to 0 to prevent content jumping at the transition end
+                if (/^slide/.test(fx)) {
+                    that.container.style.height = ch.util.getStyles(that.container, 'height');
+                    // Uses nextTick to trigger the height change
+                    setTimeout(function() {
+                        that.container.style.height = '0px';
+                        that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
+                        ch.util.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                    }, 0);
+                } else {
+                    setTimeout(function() {
+                        ch.util.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                    }, 0);
+                }
             } else {
                 hideCallback();
             }

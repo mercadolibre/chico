@@ -1,4 +1,4 @@
-var test = new ch.Expandable($('#demo')),
+var test = new ch.Expandable(document.getElementById('demo')),
     current;
 
 describe('Content', function () {
@@ -26,11 +26,12 @@ describe('Content', function () {
             expect(current).toEqual('Plain Text!');
         });
 
-        it('like jQuery/Zepto Selector', function () {
-            test.content($('#invisible-content'));
+        it('like DOM Element', function () {
+            var element = document.getElementById('invisible-content');
+            test.content(element);
             current = test.content();
 
-            expect($(current)[0].nodeType).toEqual(1);
+            expect(current).toEqual(element.outerHTML);
         });
 
     });

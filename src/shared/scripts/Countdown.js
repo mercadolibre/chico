@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     function normalizeOptions(options) {
@@ -18,7 +18,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Component
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Countdown.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Countdown.
      * @param {Object} [options] Options to customize an instance.
      * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control. Default: 500.
      * @param {String} [options.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. Default: "# characters left.".
@@ -26,22 +26,19 @@
      * @returns {countdown} Returns a new instance of Countdown.
      * @example
      * // Create a new Countdown.
-     * var countdown = new ch.Countdown($el, [options]);
-     * @example
-     * // Create a new Countdown with jQuery or Zepto.
-     * var countdown = $(selector).countdown();
+     * var countdown = new ch.Countdown([el], [options]);
      * @example
      * // Create a new Countdown with custom options.
-     * var countdown = $(selector).countdown({
+     * var countdown = new ch.Countdown({
      *     'max': 250,
      *     'plural': 'Left: # characters.',
      *     'singular': 'Left: # character.'
      * });
      * @example
      * // Create a new Countdown using the shorthand way (max as parameter).
-     * $(selector).countdown(500);
+     * var countdown = new ch.Countdown({'max': 500});
      */
-    function Countdown($el, options) {
+    function Countdown(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -50,7 +47,7 @@
          */
         var that = this;
 
-        that._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -70,7 +67,7 @@
          *     // Some code here!
          * });
          */
-        window.setTimeout(function () { that.emit("ready"); }, 50);
+        window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
     // Inheritance
@@ -80,9 +77,6 @@
      * The name of the component.
      * @memberof! ch.Countdown.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var countdown = $(selector).data('countdown');
      */
     Countdown.prototype.name = 'countdown';
 
@@ -111,9 +105,9 @@
      * @private
      * @returns {countdown}
      */
-    Countdown.prototype._init = function ($el, options) {
+    Countdown.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -138,12 +132,23 @@
 
         /**
          * The countdown trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLTextAreaElement}
          * @example
          * // Gets the countdown trigger.
-         * countdown.$trigger;
+         * countdown.trigger;
          */
-        this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown input.countdown', function () { that._count(); });
+        this.trigger = this._el;
+        ch.Event.addListener(this.trigger, 'keyup', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'keypress', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'keydown', function () { that._count(); });
+
+        // IE8 doesn't work
+        ch.Event.addListener(this.trigger, 'input', function () { that._count(); });
+
+        // IE8 - IE10 doesn't work
+        ch.Event.addListener(this.trigger, 'paste', function () { that._count(); });
+        ch.Event.addListener(this.trigger, 'cut', function () { that._count(); });
+
 
         /**
          * Amount of free characters until full the field.
@@ -157,9 +162,14 @@
 
         /**
          * The countdown container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLParagraphElement}
          */
-        that.$container = $('<p class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>').appendTo(that._$el.parent());
+        that.container = (function () {
+            var parent = ch.util.parentElement(that._el);
+                parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
+
+            return parent.querySelector('#' + messageID);
+        }());
 
         this.on('disable', this._removeError);
 
@@ -218,11 +228,10 @@
             // Update exceeded flag
             this._exceeded = true;
 
-            this.$trigger
-                .addClass('ch-validation-error')
-                .attr('aria-invalid', 'true');
+            this.trigger.setAttribute('aria-invalid', 'true');
+            ch.util.classList(this.trigger).add('ch-validation-error');
 
-            this.$container.addClass('ch-countdown-exceeded');
+            ch.util.classList(this.container).add('ch-countdown-exceeded');
         }
 
         // Change visible message of remaining characters
@@ -230,7 +239,7 @@
         message = (this._remaining !== 1 ? this._options.plural : this._options.singular).replace(/\#/g, this._remaining);
 
         // Update DOM text
-        this.$container.text(message);
+        this.container.innerText  = message;
 
         return this;
 
@@ -243,11 +252,10 @@
      * @returns {countdown}
      */
     Countdown.prototype._removeError = function () {
-        this.$trigger
-            .removeClass('ch-validation-error')
-            .attr('aria-invalid', 'false');
+        ch.util.classList(this.trigger).remove('ch-validation-error');
+        this.trigger.setAttribute('aria-invalid', 'false');
 
-        this.$container.removeClass('ch-countdown-exceeded');
+        ch.util.classList(this.container).remove('ch-countdown-exceeded');
 
         return this;
     };
@@ -263,12 +271,10 @@
      * countdown = undefined;
      */
     Countdown.prototype.destroy = function () {
+        var parentElement = ch.util.parentElement(this.container);
+            parentElement.removeChild(this.container);
 
-        this.$trigger.off('.countdown');
-
-        this.$container.remove();
-
-        $(window.document).trigger(ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -278,4 +284,4 @@
     // Factorize
     ch.factory(Countdown, normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

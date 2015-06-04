@@ -1,17 +1,17 @@
-var zoom = $('#zoom').zoom().show(),
-    $t = zoom.$trigger,
-    $c = zoom.$container;
+var zoom = new ch.Zoom(document.getElementById('zoom')).show(),
+    t = zoom.trigger,
+    c = zoom.container,
+    showed = false;
+
+    zoom.on('show', function (){
+        showed = true;
+    });
 
 describe('Zoom', function () {
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Zoom')).toBeTruthy();
         expect(typeof ch.Zoom).toEqual('function');
-    });
-
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('zoom')).toBeTruthy();
-        expect(typeof $.fn.zoom).toEqual('function');
     });
 
     it('should return a new instance of Zoom', function () {
@@ -22,26 +22,29 @@ describe('Zoom', function () {
 describe('It should have a container with', function () {
 
     it('role tooltip', function () {
-        expect($c.attr('role')).toEqual('tooltip');
+        expect(c.getAttribute('role')).toEqual('tooltip');
     });
 
     it('specific CSS class names', function () {
-        expect($c.hasClass('ch-zoom')).toBeTruthy();
+        expect(ch.util.classList(c).contains('ch-zoom')).toBeTruthy();
     });
 
     it('specific size', function () {
-        expect($c[0].style.width).toEqual('300px');
-        expect($c[0].style.height).toEqual('300px');
+        expect(c.style.width).toEqual('300px');
+        expect(c.style.height).toEqual('300px');
     });
 });
 
 describe('On show', function () {
 
     it('should have a visual feedback of zoomed area', function () {
-        expect($t.children('.ch-zoom-seeker').length).toEqual(1);
+        expect(t.querySelectorAll('.ch-zoom-seeker').length).toEqual(1);
     });
 
+    waitsFor(function() { return showed; }, 'content added to the DOM', 500);
+
     it('should have the zoomed image within the container', function () {
-        expect($c.children('img').attr('src')).toEqual($t.href);
+        expect(c.querySelector('img').getAttribute('src')).toEqual(t.getAttribute('href'));
     });
+
 });

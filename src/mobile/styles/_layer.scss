@@ -24,6 +24,7 @@
 	height: 0;
 	width: 0;
 	position: absolute;
+	-ms-touch-action: none;
 	pointer-events: none;
 	display: block;
 }

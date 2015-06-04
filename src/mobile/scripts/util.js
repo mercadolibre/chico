@@ -21,7 +21,7 @@
 
         for (; labels[i]; i += 1) {
             if (labels[i].getAttribute('for')) {
-                $(labels[i]).on(ch.onpointertap, labelTap);
+                ch.Event.addListener(labels[i], ch.onpointertap, labelTap);
             }
         }
     };
@@ -32,13 +32,18 @@
      * @memberof ch.util
      */
     ch.util.cancelPointerOnScroll = function () {
-        $document.on('touchmove', function () {
+
+        function blockPointer() {
             ch.pointerCanceled = true;
 
-            $document.one('touchend', function () {
+            function unblockPointer() {
                 ch.pointerCanceled = false;
-            });
-        });
+            }
+
+            ch.Event.addListenerOne(document, 'touchend', unblockPointer);
+        }
+
+        ch.Event.addListener(document, 'touchmove', blockPointer);
     };
 
     /*!
@@ -52,15 +57,15 @@
 
         // Fix for iPhone viewport scale bug
         // http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
-        'viewportmeta': $('meta[name=viewport]'),
+        'viewportmeta': document.querySelector('meta[name=viewport]'),
 
         'gestureStart': function () {
-            ch.util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+            ch.util.MBP.viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=0.25, maximum-scale=1.6');
         },
 
         'scaleFix': function () {
             if (ch.util.MBP.viewportmeta && /iPhone|iPad|iPod/.test(userAgent) && !/Opera Mini/.test(userAgent)) {
-                ch.util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
+                ch.util.MBP.viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=1.0, maximum-scale=1.0');
                 document.addEventListener('gesturestart', ch.util.MBP.gestureStart, false);
             }
         },
@@ -116,18 +121,18 @@
         // Prevent iOS from zooming onfocus
         // https://github.com/h5bp/mobile-boilerplate/pull/108
         'preventZoom': function () {
-            var formFields = $('input, select, textarea'),
+            var formFields = document.querySelectorAll('input, select, textarea'),
                 contentString = 'width=device-width,initial-scale=1,maximum-scale=',
                 i = 0;
 
             for (; i < formFields.length; i += 1) {
 
                 formFields[i].onfocus = function() {
-                    ch.util.MBP.viewportmeta.content = contentString + '1';
+                    ch.util.MBP.viewportmeta.setAttribute('content', contentString + '1');
                 };
 
                 formFields[i].onblur = function () {
-                    ch.util.MBP.viewportmeta.content = contentString + '10';
+                    ch.util.MBP.viewportmeta.setAttribute('content', contentString + '10');
                 };
             }
         }

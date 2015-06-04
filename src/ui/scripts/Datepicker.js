@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -7,7 +7,7 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Calendar
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Datepicker.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Datepicker.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. Default: "DD/MM/YYYY".
      * @param {String} [options.selected] Sets a date that should be selected by default. Default: "today".
@@ -15,8 +15,8 @@
      * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be "YYYY/MM/DD".
      * @param {Array} [options.monthsNames] A collection of months names. Default: ["Enero", ... , "Diciembre"].
      * @param {Array} [options.weekdays] A collection of weekdays. Default: ["Dom", ... , "Sab"].
-     * @param {Boolean} [conf.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {Boolean} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
+     * @param {HTMLElement} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally.
@@ -25,13 +25,10 @@
      * @returns {datepicker} Returns a new instance of Datepicker.
      * @example
      * // Create a new Datepicker.
-     * var datepicker = new ch.Datepicker($el, [options]);
-     * @example
-     * // Create a new Datepicker with jQuery or Zepto.
-     * var datepicker = $(selector).datepicker();
+     * var datepicker = new ch.Datepicker([selector], [options]);
      * @example
      * // Create a new Datepicker with custom options.
-     * var datepicker = $(selector).datepicker({
+     * var datepicker = new ch.Datepicker({
      *     "format": "MM/DD/YYYY",
      *     "selected": "2011/12/25",
      *     "from": "2010/12/25",
@@ -40,7 +37,7 @@
      *     "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
      * });
      */
-    function Datepicker($el, options) {
+    function Datepicker(selector, options) {
 
         /**
          * Reference to context of an instance.
@@ -49,7 +46,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -125,9 +122,9 @@
      * @private
      * @returns {datepicker}
      */
-    Datepicker.prototype._init = function ($el, options) {
+    Datepicker.prototype._init = function (selector, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
         /**
          * Reference to context of an instance.
@@ -141,29 +138,30 @@
          * @type {HTMLElement}
          */
         this.field = this._el;
+        this.field.insertAdjacentHTML('afterend', '<i role="button" class="ch-datepicker-trigger ch-icon-calendar"></i>');
 
         /**
          * The datepicker trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$trigger = $('<i role="button" class="ch-datepicker-trigger ch-icon-calendar"></i>').insertAfter(this.field);
+        this.trigger = ch.util.nextElementSibling(this.field);
 
         /**
          * Reference to the Calendar component instanced.
          * @type {ch.Calendar}
          * @private
          */
-        this._calendar = $('<div>').calendar(options);
+        this._calendar = new ch.Calendar(document.createElement('div'), options);
 
         /**
          * Reference to the Popover component instanced.
          * @type {ch.Popover}
          * @private
          */
-        this._popover = this.$trigger.popover({
+        this._popover = new ch.Popover(this.trigger, {
             '_className': 'ch-datepicker ch-cone',
             '_ariaRole': 'tooltip',
-            'content': this._calendar.$container,
+            'content': this._calendar.container,
             'side': this._options.side,
             'align': this._options.align,
             'offsetX': 1,
@@ -172,7 +170,7 @@
             'hiddenby': this._options.hiddenby
         });
 
-        this._popover._$content.on(ch.onpointertap, function (event) {
+        ch.Event.addListener(this._popover._content, ch.onpointertap, function (event) {
             var el = event.target;
 
             // Day selection
@@ -531,7 +529,7 @@
      */
     Datepicker.prototype.destroy = function () {
 
-        this.$trigger.remove();
+        ch.util.parentElement(this.trigger).removeChild(this.trigger);
 
         this._el.removeAttribute('aria-describedby');
         this._el.type = 'date';
@@ -544,4 +542,4 @@
     // Factorize
     ch.factory(Datepicker);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

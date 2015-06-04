@@ -104,11 +104,11 @@ describe('Util', function () {
             }).toThrow();
 
             expect(function () {
-                util.avoidTextSelection('.selector-test');
+                util.avoidTextSelection(document.querySelector('.selector-test'));
             }).toThrow();
 
             expect(function () {
-                util.avoidTextSelection($('.version'));
+                util.avoidTextSelection(document.querySelector('.version'));
             }).not.toThrow();
 
         });

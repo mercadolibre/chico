@@ -1,7 +1,7 @@
-var dropdown1 = $('#dropdown1').dropdown(),
-    $t = dropdown1.$trigger,
-    $c = dropdown1.$container,
-    dropdown2 = $('#dropdown2').dropdown({
+var dropdown1 = new ch.Dropdown(document.getElementById('dropdown1')),
+    t = dropdown1.trigger,
+    c = dropdown1.container,
+    dropdown2 = new ch.Dropdown(document.getElementById('dropdown2'), {
         'skin': true
     });
 
@@ -12,11 +12,6 @@ describe('Dropdown', function () {
         expect(typeof ch.Dropdown).toEqual('function');
     });
 
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('dropdown')).toBeTruthy();
-        expect(typeof $.fn.dropdown).toEqual('function');
-    });
-
     it('should return a new instance of Dropdown', function () {
         expect(dropdown1 instanceof ch.Dropdown).toBeTruthy();
     });
@@ -25,29 +20,29 @@ describe('Dropdown', function () {
 describe('It should have a container with', function () {
 
     it('role combobox', function () {
-        expect($c.attr('role')).toEqual('combobox');
+        expect(c.getAttribute('role')).toEqual('combobox');
     });
 
     it('specific CSS class names', function () {
-        expect($c.hasClass('ch-dropdown')).toBeTruthy();
-        expect($c.hasClass('ch-box-lite')).toBeTruthy();
+        expect(ch.util.classList(c).contains('ch-dropdown')).toBeTruthy();
+        expect(ch.util.classList(c).contains('ch-box-lite')).toBeTruthy();
     });
 });
 
 describe('By default', function () {
     it('should have class names like a button', function () {
-        expect($t.hasClass('ch-btn-skin')).toBeTruthy();
-        expect($t.hasClass('ch-btn-small')).toBeTruthy();
+        expect(ch.util.classList(t).contains('ch-btn-skin')).toBeTruthy();
+        expect(ch.util.classList(t).contains('ch-btn-small')).toBeTruthy();
     });
 });
 
 describe('An intance configured with skin', function () {
     it('should have a specific class name on trigger', function () {
-        expect(dropdown2.$trigger.hasClass('ch-dropdown-trigger-skin')).toBeTruthy();
+        expect(ch.util.classList(dropdown2.trigger).contains('ch-dropdown-trigger-skin')).toBeTruthy();
     });
 
     it('shouldn\'t have class names like a button', function () {
-        expect(dropdown2.$trigger.hasClass('ch-btn-skin')).toBeFalsy();
-        expect(dropdown2.$trigger.hasClass('ch-btn-small')).toBeFalsy();
+        expect(ch.util.classList(dropdown2.trigger).contains('ch-btn-skin')).toBeFalsy();
+        expect(ch.util.classList(dropdown2.trigger).contains('ch-btn-small')).toBeFalsy();
     });
 });

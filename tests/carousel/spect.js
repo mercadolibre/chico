@@ -7,7 +7,7 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
     itemsdoneEvent = jasmine.createSpy('itemsdoneEvent'),
     refreshEvent = jasmine.createSpy('refreshEvent'),
     emptyitemsEvent = jasmine.createSpy('emptyitemsEvent'),
-    carousel1 = $('.carousel1').carousel({
+    carousel1 = new ch.Carousel(document.querySelector('.carousel1'), {
         'limitPerPage': 4,
         'fx': false,
     }).on('select', function () { selectEvent(); })
@@ -17,34 +17,28 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
         .on('itemsdone', function () { itemsdoneEvent(); })
         .on('refresh', function () { refreshEvent(); })
         .on('emptyitems', function () { emptyitemsEvent(); }),
-    carousel2 = $('.carousel2').carousel({
+    carousel2 = new ch.Carousel(document.querySelector('.carousel2'), {
         'limitPerPage': 4,
         'arrows': false,
         'pagination': true,
         'fx': false
     }),
-    carousel3 = $('.carousel3').carousel({
+    carousel3 = new ch.Carousel(document.querySelector('.carousel3'), {
         'limitPerPage': 2,
         'async': 5,
-        'fx': false,
-        'pagination': false
-    }).on('itemsadd', function ($items) {
-        $.each($items, function (i, e) {
+        'fx': false
+    }).on('itemsadd', function (items) {
+        items.forEach(function (e, i) {
             e.innerHTML = 'TESTING ASYNCHRONOUS ITEM Nº' + i;
         });
     }),
-    carousel4 = $('.carousel4').carousel().on('destroy', function () { destroyEvent(); });
+    carousel4 = new ch.Carousel(document.querySelector('.carousel4')).on('destroy', function () { destroyEvent(); });
 
 describe('Carousel', function () {
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Carousel')).toBeTruthy();
         expect(typeof ch.Carousel).toEqual('function');
-    });
-
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('carousel')).toBeTruthy();
-        expect(typeof $.fn.carousel).toEqual('function');
     });
 
     it('should return a new instance', function () {
@@ -98,70 +92,70 @@ describe('It should have two navigation controls:', function () {
 
     describe('Previous button', function () {
 
-        var $btn = carousel1._$el.children(':first');
+        var btn = carousel1._el.children[0];
 
         it('should exist', function () {
-            expect($btn[0].nodeType).toEqual(1);
+            expect(btn.nodeType).toEqual(1);
         });
 
         describe('should have the following WAI-ARIA roles and properties:', function () {
 
             it('role: button', function () {
-                expect($btn.attr('role')).toEqual('button');
+                expect(btn.getAttribute('role')).toEqual('button');
             });
 
             it('aria-hidden: true in the first page', function () {
-                expect($btn.attr('aria-hidden')).toBeTruthy();
+                expect(btn.getAttribute('aria-hidden')).toBeTruthy();
             });
         });
 
         describe('should have the following ID and Classnames:', function () {
 
             it('.ch-carousel-prev', function () {
-                expect($btn.hasClass('ch-carousel-prev')).toBeTruthy();
+                expect(ch.util.classList(btn).contains('ch-carousel-prev')).toBeTruthy();
             });
 
             it('.ch-carousel-disabled in the first page', function () {
-                expect($btn.hasClass('ch-carousel-disabled')).toBeTruthy();
+                expect(ch.util.classList(btn).contains('ch-carousel-disabled')).toBeTruthy();
             });
 
             it('.ch-user-no-select', function () {
-                expect($btn.hasClass('ch-user-no-select')).toBeTruthy();
+                expect(ch.util.classList(btn).contains('ch-user-no-select')).toBeTruthy();
             });
         });
     });
 
     describe('Next button', function () {
 
-        var $btn = carousel1._$el.children(':eq(2)');
+        var btn = carousel1._el.children[2];
 
         it('should exist', function () {
-            expect($btn[0].nodeType).toEqual(1);
+            expect(btn.nodeType).toEqual(1);
         });
 
         describe('should have the following WAI-ARIA roles and properties:', function () {
 
             it('role: button', function () {
-                expect($btn.attr('role')).toEqual('button');
+                expect(btn.getAttribute('role')).toEqual('button');
             });
 
             it('aria-hidden: false in the first page', function () {
-                expect($btn.attr('aria-hidden')).toEqual('false');
+                expect(btn.getAttribute('aria-hidden')).toEqual('false');
             });
         });
 
         describe('should have the following ID and Classnames:', function () {
 
             it('.ch-carousel-next', function () {
-                expect($btn.hasClass('ch-carousel-next')).toBeTruthy();
+                expect(ch.util.classList(btn).contains('ch-carousel-next')).toBeTruthy();
             });
 
             it('shouldn\'t have the .ch-carousel-disabled classname in the first page', function () {
-                expect($btn.hasClass('ch-carousel-disabled')).toBeFalsy();
+                expect(ch.util.classList(btn).contains('ch-carousel-disabled')).toBeFalsy();
             });
 
             it('.ch-user-no-select', function () {
-                expect($btn.hasClass('ch-user-no-select')).toBeTruthy();
+                expect(ch.util.classList(btn).contains('ch-user-no-select')).toBeTruthy();
             });
         });
     });
@@ -169,74 +163,74 @@ describe('It should have two navigation controls:', function () {
 
 describe('It should have a Mask element that', function () {
 
-    var $mask = carousel1._$el.children().eq(1);
+    var mask = carousel1._el.children[1];
 
     it('should exist', function () {
-        expect($mask[0].nodeType).toEqual(1);
+        expect(mask.nodeType).toEqual(1);
     });
 
     it('should have the WAI-ARIA role "tabpanel"', function () {
-        expect($mask.attr('role')).toEqual('tabpanel');
+        expect(mask.getAttribute('role')).toEqual('tabpanel');
     });
 
     it('should have the "ch-carousel-mask" classname:', function () {
-        expect($mask.hasClass('ch-carousel-mask')).toBeTruthy();
+        expect(ch.util.classList(mask).contains('ch-carousel-mask')).toBeTruthy();
     });
 
     describe('should have the initial list element that', function () {
 
-        var $list = $mask.children();
+        var list = mask.children[0];
 
         it('should exist', function () {
-            expect($list[0].nodeType).toEqual(1);
+            expect(list.nodeType).toEqual(1);
         });
 
         it('should have the "ch-carousel-list" classname', function () {
-            expect($list.hasClass('ch-carousel-list')).toBeTruthy();
+            expect(ch.util.classList(list).contains('ch-carousel-list')).toBeTruthy();
         });
 
         describe('should have each individual item or element into the list:', function () {
 
-            var $items = $list.children(),
-                $firstItem = $items.eq(0),
-                $lastItem = $items.eq(-1),
-                total = $items.length.toString();
+            var items = list.children,
+                firstItem = items[0],
+                lastItem = items[items.length - 1],
+                total = items.length.toString();
 
             describe('First element: Should have the following WAI-ARIA roles and properties:', function () {
 
                 it('aria-hidden: false in the first page', function () {
-                    expect($firstItem.attr('aria-hidden')).toEqual('false');
+                    expect(firstItem.getAttribute('aria-hidden')).toEqual('false');
                 });
 
                 it('aria-setsize: The same amount than items into the list', function () {
-                    expect($firstItem.attr('aria-setsize')).toEqual(total);
+                    expect(firstItem.getAttribute('aria-setsize')).toEqual(total);
                 });
 
                 it('aria-posinset: 1, because it\s the first element', function () {
-                    expect($firstItem.attr('aria-posinset')).toEqual('1');
+                    expect(firstItem.getAttribute('aria-posinset')).toEqual('1');
                 });
 
                 it('aria-label: "page1", because it\s in the first page', function () {
-                    expect($firstItem.attr('aria-label')).toEqual('page1');
+                    expect(firstItem.getAttribute('aria-label')).toEqual('page1');
                 });
             });
 
             describe('Last element: Should have the following WAI-ARIA roles and properties:', function () {
 
                 it('aria-hidden: true in the last page', function () {
-                    expect($lastItem.attr('aria-hidden')).toBeTruthy();
+                    expect(lastItem.getAttribute('aria-hidden')).toBeTruthy();
                 });
 
                 it('aria-setsize: The same amount than items into the list', function () {
-                    expect($lastItem.attr('aria-setsize')).toEqual(total);
+                    expect(lastItem.getAttribute('aria-setsize')).toEqual(total);
                 });
 
                 it('aria-posinset: The same amount than items into the list, because it\s the last element', function () {
-                    expect($lastItem.attr('aria-posinset')).toEqual(total);
+                    expect(lastItem.getAttribute('aria-posinset')).toEqual(total);
                 });
 
                 it('aria-label: "page5", because it\s in the last page', function () {
-                    expect($lastItem.attr('aria-label')).toEqual('page' + carousel1._pages);
+                    expect(lastItem.getAttribute('aria-label')).toEqual('page' + carousel1._pages);
                 });
             });
         });
@@ -314,142 +308,135 @@ describe('Its next() method', function () {
 describe('Its refresh() method', function () {
 
     it('should emit the "refresh" event when the public method "refresh" is executed and the amount of items changes', function () {
+        var toRemove = carousel1._items[0],
+            parentOfRemoved = toRemove.parentNode;
+
         expect(refreshEvent.callCount).toEqual(0);
-        carousel1._$items.eq(0).remove();
+        parentOfRemoved.removeChild(toRemove);
         carousel1.refresh();
         expect(refreshEvent.callCount).toEqual(1);
     });
 });
 
-describe('Its movement should respect the buttons visibility and abailability', function () {
+describe('Its movement should respect the buttons visibility and availability', function () {
 
-    var $prevButton = carousel1._$mask.prev();
-        $nextButton = carousel1._$mask.next();
+    var prevButton = carousel1._mask.previousElementSibling;
+        nextButton = carousel1._mask.nextElementSibling;
 
     it('in the middle page', function () {
 
         carousel1.select(3);
 
-        expect($prevButton.attr('aria-disabled')).toEqual('false');
-        expect($prevButton.hasClass('ch-carousel-disabled')).toBeFalsy();
+        expect(prevButton.getAttribute('aria-disabled')).toEqual('false');
+        expect(ch.util.classList(prevButton).contains('ch-carousel-disabled')).toBeFalsy();
 
-        expect($nextButton.attr('aria-disabled')).toEqual('false');
-        expect($nextButton.hasClass('ch-carousel-disabled')).toBeFalsy();
+        expect(nextButton.getAttribute('aria-disabled')).toEqual('false');
+        expect(ch.util.classList(nextButton).contains('ch-carousel-disabled')).toBeFalsy();
     });
 
     it('in the first page', function () {
 
         carousel1.select(1);
 
-        expect($prevButton.attr('aria-disabled')).toEqual('true');
-        expect($prevButton.hasClass('ch-carousel-disabled')).toBeTruthy();
+        expect(prevButton.getAttribute('aria-disabled')).toEqual('true');
+        expect(ch.util.classList(prevButton).contains('ch-carousel-disabled')).toBeTruthy();
 
-        expect($nextButton.attr('aria-disabled')).toEqual('false');
-        expect($nextButton.hasClass('ch-carousel-disabled')).toBeFalsy();
+        expect(nextButton.getAttribute('aria-disabled')).toEqual('false');
+        expect(ch.util.classList(nextButton).contains('ch-carousel-disabled')).toBeFalsy();
     });
 
     it('in the last page', function () {
 
         carousel1.select(carousel1._pages);
 
-        expect($prevButton.attr('aria-disabled')).toEqual('false');
-        expect($prevButton.hasClass('ch-carousel-disabled')).toBeFalsy();
+        expect(prevButton.getAttribute('aria-disabled')).toEqual('false');
+        expect(ch.util.classList(prevButton).contains('ch-carousel-disabled')).toBeFalsy();
 
-        expect($nextButton.attr('aria-disabled')).toEqual('true');
-        expect($nextButton.hasClass('ch-carousel-disabled')).toBeTruthy();
+        expect(nextButton.getAttribute('aria-disabled')).toEqual('true');
+        expect(ch.util.classList(nextButton).contains('ch-carousel-disabled')).toBeTruthy();
     });
 });
 
 describe('Its Next and Prev navigation controls', function () {
     it('shouldn\'t exist when it\'s specified by configuration', function () {
-        expect(carousel2._$el.find('.ch-carousel-prev').length).toEqual(0);
-        expect(carousel2._$el.find('.ch-carousel-next').length).toEqual(0);
+        expect(carousel2._el.querySelectorAll('.ch-carousel-prev').length).toEqual(0);
+        expect(carousel2._el.querySelectorAll('.ch-carousel-next').length).toEqual(0);
     });
 });
 
 describe('Its pagination controls', function () {
 
-    var $pages = carousel2._$el.children(':last'),
-        $pagesCarousel1 = carousel1._$el.children(':last'),
-        $pagesCarousel3 = carousel3._$el.children(':last'),
-        $thumbs = $pages.children();
-
-    it('shouldn\'t exist by default', function () {
-        expect($pagesCarousel1.hasClass('ch-carousel-pages')).not.toBeTruthy();
-    });
+    var pages = carousel2._el.childNodes[carousel2._el.childNodes.length - 1],
+        thumbs = pages.childNodes;
 
     it('should exist when it\'s specified by configuration', function () {
-        expect($pages[0].nodeType).toEqual(1);
-    });
-
-    it('shouldn\'t exist when it\'s specified by configuration', function () {
-        expect($pagesCarousel3.hasClass('ch-carousel-pages')).not.toBeTruthy();
+        expect(pages.nodeType).toEqual(1);
     });
 
     it('should have the WAI-ARIA role "navigation"', function () {
-        expect($pages.attr('role')).toEqual('navigation');
+        expect(pages.getAttribute('role')).toEqual('navigation');
     });
 
     describe('should have the following ID and Classnames:', function () {
 
         it('.ch-carousel-pages', function () {
-            expect($pages.hasClass('ch-carousel-pages')).toBeTruthy();
+            expect(ch.util.classList(pages).contains('ch-carousel-pages')).toBeTruthy();
         });
 
         it('.ch-user-no-select', function () {
-            expect($pages.hasClass('ch-user-no-select')).toBeTruthy();
+            expect(ch.util.classList(pages).contains('ch-user-no-select')).toBeTruthy();
         });
     });
 
     describe('should have thumbnails:', function () {
 
         it('The same amount of thumbs than total amount of items in the Carousel', function () {
-            expect($thumbs.length).toEqual(carousel1._pages);
+            expect(thumbs.length).toEqual(carousel1._pages);
         });
 
         describe('First thumb (a selected thumb)', function () {
 
-            var $thumb = $thumbs.eq(0);
+            var thumb = thumbs[0];
 
             it('should have the data-page attribute with the value "1"', function () {
-                expect($thumb.attr('data-page')).toEqual('1');
+                expect(thumb.getAttribute('data-page')).toEqual('1');
             });
 
             it('should have the "ch-carousel-selected" classname, because it\'s selected right now', function () {
-                expect($thumb.hasClass('ch-carousel-selected')).toBeTruthy();
+                expect(ch.util.classList(thumb).contains('ch-carousel-selected')).toBeTruthy();
             });
 
             describe('should have the following WAI-ARIA roles and properties:', function () {
 
                 it('role: button', function () {
-                    expect($thumb.attr('role')).toEqual('button');
+                    expect(thumb.getAttribute('role')).toEqual('button');
                 });
 
                 it('aria-selected: true in the first page', function () {
-                    expect($thumb.attr('aria-selected')).toBeTruthy();
+                    expect(thumb.getAttribute('aria-selected')).toBeTruthy();
                 });
 
                 it('aria-controls: page1', function () {
-                    expect($thumb.attr('aria-controls')).toEqual('page1');
+                    expect(thumb.getAttribute('aria-controls')).toEqual('page1');
                 });
             });
         });
 
         describe('Last thumb (a non-selected thumb)', function () {
 
-            var $thumb = $thumbs.eq(-1);
+            var thumb = thumbs[thumbs.length - 1];
 
             it('should have the data-page attribute with the value "5"', function () {
-                expect($thumb.attr('data-page')).toEqual(carousel1._pages.toString());
+                expect(thumb.getAttribute('data-page')).toEqual(carousel1._pages.toString());
             });
 
             it('shouldn\'t have the "ch-carousel-selected" classname, because it isn\'t selected right now', function () {
-                expect($thumb.hasClass('ch-carousel-selected')).toBeFalsy();
+                expect(ch.util.classList(thumb).contains('ch-carousel-selected')).toBeFalsy();
             });
 
             describe('should have the following WAI-ARIA roles and properties:', function () {
                 it('aria-selected: false in the last page', function () {
-                    expect($thumb.attr('aria-selected')).toEqual('false');
+                    expect(ch.util.classList(thumb).contains('aria-selected')).toEqual(false);
                 });
             });
         });
@@ -458,13 +445,13 @@ describe('Its pagination controls', function () {
 
             carousel2.select(1);
 
-            expect($thumbs.eq(0).hasClass('ch-carousel-selected')).toBeTruthy();
-            expect($thumbs.eq(2).hasClass('ch-carousel-selected')).toBeFalsy();
+            expect(ch.util.classList(thumbs[0]).contains('ch-carousel-selected')).toBeTruthy();
+            expect(ch.util.classList(thumbs[2]).contains('ch-carousel-selected')).toBeFalsy();
 
             carousel2.select(3);
 
-            expect($thumbs.eq(0).hasClass('ch-carousel-selected')).toBeFalsy();
-            expect($thumbs.eq(2).hasClass('ch-carousel-selected')).toBeTruthy();
+            expect(ch.util.classList(thumbs[0]).contains('ch-carousel-selected')).toBeFalsy();
+            expect(ch.util.classList(thumbs[2]).contains('ch-carousel-selected')).toBeTruthy();
         });
     });
 });
@@ -472,47 +459,42 @@ describe('Its pagination controls', function () {
 describe('Its asynchronous feature', function () {
 
     it('should add the next arrow', function () {
-        expect(carousel3._$el.children('.ch-carousel-next').hasClass('ch-carousel-disabled')).toBeFalsy();
+        expect(ch.util.classList(carousel3._el.querySelector('.ch-carousel-next')).contains('ch-carousel-disabled')).toBeFalsy();
     });
 
     it('should add two items on next page', function () {
 
-        var items = carousel3._$items.length,
+        var items = carousel3._items.length,
             expectedItems = items + carousel3._limitPerPage;
 
         carousel3.next();
-
-        expect(carousel3._$items.length).toEqual(expectedItems);
+        expect(carousel3._items.length).toEqual(expectedItems);
     });
 
     it('should add multiple items on next 2 pages selection (through select() method or pagination)', function () {
 
         var move = 2, // Amount of pages to move
-            items = carousel3._$items.length,
+            items = carousel3._items.length,
             expectedItems = items + (carousel3._limitPerPage * move);
 
         carousel3.select(carousel3._currentPage + move);
 
-        expect(carousel3._$items.length).toEqual(expectedItems);
+        expect(carousel3._items.length).toEqual(expectedItems);
     });
 });
 
 describe('Its destroy() method', function () {
 
-    var itemsAmount = $('.carousel4 li').length;
+    var itemsAmount = document.querySelectorAll('.carousel4 li').length;
 
     carousel4.destroy();
 
-    it('should reset the _$el', function () {
-        expect($('.carousel4 li').length).toEqual(itemsAmount);
-    });
-
-    it('should remove ".carousel" events', function () {
-        expect($._data($('.carousel4')[0], 'events')).toBeUndefined();
+    it('should reset the _el', function () {
+        expect(document.querySelectorAll('.carousel4 li').length).toEqual(itemsAmount);
     });
 
     it('should remove the instance from the element', function () {
-        expect($('.carousel4').data('carousel')).toBeUndefined();
+        expect(ch.instances[carousel4.uid]).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {

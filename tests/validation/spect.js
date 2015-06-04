@@ -1,4 +1,4 @@
-var validation1 = $('#input_user').validation({
+var validation1 = new ch.Validation(document.getElementById('input_user'), {
         'conditions': [
               {
                   'name': 'required',
@@ -11,7 +11,7 @@ var validation1 = $('#input_user').validation({
               }
           ]
     }),
-    validation2 = $('#input_pass').validation({
+    validation2 = new ch.Validation(document.getElementById('input_pass'), {
         'conditions': [
               {
                   'name': 'required',
@@ -34,11 +34,6 @@ describe('Validation', function () {
         expect(typeof ch.Validation).toEqual('function');
     });
 
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('validation')).toBeTruthy();
-        expect(typeof $.fn.validation).toEqual('function');
-    });
-
     it('should be return a new instance', function () {
         expect(validation1 instanceof ch.Validation).toBeTruthy();
     });
@@ -54,9 +49,9 @@ describe('Validation', function () {
 describe('It should have the following public properties:', function () {
 
     it('.$trigger', function () {
-        expect(validation1.$trigger).not.toEqual(undefined);
-        expect(validation1.$trigger[0].nodeType).toEqual(1);
-        expect(validation1.$trigger instanceof $).toBeTruthy();
+        expect(validation1.trigger).not.toEqual(undefined);
+        expect(validation1.trigger.nodeType).toEqual(1);
+        expect(validation1.trigger instanceof HTMLElement).toBeTruthy();
     });
 
     it('.name', function () {
@@ -100,7 +95,7 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['destroy', 'and', 'clear', 'hasError', 'isShown', 'refreshPosition', 'validate', 'message', 'enable', 'disable'],
+    var methods = ['destroy', 'clear', 'hasError', 'isShown', 'refreshPosition', 'validate', 'message', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 
@@ -114,22 +109,16 @@ describe('It should have the following public methods:', function () {
     }
 });
 
-describe('Its and() method', function () {
-    it('shoud return the input element', function () {
-        expect(validation1.and()).toEqual(validation1.$trigger);
-    });
-});
-
 describe('Its hasError() method', function () {
 
     it('should return "false" when it hasn\'t got error', function () {
-        validation1.$trigger.val('Jasmine');
+        validation1.trigger.setAttribute('value', 'Jasmine');
         expect(validation1.hasError()).toBeFalsy();
 
     });
 
     it('should return a boolean "true" when it has got error', function () {
-        validation1.$trigger.val('');
+        validation1.trigger.setAttribute('value', '');
         expect(validation1.hasError()).toBeTruthy();
     });
 });
@@ -147,11 +136,11 @@ describe('Its validate() method', function () {
         });
 
         it('should add "ch-validation-error" to the element', function () {
-            expect(validation1.$trigger.hasClass('ch-validation-error')).toBeTruthy();
+            expect(ch.util.classList(validation1.trigger).contains('ch-validation-error')).toBeTruthy();
         });
 
         it('should add the ARIA attribute "aria-label" to the element', function () {
-            expect(validation1.$trigger.attr('aria-label')).toEqual('ch-bubble-' + validation1.bubble.uid);
+            expect(validation1.trigger.getAttribute('aria-label')).toEqual('ch-bubble-' + validation1.bubble.uid);
         });
 
         it('should show a message', function () {
@@ -170,7 +159,7 @@ describe('Its validate() method', function () {
 
     describe('if it hasn\'t got error', function () {
         beforeEach(function () {
-            validation1.$trigger.val('Jasmine');
+            validation1.trigger.setAttribute('value', 'Jasmine');
             validation1.validate();
         });
 
@@ -179,11 +168,11 @@ describe('Its validate() method', function () {
         });
 
         it('should remove "ch-validation-error" from the element', function () {
-            expect(validation1.$trigger.hasClass('ch-validation-error')).toBeFalsy();
+            expect(ch.util.classList(validation1.trigger).contains('ch-validation-error')).toBeFalsy();
         });
 
         it('should remove the ARIA attribute "aria-label" to the element', function () {
-            expect(validation1.$trigger.attr('aria-label')).toEqual(undefined);
+            expect(validation1.trigger.getAttribute('aria-label')).toBeNull();
         });
 
         it('should hide a message', function () {
@@ -215,11 +204,11 @@ describe('Its clear() method', function () {
     });
 
     it('should remove "ch-validation-error" from the element', function () {
-        expect(validation1.$trigger.hasClass('ch-validation-error')).toBeFalsy();
+        expect(ch.util.classList(validation1.trigger).contains('ch-validation-error')).toBeFalsy();
     });
 
     it('should remove the ARIA attribute "aria-label" to the element', function () {
-        expect(validation1.$trigger.attr('aria-label')).toEqual(undefined);
+        expect(validation1.trigger.getAttribute('aria-label')).toBeNull();
     });
 
     it('should hide a message', function () {
@@ -238,13 +227,13 @@ describe('Its clear() method', function () {
 describe('Its isShown() method', function () {
 
     it('should return "false" when it hasn\'t got error', function () {
-        validation1.$trigger.val('Jasmine');
+        validation1.trigger.setAttribute('value', 'Jasmine');
         expect(validation1.hasError()).toBeFalsy();
 
     });
 
     it('should return a boolean "true" when it has got error', function () {
-        validation1.$trigger.val('');
+        validation1.trigger.setAttribute('value', '');
         expect(validation1.hasError()).toBeTruthy();
     });
 });
@@ -303,17 +292,17 @@ describe('Its destroy() method', function () {
 
     it('should reset the $trigger', function () {
         validation2.destroy();
-        expect($._data(validation2.$trigger[0], 'events')).toBeUndefined();
-        expect(validation2.$trigger.attr('data-side')).toBeUndefined();
-        expect(validation2.$trigger.attr('data-align')).toBeUndefined();
+        // expect($._data(validation2.$trigger[0], 'events')).toBeUndefined();
+        expect(validation2.trigger.getAttribute('data-side')).toBeNull();
+        expect(validation2.trigger.getAttribute('data-align')).toBeNull();
     });
 
     it('should remove ".validation" events', function () {
-        expect($._data(validation2.$trigger[0], 'events')).toBeUndefined();
+        // expect($._data(validation2.$trigger[0], 'events')).toBeUndefined();
     });
 
     it('should remove the instance from the element', function () {
-        expect(validation2._$el.data('validation')).toBeUndefined();
+        // expect(validation2._$el.data('validation')).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {

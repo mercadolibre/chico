@@ -2,8 +2,8 @@ function addZero(num) {
     return (parseInt(num, 10) < 10) ? "0" + num : num;
 }
 
-var datepicker1 = $("#datepicker-1").datepicker(),
-    datepicker2 = $("#datepicker-2").datepicker(),
+var datepicker1 = new ch.Datepicker(document.getElementById('datepicker-1')),
+    datepicker2 = new ch.Datepicker(document.getElementById('datepicker-2')),
     readyEvent = jasmine.createSpy('readyEvent'),
     showEvent = jasmine.createSpy('showEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
@@ -44,11 +44,6 @@ describe('Datepicker', function () {
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Datepicker')).toBeTruthy();
         expect(typeof ch.Datepicker).toEqual('function');
-    });
-
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('datepicker')).toBeTruthy();
-        expect(typeof $.fn.datepicker).toEqual('function');
     });
 
     it('should be return a new instance', function () {
@@ -123,22 +118,22 @@ describe('It should have a input field associated', function () {
 });
 
 describe('It should create a trigger and', function () {
-    var $trigger = datepicker1.$trigger;
+    var trigger = datepicker1.trigger;
 
     it('should be defined', function () {
-        expect(datepicker1.$trigger).not.toEqual(undefined);
-        expect(datepicker1.$trigger[0].nodeType).toEqual(1);
-        expect(datepicker1.$trigger instanceof $).toBeTruthy();
+        expect(datepicker1.trigger).not.toEqual(undefined);
+        expect(datepicker1.trigger.nodeType).toEqual(1);
+        expect(datepicker1.trigger instanceof HTMLElement).toBeTruthy();
     });
 
     describe('should have the following class names:', function () {
 
         it('.ch-datepicker-trigger', function () {
-            expect($trigger.hasClass('ch-datepicker-trigger')).toBeTruthy();
+            expect(ch.util.classList(trigger).contains('ch-datepicker-trigger')).toBeTruthy();
         });
 
         it('.ch-icon-calendar', function () {
-            expect($trigger.hasClass('ch-icon-calendar')).toBeTruthy();
+            expect(ch.util.classList(trigger).contains('ch-icon-calendar')).toBeTruthy();
         });
     });
 });
@@ -260,11 +255,11 @@ describe('Its destroy() method', function () {
     datepicker2.destroy();
 
     it('should update the field type attribute to "date"', function () {
-        expect($('#datepicker-2')[0].type).toEqual('date');
+        expect(document.getElementById('datepicker-2').type).toEqual('date');
     });
 
     it('should remove the calendar icon', function () {
-        expect($('#datepicker-2 + i').length).toEqual(0);
+        expect(datepicker2.field.nextElementSibling).toBeNull();
     });
 
     it('should emit the "destroy" event', function () {

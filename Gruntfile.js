@@ -11,7 +11,7 @@ module.exports = function (grunt) {
         'banner': {
             'full': [
                 '/*!',
-                ' * Chico Theme UI v<%= pkg.version %>',
+                ' * Chico UI v<%= pkg.version %>',
                 ' * http://chico-ui.com.ar/',
                 ' *',
                 ' * Copyright (c) <%= grunt.template.today("yyyy") %>, MercadoLibre.com',
@@ -34,26 +34,32 @@ module.exports = function (grunt) {
             },
             coreUi: {
                 options: {
-                    banner: "\n(function (window, $) {\n\t'use strict';\n\n",
-                    footer: '\n\tch.version = \'<%= pkg.version %>\';\n\twindow.ch = ch;\n}(this, this.$));'
+                    banner: "\n(function (window) {\n\t'use strict';\n\n",
+                    footer: '\n\tch.version = \'<%= pkg.version %>\';\n\twindow.ch = ch;\n}(this));'
                 },
                 src: uiFiles.JS.core,
                 dest: 'temp/ui/core.tmp.js'
             },
             coreMobile: {
                 options: {
-                    banner: "\n(function (window, $) {\n\t'use strict';\n\n",
-                    footer: '\n\tch.version = \'<%= pkg.version %>\';\n\twindow.ch = ch;\n}(this, this.$));'
+                    banner: "\n(function (window) {\n\t'use strict';\n\n",
+                    footer: '\n\tch.version = \'<%= pkg.version %>\';\n\twindow.ch = ch;\n}(this));'
                 },
                 src: mobileFiles.JS.core,
                 dest: 'temp/mobile/core.tmp.js'
             },
             jsUi: {
-                src: ['<%= concat.coreUi.dest %>'].concat(uiFiles.JS.abilities).concat(uiFiles.JS.components),
+                src: uiFiles.JS.polyfills
+                    .concat(['<%= concat.coreUi.dest %>'])
+                    .concat(uiFiles.JS.abilities)
+                    .concat(uiFiles.JS.components),
                 dest: 'dist/ui/<%= pkg.name %>.js'
             },
             jsMobile: {
-                src: ['<%= concat.coreMobile.dest %>'].concat(mobileFiles.JS.abilities).concat(mobileFiles.JS.components),
+                src: mobileFiles.JS.polyfills
+                    .concat(['<%= concat.coreMobile.dest %>'])
+                    .concat(mobileFiles.JS.abilities)
+                    .concat(mobileFiles.JS.components),
                 dest: 'dist/mobile/<%= pkg.name %>.js'
             }
         },

@@ -5,6 +5,15 @@ var JS = {},
 	CSS = {};
 
 /*
+ * JS: Polyfills
+ */
+JS.polyfills = [
+    "bower_components/es6-promise/promise.js",
+    "src/shared/scripts/polyfills/fetch.js",
+    "src/shared/scripts/polyfills/pointerEvents.js"
+];
+
+/*
  * JS: Core
  */
 JS.core = [
@@ -36,29 +45,21 @@ JS.components = [
     "src/shared/scripts/Expandable.js",
     "src/shared/scripts/Menu.js",
     "src/shared/scripts/Popover.js",
-    // "src/shared/scripts/Layer.js",
+    "src/shared/scripts/Layer.js",
     // "src/shared/scripts/Tooltip.js",
     // "src/shared/scripts/Bubble.js",
     "src/shared/scripts/Modal.js",
     "src/shared/scripts/Transition.js",
-    // "src/shared/scripts/Dropdown.js",
+    "src/shared/scripts/Dropdown.js",
     "src/shared/scripts/Form.js",
     "src/shared/scripts/Condition.js",
     "src/shared/scripts/Validation.js",
     "src/mobile/scripts/Validation.js",
-    "src/shared/scripts/String.js",
-    "src/shared/scripts/MaxLength.js",
-    "src/shared/scripts/MinLength.js",
-    "src/shared/scripts/Email.js",
-    "src/shared/scripts/URL.js",
-    "src/shared/scripts/Number.js",
-    "src/shared/scripts/Min.js",
-    "src/shared/scripts/Max.js",
-    "src/shared/scripts/Custom.js",
-    "src/shared/scripts/Required.js",
     "src/shared/scripts/Countdown.js",
     "src/shared/scripts/Carousel.js",
-    // "src/shared/scripts/Calendar.js",
+    "src/shared/scripts/Calendar.js",
+    "src/ui/scripts/Datepicker.js",
+    "src/mobile/scripts/Datepicker.js",
     "src/shared/scripts/Autocomplete.js"
 ];
 

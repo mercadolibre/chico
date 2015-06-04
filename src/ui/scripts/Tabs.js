@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -7,16 +7,14 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Expandable
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Tabs.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Tabs.
+     * @param {Object} [options] Options to customize an instance.
      * @returns {tabs} Returns a new instance of Tabs.
      * @example
      * // Create a new Tabs.
-     * var tabs = new ch.Tabs($el);
-     * @example
-     * // Create a new Tabs with jQuery or Zepto.
-     * var tabs = $(selector).tabs();
+     * var tabs = new ch.Tabs(el);
      */
-    function Tabs($el, options) {
+    function Tabs(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -25,7 +23,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -113,8 +111,8 @@
      * @private
      * @returns {tabs}
      */
-    Tabs.prototype._init = function ($el, options) {
-        parent._init.call(this, $el, options);
+    Tabs.prototype._init = function (el, options) {
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -138,18 +136,18 @@
 
         /**
          * The tabs container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$container = this._$el
-            .addClass('ch-tabs');
+        this.container = this._el;
+        ch.util.classList(this.container).add('ch-tabs');
 
         /**
          * The tabs triggers.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$triggers = this.$container.children(':first-child')
-            .addClass('ch-tabs-triggers')
-            .attr('role', 'tablist');
+        this.triggers = this.container.children[0];
+        this.triggers.setAttribute('role', 'tablist');
+        ch.util.classList(this.triggers).add('ch-tabs-triggers')
 
         /**
          * A collection of tab panel.
@@ -159,22 +157,24 @@
 
         /**
          * The container of tab panels.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$panel = this.$container.children(':last-child')
-            .addClass('ch-tabs-panel ch-box-lite')
-            .attr('role', 'presentation');
+        this.panel = this.container.children[1];
+        this.panel.setAttribute('role', 'presentation');
+        ch.util.classList(this.panel).add('ch-tabs-panel')
+        ch.util.classList(this.panel).add('ch-box-lite')
+
 
         /**
          * The tab panel's containers.
-         * @type {jQuery}
+         * @type {HTMLElement}
          * @private
          */
-        this._$tabsPanels = this.$panel.children();
+        this._tabsPanels = this.panel.children;
 
         // Creates tab
-        this.$triggers.find('a').each(function (i, e) {
-            that._createTab(i, e);
+        Array.prototype.forEach.call(this.triggers.getElementsByTagName('a'), function (el, index) {
+            that._createTab(index, el);
         });
 
         // Set the default shown tab.
@@ -201,19 +201,23 @@
         var that = this,
             tab,
 
-            $panel = this._$tabsPanels.eq(i),
+            panel = this._tabsPanels[i],
 
             // Create Tab panel's options
             options = {
+                '_classNameIcon': null,
                 '_classNameTrigger': 'ch-tab',
-                '_classNameContainer': 'ch-tabpanel ch-hide',
+                '_classNameContainer': 'ch-tabpanel',
                 'toggle': false
             };
 
         // Tab panel async configuration
-        if ($panel[0] === undefined) {
+        if (panel === undefined) {
 
-            $panel = $('<div id="' + e.href.split('#')[1] + '">').appendTo(this.$panel);
+            panel = document.createElement('div');
+            panel.setAttribute('id', e.href.split('#')[1]);
+
+            this.panel.appendChild(panel);
 
             options.content = e.href;
             options.waiting = this._options.waiting;
@@ -222,17 +226,17 @@
         }
 
         // Tab panel container configuration
-        options.container = $panel;
+        options.container = panel;
 
         // Creates new Tab panel
-        tab = new ch.Expandable($(e), options);
+        tab = new ch.Expandable(e, options);
 
         // Creates tab's hash
         tab._hash = e.href.split('#')[1];
 
         // Add ARIA roles
-        tab.$trigger.attr('role', 'tab');
-        tab.$container.attr('role', 'tabpanel');
+        tab.trigger.setAttribute('role', 'tab');
+        tab.container.setAttribute('role', 'tabpanel');
 
         // Binds show event
         tab.on('show', function () {
@@ -379,13 +383,13 @@
     /**
      * Allows to manage the tabs content.
      * @param {Number} tab A given tab to change its content.
-     * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a tabpanel.
+     * @param {HTMLElement} content The content that will be used by a tabpanel.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second tab with some string.
      * tabs.content(2, 'http://ajax.com', {'cache': false});
@@ -449,7 +453,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onlayoutchange);
+        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
     };
@@ -459,4 +463,4 @@
      */
     ch.factory(Tabs);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

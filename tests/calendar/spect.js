@@ -2,7 +2,7 @@ function addZero(num) {
     return (parseInt(num, 10) < 10) ? "0" + num : num;
 }
 
-var calendar1 = $("#calendar-1").calendar(),
+var calendar1 = new ch.Calendar(document.querySelector('#calendar-1')),
     readyEvent = jasmine.createSpy('readyEvent'),
     selectEvent = jasmine.createSpy('selectEvent'),
     nextmonthEvent = jasmine.createSpy('nextmonthEvent'),
@@ -28,7 +28,7 @@ var calendar1 = $("#calendar-1").calendar(),
         }
     })();
 
-$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
+ch.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
 
 describe('Calendar', function () {
     calendar1
@@ -46,8 +46,8 @@ describe('Calendar', function () {
     });
 
     it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('calendar')).toBeTruthy();
-        expect(typeof $.fn.calendar).toEqual('function');
+        expect(ch.hasOwnProperty('Calendar')).toBeTruthy();
+        expect(typeof ch.Calendar).toEqual('function');
     });
 
     it('should be return a new instance', function () {
@@ -72,9 +72,9 @@ describe('Calendar', function () {
 describe('It should have the following public properties:', function () {
 
     it('.$container', function () {
-        expect(calendar1.$container).not.toEqual(undefined);
-        expect(calendar1.$container[0].nodeType).toEqual(1);
-        expect(calendar1.$container instanceof $).toBeTruthy();
+        expect(calendar1.container).not.toEqual(undefined);
+        expect(calendar1.container.nodeType).toEqual(1);
+        expect(calendar1.container instanceof HTMLDivElement).toBeTruthy();
     });
 
     it('.name', function () {
@@ -111,94 +111,97 @@ describe('It should have the following public methods:', function () {
 });
 
 describe('It should have an element/container and', function () {
-    var $container = calendar1.$container;
+    var container = calendar1.container;
 
     describe('should have the following class names:', function () {
 
         it('.ch-calenaar', function () {
-            expect($container.hasClass('ch-calendar')).toBeTruthy();
+            expect(ch.util.classList(container).contains('ch-calendar')).toBeTruthy();
         });
 
         it('.ch-user-no-select', function () {
-            expect($container.hasClass('ch-user-no-select')).toBeTruthy();
+            expect(ch.util.classList(container).contains('ch-user-no-select')).toBeTruthy();
         });
     });
 
     describe('should have got a next button', function () {
-        var $month = $container.find('.ch-calendar-next');
+        var month = container.querySelectorAll('.ch-calendar-next');
 
         it('it should have got the ".ch-calendar-next" class name', function () {
-            expect($month.length).toEqual(1);
+            expect(month.length).toEqual(1);
         });
 
         it('it should have got the WAI-ARIA" role "button"', function () {
-            expect($month.attr('role')).toEqual('button');
+            expect(month[0].getAttribute('role')).toEqual('button');
         });
 
         it('should have got the WAI-ARIA attribute "aria-hidden" in "false"', function () {
-           expect($month.attr('aria-hidden')).toEqual('false');
+           expect(month[0].getAttribute('aria-hidden')).toEqual('false');
         });
 
         it('should have got the WAI-ARIA attribute "aria-controls" in "ch-calendar-grid-1"', function () {
-           expect($month.attr('aria-controls')).toEqual('ch-calendar-grid-1');
+           expect(month[0].getAttribute('aria-controls')).toEqual('ch-calendar-grid-1');
         });
     });
 
     describe('should have got a prev button', function () {
-        var $month = $container.find('.ch-calendar-prev');
+        var month = container.querySelectorAll('.ch-calendar-prev');
 
         it('it should have got the ".ch-calendar-prev" class name', function () {
-            expect($month.length).toEqual(1);
+            expect(month.length).toEqual(1);
         });
 
         it('it should have got the WAI-ARIA" role "button"', function () {
-            expect($month.attr('role')).toEqual('button');
+            expect(month[0].getAttribute('role')).toEqual('button');
         });
 
         it('it should have got the WAI-ARIA attribute "aria-hidden" in "false"', function () {
-           expect($month.attr('aria-hidden')).toEqual('false');
+           expect(month[0].getAttribute('aria-hidden')).toEqual('false');
         });
 
         it('it should have got the WAI-ARIA attribute "aria-controls" in "ch-calendar-grid-1"', function () {
-           expect($month.attr('aria-controls')).toEqual('ch-calendar-grid-1');
+           expect(month[0].getAttribute('aria-controls')).toEqual('ch-calendar-grid-1');
         });
     });
 
     describe('should have got a calendar table', function () {
 
-        var $table = $container.find('.ch-calendar-month');
+        var table = container.querySelectorAll('.ch-calendar-month');
 
         it('it should have got the ".ch-calendar-prev" class name', function () {
-            expect($table.length).toEqual(1);
+            expect(table.length).toEqual(1);
         });
 
         it('it should have got the WAI-ARIA" role "grid"', function () {
-            expect($table.attr('role')).toEqual('grid');
+            expect(table[0].getAttribute('role')).toEqual('grid');
         });
 
         it('it should have got the weeks of the month', function () {
-            var weeks = $table.find('tbody tr');
-            weeks.each(function(i, week){
-                expect( $(week).hasClass('ch-calendar-week') ).toBeTruthy();
+            var weeks = table[0].querySelectorAll('tbody tr');
+
+            Array.prototype.forEach.call(weeks, function(week){
+                expect(ch.util.classList(week).contains('ch-calendar-week')).toBeTruthy();
             });
         });
 
         it('it should have got the days', function () {
-            var days = $container.find('tbody td');
-            days.each(function(i, day){
-                var $day = $(day);
-                var dayNum = parseInt($day.text());
-                if( !isNaN(dayNum) && (dayNum >= 1 || dayNum <= 31)) {
-                    expect($day.hasClass('ch-calendar-day')).toBeTruthy();
+            var days = container.querySelectorAll('tbody td');
+
+            Array.prototype.forEach.call(days, function(day, i){
+                var dayNum = parseInt(day.innerText);
+                if(!isNaN(dayNum) && (dayNum >= 1 || dayNum <= 31)) {
+                    expect(ch.util.classList(day).contains('ch-calendar-day')).toBeTruthy();
                 }
             });
+
         });
 
         it('it should have got the day of today', function () {
             var date = new Date(),
-                $todayElement = $('.ch-calendar-today', $container);
-            expect($todayElement.length ).toEqual(1);
-            expect(parseInt($todayElement.text())).toEqual(date.getDate());
+                todayElement = container.querySelectorAll('.ch-calendar-today');
+
+            expect(todayElement.length).toEqual(1);
+            expect(parseInt(todayElement[0].innerText)).toEqual(date.getDate());
         });
 
     });
@@ -319,14 +322,13 @@ describe('Its setFrom() method', function () {
         instance = calendar1.setFrom(DATE.FORMAT['yyyymmdd']);
 
         // This test fails because the is not refreshing the table after the from method is executed
-        var days = calendar1.$container.find('tbody td');
+        var days = calendar1.container.querySelectorAll('tbody td');
 
-        days.each(function (i, day) {
-            var $day = $(day),
-                dayNum = parseInt($day.text());
+        Array.prototype.forEach.call(days, function (day) {
+            var dayNum = parseInt(day.innerText);
 
             if (dayNum < DATE.TODAY.day) {
-                expect($day.hasClass('ch-calendar-disabled')).toBeTruthy();
+                expect(ch.util.classList(day).contains('ch-calendar-disabled')).toBeTruthy();
             }
         });
     });
@@ -358,14 +360,13 @@ describe('Its setTo() method', function(){
         calendar1.nextYear();
         // This test fails because the is not refreshing the table after the to method is executed
 
-        var days = calendar1.$container.find('tbody td');
+        var days = calendar1.container.querySelectorAll('tbody td');
 
-        days.each(function(i, day){
-            var $day = $(day),
-                dayNum = parseInt($day.text());
+        Array.prototype.forEach.call(days, function(day){
+            var dayNum = parseInt(day.innerText);
 
             if (dayNum > DATE.TODAY.day) {
-                expect($day.hasClass('ch-calendar-disabled')).toBeTruthy();
+                expect(ch.util.classList(day).contains('ch-calendar-disabled')).toBeTruthy();
             }
 
         });
@@ -393,13 +394,14 @@ describe('Its getToday() method', function(){
 
 describe('Its destroy() method', function () {
 
-    it('should reset the $container by the original snippet', function () {
+    it('should reset the container by the original snippet', function () {
         calendar1.destroy();
-        expect(calendar1.$container.parent().length === 0).toBeTruthy();
+        expect(calendar1.container.parentNode === null).toBeTruthy();
     });
 
     it('should remove the instance from the element', function () {
-        expect(calendar1._$el.data('calendar')).toBeUndefined();
+
+        expect(ch.instances[calendar1.uid]).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {

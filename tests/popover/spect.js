@@ -4,30 +4,25 @@ var beforeshowEvent = jasmine.createSpy('beforeshowEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    popover1 = $('#popover1').popover()
-        .on('beforeshow', function () { beforeshowEvent(); })
-        .on('show', function () { showEvent(); })
-        .on('beforehide', function () { beforehideEvent(); })
-        .on('hide', function () { hideEvent(); })
-        .on('ready', function () { readyEvent(); }),
-    $trigger = popover1.$trigger,
-    popover2 = $('#popover2').popover({
+    popover1 = new ch.Popover(document.getElementById('popover1'), {fx: false})
+        .on('beforeshow', beforeshowEvent)
+        .on('show', showEvent)
+        .on('beforehide', beforehideEvent)
+        .on('hide', hideEvent)
+        .on('ready', readyEvent),
+    trigger = popover1.trigger,
+    popover2 = new ch.Popover(document.getElementById('popover2'), {
         'addClass': 'test',
         'closable': false,
         'shownby': 'pointerenter'
     }).on('destroy', function () { destroyEvent(); }),
-    popover3 = $.popover();
+    popover3 = new ch.Popover();
 
 describe('Popover', function () {
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Popover')).toBeTruthy();
         expect(typeof ch.Popover).toEqual('function');
-    });
-
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('popover')).toBeTruthy();
-        expect(typeof $.fn.popover).toEqual('function');
     });
 
     it('should return a new instance', function () {
@@ -62,13 +57,13 @@ describe('Popover', function () {
 describe('It should have the following public properties:', function () {
 
     it('.$trigger', function () {
-        expect(popover1.$trigger).not.toEqual(undefined);
-        expect(popover1.$trigger instanceof $).toBeTruthy();
+        expect(popover1.trigger).not.toEqual(undefined);
+        expect(popover1.trigger instanceof HTMLElement).toBeTruthy();
     });
 
     it('.$container', function () {
-        expect(popover1.$container).not.toEqual(undefined);
-        expect(popover1.$container instanceof $).toBeTruthy();
+        expect(popover1.container).not.toEqual(undefined);
+        expect(popover1.container instanceof HTMLElement).toBeTruthy();
     });
 
     it('.name', function () {
@@ -106,19 +101,19 @@ describe('It should have the following public methods:', function () {
 describe('It should have a trigger that', function () {
 
     it('should exist', function () {
-        expect($trigger).not.toEqual(undefined);
-        expect($trigger[0].nodeType).toEqual(1);
-        expect($trigger instanceof $).toBeTruthy();
+        expect(trigger).not.toEqual(undefined);
+        expect(trigger.nodeType).toEqual(1);
+        expect(trigger instanceof HTMLElement).toBeTruthy();
     });
 
     describe('should have the following WAI-ARIA roles and properties:', function () {
 
         it('aria-owns: the id of the popup element', function () {
-            expect($trigger.attr('aria-owns')).toEqual('ch-popover-1');
+            expect(trigger.getAttribute('aria-owns')).toEqual('ch-popover-1');
         });
 
         it('haspopup: true', function () {
-            expect($trigger.attr('aria-haspopup')).toEqual('true');
+            expect(trigger.getAttribute('aria-haspopup')).toEqual('true');
         });
     });
 });
@@ -128,51 +123,49 @@ describe('Its show() method', function () {
 
     it('should add "ch-popover-trigger-on" class name to trigger', function () {
 
-        expect($trigger.hasClass('ch-popover-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(trigger).contains('ch-popover-trigger-on')).toBeFalsy();
 
         popover1.show();
 
-        expect($trigger.hasClass('ch-popover-trigger-on')).toBeTruthy();
+        expect(ch.util.classList(trigger).contains('ch-popover-trigger-on')).toBeTruthy();
 
         popover1.hide();
+
+        expect(ch.util.classList(trigger).contains('ch-popover-trigger-on')).toBeFalsy();
     });
 
 	describe('should create an element at the bottom of body that', function () {
 
-		var $container = popover1.$container,
-            $close = $container.children(':first');
-
-		it('be the same than the $container property', function () {
-            expect($(document.body).children().last().attr('id')).toEqual($container.attr('id'));
-		});
+		var container = popover1.container,
+            close = container.children[0];
 
 		it('should have the same ID than the "aria-owns" attribute', function () {
-			expect($container.attr('id')).toEqual($trigger.attr('aria-owns'));
+			expect(container.getAttribute('id')).toEqual(trigger.getAttribute('aria-owns'));
 		});
 
 		it('should have the ARIA role "dialog"', function () {
-			expect($container.attr('role')).toEqual('dialog');
+			expect(container.getAttribute('role')).toEqual('dialog');
 		});
 
 		it('should have the "ch-popover" classname', function () {
-            expect($container.hasClass('ch-popover')).toBeTruthy();
+            expect(ch.util.classList(container).contains('ch-popover')).toBeTruthy();
 		});
 
 		it('should have a child with the "ch-popover-content" classname', function () {
-			expect($container.children().eq(1).hasClass('ch-popover-content')).toBeTruthy();
+            expect(ch.util.classList(container.children[1]).contains('ch-popover-content')).toBeTruthy();
 		});
 
         describe('have a close button', function () {
             it('with the "ch-close" classname', function () {
-                expect($close.hasClass('ch-close')).toBeTruthy();
+                expect(ch.util.classList(close).contains('ch-close')).toBeTruthy();
             });
 
             it('with the role "button"', function () {
-                expect($close.attr('role')).toEqual('button');
+                expect(close.getAttribute('role')).toEqual('button');
             });
 
             it('with the ARIA label "Close"', function () {
-                expect($close.attr('aria-label')).toEqual('Close');
+                expect(close.getAttribute('aria-label')).toEqual('Close');
             });
         });
 	});
@@ -199,21 +192,19 @@ describe('Its hide() method', function () {
 
     it('should remove "ch-popover-trigger-on" class name to trigger', function () {
         popover1.show().hide();
-        expect($trigger.hasClass('ch-popover-trigger-on')).toBeFalsy();
+        expect(ch.util.classList(trigger).contains('ch-popover-trigger-on')).toBeFalsy();
     });
 
-	it('should delete the element at the bottom of body', function () {
+	it('should delete the element from the DOM when it hidden', function () {
 
-		var flag = false;
+		var id = trigger.getAttribute('aria-owns');
 
-		expect($(document.body).children().last().attr('id')).toEqual($trigger.attr('aria-owns'));
-
+        popover1.show();
+		expect(document.getElementById(id)).toNotBe(null);
 		popover1.hide();
 
-		waits(500);
-
 		runs(function () {
-			expect($(document.body).children().last().attr('id')).not.toEqual($trigger.attr('aria-owns'));
+			expect(document.getElementById(trigger.getAttribute('aria-owns'))).toBe(null);
 		});
 	});
 
@@ -249,7 +240,8 @@ describe('Its disable() method', function () {
     });
 
     it('should prevent to show its container', function () {
-        expect(popover1.disable().show().$trigger.hasClass('ch-popover-trigger-on')).toBeFalsy();
+        popover1.disable().show();
+        expect(ch.util.classList(trigger).contains('ch-popover-trigger-on')).toBeFalsy();
     });
 });
 
@@ -260,7 +252,8 @@ describe('Its enable() method', function () {
     });
 
     it('should allow to show its container', function () {
-        expect(popover1.enable().show().$trigger.hasClass('ch-popover-trigger-on')).toBeTruthy();
+        popover1.enable().show()
+        expect(ch.util.classList(trigger).contains('ch-popover-trigger-on')).toBeTruthy();
     });
 });
 
@@ -271,7 +264,7 @@ describe('Its width() method', function () {
 	});
 
 	it('as a getter should return the width of the floated object', function () {
-		expect(popover1.width()).toEqual(popover1.$container[0].style.width);
+		expect(popover1.width()).toEqual(popover1.container.style.width);
 	});
 
 	describe('as a setter', function () {
@@ -300,7 +293,7 @@ describe('Its height() method', function () {
     });
 
     it('as a getter should return the height of the floated object', function () {
-        expect(popover1.height()).toEqual(popover1.$container[0].style.height);
+        expect(popover1.height()).toEqual(popover1.container.style.height);
     });
 
     describe('as a setter', function () {
@@ -325,41 +318,33 @@ describe('Its height() method', function () {
 describe('Instance a Popover configured', function () {
 
 	it('with custom class names should contain the specified class names in its container', function () {
-		expect(popover2.$container.hasClass('ch-popover')).toBeTruthy();
-		expect(popover2.$container.hasClass('test')).toBeTruthy();
+		expect(ch.util.classList(popover2.container).contains('ch-popover')).toBeTruthy();
+		expect(ch.util.classList(popover2.container).contains('test')).toBeTruthy();
 	});
 
 	describe('with "shownby" preference:', function () {
 
         it('"pointertap" should give a pointer cursor to the trigger', function () {
-            expect(popover1._$el.hasClass('ch-shownby-pointertap')).toBeTruthy();
-            expect(popover1._$el.hasClass('ch-shownby-pointerenter')).toBeFalsy();
+            expect(ch.util.classList(popover1._el).contains('ch-shownby-pointertap')).toBeTruthy();
+            expect(ch.util.classList(popover1._el).contains('ch-shownby-pointerenter')).toBeFalsy();
         });
 
         it('"pointerenter" should give a default cursor to the trigger', function () {
-			expect(popover2._$el.hasClass('ch-shownby-pointerenter')).toBeTruthy();
-            expect(popover2._$el.hasClass('ch-shownby-pointertap')).toBeFalsy();
+			expect(ch.util.classList(popover2._el).contains('ch-shownby-pointerenter')).toBeTruthy();
+            expect(ch.util.classList(popover2._el).contains('ch-shownby-pointertap')).toBeFalsy();
 		});
 	});
 });
 
 describe('Instance a Popover without trigger', function () {
 
-    it('should be defined on $ object', function () {
-        expect($.hasOwnProperty('popover')).toBeTruthy();
-        expect(typeof $.popover).toEqual('function');
-    });
-
-    it('should return a new instance', function () {
-        expect(popover3 instanceof ch.Popover).toBeTruthy();
-    });
-
-    it('shouldn\'t have .$trigger', function () {
-        expect(popover3.$trigger).toBeUndefined();
+    it('shouldn\'t have .trigger', function () {
+        expect(popover3.trigger).toBeUndefined();
     });
 });
 
 describe('Its destroy() method', function () {
+    var uid = popover2.uid;
 
     beforeEach(function () {
         if (popover2) {
@@ -368,25 +353,21 @@ describe('Its destroy() method', function () {
         }
     });
 
-    it('should reset the $trigger', function () {
+    it('should reset the "trigger"', function () {
 
-        var $t = $('#popover2');
+        var t = document.getElementById('popover2');
 
-        expect($t.hasClass('ch-popover-trigger')).toBeFalsy();
-        expect($t.attr('data-title')).toBeUndefined();
-        expect($t.attr('aria-owns')).toBeUndefined();
-        expect($t.attr('aria-haspopup')).toBeUndefined();
-        expect($t.attr('data-side')).toBeUndefined();
-        expect($t.attr('data-align')).toBeUndefined();
-        expect($t.attr('role')).toBeUndefined();
+        expect(ch.util.classList(t).contains('ch-popover-trigger')).toBeFalsy();
+        expect(t.getAttribute('data-title')).toBeNull();
+        expect(t.getAttribute('aria-owns')).toBeNull();
+        expect(t.getAttribute('aria-haspopup')).toBeNull();
+        expect(t.getAttribute('data-side')).toBeNull();
+        expect(t.getAttribute('data-align')).toBeNull();
+        expect(t.getAttribute('role')).toBeNull();
     });
 
     it('should remove ".popover" events', function () {
-        expect($._data($('#popover2')[0], 'events')).toBeUndefined();
-    });
-
-    it('should remove the instance from the element', function () {
-        expect($('#popover2').data('popover')).toBeUndefined();
+        expect(ch.instances[uid]).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {

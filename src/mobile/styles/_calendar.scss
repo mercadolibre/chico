@@ -1,0 +1,26 @@
+/**
+ * Calendar
+ */
+@import 'calendar-variables';
+@import '../../shared/styles/calendar';
+
+// Always show calendar as small as possible on small screens, e.g. 240x320
+.ch-calendar-month {
+    width: 200px;
+}
+
+.ch-calendar td {
+    height: 32px;
+    line-height: 32px;
+}
+
+@media (min-width: 320px) {
+    .ch-calendar-month {
+        width: $calendar-width;
+    }
+
+    .ch-calendar td {
+        height: $calendar-day-height;
+        line-height: $calendar-day-line-height;
+    }
+}

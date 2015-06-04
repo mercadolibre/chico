@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      * @memberof ch
      * @constructor
      * @param {Object} options Configuration object.
-     * @param {(jQuerySelector | ZeptoSelector)} options.target Reference to the element to be positioned.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {String} options.target A HTMLElement that reference to the element to be positioned.
+     * @param {String} [options.reference] A HTMLElement that it's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -20,8 +20,8 @@
      * // Instance the Positioner It requires a little configuration.
      * // The default behavior place an element center into the Viewport.
      * var positioned = new ch.Positioner({
-     *     'target': $(selector),
-     *     'reference': $(selector),
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 20,
@@ -31,8 +31,8 @@
      * // offsetX: The Positioner could be configurated with an offsetX.
      * // This example show an element displaced horizontally by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': $(selector),
-     *     'reference': $(selector),
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 10
@@ -41,8 +41,8 @@
      * // offsetY: The Positioner could be configurated with an offsetY.
      * // This example show an element displaced vertically by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': $(selector),
-     *     'reference': $(selector),
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetY': 10
@@ -50,8 +50,8 @@
      * @example
      * // positioned: The positioner could be configured to work with fixed or absolute position value.
      * var positioned = new ch.Positioner({
-     *     'target': $(selector),
-     *     'reference': $(selector),
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'position': 'fixed'
      * });
      */
@@ -108,26 +108,26 @@
     Positioner.prototype._configure = function (options) {
 
         // Merge user options with its options
-        $.extend(this._options, options);
+        ch.util.extend(this._options, options);
 
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);
 
         /**
          * Reference to the element to be positioned.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$target = options.target || this.$target;
+        this.target = options.target || this.target;
 
 
         /**
          * It's a reference to position and size of element that will be considered to carry out the position.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$reference = options.reference || this.$reference;
+        this.reference = options.reference || this.reference;
         this._reference = this._options.reference;
 
-        this.$target.css('position', this._options.position);
+        this.target.style.position = this._options.position;
 
         return this;
     };
@@ -175,7 +175,7 @@
      */
     Positioner.prototype._calculateReference = function () {
 
-        var reference = this.$reference[0],
+        var reference = this.reference,
             offset;
 
         reference.setAttribute('data-side', this._options.side);
@@ -183,7 +183,7 @@
 
         this._reference = ch.util.getOuterDimensions(reference);
 
-        if (reference.offsetParent === this.$target[0].offsetParent) {
+        if (reference.offsetParent === this.target.offsetParent) {
             this._reference.left = reference.offsetLeft;
             this._reference.top = reference.offsetTop;
 
@@ -205,7 +205,7 @@
      */
     Positioner.prototype._calculateTarget = function () {
 
-        var target = this.$target[0];
+        var target = this.target;
         target.setAttribute('data-side', this._options.side);
         target.setAttribute('data-align', this._options.align);
 
@@ -223,21 +223,21 @@
      */
     Positioner.prototype._setPoint = function () {
         var side = this._options.side,
-            oritentation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
+            orientation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
             coors,
-            oritentationMap;
+            orientationMap;
 
         // take the side and calculate the alignment and make the CSSpoint
-        if (oritentation === 'center') {
+        if (orientation === 'center') {
             // calculates the coordinates related to the center side to locate the target
             coors = {
                 'top': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
                 'left': (this._reference.left + (this._reference.width / 2 - this._target.width / 2))
             };
 
-        } else if (oritentation === 'horizontal') {
+        } else if (orientation === 'horizontal') {
             // calculates the coordinates related to the top or bottom side to locate the target
-            oritentationMap = {
+            orientationMap = {
                 'left': this._reference.left,
                 'center': (this._reference.left + (this._reference.width / 2 - this._target.width / 2)),
                 'right': (this._reference.left + this._reference.width - this._target.width),
@@ -246,13 +246,13 @@
             };
 
             coors = {
-                'top': oritentationMap[side],
-                'left': oritentationMap[this._options.align]
+                'top': orientationMap[side],
+                'left': orientationMap[this._options.align]
             };
 
         } else {
             // calculates the coordinates related to the right or left side to locate the target
-            oritentationMap = {
+            orientationMap = {
                 'top': this._reference.top,
                 'center': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
                 'bottom': (this._reference.top + this._reference.height - this._target.height),
@@ -261,19 +261,20 @@
             };
 
             coors = {
-                'top': oritentationMap[this._options.align],
-                'left': oritentationMap[side]
+                'top': orientationMap[this._options.align],
+                'left': orientationMap[side]
             };
         }
 
         coors.top += this._options.offsetY;
         coors.left += this._options.offsetX;
 
-        this.$target.css(coors);
+        this.target.style.top = coors.top + 'px';
+        this.target.style.left = coors.left + 'px';
 
         return this;
     };
 
     ch.Positioner = Positioner;
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

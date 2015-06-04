@@ -1,4 +1,4 @@
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Transition.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Transition.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -14,7 +14,7 @@
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
+     * @param {String} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -24,45 +24,54 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
+     * @param {(HTMLElement | String)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
      * @returns {transition} Returns a new instance of Transition.
      * @example
      * // Create a new Transition.
-     * var transition = new ch.Transition($el, [options]);
-     * @example
-     * // Create a new Transition with jQuery or Zepto.
-     * var transition = $(selector).transition([options]);
+     * var transition = new ch.Transition([el], [options]);
      * @example
      * // Create a new Transition with disabled effects.
-     * var transition = $(selector).transition({
+     * var transition = new ch.Transition({
      *     'fx': 'none'
      * });
      * @example
      * // Create a new Transition using the shorthand way (content as parameter).
-     * var transition = $(selector).transition('http://ui.ml.com:3040/ajax');
+     * var transition = new ch.Transition('http://ui.ml.com:3040/ajax');
      */
-    function Transition($el, options) {
+    function Transition(el, options) {
 
-        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
-            options = $el;
-            $el = undefined;
+        if (el === undefined || options === undefined) {
+            options = {};
         }
 
-        options = $.extend(ch.util.clone(this._defaults), options);
+        options.content = (function () {
+            var dummyElement = document.createElement('div'),
+                content = options.waiting || '';
 
-        options.content = $('<div class="ch-loading-large"></div><p>' + options.content + '</p>');
+            // TODO: options.content could be a HTMLElement
+            dummyElement.innerHTML = '<div class="ch-loading-large"></div><p>' + content + '</p>';
 
-        return new ch.Modal($el, options);
+            return dummyElement.firstChild;
+        }());
+
+        // el is not defined
+        if (el === undefined) {
+            el = ch.util.extend(ch.util.clone(this._defaults), options);
+        // el is present as a object configuration
+        } else if (el.nodeType === undefined && typeof el === 'object') {
+            el = ch.util.extend(ch.util.clone(this._defaults), el);
+        } else if (options !== undefined) {
+            options = ch.util.extend(ch.util.clone(this._defaults), options);
+        }
+
+        return new ch.Modal(el, options);
     }
 
     /**
      * The name of the component.
      * @memberof! ch.Transition.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var transition = $(selector).data('transition');
      */
     Transition.prototype.name = 'transition';
 
@@ -79,7 +88,7 @@
      * @type {Object}
      * @private
      */
-    Transition.prototype._defaults = $.extend(ch.util.clone(ch.Modal.prototype._defaults), {
+    Transition.prototype._defaults = ch.util.extend(ch.util.clone(ch.Modal.prototype._defaults), {
         '_className': 'ch-transition ch-box-lite',
         '_ariaRole': 'alert',
         'hiddenby': 'none',
@@ -88,4 +97,4 @@
 
     ch.factory(Transition, ch.Modal.prototype._normalizeOptions);
 
-}(this.ch.$, this.ch));
+}(this.ch));

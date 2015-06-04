@@ -102,7 +102,7 @@ table {
 
 /* IE */
 .lt-ie10 .ch-datagrid-controls th {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$table-header-controls-bg-color}', endColorstr='#{$table-header-controls-bg-color-secondary}');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($table-header-controls-bg-color)}', endColorstr='#{ie-hex-str($table-header-controls-bg-color-secondary)}');
 }
 
 .lt-ie10 .ch-datagrid-controls th:hover {

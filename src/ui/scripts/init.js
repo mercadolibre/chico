@@ -1,5 +1,2 @@
     // Remove the no-js classname from html tag
-    $html.removeClass('no-js');
-
-    // Exposse private $ (jQuery) into ch.$
-    ch.$ = window.$;
+    ch.util.classList(html).remove('no-js');

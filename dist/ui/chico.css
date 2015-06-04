@@ -1,5 +1,5 @@
 /*!
- * Chico Theme UI v1.2.0
+ * Chico UI v1.2.0
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2015, MercadoLibre.com
@@ -68,6 +68,8 @@ table {
  * 1. Sets default font family to sans-serif.
  * 2. Prevents iOS text size adjust after orientation change, without disabling
  *    user zoom.
+ * 3. Prevents the overlap of :active state by tap-highlight-color that is
+ *    appears with delay of 300ms
  */
 html {
   font-family: sans-serif;
@@ -76,6 +78,8 @@ html {
   /* 2 */
   -ms-text-size-adjust: 100%;
   /* 2 */
+  -webkit-tap-highlight-color: transparent;
+  /* 3 */
 }
 
 body {
@@ -546,7 +550,6 @@ p + p {
 /* IE */
 .lt-ie9 .ch-close {
   text-indent: 0;
-  line-height: 13px;
 }
 
 .ie9 .ch-close {
@@ -554,16 +557,16 @@ p + p {
 }
 
 .lt-ie10 .ch-close {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F7F7F7', endColorstr='#EEEEEE');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF7F7F7', endColorstr='#FFEEEEEE');
 }
 
 .lt-ie10 .ch-close:hover,
 .lt-ie10 .ch-close:focus {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FA5900', endColorstr='#CA0C02');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFA5900', endColorstr='#FFCA0C02');
 }
 
 .lt-ie10 .ch-close:active {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BF0602', endColorstr='#8F2F00');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFBF0602', endColorstr='#FF8F2F00');
 }
 
 /*
@@ -883,6 +886,8 @@ input.ch-btn-small::-moz-focus-inner {
   opacity: 0.5;
   filter: alpha(opacity=50);
   text-shadow: none;
+  -ms-touch-action: none;
+  pointer-events: none;
 }
 
 /* Default h: ~30px*/
@@ -917,29 +922,29 @@ a.ch-btn-large:focus {
 .lt-ie10 .ch-btn,
 .lt-ie10 .ch-btn:focus,
 .lt-ie10 .ch-btn:visited {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3e52a1', endColorstr='#2d3277');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF3E52A1', endColorstr='#FF2D3277');
 }
 
 .lt-ie10 .ch-btn-skin,
 .lt-ie10 .ch-btn-skin:focus,
 .lt-ie10 .ch-btn-skin:visited {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cce3f7', endColorstr='#aad0ef');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFCCE3F7', endColorstr='#FFAAD0EF');
 }
 
 .lt-ie10 .ch-btn:hover {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4355d2', endColorstr='#2f33ae');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF4355D2', endColorstr='#FF2F33AE');
 }
 
 .lt-ie10 .ch-btn-skin:hover {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dcecfb', endColorstr='#c5dff5');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFDCECFB', endColorstr='#FFC5DFF5');
 }
 
 .lt-ie10 .ch-btn:active {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0f1534', endColorstr='#171c41');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0F1534', endColorstr='#FF171C41');
 }
 
 .lt-ie10 .ch-btn-skin:active {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a2c9e1', endColorstr='#7db7dc');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFA2C9E1', endColorstr='#FF7DB7DC');
 }
 
 .lt-ie10 .ch-btn.ch-btn-disabled,
@@ -952,7 +957,7 @@ a.ch-btn-large:focus {
 .lt-ie10 [class*="ch-btn"][disabled]:active,
 .lt-ie10 [class*="ch-btn"][disabled]:focus {
   filter: alpha(opacity=50);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#e6e6e6');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFE6E6E6');
 }
 
 .ie8 [class*="ch-btn"]:focus,
@@ -1008,7 +1013,7 @@ a.ch-btn-large:focus {
 }
 
 .lt-ie10 .ch-calendar caption {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#f0f0f0');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFF0F0F0');
 }
 
 .ch-calendar-today {
@@ -1100,7 +1105,7 @@ a.ch-btn-large:focus {
   margin: 0 50px;
 }
 
-/* Both are the same elements, but it can apply styles before the component initialization */
+/* Both are the same elements, but it can apply styles before the c omponent initialization */
 .ch-carousel > ul,
 .ch-carousel-list {
   overflow: hidden;
@@ -1302,7 +1307,7 @@ table {
 
 /* IE */
 .lt-ie10 .ch-datagrid-controls th {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF9F9F9', endColorstr='#FFE9E9E9');
 }
 
 .lt-ie10 .ch-datagrid-controls th:hover {
@@ -1525,7 +1530,7 @@ table {
 /* IE */
 .lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on,
 .lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on:hover {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a2c9e1', endColorstr='#7ab6dc');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFA2C9E1', endColorstr='#FF7AB6DC');
 }
 
 .lt-ie10 .ch-dropdown-trigger-skin,
@@ -1580,6 +1585,29 @@ table {
 
 .no-js .ch-expandable-trigger + .ch-hide {
   display: block;
+}
+
+/* Transitions */
+.ch-expandable-container.ch-hide.ch-fx {
+  visibility: hidden;
+}
+.ch-expandable-container.ch-fx-slideDown {
+  overflow: hidden;
+  -webkit-transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
+  -moz-transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
+  transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
+}
+.ch-expandable-container.ch-fx-slideUp {
+  overflow: hidden;
+  -webkit-transition: height 0.3s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in, visibility 0s linear 0.3s;
+  -moz-transition: height 0.3s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in, visibility 0s linear 0.3s;
+  transition: height 0.3s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in, visibility 0s linear 0.3s;
+}
+.ch-expandable-container.ch-fx.ch-fx-slideDown {
+  visibility: visible;
+}
+.ch-expandable-container.ch-fx.ch-fx-slideUp {
+  visibility: hidden;
 }
 
 /* ==========================================================================
@@ -1856,7 +1884,6 @@ input.ch-form-icon-input:focus {
   width: 16px;
   height: 16px;
   top: 1.125em;
-  padding: 0;
 }
 
 .ch-form-options input[type=radio] {
@@ -2266,6 +2293,23 @@ dl.ch-list dd {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.ch-underlay.ch-fx-fadein-enter, .ch-underlay.ch-fx-fadein-leave, .ch-underlay.ch-fx-slidedown-enter, .ch-underlay.ch-fx-slidedown-leave {
+  -webkit-transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.ch-underlay.ch-fx-fadein-enter, .ch-underlay.ch-fx-slidedown-enter {
+  opacity: 0;
+}
+.ch-underlay.ch-fx-fadein-enter-active, .ch-underlay.ch-fx-slidedown-enter-active {
+  opacity: 1;
+}
+.ch-underlay.ch-fx-fadein-leave, .ch-underlay.ch-fx-slidedown-leave {
+  opacity: 1;
+}
+.ch-underlay.ch-fx-fadein-leave-active, .ch-underlay.ch-fx-fadein-slidedown-active {
+  opacity: 0;
+}
 
 .ie8 .ch-underlay {
   background-color: #000;
@@ -2299,6 +2343,7 @@ dl.ch-list dd {
   border: 1px solid #e9e9e9;
   background-color: #f0f0f0;
   color: #666;
+  -ms-touch-action: none;
   pointer-events: none;
 }
 
@@ -2358,6 +2403,7 @@ dl.ch-list dd {
   height: 0;
   width: 0;
   position: absolute;
+  -ms-touch-action: none;
   pointer-events: none;
   display: block;
 }
@@ -2516,6 +2562,26 @@ dl.ch-list dd {
   top: 50%;
 }
 
+/* Transitions */
+.ch-popover.ch-hide.ch-fx {
+  visibility: hidden;
+  opacity: 0;
+}
+.ch-popover.ch-fx.ch-fx-fadeIn {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease-out;
+  -moz-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+.ch-popover.ch-fx.ch-fx-fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out, visibility 0s linear 0.3s;
+  -moz-transition: opacity 0.3s ease-out, visibility 0s linear 0.3s;
+  transition: opacity 0.3s ease-out, visibility 0s linear 0.3s;
+}
+
 /**
  * Tab Navigator
  */
@@ -2569,7 +2635,7 @@ dl.ch-list dd {
 
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f0f0', endColorstr='#fff');
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF0F0F0', endColorstr='#FFFFFFFF');
 }
 
 /* Container */
@@ -2943,8 +3009,8 @@ a:focus {
 
 .ch-autocomplete-item,
 .ch-autocomplete-highlighted {
-  margin: 0;
-  padding: 0;
+  margin: 0 5px;
+  padding: 3px 5px;
   cursor: pointer;
 }
 

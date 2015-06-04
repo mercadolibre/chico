@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     var util = ch.util,
@@ -9,11 +9,17 @@
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter
-     * @param {(jQuerySelector | ZeptoSelector)} $el jQuery or Zepto Selector.
+     * @param {HTMLElement} [el] It must be a HTMLElement.
      * @param {Object} [options] Configuration options.
      * @returns {component} Returns a new instance of Component.
+     * @example
+     * // Create a new Component.
+     * var component = new ch.Component();
+     * var component = new ch.Component('.my-component', {'option': 'value'});
+     * var component = new ch.Component('.my-component');
+     * var component = new ch.Component({'option': 'value'});
      */
-    function Component($el, options) {
+    function Component(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -22,7 +28,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -51,9 +57,6 @@
      * The name of a component.
      * @memberof! ch.Component.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var component = $(selector).data(name);
      */
     Component.prototype.name = 'component';
 
@@ -71,39 +74,13 @@
      * @private
      * @returns {component}
      */
-    Component.prototype._init = function ($el, options) {
+    Component.prototype._init = function (el, options) {
 
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
 
-        // Clones the defaults options or creates a new object
-        if (options === undefined) {
-            if ($el === undefined) {
-                this._options = defaults;
-
-            } else if (util.is$($el)) {
-                this._$el = $el;
-                this._el = $el[0];
-                this._options = defaults;
-
-            } else if (typeof $el === 'object') {
-                options = $el;
-                $el = undefined;
-                this._options = $.extend(defaults, options);
-            }
-
-        } else if (typeof options === 'object') {
-            if ($el === undefined) {
-                this._options = $.extend(defaults, options);
-
-            } else if (util.is$($el)) {
-                this._$el = $el;
-                this._el = $el[0];
-                this._options = $.extend(defaults, options);
-            }
-
-        } else {
-            throw new window.Error('Unexpected parameters were found in the \'' + this.name + '\' instantiation.');
+        if (el === null) {
+            throw new Error('The "el" parameter is not present in the DOM');
         }
 
         /**
@@ -112,12 +89,42 @@
          */
         this.uid = (uid += 1);
 
+        // el is HTMLElement
+        // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+        if (el !== undefined && el.nodeType !== undefined && el.nodeType === 1) {
+
+            this._el = el;
+
+            // set the uid to the element to help search for the instance in the collection instances
+            this._el.setAttribute('data-uid', this.uid);
+
+            // we extend defaults with options parameter
+            this._options = ch.util.extend(defaults, options);
+
+        // el is an object configuration
+        } else if (el === undefined || el.nodeType === undefined && typeof el === 'object') {
+
+            // creates a empty element becouse the user not set a DOM elment to use, but we requires one
+            // this._el = document.createElement('div');
+
+            // we extend defaults with the object that is in el parameter object
+            this._options = ch.util.extend(defaults, el);
+        }
+
         /**
          * Indicates if a component is enabled.
          * @type {Boolean}
          * @private
          */
         this._enabled = true;
+
+        /**
+         * Stores all instances created
+         * @type {Object}
+         * @public
+         */
+        ch.instances = ch.instances || {};
+        ch.instances[this.uid] = this;
     };
 
 
@@ -217,7 +224,8 @@
         this.disable();
 
         if (this._el !== undefined) {
-            this._$el.removeData(this.name);
+            delete ch.instances[this._el.getAttribute('data-uid')];
+            this._el.removeAttribute('data-uid');
         }
 
         /**
@@ -237,4 +245,4 @@
 
     ch.Component = Component;
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

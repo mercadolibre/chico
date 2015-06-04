@@ -1,4 +1,4 @@
-var form = $('#form-test').form(),
+var form = new ch.Form(document.getElementById('form-test')),
     readyEvent = jasmine.createSpy('readyEvent'),
     beforevalidateEvent = jasmine.createSpy('beforevalidateEvent'),
     successEvent = jasmine.createSpy('successEvent'),
@@ -6,8 +6,16 @@ var form = $('#form-test').form(),
     clearEvent = jasmine.createSpy('clearEvent'),
     resetEvent = jasmine.createSpy('resetEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    validation = $('#input_user').required('This field is required.'),
-    $input = $('#input_user');
+    input = document.getElementById('input_user'),
+    validation = new ch.Validation(input, {
+        'conditions': [{'name': 'required', 'message': 'This field is required.'}]
+    });
+
+    ch.Event.addListener(document.getElementById('form-test'),
+        'submit',
+        function (event) {
+            event.preventDefault();
+        });
 
 describe('Form', function () {
     form
@@ -20,21 +28,16 @@ describe('Form', function () {
         expect(typeof ch.Form).toEqual('function');
     });
 
-    it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('form')).toBeTruthy();
-        expect(typeof $.fn.form).toEqual('function');
-    });
-
     it('should be return a new instance', function () {
         expect(form instanceof ch.Form).toBeTruthy();
     });
 
     it('should have the "ch-form" classname', function () {
-        expect(form.$container.hasClass('ch-form')).toBeTruthy();
+        expect(ch.util.classList(form.container).contains('ch-form')).toBeTruthy();
     });
 
     it('should disable HTML5 validations', function () {
-        expect(form.$container.attr('novalidate')).toEqual('novalidate');
+        expect(form.container.getAttribute('novalidate')).toEqual('novalidate');
     });
 
     it('should emit the "ready" event when it\'s created', function () {
@@ -54,10 +57,10 @@ describe('Form', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.$container', function () {
-        expect(form.$container).not.toEqual(undefined);
-        expect(form.$container[0].nodeType).toEqual(1);
-        expect(form.$container instanceof $).toBeTruthy();
+    it('.container', function () {
+        expect(form.container).not.toEqual(undefined);
+        expect(form.container.nodeType).toEqual(1);
+        expect(form.container instanceof HTMLFormElement).toBeTruthy();
     });
 
     it('.name', function () {
@@ -103,10 +106,13 @@ describe('It should have the following public methods:', function () {
     }
 });
 
-describe('When the form is submited it', function () {
+describe('When the form is submitted it', function () {
     it('should run "validate" method', function () {
         spyOn(form, 'validate').andCallThrough();
-        form.$container.submit();
+
+        ch.Event.dispatchEvent(form.container, 'submit');
+        //form.container.submit();
+
         expect(form.validate).toHaveBeenCalled();
     });
 });
@@ -132,12 +138,15 @@ describe('Its validate() method', function () {
     });
 
     it('should set focus to the input that has got an error', function () {
-        expect(document.activeElement).toEqual(form.errors[0].$trigger[0]);
+        expect(document.activeElement).toEqual(form.errors[0].trigger);
     });
 
     it('should emit "success" event when it has not got errors', function () {
-        $input.val('success');
-        form.$container.submit();
+        input.setAttribute('value', 'success');
+
+        ch.Event.dispatchEvent(form.container, 'submit');
+        //form.container.submit();
+
         expect(successEvent).toHaveBeenCalled();
         form.reset();
     });
@@ -146,13 +155,13 @@ describe('Its validate() method', function () {
 describe('Its hasError() method', function () {
 
     it('should return "false" when it hasn\'t got', function () {
-        $input.val('test');
+        input.setAttribute('value', 'test');
         expect(form.hasError()).toBeFalsy();
 
     });
 
     it('should return a boolean "true" when it has got errors', function () {
-        $input.val('');
+        input.setAttribute('value', '');
         expect(form.hasError()).toBeTruthy();
     });
 });
@@ -220,11 +229,11 @@ describe('Its destroy() method', function () {
 
     it('should reset the $container', function () {
         form.destroy();
-        expect(form.$container.attr('novalidate')).toBeUndefined();
+        expect(form.container.getAttribute('novalidate')).toEqual(null);
     });
 
     it('should remove ".form" events', function () {
-        expect($._data(form.$container[0], 'events')).toBeUndefined();
+        //expect($._data(form.$container[0], 'events')).toBeUndefined();
     });
 
     it('should destroy its validations', function () {
@@ -232,7 +241,7 @@ describe('Its destroy() method', function () {
     });
 
     it('should remove the instance from the element', function () {
-        expect(form._$el.data('form')).toBeUndefined();
+        expect(ch.instances[form.uid]).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {

@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -7,7 +7,7 @@
      * @constructor
      * @augments ch.Component
      * @requires ch.Validations
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Form.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Form.
      * @param {Object} [options] Options to customize an instance.
      * @param {Object} [options.messages] A collections of validations messages.
      * @param {String} [options.messages.required] A validation message.
@@ -23,20 +23,17 @@
      * @returns {form} Returns a new instance of Form.
      * @example
      * // Create a new Form.
-     * var form = new ch.Form($el, [options]);
-     * @example
-     * // Create a new Form with jQuery or Zepto.
-     * var form = $(selector).form();
+     * var form = new ch.Form(el, [options]);
      * @example
      * // Create a new Form with custom messages.
-     * var form = $(selector).form({
+     * var form = new ch.Form({
      *     'messages': {
      *          'required': 'Some message!',
      *          'email': 'Another message!'
      *     }
      * });
      */
-    function Form($el, options) {
+    function Form(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -45,7 +42,7 @@
          */
         var that = this;
 
-        that._init($el, options);
+        that._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -75,9 +72,6 @@
      * The name of the component.
      * @memberof! ch.Form.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var form = $(selector).data('form');
      */
     Form.prototype.name = 'form';
 
@@ -95,9 +89,9 @@
      * @private
      * @returns {form}
      */
-    Form.prototype._init = function ($el, options) {
+    Form.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -127,25 +121,27 @@
 
         /**
          * The form container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$container = this._$el
+        this.container = this._el;
             // Add classname
-            .addClass('ch-form')
+        ch.util.classList(this.container).add('ch-form');
             // Disable HTML5 browser-native validations
-            .attr('novalidate', 'novalidate')
+        this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-            .on('submit.form', function (event) {
-                // Runs validations
-                that.validate(event);
-            });
+        ch.Event.addListener(this.container, 'submit', function (event) {
+            // Runs validations
+            that.validate(event);
+        });
 
-        this.$container
-            // Bind the reset
-            .find('input[type="reset"]').on(ch.onpointertap + '.form', function (event) {
+        // Bind the reset
+        if (this.container.querySelector('input[type="reset"]')) {
+            ch.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
                 ch.util.prevent(event);
                 that.reset();
             });
+        }
+
 
         // Clean validations
         this.on('disable', this.clear);
@@ -207,10 +203,10 @@
         // Is there's an error
         if (that.errors.length > 0) {
             firstError = that.errors[0];
-            firstErrorVisible = firstError.$trigger[0];
+            firstErrorVisible = firstError.trigger;
 
             // Find the closest visible parent if current element is hidden
-            while(ch.util.getStyles(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
+            while (ch.util.getStyles(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
                 firstErrorVisible = firstErrorVisible.parentElement;
             }
 
@@ -218,10 +214,10 @@
 
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-            triggerError = firstError.$trigger[0];
+            triggerError = firstError.trigger;
 
             if (triggerError.tagName === 'DIV') {
-                firstError.$trigger.find('input:first').focus();
+                firstError.trigger.querySelector('input:first-child').focus();
             }
 
             if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
@@ -379,11 +375,10 @@
      */
     Form.prototype.destroy = function () {
 
-        this.$container
-            .off('.form')
-            .removeAttr('novalidate');
+        // this.$container.off('.form')
+        this.container.removeAttribute('novalidate');
 
-        $.each(this.validations, function (i, e) {
+        this.validations.forEach(function (e, i) {
             e.destroy();
         });
 
@@ -395,4 +390,4 @@
     // Factorize
     ch.factory(Form);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
