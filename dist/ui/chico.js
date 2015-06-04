@@ -10688,8 +10688,8 @@ ch.factory = function (Klass, fn) {
             this._list.style.cssText += 'position:absolute;left:0;';
         }
 
-        // If there are a parameter specifying a pagination, add it
-        if (this._options.pagination !== undefined) { this._addPagination(); }
+        // If there is a parameter specifying a pagination, add it
+        if (this._options.pagination) { this._addPagination(); }
 
         // Allow to render the arrows
         if (this._options.arrows !== undefined && this._options.arrows !== false) { this._addArrows(); }
@@ -10924,7 +10924,9 @@ ch.factory = function (Klass, fn) {
         // Update arrows (when pages === 1, there is no arrows)
         this._updateArrows();
         // Update pagination
-        this._addPagination();
+        if (this._options.pagination) {
+            this._addPagination();
+        }
     };
 
     /**
