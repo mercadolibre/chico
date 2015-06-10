@@ -202,9 +202,7 @@ ch.Event = (function () {
     window.addEventListener('pointerup', pointerUp);
     window.addEventListener('pointerleave', pointerLeave);
 
-    window.addEventListener('pointermove', function (e) {
-        //console.log(activePointer);
-    });
+    window.addEventListener('pointermove', function (e) {});
 
     /**
      * Handles the 'pointerdown' event from pointerEvents polyfill or native PointerEvents when supported.
@@ -223,8 +221,8 @@ ch.Event = (function () {
                 id: e.pointerId,
                 clientX: e.clientX,
                 clientY: e.clientY,
-                x: e.x,
-                y: e.y,
+                x: (e.x || e.pageX),
+                y: (e.y || e.pageY),
                 type: e.pointerType
             }
         }
@@ -250,8 +248,8 @@ ch.Event = (function () {
         // Does our event is the same as the activePointer set by pointerdown?
         if (activePointer && activePointer.id === e.pointerId) {
             // Have we moved too much?
-            if (Math.abs(activePointer.x - e.x) < 5 &&
-                Math.abs(activePointer.y - e.y) < 5) {
+            if (Math.abs(activePointer.x - (e.x || e.pageX)) < 5 &&
+                Math.abs(activePointer.y - (e.y || e.pageY)) < 5) {
                 // Have we scrolled too much?
                 if (!isScrolling ||
                     (Math.abs(sDistX - window.pageXOffset) < 5 &&
