@@ -26,8 +26,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "ejs": "*",
-    "express": "3.x",
     "grunt": "~0.4.1",
     "grunt-banner": "^0.3.1",
     "grunt-browser-sync": "^2.0.0",
