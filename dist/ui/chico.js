@@ -1,5 +1,5 @@
 /*!
- * Chico UI v1.2.0
+ * Chico UI v2.0.0-alpha.2
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2015, MercadoLibre.com
@@ -3172,7 +3172,7 @@ ch.factory = function (Klass, fn) {
     // Remove the no-js classname from html tag
     ch.util.classList(html).remove('no-js');
 
-	ch.version = '1.2.0';
+	ch.version = '2.0.0-alpha.2';
 	window.ch = ch;
 }(this));
 (function (ch) {
