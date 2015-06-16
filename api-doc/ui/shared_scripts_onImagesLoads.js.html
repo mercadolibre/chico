@@ -1,0 +1,80 @@
+---
+layout: api-doc
+id: api-doc
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>Source: shared/scripts/onImagesLoads.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (window, ch) {
+    'use strict';
+
+    /**
+     * Executes a callback function when the images of a query selection loads.
+     * @memberof! ch
+     * @param {HTMLImageElement} image An image or a collection of images.
+     * @param {Function} [callback] The handler the component will fire after the images loads.
+     * @example
+     * new ch.onImagesLoads(HTMLImageElement, function () {
+     *     console.log('The size of the loaded image is ' + this.width);
+     * });
+     */
+    function onImagesLoads(image, callback) {
+        var images;
+
+        if (ch.util.isArray(image)) {
+            images = image;
+        } else {
+            images = [image];
+        }
+
+        images.forEach(function (image, i) {
+
+            ch.Event.addListenerOne(image, 'load', function () {
+                var len = images.length;
+
+                window.setTimeout(function () {
+                    if (--len &lt;= 0) { callback.call(image); }
+                }, 200);
+            }, false);
+
+            if (image.complete || image.complete === undefined) {
+                var src = image.src;
+                // Data uri fix bug in web-kit browsers
+                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                image.src = src;
+            }
+
+        });
+
+    }
+
+    ch.onImagesLoads = onImagesLoads;
+
+}(this, this.ch));</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete">Autocomplete</a></li><li><a href="ch.Bubble">Bubble</a></li><li><a href="ch.Calendar">Calendar</a></li><li><a href="ch.Carousel">Carousel</a></li><li><a href="ch.Component">Component</a></li><li><a href="ch.Condition">Condition</a></li><li><a href="ch.Countdown">Countdown</a></li><li><a href="ch.Datepicker">Datepicker</a></li><li><a href="ch.Dropdown">Dropdown</a></li><li><a href="ch.EventEmitter">EventEmitter</a></li><li><a href="ch.Expandable">Expandable</a></li><li><a href="ch.Form">Form</a></li><li><a href="ch.Layer">Layer</a></li><li><a href="ch.Menu">Menu</a></li><li><a href="ch.Modal">Modal</a></li><li><a href="ch.Popover">Popover</a></li><li><a href="ch.Positioner">Positioner</a></li><li><a href="ch.Tabs">Tabs</a></li><li><a href="ch.Tooltip">Tooltip</a></li><li><a href="ch.Transition">Transition</a></li><li><a href="ch.Validation">Validation</a></li><li><a href="ch.Viewport">Viewport</a></li><li><a href="ch.Zoom">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch">ch</a></li><li><a href="ch.shortcuts">shortcuts</a></li><li><a href="ch.support">support</a></li><li><a href="ch.util">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible">Collapsible</a></li><li><a href="ch.Content">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+
+{% javascript prism.js %}

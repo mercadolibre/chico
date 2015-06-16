@@ -1,0 +1,145 @@
+---
+layout: api-doc
+id: api-doc
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>Source: shared/scripts/support.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>    /**
+     * Returns a data object with features supported by the device
+     * @namespace
+     */
+    ch.support = {
+
+        /**
+         * Verify that CSS Transitions are supported (or any of its browser-specific implementations).
+         *
+         * @static
+         * @type {Boolean|Object}
+         * @example
+         * if (ch.support.transition) {
+         *     // Some code here!
+         * }
+         */
+        'transition': transitionEnd(),
+
+        /**
+         * Verify that CSS Animations are supported (or any of its browser-specific implementations).
+         *
+         * @static
+         * @type {Boolean|Object}
+         * @example
+         * if (ch.support.animation) {
+         *     // Some code here!
+         * }
+         */
+        'animation': animationEnd(),
+
+        /**
+         * Checks is the User Agent supports touch events.
+         * @type {Boolean}
+         * @example
+         * if (ch.support.touch) {
+         *     // Some code here!
+         * }
+         */
+        'touch': 'ontouchend' in document,
+
+        /**
+         * Checks is the User Agent supports custom events.
+         * @type {Boolean}
+         * @example
+         * if (ch.support.customEvent) {
+         *     // Some code here!
+         * }
+         */
+        'customEvent': (function() {
+            // TODO: find better solution for CustomEvent check
+            try {
+                // IE8 has no support for CustomEvent, in IE gte 9 it cannot be
+                // instantiated but exist
+                new CustomEvent(name, data);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        })()
+    };
+
+    /**
+     * Checks for the CSS Transitions support (http://www.modernizr.com/)
+     *
+     * @function
+     * @private
+     */
+    function transitionEnd() {
+        var el = document.createElement('ch');
+
+        var transEndEventNames = {
+            WebkitTransition : 'webkitTransitionEnd',
+            MozTransition    : 'transitionend',
+            OTransition      : 'oTransitionEnd otransitionend',
+            transition       : 'transitionend'
+        };
+
+        for (var name in transEndEventNames) {
+            if (transEndEventNames.hasOwnProperty(name) &amp;&amp; el.style[name] !== undefined) {
+                return { end: transEndEventNames[name] }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks for the CSS Animations support
+     *
+     * @function
+     * @private
+     */
+    function animationEnd() {
+        var el = document.createElement('ch');
+
+        var animEndEventNames = {
+            WebkitAnimation : 'webkitAnimationEnd',
+            MozAnimation    : 'animationend',
+            OAnimation      : 'oAnimationEnd oanimationend',
+            animation       : 'animationend'
+        };
+
+        for (var name in animEndEventNames) {
+            if (animEndEventNames.hasOwnProperty(name) &amp;&amp; el.style[name] !== undefined) {
+                return { end: animEndEventNames[name] }
+            }
+        }
+
+        return false;
+    }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete">Autocomplete</a></li><li><a href="ch.Calendar">Calendar</a></li><li><a href="ch.Carousel">Carousel</a></li><li><a href="ch.Component">Component</a></li><li><a href="ch.Condition">Condition</a></li><li><a href="ch.Countdown">Countdown</a></li><li><a href="ch.Datepicker">Datepicker</a></li><li><a href="ch.Dropdown">Dropdown</a></li><li><a href="ch.EventEmitter">EventEmitter</a></li><li><a href="ch.Expandable">Expandable</a></li><li><a href="ch.Form">Form</a></li><li><a href="ch.Layer">Layer</a></li><li><a href="ch.Menu">Menu</a></li><li><a href="ch.Modal">Modal</a></li><li><a href="ch.Popover">Popover</a></li><li><a href="ch.Positioner">Positioner</a></li><li><a href="ch.Transition">Transition</a></li><li><a href="ch.Validation">Validation</a></li><li><a href="ch.Viewport">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch">ch</a></li><li><a href="ch.support">support</a></li><li><a href="ch.util">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible">Collapsible</a></li><li><a href="ch.Content">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+
+{% javascript prism.js %}
