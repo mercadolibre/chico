@@ -6,6 +6,7 @@
 
     /**
      * Base class for all components.
+     *
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter

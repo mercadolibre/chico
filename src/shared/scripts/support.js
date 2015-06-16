@@ -29,7 +29,7 @@
         'animation': animationEnd(),
 
         /**
-         * Checks if the User Agent support touch events.
+         * Checks is the User Agent supports touch events.
          * @type {Boolean}
          * @example
          * if (ch.support.touch) {

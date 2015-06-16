@@ -1,11 +1,14 @@
     /**
      * Provides varies utilities and commons functions that are used across all components.
-     * @namespace
+     * @namespace ch.util
      */
     ch.util = {
 
         /**
          * Returns true if an object is an array, false if it is not.
+         *
+         * @memberof ch.util
+         * @method
          * @param {Object} obj The object to be checked.
          * @returns {Boolean}
          * @example
@@ -27,6 +30,8 @@
 
         /**
          * Checks if the url given is right to load content.
+         *
+         * @memberof ch.util
          * @param {String} url The url to be checked.
          * @returns {Boolean}
          * @example
@@ -112,6 +117,7 @@
         /**
          * Detects an Internet Explorer and returns the version if so.
          *
+         * @memberof ch.util
          * @see From <a href="https://github.com/ded/bowser/blob/master/bowser.js">bowser</a>
          * @returns {Boolean|Number}
          */
@@ -122,6 +128,8 @@
 
         /**
          * Adds CSS rules to disable text selection highlighting.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} HTMLElement to disable text selection highlighting.
          * @example
          * ch.util.avoidTextSelection(document.querySelector('.menu nav'), document.querySelector('.menu ol'));
@@ -149,6 +157,8 @@
 
         /**
          * Gives the final used values of all the CSS properties of an element.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} el The HTMLElement for which to get the computed style.
          * @param {string} prop The name of the CSS property to test.
          * @returns {CSSStyleDeclaration}
@@ -178,6 +188,8 @@
 
         /**
          * Returns a shallow-copied clone of the object.
+         *
+         * @memberof ch.util
          * @param {Object} obj The object to copy.
          * @returns {Object}
          * @example
@@ -202,6 +214,8 @@
 
         /**
          * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.
+         *
+         * @memberof ch.util
          * @param {Function} obj The object that have new members.
          * @param {Function} superConstructor The construsctor Class.
          * @returns {Object}
@@ -227,6 +241,8 @@
 
         /**
          * Prevent default actions of a given event.
+         *
+         * @memberof ch.util
          * @param {Event} event The event ot be prevented.
          * @returns {Object}
          * @example
@@ -242,6 +258,8 @@
 
         /**
          * Get the current vertical and horizontal positions of the scroll bar.
+         *
+         * @memberof ch.util
          * @returns {Object}
          * @example
          * ch.util.getScroll();
@@ -255,6 +273,8 @@
 
         /**
          * Get the current outer dimensions of an element.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
@@ -271,6 +291,8 @@
 
         /**
          * Get the current offset of an element.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
@@ -296,6 +318,8 @@
 
         /**
          * Get the current parentNode with the given position.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @param {String} position A given position (static, relative, fixed or absolute).
          * @returns {HTMLElement}
@@ -326,6 +350,7 @@
 
         /**
          * Reference to the vendor prefix of the current browser.
+         *
          * @constant
          * @memberof ch.util
          * @type {String}
@@ -364,7 +389,9 @@
 
         /**
          * Add or remove class
+         *
          * @name classList
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @see Based on: <a href="http://youmightnotneedjquery.com/" target="_blank">http://youmightnotneedjquery.com/</a>
          * @example
@@ -402,7 +429,10 @@
 
         /**
          * Extends an object with other object
+         *
          * @name extend
+         * @memberof ch.util
+         * @method
          * @param {Object} target The destination of the other objects
          * @param {Object} obj1 The objects to be merged
          * @param {Object} objn The objects to be merged
@@ -523,9 +553,9 @@
         /**
          * IE8 safe method to get the next element sibling
          *
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @returns {HTMLElement}
-         *
          * @example
          * ch.util.nextElementSibling(el);
          */
@@ -545,6 +575,7 @@
          * JSONP handler based on Promises
          *
          * @memberof ch.util
+         * @method
          * @param {String} url
          * @param {Object} [options] Optional options.
          * @param {String} [options.callback] Callback prefix. Default: "__jsonp"
@@ -552,7 +583,7 @@
          * @param {Number} [options.timeout] How long after the request until a timeout error
          *   will occur. Default: 15000
          *
-         * @return {Object} Returns a response promise and a cancel handler.
+         * @returns {Object} Returns a response promise and a cancel handler.
          *
          * @example
          * var req = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=smartphone&v=1');
@@ -644,35 +675,4 @@
                 };
             }
         })()
-        /*
-        loadJSONP: (function () {
-            var unique = 0,
-                head = document.getElementsByTagName('head')[0];
-
-            return function (url, callback, context) {
-                var name = 'jsonp_' + unique++;
-                url += (~url.indexOf('?') ? '&' : '?') ? '&' : '?') + 'callback=' + name;
-
-                // Create script
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = url;
-
-                // Setup jsonp handler
-                window[name] = function (data) {
-                    callback.call((context || window), data);
-                    head.removeChild(script);
-                    script = null;
-                    try {
-                        delete window[name];
-                    } catch (e) {
-                        window[name] = undefined;
-                    }
-                };
-
-                // Load JSON
-                head.appendChild(script);
-            };
-        })()
-        */
     };
