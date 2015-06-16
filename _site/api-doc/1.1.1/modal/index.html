@@ -5,7 +5,6 @@
 <![endif]-->
 <!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
 
-
   <head>
     <!-- Define the charset always before the title -->
     <meta charset="utf-8"/>
@@ -24,22 +23,23 @@
     <!-- Chico HTTP -->
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
 
-    <link rel="stylesheet" href="/chico/src/css/mesh.min.css"/>
-    <link rel="stylesheet" href="/chico/src/css/base__small.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/base__large.css"/>
-    <link rel="stylesheet" href="/chico/src/css/chico__small.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/chico__large.css"/>
-    <link rel="stylesheet" href="/chico/src/css/ui-slug_element_component.css"/>
+    <link rel="stylesheet" href="/chico/assets/mesh.min-ea85ac0f63282029b1c011a8432b6160.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-199ff67f5754d3526a830fc0f68eb72c.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-4607f285fbf139b54dfdb0b556e81159.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-c37789139c54735d570472096be6820d.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-9f5daf490fa63efbbab7b604aae40c66.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-96866c28db54bef9233b303a3bb027ac.css">
 
-    <link rel="stylesheet" href="/chico/src/css/ml-header.css"/>
-    <link rel="stylesheet" href="/chico/src/css/gh-pages.css"/>
-    <link rel="stylesheet" href="/chico/src/css/prism.css"/>
+    <link rel="stylesheet" href="/chico/assets/ml-header-cad75f0d6a0f0eaa7e2a83606b03467a.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-843fff254d4637ace812b20642c75123.css">
+    <link rel="stylesheet" href="/chico/assets/prism-9f459da3c92b6f5907d56ad8024a3001.css">
 
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="src/css/base__large.css"/>
-        <link rel="stylesheet" href="src/css/chico__large.css"/>
+        <link rel="stylesheet" href="/chico/assets/base__large-4607f285fbf139b54dfdb0b556e81159.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-9f5daf490fa63efbbab7b604aae40c66.css">
     <![endif]-->
 </head>
+
 
   <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
   <!-- Add `class="ml-contextual"` for a more contextual layout. -->
@@ -1558,7 +1558,7 @@ modal.on('ready', function () {
 
     <footer role="contentinfo" class="ml-footer">
     <div class="ml-bounds">
-        <small>©2014 MercadoLibre.com</small>
+        <small>©2015 MercadoLibre.com</small>
         <nav>
             <a href="#">About</a>
         </nav>
@@ -1567,6 +1567,32 @@ modal.on('ready', function () {
     </div>
 </footer>
 
-  </body>
 
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+  </body>
 </html>

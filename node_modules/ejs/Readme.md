@@ -1,188 +1,177 @@
 # EJS
 
-Embedded JavaScript templates.
+Embedded JavaScript templates
 
-[![Build Status](https://travis-ci.org/visionmedia/ejs.png)](https://travis-ci.org/visionmedia/ejs)
+[![Build Status](https://img.shields.io/travis/mde/ejs/master.svg?style=flat)](https://travis-ci.org/mde/ejs)
+[![Developing Dependencies](https://img.shields.io/david/dev/mde/ejs.svg?style=flat)](https://david-dm.org/mde/ejs#info=devDependencies)
 
 ## Installation
 
-    $ npm install ejs
+```bash
+$ npm install ejs
+```
 
 ## Features
 
-  * Complies with the [Express](http://expressjs.com) view system
-  * Static caching of intermediate JavaScript
-  * Unbuffered code for conditionals etc `<% code %>`
-  * Escapes html by default with `<%= code %>`
-  * Unescaped buffering with `<%- code %>`
-  * Supports tag customization
-  * Filter support for designer-friendly templates
+  * Control flow with `<% %>`
+  * Escaped output with `<%= %>`
+  * Unescaped raw output with `<%- %>`
+  * Trim-mode ('newline slurping') with `-%>` ending tag
+  * Custom delimiters (e.g., use '<? ?>' instead of '<% %>')
   * Includes
   * Client-side support
-  * Newline slurping with `<% code -%>` or `<% -%>` or `<%= code -%>` or `<%- code -%>`
+  * Static caching of intermediate JavaScript
+  * Static caching of templates
+  * Complies with the [Express](http://expressjs.com) view system
 
 ## Example
 
-    <% if (user) { %>
-	    <h2><%= user.name %></h2>
-    <% } %>
-    
-## Try out a live example now
-
-<a href="https://runnable.com/ejs" target="_blank"><img src="https://runnable.com/external/styles/assets/runnablebtn.png" style="width:67px;height:25px;"></a>
+```html
+<% if (user) { %>
+  <h2><%= user.name %></h2>
+<% } %>
+```
 
 ## Usage
 
-    ejs.compile(str, options);
-    // => Function
+```javascript
+var template = ejs.compile(str, options);
+template(data);
+// => Rendered HTML string
 
-    ejs.render(str, options);
-    // => str
+ejs.render(str, data, options);
+// => Rendered HTML string
+```
+
+You can also use the shortcut `ejs.render(dataAndOptions);` where you pass
+everything in a single object. In that case, you'll end up with local variables
+for all the passed options.
 
 ## Options
 
   - `cache`           Compiled functions are cached, requires `filename`
-  - `filename`        Used by `cache` to key caches
-  - `scope`           Function execution context
-  - `debug`           Output generated function body
+  - `filename`        Used by `cache` to key caches, and for includes
+  - `context`         Function execution context
   - `compileDebug`    When `false` no debug instrumentation is compiled
   - `client`          Returns standalone compiled function
-  - `open`            Open tag, defaulting to "<%"
-  - `close`           Closing tag, defaulting to "%>"
-  - *                 All others are template-local variables
+  - `delimiter`       Character to use with angle brackets for open/close
+  - `debug`           Output generated function body
+  - `_with`           Whether or not to use `with() {}` constructs. If `false` then the locals will be stored in the `locals` object.
+  - `rmWhitespace`    Remove all safe-to-remove whitespace, including leading
+    and trailing whitespace. It also enables a safer version of `-%>` line
+    slurping for all scriptlet tags (it does not strip new lines of tags in
+    the middle of a line).
+
+## Tags
+
+  - `<%`              'Scriptlet' tag, for control-flow, no output
+  - `<%=`             Outputs the value into the template (HTML escaped)
+  - `<%-`             Outputs the unescaped value into the template
+  - `<%#`             Comment tag, no execution, no output
+  - `<%%`             Outputs a literal '<%'
+  - `%>`              Plain ending tag
+  - `-%>`             Trim-mode ('newline slurp') tag, trims following newline
 
 ## Includes
 
- Includes are relative to the template with the `include` statement,
- for example if you have "./views/users.ejs" and "./views/user/show.ejs"
- you would use `<% include user/show %>`. The included file(s) are literally
- included into the template, _no_ IO is performed after compilation, thus
- local variables are available to these included templates.
+Includes are relative to the template with the `include` call. (This
+requires the 'filename' option.) For example if you have "./views/users.ejs" and
+"./views/user/show.ejs" you would use `<%- include('user/show'); %>`.
 
-```
+You'll likely want to use the raw output tag (`<%-`) with your include to avoid
+double-escaping the HTML output.
+
+```html
 <ul>
   <% users.forEach(function(user){ %>
-    <% include user/show %>
-  <% }) %>
+    <%- include('user/show', {user: user}); %>
+  <% }); %>
 </ul>
 ```
 
+Includes are inserted at runtime, so you can use variables for the path in the
+`include` call (for example `<%- include(somePath); %>`). Variables in your
+top-level data object are available to all your includes, but local variables
+need to be passed down.
+
+NOTE: Include preprocessor directives (`<% include user/show  %>`) are
+still supported.
+
 ## Custom delimiters
 
-Custom delimiters can also be applied globally:
+Custom delimiters can be applied on a per-template basis, or globally:
 
-    var ejs = require('ejs');
-    ejs.open = '{{';
-    ejs.close = '}}';
+```javascript
+var ejs = require('ejs'),
+    users = ['geddy', 'neil', 'alex'];
 
-Which would make the following a valid template:
+// Just one template
+ejs.render('<?= users.join(" | "); ?>', {users: users}, {delimiter: '?'});
+// => 'geddy | neil | alex'
 
-    <h1>{{= title }}</h1>
-
-## Filters
-
-EJS conditionally supports the concept of "filters". A "filter chain"
-is a designer friendly api for manipulating data, without writing JavaScript.
-
-Filters can be applied by supplying the _:_ modifier, so for example if we wish to take the array `[{ name: 'tj' }, { name: 'mape' },  { name: 'guillermo' }]` and output a list of names we can do this simply with filters:
-
-Template:
-
-    <p><%=: users | map:'name' | join %></p>
-
-Output:
-
-    <p>Tj, Mape, Guillermo</p>
-
-Render call:
-
-    ejs.render(str, {
-        users: [
-          { name: 'tj' },
-          { name: 'mape' },
-          { name: 'guillermo' }
-        ]
-    });
-
-Or perhaps capitalize the first user's name for display:
-
-    <p><%=: users | first | capitalize %></p>
-
-## Filter list
-
-Currently these filters are available:
-
-  - first
-  - last
-  - capitalize
-  - downcase
-  - upcase
-  - sort
-  - sort_by:'prop'
-  - size
-  - length
-  - plus:n
-  - minus:n
-  - times:n
-  - divided_by:n
-  - join:'val'
-  - truncate:n
-  - truncate_words:n
-  - replace:pattern,substitution
-  - prepend:val
-  - append:val
-  - map:'prop'
-  - reverse
-  - get:'prop'
-
-## Adding filters
-
- To add a filter simply add a method to the `.filters` object:
- 
-```js
-ejs.filters.last = function(obj) {
-  return obj[obj.length - 1];
-};
+// Or globally
+ejs.delimiter = '$';
+ejs.render('<$= users.join(" | "); $>', {users: users});
+// => 'geddy | neil | alex'
 ```
+
+## Caching
+
+EJS ships with a basic in-process cache for caching the intermediate JavaScript
+functions used to render templates. It's easy to plug in LRU caching using
+Node's `lru-cache` library:
+
+```javascript
+var ejs = require('ejs')
+  , LRU = require('lru-cache');
+ejs.cache = LRU(100); // LRU cache with 100-item limit
+```
+
+If you want to clear the EJS cache, call `ejs.clearCache`. If you're using the
+LRU cache and need a different limit, simple reset `ejs.cache` to a new instance
+of the LRU.
 
 ## Layouts
 
-  Currently EJS has no notion of blocks, only compile-time `include`s,
-  however you may still utilize this feature to implement "layouts" by
-  simply including a header and footer like so:
+EJS does not specifically support blocks, but layouts can be implemented by
+including headers and footers, like so:
+
 
 ```html
-<% include head %>
-<h1>Title</h1>
-<p>My page</p>
-<% include foot %>
+<%- include('header'); -%>
+<h1>
+  Title
+</h1>
+<p>
+  My page
+</p>
+<%- include('footer'); -%>
 ```
 
-## client-side support
+## Client-side support
 
-  include `./ejs.js` or `./ejs.min.js` and `require("ejs").compile(str)`.
+Go to the [Latest Release](https://github.com/mde/ejs/releases/latest), download
+`./ejs.js` or `./ejs.min.js`.
 
-## License 
+Include one of these on your page, and `ejs.render(str)`.
 
-(The MIT License)
+## Related projects
 
-Copyright (c) 2009-2010 TJ Holowaychuk &lt;tj@vision-media.ca&gt;
+There are a number of implementations of EJS:
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+ * TJ's implementation, the v1 of this library: https://github.com/tj/ejs
+ * Jupiter Consulting's EJS: http://www.embeddedjs.com/
+ * EJS Embedded JavaScript Framework on Google Code: https://code.google.com/p/embeddedjavascript/
+ * Sam Stephenson's Ruby implementation: https://rubygems.org/gems/ejs
+ * Erubis, an ERB implementation which also runs JavaScript: http://www.kuwata-lab.com/erubis/users-guide.04.html#lang-javascript
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+## License
 
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Licensed under the Apache License, Version 2.0
+(<http://www.apache.org/licenses/LICENSE-2.0>)
+
+- - -
+EJS Embedded JavaScript templates copyright 2112
+mde@fleegix.org.
+
+

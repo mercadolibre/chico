@@ -1,7 +1,0 @@
-
-.DS_Store*
-*.log
-*.gz
-
-node_modules
-coverage

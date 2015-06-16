@@ -1,3 +1,8 @@
 # OS or Editor folders
 .grunt
-
+.sass-cache
+.idea
+node_modules/
+bower_components/
+doc/
+api-doc/

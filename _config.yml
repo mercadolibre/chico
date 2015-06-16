@@ -16,4 +16,23 @@ destination: _site/
 # Set the files encoding
 encoding: utf-8
 
+exclude:
+  - node_modules
+  - bower_components
+  - Gruntfile.js
+  - package.json
+
+include:
+  - .nojekyll
+
+gems:
+  - jekyll-assets
+
+assets:
+  gzip: false
+  sources:
+    - assets/images
+    - assets/js
+    - assets/css
+
 #ATENCION: si no anda hay que desomcentar del bash_profile #source ~/.profile

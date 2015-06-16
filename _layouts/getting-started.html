@@ -18,13 +18,11 @@
 
     {% include footer.html %}
 
-    <script type="text/javascript" src="{{ site.baseurl }}/src/js/ui-slug_element_component.js"></script>
+    {% include analytics.html %}
+    {% javascript ui-slug_element_component %}
     <script type="text/javascript">
-
       var elementToFix = new SlugElement('chico-nav', 'height', 600, 600);
-
     </script>
 
   </body>
-
 </html>

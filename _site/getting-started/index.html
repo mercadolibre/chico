@@ -24,22 +24,23 @@
     <!-- Chico HTTP -->
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
 
-    <link rel="stylesheet" href="/chico/src/css/mesh.min.css"/>
-    <link rel="stylesheet" href="/chico/src/css/base__small.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/base__large.css"/>
-    <link rel="stylesheet" href="/chico/src/css/chico__small.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/chico__large.css"/>
-    <link rel="stylesheet" href="/chico/src/css/ui-slug_element_component.css"/>
+    <link rel="stylesheet" href="/chico/assets/mesh.min-ea85ac0f63282029b1c011a8432b6160.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-199ff67f5754d3526a830fc0f68eb72c.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-4607f285fbf139b54dfdb0b556e81159.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-c37789139c54735d570472096be6820d.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-9f5daf490fa63efbbab7b604aae40c66.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-96866c28db54bef9233b303a3bb027ac.css">
 
-    <link rel="stylesheet" href="/chico/src/css/ml-header.css"/>
-    <link rel="stylesheet" href="/chico/src/css/gh-pages.css"/>
-    <link rel="stylesheet" href="/chico/src/css/prism.css"/>
+    <link rel="stylesheet" href="/chico/assets/ml-header-cad75f0d6a0f0eaa7e2a83606b03467a.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-843fff254d4637ace812b20642c75123.css">
+    <link rel="stylesheet" href="/chico/assets/prism-9f459da3c92b6f5907d56ad8024a3001.css">
 
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="src/css/base__large.css"/>
-        <link rel="stylesheet" href="src/css/chico__large.css"/>
+        <link rel="stylesheet" href="/chico/assets/base__large-4607f285fbf139b54dfdb0b556e81159.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-9f5daf490fa63efbbab7b604aae40c66.css">
     <![endif]-->
 </head>
+
 
   <body data-country="MLA">
 
@@ -91,26 +92,26 @@
       <div class="ml-wrapper">
         <main role="main" class="chico-get-started">
     <section class="chico-bg-noise chico-head">
-        <div class="ml-bounds row">
-            <h1 class="mesh-12">Getting started</h1>
-            <h3 class="mesh-12 mesh-6">
-                How to donwload and install Chico in your site.
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">Getting started</h1>
+            <h3 class="mesh-col-12 mesh-6">
+                How to download and install Chico in your site.
             </h3>
         </div>
     </section>
 
     <section>
 
-        <div class="ml-bounds row">
+        <div class="ml-bounds mesh-row">
 
-            <div class="mesh-12 mesh-m-9">
+            <div class="mesh-col-12 mesh-col-m-9">
 
                 <h2 id="download">Download </h2>
                 <p>
                     Getting started with Chico is easy. Whether you are a master of Sass, building a new app, or making your existing site responsive, we’ve got you covered. How would you like to get started?
                 </p>
                 <p>
-                    <a href="#" class="ch-btn ch-btn-large">Download Chico</a>
+                    <a href="https://github.com/mercadolibre/chico.git" class="ch-btn ch-btn-large">Download Chico</a>
                 </p>
 
                 <h2 id="installing">Installing Chico in your site</h2>
@@ -220,7 +221,7 @@
 
             </div>
 
-            <nav class="mesh-12 mesh-m-3 chico-nav">
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
                 <ul id="nav-sections">
                     <li>
                         <a href="#download" data-section="download">Download</a>
@@ -243,7 +244,7 @@
 
     <footer role="contentinfo" class="ml-footer">
     <div class="ml-bounds">
-        <small>©2014 MercadoLibre.com</small>
+        <small>©2015 MercadoLibre.com</small>
         <nav>
             <a href="#">About</a>
         </nav>
@@ -252,13 +253,37 @@
     </div>
 </footer>
 
-    <script type="text/javascript" src="/chico/src/js/ui-slug_element_component.js"></script>
+
     <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
 
+    <script src="/chico/assets/ui-slug_element_component-60991bcfe7f427d7a360c8543bc5a939.js"></script>
+    <script type="text/javascript">
       var elementToFix = new SlugElement('chico-nav', 'height', 600, 600);
-
     </script>
 
   </body>
-
 </html>

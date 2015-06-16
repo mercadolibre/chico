@@ -16,19 +16,19 @@
     <!-- Chico HTTP -->
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
 
-    <link rel="stylesheet" href="{{ site.baseurl }}/src/css/mesh.min.css"/>
-    <link rel="stylesheet" href="{{ site.baseurl }}/src/css/base__small.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="{{ site.baseurl }}/src/css/base__large.css"/>
-    <link rel="stylesheet" href="{{ site.baseurl }}/src/css/chico__small.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="{{ site.baseurl }}/src/css/chico__large.css"/>
-    <link rel="stylesheet" href="{{ site.baseurl }}/src/css/ui-slug_element_component.css"/>
+    {% stylesheet mesh.min %}
+    {% stylesheet base__small %}
+    {% stylesheet base__large media='(min-width: 768px)' %}
+    {% stylesheet chico__small %}
+    {% stylesheet chico__large media='(min-width: 768px)' %}
+    {% stylesheet ui-slug_element_component %}
 
-    <link rel="stylesheet" href="{{ site.baseurl }}/src/css/ml-header.css"/>
-    <link rel="stylesheet" href="{{ site.baseurl }}/src/css/gh-pages.css"/>
-    <link rel="stylesheet" href="{{ site.baseurl }}/src/css/prism.css"/>
+    {% stylesheet ml-header %}
+    {% stylesheet gh-pages %}
+    {% stylesheet prism %}
 
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="src/css/base__large.css"/>
-        <link rel="stylesheet" href="src/css/chico__large.css"/>
+        {% stylesheet base__large %}
+        {% stylesheet chico__large %}
     <![endif]-->
 </head>

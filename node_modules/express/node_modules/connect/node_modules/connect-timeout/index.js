@@ -9,6 +9,7 @@
  * Module dependencies.
  */
 
+var createError = require('http-errors');
 var debug = require('debug')('connect:timeout');
 var ms = require('ms');
 var onHeaders = require('on-headers');
@@ -63,17 +64,11 @@ module.exports = function timeout(time, options) {
   };
 };
 
-function generateTimeoutError(){
-  var err = new Error('Response timeout');
-  err.code = 'ETIMEDOUT';
-  err.status = 503;
-  return err;
-}
-
 function onTimeout(time, cb){
   return function(){
-    var err = generateTimeoutError();
-    err.timeout = time;
-    cb(err);
+    cb(createError(503, 'Response timeout', {
+      code: 'ETIMEDOUT',
+      timeout: time
+    }));
   };
 }

@@ -24,22 +24,23 @@
     <!-- Chico HTTP -->
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
 
-    <link rel="stylesheet" href="/chico/src/css/mesh.min.css"/>
-    <link rel="stylesheet" href="/chico/src/css/base__small.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/base__large.css"/>
-    <link rel="stylesheet" href="/chico/src/css/chico__small.css"/>
-    <link rel="stylesheet" media="(min-width: 768px)" href="/chico/src/css/chico__large.css"/>
-    <link rel="stylesheet" href="/chico/src/css/ui-slug_element_component.css"/>
+    <link rel="stylesheet" href="/chico/assets/mesh.min-ea85ac0f63282029b1c011a8432b6160.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-199ff67f5754d3526a830fc0f68eb72c.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-4607f285fbf139b54dfdb0b556e81159.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-c37789139c54735d570472096be6820d.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-9f5daf490fa63efbbab7b604aae40c66.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-96866c28db54bef9233b303a3bb027ac.css">
 
-    <link rel="stylesheet" href="/chico/src/css/ml-header.css"/>
-    <link rel="stylesheet" href="/chico/src/css/gh-pages.css"/>
-    <link rel="stylesheet" href="/chico/src/css/prism.css"/>
+    <link rel="stylesheet" href="/chico/assets/ml-header-cad75f0d6a0f0eaa7e2a83606b03467a.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-843fff254d4637ace812b20642c75123.css">
+    <link rel="stylesheet" href="/chico/assets/prism-9f459da3c92b6f5907d56ad8024a3001.css">
 
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="src/css/base__large.css"/>
-        <link rel="stylesheet" href="src/css/chico__large.css"/>
+        <link rel="stylesheet" href="/chico/assets/base__large-4607f285fbf139b54dfdb0b556e81159.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-9f5daf490fa63efbbab7b604aae40c66.css">
     <![endif]-->
 </head>
+
 
   <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
   <!-- Add `class="ml-contextual"` for a more contextual layout. -->
@@ -93,18 +94,142 @@
       <div class="ml-wrapper">
         <main role="main" class="chico-ui-components">
     <section class="chico-bg-noise chico-head">
-        <div class="ml-bounds row">
-            <h1 class="mesh-12">UI Components</h1>
-            <h3 class="mesh-12 mesh-6">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">UI Components</h1>
+            <h3 class="mesh-col-12 mesh-6">
                 Amazing components built to provide iconography, dropdowns, input groups, navigation, and much more.
             </h3>
         </div>
     </section>
 
     <section>
-        <div class="ml-bounds row">
+        <div class="ml-bounds mesh-row">
 
-            <div class="mesh-12 mesh-m-9 ui-component">
+            <div class="mesh-col-12 mesh-col-m-9 ui-component">
+                
+                <article id="wizard">
+                    <h2 id="wizard">Wizard</h2>
+
+<form action="/" class="ch-wizard">
+    <ol class="ch-wizard-breadcrumb ch-steps-four">
+        <li><a href="#1">Step 1</a></li>
+        <li><a href="#2">Step 2</a></li>
+        <li class="ch-wizard-current">Step 3</li>
+        <li class="ch-wizard-step">Step 4</li>
+    </ol>
+    <div class="ch-box-container">
+        <h2>Caption heading</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+    </div>
+
+    <div class="ch-actions">
+        <button type="submit" class="ch-btn">Primary Action</button>
+        <a href="#">Secondary Action</a>
+    </div>
+</form>
+
+                </article>
+                
+                <article id="loadings">
+                    <h2 id="loadings">Loadings</h2>
+
+<div class="ch-box-lite">
+    <span class="ch-loading-small"></span>
+    <span class="ch-loading"></span>
+    <span class="ch-loading-large"></span>
+</div>
+
+                </article>
+                
+                <article id="buttons">
+                    <h2 id="buttons">Buttons</h2>
+
+<div class="ch-box-lite m-clearfix">
+    <div class="mesh-row">
+        <div class="mesh-col-m-6">
+            <div class="m-leftcolumn">
+                <h3 id="buttons">Normal Buttons</h3>
+                <p><input type="button" class="ch-btn ch-btn-large" value="Big button" /></p>
+                <p><input type="button" class="ch-btn" value="Button" /></p>
+                <p><input type="button" class="ch-btn ch-btn-small" value="Small button" /></p>
+                <p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button" /></p>
+                <p><button class="ch-btn-skin ch-btn-small"><i class="ch-icon-heart"></i>Favorite</button></p>
+            </div>
+        </div>
+        <div class="mesh-col-m-6">
+            <div class="m-rightcolumn">
+                <h3>Disabled Buttons</h3>
+                <p><input type="button" class="ch-btn ch-btn-large ch-btn-disabled" value="Big button disabled" /></p>
+                <p><input type="button" class="ch-btn ch-btn-disabled" value="Button disabled" /></p>
+                <p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled" /></p>
+                <p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled" /></p>
+                <p><button class="ch-btn-skin ch-btn-small ch-btn-disabled" disabled=""><i class="ch-icon-heart"></i>Favorite</button></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </article>
+                
+                <article id="boxes">
+                    <h2 id="boxes">Boxes</h2>
+
+<div class="ch-box-container">
+    <h3>Container Box</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+</div>
+
+<div class="ch-box-lite">
+    <h3>Box Lite</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+</div>
+
+<div class="ch-box">
+    <h3>Box</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+</div>
+
+<div class="ch-box-error">
+    <h3>Box Error</h3>
+    <p>Oops, something wrong happened. <a href="#">Click Here!</a></p>
+</div>
+
+<div class="ch-box-help">
+    <h3>Box Help</h3>
+    <p>Do you need any help?</p>
+</div>
+
+<div class="ch-box-info">
+    <h3>Box Info</h3>
+    <p>Here's more information <a href="#">Click Here!</a></p>
+</div>
+
+<div class="ch-box-warn">
+    <h3>Box Warn</h3>
+    <p>Warning! something might be wrong</p>
+</div>
+
+<div class="ch-box-ok">
+    <h3>Box Ok</h3>
+    <p>Everything is great!</p>
+</div>
+
+<div class="ch-box-icon">
+    <i class="ch-icon-truck"></i>
+    <p>This is a message, with an icon!</p>
+</div>
+<div class="ch-box-icon">
+    <i class="ch-icon-warning-sign"></i>
+    <h3>Warning!</h3>
+    <p>This is a big warning message, be careful!</p>
+</div>
+
+<div class="ch-box-icon ch-box-error"><i class="ch-icon-remove-sign"></i>Oops, something wrong happened</div>
+<div class="ch-box-icon ch-box-help"><i class="ch-icon-help-sign"></i>Do you need any help?</div>
+<div class="ch-box-icon ch-box-info"><i class="ch-icon-info-sign"></i> Here's more information</div>
+<div class="ch-box-icon ch-box-warn"><i class="ch-icon-warning-sign"></i> Warning! something might be wrong</div>
+
+                </article>
                 
                 <article id="headings">
                     <h2 id="headings">Headings</h2>
@@ -198,8 +323,24 @@
                 
             </div>
 
-            <nav class="mesh-12 mesh-m-3 chico-nav">
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
                 <ul id="nav-sections">
+                    
+                        <li>
+                            <a class="" href="#wizard" data-section="">Wizard</a>
+                        </li>
+                    
+                        <li>
+                            <a class="" href="#loadings" data-section="">Loadings</a>
+                        </li>
+                    
+                        <li>
+                            <a class="" href="#buttons" data-section="">Buttons</a>
+                        </li>
+                    
+                        <li>
+                            <a class="" href="#boxes" data-section="">Boxes</a>
+                        </li>
                     
                         <li>
                             <a class="" href="#headings" data-section="">Headings</a>
@@ -227,7 +368,7 @@
 
     <footer role="contentinfo" class="ml-footer">
     <div class="ml-bounds">
-        <small>©2014 MercadoLibre.com</small>
+        <small>©2015 MercadoLibre.com</small>
         <nav>
             <a href="#">About</a>
         </nav>
@@ -236,13 +377,37 @@
     </div>
 </footer>
 
-    <script type="text/javascript" src="/chico/src/js/ui-slug_element_component.js"></script>
+
     <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
 
+    <script src="/chico/assets/ui-slug_element_component-60991bcfe7f427d7a360c8543bc5a939.js"></script>
+    <script type="text/javascript">
       var elementToFix = new SlugElement('chico-nav', 'height', 900, 900);
-
     </script>
 
   </body>
-
 </html>
