@@ -1,6 +1,6 @@
 {
   "name": "chico",
-  "version": "1.2.0",
+  "version": "2.0.0-alpha.2",
   "description": "Chico UI is a free and open source collection of easy-to-use web components for developers and designers.",
   "author": "<chico@mercadolibre.com>",
   "contributors": [
@@ -26,8 +26,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "ejs": "*",
-    "express": "3.x",
     "grunt": "~0.4.1",
     "grunt-banner": "^0.3.1",
     "grunt-browser-sync": "^2.0.0",
