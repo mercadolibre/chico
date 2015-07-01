@@ -1,0 +1,24 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+  {% include head.html %}
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      {% include header.html %}
+
+      <div class="ml-wrapper">
+        {{ content }}
+      </div>
+
+    {% include footer.html %}
+
+    {% include analytics.html %}
+  </body>
+</html>

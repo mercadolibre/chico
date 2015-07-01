@@ -1,0 +1,19 @@
+<?js
+var data = obj;
+var self = this;
+?>
+
+<h4>
+    <code class=" language-markup"><?js= '.' + name ?></code>
+    <?js if (data.type) { ?>
+    <?js= self.partial('type.tmpl', data.type.names) ?>
+    <?js } ?>
+</h4>
+
+<?js if (data.description) { ?>
+<p><?js= data.description ?></p>
+<?js } ?>
+
+<?js if (data.examples && examples.length) { ?>
+    <?js= this.partial('examples.tmpl', examples) ?>
+<?js } ?>

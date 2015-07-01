@@ -1,0 +1,25 @@
+{
+  "name": "chico-site-generator",
+  "version": "0.0.1",
+  "homepage": "https://github.com/mercadolibre/chico",
+  "authors": [
+    "Oleh Burkhay <oleh.burkhay@mercadolibre.cl>"
+  ],
+  "description": "Chico UI's docs & demos generator",
+  "keywords": [
+    "chico",
+    "chicoui",
+    "jekyll"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "chico": "git@github.com:mercadolibre/chico.git#>=1.2.0"
+  }
+}

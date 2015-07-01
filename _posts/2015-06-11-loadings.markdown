@@ -1,0 +1,15 @@
+---
+layout: ui-components
+title:  "Loadings"
+permalink: ui-components/loadings
+tags: loadings
+---
+
+Loadings
+---------------------
+
+<div class="ch-box-lite">
+    <span class="ch-loading-small"></span>
+    <span class="ch-loading"></span>
+    <span class="ch-loading-large"></span>
+</div>

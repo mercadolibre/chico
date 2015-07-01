@@ -1,0 +1,7 @@
+#!/usr/bin/cats
+
+/*jslint node:true*/
+
+'use strict';
+
+process.exit();

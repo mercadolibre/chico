@@ -1,0 +1,22 @@
+
+<?js
+// comment - meta - description - forceMemberof - memberof - kind - params - returns - examples - name - longname - scope - inherits - inherited - ___id - ___s - attribs - id - signature - ancestors
+var data = obj,
+    a = [],
+    shortname = (name.split("#")[1] !== undefined) ? name.split("#")[1] : name;
+?>
+
+
+<h4><code class=" language-markup"><?js= (data.kind === 'function' ? '.' + shortname + (data.signature ? data.signature : '') : '\'' +shortname + '\'') ?></code></h4>
+<pre><?js= a.join(' - ') ?></pre>
+<?js if (data.description) { ?>
+    <p><?js= data.description ?></p>
+<?js } ?>
+
+<?js if (data.params && params.length) { ?>
+    <?js= this.partial('params.tmpl', params) ?>
+<?js } ?>
+
+<?js if (data.examples && examples.length) { ?>
+    <?js= this.partial('examples.tmpl', examples) ?>
+<?js } ?>

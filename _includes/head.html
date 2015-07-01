@@ -1,0 +1,34 @@
+<head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="http://static.mlstatic.com/org-img/ui/ml/favicon/favicon-1.0.0.ico"/>
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/300.css">
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/700.css">
+
+    <!-- Chico HTTP -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
+
+    {% stylesheet mesh.min %}
+    {% stylesheet base__small %}
+    {% stylesheet base__large media='(min-width: 768px)' %}
+    {% stylesheet chico__small %}
+    {% stylesheet chico__large media='(min-width: 768px)' %}
+    {% stylesheet ui-slug_element_component %}
+
+    {% stylesheet ml-header %}
+    {% stylesheet gh-pages %}
+    {% stylesheet prism %}
+
+    <!--[if lt IE 9]>
+        {% stylesheet base__large %}
+        {% stylesheet chico__large %}
+    <![endif]-->
+</head>
