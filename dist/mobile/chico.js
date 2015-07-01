@@ -2026,7 +2026,30 @@
 (function (window) {
 	'use strict';
 
-var ch = {},
+var ch = function(selector, context) {
+            if (!context) {
+                context = document;
+            } else if (typeof context === 'string') {
+                context = document.querySelector(context);
+            }
+            // Since NodeList is an array-like object but Array.isArray is always falsy
+            // we should detect the NodeList
+            // Please replace NodeList detection with `context instanceof NodeList && context.length > 0`
+            //   when IE8 support will be dropped
+            // Please replace Object.prototype.hasOwnProperty.call with `context.hasOwnProperty` when IE8
+            //   support will be dropped
+            if (typeof context === 'object' &&
+                /^\[object (HTMLCollection|NodeList|Object)\]$/.test(Object.prototype.toString.call(context)) &&
+                Object.prototype.hasOwnProperty.call(context, 'length') && context.length > 0 && context[0].nodeType > 0) {
+                context = context[0];
+            }
+
+            if (context === null || !context.nodeType) {
+                context = document;
+            }
+
+            return context.querySelectorAll(selector);
+        },
 
         /**
          * Reference to the window.
@@ -2088,6 +2111,9 @@ ch.util = {
 
         /**
          * Returns true if an object is an array, false if it is not.
+         *
+         * @memberof ch.util
+         * @method
          * @param {Object} obj The object to be checked.
          * @returns {Boolean}
          * @example
@@ -2109,6 +2135,8 @@ ch.util = {
 
         /**
          * Checks if the url given is right to load content.
+         *
+         * @memberof ch.util
          * @param {String} url The url to be checked.
          * @returns {Boolean}
          * @example
@@ -2194,6 +2222,7 @@ ch.util = {
         /**
          * Detects an Internet Explorer and returns the version if so.
          *
+         * @memberof ch.util
          * @see From <a href="https://github.com/ded/bowser/blob/master/bowser.js">bowser</a>
          * @returns {Boolean|Number}
          */
@@ -2204,6 +2233,8 @@ ch.util = {
 
         /**
          * Adds CSS rules to disable text selection highlighting.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} HTMLElement to disable text selection highlighting.
          * @example
          * ch.util.avoidTextSelection(document.querySelector('.menu nav'), document.querySelector('.menu ol'));
@@ -2231,6 +2262,8 @@ ch.util = {
 
         /**
          * Gives the final used values of all the CSS properties of an element.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} el The HTMLElement for which to get the computed style.
          * @param {string} prop The name of the CSS property to test.
          * @returns {CSSStyleDeclaration}
@@ -2260,6 +2293,8 @@ ch.util = {
 
         /**
          * Returns a shallow-copied clone of the object.
+         *
+         * @memberof ch.util
          * @param {Object} obj The object to copy.
          * @returns {Object}
          * @example
@@ -2284,6 +2319,8 @@ ch.util = {
 
         /**
          * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.
+         *
+         * @memberof ch.util
          * @param {Function} obj The object that have new members.
          * @param {Function} superConstructor The construsctor Class.
          * @returns {Object}
@@ -2309,6 +2346,8 @@ ch.util = {
 
         /**
          * Prevent default actions of a given event.
+         *
+         * @memberof ch.util
          * @param {Event} event The event ot be prevented.
          * @returns {Object}
          * @example
@@ -2324,6 +2363,8 @@ ch.util = {
 
         /**
          * Get the current vertical and horizontal positions of the scroll bar.
+         *
+         * @memberof ch.util
          * @returns {Object}
          * @example
          * ch.util.getScroll();
@@ -2337,6 +2378,8 @@ ch.util = {
 
         /**
          * Get the current outer dimensions of an element.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
@@ -2353,6 +2396,8 @@ ch.util = {
 
         /**
          * Get the current offset of an element.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @returns {Object}
          * @example
@@ -2378,6 +2423,8 @@ ch.util = {
 
         /**
          * Get the current parentNode with the given position.
+         *
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @param {String} position A given position (static, relative, fixed or absolute).
          * @returns {HTMLElement}
@@ -2408,6 +2455,7 @@ ch.util = {
 
         /**
          * Reference to the vendor prefix of the current browser.
+         *
          * @constant
          * @memberof ch.util
          * @type {String}
@@ -2446,7 +2494,9 @@ ch.util = {
 
         /**
          * Add or remove class
+         *
          * @name classList
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @see Based on: <a href="http://youmightnotneedjquery.com/" target="_blank">http://youmightnotneedjquery.com/</a>
          * @example
@@ -2484,7 +2534,10 @@ ch.util = {
 
         /**
          * Extends an object with other object
+         *
          * @name extend
+         * @memberof ch.util
+         * @method
          * @param {Object} target The destination of the other objects
          * @param {Object} obj1 The objects to be merged
          * @param {Object} objn The objects to be merged
@@ -2605,9 +2658,9 @@ ch.util = {
         /**
          * IE8 safe method to get the next element sibling
          *
+         * @memberof ch.util
          * @param {HTMLElement} el A given HTMLElement.
          * @returns {HTMLElement}
-         *
          * @example
          * ch.util.nextElementSibling(el);
          */
@@ -2627,6 +2680,7 @@ ch.util = {
          * JSONP handler based on Promises
          *
          * @memberof ch.util
+         * @method
          * @param {String} url
          * @param {Object} [options] Optional options.
          * @param {String} [options.callback] Callback prefix. Default: "__jsonp"
@@ -2634,7 +2688,7 @@ ch.util = {
          * @param {Number} [options.timeout] How long after the request until a timeout error
          *   will occur. Default: 15000
          *
-         * @return {Object} Returns a response promise and a cancel handler.
+         * @returns {Object} Returns a response promise and a cancel handler.
          *
          * @example
          * var req = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=smartphone&v=1');
@@ -2726,37 +2780,6 @@ ch.util = {
                 };
             }
         })()
-        /*
-        loadJSONP: (function () {
-            var unique = 0,
-                head = document.getElementsByTagName('head')[0];
-
-            return function (url, callback, context) {
-                var name = 'jsonp_' + unique++;
-                url += (~url.indexOf('?') ? '&' : '?') ? '&' : '?') + 'callback=' + name;
-
-                // Create script
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = url;
-
-                // Setup jsonp handler
-                window[name] = function (data) {
-                    callback.call((context || window), data);
-                    head.removeChild(script);
-                    script = null;
-                    try {
-                        delete window[name];
-                    } catch (e) {
-                        window[name] = undefined;
-                    }
-                };
-
-                // Load JSON
-                head.appendChild(script);
-            };
-        })()
-        */
     };
 ch.util.fixLabels = function () {
         var labels = document.getElementsByTagName('label'),
@@ -2918,7 +2941,7 @@ ch.support = {
         'animation': animationEnd(),
 
         /**
-         * Checks if the User Agent support touch events.
+         * Checks is the User Agent supports touch events.
          * @type {Boolean}
          * @example
          * if (ch.support.touch) {
@@ -3219,32 +3242,18 @@ ch.Event = (function () {
     }
 }());
 
-ch.factory = function (Klass, fn) {
+ch.factory = function (Klass) {
         /**
          * Identification of the constructor, in lowercases.
          * @type {String}
          */
-        var name = Klass.prototype.name,
+        var name = Klass.prototype.name;
 
-            /**
-             * Reference to the class name. When it's a preset, take its constructor name via the "preset" property.
-             * @type {String}
-             */
-            constructorName = Klass.prototype._preset || name;
-
-        /**
-         * The class constructor exposed directly into the "ch" namespace.
-         * @example
-         * // Creating a component instance by specifying a query selector and a configuration object.
-         * ch.Component(document.querySelector('#example'), {
-         *     'key': 'value'
-         * });
-         */
         // Uses the function.name property (non-standard) on the newest browsers OR
         // uppercases the first letter from the identification name of the constructor
         ch[(name.charAt(0).toUpperCase() + name.substr(1))] = Klass;
-
     };
+
     // Remove no-js classname
     ch.util.classList(html).remove('no-js');
 
@@ -4562,6 +4571,7 @@ ch.factory = function (Klass, fn) {
 
     /**
      * Base class for all components.
+     *
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter
