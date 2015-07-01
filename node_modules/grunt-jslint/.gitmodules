@@ -1,3 +1,0 @@
-[submodule "jslint"]
-	path = jslint
-	url = git://github.com/douglascrockford/JSLint.git

@@ -6,13 +6,13 @@ id: api-doc
 <div class="ml-wrapper">
     <main role="main">
         <section>
-            <div class="ml-bounds row">
-                <div class="mesh-12 mesh-m-9">
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
                     <h1><?js= title ?></h1>
                     <?js= content ?>
                 </div>
 
-                <nav class="mesh-12 mesh-m-3 chico-nav">
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
                     <?js= this.nav ?>
                 </nav>
             </div>
@@ -20,10 +20,4 @@ id: api-doc
     </main>
 </div>
 
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="/chico/src/js/prism.js"></script>
-<script>
-    $(function () {
-        $("#copyright").text((new Date().getFullYear()) + " ");
-    });
-</script>
+{% javascript prism.js %}

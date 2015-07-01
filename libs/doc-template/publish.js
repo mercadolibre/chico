@@ -5,6 +5,8 @@ var template = require('jsdoc/template'),
     taffy = require('taffydb').taffy,
     handle = require('jsdoc/util/error').handle,
     helper = require('jsdoc/util/templateHelper'),
+    dumper = require('jsdoc/util/dumper'),
+
     htmlsafe = helper.htmlsafe,
     linkto = helper.linkto,
     resolveAuthorLinks = helper.resolveAuthorLinks,
@@ -66,7 +68,10 @@ function addSignatureParams(f) {
 function addSignatureReturns(f) {
     var returnTypes = helper.getSignatureReturns(f);
 
-    f.signature = '<span class="signature">'+(f.signature || '') + '</span>' + '<span class="type-signature">'+(returnTypes.length? ' &rarr; {'+returnTypes.join('|')+'}' : '')+'</span>';
+    f.signature = '<span class="signature">' + (f.signature || '') + '</span>' +
+        '<span class="type-signature">' +
+        (returnTypes && returnTypes.length ? ' &rarr; {' + returnTypes.join('|') + '}' : '') +
+        '</span>';
 }
 
 function addSignatureTypes(f) {
@@ -78,7 +83,9 @@ function addSignatureTypes(f) {
 function addAttribs(f) {
     var attribs = helper.getAttribs(f);
 
-    f.attribs = '<span class="type-signature">'+htmlsafe(attribs.length? '<'+attribs.join(', ')+'> ' : '')+'</span>';
+    f.attribs = '<span class="type-signature">' + htmlsafe(attribs.length ?
+            // we want the template output to say 'abstract', not 'virtual'
+        '<' + attribs.join(', ').replace('virtual', 'abstract') + '> ' : '') + '</span>';
 }
 
 function shortenPaths(files, commonPrefix) {
@@ -113,16 +120,11 @@ function generate(title, docs, filename, resolveLinks) {
     resolveLinks = resolveLinks === false ? false : true;
 
     var docData = {
-            title: title,
-            docs: docs
-        },
+        title: title,
+        docs: docs
+    };
 
-        newFileName;
-
-    newFileName = filename.replace('ch.', '');
-    newFileName = newFileName.toLowerCase();
-
-    var outpath = path.join(outdir, newFileName),
+    var outpath = path.join(outdir, filename.toLowerCase().replace('ch.', '')),
         html = view.render('container.tmpl', docData);
 
     if (resolveLinks) {
@@ -132,7 +134,8 @@ function generate(title, docs, filename, resolveLinks) {
     fs.writeFileSync(outpath, html, 'utf8');
 }
 
-function generateSourceFiles(sourceFiles) {
+function generateSourceFiles(sourceFiles, encoding) {
+    encoding = encoding || 'utf8';
     Object.keys(sourceFiles).forEach(function(file) {
         var source;
         // links are keyed to the shortened path in each doclet's `meta.filename` property
@@ -142,7 +145,7 @@ function generateSourceFiles(sourceFiles) {
         try {
             source = {
                 kind: 'source',
-                code: helper.htmlsafe( fs.readFileSync(sourceFiles[file].resolved, 'utf8') )
+                code: helper.htmlsafe( fs.readFileSync(sourceFiles[file].resolved, encoding) )
             };
         }
         catch(e) {
@@ -197,16 +200,14 @@ function attachModuleSymbols(doclets, modules) {
 function buildNav(members) {
     var nav = '',
         seen = {},
-        hasClassList = false,
         classNav = '',
-        globalNav = '',
-        packageVersion = '1.1.1';
+        globalNav = '';
 
     if (members.modules.length) {
         nav += '<h2>Modules</h2><ul>';
         members.modules.forEach(function(m) {
             if ( !hasOwnProp.call(seen, m.longname) ) {
-                nav += '<li>'+linkto(m.longname, m.name, packageVersion)+'</li>';
+                nav += '<li>'+linkto(m.longname, m.name)+'</li>';
             }
             seen[m.longname] = true;
         });
@@ -218,7 +219,7 @@ function buildNav(members) {
         nav += '<h2>Externals</h2><ul>';
         members.externals.forEach(function(e) {
             if ( !hasOwnProp.call(seen, e.longname) ) {
-                nav += '<li>'+linkto( e.longname, e.name.replace(/(^"|"$)/g, ''), packageVersion)+'</li>';
+                nav += '<li>'+linkto( e.longname, e.name.replace(/(^"|"$)/g, '') )+'</li>';
             }
             seen[e.longname] = true;
         });
@@ -229,7 +230,7 @@ function buildNav(members) {
     if (members.classes.length) {
         members.classes.forEach(function(c) {
             if ( !hasOwnProp.call(seen, c.longname) ) {
-                classNav += '<li>'+linkto(c.longname, c.name, packageVersion)+'</li>';
+                classNav += '<li>'+linkto(c.longname, c.name)+'</li>';
             }
             seen[c.longname] = true;
         });
@@ -257,7 +258,7 @@ function buildNav(members) {
         nav += '<h2>Namespaces</h2><ul>';
         members.namespaces.forEach(function(n) {
             if ( !hasOwnProp.call(seen, n.longname) ) {
-                nav += '<li>'+linkto(n.longname, n.name, packageVersion)+'</li>';
+                nav += '<li>'+linkto(n.longname, n.name)+'</li>';
             }
             seen[n.longname] = true;
         });
@@ -269,7 +270,7 @@ function buildNav(members) {
         nav += '<h2>Mixins</h2><ul>';
         members.mixins.forEach(function(m) {
             if ( !hasOwnProp.call(seen, m.longname) ) {
-                nav += '<li>'+linkto(m.longname, m.name, packageVersion)+'</li>';
+                nav += '<li>'+linkto(m.longname, m.name)+'</li>';
             }
             seen[m.longname] = true;
         });
@@ -289,14 +290,14 @@ function buildNav(members) {
     if (members.globals.length) {
         members.globals.forEach(function(g) {
             if ( g.kind !== 'typedef' && !hasOwnProp.call(seen, g.longname) ) {
-                globalNav += '<li>' + linkto(g.longname, g.name, packageVersion) + '</li>';
+                globalNav += '<li>' + linkto(g.longname, g.name) + '</li>';
             }
             seen[g.longname] = true;
         });
 
         if (!globalNav) {
             // turn the heading into a link so you can actually get to the global page
-            nav += '<h3>' + linkto('global', 'Global', packageVersion) + '</h3>';
+            nav += '<h3>' + linkto('global', 'Global') + '</h3>';
         }
         else {
             nav += '<h3>Global</h3><ul>' + globalNav + '</ul>';
@@ -338,6 +339,8 @@ exports.publish = function(taffyData, opts, tutorials) {
     data = helper.prune(data);
     data.sort('longname, version, since');
     helper.addEventListeners(data);
+
+    //dumper.dump( find({kind: 'package'}) || [] );
 
     var sourceFiles = {};
     var sourceFilePaths = [];
@@ -484,10 +487,10 @@ exports.publish = function(taffyData, opts, tutorials) {
     attachModuleSymbols( find({ kind: ['class', 'function'], longname: {left: 'module:'} }),
         members.modules );
 
-    // only output pretty-printed source files if requested; do this before generating any other
-    // pages, so the other pages can link to the source files
-    if (conf['default'].outputSourceFiles) {
-        generateSourceFiles(sourceFiles);
+    // output pretty-printed source files by default; do this before generating any other pages, so
+    // that the other pages can link to the source files
+    if (!conf['default'] || conf['default'].outputSourceFiles !== false) {
+        generateSourceFiles(sourceFiles, opts.encoding);
     }
 
     if (members.globals.length) { generate('Global', [{kind: 'globalobj'}], globalUrl); }
@@ -509,8 +512,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     var mixins = taffy(members.mixins);
     var externals = taffy(members.externals);
 
-    for (var longname in helper.longnameToUrl) {
-        if ( hasOwnProp.call(helper.longnameToUrl, longname) ) {
+    Object.keys(helper.longnameToUrl).forEach(function(longname) {
             var myClasses = helper.find(classes, {longname: longname});
             if (myClasses.length) {
                 generate('ch.' + myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
@@ -534,24 +536,19 @@ exports.publish = function(taffyData, opts, tutorials) {
             var myExternals = helper.find(externals, {longname: longname});
             if (myExternals.length) {
                 generate(myExternals[0].name + ' (External)', myExternals, helper.longnameToUrl[longname]);
-            }
         }
-    }
+    });
 
     // TODO: move the tutorial functions to templateHelper.js
     function generateTutorial(title, tutorial, filename) {
         var tutorialData = {
-                title: title,
-                header: tutorial.title,
-                content: tutorial.parse(),
-                children: tutorial.children
-            },
-            newFileName;
+            title: title,
+            header: tutorial.title,
+            content: tutorial.parse(),
+            children: tutorial.children
+        };
 
-        newFileName = filename.replace('ch.', '');
-        newFileName = newFileName.toLowerCase();
-
-        var tutorialPath = path.join(outdir, newFileName),
+        var tutorialPath = path.join(outdir, filename.toLowerCase().replace('ch.', '')),
             html = view.render('tutorial.tmpl', tutorialData);
 
         // yes, you can use {@link} in tutorials too!

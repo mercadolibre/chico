@@ -22,9 +22,7 @@ exclude:
   - Gruntfile.js
   - libs
   - package.json
-
-include:
-  - .nojekyll
+  - bower.json
 
 gems:
   - jekyll-assets
@@ -35,5 +33,3 @@ assets:
     - assets/images
     - assets/js
     - assets/css
-
-#ATENCION: si no anda hay que desomcentar del bash_profile #source ~/.profile
