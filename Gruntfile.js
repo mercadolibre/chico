@@ -2,6 +2,7 @@ module.exports = function (grunt) {
     'use strict';
 
     var path = require('path');
+    var pkg = require('./bower_components/chico/bower.json');
     var JS = {};
 
     /*
@@ -87,20 +88,19 @@ module.exports = function (grunt) {
                 'src': JS.core.concat(JS.abilities).concat(JS.components).map(function(f) {return path.join('bower_components/chico', f)}),
                 'options': {
                     'template': './libs/doc-template',
-                    'destination': './doc/ui',
+                    'destination': './api-doc/ui',
                     'private': false
                 }
             },
             mobile: {
-                'src': JS.core.concat(JS.abilities).concat(JS.components),
+                'src': JS.core.concat(JS.abilities).concat(JS.components).map(function(f) {return path.join('bower_components/chico', f)}),
                 'options': {
                     'template': './libs/doc-template',
-                    'destination': './doc/mobile',
+                    'destination': './api-doc/mobile',
                     'private': false
                 }
             }
         }
-
 
     });
 

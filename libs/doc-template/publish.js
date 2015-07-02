@@ -5,16 +5,18 @@ var template = require('jsdoc/template'),
     taffy = require('taffydb').taffy,
     handle = require('jsdoc/util/error').handle,
     helper = require('jsdoc/util/templateHelper'),
-    dumper = require('jsdoc/util/dumper'),
+    util = require('util'),
 
     htmlsafe = helper.htmlsafe,
-    linkto = helper.linkto,
+    longnameToUrl = helper.longnameToUrl,
     resolveAuthorLinks = helper.resolveAuthorLinks,
-    scopeToPunc = helper.scopeToPunc,
     hasOwnProp = Object.prototype.hasOwnProperty,
     data,
     view,
-    outdir = env.opts.destination;
+    outdir = env.opts.destination,
+
+    // JSDoc does not permit to require JSON files directly, looks like it runs in Rhino env
+    pkg = JSON.parse(fs.readFileSync('./bower_components/chico/bower.json', 'utf-8'));
 
 
 function find(spec) {
@@ -57,6 +59,10 @@ function needsSignature(doclet) {
     }
 
     return needsSig;
+}
+
+function hasUrlPrefix(text) {
+    return (/^(http|ftp)s?:\/\//).test(text);
 }
 
 function addSignatureParams(f) {
@@ -121,10 +127,11 @@ function generate(title, docs, filename, resolveLinks) {
 
     var docData = {
         title: title,
-        docs: docs
+        docs: docs,
+        version: pkg.version
     };
 
-    var outpath = path.join(outdir, filename.toLowerCase().replace('ch.', '')),
+    var outpath = path.join(outdir, filename.toLowerCase()),
         html = view.render('container.tmpl', docData);
 
     if (resolveLinks) {
@@ -158,6 +165,99 @@ function generateSourceFiles(sourceFiles, encoding) {
 }
 
 /**
+ * Build an HTML link to the symbol with the specified longname. If the longname is not
+ * associated with a URL, this method simply returns the link text, if provided, or the longname.
+ *
+ * The `longname` parameter can also contain a URL rather than a symbol's longname.
+ *
+ * This method supports type applications that can contain one or more types, such as
+ * `Array.<MyClass>` or `Array.<(MyClass|YourClass)>`. In these examples, the method attempts to
+ * replace `Array`, `MyClass`, and `YourClass` with links to the appropriate types. The link text
+ * is ignored for type applications.
+ *
+ * @param {string} longname - The longname (or URL) that is the target of the link.
+ * @param {string=} linkText - The text to display for the link, or `longname` if no text is
+ * provided.
+ * @param {Object} options - Options for building the link.
+ * @param {string=} options.cssClass - The CSS class (or classes) to include in the link's `<a>`
+ * tag.
+ * @param {string=} options.fragmentId - The fragment identifier (for example, `name` in
+ * `foo.html#name`) to append to the link target.
+ * @param {string=} options.linkMap - The link map in which to look up the longname.
+ * @param {boolean=} options.monospace - Indicates whether to display the link text in a monospace
+ * font.
+ * @return {string} The HTML link, or the link text if the link is not available.
+ */
+function buildLink(longname, linkText, options) {
+    //var catharsis = require('catharsis');
+
+    var classString = options.cssClass ? util.format(' class="%s"', options.cssClass) : '';
+    var fragmentString = options.fragmentId ? '#' + options.fragmentId : '';
+    var stripped;
+    var text;
+    var url;
+    var parsedType;
+
+    // handle cases like:
+    // @see <http://example.org>
+    // @see http://example.org
+    stripped = longname ? longname.replace(/^<|>$/g, '') : '';
+    if ( hasUrlPrefix(stripped) ) {
+        url = stripped;
+        text = linkText || stripped;
+    }
+    // handle complex type expressions that may require multiple links
+    // (but skip anything that looks like an inline tag)
+    else if (longname && longname.search(/[<{(]/) !== -1 && /\{\@.+\}/.test(longname) === false) {
+        parsedType = parseType(longname);
+        return stringifyType(parsedType, options.cssClass, options.linkMap);
+    }
+    else {
+        url = hasOwnProp.call(options.linkMap, longname) ? options.linkMap[longname] : '';
+        text = linkText || longname;
+    }
+
+    text = options.monospace ? '<code>' + text + '</code>' : text;
+
+    if (!url) {
+        return text;
+    }
+    else {
+        // Jekyll will process all .html files as directories with separate index.html file
+        url = '../' + url.toLowerCase().replace(/\.html$/, '/').replace(/\.html#/, '/#');
+
+        return util.format('<a href="%s%s"%s>%s</a>', url, fragmentString, classString, text);
+    }
+}
+
+/**
+ * Retrieve an HTML link to the symbol with the specified longname. If the longname is not
+ * associated with a URL, this method simply returns the link text, if provided, or the longname.
+ *
+ * The `longname` parameter can also contain a URL rather than a symbol's longname.
+ *
+ * This method supports type applications that can contain one or more types, such as
+ * `Array.<MyClass>` or `Array.<(MyClass|YourClass)>`. In these examples, the method attempts to
+ * replace `Array`, `MyClass`, and `YourClass` with links to the appropriate types. The link text
+ * is ignored for type applications.
+ *
+ * @param {string} longname - The longname (or URL) that is the target of the link.
+ * @param {string=} linkText - The text to display for the link, or `longname` if no text is
+ * provided.
+ * @param {string=} cssClass - The CSS class (or classes) to include in the link's `<a>` tag.
+ * @param {string=} fragmentId - The fragment identifier (for example, `name` in `foo.html#name`) to
+ * append to the link target.
+ * @return {string} The HTML link, or a plain-text string if the link is not available.
+ */
+function linkto(longname, linkText, cssClass, fragmentId) {
+    return buildLink(longname, linkText, {
+        cssClass: cssClass,
+        fragmentId: fragmentId,
+        linkMap: longnameToUrl
+    });
+};
+
+/**
  * Look for classes or functions with the same name as modules (which indicates that the module
  * exports only that class or function), then attach the classes or functions to the `module`
  * property of the appropriate module doclets. The name of each class or function is also updated
@@ -184,6 +284,38 @@ function attachModuleSymbols(doclets, modules) {
     });
 }
 
+function linktoTutorial(longName, name) {
+    return tutoriallink(name);
+}
+
+function linktoExternal(longName, name) {
+    return linkto(longName, name.replace(/(^"|"$)/g, ''));
+}
+
+function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
+    var nav = '';
+
+    if (items.length) {
+        var itemsNav = '';
+
+        items.forEach(function(item) {
+            if ( !hasOwnProp.call(item, 'longname') ) {
+                itemsNav += '<li>' + linktoFn('', item.name) + '</li>';
+            }
+            else if ( !hasOwnProp.call(itemsSeen, item.longname) ) {
+                itemsNav += '<li>' + linktoFn(item.longname, item.name.replace(/^module:/, '')) + '</li>';
+                itemsSeen[item.longname] = true;
+            }
+        });
+
+        if (itemsNav !== '') {
+            nav += '<h2>' + itemHeading + '</h2><ul>' + itemsNav + '</ul>';
+        }
+    }
+
+    return nav;
+}
+
 /**
  * Create the navigation sidebar.
  * @param {object} members The members that will be used to create the sidebar.
@@ -200,92 +332,16 @@ function attachModuleSymbols(doclets, modules) {
 function buildNav(members) {
     var nav = '',
         seen = {},
-        classNav = '',
+        seenTutorials = {},
         globalNav = '';
 
-    if (members.modules.length) {
-        nav += '<h2>Modules</h2><ul>';
-        members.modules.forEach(function(m) {
-            if ( !hasOwnProp.call(seen, m.longname) ) {
-                nav += '<li>'+linkto(m.longname, m.name)+'</li>';
-            }
-            seen[m.longname] = true;
-        });
-
-        nav += '</ul>';
-    }
-
-    if (members.externals.length) {
-        nav += '<h2>Externals</h2><ul>';
-        members.externals.forEach(function(e) {
-            if ( !hasOwnProp.call(seen, e.longname) ) {
-                nav += '<li>'+linkto( e.longname, e.name.replace(/(^"|"$)/g, '') )+'</li>';
-            }
-            seen[e.longname] = true;
-        });
-
-        nav += '</ul>';
-    }
-
-    if (members.classes.length) {
-        members.classes.forEach(function(c) {
-            if ( !hasOwnProp.call(seen, c.longname) ) {
-                classNav += '<li>'+linkto(c.longname, c.name)+'</li>';
-            }
-            seen[c.longname] = true;
-        });
-
-        if (classNav !== '') {
-            nav += '<h2>Components</h2><ul>';
-            nav += classNav;
-            nav += '</ul>';
-        }
-    }
-
-    // if (members.events.length) {
-    //     nav += '<h3>Events</h3><ul>';
-    //     members.events.forEach(function(e) {
-    //         if ( !hasOwnProp.call(seen, e.longname) ) {
-    //             nav += '<li>'+linkto(e.longname, e.name)+'</li>';
-    //         }
-    //         seen[e.longname] = true;
-    //     });
-
-    //     nav += '</ul>';
-    // }
-
-    if (members.namespaces.length) {
-        nav += '<h2>Namespaces</h2><ul>';
-        members.namespaces.forEach(function(n) {
-            if ( !hasOwnProp.call(seen, n.longname) ) {
-                nav += '<li>'+linkto(n.longname, n.name)+'</li>';
-            }
-            seen[n.longname] = true;
-        });
-
-        nav += '</ul>';
-    }
-
-    if (members.mixins.length) {
-        nav += '<h2>Mixins</h2><ul>';
-        members.mixins.forEach(function(m) {
-            if ( !hasOwnProp.call(seen, m.longname) ) {
-                nav += '<li>'+linkto(m.longname, m.name)+'</li>';
-            }
-            seen[m.longname] = true;
-        });
-
-        nav += '</ul>';
-    }
-
-    if (members.tutorials.length) {
-        nav += '<h2>Tutorials</h2><ul>';
-        members.tutorials.forEach(function(t) {
-            nav += '<li>'+tutoriallink(t.name)+'</li>';
-        });
-
-        nav += '</ul>';
-    }
+    nav += buildMemberNav(members.modules, 'Modules', seen, linkto);
+    nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
+    nav += buildMemberNav(members.classes, 'Classes', seen, linkto);
+    // nav += buildMemberNav(members.events, 'Events', seen, linkto);
+    nav += buildMemberNav(members.namespaces, 'Namespaces', seen, linkto);
+    nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
+    nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial);
 
     if (members.globals.length) {
         members.globals.forEach(function(g) {
@@ -339,8 +395,6 @@ exports.publish = function(taffyData, opts, tutorials) {
     data = helper.prune(data);
     data.sort('longname, version, since');
     helper.addEventListeners(data);
-
-    //dumper.dump( find({kind: 'package'}) || [] );
 
     var sourceFiles = {};
     var sourceFilePaths = [];
@@ -548,7 +602,7 @@ exports.publish = function(taffyData, opts, tutorials) {
             children: tutorial.children
         };
 
-        var tutorialPath = path.join(outdir, filename.toLowerCase().replace('ch.', '')),
+        var tutorialPath = path.join(outdir, filename.toLowerCase()),
             html = view.render('tutorial.tmpl', tutorialData);
 
         // yes, you can use {@link} in tutorials too!
