@@ -74,7 +74,6 @@
     }
 
     var document = window.document,
-        body = document.body,
         // Inheritance
         parent = ch.util.inherits(Popover, ch.Component),
         shownbyEvent = {
@@ -418,7 +417,7 @@
         // Do it before set content because when content sets, it triggers the position refresh
         this.container.style.zIndex = (ch.util.zIndex += 1);
 
-        body.appendChild(this.container);
+        document.body.appendChild(this.container);
 
         // Open the collapsible
         this._show();

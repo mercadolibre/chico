@@ -74,7 +74,6 @@
     }
 
     var document = window.document,
-        body = document.body,
         underlay = (function () {
             var dummyElement = document.createElement('div');
             dummyElement.innerHTML = '<div class="ch-underlay" tabindex="-1"></div>';
@@ -127,7 +126,7 @@
 
         underlay.style.zIndex = ch.util.zIndex;
 
-        body.appendChild(underlay);
+        document.body.appendChild(underlay);
 
         function showCallback(e) {
             cl.remove(fxName + '-enter-active');

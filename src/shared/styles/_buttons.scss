@@ -31,7 +31,9 @@ button:focus {
 /* Colors */
 .ch-btn,
 .ch-btn:focus,
-.ch-btn:visited {
+.ch-btn:visited,
+/* Higher specificity is necessary for link buttons to override the color of a:link */
+a.ch-btn {
     background-color: $btn-primary-bg-color;
     @include background-image(linear-gradient($btn-primary-bg-color, $btn-primary-bg-color-secondary));
     box-shadow: $btn-primary-box-shadow;
@@ -41,7 +43,9 @@ button:focus {
 
 .ch-btn-skin,
 .ch-btn-skin:focus,
-.ch-btn-skin:visited {
+.ch-btn-skin:visited,
+/* Higher specificity is necessary for link buttons to override the color of a:link */
+a.ch-btn-skin {
     background-color: $btn-secondary-bg-color;
     @include background-image(linear-gradient($btn-secondary-bg-color, $btn-secondary-bg-color-secondary));
     border: $btn-secondary-border;
