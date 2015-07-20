@@ -2080,13 +2080,6 @@ var ch = function(selector, context) {
         document = window.document,
 
         /**
-         * Reference to the HTMLBodyElement.
-         * @private
-         * @type {HTMLBodyElement}
-         */
-        body = document.body,
-
-        /**
          * Reference to the HTMLElement.
          * @private
          * @type {HTMLhtmlElement}
@@ -6911,7 +6904,6 @@ ch.factory = function (Klass) {
     }
 
     var document = window.document,
-        body = document.body,
         // Inheritance
         parent = ch.util.inherits(Popover, ch.Component),
         shownbyEvent = {
@@ -7255,7 +7247,7 @@ ch.factory = function (Klass) {
         // Do it before set content because when content sets, it triggers the position refresh
         this.container.style.zIndex = (ch.util.zIndex += 1);
 
-        body.appendChild(this.container);
+        document.body.appendChild(this.container);
 
         // Open the collapsible
         this._show();
@@ -7977,7 +7969,6 @@ ch.factory = function (Klass) {
     }
 
     var document = window.document,
-        body = document.body,
         underlay = (function () {
             var dummyElement = document.createElement('div');
             dummyElement.innerHTML = '<div class="ch-underlay" tabindex="-1"></div>';
@@ -8030,7 +8021,7 @@ ch.factory = function (Klass) {
 
         underlay.style.zIndex = ch.util.zIndex;
 
-        body.appendChild(underlay);
+        document.body.appendChild(underlay);
 
         function showCallback(e) {
             cl.remove(fxName + '-enter-active');

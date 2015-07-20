@@ -99,7 +99,7 @@
 
                 //reset to 0 on bodyready, if needed
                 var bodycheck = setInterval(function () {
-                    if(body) {
+                    if(document.body) {
                         clearInterval(bodycheck);
                         ch.util.MBP.BODY_SCROLL_TOP = scrollTop;
                         ch.util.MBP.hideUrlBar();

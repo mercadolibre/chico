@@ -69,13 +69,6 @@
         document = window.document,
 
         /**
-         * Reference to the HTMLBodyElement.
-         * @private
-         * @type {HTMLBodyElement}
-         */
-        body = document.body,
-
-        /**
          * Reference to the HTMLElement.
          * @private
          * @type {HTMLhtmlElement}
