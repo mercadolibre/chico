@@ -37,15 +37,14 @@
     "History.md",
     "package.json"
   ],
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "bourbon": "*",
     "mesh": "https://raw.githubusercontent.com/mercadolibre/mesh/master/dist/mesh.css",
     "jasmine-core": "1.3.x",
     "IE8": "https://github.com/WebReflection/ie8.git",
     "es5-shim": "~4.1.1",
-    "es6-promise": "~2.1.0"
+    "es6-promise": "~2.1.0",
+    "fetch-compat": "~1.0.1"
   }
 }

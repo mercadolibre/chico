@@ -9,7 +9,7 @@ var JS = {},
  */
 JS.polyfills = [
     "bower_components/es6-promise/promise.js",
-    "src/shared/scripts/polyfills/fetch.js",
+    "bower_components/fetch-compat/fetch.js",
     "src/shared/scripts/polyfills/pointerEvents.js"
 ];
 
