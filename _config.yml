@@ -2,13 +2,15 @@
 title: Chico UI
 email: chico@mercadolibre.com
 description: "A collection of easy-to-use UI components"
-baseurl: "/chico"
+baseurl: ""
 twitter_username: chicoui
 github_username:  chicoui
 
 # Build settings
 markdown: kramdown
 permalink: pretty
+
+source: site
 
 # The folder destination where Jekyll will write files
 destination: _site/
@@ -17,12 +19,15 @@ destination: _site/
 encoding: utf-8
 
 exclude:
-  - node_modules
-  - bower_components
-  - Gruntfile.js
-  - libs
-  - package.json
-  - bower.json
+  - assets
+  - css
+  - js
+
+include:
+  - .nojekyll
+
+keep_files:
+  - "assets/assets"
 
 gems:
   - jekyll-assets
@@ -30,6 +35,9 @@ gems:
 assets:
   gzip: false
   sources:
-    - assets/images
-    - assets/js
-    - assets/css
+    - ../bower_components/chico/dist
+    - assets
+    - css
+    - js
+
+#  prefix: "/assets"

@@ -4,7 +4,4 @@
 .idea
 node_modules/
 bower_components/
-doc/
-api-doc/
-dist/
 _site/

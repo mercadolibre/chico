@@ -15,11 +15,11 @@ body {
 	padding-bottom: 0;
 }
 
-h1 {
+.chico-head h1 {
 	font-size: 3.1em;
 	line-height: 1em;
 	margin: 10px 0;
-	font-weight: 800;
+	font-weight: 700;
 }
 
 h2 {

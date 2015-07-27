@@ -1,6 +1,6 @@
 {
   "name": "chico",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Chico UI is a free and open source collection of easy-to-use web components for developers and designers.",
   "author": "<chico@mercadolibre.com>",
   "contributors": [
@@ -17,28 +17,10 @@
       "email": "lean8086@gmail.com"
     }
   ],
-  "scripts": {
-    "start": "node ./app"
-  },
   "repository": {
-    "type": "git",
     "url": "https://github.com/mercadolibre/chico.git"
   },
   "dependencies": {},
-  "devDependencies": {
-    "ejs": "*",
-    "express": "3.x",
-    "grunt": "~0.4.1",
-    "grunt-contrib-clean": "0.4.1",
-    "grunt-contrib-concat": "0.3.0",
-    "grunt-contrib-copy": "^0.6.0",
-    "grunt-contrib-cssmin": "0.6.1",
-    "grunt-contrib-uglify": "0.2.2",
-    "grunt-gh-pages": "^0.9.1",
-    "grunt-jsdoc": "~0.4.0",
-    "grunt-jslint": "0.2.6",
-    "grunt-text-replace": "~0.3.11"
-  },
   "license": "MIT",
   "engine": "node >= 0.8.6"
 }

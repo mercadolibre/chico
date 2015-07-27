@@ -7,14 +7,13 @@
     <meta http-equiv="cleartype" content="on"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
-    <link rel="shortcut icon" href="http://static.mlstatic.com/org-img/ui/ml/favicon/favicon-1.0.0.ico"/>
+    <link rel="shortcut icon" href="{% asset_path ninja.ico %}">
 
     <!-- Font -->
-    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/300.css">
-    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/700.css">
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
 
-    <!-- Chico HTTP -->
-    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.1.1/chico.min.css"/>
+    <!-- Chico -->
+    {% stylesheet ui/chico %}
 
     {% stylesheet mesh.min %}
     {% stylesheet base__small %}

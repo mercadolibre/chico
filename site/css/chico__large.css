@@ -6,10 +6,6 @@
 /* Chico
 ---------------------------------------------------------------*/
 
-h1 {
-	font-size: 60px;
-}
-
 .ml-wrapper {
 	padding-bottom: 0;
 }
@@ -26,18 +22,6 @@ section {
 	max-width: 800px;
 	margin: auto;
 }
-
-.chico-bottom .mesh-m-6 {
-	float: none;
-	display: inline-block;
-	vertical-align: middle;
-}
-
-.chico-bottom .chico-box-circle {
-	float: right;
-	margin-right: 20px;
-}
-
 
 
 /* Navigation

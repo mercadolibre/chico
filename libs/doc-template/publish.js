@@ -27,6 +27,7 @@ function tutoriallink(tutorial) {
     return helper.toTutorial(tutorial, null, { tag: 'em', classname: 'disabled', prefix: 'Tutorial: ' });
 }
 
+
 function getAncestorLinks(doclet) {
     return helper.getAncestorLinks(data, doclet);
 }
@@ -442,16 +443,6 @@ exports.publish = function(taffyData, opts, tutorials) {
         outdir = path.join(outdir, packageInfo.name, packageInfo.version);
     }
     fs.mkPath(outdir);
-
-    // copy the template's static files to outdir
-    var fromDir = path.join(templatePath, 'static');
-    var staticFiles = fs.ls(fromDir, 3);
-
-    staticFiles.forEach(function(fileName) {
-        var toDir = fs.toDir( fileName.replace(fromDir, outdir) );
-        fs.mkPath(toDir);
-        fs.copyFileSync(fileName, toDir);
-    });
 
     // copy user-specified static files to outdir
     var staticFilePaths;
