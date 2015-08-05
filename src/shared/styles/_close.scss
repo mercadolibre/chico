@@ -8,7 +8,7 @@
 .ch-close:visited,
 .ch-close:focus {
   background-color: $close-button-bg-color;
-  @include background-image(linear-gradient(to bottom, transparent 15%, rgba(100, 100, 100, 0.1) 100%));
+  @include complex-background(to bottom, transparent 15%, rgba(100, 100, 100, 0.1) 100%);
   border: $close-button-border;
   border-radius: $close-button-border-radius;
   cursor: $close-button-cursor;
@@ -29,8 +29,7 @@
 
 .ch-close:active {
   color: $close-button-active-text-color;
-  background-color: $close-button-active-bg-color;
-  @include background-image(linear-gradient($close-button-active-bg-color, $close-button-active-bg-color-secondary));
+  @include complex-background($close-button-active-bg-color, $close-button-active-bg-color-secondary);
 }
 
 .ch-close:before {
@@ -48,6 +47,6 @@
 .ch-close:hover {
   color: $close-button-focus-hover-text-color;
   background-color: $close-button-focus-hover-bg-color;
-  @include background-image(linear-gradient($close-button-focus-hover-bg-color, $close-button-focus-hover-bg-color-secondary));
+  @include complex-background($close-button-focus-hover-bg-color, $close-button-focus-hover-bg-color-secondary);
   text-decoration: none;
 }
