@@ -8,8 +8,7 @@
     display: inline-block;
 
     caption {
-        background-color: $calendar-title-bg-color;
-        @include background-image(linear-gradient($main-neutral-color, $calendar-title-bg-color));
+        @include complex-background($main-neutral-color, $calendar-title-bg-color);
         font-size: $calendar-title-text-size;
         line-height: $calendar-title-line-heigth;
         text-shadow: $calendar-title-shadow;

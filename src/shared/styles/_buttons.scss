@@ -34,8 +34,7 @@ button:focus {
 .ch-btn:visited,
 /* Higher specificity is necessary for link buttons to override the color of a:link */
 a.ch-btn {
-    background-color: $btn-primary-bg-color;
-    @include background-image(linear-gradient($btn-primary-bg-color, $btn-primary-bg-color-secondary));
+    @include complex-background($btn-primary-bg-color, $btn-primary-bg-color-secondary);
     box-shadow: $btn-primary-box-shadow;
     border: $btn-primary-border;
     color: $btn-primary-text-color;
@@ -46,8 +45,7 @@ a.ch-btn {
 .ch-btn-skin:visited,
 /* Higher specificity is necessary for link buttons to override the color of a:link */
 a.ch-btn-skin {
-    background-color: $btn-secondary-bg-color;
-    @include background-image(linear-gradient($btn-secondary-bg-color, $btn-secondary-bg-color-secondary));
+    @include complex-background($btn-secondary-bg-color, $btn-secondary-bg-color-secondary);
     border: $btn-secondary-border;
     box-shadow: $btn-secondary-box-shadow;
     color: $btn-secondary-text-color;
@@ -62,28 +60,24 @@ a.ch-btn-skin {
 
 /* Colors on Hover */
 .ch-btn:hover {
-    background-color: $btn-primary-box-hover-bg-color;
-    @include background-image(linear-gradient($btn-primary-box-hover-bg-color, $btn-primary-box-hover-bg-color-secondary));
+    @include complex-background($btn-primary-box-hover-bg-color, $btn-primary-box-hover-bg-color-secondary);
     box-shadow: $btn-primary-hover-box-shadow;
 }
 
 .ch-btn-skin:hover {
-    background-color: $btn-secondary-hover-bg-color;
-    @include background-image(linear-gradient($btn-secondary-hover-bg-color, $btn-secondary-hover-bg-color-secondary));
+    @include complex-background($btn-secondary-hover-bg-color, $btn-secondary-hover-bg-color-secondary);
     box-shadow: $btn-secondary-hover-box-shadow;
 }
 
 /* Colors on Active */
 .ch-btn:active {
-    background-color: $btn-primary-active-bg-color;
-    @include background-image(linear-gradient($btn-primary-active-bg-color, $btn-primary-active-bg-color-secondary));
+    @include complex-background($btn-primary-active-bg-color, $btn-primary-active-bg-color-secondary);
     box-shadow: $btn-primary-active-box-shadow;
     border-color: $btn-primary-active-border;
 }
 
 .ch-btn-skin:active {
-    background-color: $btn-secondary-active-bg-color;
-    @include background-image(linear-gradient($btn-secondary-active-bg-color, $btn-secondary-active-bg-color-secondary));
+    @include complex-background($btn-secondary-active-bg-color, $btn-secondary-active-bg-color-secondary);
     box-shadow: $btn-secondary-active-box-shadow;
     border-color: $btn-secondary-border-active;
 }
@@ -112,8 +106,7 @@ input.ch-btn-small::-moz-focus-inner {
 [class*="ch-btn"][disabled]:hover,
 [class*="ch-btn"][disabled]:active,
 [class*="ch-btn"][disabled]:focus {
-    background-color: $btn-disabled-bg-color;
-    @include background-image(linear-gradient($btn-disabled-bg-color, $btn-disabled-bg-color-secondary));
+    @include complex-background($btn-disabled-bg-color, $btn-disabled-bg-color-secondary);
     border: $btn-disabled-border !important; /* important for links */
     box-shadow: $btn-disabled-box-shadow inset;
     color: $btn-disabled-text-color !important; /* important for links */

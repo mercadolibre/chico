@@ -546,6 +546,7 @@ img {
 .ch-close:hover {
   color: #fff;
   background-color: #fA5900;
+  background-color: #fA5900;
   background-image: -webkit-linear-gradient(#fA5900, #ca0c02);
   background-image: linear-gradient(#fA5900, #ca0c02);
   text-decoration: none;
@@ -697,7 +698,7 @@ a:focus {
 }
 
 .ch-box-warn {
-  background-color: #fff0ba;
+  background-color: #fff3c8;
   color: #aa8749;
 }
 
@@ -1462,7 +1463,7 @@ table {
 /* Trigger Active */
 .ch-dropdown-trigger-on,
 .ch-dropdown-trigger-on:hover {
-  background-color: #7ab6dc;
+  background-color: #a2c9e1;
   background-image: -webkit-linear-gradient(#a2c9e1, #7ab6dc);
   background-image: linear-gradient(#a2c9e1, #7ab6dc);
   box-shadow: 0 1px 6px rgba(71, 98, 116, 0.6);

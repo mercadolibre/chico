@@ -48,8 +48,7 @@ table {
 }
 
 .ch-datagrid-controls th {
-    background-color: $table-header-controls-bg-color;
-    @include background-image(linear-gradient($table-header-controls-bg-color, $table-header-controls-bg-color-secondary));
+    @include complex-background($table-header-controls-bg-color, $table-header-controls-bg-color-secondary);
     cursor: pointer;
 
     &:hover {
