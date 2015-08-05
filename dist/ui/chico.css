@@ -538,6 +538,7 @@ p + p {
 .ch-close:hover {
   color: #fff;
   background-color: #fA5900;
+  background-color: #fA5900;
   background-image: -webkit-linear-gradient(#fA5900, #ca0c02);
   background-image: linear-gradient(#fA5900, #ca0c02);
   text-decoration: none;
@@ -630,7 +631,7 @@ p + p {
 }
 
 .ch-box-warn {
-  background-color: #fff0ba;
+  background-color: #fff3c8;
   color: #aa8749;
 }
 
@@ -892,7 +893,6 @@ input.ch-btn-small::-moz-focus-inner {
 .ch-btn:focus {
   line-height: 20px;
   padding: 5px 10px;
-  margin: 0 7px 0 0;
 }
 
 /* Large h: ~39px */
@@ -975,7 +975,7 @@ a.ch-btn-large:focus {
   display: inline-block;
 }
 .ch-calendar caption {
-  background-color: #f0f0f0;
+  background-color: #fff;
   background-image: -webkit-linear-gradient(#fff, #f0f0f0);
   background-image: linear-gradient(#fff, #f0f0f0);
   font-size: 13px;
@@ -1443,7 +1443,7 @@ table {
 /* Trigger Active */
 .ch-dropdown-trigger-on,
 .ch-dropdown-trigger-on:hover {
-  background-color: #7ab6dc;
+  background-color: #a2c9e1;
   background-image: -webkit-linear-gradient(#a2c9e1, #7ab6dc);
   background-image: linear-gradient(#a2c9e1, #7ab6dc);
   box-shadow: 0 1px 6px rgba(71, 98, 116, 0.6);

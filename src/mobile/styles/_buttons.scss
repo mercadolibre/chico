@@ -9,8 +9,7 @@
 .ch-btn-action,
 .ch-btn-action:focus,
 .ch-btn-action:visited {
-    background-color: $btn-action-bg-color;
-    @include background-image(linear-gradient($btn-action-bg-color, $btn-action-bottom-bg-color));
+    @include complex-background($btn-action-bg-color, $btn-action-bottom-bg-color);
     border: 1px solid $btn-action-border;
     box-shadow: $btn-action-box-shadow;
     color: $btn-action-color;
@@ -20,13 +19,11 @@
 
 /* Colors on Hover */
 .ch-btn-action:hover {
-    background-color: $btn-action-hover-bg-color;
-    @include background-image(linear-gradient($btn-action-hover-bg-color, $btn-action-hover-bottom-bg-color));
+    @include complex-background($btn-action-hover-bg-color, $btn-action-hover-bottom-bg-color);
 }
 
 .ch-btn-action:active {
-    background-color: $btn-action-active-bg-color;
-    @include background-image(linear-gradient($btn-action-active-bg-color, $btn-action-active-bottom-bg-color));    
+    @include complex-background($btn-action-active-bg-color, $btn-action-active-bottom-bg-color);
     border-color: $btn-action-border-active;
     box-shadow: $btn-action-active-box-shadow;
 }
