@@ -54,8 +54,7 @@
 /* Trigger Active */
 .ch-dropdown-trigger-on,
 .ch-dropdown-trigger-on:hover {
-    background-color: $trigger-active-bg-color;
-    @include background-image(linear-gradient($trigger-active-bg-color-top, $trigger-active-bg-color));
+    @include complex-background($trigger-active-bg-color-top, $trigger-active-bg-color);
     box-shadow: $trigger-active-box-shadow;
     border-radius: $trigger-active-border-radius;
 }
