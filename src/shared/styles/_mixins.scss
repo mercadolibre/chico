@@ -66,7 +66,7 @@
 
     @if length($colors) == 2 {
         $secondary-color: nth($colors, 2);
-        @if $secondary-color {
+        @if $secondary-color and $primary-color != $secondary-color{
             @include background-image(linear-gradient($primary-color, $secondary-color));
         }
     } @else if length($colors) > 2 {
