@@ -6,7 +6,6 @@
      * @memberof ch
      * @constructor
      * @augments ch.Layer
-     * @requires ch.OnImagesLoads
      * @param {String} selector A CSS Selector to create an instance of ch.Zoom.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
@@ -181,12 +180,12 @@
         this._zoomed = new window.Image();
 
         // Assign event handlers to the original image
-        ch.onImagesLoads(this._original, function () {
+        onImagesLoads(this._original, function () {
             that._originalLoaded();
         });
 
         // Assign event handlers to the zoomed image
-        ch.onImagesLoads(this._zoomed, function () {
+        onImagesLoads(this._zoomed, function () {
             that._zoomedLoaded();
         });
 
@@ -496,5 +495,48 @@
     };
 
     ch.factory(Zoom, parent._normalizeOptions);
+
+
+    /**
+     * Executes a callback function when the images of a query selection loads.
+     * @private
+     * @param {HTMLImageElement} image An image or a collection of images.
+     * @param {Function} [callback] The handler the component will fire after the images loads.
+     *
+     * @example
+     * onImagesLoads(HTMLImageElement, function () {
+     *     console.log('The size of the loaded image is ' + this.width);
+     * });
+     */
+    function onImagesLoads(image, callback) {
+        var images;
+
+        if (Array.isArray(image)) {
+            images = image;
+        } else {
+            images = [image];
+        }
+
+        images.forEach(function (image) {
+            image.addEventListener('load', function onImgLoad() {
+                var len = images.length;
+
+                window.setTimeout(function () {
+                    if (--len <= 0) {
+                        callback.call(image);
+                    }
+                }, 200);
+
+                image.removeEventListener('load', onImgLoad);
+            }, false);
+
+            if (image.complete || image.complete === undefined) {
+                var src = image.src;
+                // Data uri fix bug in web-kit browsers
+                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                image.src = src;
+            }
+        });
+    }
 
 }(this, this.ch));

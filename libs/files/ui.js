@@ -42,7 +42,6 @@ JS.abilities = [
  * JS: Components
  */
 JS.components = [
-    "src/shared/scripts/onImagesLoads.js",
     "src/shared/scripts/Component.js",
     "src/shared/scripts/Form.js",
     "src/shared/scripts/Condition.js",
