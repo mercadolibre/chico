@@ -205,7 +205,7 @@
 
             if (typeof content === 'string') {
                 // Case 1: AJAX call
-                if (ch.util.isUrl(content)) {
+                if ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(content)) {
                     getAsyncContent(content, options);
                 // Case 2: Plain text
                 } else {

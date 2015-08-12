@@ -1,13 +1,4 @@
 /*!
- * Chico UI v2.0.0-alpha.2
- * http://chico-ui.com.ar/
- *
- * Copyright (c) 2015, MercadoLibre.com
- * Released under the MIT license.
- * http://chico-ui.com.ar/license
- */
-
-/*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
@@ -2130,92 +2121,6 @@ ch.util = {
         }()),
 
         /**
-         * Checks if the url given is right to load content.
-         *
-         * @memberof ch.util
-         * @param {String} url The url to be checked.
-         * @returns {Boolean}
-         * @example
-         * ch.util.isUrl('www.chico-ui.com.ar'); // true
-         */
-        'isUrl': function (url) {
-            if (url === undefined || typeof url !== 'string') {
-                return false;
-            }
-
-            /*
-            # RegExp
-
-            https://github.com/mercadolibre/chico/issues/579#issuecomment-5206670
-
-            ```javascript
-            1   1.1                        1.2   1.3  1.4       1.5       1.6                   2                      3               4                    5
-            /^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?))+)((\?)(\w+=(\w?)+(&?))+)?$/
-            ```
-
-            ## Description
-            1. Checks for the start of the URL
-                1. if starts with a protocols followed by :// Example: file://chico
-                2. if start with www followed by . (dot) Example: www.chico
-                3. if starts with ./
-                4. if starts with ../ and can repeat one or more times
-                5. if start with double slash // Example: //chico.server
-                6. if start with an ip address
-            2. Checks the domain
-              letters, dash followed by a dot or by a slash. All this group can repeat one or more times
-            3. Ports
-             Zero or one time
-            4. Idem to point two
-            5. QueryString pairs
-
-            ## Allowed URLs
-            1. http://www.mercadolibre.com
-            2. http://mercadolibre.com/
-            3. http://mercadolibre.com:8080?hola=
-            4. http://mercadolibre.com/pepe
-            5. http://localhost:2020
-            6. http://192.168.1.1
-            7. http://192.168.1.1:9090
-            8. www.mercadolibre.com
-            9. /mercadolibre
-            10. /mercadolibre/mercado
-            11. /tooltip?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
-            12. ./pepe
-            13. ../../mercado/
-            14. www.mercadolibre.com?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
-            15. www.mercado-libre.com
-            16. http://ui.ml.com:8080/ajax.html
-
-            ## Forbiden URLs
-            1. http://
-            2. http://www&
-            3. http://hola=
-            4. /../../mercado/
-            5. /mercado/../pepe
-            6. mercadolibre.com
-            7. mercado/mercado
-            8. localhost:8080/mercadolibre
-            9. pepe/../pepe.html
-            10. /pepe/../pepe.html
-            11. 192.168.1.1
-            12. localhost:8080/pepe
-            13. localhost:80-80
-            14. www.mercadolibre.com?siteId=MLA&categId=1744&buyi ngMode=buy_it_now&listingTypeId=bronze
-            15. `<asd src="www.mercadolibre.com">`
-            16. Mercadolibre.................
-            17. /laksjdlkasjd../
-            18. /..pepe..
-            19. /pepe..
-            20. pepe:/
-            21. /:pepe
-            22. dadadas.pepe
-            23. qdasdasda
-            24. http://ui.ml.com:8080:8080/ajax.html
-            */
-            return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(url));
-        },
-
-        /**
          * Detects an Internet Explorer and returns the version if so.
          *
          * @memberof ch.util
@@ -2448,37 +2353,6 @@ ch.util = {
 
             return parent;
         },
-
-        /**
-         * Reference to the vendor prefix of the current browser.
-         *
-         * @constant
-         * @memberof ch.util
-         * @type {String}
-         * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
-         * @example
-         * ch.util.VENDOR_PREFIX === 'webkit';
-         */
-        'VENDOR_PREFIX': (function () {
-
-            var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
-                styleDeclaration = document.getElementsByTagName('script')[0].style,
-                prop;
-
-            for (prop in styleDeclaration) {
-                if (regex.test(prop)) {
-                    return prop.match(regex)[0].toLowerCase();
-                }
-            }
-
-            // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
-            // However (prop in style) returns the correct value, so we'll have to test for
-            // the precence of a specific property
-            if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
-            if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
-
-            return '';
-        }()),
 
         /**
          * zIndex values.
@@ -3566,7 +3440,7 @@ ch.factory = function (Klass) {
 
             if (typeof content === 'string') {
                 // Case 1: AJAX call
-                if (ch.util.isUrl(content)) {
+                if ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(content)) {
                     getAsyncContent(content, options);
                 // Case 2: Plain text
                 } else {
@@ -4653,52 +4527,6 @@ ch.factory = function (Klass) {
 
 }(this, this.ch));
 
-(function (window, ch) {
-    'use strict';
-
-    /**
-     * Executes a callback function when the images of a query selection loads.
-     * @memberof! ch
-     * @param {HTMLImageElement} image An image or a collection of images.
-     * @param {Function} [callback] The handler the component will fire after the images loads.
-     * @example
-     * new ch.onImagesLoads(HTMLImageElement, function () {
-     *     console.log('The size of the loaded image is ' + this.width);
-     * });
-     */
-    function onImagesLoads(image, callback) {
-        var images;
-
-        if (ch.util.isArray(image)) {
-            images = image;
-        } else {
-            images = [image];
-        }
-
-        images.forEach(function (image, i) {
-
-            ch.Event.addListenerOne(image, 'load', function () {
-                var len = images.length;
-
-                window.setTimeout(function () {
-                    if (--len <= 0) { callback.call(image); }
-                }, 200);
-            }, false);
-
-            if (image.complete || image.complete === undefined) {
-                var src = image.src;
-                // Data uri fix bug in web-kit browsers
-                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-                image.src = src;
-            }
-
-        });
-
-    }
-
-    ch.onImagesLoads = onImagesLoads;
-
-}(this, this.ch));
 (function (window, ch) {
     'use strict';
 
@@ -8267,7 +8095,6 @@ ch.factory = function (Klass) {
      * @memberof ch
      * @constructor
      * @augments ch.Layer
-     * @requires ch.OnImagesLoads
      * @param {String} selector A CSS Selector to create an instance of ch.Zoom.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
@@ -8442,12 +8269,12 @@ ch.factory = function (Klass) {
         this._zoomed = new window.Image();
 
         // Assign event handlers to the original image
-        ch.onImagesLoads(this._original, function () {
+        onImagesLoads(this._original, function () {
             that._originalLoaded();
         });
 
         // Assign event handlers to the zoomed image
-        ch.onImagesLoads(this._zoomed, function () {
+        onImagesLoads(this._zoomed, function () {
             that._zoomedLoaded();
         });
 
@@ -8757,6 +8584,49 @@ ch.factory = function (Klass) {
     };
 
     ch.factory(Zoom, parent._normalizeOptions);
+
+
+    /**
+     * Executes a callback function when the images of a query selection loads.
+     * @private
+     * @param {HTMLImageElement} image An image or a collection of images.
+     * @param {Function} [callback] The handler the component will fire after the images loads.
+     *
+     * @example
+     * onImagesLoads(HTMLImageElement, function () {
+     *     console.log('The size of the loaded image is ' + this.width);
+     * });
+     */
+    function onImagesLoads(image, callback) {
+        var images;
+
+        if (Array.isArray(image)) {
+            images = image;
+        } else {
+            images = [image];
+        }
+
+        images.forEach(function (image) {
+            image.addEventListener('load', function onImgLoad() {
+                var len = images.length;
+
+                window.setTimeout(function () {
+                    if (--len <= 0) {
+                        callback.call(image);
+                    }
+                }, 200);
+
+                image.removeEventListener('load', onImgLoad);
+            }, false);
+
+            if (image.complete || image.complete === undefined) {
+                var src = image.src;
+                // Data uri fix bug in web-kit browsers
+                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                image.src = src;
+            }
+        });
+    }
 
 }(this, this.ch));
 
@@ -10528,6 +10398,37 @@ ch.factory = function (Klass) {
         parent = ch.util.inherits(Carousel, ch.Component);
 
     /**
+     * Reference to the vendor prefix of the current browser.
+     *
+     * @private
+     * @constant
+     * @type {String}
+     * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
+     * @example
+     * VENDOR_PREFIX === 'webkit';
+     */
+    var VENDOR_PREFIX = (function () {
+
+        var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
+            styleDeclaration = document.getElementsByTagName('script')[0].style,
+            prop;
+
+        for (prop in styleDeclaration) {
+            if (regex.test(prop)) {
+                return prop.match(regex)[0].toLowerCase();
+            }
+        }
+
+        // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+        // However (prop in style) returns the correct value, so we'll have to test for
+        // the precence of a specific property
+        if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
+        if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
+
+        return '';
+    }());
+
+    /**
      * The name of the component.
      * @memberof! ch.Carousel.prototype
      * @type {String}
@@ -11175,8 +11076,8 @@ ch.factory = function (Klass) {
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform',
-            vendorTransformKey = ch.util.VENDOR_PREFIX ? ch.util.VENDOR_PREFIX + 'Transform' : null;
+        var transform = '-' + VENDOR_PREFIX + '-transform',
+            vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
         if (ch.support.transition) {

@@ -1,12 +1,3 @@
-/*!
- * Chico UI v2.0.0-alpha.2
- * http://chico-ui.com.ar/
- *
- * Copyright (c) 2015, MercadoLibre.com
- * Released under the MIT license.
- * http://chico-ui.com.ar/license
- */
-
 /**
  * Reset
  * @based on: Eric Meyer
@@ -1141,7 +1132,7 @@ a.ch-btn-large:focus {
   display: inline-block;
 }
 .ch-calendar caption {
-  background-color: #f0f0f0;
+  background-color: #fff;
   background-image: -webkit-linear-gradient(#fff, #f0f0f0);
   background-image: linear-gradient(#fff, #f0f0f0);
   font-size: 13px;
