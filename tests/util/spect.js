@@ -248,15 +248,6 @@ describe('Util', function () {
 
     });
 
-    describe('.VENDOR_PREFIX property', function () {
-
-        it('Should be defined and it should be a string', function () {
-            expect(util.VENDOR_PREFIX).toBeDefined();
-            expect(typeof util.VENDOR_PREFIX).toEqual('string');
-        });
-
-    });
-
     describe('.zIndex property', function () {
 
         it('Should be defined and it should be a number', function () {

@@ -70,6 +70,37 @@
         parent = ch.util.inherits(Carousel, ch.Component);
 
     /**
+     * Reference to the vendor prefix of the current browser.
+     *
+     * @private
+     * @constant
+     * @type {String}
+     * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
+     * @example
+     * VENDOR_PREFIX === 'webkit';
+     */
+    var VENDOR_PREFIX = (function () {
+
+        var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
+            styleDeclaration = document.getElementsByTagName('script')[0].style,
+            prop;
+
+        for (prop in styleDeclaration) {
+            if (regex.test(prop)) {
+                return prop.match(regex)[0].toLowerCase();
+            }
+        }
+
+        // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+        // However (prop in style) returns the correct value, so we'll have to test for
+        // the precence of a specific property
+        if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
+        if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
+
+        return '';
+    }());
+
+    /**
      * The name of the component.
      * @memberof! ch.Carousel.prototype
      * @type {String}
@@ -717,8 +748,8 @@
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform',
-            vendorTransformKey = ch.util.VENDOR_PREFIX ? ch.util.VENDOR_PREFIX + 'Transform' : null;
+        var transform = '-' + VENDOR_PREFIX + '-transform',
+            vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
         if (ch.support.transition) {
