@@ -64,7 +64,8 @@
         },
 
         'scaleFix': function () {
-            if (ch.util.MBP.viewportmeta && /iPhone|iPad|iPod/.test(userAgent) && !/Opera Mini/.test(userAgent)) {
+            var ua = navigator.userAgent;
+            if (ch.util.MBP.viewportmeta && /iPhone|iPad|iPod/.test(ua) && !/Opera Mini/.test(ua)) {
                 ch.util.MBP.viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=1.0, maximum-scale=1.0');
                 document.addEventListener('gesturestart', ch.util.MBP.gestureStart, false);
             }

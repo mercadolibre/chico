@@ -17,7 +17,7 @@ JS.polyfills = [
  * JS: Core
  */
 JS.core = [
-    "src/shared/scripts/helpers.js",
+    "src/shared/scripts/core.js",
     "src/shared/scripts/util.js",
     "src/shared/scripts/support.js",
     "src/shared/scripts/events.js",

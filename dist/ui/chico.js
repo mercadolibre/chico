@@ -1,4 +1,13 @@
 /*!
+ * Chico UI v2.0.0-alpha.2
+ * http://chico-ui.com.ar/
+ *
+ * Copyright (c) 2015, MercadoLibre.com
+ * Released under the MIT license.
+ * http://chico-ui.com.ar/license
+ */
+
+/*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
@@ -2021,6 +2030,8 @@
 	'use strict';
 
 var ch = function(selector, context) {
+            'use strict';
+
             if (!context) {
                 context = document;
             } else if (typeof context === 'string') {
@@ -2043,56 +2054,7 @@ var ch = function(selector, context) {
             }
 
             return context.querySelectorAll(selector);
-        },
-
-        /**
-         * Reference to the window.
-         * @private
-         * @type {Object}
-         */
-        window = window,
-
-        /**
-         * Reference to the navigator object.
-         * @private
-         * @type {Object}
-         */
-        navigator = window.navigator,
-
-        /**
-         * Reference to the userAgent.
-         * @private
-         * @type {String}
-         */
-        userAgent = navigator.userAgent,
-
-        /**
-         * Reference to the HTMLDocument.
-         * @private
-         * @type {Object}
-         */
-        document = window.document,
-
-        /**
-         * Reference to the HTMLElement.
-         * @private
-         * @type {HTMLhtmlElement}
-         */
-        html = document.documentElement,
-
-        /**
-         * Reference to the Object Contructor.
-         * @private
-         * @constructor
-         */
-        Object = window.Object,
-
-        /**
-         * Reference to the Array Contructor.
-         * @private
-         * @constructor
-         */
-        Array = window.Array;
+        };
 
 ch.util = {
 
@@ -2128,8 +2090,9 @@ ch.util = {
          * @returns {Boolean|Number}
          */
         'isMsie': function() {
-            return (/(msie|trident)/i).test(navigator.userAgent) ?
-                navigator.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+            var ua = navigator.userAgent;
+            return (/(msie|trident)/i).test(ua) ?
+                ua.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
         },
 
         /**
@@ -2151,7 +2114,7 @@ ch.util = {
 
             for (i; i < len; i += 1) {
 
-                if (ch.util.classList(html).contains('lt-ie10')) {
+                if (ch.util.classList(document.documentElement).contains('lt-ie10')) {
                     args[i].setAttribute('unselectable', 'on');
 
                 } else {
@@ -3049,7 +3012,7 @@ ch.factory = function (Klass) {
     };
 
     // Remove the no-js classname from html tag
-    ch.util.classList(html).remove('no-js');
+    ch.util.classList(document.documentElement).remove('no-js');
 
 	ch.version = '2.0.0-alpha.2';
 	window.ch = ch;

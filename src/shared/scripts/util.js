@@ -36,8 +36,9 @@
          * @returns {Boolean|Number}
          */
         'isMsie': function() {
-            return (/(msie|trident)/i).test(navigator.userAgent) ?
-                navigator.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+            var ua = navigator.userAgent;
+            return (/(msie|trident)/i).test(ua) ?
+                ua.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
         },
 
         /**
@@ -59,7 +60,7 @@
 
             for (i; i < len; i += 1) {
 
-                if (ch.util.classList(html).contains('lt-ie10')) {
+                if (ch.util.classList(document.documentElement).contains('lt-ie10')) {
                     args[i].setAttribute('unselectable', 'on');
 
                 } else {
