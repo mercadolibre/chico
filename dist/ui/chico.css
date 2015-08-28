@@ -486,6 +486,98 @@ p + p {
 }
 
 /**
+ * Headings
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  margin: 10px 0;
+}
+
+h1 {
+  font-size: 22px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 15px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+/**
+ * Box Headings
+ */
+[class*="ch-box"] h1,
+[class*="ch-box"] h2,
+[class*="ch-box"] h3,
+[class*="ch-box"] h4,
+[class*="ch-box"] h5,
+[class*="ch-box"] h6 {
+  margin-top: 0;
+}
+
+/**
+ * Links
+ */
+a,
+a:active,
+a:link {
+  color: #03b;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #809;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+/**
+ * Price
+ */
+.ch-price {
+  color: #900;
+  font-size: 16px;
+  font-weight: bold;
+}
+.ch-price sup {
+  font-size: 10px;
+  vertical-align: text-top;
+  line-height: 1em;
+}
+.ch-price span {
+  color: #999;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+/* IE */
+.lt-ie9 .ch-price sup {
+  font-size: 12px;
+}
+
+/**
  * Close button
  */
 .ch-close,
@@ -2646,98 +2738,6 @@ dl.ch-list dd {
   padding: 40px;
   box-shadow: 0 3px 14px #333;
   text-align: center;
-}
-
-/**
- * Headings
- */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: normal;
-  margin: 10px 0;
-}
-
-h1 {
-  font-size: 22px;
-}
-
-h2 {
-  font-size: 20px;
-}
-
-h3 {
-  font-size: 18px;
-}
-
-h4 {
-  font-size: 16px;
-}
-
-h5 {
-  font-size: 15px;
-}
-
-h6 {
-  font-size: 14px;
-}
-
-/**
- * Box Headings
- */
-[class*="ch-box"] h1,
-[class*="ch-box"] h2,
-[class*="ch-box"] h3,
-[class*="ch-box"] h4,
-[class*="ch-box"] h5,
-[class*="ch-box"] h6 {
-  margin-top: 0;
-}
-
-/**
- * Links
- */
-a,
-a:active,
-a:link {
-  color: #03b;
-  text-decoration: none;
-}
-
-a:visited {
-  color: #809;
-}
-
-a:hover,
-a:focus {
-  text-decoration: underline;
-}
-
-/**
- * Price
- */
-.ch-price {
-  color: #900;
-  font-size: 16px;
-  font-weight: bold;
-}
-.ch-price sup {
-  font-size: 10px;
-  vertical-align: text-top;
-  line-height: 1em;
-}
-.ch-price span {
-  color: #999;
-  font-size: 13px;
-  font-weight: normal;
-}
-
-/* IE */
-.lt-ie9 .ch-price sup {
-  font-size: 12px;
 }
 
 /**
