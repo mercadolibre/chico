@@ -5,43 +5,6 @@
     ch.util = {
 
         /**
-         * Returns true if an object is an array, false if it is not.
-         *
-         * @memberof ch.util
-         * @method
-         * @param {Object} obj The object to be checked.
-         * @returns {Boolean}
-         * @example
-         * ch.util.isArray([1, 2, 3]); // true
-         */
-        'isArray': (function () {
-            if (typeof Array.isArray === 'function') {
-                return Array.isArray;
-            }
-
-            return function (obj) {
-                if (obj === undefined) {
-                    throw new Error('"ch.util.isArray(obj)": It must receive a parameter.');
-                }
-
-                return (Object.prototype.toString.call(obj) === '[object Array]');
-            };
-        }()),
-
-        /**
-         * Detects an Internet Explorer and returns the version if so.
-         *
-         * @memberof ch.util
-         * @see From <a href="https://github.com/ded/bowser/blob/master/bowser.js">bowser</a>
-         * @returns {Boolean|Number}
-         */
-        'isMsie': function() {
-            var ua = navigator.userAgent;
-            return (/(msie|trident)/i).test(ua) ?
-                ua.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
-        },
-
-        /**
          * Adds CSS rules to disable text selection highlighting.
          *
          * @memberof ch.util
@@ -369,11 +332,11 @@
                         }
 
                         // Recurse if we're merging plain objects or arrays
-                        if (deep && copy && (ch.util.isPlainObject(copy) || (copyIsArray = ch.util.isArray(copy)) ) ) {
+                        if (deep && copy && (ch.util.isPlainObject(copy) || (copyIsArray = Array.isArray(copy)) ) ) {
 
                             if (copyIsArray) {
                                 copyIsArray = false;
-                                clone = src && ch.util.isArray(src) ? src : [];
+                                clone = src && Array.isArray(src) ? src : [];
 
                             } else {
                                 clone = src && ch.util.isPlainObject(src) ? src : {};

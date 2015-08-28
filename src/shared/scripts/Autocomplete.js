@@ -337,8 +337,12 @@
 
         // IE8 don't support the input event at all
         // IE9 is the only browser that doesn't fire the input event when characters are removed
+        var ua = navigator.userAgent;
+        var MSIE = (/(msie|trident)/i).test(ua) ?
+            ua.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+
         if (turn === 'on') {
-            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
+            if (!MSIE || MSIE > 9) {
                 ch.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
@@ -347,7 +351,7 @@
             }
         } else if (turn === 'off') {
             this.hide();
-            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
+            if (!MSIE || MSIE > 9) {
                 ch.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {

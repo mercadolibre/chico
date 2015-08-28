@@ -2,7 +2,7 @@
     'use strict';
 
     function normalizeOptions(options) {
-        if (typeof options === 'string' || ch.util.isArray(options)) {
+        if (typeof options === 'string' || Array.isArray(options)) {
             options = {
                 'selected': options
             };
@@ -271,7 +271,7 @@
             if (!selected) { return selected; }
 
             // Simple date selection
-            if (!ch.util.isArray(selected)) {
+            if (!Array.isArray(selected)) {
 
                 if (selected !== 'today') {
                     // Return date object and update currentDate
@@ -285,7 +285,7 @@
             } else {
                 selected.forEach(function (e, i){
                     // Simple date
-                    if (!ch.util.isArray(e)) {
+                    if (!Array.isArray(e)) {
                         selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
                     // Range
                     } else {
@@ -601,7 +601,7 @@
         yepnope = false;
 
         // Simple selection
-        if (!ch.util.isArray(this._dates.selected)) {
+        if (!Array.isArray(this._dates.selected)) {
             if (year === this._dates.selected.year && month === this._dates.selected.month && day === this._dates.selected.day) {
                 yepnope = true;
                 return yepnope;
@@ -611,7 +611,7 @@
         } else {
             this._dates.selected.forEach(function (e, i) {
                 // Simple date
-                if (!ch.util.isArray(e)) {
+                if (!Array.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {
                         yepnope = true;
                         return yepnope;
