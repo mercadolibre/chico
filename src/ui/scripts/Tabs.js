@@ -47,7 +47,10 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Tabs, ch.Component),
+    tiny.inherits(Tabs, ch.Component);
+
+    // Inheritance
+    var parent = Tabs.super_.prototype,
 
         location = window.location,
 
@@ -57,7 +60,6 @@
 
         // Regular expresion to get hash
         hashRegExp = new RegExp('\\#!?\\/?(.[^\\?|\\&|\\s]+)');
-
 
     function createMethods(method) {
         Tabs.prototype[method] = function (tab) {

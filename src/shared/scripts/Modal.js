@@ -73,6 +73,9 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Modal, ch.Popover);
+
     var document = window.document,
         underlay = (function () {
             var dummyElement = document.createElement('div');
@@ -80,8 +83,7 @@
 
             return dummyElement.querySelector('div');
         }()),
-        // Inheritance
-        parent = ch.util.inherits(Modal, ch.Popover);
+        parent = Modal.super_.prototype;
 
     /**
      * The name of the component.
@@ -103,7 +105,7 @@
      * @type {Object}
      * @private
      */
-    Modal.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Modal.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-modal ch-box-lite',
         '_ariaRole': 'dialog',
         'width': '50%',

@@ -16,7 +16,6 @@
     <!--[if IE 8]>
     <script src="/bower_components/es5-shim/es5-shim.min.js"></script>
     <script src="/bower_components/es5-shim/es5-sham.min.js"></script>
-    <script src="/bower_components/IE8/build/ie8.js"></script>
     <![endif]-->
 
     <link rel="stylesheet" href="/bower_components/mesh/index.css">
@@ -1259,6 +1258,7 @@
         </form>
     </div>
 
+    <script src="/bower_components/tiny/dist/tiny.js"></script>
     <script src="/dist/ui/chico.js"></script>
     <script>
 
@@ -1281,27 +1281,26 @@
             }
         }
 
-        var suggestion;
+        var suggestion,
+            cancelRequest;
         var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
                 .on('type', function (userInput) {
-                    // Cancel the jsonp callback if any
-                    if (suggestion && suggestion.cancel) {
-                        suggestion.cancel();
+                    // Cancel the jsonp request if any
+                    if (cancelRequest) {
+                        cancelRequest();
                     }
                     // Hide possibly active loading indicator
                     if (!userInput) {
-                        autocomplete.suggest([]);
+                        return autocomplete.suggest([]);
                     }
-                    suggestion = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1');
-                    suggestion.promise
-                        .then(parseResults)
-                        .catch(function(err) {
-                            console.error(err);
+                    cancelRequest = tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+                        name: 'autocompleteSuggestion',
+                        success: parseResults,
+                        error: function(err) {
                             autocomplete.suggest([]);
-                        })
-                        .then(function () {
-                            suggestion = null;
-                        });
+                        }
+                    });
+
                 });
 
         autocomplete.container.insertAdjacentHTML('beforeend', extraSuggestions);

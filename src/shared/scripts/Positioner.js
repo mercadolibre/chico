@@ -62,7 +62,7 @@
         }
 
         // Creates its private options
-        this._options = ch.util.clone(this._defaults);
+        this._options = tiny.clone(this._defaults);
 
         // Init
         this._configure(options);
@@ -108,7 +108,7 @@
     Positioner.prototype._configure = function (options) {
 
         // Merge user options with its options
-        ch.util.extend(this._options, options);
+        tiny.extend(this._options, options);
 
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);

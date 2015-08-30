@@ -2030,8 +2030,6 @@
 	'use strict';
 
 var ch = function(selector, context) {
-            'use strict';
-
             if (!context) {
                 context = document;
             } else if (typeof context === 'string') {
@@ -2057,43 +2055,6 @@ var ch = function(selector, context) {
         };
 
 ch.util = {
-
-        /**
-         * Returns true if an object is an array, false if it is not.
-         *
-         * @memberof ch.util
-         * @method
-         * @param {Object} obj The object to be checked.
-         * @returns {Boolean}
-         * @example
-         * ch.util.isArray([1, 2, 3]); // true
-         */
-        'isArray': (function () {
-            if (typeof Array.isArray === 'function') {
-                return Array.isArray;
-            }
-
-            return function (obj) {
-                if (obj === undefined) {
-                    throw new Error('"ch.util.isArray(obj)": It must receive a parameter.');
-                }
-
-                return (Object.prototype.toString.call(obj) === '[object Array]');
-            };
-        }()),
-
-        /**
-         * Detects an Internet Explorer and returns the version if so.
-         *
-         * @memberof ch.util
-         * @see From <a href="https://github.com/ded/bowser/blob/master/bowser.js">bowser</a>
-         * @returns {Boolean|Number}
-         */
-        'isMsie': function() {
-            var ua = navigator.userAgent;
-            return (/(msie|trident)/i).test(ua) ?
-                ua.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
-        },
 
         /**
          * Adds CSS rules to disable text selection highlighting.
@@ -2162,11 +2123,11 @@ ch.util = {
          * @param {Object} obj The object to copy.
          * @returns {Object}
          * @example
-         * ch.util.clone(object);
+         * tiny.clone(object);
          */
         'clone': function (obj) {
             if (obj === undefined || typeof obj !== 'object') {
-                throw new Error('"ch.util.clone(obj)": The "obj" parameter is required and must be a object.');
+                throw new Error('"tiny.clone(obj)": The "obj" parameter is required and must be a object.');
             }
 
             var copy = {},
@@ -2179,33 +2140,6 @@ ch.util = {
             }
 
             return copy;
-        },
-
-        /**
-         * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.
-         *
-         * @memberof ch.util
-         * @param {Function} obj The object that have new members.
-         * @param {Function} superConstructor The construsctor Class.
-         * @returns {Object}
-         * @exampleDescription
-         * @example
-         * ch.util.inherit(obj, parent);
-         */
-        'inherits': function (obj, superConstructor) {
-
-            if (obj === undefined || typeof obj !== 'function') {
-                throw new Error('"ch.util.inherits(obj, superConstructor)": The "obj" parameter is required and must be a constructor function.');
-            }
-
-            if (superConstructor === undefined || typeof superConstructor !== 'function') {
-                throw new Error('"ch.util.inherits(obj, superConstructor)": The "superConstructor" parameter is required and must be a constructor function.');
-            }
-
-            var child = obj.prototype || {};
-            obj.prototype = ch.util.extend(child, superConstructor.prototype);
-
-            return superConstructor.prototype;
         },
 
         /**
@@ -2365,107 +2299,6 @@ ch.util = {
             }
         },
 
-        /**
-         * Extends an object with other object
-         *
-         * @name extend
-         * @memberof ch.util
-         * @method
-         * @param {Object} target The destination of the other objects
-         * @param {Object} obj1 The objects to be merged
-         * @param {Object} objn The objects to be merged
-         * @see Based on: <a href="https://github.com/jquery" target="_blank">https://github.com/jquery/</a>
-         * @example
-         * ch.util.extend(target, obj1, objn);
-         */
-        'extend': function() {
-            var options,
-                name,
-                src,
-                copy,
-                copyIsArray,
-                clone,
-                target = arguments[0] || {},
-                i = 1,
-                length = arguments.length,
-                deep = false;
-
-            // Handle a deep copy situation
-            if (typeof target === "boolean") {
-                deep = target;
-
-                // Skip the boolean and the target
-                target = arguments[i] || {};
-                i++;
-            }
-
-            // Handle case when target is a string or something (possible in deep copy)
-            if (typeof target !== "object" && !typeof target === 'function') {
-                target = {};
-            }
-
-            // Nothing to extend, return original object
-            if (length <= i) {
-                return target;
-            }
-
-            for (; i < length; i++) {
-                // Only deal with non-null/undefined values
-                if ((options = arguments[i]) != null) {
-                    // Extend the base object
-                    for ( name in options ) {
-                        src = target[name];
-                        copy = options[name];
-
-                        // Prevent never-ending loop
-                        if ( target === copy ) {
-                            continue;
-                        }
-
-                        // Recurse if we're merging plain objects or arrays
-                        if (deep && copy && (ch.util.isPlainObject(copy) || (copyIsArray = ch.util.isArray(copy)) ) ) {
-
-                            if (copyIsArray) {
-                                copyIsArray = false;
-                                clone = src && ch.util.isArray(src) ? src : [];
-
-                            } else {
-                                clone = src && ch.util.isPlainObject(src) ? src : {};
-                            }
-
-                            // Never move original objects, clone them
-                            target[name] = ch.util.extend( deep, clone, copy );
-
-                        // Don't bring in undefined values
-                        } else if (copy !== undefined) {
-                            target[name] = copy;
-                        }
-                    }
-                }
-            }
-
-            // Return the modified object
-            return target;
-        },
-
-        'isPlainObject': function(obj) {
-            // Not plain objects:
-            // - Any object or value whose internal [[Class]] property is not "[object Object]"
-            // - DOM nodes
-            // - window
-            if (typeof obj !== "object" || obj.nodeType || (obj != null && obj === obj.window)) {
-                return false;
-            }
-
-            if (obj.constructor && !Object.prototype.hasOwnProperty.call(obj.constructor.prototype, "isPrototypeOf")) {
-                return false;
-            }
-
-            // If the function hasn't returned already, we're confident that
-            // |obj| is a plain object, created by {} or constructed with new Object
-            return true;
-        },
-
         // review this method :S
         'parentElement': function(el, tagname) {
             var parent = el.parentNode,
@@ -2507,112 +2340,7 @@ ch.util = {
             }
 
             return element.nextElementSibling || next(element);
-        },
-
-        /**
-         * JSONP handler based on Promises
-         *
-         * @memberof ch.util
-         * @method
-         * @param {String} url
-         * @param {Object} [options] Optional options.
-         * @param {String} [options.callback] Callback prefix. Default: "__jsonp"
-         * @param {String} [options.param] QS parameter. Default: "callback"
-         * @param {Number} [options.timeout] How long after the request until a timeout error
-         *   will occur. Default: 15000
-         *
-         * @returns {Object} Returns a response promise and a cancel handler.
-         *
-         * @example
-         * var req = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=smartphone&v=1');
-         * req.promise
-         *   .then(function(results){
-         *     console.log(results)
-         *   })
-         *   .catch(function(err){
-         *     console.error(err);
-         *   });
-         * if (something) {
-         *   req.cancel();
-         * }
-         */
-        loadJSONP: (function() {
-            var noop = function() {},
-                // document.head is not available in IE<9
-                head = document.getElementsByTagName('head')[0],
-                jsonpCount = 0;
-
-            return function (url, options) {
-                var script,
-                    timer,
-                    cleanup,
-                    promise,
-                    cancel;
-
-                options = ch.util.extend({
-                    prefix: '__jsonp',
-                    param: 'callback',
-                    timeout : 15000
-                }, options);
-
-                // Generate a unique id for the request.
-                var id = options.prefix + (jsonpCount++);
-
-                cleanup = function() {
-                    // Remove the script tag.
-                    if (script && script.parentNode) {
-                        script.parentNode.removeChild(script);
-                    }
-
-                    window[id] = noop;
-
-                    if (timer) {
-                        clearTimeout(timer);
-                    }
-                };
-
-                promise = new Promise(function(resolve, reject) {
-                    if (options.timeout) {
-                        timer = setTimeout(function() {
-                            cleanup();
-                            reject(new Error('Timeout'));
-                        }, options.timeout);
-                    }
-
-                    window[id] = function(data) {
-                        cleanup();
-                        resolve(data);
-                    };
-
-                    // Add querystring component
-                    url += (~url.indexOf('?') ? '&' : '?') + options.param + '=' + encodeURIComponent(id);
-                    url = url.replace('?&', '?');
-
-                    // Create script element
-                    script = document.createElement('script');
-                    script.type = 'text/javascript';
-                    script.src = url;
-                    script.onerror = function(e) {
-                        cleanup();
-                        reject(new Error(e.message || 'Script Error'));
-                    };
-                    head.appendChild(script);
-
-                    // TODO: move cancel fn definition outside of promise
-                    cancel = function() {
-                        if (window[id]) {
-                            cleanup();
-                            reject(new Error('Canceled'));
-                        }
-                    };
-                });
-
-                return {
-                    promise: promise,
-                    cancel: cancel
-                };
-            }
-        })()
+        }
     };
 ch.util.fixLabels = function () {
         var labels = document.getElementsByTagName('label'),
@@ -3056,7 +2784,7 @@ ch.Event = (function () {
          */
         'dispatchCustomEvent': function dispatchCustomEvent(el, name, params) {
             if (!_custom[name]) {
-                var data = ch.util.extend({
+                var data = tiny.extend({
                         bubbles: false,
                         cancelable: false,
                         detail: undefined
@@ -3122,7 +2850,7 @@ ch.factory = function (Klass) {
      * var emitter = new ch.EventEmitter();
      * @example
      * // Inheriting from EventEmitter.
-     * ch.util.inherits(Component, ch.EventEmitter);
+     * tiny.inherits(Component, ch.EventEmitter);
      */
     function EventEmitter() {}
 
@@ -3399,7 +3127,7 @@ ch.factory = function (Klass) {
         function getAsyncContent(url, options) {
             var requestCfg;
             // Initial options to be merged with the user's options
-            options = ch.util.extend({
+            options = tiny.extend({
                 'method': 'GET',
                 'params': '',
                 'waiting': '<div class="ch-loading-large"></div>'
@@ -3828,7 +3556,7 @@ ch.factory = function (Klass) {
         this._init();
     }
 
-    ch.util.inherits(Viewport, ch.EventEmitter);
+    tiny.inherits(Viewport, ch.EventEmitter);
 
     /**
      * Initialize a new instance of Viewport.
@@ -4181,7 +3909,7 @@ ch.factory = function (Klass) {
         }
 
         // Creates its private options
-        this._options = ch.util.clone(this._defaults);
+        this._options = tiny.clone(this._defaults);
 
         // Init
         this._configure(options);
@@ -4227,7 +3955,7 @@ ch.factory = function (Klass) {
     Positioner.prototype._configure = function (options) {
 
         // Merge user options with its options
-        ch.util.extend(this._options, options);
+        tiny.extend(this._options, options);
 
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);
@@ -4451,7 +4179,7 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    ch.util.inherits(Component, ch.EventEmitter);
+    tiny.inherits(Component, ch.EventEmitter);
 
     /**
      * The name of a component.
@@ -4499,7 +4227,7 @@ ch.factory = function (Klass) {
             this._el.setAttribute('data-uid', this.uid);
 
             // we extend defaults with options parameter
-            this._options = ch.util.extend(defaults, options);
+            this._options = tiny.extend(defaults, options);
 
         // el is an object configuration
         } else if (el === undefined || el.nodeType === undefined && typeof el === 'object') {
@@ -4508,7 +4236,7 @@ ch.factory = function (Klass) {
             // this._el = document.createElement('div');
 
             // we extend defaults with the object that is in el parameter object
-            this._options = ch.util.extend(defaults, el);
+            this._options = tiny.extend(defaults, el);
         }
 
         /**
@@ -4720,8 +4448,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var document = window.document,
-        parent = ch.util.inherits(Expandable, ch.Component);
+    tiny.inherits(Expandable, ch.Component);
+
+    var parent = Expandable.super_.prototype;
 
     /**
      * The name of the component.
@@ -5004,7 +4733,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Menu, ch.Component),
+    tiny.inherits(Menu, ch.Component);
+
+    var parent = Menu.super_.prototype,
 
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
@@ -5363,9 +5094,11 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Popover, ch.Component);
+
     var document = window.document,
-        // Inheritance
-        parent = ch.util.inherits(Popover, ch.Component),
+        parent = Popover.super_.prototype,
         shownbyEvent = {
             'pointertap': ch.onpointertap,
             'pointerenter': ch.onpointerenter
@@ -5664,7 +5397,7 @@ ch.factory = function (Klass) {
      */
     Popover.prototype._normalizeOptions = function (options) {
         // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
-        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType !== undefined && options.nodeType === 1)) {
+        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType === 1)) {
             options = {
                 'content': options
             };
@@ -6020,11 +5753,13 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Layer, ch.Popover);
+
     // Reference to the last component open. Allows to close and to deny to
     // have 2 components open at the same time
     var lastShown,
-        // Inheritance
-        parent = ch.util.inherits(Layer, ch.Popover);
+        parent = Layer.super_.prototype;
 
     /**
      * The name of the component.
@@ -6046,7 +5781,7 @@ ch.factory = function (Klass) {
      * @type {Object}
      * @private
      */
-    Layer.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Layer.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
         '_ariaRole': 'tooltip',
         'shownby': 'pointerenter',
@@ -6184,6 +5919,9 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Modal, ch.Popover);
+
     var document = window.document,
         underlay = (function () {
             var dummyElement = document.createElement('div');
@@ -6191,8 +5929,7 @@ ch.factory = function (Klass) {
 
             return dummyElement.querySelector('div');
         }()),
-        // Inheritance
-        parent = ch.util.inherits(Modal, ch.Popover);
+        parent = Modal.super_.prototype;
 
     /**
      * The name of the component.
@@ -6214,7 +5951,7 @@ ch.factory = function (Klass) {
      * @type {Object}
      * @private
      */
-    Modal.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Modal.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-modal ch-box-lite',
         '_ariaRole': 'dialog',
         'width': '50%',
@@ -6430,12 +6167,12 @@ ch.factory = function (Klass) {
 
         // el is not defined
         if (el === undefined) {
-            el = ch.util.extend(ch.util.clone(this._defaults), options);
+            el = tiny.extend(tiny.clone(this._defaults), options);
         // el is present as a object configuration
         } else if (el.nodeType === undefined && typeof el === 'object') {
-            el = ch.util.extend(ch.util.clone(this._defaults), el);
+            el = tiny.extend(tiny.clone(this._defaults), el);
         } else if (options !== undefined) {
-            options = ch.util.extend(ch.util.clone(this._defaults), options);
+            options = tiny.extend(tiny.clone(this._defaults), options);
         }
 
         return new ch.Modal(el, options);
@@ -6461,7 +6198,7 @@ ch.factory = function (Klass) {
      * @type {Object}
      * @private
      */
-    Transition.prototype._defaults = ch.util.extend(ch.util.clone(ch.Modal.prototype._defaults), {
+    Transition.prototype._defaults = tiny.extend(tiny.clone(ch.Modal.prototype._defaults), {
         '_className': 'ch-transition ch-box-lite',
         '_ariaRole': 'alert',
         'hiddenby': 'none',
@@ -6543,9 +6280,10 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var document = window.document,
-        // Inheritance
-        parent = ch.util.inherits(Dropdown, ch.Layer);
+    // Inheritance
+    tiny.inherits(Dropdown, ch.Layer);
+
+    var parent = Dropdown.super_.prototype;
 
     /**
      * The name of the component.
@@ -6567,7 +6305,7 @@ ch.factory = function (Klass) {
      * @type {Object}
      * @private
      */
-    Dropdown.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Dropdown.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-dropdown ch-box-lite',
         '_ariaRole': 'combobox',
         'fx': 'none',
@@ -6807,7 +6545,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Form, ch.Component);
+    tiny.inherits(Form, ch.Component);
+
+    var parent = Form.super_.prototype;
 
     /**
      * The name of the component.
@@ -7254,7 +6994,7 @@ ch.factory = function (Klass) {
      */
     function Condition(condition) {
 
-        ch.util.extend(this, conditions[condition.name], condition);
+        tiny.extend(this, conditions[condition.name], condition);
 
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
         if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {
@@ -7419,7 +7159,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Validation, ch.Component),
+    tiny.inherits(Validation, ch.Component);
+
+    var parent = Validation.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -7706,7 +7448,7 @@ ch.factory = function (Klass) {
          * Stores the previous error object
          * @private
          */
-        this._previousError = ch.util.clone(this.error);
+        this._previousError = tiny.clone(this.error);
 
         // for each condition
         for (condition in this.conditions) {
@@ -7986,7 +7728,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Countdown, ch.Component);
+    tiny.inherits(Countdown, ch.Component);
+
+    var parent = Countdown.super_.prototype;
 
     /**
      * The name of the component.
@@ -8265,11 +8009,13 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Carousel, ch.Component);
+
     var pointertap = ch.onpointertap,
         Math = window.Math,
         setTimeout = window.setTimeout,
-        // Inheritance
-        parent = ch.util.inherits(Carousel, ch.Component);
+        parent = Carousel.super_.prototype;
 
     /**
      * Reference to the vendor prefix of the current browser.
@@ -9205,7 +8951,7 @@ ch.factory = function (Klass) {
     'use strict';
 
     function normalizeOptions(options) {
-        if (typeof options === 'string' || ch.util.isArray(options)) {
+        if (typeof options === 'string' || Array.isArray(options)) {
             options = {
                 'selected': options
             };
@@ -9274,6 +9020,9 @@ ch.factory = function (Klass) {
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
+
+    // Inheritance
+    tiny.inherits(Calendar, ch.Component);
 
     /**
      * Completes with zero the numbers less than 10.
@@ -9398,8 +9147,7 @@ ch.factory = function (Klass) {
             'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
         },
 
-        // Inheritance
-        parent = ch.util.inherits(Calendar, ch.Component);
+        parent = Calendar.super_.prototype;
 
     /**
      * The name of the component.
@@ -9474,7 +9222,7 @@ ch.factory = function (Klass) {
             if (!selected) { return selected; }
 
             // Simple date selection
-            if (!ch.util.isArray(selected)) {
+            if (!Array.isArray(selected)) {
 
                 if (selected !== 'today') {
                     // Return date object and update currentDate
@@ -9488,7 +9236,7 @@ ch.factory = function (Klass) {
             } else {
                 selected.forEach(function (e, i){
                     // Simple date
-                    if (!ch.util.isArray(e)) {
+                    if (!Array.isArray(e)) {
                         selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
                     // Range
                     } else {
@@ -9804,7 +9552,7 @@ ch.factory = function (Klass) {
         yepnope = false;
 
         // Simple selection
-        if (!ch.util.isArray(this._dates.selected)) {
+        if (!Array.isArray(this._dates.selected)) {
             if (year === this._dates.selected.year && month === this._dates.selected.month && day === this._dates.selected.day) {
                 yepnope = true;
                 return yepnope;
@@ -9814,7 +9562,7 @@ ch.factory = function (Klass) {
         } else {
             this._dates.selected.forEach(function (e, i) {
                 // Simple date
-                if (!ch.util.isArray(e)) {
+                if (!Array.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {
                         yepnope = true;
                         return yepnope;
@@ -10170,7 +9918,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Datepicker, ch.Component),
+    tiny.inherits(Datepicker, ch.Component);
+
+    var parent = Datepicker.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -10761,7 +10511,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Autocomplete, ch.Component),
+    tiny.inherits(Autocomplete, ch.Component);
+
+    var parent = Autocomplete.super_.prototype,
         // there is no mouseenter to highlight the item, so it happens when the user do mousedown
         highlightEvent = (ch.support.touch) ? ch.onpointerdown : 'mouseover';
 
@@ -10995,8 +10747,12 @@ ch.factory = function (Klass) {
 
         // IE8 don't support the input event at all
         // IE9 is the only browser that doesn't fire the input event when characters are removed
+        var ua = navigator.userAgent;
+        var MSIE = (/(msie|trident)/i).test(ua) ?
+            ua.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+
         if (turn === 'on') {
-            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
+            if (!MSIE || MSIE > 9) {
                 ch.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
@@ -11005,7 +10761,7 @@ ch.factory = function (Klass) {
             }
         } else if (turn === 'off') {
             this.hide();
-            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
+            if (!MSIE || MSIE > 9) {
                 ch.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {

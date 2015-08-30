@@ -207,7 +207,7 @@ ch.Event = (function () {
          */
         'dispatchCustomEvent': function dispatchCustomEvent(el, name, params) {
             if (!_custom[name]) {
-                var data = ch.util.extend({
+                var data = tiny.extend({
                         bubbles: false,
                         cancelable: false,
                         detail: undefined

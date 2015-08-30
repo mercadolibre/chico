@@ -888,6 +888,7 @@
         </form>
     </div>
 
+    <script src="/bower_components/tiny/dist/tiny.js"></script>
     <script src="/dist/mobile/chico.js"></script>
     <script>
 
@@ -908,25 +909,30 @@
 
                 // Show suggestions
                 autocomplete.suggest(data);
-            } else {
-                // Hide possibly active loading indicator
-                autocomplete.suggest([]);
             }
         }
 
-        var suggestion;
+        var suggestion,
+            cancelRequest;
         var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
-            .on('type', function (userInput) {
-                if (suggestion && suggestion.cancel) {
-                    suggestion.cancel();
-                }
-                suggestion = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1');
-                suggestion.promise
-                    .then(parseResults)
-                    .then(function() {
-                        suggestion = null;
+                .on('type', function (userInput) {
+                    // Cancel the jsonp request if any
+                    if (cancelRequest) {
+                        cancelRequest();
+                    }
+                    // Hide possibly active loading indicator
+                    if (!userInput) {
+                        return autocomplete.suggest([]);
+                    }
+                    cancelRequest = tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+                        name: 'autocompleteSuggestion',
+                        success: parseResults,
+                        error: function(err) {
+                            autocomplete.suggest([]);
+                        }
                     });
-            });
+
+                });
 
         var expadable1 = new ch.Expandable(qS('.categories1'));
         var expadable2 = new ch.Expandable(qS('.categories2'));

@@ -73,9 +73,11 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Popover, ch.Component);
+
     var document = window.document,
-        // Inheritance
-        parent = ch.util.inherits(Popover, ch.Component),
+        parent = Popover.super_.prototype,
         shownbyEvent = {
             'pointertap': ch.onpointertap,
             'pointerenter': ch.onpointerenter
@@ -374,7 +376,7 @@
      */
     Popover.prototype._normalizeOptions = function (options) {
         // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
-        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType !== undefined && options.nodeType === 1)) {
+        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType === 1)) {
             options = {
                 'content': options
             };

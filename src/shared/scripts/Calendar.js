@@ -72,6 +72,9 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Calendar, ch.Component);
+
     /**
      * Completes with zero the numbers less than 10.
      * @function
@@ -195,8 +198,7 @@
             'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
         },
 
-        // Inheritance
-        parent = ch.util.inherits(Calendar, ch.Component);
+        parent = Calendar.super_.prototype;
 
     /**
      * The name of the component.

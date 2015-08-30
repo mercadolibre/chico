@@ -78,7 +78,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Validation, ch.Component),
+    tiny.inherits(Validation, ch.Component);
+
+    var parent = Validation.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -365,7 +367,7 @@
          * Stores the previous error object
          * @private
          */
-        this._previousError = ch.util.clone(this.error);
+        this._previousError = tiny.clone(this.error);
 
         // for each condition
         for (condition in this.conditions) {

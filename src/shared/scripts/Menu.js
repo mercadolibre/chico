@@ -53,7 +53,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Menu, ch.Component),
+    tiny.inherits(Menu, ch.Component);
+
+    var parent = Menu.super_.prototype,
 
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],

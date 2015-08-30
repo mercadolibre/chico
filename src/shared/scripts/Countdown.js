@@ -71,7 +71,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Countdown, ch.Component);
+    tiny.inherits(Countdown, ch.Component);
+
+    var parent = Countdown.super_.prototype;
 
     /**
      * The name of the component.

@@ -70,7 +70,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Datepicker, ch.Component),
+    tiny.inherits(Datepicker, ch.Component);
+
+    var parent = Datepicker.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;

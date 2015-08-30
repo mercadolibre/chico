@@ -70,11 +70,13 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Layer, ch.Popover);
+
     // Reference to the last component open. Allows to close and to deny to
     // have 2 components open at the same time
     var lastShown,
-        // Inheritance
-        parent = ch.util.inherits(Layer, ch.Popover);
+        parent = Layer.super_.prototype;
 
     /**
      * The name of the component.
@@ -96,7 +98,7 @@
      * @type {Object}
      * @private
      */
-    Layer.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Layer.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
         '_ariaRole': 'tooltip',
         'shownby': 'pointerenter',

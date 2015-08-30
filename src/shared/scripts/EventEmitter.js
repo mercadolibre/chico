@@ -11,7 +11,7 @@
      * var emitter = new ch.EventEmitter();
      * @example
      * // Inheriting from EventEmitter.
-     * ch.util.inherits(Component, ch.EventEmitter);
+     * tiny.inherits(Component, ch.EventEmitter);
      */
     function EventEmitter() {}
 

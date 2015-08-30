@@ -72,8 +72,9 @@
     }
 
     // Inheritance
-    var document = window.document,
-        parent = ch.util.inherits(Expandable, ch.Component);
+    tiny.inherits(Expandable, ch.Component);
+
+    var parent = Expandable.super_.prototype;
 
     /**
      * The name of the component.

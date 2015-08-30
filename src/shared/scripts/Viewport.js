@@ -57,7 +57,7 @@
         this._init();
     }
 
-    ch.util.inherits(Viewport, ch.EventEmitter);
+    tiny.inherits(Viewport, ch.EventEmitter);
 
     /**
      * Initialize a new instance of Viewport.

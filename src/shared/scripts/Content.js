@@ -109,7 +109,7 @@
         function getAsyncContent(url, options) {
             var requestCfg;
             // Initial options to be merged with the user's options
-            options = ch.util.extend({
+            options = tiny.extend({
                 'method': 'GET',
                 'params': '',
                 'waiting': '<div class="ch-loading-large"></div>'

@@ -52,7 +52,7 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    ch.util.inherits(Component, ch.EventEmitter);
+    tiny.inherits(Component, ch.EventEmitter);
 
     /**
      * The name of a component.
@@ -100,7 +100,7 @@
             this._el.setAttribute('data-uid', this.uid);
 
             // we extend defaults with options parameter
-            this._options = ch.util.extend(defaults, options);
+            this._options = tiny.extend(defaults, options);
 
         // el is an object configuration
         } else if (el === undefined || el.nodeType === undefined && typeof el === 'object') {
@@ -109,7 +109,7 @@
             // this._el = document.createElement('div');
 
             // we extend defaults with the object that is in el parameter object
-            this._options = ch.util.extend(defaults, el);
+            this._options = tiny.extend(defaults, el);
         }
 
         /**

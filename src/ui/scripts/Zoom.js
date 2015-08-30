@@ -68,7 +68,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Zoom, ch.Layer);
+    tiny.inherits(Zoom, ch.Layer);
+
+    var parent = Zoom.super_.prototype;
 
     /**
      * The name of the component.
@@ -90,7 +92,7 @@
      * @type {Object}
      * @private
      */
-    Zoom.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Zoom.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-zoom',
         '_ariaRole': 'tooltip',
         '_hideDelay': 0,

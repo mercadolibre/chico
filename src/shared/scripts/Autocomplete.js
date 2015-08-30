@@ -103,7 +103,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Autocomplete, ch.Component),
+    tiny.inherits(Autocomplete, ch.Component);
+
+    var parent = Autocomplete.super_.prototype,
         // there is no mouseenter to highlight the item, so it happens when the user do mousedown
         highlightEvent = (ch.support.touch) ? ch.onpointerdown : 'mouseover';
 

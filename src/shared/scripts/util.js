@@ -71,11 +71,11 @@
          * @param {Object} obj The object to copy.
          * @returns {Object}
          * @example
-         * ch.util.clone(object);
+         * tiny.clone(object);
          */
         'clone': function (obj) {
             if (obj === undefined || typeof obj !== 'object') {
-                throw new Error('"ch.util.clone(obj)": The "obj" parameter is required and must be a object.');
+                throw new Error('"tiny.clone(obj)": The "obj" parameter is required and must be a object.');
             }
 
             var copy = {},
@@ -88,33 +88,6 @@
             }
 
             return copy;
-        },
-
-        /**
-         * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.
-         *
-         * @memberof ch.util
-         * @param {Function} obj The object that have new members.
-         * @param {Function} superConstructor The construsctor Class.
-         * @returns {Object}
-         * @exampleDescription
-         * @example
-         * ch.util.inherit(obj, parent);
-         */
-        'inherits': function (obj, superConstructor) {
-
-            if (obj === undefined || typeof obj !== 'function') {
-                throw new Error('"ch.util.inherits(obj, superConstructor)": The "obj" parameter is required and must be a constructor function.');
-            }
-
-            if (superConstructor === undefined || typeof superConstructor !== 'function') {
-                throw new Error('"ch.util.inherits(obj, superConstructor)": The "superConstructor" parameter is required and must be a constructor function.');
-            }
-
-            var child = obj.prototype || {};
-            obj.prototype = ch.util.extend(child, superConstructor.prototype);
-
-            return superConstructor.prototype;
         },
 
         /**
@@ -274,107 +247,6 @@
             }
         },
 
-        /**
-         * Extends an object with other object
-         *
-         * @name extend
-         * @memberof ch.util
-         * @method
-         * @param {Object} target The destination of the other objects
-         * @param {Object} obj1 The objects to be merged
-         * @param {Object} objn The objects to be merged
-         * @see Based on: <a href="https://github.com/jquery" target="_blank">https://github.com/jquery/</a>
-         * @example
-         * ch.util.extend(target, obj1, objn);
-         */
-        'extend': function() {
-            var options,
-                name,
-                src,
-                copy,
-                copyIsArray,
-                clone,
-                target = arguments[0] || {},
-                i = 1,
-                length = arguments.length,
-                deep = false;
-
-            // Handle a deep copy situation
-            if (typeof target === "boolean") {
-                deep = target;
-
-                // Skip the boolean and the target
-                target = arguments[i] || {};
-                i++;
-            }
-
-            // Handle case when target is a string or something (possible in deep copy)
-            if (typeof target !== "object" && !typeof target === 'function') {
-                target = {};
-            }
-
-            // Nothing to extend, return original object
-            if (length <= i) {
-                return target;
-            }
-
-            for (; i < length; i++) {
-                // Only deal with non-null/undefined values
-                if ((options = arguments[i]) != null) {
-                    // Extend the base object
-                    for ( name in options ) {
-                        src = target[name];
-                        copy = options[name];
-
-                        // Prevent never-ending loop
-                        if ( target === copy ) {
-                            continue;
-                        }
-
-                        // Recurse if we're merging plain objects or arrays
-                        if (deep && copy && (ch.util.isPlainObject(copy) || (copyIsArray = Array.isArray(copy)) ) ) {
-
-                            if (copyIsArray) {
-                                copyIsArray = false;
-                                clone = src && Array.isArray(src) ? src : [];
-
-                            } else {
-                                clone = src && ch.util.isPlainObject(src) ? src : {};
-                            }
-
-                            // Never move original objects, clone them
-                            target[name] = ch.util.extend( deep, clone, copy );
-
-                        // Don't bring in undefined values
-                        } else if (copy !== undefined) {
-                            target[name] = copy;
-                        }
-                    }
-                }
-            }
-
-            // Return the modified object
-            return target;
-        },
-
-        'isPlainObject': function(obj) {
-            // Not plain objects:
-            // - Any object or value whose internal [[Class]] property is not "[object Object]"
-            // - DOM nodes
-            // - window
-            if (typeof obj !== "object" || obj.nodeType || (obj != null && obj === obj.window)) {
-                return false;
-            }
-
-            if (obj.constructor && !Object.prototype.hasOwnProperty.call(obj.constructor.prototype, "isPrototypeOf")) {
-                return false;
-            }
-
-            // If the function hasn't returned already, we're confident that
-            // |obj| is a plain object, created by {} or constructed with new Object
-            return true;
-        },
-
         // review this method :S
         'parentElement': function(el, tagname) {
             var parent = el.parentNode,
@@ -416,110 +288,5 @@
             }
 
             return element.nextElementSibling || next(element);
-        },
-
-        /**
-         * JSONP handler based on Promises
-         *
-         * @memberof ch.util
-         * @method
-         * @param {String} url
-         * @param {Object} [options] Optional options.
-         * @param {String} [options.callback] Callback prefix. Default: "__jsonp"
-         * @param {String} [options.param] QS parameter. Default: "callback"
-         * @param {Number} [options.timeout] How long after the request until a timeout error
-         *   will occur. Default: 15000
-         *
-         * @returns {Object} Returns a response promise and a cancel handler.
-         *
-         * @example
-         * var req = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=smartphone&v=1');
-         * req.promise
-         *   .then(function(results){
-         *     console.log(results)
-         *   })
-         *   .catch(function(err){
-         *     console.error(err);
-         *   });
-         * if (something) {
-         *   req.cancel();
-         * }
-         */
-        loadJSONP: (function() {
-            var noop = function() {},
-                // document.head is not available in IE<9
-                head = document.getElementsByTagName('head')[0],
-                jsonpCount = 0;
-
-            return function (url, options) {
-                var script,
-                    timer,
-                    cleanup,
-                    promise,
-                    cancel;
-
-                options = ch.util.extend({
-                    prefix: '__jsonp',
-                    param: 'callback',
-                    timeout : 15000
-                }, options);
-
-                // Generate a unique id for the request.
-                var id = options.prefix + (jsonpCount++);
-
-                cleanup = function() {
-                    // Remove the script tag.
-                    if (script && script.parentNode) {
-                        script.parentNode.removeChild(script);
-                    }
-
-                    window[id] = noop;
-
-                    if (timer) {
-                        clearTimeout(timer);
-                    }
-                };
-
-                promise = new Promise(function(resolve, reject) {
-                    if (options.timeout) {
-                        timer = setTimeout(function() {
-                            cleanup();
-                            reject(new Error('Timeout'));
-                        }, options.timeout);
-                    }
-
-                    window[id] = function(data) {
-                        cleanup();
-                        resolve(data);
-                    };
-
-                    // Add querystring component
-                    url += (~url.indexOf('?') ? '&' : '?') + options.param + '=' + encodeURIComponent(id);
-                    url = url.replace('?&', '?');
-
-                    // Create script element
-                    script = document.createElement('script');
-                    script.type = 'text/javascript';
-                    script.src = url;
-                    script.onerror = function(e) {
-                        cleanup();
-                        reject(new Error(e.message || 'Script Error'));
-                    };
-                    head.appendChild(script);
-
-                    // TODO: move cancel fn definition outside of promise
-                    cancel = function() {
-                        if (window[id]) {
-                            cleanup();
-                            reject(new Error('Canceled'));
-                        }
-                    };
-                });
-
-                return {
-                    promise: promise,
-                    cancel: cancel
-                };
-            }
-        })()
+        }
     };

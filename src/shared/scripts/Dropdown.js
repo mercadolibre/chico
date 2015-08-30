@@ -69,9 +69,10 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var document = window.document,
-        // Inheritance
-        parent = ch.util.inherits(Dropdown, ch.Layer);
+    // Inheritance
+    tiny.inherits(Dropdown, ch.Layer);
+
+    var parent = Dropdown.super_.prototype;
 
     /**
      * The name of the component.
@@ -93,7 +94,7 @@
      * @type {Object}
      * @private
      */
-    Dropdown.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Dropdown.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-dropdown ch-box-lite',
         '_ariaRole': 'combobox',
         'fx': 'none',

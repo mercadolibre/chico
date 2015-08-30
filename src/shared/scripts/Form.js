@@ -66,7 +66,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Form, ch.Component);
+    tiny.inherits(Form, ch.Component);
+
+    var parent = Form.super_.prototype;
 
     /**
      * The name of the component.

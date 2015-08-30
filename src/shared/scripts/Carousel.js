@@ -63,11 +63,13 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Carousel, ch.Component);
+
     var pointertap = ch.onpointertap,
         Math = window.Math,
         setTimeout = window.setTimeout,
-        // Inheritance
-        parent = ch.util.inherits(Carousel, ch.Component);
+        parent = Carousel.super_.prototype;
 
     /**
      * Reference to the vendor prefix of the current browser.
