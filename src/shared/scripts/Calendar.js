@@ -347,8 +347,8 @@
 
 
         // Show or hide arrows depending on "from" and "to" limits
-        ch.Event.addListener(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        ch.Event.addListener(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        tiny.on(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
+        tiny.on(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
 
         /**
          * The calendar container.
@@ -886,7 +886,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

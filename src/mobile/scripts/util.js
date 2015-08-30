@@ -21,7 +21,7 @@
 
         for (; labels[i]; i += 1) {
             if (labels[i].getAttribute('for')) {
-                ch.Event.addListener(labels[i], ch.onpointertap, labelTap);
+                tiny.on(labels[i], ch.onpointertap, labelTap);
             }
         }
     };
@@ -40,10 +40,10 @@
                 ch.pointerCanceled = false;
             }
 
-            ch.Event.addListenerOne(document, 'touchend', unblockPointer);
+            tiny.once(document, 'touchend', unblockPointer);
         }
 
-        ch.Event.addListener(document, 'touchmove', blockPointer);
+        tiny.on(document, 'touchmove', blockPointer);
     };
 
     /*!

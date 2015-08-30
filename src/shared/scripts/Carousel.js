@@ -295,7 +295,7 @@
         this._prevArrow.setAttribute('role', 'button');
         this._prevArrow.setAttribute('aria-hidden', 'true');
         this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
-        ch.Event.addListener(this._prevArrow, pointertap, function () { that.prev(); }, false);
+        tiny.on(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
         /**
          * UI element of arrow that moves the Carousel to the next page.
@@ -306,7 +306,7 @@
         this._nextArrow.setAttribute('role', 'button');
         this._nextArrow.setAttribute('aria-hidden', 'true');
         this._nextArrow.setAttribute('class', 'ch-carousel-next');
-        ch.Event.addListener(this._nextArrow, pointertap, function () { that.next(); }, false);
+        tiny.on(this._nextArrow, pointertap, function () { that.next(); }, false);
 
         /**
          * UI element that contains all the thumbnails for pagination.
@@ -317,7 +317,7 @@
         this._pagination.setAttribute('role', 'navigation');
         this._pagination.setAttribute('class', 'ch-carousel-pages');
 
-        ch.Event.addListener(this._pagination, pointertap, function (event) {
+        tiny.on(this._pagination, pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
@@ -990,7 +990,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

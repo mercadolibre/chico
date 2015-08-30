@@ -217,10 +217,10 @@
 
         };
 
-        ch.Event.addListener(this.container, highlightEvent, this._highlightSuggestion);
+        tiny.on(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        ch.Event.addListener(this.container, ch.onpointerdown, function itemEvents(event) {
+        tiny.on(this.container, ch.onpointerdown, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word
@@ -247,8 +247,8 @@
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
 
-        ch.Event.addListener(this.trigger, 'focus', function turnon() { that._turn('on'); })
-        ch.Event.addListener(this.trigger, 'blur', function turnoff() {that._turn('off'); });
+        tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); })
+        tiny.on(this.trigger, 'blur', function turnoff() {that._turn('off'); });
 
         // Turn on when the input element is already has focus
         if (this._el === document.activeElement && !this._enabled) {
@@ -345,19 +345,19 @@
 
         if (turn === 'on') {
             if (!MSIE || MSIE > 9) {
-                ch.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
+                tiny.on(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
-                    ch.Event.addListener(that.trigger, evtName, turnOnFallback);
+                    tiny.on(that.trigger, evtName, turnOnFallback);
                 });
             }
         } else if (turn === 'off') {
             this.hide();
             if (!MSIE || MSIE > 9) {
-                ch.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
+                tiny.off(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
-                    ch.Event.removeListener(that.trigger, evtName, turnOnFallback);
+                    tiny.off(that.trigger, evtName, turnOnFallback);
                 });
             }
         }
@@ -591,7 +591,7 @@
      */
     Autocomplete.prototype.destroy = function () {
 
-        ch.Event.removeListener(this.container, highlightEvent, this._highlightSuggestion);
+        tiny.off(this.container, highlightEvent, this._highlightSuggestion);
 
         this.trigger.removeAttribute('autocomplete');
         this.trigger.removeAttribute('aria-autocomplete');

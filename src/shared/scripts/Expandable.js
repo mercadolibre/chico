@@ -134,7 +134,7 @@
         this.trigger = this._el;
         tiny.classList(this.trigger).add(this._options._classNameTrigger);
         tiny.classList(this.trigger).add(this._options._classNameIcon);
-        ch.Event.addListener(this.trigger, ch.onpointertap, function (event) {
+        tiny.on(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
             }
@@ -175,10 +175,10 @@
 
         this
             .on('show', function () {
-                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             })
             .on('hide', function () {
-                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             });
 
         ch.util.avoidTextSelection(this.trigger);
@@ -291,7 +291,7 @@
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

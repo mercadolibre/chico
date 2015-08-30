@@ -114,10 +114,10 @@
 
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
-                ch.Event.removeListener(that.container, ch.support.transition.end, hideCallback);
+                tiny.off(that.container, ch.support.transition.end, hideCallback);
                 tiny.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
 
-                ch.Event.addListener(that.container, ch.support.transition.end, showCallback);
+                tiny.on(that.container, ch.support.transition.end, showCallback);
 
                 // Reveal an element before the transition
                 that.container.style.display = 'block';
@@ -185,10 +185,10 @@
             if (useEffects) {
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
-                ch.Event.removeListener(that.container, ch.support.transition.end, showCallback);
+                tiny.off(that.container, ch.support.transition.end, showCallback);
                 tiny.classList(that.container).remove('ch-fx-' + fx);
 
-                ch.Event.addListener(that.container, ch.support.transition.end, hideCallback);
+                tiny.on(that.container, ch.support.transition.end, hideCallback);
                 // Set margin and padding to 0 to prevent content jumping at the transition end
                 if (/^slide/.test(fx)) {
                     that.container.style.height = tiny.css(that.container, 'height');

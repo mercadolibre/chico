@@ -1037,7 +1037,7 @@
             'to': 'today'
         });
 
-        ch.Event.addListener(qS('#modal-form'), 'submit', function (e) {
+        tiny.on('#modal-form', 'submit', function (e) {
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
@@ -1226,10 +1226,8 @@
 
         // }())
 
-        [].forEach.call(document.querySelectorAll('a[href="#"], a[href=""]'), function(a) {
-            a.addEventListener('click', function(e){
-                e.preventDefault();
-            });
+        tiny.on('a[href="#"], a[href=""]', 'click', function(e) {
+            e.preventDefault();
         });
     </script>
 </body>

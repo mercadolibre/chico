@@ -172,7 +172,7 @@
             'hiddenby': this._options.hiddenby
         });
 
-        ch.Event.addListener(this._popover._content, ch.onpointertap, function (event) {
+        tiny.on(this._popover._content, ch.onpointertap, function (event) {
             var el = event.target;
 
             // Day selection

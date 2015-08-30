@@ -155,7 +155,7 @@
          */
         this.container = container.querySelector('div');
 
-        ch.Event.addListener(this.container, ch.onpointertap, function (event) {
+        tiny.on(this.container, ch.onpointertap, function (event) {
             event.stopPropagation();
         });
 
@@ -212,7 +212,7 @@
 
         // Refresh position:
         // on layout change
-        ch.Event.addListener(document, ch.onlayoutchange, this._refreshPositionListener)
+        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener)
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -276,7 +276,7 @@
 
             tiny.classList(this._el).add('ch-shownby-' + this._options.shownby);
 
-            ch.Event.addListener(this._el, shownbyEvent[this._options.shownby], function (event) {
+            tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
                 ch.util.prevent(event);
                 showHandler();
@@ -340,12 +340,8 @@
         // Hide by leaving the component
         if (hiddenby === 'pointerleave' && this.trigger !== undefined) {
 
-            ch.Event.addListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.addListener(this.trigger, ch.onpointerleave, this._hideTimer);
-
-            ch.Event.addListener(this.container, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.addListener(this.container, ch.onpointerleave, this._hideTimer);
-
+            tiny.on([this.trigger, this.container], ch.onpointerenter, this._hideTimerCleaner);
+            tiny.on([this.trigger, this.container], ch.onpointerleave, this._hideTimer);
         }
 
         // Hide with the button Close
@@ -354,7 +350,7 @@
             dummy.innerHTML = '<i class="ch-close" role="button" aria-label="Close"></i>';
             button = dummy.querySelector('i');
 
-            ch.Event.addListener(button, ch.onpointertap, function () {
+            tiny.on(button, ch.onpointertap, function () {
                 that.hide();
             });
 
@@ -631,8 +627,8 @@
 
         if (this.trigger !== undefined) {
 
-            ch.Event.removeListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.removeListener(this.trigger, ch.onpointerleave, this._hideTimer);
+            tiny.off(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            tiny.off(this.trigger, ch.onpointerleave, this._hideTimer);
 
             tiny.classList(this.trigger).remove('ch-' + this.name + '-trigger');
 
@@ -647,7 +643,7 @@
             this._snippet.title ? this.trigger.setAttribute('title', this._snippet.title) : null;
         }
 
-        ch.Event.removeListener(document, ch.onlayoutchange, this._refreshPositionListener);
+        tiny.off(document, ch.onlayoutchange, this._refreshPositionListener);
 
         ch.viewport.off(ch.onresize, this._refreshPositionListener);
 

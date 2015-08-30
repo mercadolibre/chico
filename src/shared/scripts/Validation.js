@@ -254,7 +254,7 @@
             previousValue;
 
         // It must happen only once.
-        ch.Event.addListener(this.trigger, this._validationEvent, function () {
+        tiny.on(this.trigger, this._validationEvent, function () {
 
             if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
                 previousValue = this.value;

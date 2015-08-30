@@ -154,7 +154,7 @@
             var items = content.querySelectorAll('a');
             Array.prototype.forEach.call(items, function (item, index) {
                 item.setAttribute('role', 'option');
-                ch.Event.addListener(item, ch.onpointerenter, function () {
+                tiny.on(item, ch.onpointerenter, function () {
                     that._navigation[that._selected = index].focus();
                 });
             });
@@ -249,7 +249,7 @@
         // this.$trigger.off('.dropdown');
         // this.$container.off('.dropdown');
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         // $.each(this._$navigation, function (i, e) {
         //     $(e).off(ch.onpointerenter);

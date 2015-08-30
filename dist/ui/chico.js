@@ -1,4 +1,13 @@
 /*!
+ * Chico UI v2.0.0-alpha.2
+ * http://chico-ui.com.ar/
+ *
+ * Copyright (c) 2015, MercadoLibre.com
+ * Released under the MIT license.
+ * http://chico-ui.com.ar/license
+ */
+
+/*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
@@ -2432,137 +2441,6 @@ ch.onpointerleave = window.MouseEvent ? 'pointerleave' : 'mouseleave';
  */
 ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';
 
-/**
- * Event utility
- *
- * @constant
- * @memberof ch
- * @type {Object}
- */
-ch.Event = (function () {
-    var isStandard = document.addEventListener ? true : false,
-        addHandler = isStandard ? 'addEventListener' : 'attachEvent',
-        removeHandler = isStandard ? 'removeEventListener' : 'detachEvent',
-        dispatch = isStandard ? 'dispatchEvent' : 'fireEvent',
-        _custom = {};
-
-    function evtUtility(evt) {
-        return isStandard ? evt : ('on' + evt);
-    }
-
-    return {
-        /**
-         * Crossbrowser implementation of {HTMLElement}.addEventListener.
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to add listener to
-         * @param {String} evt Event name
-         * @param {Function} fn Event handler function
-         * @param {Boolean} bubbles Whether or not to be propagated to outer elements.
-         * @example
-         * ch.Event.addListener(document, 'click', function(){}, false);
-         */
-        'addListener': function addListener(el, evt, fn, bubbles) {
-            el[addHandler](evtUtility(evt), fn, bubbles || false);
-        },
-        /**
-         * Attach a handler to an event for the {HTMLElement} that executes only
-         * once.
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to add listener to
-         * @param {String} evt Event name
-         * @param {Function} fn Event handler function
-         * @param {Boolean} bubbles Whether or not to be propagated to outer elements.
-         * @example
-         * ch.Event.addListenerOne(document, 'click', function(){}, false);
-         */
-        'addListenerOne': function addListener(el, evt, fn, bubbles) {
-
-            function oneRemove() {
-                el[removeHandler](evtUtility(evt), fn);
-            }
-
-            // must remove the event after executes one time
-            el[addHandler](evtUtility(evt), fn, bubbles || false);
-            // TODO: Review this method, looks like has wrong behavior when listener should be removed
-            el[addHandler](evtUtility(evt), function () {
-                oneRemove()
-            }, bubbles || false);
-        },
-        /**
-         * Crossbrowser implementation of {HTMLElement}.removeEventListener.
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to remove listener from
-         * @param {String} evt Event name
-         * @param {Function} fn Event handler function to remove
-         * @example
-         * ch.Event.removeListener(document, 'click', fn);
-         */
-        'removeListener': function removeListener(el, evt, fn) {
-            el[removeHandler](evtUtility(evt), fn);
-        },
-        /**
-         * Crossbrowser implementation of {HTMLElement}.removeEventListener.
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to dispatch event to
-         * @param {String|Event} evt Event name or event object
-         * @example
-         * ch.Event.dispatchEvent(document, 'click');
-         */
-        'dispatchEvent': function dispatchEvent(el, e) {
-            var event = e;
-
-            if (typeof e === 'string') {
-                event = document.createEvent('Event');
-                event.initEvent(e, true, true);
-            }
-            el[dispatch](event);
-        },
-        /**
-         * Dispatches the custom event that is not the part of standard DOM Event
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to dispatch event to
-         * @param {String} name Custom event name
-         * @param {Object} params Optional event params that should be passed to an event
-         * @example
-         * ch.Event.dispatchCustomEvent(document, ch.onlayoutchange, {
-         *   bubbles: true,
-         *   cancelable: false,
-         *   detail: {
-         *     x: 123
-         *   }
-         * });
-         */
-        'dispatchCustomEvent': function dispatchCustomEvent(el, name, params) {
-            if (!_custom[name]) {
-                var data = tiny.extend({
-                        bubbles: false,
-                        cancelable: false,
-                        detail: undefined
-                    }, params),
-                    eventName = window.CustomEvent ? 'CustomEvent' : 'Event';
-
-                if (ch.support.customEvent) {
-                    _custom[name] = new CustomEvent(name, data);
-                } else {
-                    _custom[name] = document.createEvent(eventName);
-                    _custom[name]['init' + eventName](name, data.bubbles, data.cancelable, data.detail);
-                }
-            }
-
-            el[dispatch](_custom[name]);
-        }
-    }
-}());
 
 ch.onkeytab = 'tab';
 
@@ -3181,10 +3059,10 @@ ch.factory = function (Klass) {
 
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
-                ch.Event.removeListener(that.container, ch.support.transition.end, hideCallback);
+                tiny.off(that.container, ch.support.transition.end, hideCallback);
                 tiny.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
 
-                ch.Event.addListener(that.container, ch.support.transition.end, showCallback);
+                tiny.on(that.container, ch.support.transition.end, showCallback);
 
                 // Reveal an element before the transition
                 that.container.style.display = 'block';
@@ -3252,10 +3130,10 @@ ch.factory = function (Klass) {
             if (useEffects) {
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
-                ch.Event.removeListener(that.container, ch.support.transition.end, showCallback);
+                tiny.off(that.container, ch.support.transition.end, showCallback);
                 tiny.classList(that.container).remove('ch-fx-' + fx);
 
-                ch.Event.addListener(that.container, ch.support.transition.end, hideCallback);
+                tiny.on(that.container, ch.support.transition.end, hideCallback);
                 // Set margin and padding to 0 to prevent content jumping at the transition end
                 if (/^slide/.test(fx)) {
                     that.container.style.height = tiny.css(that.container, 'height');
@@ -4106,7 +3984,7 @@ ch.factory = function (Klass) {
             }
         };
 
-    ch.Event.addListener(document, 'keydown', shortcutsEmitter);
+    tiny.on(document, 'keydown', shortcutsEmitter);
 
     ch.shortcuts = shortcuts;
 
@@ -4493,14 +4371,14 @@ ch.factory = function (Klass) {
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-        ch.Event.addListener(this.container, 'submit', function (event) {
+        tiny.on(this.container, 'submit', function (event) {
             // Runs validations
             that.validate(event);
         });
 
         // Bind the reset
         if (this.container.querySelector('input[type="reset"]')) {
-            ch.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
+            tiny.on(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
                 ch.util.prevent(event);
                 that.reset();
             });
@@ -5218,7 +5096,7 @@ ch.factory = function (Klass) {
             previousValue;
 
         // It must happen only once.
-        ch.Event.addListener(this.trigger, this._validationEvent, function () {
+        tiny.on(this.trigger, this._validationEvent, function () {
 
             if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
                 previousValue = this.value;
@@ -5741,7 +5619,7 @@ ch.factory = function (Klass) {
         this.trigger = this._el;
         tiny.classList(this.trigger).add(this._options._classNameTrigger);
         tiny.classList(this.trigger).add(this._options._classNameIcon);
-        ch.Event.addListener(this.trigger, ch.onpointertap, function (event) {
+        tiny.on(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
             }
@@ -5782,10 +5660,10 @@ ch.factory = function (Klass) {
 
         this
             .on('show', function () {
-                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             })
             .on('hide', function () {
-                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             });
 
         ch.util.avoidTextSelection(this.trigger);
@@ -5898,7 +5776,7 @@ ch.factory = function (Klass) {
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -6239,7 +6117,7 @@ ch.factory = function (Klass) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -6407,7 +6285,7 @@ ch.factory = function (Klass) {
          */
         this.container = container.querySelector('div');
 
-        ch.Event.addListener(this.container, ch.onpointertap, function (event) {
+        tiny.on(this.container, ch.onpointertap, function (event) {
             event.stopPropagation();
         });
 
@@ -6464,7 +6342,7 @@ ch.factory = function (Klass) {
 
         // Refresh position:
         // on layout change
-        ch.Event.addListener(document, ch.onlayoutchange, this._refreshPositionListener)
+        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener)
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -6528,7 +6406,7 @@ ch.factory = function (Klass) {
 
             tiny.classList(this._el).add('ch-shownby-' + this._options.shownby);
 
-            ch.Event.addListener(this._el, shownbyEvent[this._options.shownby], function (event) {
+            tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
                 ch.util.prevent(event);
                 showHandler();
@@ -6592,12 +6470,8 @@ ch.factory = function (Klass) {
         // Hide by leaving the component
         if (hiddenby === 'pointerleave' && this.trigger !== undefined) {
 
-            ch.Event.addListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.addListener(this.trigger, ch.onpointerleave, this._hideTimer);
-
-            ch.Event.addListener(this.container, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.addListener(this.container, ch.onpointerleave, this._hideTimer);
-
+            tiny.on([this.trigger, this.container], ch.onpointerenter, this._hideTimerCleaner);
+            tiny.on([this.trigger, this.container], ch.onpointerleave, this._hideTimer);
         }
 
         // Hide with the button Close
@@ -6606,7 +6480,7 @@ ch.factory = function (Klass) {
             dummy.innerHTML = '<i class="ch-close" role="button" aria-label="Close"></i>';
             button = dummy.querySelector('i');
 
-            ch.Event.addListener(button, ch.onpointertap, function () {
+            tiny.on(button, ch.onpointertap, function () {
                 that.hide();
             });
 
@@ -6883,8 +6757,8 @@ ch.factory = function (Klass) {
 
         if (this.trigger !== undefined) {
 
-            ch.Event.removeListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.removeListener(this.trigger, ch.onpointerleave, this._hideTimer);
+            tiny.off(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            tiny.off(this.trigger, ch.onpointerleave, this._hideTimer);
 
             tiny.classList(this.trigger).remove('ch-' + this.name + '-trigger');
 
@@ -6899,7 +6773,7 @@ ch.factory = function (Klass) {
             this._snippet.title ? this.trigger.setAttribute('title', this._snippet.title) : null;
         }
 
-        ch.Event.removeListener(document, ch.onlayoutchange, this._refreshPositionListener);
+        tiny.off(document, ch.onlayoutchange, this._refreshPositionListener);
 
         ch.viewport.off(ch.onresize, this._refreshPositionListener);
 
@@ -6935,11 +6809,11 @@ ch.factory = function (Klass) {
         this
             .on('show', function () {
                 ch.shortcuts.on(that.uid);
-                ch.Event.addListener(document, ch.onpointertap, hide);
+                tiny.on(document, ch.onpointertap, hide);
             })
             .on('hide', function () {
                 ch.shortcuts.off(that.uid);
-                ch.Event.removeListener(document, ch.onpointertap, hide);
+                tiny.off(document, ch.onpointertap, hide);
             })
             .once('destroy', function () {
                 ch.shortcuts.remove(that.uid, ch.onkeyesc);
@@ -7457,7 +7331,7 @@ ch.factory = function (Klass) {
             cl.remove(fxName + '-enter-active');
             cl.remove(fxName + '-enter');
 
-            ch.Event.removeListener(e.target, e.type, showCallback);
+            tiny.off(e.target, e.type, showCallback);
         }
 
         if (useAnimation) {
@@ -7465,7 +7339,7 @@ ch.factory = function (Klass) {
             setTimeout(function() {
                 cl.add(fxName + '-enter-active');
             },10);
-            ch.Event.addListener(underlay, ch.support.transition.end, showCallback);
+            tiny.on(underlay, ch.support.transition.end, showCallback);
         }
     };
 
@@ -7485,7 +7359,7 @@ ch.factory = function (Klass) {
             cl.remove(fxName + '-leave-active');
             cl.remove(fxName + '-leave');
 
-            ch.Event.removeListener(e.target, e.type, hideCallback);
+            tiny.off(e.target, e.type, hideCallback);
             parent.removeChild(underlay);
         }
 
@@ -7494,7 +7368,7 @@ ch.factory = function (Klass) {
             setTimeout(function() {
                 cl.add(fxName + '-leave-active');
             },10);
-            ch.Event.addListener(underlay, ch.support.transition.end, hideCallback);
+            tiny.on(underlay, ch.support.transition.end, hideCallback);
         } else {
             parent.removeChild(underlay);
         }
@@ -7546,7 +7420,7 @@ ch.factory = function (Klass) {
 
         // Add to the underlay the ability to hide the component
         if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
-            ch.Event.addListener(underlay, ch.onpointertap, hideByUnderlay);
+            tiny.on(underlay, ch.onpointertap, hideByUnderlay);
         }
 
         // Show the underlay
@@ -7572,7 +7446,7 @@ ch.factory = function (Klass) {
         }
 
         // Delete the underlay listener
-        ch.Event.removeListener(underlay, ch.onpointertap)
+        tiny.off(underlay, ch.onpointertap)
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()
@@ -7891,10 +7765,10 @@ ch.factory = function (Klass) {
         tiny.classList(this.trigger).add('ch-zoom-trigger');
 
         // Prevent to redirect to the href
-        ch.Event.addListener(this.trigger, 'click', function (event) { ch.util.prevent(event); }, false);
+        tiny.on(this.trigger, 'click', function (event) { ch.util.prevent(event); }, false);
 
         // Bind move calculations
-        ch.Event.addListener(this.trigger, ch.onpointermove, function (event) { that._move(event); }, false);
+        tiny.on(this.trigger, ch.onpointermove, function (event) { that._move(event); }, false);
 
         return this;
     };
@@ -8580,8 +8454,8 @@ ch.factory = function (Klass) {
 
 
         // Show or hide arrows depending on "from" and "to" limits
-        ch.Event.addListener(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        ch.Event.addListener(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        tiny.on(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
+        tiny.on(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
 
         /**
          * The calendar container.
@@ -9119,7 +8993,7 @@ ch.factory = function (Klass) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -9286,7 +9160,7 @@ ch.factory = function (Klass) {
             var items = content.querySelectorAll('a');
             Array.prototype.forEach.call(items, function (item, index) {
                 item.setAttribute('role', 'option');
-                ch.Event.addListener(item, ch.onpointerenter, function () {
+                tiny.on(item, ch.onpointerenter, function () {
                     that._navigation[that._selected = index].focus();
                 });
             });
@@ -9381,7 +9255,7 @@ ch.factory = function (Klass) {
         // this.$trigger.off('.dropdown');
         // this.$container.off('.dropdown');
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         // $.each(this._$navigation, function (i, e) {
         //     $(e).off(ch.onpointerenter);
@@ -9921,7 +9795,7 @@ ch.factory = function (Klass) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
     };
@@ -10229,7 +10103,7 @@ ch.factory = function (Klass) {
         this._prevArrow.setAttribute('role', 'button');
         this._prevArrow.setAttribute('aria-hidden', 'true');
         this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
-        ch.Event.addListener(this._prevArrow, pointertap, function () { that.prev(); }, false);
+        tiny.on(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
         /**
          * UI element of arrow that moves the Carousel to the next page.
@@ -10240,7 +10114,7 @@ ch.factory = function (Klass) {
         this._nextArrow.setAttribute('role', 'button');
         this._nextArrow.setAttribute('aria-hidden', 'true');
         this._nextArrow.setAttribute('class', 'ch-carousel-next');
-        ch.Event.addListener(this._nextArrow, pointertap, function () { that.next(); }, false);
+        tiny.on(this._nextArrow, pointertap, function () { that.next(); }, false);
 
         /**
          * UI element that contains all the thumbnails for pagination.
@@ -10251,7 +10125,7 @@ ch.factory = function (Klass) {
         this._pagination.setAttribute('role', 'navigation');
         this._pagination.setAttribute('class', 'ch-carousel-pages');
 
-        ch.Event.addListener(this._pagination, pointertap, function (event) {
+        tiny.on(this._pagination, pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
@@ -10924,7 +10798,7 @@ ch.factory = function (Klass) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -11077,17 +10951,10 @@ ch.factory = function (Klass) {
          * countdown.trigger;
          */
         this.trigger = this._el;
-        ch.Event.addListener(this.trigger, 'keyup', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'keypress', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'keydown', function () { that._count(); });
-
-        // IE8 doesn't work
-        ch.Event.addListener(this.trigger, 'input', function () { that._count(); });
-
-        // IE8 - IE10 doesn't work
-        ch.Event.addListener(this.trigger, 'paste', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'cut', function () { that._count(); });
-
+        'keyup keypress keydown input paste cut'.split(' ')
+            .forEach(function(name) {
+                tiny.on(that.trigger, name, function () { that._count(); });
+            });
 
         /**
          * Amount of free characters until full the field.
@@ -11213,7 +11080,7 @@ ch.factory = function (Klass) {
         var parentElement = ch.util.parentElement(this.container);
             parentElement.removeChild(this.container);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -11398,7 +11265,7 @@ ch.factory = function (Klass) {
             'hiddenby': this._options.hiddenby
         });
 
-        ch.Event.addListener(this._popover._content, ch.onpointertap, function (event) {
+        tiny.on(this._popover._content, ch.onpointertap, function (event) {
             var el = event.target;
 
             // Day selection
@@ -11990,10 +11857,10 @@ ch.factory = function (Klass) {
 
         };
 
-        ch.Event.addListener(this.container, highlightEvent, this._highlightSuggestion);
+        tiny.on(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        ch.Event.addListener(this.container, ch.onpointerdown, function itemEvents(event) {
+        tiny.on(this.container, ch.onpointerdown, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word
@@ -12020,8 +11887,8 @@ ch.factory = function (Klass) {
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
 
-        ch.Event.addListener(this.trigger, 'focus', function turnon() { that._turn('on'); })
-        ch.Event.addListener(this.trigger, 'blur', function turnoff() {that._turn('off'); });
+        tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); })
+        tiny.on(this.trigger, 'blur', function turnoff() {that._turn('off'); });
 
         // Turn on when the input element is already has focus
         if (this._el === document.activeElement && !this._enabled) {
@@ -12118,19 +11985,19 @@ ch.factory = function (Klass) {
 
         if (turn === 'on') {
             if (!MSIE || MSIE > 9) {
-                ch.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
+                tiny.on(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
-                    ch.Event.addListener(that.trigger, evtName, turnOnFallback);
+                    tiny.on(that.trigger, evtName, turnOnFallback);
                 });
             }
         } else if (turn === 'off') {
             this.hide();
             if (!MSIE || MSIE > 9) {
-                ch.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
+                tiny.off(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
-                    ch.Event.removeListener(that.trigger, evtName, turnOnFallback);
+                    tiny.off(that.trigger, evtName, turnOnFallback);
                 });
             }
         }
@@ -12364,7 +12231,7 @@ ch.factory = function (Klass) {
      */
     Autocomplete.prototype.destroy = function () {
 
-        ch.Event.removeListener(this.container, highlightEvent, this._highlightSuggestion);
+        tiny.off(this.container, highlightEvent, this._highlightSuggestion);
 
         this.trigger.removeAttribute('autocomplete');
         this.trigger.removeAttribute('aria-autocomplete');

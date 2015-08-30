@@ -134,7 +134,7 @@
             cl.remove(fxName + '-enter-active');
             cl.remove(fxName + '-enter');
 
-            ch.Event.removeListener(e.target, e.type, showCallback);
+            tiny.off(e.target, e.type, showCallback);
         }
 
         if (useAnimation) {
@@ -142,7 +142,7 @@
             setTimeout(function() {
                 cl.add(fxName + '-enter-active');
             },10);
-            ch.Event.addListener(underlay, ch.support.transition.end, showCallback);
+            tiny.on(underlay, ch.support.transition.end, showCallback);
         }
     };
 
@@ -162,7 +162,7 @@
             cl.remove(fxName + '-leave-active');
             cl.remove(fxName + '-leave');
 
-            ch.Event.removeListener(e.target, e.type, hideCallback);
+            tiny.off(e.target, e.type, hideCallback);
             parent.removeChild(underlay);
         }
 
@@ -171,7 +171,7 @@
             setTimeout(function() {
                 cl.add(fxName + '-leave-active');
             },10);
-            ch.Event.addListener(underlay, ch.support.transition.end, hideCallback);
+            tiny.on(underlay, ch.support.transition.end, hideCallback);
         } else {
             parent.removeChild(underlay);
         }
@@ -223,7 +223,7 @@
 
         // Add to the underlay the ability to hide the component
         if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
-            ch.Event.addListener(underlay, ch.onpointertap, hideByUnderlay);
+            tiny.on(underlay, ch.onpointertap, hideByUnderlay);
         }
 
         // Show the underlay
@@ -249,7 +249,7 @@
         }
 
         // Delete the underlay listener
-        ch.Event.removeListener(underlay, ch.onpointertap)
+        tiny.off(underlay, ch.onpointertap)
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()

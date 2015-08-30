@@ -1311,7 +1311,7 @@
         var expandable1 = new ch.Expandable(qS('.YOUR_SELECTOR_expandable'));
 
         expandable1.on('contentdone', function () {
-            ch.Event.addListener(document.querySelector('.test'), 'click', function () {
+            tiny.on('.test', 'click', function () {
                 console.log('contentdone' + that.uid);
             });
         });
@@ -1322,7 +1322,7 @@
         });
         expandable2.on('contentdone', function () {
             var that = this;
-            ch.Event.addListener(qS('h2'), 'click', function () {
+            tiny.on('h2', 'click', function () {
                 console.log('contentdone' + that.uid);
             });
         });
@@ -1488,7 +1488,7 @@
             'hiddenby': 'button'
         });
 
-        ch.Event.addListener(qS('#modal-form'), 'submit', function (e) {
+        tiny.on('#modal-form', 'submit', function (e) {
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
@@ -1568,7 +1568,7 @@
                      console.log(errors);
                  });
 
-        ch.Event.addListener(form._el, 'submit', function (event) {
+        tiny.on(form._el, 'submit', function (event) {
             if (!form.hasError()) {
                 event.preventDefault();
                 console.log('Ademas hago otra cosa en el submit');
@@ -1685,11 +1685,10 @@
             'conditions':[{'name': 'required'}]
         });
 
-        [].forEach.call(document.querySelectorAll('a[href="#"]'), function(a) {
-            a.addEventListener('click', function(e){
-                e.preventDefault();
-            });
+        tiny.on('a[href="#"]', 'click', function(e) {
+            e.preventDefault();
         });
+
     </script>
 </body>
 </html>

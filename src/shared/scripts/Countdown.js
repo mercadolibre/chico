@@ -140,17 +140,10 @@
          * countdown.trigger;
          */
         this.trigger = this._el;
-        ch.Event.addListener(this.trigger, 'keyup', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'keypress', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'keydown', function () { that._count(); });
-
-        // IE8 doesn't work
-        ch.Event.addListener(this.trigger, 'input', function () { that._count(); });
-
-        // IE8 - IE10 doesn't work
-        ch.Event.addListener(this.trigger, 'paste', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'cut', function () { that._count(); });
-
+        'keyup keypress keydown input paste cut'.split(' ')
+            .forEach(function(name) {
+                tiny.on(that.trigger, name, function () { that._count(); });
+            });
 
         /**
          * Amount of free characters until full the field.
@@ -276,7 +269,7 @@
         var parentElement = ch.util.parentElement(this.container);
             parentElement.removeChild(this.container);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
