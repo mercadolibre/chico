@@ -193,14 +193,14 @@
 
         // Make the entire Show process if it tried to show before
         this.on('imageload', function () {
-            if (!ch.util.classList(this._loading).contains('ch-hide')) {
+            if (!tiny.classList(this._loading).contains('ch-hide')) {
                 that.show();
-                ch.util.classList(this._loading).add('ch-hide');
+                tiny.classList(this._loading).add('ch-hide');
             }
         });
 
         // Assign event handlers to the anchor
-        ch.util.classList(this.trigger).add('ch-zoom-trigger');
+        tiny.classList(this.trigger).add('ch-zoom-trigger');
 
         // Prevent to redirect to the href
         ch.Event.addListener(this.trigger, 'click', function (event) { ch.util.prevent(event); }, false);
@@ -417,13 +417,13 @@
 
         // Show feedback and trigger the image load, if it's not loaded
         if (!this._loaded) {
-            ch.util.classList(this._loading).remove('ch-hide');
+            tiny.classList(this._loading).remove('ch-hide');
             this.loadImage();
             return this;
         }
 
         // Delete the Loading and show the Seeker
-        ch.util.classList(this._seeker).remove('ch-hide');
+        tiny.classList(this._seeker).remove('ch-hide');
 
         // Execute the original show()
         parent.show.call(this, content, options);
@@ -447,11 +447,11 @@
 
         // Avoid unnecessary execution
         if (!this._loaded) {
-            ch.util.classList(this._loading).add('ch-hide');
+            tiny.classList(this._loading).add('ch-hide');
             return this;
         }
 
-        ch.util.classList(this._seeker).add('ch-hide');
+        tiny.classList(this._seeker).add('ch-hide');
 
         parent.hide.call(this);
 

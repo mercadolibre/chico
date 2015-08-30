@@ -333,7 +333,7 @@
         this._prev.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._prev.setAttribute('role', 'button');
         this._prev.setAttribute('aria-hidden', 'false');
-        ch.util.classList(this._prev).add('ch-calendar-prev');
+        tiny.classList(this._prev).add('ch-calendar-prev');
 
         /**
          * Template of next arrow.
@@ -343,7 +343,7 @@
         this._next.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._next.setAttribute('role', 'button');
         this._next.setAttribute('aria-hidden', 'false');
-        ch.util.classList(this._next).add('ch-calendar-next');
+        tiny.classList(this._next).add('ch-calendar-next');
 
 
         // Show or hide arrows depending on "from" and "to" limits
@@ -357,7 +357,7 @@
         this.container = this._el;
         this.container.insertBefore(this._prev, this.container.firstChild);
         this.container.insertBefore(this._next, this.container.firstChild);
-        ch.util.classList(this.container).add('ch-calendar');
+        tiny.classList(this.container).add('ch-calendar');
         this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         this._updateControls();
@@ -395,23 +395,23 @@
 
         // Show previous arrow when it's out of limit
         if (this._hasPrevMonth()) {
-            ch.util.classList(this._prev).remove('ch-hide');
+            tiny.classList(this._prev).remove('ch-hide');
             this._prev.setAttribute('aria-hidden', 'false');
 
         // Hide previous arrow when it's out of limit
         } else {
-            ch.util.classList(this._prev).add('ch-hide');
+            tiny.classList(this._prev).add('ch-hide');
             this._prev.setAttribute('aria-hidden', 'true');
         }
 
         // Show next arrow when it's out of limit
         if (this._hasNextMonth()) {
-            ch.util.classList(this._next).remove('ch-hide');
+            tiny.classList(this._next).remove('ch-hide');
             this._next.setAttribute('aria-hidden', 'false');
 
         // Hide next arrow when it's out of limit
         } else {
-            ch.util.classList(this._next).add('ch-hide');
+            tiny.classList(this._next).add('ch-hide');
             this._next.setAttribute('aria-hidden', 'true');
         }
 

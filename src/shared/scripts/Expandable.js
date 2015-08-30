@@ -132,8 +132,8 @@
          * expandable.trigger;
          */
         this.trigger = this._el;
-        ch.util.classList(this.trigger).add(this._options._classNameTrigger);
-        ch.util.classList(this.trigger).add(this._options._classNameIcon);
+        tiny.classList(this.trigger).add(this._options._classNameTrigger);
+        tiny.classList(this.trigger).add(this._options._classNameIcon);
         ch.Event.addListener(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
@@ -157,10 +157,10 @@
          */
         this.container = this._content = (this._options.container ?
             this._options.container : ch.util.nextElementSibling(this._el));
-        ch.util.classList(this.container).add(this._options._classNameContainer);
-        ch.util.classList(this.container).add('ch-hide');
+        tiny.classList(this.container).add(this._options._classNameContainer);
+        tiny.classList(this.container).add('ch-hide');
         if (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
-            ch.util.classList(this.container).add('ch-fx');
+            tiny.classList(this.container).add('ch-fx');
         }
         this.container.setAttribute('aria-expanded', 'false');
 
@@ -281,13 +281,13 @@
     Expandable.prototype.destroy = function () {
 
         //this.$trigger.off('.expandable')
-        ch.util.classList(this.trigger).remove('ch-expandable-trigger');
-        ch.util.classList(this.trigger).remove('ch-expandable-ico');
-        ch.util.classList(this.trigger).remove('ch-user-no-select');
+        tiny.classList(this.trigger).remove('ch-expandable-trigger');
+        tiny.classList(this.trigger).remove('ch-expandable-ico');
+        tiny.classList(this.trigger).remove('ch-user-no-select');
         this.trigger.removeAttribute('aria-controls');
 
-        ch.util.classList(this.container).remove('ch-expandable-container');
-        ch.util.classList(this.container).remove('ch-hide');
+        tiny.classList(this.container).remove('ch-expandable-container');
+        tiny.classList(this.container).remove('ch-hide');
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 

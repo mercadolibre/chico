@@ -130,19 +130,19 @@
          * @type {HTMLElement}
          */
         this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected')
-        ch.util.classList(this.trigger).add('ch-dropdown-trigger');
+        tiny.classList(this.trigger).add('ch-dropdown-trigger');
         ch.util.avoidTextSelection(this.trigger);
 
 
 
         // Skinned dropdown
         if (this._options.skin) {
-            ch.util.classList(this.trigger).add('ch-dropdown-trigger-skin');
-            ch.util.classList(this.container).add('ch-dropdown-skin');
+            tiny.classList(this.trigger).add('ch-dropdown-trigger-skin');
+            tiny.classList(this.container).add('ch-dropdown-skin');
         // Default Skin
         } else {
-            ch.util.classList(this.trigger).add('ch-btn-skin');
-            ch.util.classList(this.trigger).add('ch-btn-small');
+            tiny.classList(this.trigger).add('ch-btn-skin');
+            tiny.classList(this.trigger).add('ch-btn-small');
         }
 
         /**
@@ -237,11 +237,11 @@
 
 
 
-        ch.util.classList(this.trigger).remove('ch-dropdown-trigger');
-        ch.util.classList(this.trigger).remove('ch-dropdown-trigger-skin');
-        ch.util.classList(this.trigger).remove('ch-user-no-select');
-        ch.util.classList(this.trigger).remove('ch-btn-skin');
-        ch.util.classList(this.trigger).remove('ch-btn-small');
+        tiny.classList(this.trigger).remove('ch-dropdown-trigger');
+        tiny.classList(this.trigger).remove('ch-dropdown-trigger-skin');
+        tiny.classList(this.trigger).remove('ch-user-no-select');
+        tiny.classList(this.trigger).remove('ch-btn-skin');
+        tiny.classList(this.trigger).remove('ch-btn-small');
         this.trigger.removeAttribute('aria-controls');
 
         this.trigger.insertAdjacentHTML('afterend', this._snippet);

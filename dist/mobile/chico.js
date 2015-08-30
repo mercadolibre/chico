@@ -2075,11 +2075,11 @@ ch.util = {
 
             for (i; i < len; i += 1) {
 
-                if (ch.util.classList(document.documentElement).contains('lt-ie10')) {
+                if (tiny.classList(document.documentElement).contains('lt-ie10')) {
                     args[i].setAttribute('unselectable', 'on');
 
                 } else {
-                    ch.util.classList(args[i]).add('ch-user-no-select');
+                    tiny.classList(args[i]).add('ch-user-no-select');
                 }
 
             }
@@ -2114,32 +2114,6 @@ ch.util = {
                 prop = prop.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
                 return el.currentStyle[prop];
             }
-        },
-
-        /**
-         * Returns a shallow-copied clone of the object.
-         *
-         * @memberof ch.util
-         * @param {Object} obj The object to copy.
-         * @returns {Object}
-         * @example
-         * tiny.clone(object);
-         */
-        'clone': function (obj) {
-            if (obj === undefined || typeof obj !== 'object') {
-                throw new Error('"tiny.clone(obj)": The "obj" parameter is required and must be a object.');
-            }
-
-            var copy = {},
-                prop;
-
-            for (prop in obj) {
-                if (obj[prop] !== undefined) {
-                    copy[prop] = obj[prop];
-                }
-            }
-
-            return copy;
         },
 
         /**
@@ -2258,46 +2232,6 @@ ch.util = {
          * ch.util.zIndex += 1;
          */
         'zIndex': 1000,
-
-        /**
-         * Add or remove class
-         *
-         * @name classList
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @see Based on: <a href="http://youmightnotneedjquery.com/" target="_blank">http://youmightnotneedjquery.com/</a>
-         * @example
-         * ch.util.classList(document.body).add('ch-example');
-         */
-        'classList': function (el) {
-            var isClassList = el.classList;
-
-            return {
-                'add': function add(className) {
-                    if (isClassList) {
-                        el.classList.add(className);
-                    } else {
-                        el.setAttribute('class', el.getAttribute('class') + ' ' + className);
-                    }
-                },
-                'remove': function remove(className) {
-                    if (isClassList) {
-                        el.classList.remove(className)
-                    } else {
-                        el.setAttribute('class', el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' '));
-                    }
-                },
-                'contains': function contains(className) {
-                    var exist;
-                    if (isClassList) {
-                        exist = el.classList.contains(className);
-                    } else {
-                        exist = new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
-                    }
-                    return exist;
-                }
-            }
-        },
 
         // review this method :S
         'parentElement': function(el, tagname) {
@@ -2817,7 +2751,7 @@ ch.factory = function (Klass) {
     };
 
     // Remove no-js classname
-    ch.util.classList(document.documentElement).remove('no-js');
+    tiny.classList(document.documentElement).remove('no-js');
 
     // Iphone scale fix
     ch.util.MBP.scaleFix();
@@ -3232,7 +3166,7 @@ ch.factory = function (Klass) {
             // Case 3: HTML Element
             } else if (content.nodeType !== undefined) {
 
-                ch.util.classList(content).remove('ch-hide');
+                tiny.classList(content).remove('ch-hide');
                 parent = ch.util.parentElement(content);
 
                 setContent(content);
@@ -3294,14 +3228,14 @@ ch.factory = function (Klass) {
 
         function showCallback(e) {
             if (useEffects) {
-                ch.util.classList(that.container).remove('ch-fx-' + fx);
+                tiny.classList(that.container).remove('ch-fx-' + fx);
 
                 // TODO: Use original height when it is defined
                 if (/^slide/.test(fx)) {
                     that.container.style.height = '';
                 }
             }
-            ch.util.classList(that.container).remove('ch-hide');
+            tiny.classList(that.container).remove('ch-hide');
             that.container.setAttribute('aria-hidden', 'false');
 
             if (e) {
@@ -3322,13 +3256,13 @@ ch.factory = function (Klass) {
 
         function hideCallback(e) {
             if (useEffects) {
-                ch.util.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                tiny.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
                 that.container.style.display = '';
                 if (/^slide/.test(fx)) {
                     that.container.style.height = '';
                 }
             }
-            ch.util.classList(that.container).add('ch-hide');
+            tiny.classList(that.container).add('ch-hide');
             that.container.setAttribute('aria-hidden', 'true');
 
             if (e) {
@@ -3359,7 +3293,7 @@ ch.factory = function (Klass) {
             that._shown = true;
 
             if (that.trigger !== undefined) {
-                ch.util.classList(that.trigger).add(triggerClass);
+                tiny.classList(that.trigger).add(triggerClass);
             }
 
             /**
@@ -3380,7 +3314,7 @@ ch.factory = function (Klass) {
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
                 ch.Event.removeListener(that.container, ch.support.transition.end, hideCallback);
-                ch.util.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                tiny.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
 
                 ch.Event.addListener(that.container, ch.support.transition.end, showCallback);
 
@@ -3411,7 +3345,7 @@ ch.factory = function (Klass) {
                     }
                     that.container.style.paddingTop = pt;
                     that.container.style.paddingBottom = pb;
-                    ch.util.classList(that.container).add('ch-fx-' + fx);
+                    tiny.classList(that.container).add('ch-fx-' + fx);
                 }, 0);
             } else {
                 showCallback();
@@ -3432,7 +3366,7 @@ ch.factory = function (Klass) {
             that._shown = false;
 
             if (that.trigger !== undefined) {
-                ch.util.classList(that.trigger).remove(triggerClass);
+                tiny.classList(that.trigger).remove(triggerClass);
             }
 
             /**
@@ -3451,7 +3385,7 @@ ch.factory = function (Klass) {
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
                 ch.Event.removeListener(that.container, ch.support.transition.end, showCallback);
-                ch.util.classList(that.container).remove('ch-fx-' + fx);
+                tiny.classList(that.container).remove('ch-fx-' + fx);
 
                 ch.Event.addListener(that.container, ch.support.transition.end, hideCallback);
                 // Set margin and padding to 0 to prevent content jumping at the transition end
@@ -3461,11 +3395,11 @@ ch.factory = function (Klass) {
                     setTimeout(function() {
                         that.container.style.height = '0px';
                         that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
-                        ch.util.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                        tiny.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
                     }, 0);
                 } else {
                     setTimeout(function() {
-                        ch.util.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                        tiny.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
                     }, 0);
                 }
             } else {
@@ -4128,8 +4062,7 @@ ch.factory = function (Klass) {
 (function (window, ch) {
     'use strict';
 
-    var util = ch.util,
-        uid = 0;
+    var uid = 0;
 
     /**
      * Base class for all components.
@@ -4205,7 +4138,7 @@ ch.factory = function (Klass) {
     Component.prototype._init = function (el, options) {
 
         // Clones defaults or creates a defaults object
-        var defaults = (this._defaults) ? util.clone(this._defaults) : {};
+        var defaults = (this._defaults) ? tiny.clone(this._defaults) : {};
 
         if (el === null) {
             throw new Error('The "el" parameter is not present in the DOM');
@@ -4508,8 +4441,8 @@ ch.factory = function (Klass) {
          * expandable.trigger;
          */
         this.trigger = this._el;
-        ch.util.classList(this.trigger).add(this._options._classNameTrigger);
-        ch.util.classList(this.trigger).add(this._options._classNameIcon);
+        tiny.classList(this.trigger).add(this._options._classNameTrigger);
+        tiny.classList(this.trigger).add(this._options._classNameIcon);
         ch.Event.addListener(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
@@ -4533,10 +4466,10 @@ ch.factory = function (Klass) {
          */
         this.container = this._content = (this._options.container ?
             this._options.container : ch.util.nextElementSibling(this._el));
-        ch.util.classList(this.container).add(this._options._classNameContainer);
-        ch.util.classList(this.container).add('ch-hide');
+        tiny.classList(this.container).add(this._options._classNameContainer);
+        tiny.classList(this.container).add('ch-hide');
         if (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
-            ch.util.classList(this.container).add('ch-fx');
+            tiny.classList(this.container).add('ch-fx');
         }
         this.container.setAttribute('aria-expanded', 'false');
 
@@ -4657,13 +4590,13 @@ ch.factory = function (Klass) {
     Expandable.prototype.destroy = function () {
 
         //this.$trigger.off('.expandable')
-        ch.util.classList(this.trigger).remove('ch-expandable-trigger');
-        ch.util.classList(this.trigger).remove('ch-expandable-ico');
-        ch.util.classList(this.trigger).remove('ch-user-no-select');
+        tiny.classList(this.trigger).remove('ch-expandable-trigger');
+        tiny.classList(this.trigger).remove('ch-expandable-ico');
+        tiny.classList(this.trigger).remove('ch-user-no-select');
         this.trigger.removeAttribute('aria-controls');
 
-        ch.util.classList(this.container).remove('ch-expandable-container');
-        ch.util.classList(this.container).remove('ch-hide');
+        tiny.classList(this.container).remove('ch-expandable-container');
+        tiny.classList(this.container).remove('ch-hide');
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 
@@ -4819,10 +4752,10 @@ ch.factory = function (Klass) {
          */
         this.container = this._el;
         this.container.setAttribute('role', 'navigation');
-        ch.util.classList(this.container).add('ch-menu');
+        tiny.classList(this.container).add('ch-menu');
 
-        this._options._className ? ch.util.classList(this.container).add(this._options._className) : null;
-        this._options.addClass ? ch.util.classList(this.container).add(this._options.addClass) : null;
+        this._options._className ? tiny.classList(this.container).add(this._options._className) : null;
+        this._options.addClass ? tiny.classList(this.container).add(this._options.addClass) : null;
 
         /**
          * A collection of folds.
@@ -4857,7 +4790,7 @@ ch.factory = function (Klass) {
                 menu;
 
             // List element
-            ch.util.classList(li).add('ch-menu-fold');
+            tiny.classList(li).add('ch-menu-fold');
 
             // Children of list elements
             child = li.children[0];
@@ -4867,7 +4800,7 @@ ch.factory = function (Klass) {
                 // Add attr role to match wai-aria
                 li.setAttribute('role', 'presentation');
                 //
-                ch.util.classList(child).add('ch-fold-trigger');
+                tiny.classList(child).add('ch-fold-trigger');
                 // Add anchor to that.fold
                 that.folds.push(child);
 
@@ -5187,7 +5120,7 @@ ch.factory = function (Klass) {
          */
         this._content = document.createElement('div');
 
-        ch.util.classList(this._content).add('ch-popover-content');
+        tiny.classList(this._content).add('ch-popover-content');
 
         this.container.appendChild(this._content);
 
@@ -5295,7 +5228,7 @@ ch.factory = function (Klass) {
         // Open event when configured as able to shown anyway
         if (this._options.shownby !== 'none') {
 
-            ch.util.classList(this._el).add('ch-shownby-' + this._options.shownby);
+            tiny.classList(this._el).add('ch-shownby-' + this._options.shownby);
 
             ch.Event.addListener(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
@@ -5655,7 +5588,7 @@ ch.factory = function (Klass) {
             ch.Event.removeListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
             ch.Event.removeListener(this.trigger, ch.onpointerleave, this._hideTimer);
 
-            ch.util.classList(this.trigger).remove('ch-' + this.name + '-trigger');
+            tiny.classList(this.trigger).remove('ch-' + this.name + '-trigger');
 
             this.trigger.removeAttribute('data-title');
             this.trigger.removeAttribute('aria-owns');
@@ -5970,7 +5903,7 @@ ch.factory = function (Klass) {
     Modal.prototype._showUnderlay = function () {
         var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = ch.util.classList(underlay);
+            cl = tiny.classList(underlay);
 
         underlay.style.zIndex = ch.util.zIndex;
 
@@ -6001,7 +5934,7 @@ ch.factory = function (Klass) {
     Modal.prototype._hideUnderlay = function () {
         var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = ch.util.classList(underlay),
+            cl = tiny.classList(underlay),
             parent = underlay.parentNode;
 
         function hideCallback(e) {
@@ -6341,19 +6274,19 @@ ch.factory = function (Klass) {
          * @type {HTMLElement}
          */
         this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected')
-        ch.util.classList(this.trigger).add('ch-dropdown-trigger');
+        tiny.classList(this.trigger).add('ch-dropdown-trigger');
         ch.util.avoidTextSelection(this.trigger);
 
 
 
         // Skinned dropdown
         if (this._options.skin) {
-            ch.util.classList(this.trigger).add('ch-dropdown-trigger-skin');
-            ch.util.classList(this.container).add('ch-dropdown-skin');
+            tiny.classList(this.trigger).add('ch-dropdown-trigger-skin');
+            tiny.classList(this.container).add('ch-dropdown-skin');
         // Default Skin
         } else {
-            ch.util.classList(this.trigger).add('ch-btn-skin');
-            ch.util.classList(this.trigger).add('ch-btn-small');
+            tiny.classList(this.trigger).add('ch-btn-skin');
+            tiny.classList(this.trigger).add('ch-btn-small');
         }
 
         /**
@@ -6448,11 +6381,11 @@ ch.factory = function (Klass) {
 
 
 
-        ch.util.classList(this.trigger).remove('ch-dropdown-trigger');
-        ch.util.classList(this.trigger).remove('ch-dropdown-trigger-skin');
-        ch.util.classList(this.trigger).remove('ch-user-no-select');
-        ch.util.classList(this.trigger).remove('ch-btn-skin');
-        ch.util.classList(this.trigger).remove('ch-btn-small');
+        tiny.classList(this.trigger).remove('ch-dropdown-trigger');
+        tiny.classList(this.trigger).remove('ch-dropdown-trigger-skin');
+        tiny.classList(this.trigger).remove('ch-user-no-select');
+        tiny.classList(this.trigger).remove('ch-btn-skin');
+        tiny.classList(this.trigger).remove('ch-btn-small');
         this.trigger.removeAttribute('aria-controls');
 
         this.trigger.insertAdjacentHTML('afterend', this._snippet);
@@ -6606,7 +6539,7 @@ ch.factory = function (Klass) {
          */
         this.container = this._el;
             // Add classname
-        ch.util.classList(this.container).add('ch-form');
+        tiny.classList(this.container).add('ch-form');
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
@@ -6922,7 +6855,7 @@ ch.factory = function (Klass) {
         'required': {
             'fn': function (value) {
 
-                var tag = ch.util.classList(this.trigger).contains('ch-form-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = tiny.classList(this.trigger).contains('ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
@@ -7282,7 +7215,7 @@ ch.factory = function (Klass) {
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (ch.util.classList(this.trigger).contains('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (tiny.classList(this.trigger).contains('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -7353,7 +7286,7 @@ ch.factory = function (Klass) {
 
             if (!that._previousError.condition || !that._shown) {
                 if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
-                    ch.util.classList(that.trigger).add('ch-validation-error');
+                    tiny.classList(that.trigger).add('ch-validation-error');
                 }
 
                 that._showErrorMessage(that.error.message || 'Error');
@@ -7397,7 +7330,7 @@ ch.factory = function (Klass) {
         }
 
         this.trigger.removeAttribute('aria-label');
-        ch.util.classList(this.trigger).remove('ch-validation-error')
+        tiny.classList(this.trigger).remove('ch-validation-error')
 
 
         this._hideErrorMessage();
@@ -7485,7 +7418,7 @@ ch.factory = function (Klass) {
     Validation.prototype.clear = function () {
 
         this.trigger.removeAttribute('aria-label');
-        ch.util.classList(this.trigger).remove('ch-validation-error');
+        tiny.classList(this.trigger).remove('ch-validation-error');
 
         this.error = null;
 
@@ -7636,7 +7569,7 @@ ch.factory = function (Klass) {
      */
     ch.Validation.prototype._showErrorMessage = function (message) {
         this._container.innerHTML = message;
-        ch.util.classList(this._container).remove('ch-hide');
+        tiny.classList(this._container).remove('ch-hide');
 
         return this;
     };
@@ -7649,7 +7582,7 @@ ch.factory = function (Klass) {
      * @returns {validation}
      */
     ch.Validation.prototype._hideErrorMessage = function () {
-        ch.util.classList(this._container).add('ch-hide');
+        tiny.classList(this._container).add('ch-hide');
 
         return this;
     };
@@ -7888,9 +7821,9 @@ ch.factory = function (Klass) {
             this._exceeded = true;
 
             this.trigger.setAttribute('aria-invalid', 'true');
-            ch.util.classList(this.trigger).add('ch-validation-error');
+            tiny.classList(this.trigger).add('ch-validation-error');
 
-            ch.util.classList(this.container).add('ch-countdown-exceeded');
+            tiny.classList(this.container).add('ch-countdown-exceeded');
         }
 
         // Change visible message of remaining characters
@@ -7911,10 +7844,10 @@ ch.factory = function (Klass) {
      * @returns {countdown}
      */
     Countdown.prototype._removeError = function () {
-        ch.util.classList(this.trigger).remove('ch-validation-error');
+        tiny.classList(this.trigger).remove('ch-validation-error');
         this.trigger.setAttribute('aria-invalid', 'false');
 
-        ch.util.classList(this.container).remove('ch-countdown-exceeded');
+        tiny.classList(this.container).remove('ch-countdown-exceeded');
 
         return this;
     };
@@ -8108,8 +8041,8 @@ ch.factory = function (Klass) {
          */
         this._list = this._el.children[0];
 
-        ch.util.classList(this._el).add('ch-carousel');
-        ch.util.classList(this._list).add('ch-carousel-list');
+        tiny.classList(this._el).add('ch-carousel');
+        tiny.classList(this._list).add('ch-carousel-list');
 
         /**
          * Collection of each child of the slider list.
@@ -8123,7 +8056,7 @@ ch.factory = function (Klass) {
                     collectionLength = collection.length;
 
                 Array.prototype.forEach.call(collection, function(item){
-                    ch.util.classList(item).add('ch-carousel-item');
+                    tiny.classList(item).add('ch-carousel-item');
                 });
 
                 return collection;
@@ -8274,7 +8207,7 @@ ch.factory = function (Klass) {
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
-        if (!this._options.fx) { ch.util.classList(this._list).add('ch-carousel-nofx'); }
+        if (!this._options.fx) { tiny.classList(this._list).add('ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
         if (!ch.support.transition) {
@@ -8488,12 +8421,12 @@ ch.factory = function (Klass) {
         // Do it if is required
         if (this._options.fx && ch.support.transition) {
             // Delete efects on list to make changes instantly
-            ch.util.classList(this._list).add('ch-carousel-nofx');
+            tiny.classList(this._list).add('ch-carousel-nofx');
             // Execute the custom method
             callback.call(this);
             // Restore efects to list
             // Use a setTimeout to be sure to do this AFTER changes
-            setTimeout(function () { ch.util.classList(that._list).remove('ch-carousel-nofx'); }, 0);
+            setTimeout(function () { tiny.classList(that._list).remove('ch-carousel-nofx'); }, 0);
         // Avoid to add/remove classes if it hasn't effects
         } else {
             callback.call(this);
@@ -8654,11 +8587,11 @@ ch.factory = function (Klass) {
     Carousel.prototype._disableArrows = function (prev, next) {
         this._prevArrow.setAttribute('aria-disabled', prev);
         this._prevArrow.setAttribute('aria-hidden', prev);
-        ch.util.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
 
         this._nextArrow.setAttribute('aria-disabled', next);
         this._nextArrow.setAttribute('aria-hidden', next);
-        ch.util.classList(this._nextArrow)[next ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny.classList(this._nextArrow)[next ? 'add' : 'remove']('ch-carousel-disabled');
     };
 
     /**
@@ -8735,11 +8668,11 @@ ch.factory = function (Klass) {
 
         // Unselect the thumbnail previously selected
         fromItem.setAttribute('aria-selected', false)
-        ch.util.classList(fromItem).remove('ch-carousel-selected');
+        tiny.classList(fromItem).remove('ch-carousel-selected');
 
         // Select the new thumbnail
         toItem.setAttribute('aria-selected', true)
-        ch.util.classList(toItem).add('ch-carousel-selected');
+        tiny.classList(toItem).add('ch-carousel-selected');
     };
 
     /**
@@ -9282,7 +9215,7 @@ ch.factory = function (Klass) {
         this._prev.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._prev.setAttribute('role', 'button');
         this._prev.setAttribute('aria-hidden', 'false');
-        ch.util.classList(this._prev).add('ch-calendar-prev');
+        tiny.classList(this._prev).add('ch-calendar-prev');
 
         /**
          * Template of next arrow.
@@ -9292,7 +9225,7 @@ ch.factory = function (Klass) {
         this._next.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._next.setAttribute('role', 'button');
         this._next.setAttribute('aria-hidden', 'false');
-        ch.util.classList(this._next).add('ch-calendar-next');
+        tiny.classList(this._next).add('ch-calendar-next');
 
 
         // Show or hide arrows depending on "from" and "to" limits
@@ -9306,7 +9239,7 @@ ch.factory = function (Klass) {
         this.container = this._el;
         this.container.insertBefore(this._prev, this.container.firstChild);
         this.container.insertBefore(this._next, this.container.firstChild);
-        ch.util.classList(this.container).add('ch-calendar');
+        tiny.classList(this.container).add('ch-calendar');
         this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         this._updateControls();
@@ -9344,23 +9277,23 @@ ch.factory = function (Klass) {
 
         // Show previous arrow when it's out of limit
         if (this._hasPrevMonth()) {
-            ch.util.classList(this._prev).remove('ch-hide');
+            tiny.classList(this._prev).remove('ch-hide');
             this._prev.setAttribute('aria-hidden', 'false');
 
         // Hide previous arrow when it's out of limit
         } else {
-            ch.util.classList(this._prev).add('ch-hide');
+            tiny.classList(this._prev).add('ch-hide');
             this._prev.setAttribute('aria-hidden', 'true');
         }
 
         // Show next arrow when it's out of limit
         if (this._hasNextMonth()) {
-            ch.util.classList(this._next).remove('ch-hide');
+            tiny.classList(this._next).remove('ch-hide');
             this._next.setAttribute('aria-hidden', 'false');
 
         // Hide next arrow when it's out of limit
         } else {
-            ch.util.classList(this._next).add('ch-hide');
+            tiny.classList(this._next).add('ch-hide');
             this._next.setAttribute('aria-hidden', 'true');
         }
 
@@ -10603,7 +10536,7 @@ ch.factory = function (Klass) {
          * @private
          */
         this._suggestionsList = document.createElement('ul');
-        ch.util.classList(this._suggestionsList).add('ch-autocomplete-list');
+        tiny.classList(this._suggestionsList).add('ch-autocomplete-list');
 
         this.container.appendChild(this._suggestionsList);
 
@@ -10702,7 +10635,7 @@ ch.factory = function (Klass) {
 
             that._stopTyping = window.setTimeout(function () {
 
-                ch.util.classList(that.trigger).add(that._options.loadingClass);
+                tiny.classList(that.trigger).add(that._options.loadingClass);
                 /**
                  * Event emitted when the user is typing.
                  * @event ch.Autocomplete#type
@@ -10825,12 +10758,12 @@ ch.factory = function (Klass) {
 
         if (selectedItem !== null) {
             // background the highlighted item
-            ch.util.classList(selectedItem).remove(this._options.highlightedClass);
+            tiny.classList(selectedItem).remove(this._options.highlightedClass);
         }
 
         if (currentItem !== null) {
             // highlight the selected item
-            ch.util.classList(currentItem).add(this._options.highlightedClass);
+            tiny.classList(currentItem).add(this._options.highlightedClass);
         }
 
         return this;
@@ -10872,7 +10805,7 @@ ch.factory = function (Klass) {
             itemSelected = this.container.querySelector('.' + this._options.highlightedClass);
 
         // hide the loading feedback
-        ch.util.classList(this.trigger).remove(that._options.loadingClass)
+        tiny.classList(this.trigger).remove(that._options.loadingClass)
 
         // hides the suggestions list
         if (suggestionsLength === 0) {
@@ -10888,7 +10821,7 @@ ch.factory = function (Klass) {
 
         // remove the class from the extra added items
         if (itemSelected !== null) {
-            ch.util.classList(itemSelected).remove(this._options.highlightedClass);
+            tiny.classList(itemSelected).remove(this._options.highlightedClass);
         }
 
         // add each suggested item to the suggestion list

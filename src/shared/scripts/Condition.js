@@ -48,7 +48,7 @@
         'required': {
             'fn': function (value) {
 
-                var tag = ch.util.classList(this.trigger).contains('ch-form-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = tiny.classList(this.trigger).contains('ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {

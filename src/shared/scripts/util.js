@@ -23,11 +23,11 @@
 
             for (i; i < len; i += 1) {
 
-                if (ch.util.classList(document.documentElement).contains('lt-ie10')) {
+                if (tiny.classList(document.documentElement).contains('lt-ie10')) {
                     args[i].setAttribute('unselectable', 'on');
 
                 } else {
-                    ch.util.classList(args[i]).add('ch-user-no-select');
+                    tiny.classList(args[i]).add('ch-user-no-select');
                 }
 
             }
@@ -62,32 +62,6 @@
                 prop = prop.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
                 return el.currentStyle[prop];
             }
-        },
-
-        /**
-         * Returns a shallow-copied clone of the object.
-         *
-         * @memberof ch.util
-         * @param {Object} obj The object to copy.
-         * @returns {Object}
-         * @example
-         * tiny.clone(object);
-         */
-        'clone': function (obj) {
-            if (obj === undefined || typeof obj !== 'object') {
-                throw new Error('"tiny.clone(obj)": The "obj" parameter is required and must be a object.');
-            }
-
-            var copy = {},
-                prop;
-
-            for (prop in obj) {
-                if (obj[prop] !== undefined) {
-                    copy[prop] = obj[prop];
-                }
-            }
-
-            return copy;
         },
 
         /**
@@ -206,46 +180,6 @@
          * ch.util.zIndex += 1;
          */
         'zIndex': 1000,
-
-        /**
-         * Add or remove class
-         *
-         * @name classList
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @see Based on: <a href="http://youmightnotneedjquery.com/" target="_blank">http://youmightnotneedjquery.com/</a>
-         * @example
-         * ch.util.classList(document.body).add('ch-example');
-         */
-        'classList': function (el) {
-            var isClassList = el.classList;
-
-            return {
-                'add': function add(className) {
-                    if (isClassList) {
-                        el.classList.add(className);
-                    } else {
-                        el.setAttribute('class', el.getAttribute('class') + ' ' + className);
-                    }
-                },
-                'remove': function remove(className) {
-                    if (isClassList) {
-                        el.classList.remove(className)
-                    } else {
-                        el.setAttribute('class', el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' '));
-                    }
-                },
-                'contains': function contains(className) {
-                    var exist;
-                    if (isClassList) {
-                        exist = el.classList.contains(className);
-                    } else {
-                        exist = new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
-                    }
-                    return exist;
-                }
-            }
-        },
 
         // review this method :S
         'parentElement': function(el, tagname) {

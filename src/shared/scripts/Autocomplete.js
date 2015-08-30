@@ -195,7 +195,7 @@
          * @private
          */
         this._suggestionsList = document.createElement('ul');
-        ch.util.classList(this._suggestionsList).add('ch-autocomplete-list');
+        tiny.classList(this._suggestionsList).add('ch-autocomplete-list');
 
         this.container.appendChild(this._suggestionsList);
 
@@ -294,7 +294,7 @@
 
             that._stopTyping = window.setTimeout(function () {
 
-                ch.util.classList(that.trigger).add(that._options.loadingClass);
+                tiny.classList(that.trigger).add(that._options.loadingClass);
                 /**
                  * Event emitted when the user is typing.
                  * @event ch.Autocomplete#type
@@ -417,12 +417,12 @@
 
         if (selectedItem !== null) {
             // background the highlighted item
-            ch.util.classList(selectedItem).remove(this._options.highlightedClass);
+            tiny.classList(selectedItem).remove(this._options.highlightedClass);
         }
 
         if (currentItem !== null) {
             // highlight the selected item
-            ch.util.classList(currentItem).add(this._options.highlightedClass);
+            tiny.classList(currentItem).add(this._options.highlightedClass);
         }
 
         return this;
@@ -464,7 +464,7 @@
             itemSelected = this.container.querySelector('.' + this._options.highlightedClass);
 
         // hide the loading feedback
-        ch.util.classList(this.trigger).remove(that._options.loadingClass)
+        tiny.classList(this.trigger).remove(that._options.loadingClass)
 
         // hides the suggestions list
         if (suggestionsLength === 0) {
@@ -480,7 +480,7 @@
 
         // remove the class from the extra added items
         if (itemSelected !== null) {
-            ch.util.classList(itemSelected).remove(this._options.highlightedClass);
+            tiny.classList(itemSelected).remove(this._options.highlightedClass);
         }
 
         // add each suggested item to the suggestion list

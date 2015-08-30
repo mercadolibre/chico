@@ -231,9 +231,9 @@
             this._exceeded = true;
 
             this.trigger.setAttribute('aria-invalid', 'true');
-            ch.util.classList(this.trigger).add('ch-validation-error');
+            tiny.classList(this.trigger).add('ch-validation-error');
 
-            ch.util.classList(this.container).add('ch-countdown-exceeded');
+            tiny.classList(this.container).add('ch-countdown-exceeded');
         }
 
         // Change visible message of remaining characters
@@ -254,10 +254,10 @@
      * @returns {countdown}
      */
     Countdown.prototype._removeError = function () {
-        ch.util.classList(this.trigger).remove('ch-validation-error');
+        tiny.classList(this.trigger).remove('ch-validation-error');
         this.trigger.setAttribute('aria-invalid', 'false');
 
-        ch.util.classList(this.container).remove('ch-countdown-exceeded');
+        tiny.classList(this.container).remove('ch-countdown-exceeded');
 
         return this;
     };

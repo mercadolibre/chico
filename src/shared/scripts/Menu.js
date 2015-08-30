@@ -139,10 +139,10 @@
          */
         this.container = this._el;
         this.container.setAttribute('role', 'navigation');
-        ch.util.classList(this.container).add('ch-menu');
+        tiny.classList(this.container).add('ch-menu');
 
-        this._options._className ? ch.util.classList(this.container).add(this._options._className) : null;
-        this._options.addClass ? ch.util.classList(this.container).add(this._options.addClass) : null;
+        this._options._className ? tiny.classList(this.container).add(this._options._className) : null;
+        this._options.addClass ? tiny.classList(this.container).add(this._options.addClass) : null;
 
         /**
          * A collection of folds.
@@ -177,7 +177,7 @@
                 menu;
 
             // List element
-            ch.util.classList(li).add('ch-menu-fold');
+            tiny.classList(li).add('ch-menu-fold');
 
             // Children of list elements
             child = li.children[0];
@@ -187,7 +187,7 @@
                 // Add attr role to match wai-aria
                 li.setAttribute('role', 'presentation');
                 //
-                ch.util.classList(child).add('ch-fold-trigger');
+                tiny.classList(child).add('ch-fold-trigger');
                 // Add anchor to that.fold
                 that.folds.push(child);
 

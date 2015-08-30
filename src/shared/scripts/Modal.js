@@ -124,7 +124,7 @@
     Modal.prototype._showUnderlay = function () {
         var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = ch.util.classList(underlay);
+            cl = tiny.classList(underlay);
 
         underlay.style.zIndex = ch.util.zIndex;
 
@@ -155,7 +155,7 @@
     Modal.prototype._hideUnderlay = function () {
         var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = ch.util.classList(underlay),
+            cl = tiny.classList(underlay),
             parent = underlay.parentNode;
 
         function hideCallback(e) {

@@ -1,8 +1,7 @@
 (function (window, ch) {
     'use strict';
 
-    var util = ch.util,
-        uid = 0;
+    var uid = 0;
 
     /**
      * Base class for all components.
@@ -78,7 +77,7 @@
     Component.prototype._init = function (el, options) {
 
         // Clones defaults or creates a defaults object
-        var defaults = (this._defaults) ? util.clone(this._defaults) : {};
+        var defaults = (this._defaults) ? tiny.clone(this._defaults) : {};
 
         if (el === null) {
             throw new Error('The "el" parameter is not present in the DOM');
