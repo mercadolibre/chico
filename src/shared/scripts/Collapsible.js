@@ -126,8 +126,8 @@
                 if (/^slide/.test(fx)) {
                     // Cache the original paddings for the first time
                     if (!pt || !pb) {
-                        pt = ch.util.getStyles(that.container, 'padding-top');
-                        pb = ch.util.getStyles(that.container, 'padding-bottom');
+                        pt = tiny.css(that.container, 'padding-top');
+                        pb = tiny.css(that.container, 'padding-bottom');
 
                         that.container.style.marginTop = that.container.style.marginBottom =
                             that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
@@ -191,7 +191,7 @@
                 ch.Event.addListener(that.container, ch.support.transition.end, hideCallback);
                 // Set margin and padding to 0 to prevent content jumping at the transition end
                 if (/^slide/.test(fx)) {
-                    that.container.style.height = ch.util.getStyles(that.container, 'height');
+                    that.container.style.height = tiny.css(that.container, 'height');
                     // Uses nextTick to trigger the height change
                     setTimeout(function() {
                         that.container.style.height = '0px';

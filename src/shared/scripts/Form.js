@@ -208,7 +208,7 @@
             firstErrorVisible = firstError.trigger;
 
             // Find the closest visible parent if current element is hidden
-            while (ch.util.getStyles(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
+            while (tiny.css(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
                 firstErrorVisible = firstErrorVisible.parentElement;
             }
 

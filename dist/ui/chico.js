@@ -1,13 +1,4 @@
 /*!
- * Chico UI v2.0.0-alpha.2
- * http://chico-ui.com.ar/
- *
- * Copyright (c) 2015, MercadoLibre.com
- * Released under the MIT license.
- * http://chico-ui.com.ar/license
- */
-
-/*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
@@ -2086,37 +2077,6 @@ ch.util = {
         },
 
         /**
-         * Gives the final used values of all the CSS properties of an element.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el The HTMLElement for which to get the computed style.
-         * @param {string} prop The name of the CSS property to test.
-         * @returns {CSSStyleDeclaration}
-         * @link http://www.quirksmode.org/dom/getstyles.html
-         * @example
-         * ch.util.getStyles(HTMLElement, 'color'); // true
-         */
-        'getStyles': function (el, prop) {
-
-            if (el === undefined || !(el.nodeType === 1)) {
-                throw new Error('"ch.util.getStyles(el, prop)": The "el" parameter is required and must be a HTMLElement.');
-            }
-
-            if (prop === undefined || typeof prop !== 'string') {
-                throw new Error('"ch.util.getStyles(el, prop)": The "prop" parameter is required and must be a string.');
-            }
-
-            if (window.getComputedStyle) {
-                return window.getComputedStyle(el, "").getPropertyValue(prop);
-            // IE
-            } else {
-                // Turn style name into camel notation
-                prop = prop.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
-                return el.currentStyle[prop];
-            }
-        },
-
-        /**
          * Prevent default actions of a given event.
          *
          * @memberof ch.util
@@ -2185,7 +2145,7 @@ ch.util = {
                     'top': rect.top
                 };
 
-            if (ch.util.getStyles(el, 'position') !== 'fixed' && fixedParent === null) {
+            if (tiny.css(el, 'position') !== 'fixed' && fixedParent === null) {
                 offset.left += scroll.left;
                 offset.top += scroll.top;
             }
@@ -2214,7 +2174,7 @@ ch.util = {
                     break;
                 }
 
-                if (ch.util.getStyles(currentParent, 'position') !== position) {
+                if (tiny.css(currentParent, 'position') !== position) {
                     currentParent = currentParent.offsetParent;
                 } else {
                     parent = currentParent;
@@ -3233,8 +3193,8 @@ ch.factory = function (Klass) {
                 if (/^slide/.test(fx)) {
                     // Cache the original paddings for the first time
                     if (!pt || !pb) {
-                        pt = ch.util.getStyles(that.container, 'padding-top');
-                        pb = ch.util.getStyles(that.container, 'padding-bottom');
+                        pt = tiny.css(that.container, 'padding-top');
+                        pb = tiny.css(that.container, 'padding-bottom');
 
                         that.container.style.marginTop = that.container.style.marginBottom =
                             that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
@@ -3298,7 +3258,7 @@ ch.factory = function (Klass) {
                 ch.Event.addListener(that.container, ch.support.transition.end, hideCallback);
                 // Set margin and padding to 0 to prevent content jumping at the transition end
                 if (/^slide/.test(fx)) {
-                    that.container.style.height = ch.util.getStyles(that.container, 'height');
+                    that.container.style.height = tiny.css(that.container, 'height');
                     // Uses nextTick to trigger the height change
                     setTimeout(function() {
                         that.container.style.height = '0px';
@@ -4610,7 +4570,7 @@ ch.factory = function (Klass) {
             firstErrorVisible = firstError.trigger;
 
             // Find the closest visible parent if current element is hidden
-            while (ch.util.getStyles(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
+            while (tiny.css(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
                 firstErrorVisible = firstErrorVisible.parentElement;
             }
 
@@ -10188,7 +10148,7 @@ ch.factory = function (Klass) {
          * @private
          * @type {Number}
          */
-        this._itemOuterWidth = parseInt(ch.util.getStyles(this._items[0], 'width'));
+        this._itemOuterWidth = parseInt(tiny.css(this._items[0], 'width'));
 
         /**
          * The size added to each item to make it elastic/responsive.

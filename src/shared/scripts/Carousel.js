@@ -214,7 +214,7 @@
          * @private
          * @type {Number}
          */
-        this._itemOuterWidth = parseInt(ch.util.getStyles(this._items[0], 'width'));
+        this._itemOuterWidth = parseInt(tiny.css(this._items[0], 'width'));
 
         /**
          * The size added to each item to make it elastic/responsive.
