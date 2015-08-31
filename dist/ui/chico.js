@@ -1,13 +1,4 @@
 /*!
- * Chico UI v2.0.0-alpha.2
- * http://chico-ui.com.ar/
- *
- * Copyright (c) 2015, MercadoLibre.com
- * Released under the MIT license.
- * http://chico-ui.com.ar/license
- */
-
-/*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
