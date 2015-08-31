@@ -181,7 +181,8 @@
                 tiny.trigger(window.document, ch.onlayoutchange);
             });
 
-        ch.util.avoidTextSelection(this.trigger);
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.classList(this.trigger).add('ch-user-no-select');
 
         return this;
     };
@@ -284,8 +285,8 @@
         tiny.classList(this.trigger).remove('ch-expandable-trigger');
         tiny.classList(this.trigger).remove('ch-expandable-ico');
         tiny.classList(this.trigger).remove('ch-user-no-select');
+        this.trigger.removeAttribute('unselectable');
         this.trigger.removeAttribute('aria-controls');
-
         tiny.classList(this.container).remove('ch-expandable-container');
         tiny.classList(this.container).remove('ch-hide');
         this.container.removeAttribute('aria-expanded');

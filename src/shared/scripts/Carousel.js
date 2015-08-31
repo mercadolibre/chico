@@ -503,7 +503,8 @@
         that._el.appendChild(that._pagination);
 
         // Avoid selection on the pagination
-        ch.util.avoidTextSelection(that._pagination);
+        that._pagination.setAttribute('unselectable', 'on');
+        tiny.classList(that._pagination).add('ch-user-no-select');
 
         // Check pagination as created
         that._paginationCreated = true;
@@ -689,7 +690,11 @@
      */
     Carousel.prototype._addArrows = function () {
         // Avoid selection on the arrows
-        ch.util.avoidTextSelection(this._prevArrow, this._nextArrow);
+        [this._prevArrow, this._nextArrow].forEach(function(el){
+            el.setAttribute('unselectable', 'on');
+            tiny.classList(el).add('ch-user-no-select');
+        });
+
         // Add arrows to DOM
         this._el.insertBefore(this._prevArrow, this._el.children[0])
         this._el.appendChild(this._nextArrow);

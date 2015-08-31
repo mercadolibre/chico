@@ -3,36 +3,6 @@
      * @namespace ch.util
      */
     ch.util = {
-
-        /**
-         * Adds CSS rules to disable text selection highlighting.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} HTMLElement to disable text selection highlighting.
-         * @example
-         * ch.util.avoidTextSelection(document.querySelector('.menu nav'), document.querySelector('.menu ol'));
-         */
-        'avoidTextSelection': function () {
-            var args = arguments,
-                len = arguments.length,
-                i = 0;
-
-            if (arguments.length < 1) {
-                throw new Error('"ch.util.avoidTextSelection(HTMLElement);": At least one Element is required.');
-            }
-
-            for (i; i < len; i += 1) {
-
-                if (tiny.classList(document.documentElement).contains('lt-ie10')) {
-                    args[i].setAttribute('unselectable', 'on');
-
-                } else {
-                    tiny.classList(args[i]).add('ch-user-no-select');
-                }
-
-            }
-        },
-
         /**
          * Get the current vertical and horizontal positions of the scroll bar.
          *

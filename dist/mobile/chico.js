@@ -2055,36 +2055,6 @@ var ch = function(selector, context) {
         };
 
 ch.util = {
-
-        /**
-         * Adds CSS rules to disable text selection highlighting.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} HTMLElement to disable text selection highlighting.
-         * @example
-         * ch.util.avoidTextSelection(document.querySelector('.menu nav'), document.querySelector('.menu ol'));
-         */
-        'avoidTextSelection': function () {
-            var args = arguments,
-                len = arguments.length,
-                i = 0;
-
-            if (arguments.length < 1) {
-                throw new Error('"ch.util.avoidTextSelection(HTMLElement);": At least one Element is required.');
-            }
-
-            for (i; i < len; i += 1) {
-
-                if (tiny.classList(document.documentElement).contains('lt-ie10')) {
-                    args[i].setAttribute('unselectable', 'on');
-
-                } else {
-                    tiny.classList(args[i]).add('ch-user-no-select');
-                }
-
-            }
-        },
-
         /**
          * Get the current vertical and horizontal positions of the scroll bar.
          *
@@ -4311,7 +4281,8 @@ ch.factory = function (Klass) {
                 tiny.trigger(window.document, ch.onlayoutchange);
             });
 
-        ch.util.avoidTextSelection(this.trigger);
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.classList(this.trigger).add('ch-user-no-select');
 
         return this;
     };
@@ -4414,8 +4385,8 @@ ch.factory = function (Klass) {
         tiny.classList(this.trigger).remove('ch-expandable-trigger');
         tiny.classList(this.trigger).remove('ch-expandable-ico');
         tiny.classList(this.trigger).remove('ch-user-no-select');
+        this.trigger.removeAttribute('unselectable');
         this.trigger.removeAttribute('aria-controls');
-
         tiny.classList(this.container).remove('ch-expandable-container');
         tiny.classList(this.container).remove('ch-hide');
         this.container.removeAttribute('aria-expanded');
@@ -6092,9 +6063,9 @@ ch.factory = function (Klass) {
          */
         this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected')
         tiny.classList(this.trigger).add('ch-dropdown-trigger');
-        ch.util.avoidTextSelection(this.trigger);
 
-
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.classList(this.trigger).add('ch-user-no-select');
 
         // Skinned dropdown
         if (this._options.skin) {
@@ -6201,6 +6172,7 @@ ch.factory = function (Klass) {
         tiny.classList(this.trigger).remove('ch-dropdown-trigger');
         tiny.classList(this.trigger).remove('ch-dropdown-trigger-skin');
         tiny.classList(this.trigger).remove('ch-user-no-select');
+        this.trigger.removeAttribute('unselectable');
         tiny.classList(this.trigger).remove('ch-btn-skin');
         tiny.classList(this.trigger).remove('ch-btn-small');
         this.trigger.removeAttribute('aria-controls');
@@ -8192,7 +8164,8 @@ ch.factory = function (Klass) {
         that._el.appendChild(that._pagination);
 
         // Avoid selection on the pagination
-        ch.util.avoidTextSelection(that._pagination);
+        that._pagination.setAttribute('unselectable', 'on');
+        tiny.classList(that._pagination).add('ch-user-no-select');
 
         // Check pagination as created
         that._paginationCreated = true;
@@ -8378,7 +8351,11 @@ ch.factory = function (Klass) {
      */
     Carousel.prototype._addArrows = function () {
         // Avoid selection on the arrows
-        ch.util.avoidTextSelection(this._prevArrow, this._nextArrow);
+        [this._prevArrow, this._nextArrow].forEach(function(el){
+            el.setAttribute('unselectable', 'on');
+            tiny.classList(el).add('ch-user-no-select');
+        });
+
         // Add arrows to DOM
         this._el.insertBefore(this._prevArrow, this._el.children[0])
         this._el.appendChild(this._nextArrow);
@@ -9061,7 +9038,8 @@ ch.factory = function (Klass) {
         this._updateControls();
 
         // Avoid selection on the component
-        ch.util.avoidTextSelection(that.container);
+        that.container.setAttribute('unselectable', 'on');
+        tiny.classList(that.container).add('ch-user-no-select');
 
         return this;
     };

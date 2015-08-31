@@ -369,7 +369,8 @@
         this._updateControls();
 
         // Avoid selection on the component
-        ch.util.avoidTextSelection(that.container);
+        that.container.setAttribute('unselectable', 'on');
+        tiny.classList(that.container).add('ch-user-no-select');
 
         return this;
     };

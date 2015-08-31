@@ -131,9 +131,9 @@
          */
         this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected')
         tiny.classList(this.trigger).add('ch-dropdown-trigger');
-        ch.util.avoidTextSelection(this.trigger);
 
-
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.classList(this.trigger).add('ch-user-no-select');
 
         // Skinned dropdown
         if (this._options.skin) {
@@ -240,6 +240,7 @@
         tiny.classList(this.trigger).remove('ch-dropdown-trigger');
         tiny.classList(this.trigger).remove('ch-dropdown-trigger-skin');
         tiny.classList(this.trigger).remove('ch-user-no-select');
+        this.trigger.removeAttribute('unselectable');
         tiny.classList(this.trigger).remove('ch-btn-skin');
         tiny.classList(this.trigger).remove('ch-btn-small');
         this.trigger.removeAttribute('aria-controls');
