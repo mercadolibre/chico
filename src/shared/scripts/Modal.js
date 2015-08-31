@@ -126,8 +126,6 @@
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
             cl = tiny.classList(underlay);
 
-        underlay.style.zIndex = ch.util.zIndex;
-
         document.body.appendChild(underlay);
 
         function showCallback(e) {

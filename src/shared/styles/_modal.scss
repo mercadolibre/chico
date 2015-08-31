@@ -7,6 +7,7 @@
     overflow: auto;
     padding: $modal-padding;
     box-shadow: $modal-box-shadow;
+    z-index: 1050;
 }
 
 .ch-modal-lite {
@@ -28,6 +29,7 @@
     right: 0;
     bottom: 0;
     background-color: $modal-underlay-bg-color;
+    z-index: 1049;
 
     &.ch-fx-fadein-enter,
     &.ch-fx-fadein-leave,

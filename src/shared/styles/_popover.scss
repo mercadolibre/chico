@@ -5,6 +5,7 @@
 
 .ch-popover {
     box-shadow: $popover-box-shadow;
+    z-index: 1000;
 }
 
 .ch-shownby-pointertap {

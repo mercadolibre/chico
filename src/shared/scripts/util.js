@@ -95,14 +95,6 @@
             return parent;
         },
 
-        /**
-         * zIndex values.
-         * @type {Number}
-         * @example
-         * ch.util.zIndex += 1;
-         */
-        'zIndex': 1000,
-
         // review this method :S
         'parentElement': function(el, tagname) {
             var parent = el.parentNode,

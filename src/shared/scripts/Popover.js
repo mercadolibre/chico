@@ -145,7 +145,7 @@
                 (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
-            ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
+            ' style="width:' + this._options.width + ';height:' + this._options.height + '"',
             '></div>'
         ].join('');
 
@@ -411,10 +411,7 @@
             return this;
         }
 
-        // Increase z-index and append to body
-        // Do it before set content because when content sets, it triggers the position refresh
-        this.container.style.zIndex = (ch.util.zIndex += 1);
-
+        // Append to body
         document.body.appendChild(this.container);
 
         // Open the collapsible

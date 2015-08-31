@@ -9,6 +9,11 @@
     position: relative; 
     display: inline-block;
     padding: $dropdown-trigger-padding;
+    z-index: 1011;
+
+    .ch-modal & {
+        z-index: 1101;
+    }
 
     /* Trigger Down icon */
     &:after {
@@ -33,6 +38,11 @@
     white-space: nowrap;
     box-shadow: $dropdown-box-shadow;
     border-radius: $dropdown-border-radius;
+    z-index: 1010;
+
+    .ch-modal & {
+        z-index: 1100;
+    }
     
     /* Container */
     /* List of links */

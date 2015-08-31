@@ -2147,14 +2147,6 @@ ch.util = {
             return parent;
         },
 
-        /**
-         * zIndex values.
-         * @type {Number}
-         * @example
-         * ch.util.zIndex += 1;
-         */
-        'zIndex': 1000,
-
         // review this method :S
         'parentElement': function(el, tagname) {
             var parent = el.parentNode,
@@ -6229,7 +6221,7 @@ ch.factory = function (Klass) {
                 (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
-            ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
+            ' style="width:' + this._options.width + ';height:' + this._options.height + '"',
             '></div>'
         ].join('');
 
@@ -6495,10 +6487,7 @@ ch.factory = function (Klass) {
             return this;
         }
 
-        // Increase z-index and append to body
-        // Do it before set content because when content sets, it triggers the position refresh
-        this.container.style.zIndex = (ch.util.zIndex += 1);
-
+        // Append to body
         document.body.appendChild(this.container);
 
         // Open the collapsible
@@ -7276,8 +7265,6 @@ ch.factory = function (Klass) {
         var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
             cl = tiny.classList(underlay);
-
-        underlay.style.zIndex = ch.util.zIndex;
 
         document.body.appendChild(underlay);
 
@@ -9179,11 +9166,6 @@ ch.factory = function (Klass) {
 
         // Execute the original show()
         parent.show.call(this, content, options);
-
-        // Z-index of trigger over content (secondary / skin dropdown)
-        if (this._options.skin) {
-            this.trigger.style.zIndex = ch.util.zIndex += 1;
-        }
 
         this._selected = -1;
 

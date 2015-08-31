@@ -213,11 +213,6 @@
         // Execute the original show()
         parent.show.call(this, content, options);
 
-        // Z-index of trigger over content (secondary / skin dropdown)
-        if (this._options.skin) {
-            this.trigger.style.zIndex = ch.util.zIndex += 1;
-        }
-
         this._selected = -1;
 
         return this;
