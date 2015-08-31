@@ -43,14 +43,14 @@
 
         ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
             // Prevent default behavior
-            ch.util.prevent(event);
+            event.preventDefault();
 
             that._highlightOption(event.shortcut);
         });
 
         ch.shortcuts.add(ch.onkeydownarrow, this.uid, function (event) {
             // Prevent default behavior
-            ch.util.prevent(event);
+            event.preventDefault();
 
             that._highlightOption(event.shortcut);
         });

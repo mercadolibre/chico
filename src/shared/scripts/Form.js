@@ -139,7 +139,7 @@
         // Bind the reset
         if (this.container.querySelector('input[type="reset"]')) {
             tiny.on(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
-                ch.util.prevent(event);
+                event.preventDefault();
                 that.reset();
             });
         }
@@ -226,7 +226,7 @@
                 triggerError.focus();
             }
 
-            ch.util.prevent(event);
+            event.preventDefault();
 
             /**
              * It emits an event when a form has got errors.

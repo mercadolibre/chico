@@ -2086,23 +2086,6 @@ ch.util = {
         },
 
         /**
-         * Prevent default actions of a given event.
-         *
-         * @memberof ch.util
-         * @param {Event} event The event ot be prevented.
-         * @returns {Object}
-         * @example
-         * ch.util.prevent(event);
-         */
-        prevent: function (event) {
-            if (typeof event === 'object' && event.preventDefault) {
-                event.preventDefault();
-            } else {
-                return false;
-            }
-        },
-
-        /**
          * Get the current vertical and horizontal positions of the scroll bar.
          *
          * @memberof ch.util
@@ -4286,7 +4269,7 @@ ch.factory = function (Klass) {
                 return;
             }
 
-            ch.util.prevent(event);
+            event.preventDefault();
 
             if (that._options.toggle) {
                 that._toggle();
@@ -5070,7 +5053,7 @@ ch.factory = function (Klass) {
 
             tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
-                ch.util.prevent(event);
+                event.preventDefault();
                 showHandler();
             });
 
@@ -6385,7 +6368,7 @@ ch.factory = function (Klass) {
         // Bind the reset
         if (this.container.querySelector('input[type="reset"]')) {
             tiny.on(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
-                ch.util.prevent(event);
+                event.preventDefault();
                 that.reset();
             });
         }
@@ -6472,7 +6455,7 @@ ch.factory = function (Klass) {
                 triggerError.focus();
             }
 
-            ch.util.prevent(event);
+            event.preventDefault();
 
             /**
              * It emits an event when a form has got errors.
@@ -9056,8 +9039,14 @@ ch.factory = function (Klass) {
 
 
         // Show or hide arrows depending on "from" and "to" limits
-        tiny.on(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        tiny.on(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        tiny.on(this._prev, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.prevMonth();
+        });
+        tiny.on(this._next, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.nextMonth();
+        });
 
         /**
          * The calendar container.
@@ -10393,7 +10382,7 @@ ch.factory = function (Klass) {
 
             // completes the value, it is a shortcut to avoid write the complete word
             if (target.nodeName === 'I' && !that._options.html) {
-                ch.util.prevent(event);
+                event.preventDefault();
                 that._el.value = that._suggestions[that._highlighted];
                 that.emit('type', that._el.value);
                 return;

@@ -225,7 +225,7 @@
 
             // completes the value, it is a shortcut to avoid write the complete word
             if (target.nodeName === 'I' && !that._options.html) {
-                ch.util.prevent(event);
+                event.preventDefault();
                 that._el.value = that._suggestions[that._highlighted];
                 that.emit('type', that._el.value);
                 return;

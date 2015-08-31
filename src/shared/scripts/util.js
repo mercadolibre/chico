@@ -34,23 +34,6 @@
         },
 
         /**
-         * Prevent default actions of a given event.
-         *
-         * @memberof ch.util
-         * @param {Event} event The event ot be prevented.
-         * @returns {Object}
-         * @example
-         * ch.util.prevent(event);
-         */
-        prevent: function (event) {
-            if (typeof event === 'object' && event.preventDefault) {
-                event.preventDefault();
-            } else {
-                return false;
-            }
-        },
-
-        /**
          * Get the current vertical and horizontal positions of the scroll bar.
          *
          * @memberof ch.util

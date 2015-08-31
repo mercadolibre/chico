@@ -18,7 +18,7 @@
 
         // Shortcuts
         ch.shortcuts.add(ch.onkeyenter, this.uid, function (event) {
-            ch.util.prevent(event);
+            event.preventDefault();
             that._selectSuggestion();
         });
 
@@ -28,7 +28,7 @@
         });
 
         ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
-            ch.util.prevent(event);
+            event.preventDefault();
 
             var value;
 

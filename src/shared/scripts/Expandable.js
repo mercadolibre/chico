@@ -139,7 +139,7 @@
                 return;
             }
 
-            ch.util.prevent(event);
+            event.preventDefault();
 
             if (that._options.toggle) {
                 that._toggle();

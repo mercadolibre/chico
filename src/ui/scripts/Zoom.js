@@ -203,7 +203,7 @@
         tiny.classList(this.trigger).add('ch-zoom-trigger');
 
         // Prevent to redirect to the href
-        tiny.on(this.trigger, 'click', function (event) { ch.util.prevent(event); }, false);
+        tiny.on(this.trigger, 'click', function (event) { event.preventDefault(); }, false);
 
         // Bind move calculations
         tiny.on(this.trigger, ch.onpointermove, function (event) { that._move(event); }, false);

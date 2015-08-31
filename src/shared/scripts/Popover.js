@@ -278,7 +278,7 @@
 
             tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
-                ch.util.prevent(event);
+                event.preventDefault();
                 showHandler();
             });
 
