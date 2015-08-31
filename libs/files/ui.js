@@ -30,7 +30,6 @@ JS.core = [
  * JS: Abilities
  */
 JS.abilities = [
-    "src/shared/scripts/EventEmitter.js",
     "src/shared/scripts/Content.js",
     "src/shared/scripts/Collapsible.js",
     "src/shared/scripts/Viewport.js",

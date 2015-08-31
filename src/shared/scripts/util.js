@@ -114,7 +114,6 @@
             } else if (tagname === undefined) {
                 return parent;
             }
-
         },
 
         /**

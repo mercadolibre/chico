@@ -8,7 +8,7 @@
      *
      * @memberof ch
      * @constructor
-     * @augments ch.EventEmitter
+     * @augments tiny.EventEmitter
      * @param {HTMLElement} [el] It must be a HTMLElement.
      * @param {Object} [options] Configuration options.
      * @returns {component} Returns a new instance of Component.
@@ -51,7 +51,7 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    tiny.inherits(Component, ch.EventEmitter);
+    tiny.inherits(Component, tiny.EventEmitter);
 
     /**
      * The name of a component.
@@ -75,6 +75,9 @@
      * @returns {component}
      */
     Component.prototype._init = function (el, options) {
+        // Set emitter to zero for unlimited listeners to avoid the warning in console
+        // @see https://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n
+        this.setMaxListeners(0);
 
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? tiny.clone(this._defaults) : {};

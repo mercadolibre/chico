@@ -49,7 +49,7 @@
      * The Viewport is a component to ease viewport management. You can get the dimensions of the viewport and beyond, which can be quite helpful to perform some checks with JavaScript.
      * @memberof ch
      * @constructor
-     * @augments ch.EventEmitter
+     * @augments tiny.EventEmitter
      * @requires ch.util
      * @returns {viewport} Returns a new instance of Viewport.
      */
@@ -57,7 +57,7 @@
         this._init();
     }
 
-    tiny.inherits(Viewport, ch.EventEmitter);
+    tiny.inherits(Viewport, tiny.EventEmitter);
 
     /**
      * Initialize a new instance of Viewport.
@@ -67,6 +67,9 @@
      * @returns {viewport}
      */
     Viewport.prototype._init = function () {
+        // Set emitter to zero for unlimited listeners to avoid the warning in console
+        // @see https://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n
+        this.setMaxListeners(0);
 
         /**
          * Reference to context of an instance.
