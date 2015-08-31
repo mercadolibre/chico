@@ -62,7 +62,7 @@ ch.onpointermove = window.MouseEvent ? 'pointermove' : 'mousemove';
  * @type {String}
  * @link http://www.w3.org/TR/pointerevents/#list-of-pointer-events | Pointer Events W3C Recommendation
  */
-ch.onpointertap = (ch.support.touch && window.MouseEvent) ? 'pointertap' : 'click';
+ch.onpointertap = (tiny.support.touch && window.MouseEvent) ? 'pointertap' : 'click';
 
 /**
  * Equivalent to 'pointerenter' or 'mouseenter', depending on browser capabilities.

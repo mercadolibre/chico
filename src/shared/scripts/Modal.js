@@ -122,7 +122,7 @@
      * @private
      */
     Modal.prototype._showUnderlay = function () {
-        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
             cl = tiny.classList(underlay);
 
@@ -140,7 +140,7 @@
             setTimeout(function() {
                 cl.add(fxName + '-enter-active');
             },10);
-            tiny.on(underlay, ch.support.transition.end, showCallback);
+            tiny.on(underlay, tiny.support.transition.end, showCallback);
         }
     };
 
@@ -151,7 +151,7 @@
      * @private
      */
     Modal.prototype._hideUnderlay = function () {
-        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
             cl = tiny.classList(underlay),
             parent = underlay.parentNode;
@@ -169,7 +169,7 @@
             setTimeout(function() {
                 cl.add(fxName + '-leave-active');
             },10);
-            tiny.on(underlay, ch.support.transition.end, hideCallback);
+            tiny.on(underlay, tiny.support.transition.end, hideCallback);
         } else {
             parent.removeChild(underlay);
         }

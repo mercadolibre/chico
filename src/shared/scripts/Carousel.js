@@ -331,7 +331,7 @@
         if (!this._options.fx) { tiny.classList(this._list).add('ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
-        if (!ch.support.transition) {
+        if (!tiny.support.transition) {
             this._list.style.cssText += 'position:absolute;left:0;';
         }
 
@@ -541,7 +541,7 @@
         var that = this;
 
         // Do it if is required
-        if (this._options.fx && ch.support.transition) {
+        if (this._options.fx && tiny.support.transition) {
             // Delete efects on list to make changes instantly
             tiny.classList(this._list).add('ch-carousel-nofx');
             // Execute the custom method
@@ -759,7 +759,7 @@
             vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
-        if (ch.support.transition) {
+        if (tiny.support.transition) {
             return function (displacement) {
                 // Firefox has only "transform", Safari only "webkitTransform",
                 // Chrome has support for both. Applied required minimum

@@ -2323,113 +2323,6 @@ ch.util.fixLabels = function () {
             }
         }
     };
-ch.support = {
-
-        /**
-         * Verify that CSS Transitions are supported (or any of its browser-specific implementations).
-         *
-         * @static
-         * @type {Boolean|Object}
-         * @example
-         * if (ch.support.transition) {
-         *     // Some code here!
-         * }
-         */
-        'transition': transitionEnd(),
-
-        /**
-         * Verify that CSS Animations are supported (or any of its browser-specific implementations).
-         *
-         * @static
-         * @type {Boolean|Object}
-         * @example
-         * if (ch.support.animation) {
-         *     // Some code here!
-         * }
-         */
-        'animation': animationEnd(),
-
-        /**
-         * Checks is the User Agent supports touch events.
-         * @type {Boolean}
-         * @example
-         * if (ch.support.touch) {
-         *     // Some code here!
-         * }
-         */
-        'touch': 'ontouchend' in document,
-
-        /**
-         * Checks is the User Agent supports custom events.
-         * @type {Boolean}
-         * @example
-         * if (ch.support.customEvent) {
-         *     // Some code here!
-         * }
-         */
-        'customEvent': (function() {
-            // TODO: find better solution for CustomEvent check
-            try {
-                // IE8 has no support for CustomEvent, in IE gte 9 it cannot be
-                // instantiated but exist
-                new CustomEvent(name, data);
-                return true;
-            } catch (e) {
-                return false;
-            }
-        })()
-    };
-
-    /**
-     * Checks for the CSS Transitions support (http://www.modernizr.com/)
-     *
-     * @function
-     * @private
-     */
-    function transitionEnd() {
-        var el = document.createElement('ch');
-
-        var transEndEventNames = {
-            WebkitTransition : 'webkitTransitionEnd',
-            MozTransition    : 'transitionend',
-            OTransition      : 'oTransitionEnd otransitionend',
-            transition       : 'transitionend'
-        };
-
-        for (var name in transEndEventNames) {
-            if (transEndEventNames.hasOwnProperty(name) && el.style[name] !== undefined) {
-                return { end: transEndEventNames[name] }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks for the CSS Animations support
-     *
-     * @function
-     * @private
-     */
-    function animationEnd() {
-        var el = document.createElement('ch');
-
-        var animEndEventNames = {
-            WebkitAnimation : 'webkitAnimationEnd',
-            MozAnimation    : 'animationend',
-            OAnimation      : 'oAnimationEnd oanimationend',
-            animation       : 'animationend'
-        };
-
-        for (var name in animEndEventNames) {
-            if (animEndEventNames.hasOwnProperty(name) && el.style[name] !== undefined) {
-                return { end: animEndEventNames[name] }
-            }
-        }
-
-        return false;
-    }
-
 ch.onlayoutchange = 'layoutchange';
 
 /**
@@ -2486,7 +2379,7 @@ ch.onpointermove = window.MouseEvent ? 'pointermove' : 'mousemove';
  * @type {String}
  * @link http://www.w3.org/TR/pointerevents/#list-of-pointer-events | Pointer Events W3C Recommendation
  */
-ch.onpointertap = (ch.support.touch && window.MouseEvent) ? 'pointertap' : 'click';
+ch.onpointertap = (tiny.support.touch && window.MouseEvent) ? 'pointertap' : 'click';
 
 /**
  * Equivalent to 'pointerenter' or 'mouseenter', depending on browser capabilities.
@@ -2826,7 +2719,7 @@ ch.factory = function (Klass) {
         var that = this,
             triggerClass = 'ch-' + this.name + '-trigger-on',
             fx = this._options.fx,
-            useEffects = (ch.support.transition && fx !== 'none' && fx !== false),
+            useEffects = (tiny.support.transition && fx !== 'none' && fx !== false),
             pt, pb;
 
         function showCallback(e) {
@@ -2916,10 +2809,10 @@ ch.factory = function (Klass) {
 
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
-                tiny.off(that.container, ch.support.transition.end, hideCallback);
+                tiny.off(that.container, tiny.support.transition.end, hideCallback);
                 tiny.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
 
-                tiny.on(that.container, ch.support.transition.end, showCallback);
+                tiny.on(that.container, tiny.support.transition.end, showCallback);
 
                 // Reveal an element before the transition
                 that.container.style.display = 'block';
@@ -2987,10 +2880,10 @@ ch.factory = function (Klass) {
             if (useEffects) {
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
-                tiny.off(that.container, ch.support.transition.end, showCallback);
+                tiny.off(that.container, tiny.support.transition.end, showCallback);
                 tiny.classList(that.container).remove('ch-fx-' + fx);
 
-                tiny.on(that.container, ch.support.transition.end, hideCallback);
+                tiny.on(that.container, tiny.support.transition.end, hideCallback);
                 // Set margin and padding to 0 to prevent content jumping at the transition end
                 if (/^slide/.test(fx)) {
                     that.container.style.height = tiny.css(that.container, 'height');
@@ -4077,7 +3970,7 @@ ch.factory = function (Klass) {
             this._options.container : ch.util.nextElementSibling(this._el));
         tiny.classList(this.container).add(this._options._classNameContainer);
         tiny.classList(this.container).add('ch-hide');
-        if (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
+        if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
             tiny.classList(this.container).add('ch-fx');
         }
         this.container.setAttribute('aria-expanded', 'false');
@@ -4706,7 +4599,7 @@ ch.factory = function (Klass) {
         container.innerHTML = [
             '<div',
             ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass +
-                (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
+                (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="width:' + this._options.width + ';height:' + this._options.height + '"',
@@ -5504,7 +5397,7 @@ ch.factory = function (Klass) {
      * @private
      */
     Modal.prototype._showUnderlay = function () {
-        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
             cl = tiny.classList(underlay);
 
@@ -5522,7 +5415,7 @@ ch.factory = function (Klass) {
             setTimeout(function() {
                 cl.add(fxName + '-enter-active');
             },10);
-            tiny.on(underlay, ch.support.transition.end, showCallback);
+            tiny.on(underlay, tiny.support.transition.end, showCallback);
         }
     };
 
@@ -5533,7 +5426,7 @@ ch.factory = function (Klass) {
      * @private
      */
     Modal.prototype._hideUnderlay = function () {
-        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
             cl = tiny.classList(underlay),
             parent = underlay.parentNode;
@@ -5551,7 +5444,7 @@ ch.factory = function (Klass) {
             setTimeout(function() {
                 cl.add(fxName + '-leave-active');
             },10);
-            tiny.on(underlay, ch.support.transition.end, hideCallback);
+            tiny.on(underlay, tiny.support.transition.end, hideCallback);
         } else {
             parent.removeChild(underlay);
         }
@@ -7800,7 +7693,7 @@ ch.factory = function (Klass) {
         if (!this._options.fx) { tiny.classList(this._list).add('ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
-        if (!ch.support.transition) {
+        if (!tiny.support.transition) {
             this._list.style.cssText += 'position:absolute;left:0;';
         }
 
@@ -8010,7 +7903,7 @@ ch.factory = function (Klass) {
         var that = this;
 
         // Do it if is required
-        if (this._options.fx && ch.support.transition) {
+        if (this._options.fx && tiny.support.transition) {
             // Delete efects on list to make changes instantly
             tiny.classList(this._list).add('ch-carousel-nofx');
             // Execute the custom method
@@ -8228,7 +8121,7 @@ ch.factory = function (Klass) {
             vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
-        if (ch.support.transition) {
+        if (tiny.support.transition) {
             return function (displacement) {
                 // Firefox has only "transform", Safari only "webkitTransform",
                 // Chrome has support for both. Applied required minimum
@@ -10050,7 +9943,7 @@ ch.factory = function (Klass) {
 
     var parent = Autocomplete.super_.prototype,
         // there is no mouseenter to highlight the item, so it happens when the user do mousedown
-        highlightEvent = (ch.support.touch) ? ch.onpointerdown : 'mouseover';
+        highlightEvent = (tiny.support.touch) ? ch.onpointerdown : 'mouseover';
 
     /**
      * The name of the component.

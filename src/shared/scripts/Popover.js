@@ -142,7 +142,7 @@
         container.innerHTML = [
             '<div',
             ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass +
-                (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
+                (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="width:' + this._options.width + ';height:' + this._options.height + '"',

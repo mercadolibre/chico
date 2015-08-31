@@ -20,7 +20,6 @@ JS.core = [
     "src/shared/scripts/core.js",
     "src/shared/scripts/util.js",
     "src/mobile/scripts/util.js",
-    "src/shared/scripts/support.js",
     "src/shared/scripts/events.js",
     "src/shared/scripts/factory.js",
     "src/mobile/scripts/init.js"

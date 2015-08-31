@@ -107,7 +107,7 @@
 
     var parent = Autocomplete.super_.prototype,
         // there is no mouseenter to highlight the item, so it happens when the user do mousedown
-        highlightEvent = (ch.support.touch) ? ch.onpointerdown : 'mouseover';
+        highlightEvent = (tiny.support.touch) ? ch.onpointerdown : 'mouseover';
 
     /**
      * The name of the component.

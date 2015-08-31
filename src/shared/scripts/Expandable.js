@@ -159,7 +159,7 @@
             this._options.container : ch.util.nextElementSibling(this._el));
         tiny.classList(this.container).add(this._options._classNameContainer);
         tiny.classList(this.container).add('ch-hide');
-        if (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
+        if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
             tiny.classList(this.container).add('ch-fx');
         }
         this.container.setAttribute('aria-expanded', 'false');
