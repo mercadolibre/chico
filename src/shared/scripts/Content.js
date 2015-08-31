@@ -1,4 +1,4 @@
-(function (ch, fetch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -19,7 +19,6 @@
                 'method': this._options.method,
                 'params': this._options.params,
                 'cache': this._options.cache,
-                'async': this._options.async,
                 'waiting': this._options.waiting
             };
 
@@ -113,7 +112,7 @@
                 'method': 'GET',
                 'params': '',
                 'waiting': '<div class="ch-loading-large"></div>'
-            }, options || defaults);
+            }, defaults, options);
 
             // Set loading
             setAsyncContent({
@@ -123,50 +122,39 @@
 
             requestCfg = {
                 method: options.method,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
+                success: function(resp) {
+                    setAsyncContent({
+                        'status': 'done',
+                        'response': resp
+                    });
                 },
-                cache: 'default'
+                error: function(err) {
+                    setAsyncContent({
+                        'status': 'error',
+                        'response': '<p>Error on ajax call.</p>',
+                        'data': err.message || JSON.stringify(err)
+                    });
+                }
             };
 
             if (options.cache !== undefined) {
                 that._options.cache = options.cache;
             }
 
-            if (options.cache === false && ['GET', 'HEAD'].indexOf(options.method.toUpperCase()) === 0) {
-                requestCfg.cache = 'no-cache';
+            if (options.cache === false && ['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
+                requestCfg.cache = false;
             }
 
             if (options.params) {
-                url += (url.indexOf('?') !== -1 || options.params[0] === '?' ? '' : '?') + options.params;
+                if (['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
+                    url += (url.indexOf('?') !== -1 || options.params[0] === '?' ? '' : '?') + options.params;
+                } else {
+                    requestCfg.data = options.params
+                }
             }
 
             // Make a request
-            fetch(url, requestCfg)
-                .then(function(response) {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.text();
-                    } else {
-                        return this.reject(new Error(response.statusText));
-                    }
-                })
-                .then(function(body) {
-                    // Send the result data to the client
-                    setAsyncContent({
-                        'status': 'done',
-                        'response': body
-                    });
-                })
-                ['catch'](function(err) {
-                    // Send a defined error message
-                    setAsyncContent({
-                        'status': 'error',
-                        'response': '<p>Error on ajax call.</p>',
-
-                        // Grab all the parameters into a JSON to send to the client
-                        'data': err
-                    });
-                });
+            tiny.ajax(url, requestCfg);
         }
 
         /**
@@ -243,4 +231,4 @@
 
     ch.Content = Content;
 
-}(this.ch, this.fetch));
+}(this.ch));
