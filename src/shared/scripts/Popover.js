@@ -340,8 +340,12 @@
         // Hide by leaving the component
         if (hiddenby === 'pointerleave' && this.trigger !== undefined) {
 
-            tiny.on([this.trigger, this.container], ch.onpointerenter, this._hideTimerCleaner);
-            tiny.on([this.trigger, this.container], ch.onpointerleave, this._hideTimer);
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerenter, that._hideTimerCleaner);
+            });
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerleave, that._hideTimer);
+            });
         }
 
         // Hide with the button Close

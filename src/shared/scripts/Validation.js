@@ -189,6 +189,8 @@
             // Clean the validation if is shown;
             .on('disable', this.clear);
 
+        this.on('error', this._handleError);
+
         /**
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
@@ -267,40 +269,43 @@
 
         });
 
-        // Lazy Loading pattern
-        this._error = function () {
-
-            if (!that._previousError.condition || !that._shown) {
-                if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
-                    tiny.classList(that.trigger).add('ch-validation-error');
-                }
-
-                that._showErrorMessage(that.error.message || 'Error');
-            }
-
-            if (that.error.condition !== that._previousError.condition) {
-                that._showErrorMessage(that.error.message || that.form._messages[that.error.condition] || 'Error');
-            }
-
-            that._shown = true;
-
-            /**
-             * It emits an event when a validation hasn't got an error.
-             * @event ch.Validation#error
-             * @example
-             * // Subscribe to "error" event.
-             * validation.on('error', function (errors) {
-             *     console.log(errors.length);
-             * });
-             */
-            that.emit('error', that.error);
-
-            return that;
-        };
-
-        this._error();
+        /**
+         * It emits an error event when a validation got an error.
+         * @event ch.Validation#error
+         *
+         * @example
+         * // Subscribe to "error" event.
+         * validation.on('error', function (errors) {
+         *     console.log(errors.length);
+         * });
+         */
+        this.emit('error', this.error);
 
         return this;
+    };
+
+    /**
+     * Internal error handler, shows the errors when needed
+     *
+     * @param err {Object} A ch.Validation#error object that contain the error message and the error condition
+     * @private
+     */
+    Validation.prototype._handleError = function(err) {
+        var that = this;
+
+        if (!that._previousError.condition || !that._shown) {
+            if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
+                tiny.classList(that.trigger).add('ch-validation-error');
+            }
+
+            that._showErrorMessage(err.message || 'Error');
+        }
+
+        if (err.condition !== that._previousError.condition) {
+            that._showErrorMessage(err.message || that.form._messages[err.condition] || 'Error');
+        }
+
+        that._shown = true;
     };
 
     /**
