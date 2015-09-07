@@ -216,29 +216,6 @@ module.exports = function (grunt) {
                         'views/*.html'
                     ]
                 }
-            },
-            test: {
-                options: {
-                    port: 3040,
-                    watchTask: true,
-                    startPath: '/tests',
-                    directory: true,
-                    server: {
-                        baseDir: ['./', './views/'],
-                        routes: {
-                            '/test': 'tests',
-                            '/static': 'views/static'
-                        }
-                    }
-                },
-                bsFiles: {
-                    src: [
-                        'dist/**/*.css',
-                        'dist/**/*.js',
-                        'tests/**/spect.js',
-                        'tests/**/index.html'
-                    ]
-                }
             }
         },
 
@@ -329,6 +306,5 @@ module.exports = function (grunt) {
     grunt.registerTask('build', ['copy:assets', 'sass', 'concat', 'clean']);
     grunt.registerTask('sync', ['browserSync:dev', 'watch']);
     grunt.registerTask('dev', ['build', 'sync']);
-    grunt.registerTask('test', ['build', 'browserSync:test', 'watch']);
     grunt.registerTask('dist', ['copy:assets', 'sass', 'cssmin', 'concat', 'uglify:jsUiDist', 'uglify:jsMobileDist', 'usebanner', 'clean']);
 };
