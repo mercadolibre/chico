@@ -41,10 +41,9 @@
     "tiny.js": "tiny#~0.0.3"
   },
   "devDependencies": {
-    "IE8": "https://github.com/WebReflection/ie8.git",
     "bourbon": "*",
     "es5-shim": "~4.1.1",
-    "jasmine-core": "1.3.x",
+    "IE8": "https://github.com/WebReflection/ie8.git",
     "mesh": "https://github.com/mercadolibre/mesh.git#4.1.1"
   }
 }

@@ -178,15 +178,14 @@ gulp.task('sass:ui', function () {
 
 
 ## Tests
-You can run our tests in a browser:
+You can run all tests in a terminal with a PhantomJS headless browser:
 
-1. Run the local web server:
+    $ npm test
 
-        $ grunt test
-        
-This will open `http://localhost:3040/tests/` in your browser. Navigate to `http://localhost:3040/test/:component` to run a specific test.
+Tests are executing using the karma test runner so feel free to run them in your favorite browser. There is the example
+  for Google Chrome:
 
-**We are going to automate it! :)**
+    ./node_modules/.bin/karma start --browsers Chrome
 
 
 ## Get in touch
