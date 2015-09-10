@@ -12,6 +12,7 @@ module.exports = function(config) {
         files: [
             {pattern: 'test/mock/*.html', watched: false, included: false},
             {pattern: 'test/mock/*.png', watched: false, included: false},
+            'bower_components/tiny.js/dist/tiny.js',
             'dist/ui/chico.js',
             'test/**/*.spec.js'
         ],

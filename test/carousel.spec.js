@@ -201,15 +201,15 @@ describe('Carousel', function () {
             describe('should have the following ID and Classnames:', function () {
 
                 it('.ch-carousel-prev', function () {
-                    expect(ch.util.classList(btn).contains('ch-carousel-prev')).to.be.true;
+                    expect(tiny.classList(btn).contains('ch-carousel-prev')).to.be.true;
                 });
 
                 it('.ch-carousel-disabled in the first page', function () {
-                    expect(ch.util.classList(btn).contains('ch-carousel-disabled')).to.be.true;
+                    expect(tiny.classList(btn).contains('ch-carousel-disabled')).to.be.true;
                 });
 
                 it('.ch-user-no-select', function () {
-                    expect(ch.util.classList(btn).contains('ch-user-no-select')).to.be.true;
+                    expect(tiny.classList(btn).contains('ch-user-no-select')).to.be.true;
                 });
             });
         });
@@ -239,15 +239,15 @@ describe('Carousel', function () {
             describe('should have the following ID and Classnames:', function () {
 
                 it('.ch-carousel-next', function () {
-                    expect(ch.util.classList(btn).contains('ch-carousel-next')).to.be.true;
+                    expect(tiny.classList(btn).contains('ch-carousel-next')).to.be.true;
                 });
 
                 it('shouldn\'t have the .ch-carousel-disabled classname in the first page', function () {
-                    expect(ch.util.classList(btn).contains('ch-carousel-disabled')).to.be.false;
+                    expect(tiny.classList(btn).contains('ch-carousel-disabled')).to.be.false;
                 });
 
                 it('.ch-user-no-select', function () {
-                    expect(ch.util.classList(btn).contains('ch-user-no-select')).to.be.true;
+                    expect(tiny.classList(btn).contains('ch-user-no-select')).to.be.true;
                 });
             });
         });
@@ -269,7 +269,7 @@ describe('Carousel', function () {
         });
 
         it('should have the "ch-carousel-mask" classname:', function () {
-            expect(ch.util.classList(mask).contains('ch-carousel-mask')).to.be.true;
+            expect(tiny.classList(mask).contains('ch-carousel-mask')).to.be.true;
         });
 
         describe('should have the initial list element that', function () {
@@ -284,7 +284,7 @@ describe('Carousel', function () {
             });
 
             it('should have the "ch-carousel-list" classname', function () {
-                expect(ch.util.classList(list).contains('ch-carousel-list')).to.be.true;
+                expect(tiny.classList(list).contains('ch-carousel-list')).to.be.true;
             });
 
             describe('should have each individual item or element into the list:', function () {
@@ -435,30 +435,30 @@ describe('Carousel', function () {
             carousel1.select(3);
 
             expect(prevButton.getAttribute('aria-disabled')).to.equal('false');
-            expect(ch.util.classList(prevButton).contains('ch-carousel-disabled')).to.be.false;
+            expect(tiny.classList(prevButton).contains('ch-carousel-disabled')).to.be.false;
 
             expect(nextButton.getAttribute('aria-disabled')).to.equal('false');
-            expect(ch.util.classList(nextButton).contains('ch-carousel-disabled')).to.be.false;
+            expect(tiny.classList(nextButton).contains('ch-carousel-disabled')).to.be.false;
         });
 
         it('in the first page', function () {
             carousel1.select(1);
 
             expect(prevButton.getAttribute('aria-disabled')).to.equal('true');
-            expect(ch.util.classList(prevButton).contains('ch-carousel-disabled')).to.be.true;
+            expect(tiny.classList(prevButton).contains('ch-carousel-disabled')).to.be.true;
 
             expect(nextButton.getAttribute('aria-disabled')).to.equal('false');
-            expect(ch.util.classList(nextButton).contains('ch-carousel-disabled')).to.be.false;
+            expect(tiny.classList(nextButton).contains('ch-carousel-disabled')).to.be.false;
         });
 
         it('in the last page', function () {
             carousel1.select(carousel1._pages);
 
             expect(prevButton.getAttribute('aria-disabled')).to.equal('false');
-            expect(ch.util.classList(prevButton).contains('ch-carousel-disabled')).to.be.false;
+            expect(tiny.classList(prevButton).contains('ch-carousel-disabled')).to.be.false;
 
             expect(nextButton.getAttribute('aria-disabled')).to.equal('true');
-            expect(ch.util.classList(nextButton).contains('ch-carousel-disabled')).to.be.true;
+            expect(tiny.classList(nextButton).contains('ch-carousel-disabled')).to.be.true;
         });
     });
 
@@ -488,11 +488,11 @@ describe('Carousel', function () {
 
         describe('should have the following ID and Classnames:', function () {
             it('.ch-carousel-pages', function () {
-                expect(ch.util.classList(pages).contains('ch-carousel-pages')).to.be.true;
+                expect(tiny.classList(pages).contains('ch-carousel-pages')).to.be.true;
             });
 
             it('.ch-user-no-select', function () {
-                expect(ch.util.classList(pages).contains('ch-user-no-select')).to.be.true;
+                expect(tiny.classList(pages).contains('ch-user-no-select')).to.be.true;
             });
         });
 
@@ -514,7 +514,7 @@ describe('Carousel', function () {
                 });
 
                 it.skip('should have the "ch-carousel-selected" classname, because it\'s selected right now', function () {
-                    expect(ch.util.classList(thumb).contains('ch-carousel-selected')).to.be.true;
+                    expect(tiny.classList(thumb).contains('ch-carousel-selected')).to.be.true;
                 });
 
                 describe('should have the following WAI-ARIA roles and properties:', function () {
@@ -544,12 +544,12 @@ describe('Carousel', function () {
                 });
 
                 it('shouldn\'t have the "ch-carousel-selected" classname, because it isn\'t selected right now', function () {
-                    expect(ch.util.classList(thumb).contains('ch-carousel-selected')).to.be.false;
+                    expect(tiny.classList(thumb).contains('ch-carousel-selected')).to.be.false;
                 });
 
                 describe('should have the following WAI-ARIA roles and properties:', function () {
                     it('aria-selected: false in the last page', function () {
-                        expect(ch.util.classList(thumb).contains('aria-selected')).to.be.false;
+                        expect(tiny.classList(thumb).contains('aria-selected')).to.be.false;
                     });
                 });
             });
@@ -558,13 +558,13 @@ describe('Carousel', function () {
 
                 carousel2.select(1);
 
-                expect(ch.util.classList(thumbs[0]).contains('ch-carousel-selected')).to.be.true;
-                expect(ch.util.classList(thumbs[2]).contains('ch-carousel-selected')).to.be.false;
+                expect(tiny.classList(thumbs[0]).contains('ch-carousel-selected')).to.be.true;
+                expect(tiny.classList(thumbs[2]).contains('ch-carousel-selected')).to.be.false;
 
                 carousel2.select(3);
 
-                expect(ch.util.classList(thumbs[0]).contains('ch-carousel-selected')).to.be.false;
-                expect(ch.util.classList(thumbs[2]).contains('ch-carousel-selected')).to.be.true;
+                expect(tiny.classList(thumbs[0]).contains('ch-carousel-selected')).to.be.false;
+                expect(tiny.classList(thumbs[2]).contains('ch-carousel-selected')).to.be.true;
             });
         });
     });
@@ -572,7 +572,7 @@ describe('Carousel', function () {
     describe('Its asynchronous feature', function () {
 
         it('should add the next arrow', function () {
-            expect(ch.util.classList(carousel3._el.querySelector('.ch-carousel-next')).contains('ch-carousel-disabled')).to.be.false;
+            expect(tiny.classList(carousel3._el.querySelector('.ch-carousel-next')).contains('ch-carousel-disabled')).to.be.false;
         });
 
         it.skip('should add two items on next page', function () {

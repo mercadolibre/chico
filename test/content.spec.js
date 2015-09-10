@@ -105,7 +105,7 @@ describe('Content', function () {
         it('should load on every show', function (done) {
             function doneCallback(event) {
                 expect(doneEvent).to.have.been.called();
-                expect(event).to.be.a('object');
+                expect(event).to.be.an('object');
 
                 done();
             }

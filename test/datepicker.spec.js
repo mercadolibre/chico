@@ -167,11 +167,11 @@ describe('Datepicker', function () {
 
         describe('should have the following class names:', function () {
             it('.ch-datepicker-trigger', function () {
-                expect(ch.util.classList(trigger).contains('ch-datepicker-trigger')).to.be.true;
+                expect(tiny.classList(trigger).contains('ch-datepicker-trigger')).to.be.true;
             });
 
             it('.ch-icon-calendar', function () {
-                expect(ch.util.classList(trigger).contains('ch-icon-calendar')).to.be.true;
+                expect(tiny.classList(trigger).contains('ch-icon-calendar')).to.be.true;
             });
         });
     });

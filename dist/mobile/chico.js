@@ -3797,7 +3797,7 @@ ch.factory = function (Klass) {
 
         tiny.off(document, ch.onlayoutchange, this._refreshPositionListener);
 
-        ch.viewport.off(ch.onresize, this._refreshPositionListener);
+        ch.viewport.removeListener(ch.onresize, this._refreshPositionListener);
 
         parent.destroy.call(this);
 
@@ -4743,7 +4743,8 @@ ch.factory = function (Klass) {
                 that.reset();
             });
         }
-
+        // Stub for EventEmitter to prevent the errors throwing
+        this.on('error', function(){});
 
         // Clean validations
         this.on('disable', this.clear);
@@ -4826,7 +4827,9 @@ ch.factory = function (Klass) {
                 triggerError.focus();
             }
 
-            event.preventDefault();
+            if (event && event.preventDefault) {
+                event.preventDefault();
+            }
 
             /**
              * It emits an event when a form has got errors.
@@ -4896,11 +4899,7 @@ ch.factory = function (Klass) {
 
         }
 
-        if (this.errors.length > 0) {
-            return true;
-        }
-
-        return false;
+        return this.errors.length > 0;
     };
 
     /**

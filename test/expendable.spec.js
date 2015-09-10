@@ -54,7 +54,7 @@ describe('Expandable', function () {
             .on('beforehide', beforehideEvent)
             .on('hide', hideEvent);
 
-        ch.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
+        tiny.on(document, ch.onlayoutchange, layoutChangeEvent);
     });
 
     after(function () {
@@ -155,15 +155,15 @@ describe('Expandable', function () {
 
         describe('should have the following class names:', function () {
             it('.ch-expandable-trigger', function () {
-                expect(ch.util.classList(trigger).contains('ch-expandable-trigger')).to.be.true;
+                expect(tiny.classList(trigger).contains('ch-expandable-trigger')).to.be.true;
             });
 
             it('.ch-expandable-ico', function () {
-                expect(ch.util.classList(trigger).contains('ch-expandable-ico')).to.be.true;
+                expect(tiny.classList(trigger).contains('ch-expandable-ico')).to.be.true;
             });
 
             it('.ch-user-no-select', function () {
-                expect(ch.util.classList(trigger).contains('ch-user-no-select')).to.be.true;
+                expect(tiny.classList(trigger).contains('ch-user-no-select')).to.be.true;
             });
         });
 
@@ -177,7 +177,7 @@ describe('Expandable', function () {
         });
 
         it('shold be hidden', function () {
-            expect(ch.util.classList(container).contains('ch-hide')).to.be.true;
+            expect(tiny.classList(container).contains('ch-hide')).to.be.true;
         });
 
         it('should have the WAI-ARIA attribute "aria-expanded" in "false"', function () {
@@ -187,7 +187,7 @@ describe('Expandable', function () {
         describe('Should have the following class names:', function () {
 
             it('.ch-expandable-container', function () {
-                expect(ch.util.classList(container).contains('ch-expandable-container')).to.be.true;
+                expect(tiny.classList(container).contains('ch-expandable-container')).to.be.true;
             });
 
         });
@@ -204,13 +204,13 @@ describe('Expandable', function () {
         });
 
         it('should add "ch-expandable-trigger-on" class name to trigger', function () {
-            expect(ch.util.classList(trigger).contains('ch-expandable-trigger-on')).to.be.false;
+            expect(tiny.classList(trigger).contains('ch-expandable-trigger-on')).to.be.false;
             instance = expandable1.show();
-            expect(ch.util.classList(trigger).contains('ch-expandable-trigger-on')).to.be.true;
+            expect(tiny.classList(trigger).contains('ch-expandable-trigger-on')).to.be.true;
         });
 
         it('should remove "ch-hide" class name from container.', function () {
-            expect(ch.util.classList(container).contains('ch-hide')).to.be.false;
+            expect(tiny.classList(container).contains('ch-hide')).to.be.false;
         });
 
         it('should update the WAI-ARIA attribute "aria-expanded" to "true" on container', function () {
@@ -239,11 +239,11 @@ describe('Expandable', function () {
 
         it('should remove "ch-expandable-trigger-on" class name to trigger', function () {
             instance = expandable1.hide();
-            expect(ch.util.classList(trigger).contains('ch-expandable-trigger-on')).to.be.false;
+            expect(tiny.classList(trigger).contains('ch-expandable-trigger-on')).to.be.false;
         });
 
         it('should add "ch-hide" class name to container', function () {
-            expect(ch.util.classList(container).contains('ch-hide')).to.be.true;
+            expect(tiny.classList(container).contains('ch-hide')).to.be.true;
         });
 
         it('should update the WAI-ARIA attribute "aria-expanded" to "false" on container', function () {
@@ -290,7 +290,7 @@ describe('Expandable', function () {
         it('should prevent to show its container', function () {
             instance = expandable1.disable();
             expandable1.show();
-            expect(ch.util.classList(expandable1.trigger).contains('ch-expandable-trigger-on')).to.be.false;
+            expect(tiny.classList(expandable1.trigger).contains('ch-expandable-trigger-on')).to.be.false;
         });
 
         it('should return the same instance than initialized component', function () {
@@ -308,7 +308,7 @@ describe('Expandable', function () {
         it('should prevent to show its container', function () {
             instance = expandable1.enable();
             expandable1.show();
-            expect(ch.util.classList(expandable1.trigger).contains('ch-expandable-trigger-on')).to.be.true;
+            expect(tiny.classList(expandable1.trigger).contains('ch-expandable-trigger-on')).to.be.true;
         });
 
         it('should return the same instance than initialized component', function () {
@@ -328,25 +328,25 @@ describe('Expandable', function () {
 
         it('without toggle', function () {
             expandable3.show();
-            expect(ch.util.classList(expandable3.trigger).contains('ch-expandable-trigger-on')).to.be.true;
+            expect(tiny.classList(expandable3.trigger).contains('ch-expandable-trigger-on')).to.be.true;
 
             expandable3.hide();
-            expect(ch.util.classList(expandable3.trigger).contains('ch-expandable-trigger-on')).to.be.false;
+            expect(tiny.classList(expandable3.trigger).contains('ch-expandable-trigger-on')).to.be.false;
         });
     });
 
     describe('Its destroy() method', function () {
         it('should reset the trigger', function () {
             expandable3.destroy();
-            expect(ch.util.classList(expandable3.trigger).contains('ch-expandable-trigger')).to.be.false;
-            expect(ch.util.classList(expandable3.trigger).contains('ch-user-no-select')).to.be.false;
-            expect(ch.util.classList(expandable3.trigger).contains('ch-expandable-ico')).to.be.false;
-            expect(ch.util.classList(expandable3.trigger).contains('ch-user-no-select')).to.be.false;
+            expect(tiny.classList(expandable3.trigger).contains('ch-expandable-trigger')).to.be.false;
+            expect(tiny.classList(expandable3.trigger).contains('ch-user-no-select')).to.be.false;
+            expect(tiny.classList(expandable3.trigger).contains('ch-expandable-ico')).to.be.false;
+            expect(tiny.classList(expandable3.trigger).contains('ch-user-no-select')).to.be.false;
             expect(expandable3.trigger.getAttribute('aria-controls')).to.be.null;
         });
 
         it('should reset the container', function () {
-            expect(ch.util.classList(expandable3.container).contains('ch-expandable-container')).to.be.false;
+            expect(tiny.classList(expandable3.container).contains('ch-expandable-container')).to.be.false;
             expect(expandable3.container.getAttribute('aria-expanded')).to.be.null;
             expect(expandable3.container.getAttribute('aria-hidden')).to.be.null;
         });

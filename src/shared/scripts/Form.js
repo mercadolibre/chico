@@ -143,7 +143,8 @@
                 that.reset();
             });
         }
-
+        // Stub for EventEmitter to prevent the errors throwing
+        this.on('error', function(){});
 
         // Clean validations
         this.on('disable', this.clear);
@@ -226,7 +227,9 @@
                 triggerError.focus();
             }
 
-            event.preventDefault();
+            if (event && event.preventDefault) {
+                event.preventDefault();
+            }
 
             /**
              * It emits an event when a form has got errors.
@@ -296,11 +299,7 @@
 
         }
 
-        if (this.errors.length > 0) {
-            return true;
-        }
-
-        return false;
+        return this.errors.length > 0;
     };
 
     /**

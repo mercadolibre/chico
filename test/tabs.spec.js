@@ -53,7 +53,7 @@ describe('Tabs', function () {
 
         tabs1.on('ready', readyEvent);
 
-        ch.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
+        tiny.on(document, ch.onlayoutchange, layoutChangeEvent);
     });
 
     after(function () {
@@ -122,7 +122,7 @@ describe('Tabs', function () {
         });
 
         it('should have the ".ch-tabs" class name', function () {
-            expect(ch.util.classList(container).contains('ch-tabs')).to.be.true;
+            expect(tiny.classList(container).contains('ch-tabs')).to.be.true;
         });
     });
 
@@ -146,7 +146,7 @@ describe('Tabs', function () {
         });
 
         it('should have the "ch-tabs-triggers" class name', function () {
-            expect(ch.util.classList(triggers).contains('ch-tabs-triggers')).to.be.true;
+            expect(tiny.classList(triggers).contains('ch-tabs-triggers')).to.be.true;
         });
 
         describe('its trigger', function () {
@@ -162,11 +162,11 @@ describe('Tabs', function () {
 
             describe('should have the following class name:', function () {
                 it('.ch-tab', function () {
-                    expect(ch.util.classList(trigger).contains('ch-tab')).to.be.true;
+                    expect(tiny.classList(trigger).contains('ch-tab')).to.be.true;
                 });
 
                 it('.ch-user-no-select', function () {
-                    expect(ch.util.classList(trigger).contains('ch-user-no-select')).to.be.true;
+                    expect(tiny.classList(trigger).contains('ch-user-no-select')).to.be.true;
                 });
             });
         });
@@ -193,7 +193,7 @@ describe('Tabs', function () {
         });
 
         it('should have the "ch-tabs-panel" class name', function () {
-            expect(ch.util.classList(panel).contains('ch-tabs-panel')).to.be.true;
+            expect(tiny.classList(panel).contains('ch-tabs-panel')).to.be.true;
         });
 
         describe('its tabpanel', function () {
@@ -209,7 +209,7 @@ describe('Tabs', function () {
             });
 
             it('should have the "ch-tabpanel" class name', function () {
-                expect(ch.util.classList(tabpanel).contains('ch-tabpanel')).to.be.true;
+                expect(tiny.classList(tabpanel).contains('ch-tabpanel')).to.be.true;
             });
         });
 
@@ -249,13 +249,13 @@ describe('Tabs', function () {
         it('should receive an optional tab to disable', function () {
             instance = tabs1.disable(3);
             tabs1.show(3);
-            expect(ch.util.classList(tabs1.tabpanels[2].trigger).contains('ch-expandable-trigger-on')).to.be.false;
+            expect(tiny.classList(tabs1.tabpanels[2].trigger).contains('ch-expandable-trigger-on')).to.be.false;
         });
 
         it('should prevent to show new tab panels', function () {
             instance = tabs1.disable();
             tabs1.show(2);
-            expect(ch.util.classList(tabs1.tabpanels[1].trigger).contains('ch-expandable-trigger-on')).to.be.false;
+            expect(tiny.classList(tabs1.tabpanels[1].trigger).contains('ch-expandable-trigger-on')).to.be.false;
         });
 
         it('should return the same instance than initialized component', function () {
@@ -269,13 +269,13 @@ describe('Tabs', function () {
         it('should receive an optional tab to enable', function () {
             instance = tabs1.enable(3);
             tabs1.show(3);
-            expect(ch.util.classList(tabs1.tabpanels[2].trigger).contains('ch-expandable-trigger-on')).to.be.true;
+            expect(tiny.classList(tabs1.tabpanels[2].trigger).contains('ch-expandable-trigger-on')).to.be.true;
         });
 
         it('should prevent to show its container', function () {
             instance = tabs1.enable();
             tabs1.show(2);
-            expect(ch.util.classList(tabs1.tabpanels[1].trigger).contains('ch-expandable-trigger-on')).to.be.true;
+            expect(tiny.classList(tabs1.tabpanels[1].trigger).contains('ch-expandable-trigger-on')).to.be.true;
         });
 
         it('should return the same instance than initialized component', function () {

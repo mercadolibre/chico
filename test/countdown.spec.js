@@ -39,7 +39,7 @@ describe('Countdown', function () {
             .on('exceed', exceedEvent)
             .on('destroy', destroyEvent);
 
-        ch.Event.addListener(document, ch.onlayoutchange, layoutChangeEvent);
+        tiny.on(document, ch.onlayoutchange, layoutChangeEvent);
     });
 
     after(function () {
@@ -121,7 +121,7 @@ describe('Countdown', function () {
         });
 
         it('should add "ch-form-hint" classname to the element', function () {
-            expect(ch.util.classList(container).contains('ch-form-hint')).to.be.true;
+            expect(tiny.classList(container).contains('ch-form-hint')).to.be.true;
         });
 
         it('should set this message by default: "500 characters left."', function () {
@@ -138,12 +138,12 @@ describe('Countdown', function () {
 
         it('if it exceeds the number should add errors classnames: "ch-countdown-exceeded" and "ch-validation-error"', function (done) {
             countdown2.trigger.setAttribute('value', '12345678901234567890');
-            ch.Event.dispatchEvent(countdown2.trigger, 'keyup');
+            tiny.trigger(countdown2.trigger, 'keyup');
 
             setTimeout(function() {
                 expect(container.innerText).to.equal('-10 characters left.');
-                expect(ch.util.classList(container).contains('ch-countdown-exceeded')).to.be.true;
-                expect(ch.util.classList(countdown2.trigger).contains('ch-validation-error')).to.be.true;
+                expect(tiny.classList(container).contains('ch-countdown-exceeded')).to.be.true;
+                expect(tiny.classList(countdown2.trigger).contains('ch-validation-error')).to.be.true;
                 done();
             }, 50);
         });
@@ -154,7 +154,7 @@ describe('Countdown', function () {
 
         it('if doesn\'t exceed the number should update the number to 0', function (done) {
             countdown2.trigger.setAttribute('value', '1234567890');
-            ch.Event.dispatchEvent(countdown2.trigger, 'keyup');
+            tiny.trigger(countdown2.trigger, 'keyup');
 
             setTimeout(function(){
                 expect(container.innerText).to.equal('0 characters left.');

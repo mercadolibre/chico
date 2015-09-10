@@ -646,7 +646,7 @@
 
         tiny.off(document, ch.onlayoutchange, this._refreshPositionListener);
 
-        ch.viewport.off(ch.onresize, this._refreshPositionListener);
+        ch.viewport.removeListener(ch.onresize, this._refreshPositionListener);
 
         parent.destroy.call(this);
 

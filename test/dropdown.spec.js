@@ -54,26 +54,26 @@ describe('Dropdown', function () {
         });
 
         it('specific CSS class names', function () {
-            expect(ch.util.classList(c).contains('ch-dropdown')).to.be.true;
-            expect(ch.util.classList(c).contains('ch-box-lite')).to.be.true;
+            expect(tiny.classList(c).contains('ch-dropdown')).to.be.true;
+            expect(tiny.classList(c).contains('ch-box-lite')).to.be.true;
         });
     });
 
     describe('By default', function () {
         it('should have class names like a button', function () {
-            expect(ch.util.classList(t).contains('ch-btn-skin')).to.be.true;
-            expect(ch.util.classList(t).contains('ch-btn-small')).to.be.true;
+            expect(tiny.classList(t).contains('ch-btn-skin')).to.be.true;
+            expect(tiny.classList(t).contains('ch-btn-small')).to.be.true;
         });
     });
 
     describe('An intance configured with skin', function () {
         it('should have a specific class name on trigger', function () {
-            expect(ch.util.classList(dropdown2.trigger).contains('ch-dropdown-trigger-skin')).to.be.true;
+            expect(tiny.classList(dropdown2.trigger).contains('ch-dropdown-trigger-skin')).to.be.true;
         });
 
         it('shouldn\'t have class names like a button', function () {
-            expect(ch.util.classList(dropdown2.trigger).contains('ch-btn-skin')).to.be.false;
-            expect(ch.util.classList(dropdown2.trigger).contains('ch-btn-small')).to.be.false;
+            expect(tiny.classList(dropdown2.trigger).contains('ch-btn-skin')).to.be.false;
+            expect(tiny.classList(dropdown2.trigger).contains('ch-btn-small')).to.be.false;
         });
     });
 

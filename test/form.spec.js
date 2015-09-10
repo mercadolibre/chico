@@ -52,7 +52,7 @@ describe('Form', function () {
             .on('destroy', destroyEvent)
             .on('success', function (e) { e.preventDefault(); });
 
-        ch.Event.addListener(document.getElementById('form-test'), 'submit', function (event) {
+        tiny.on(document.getElementById('form-test'), 'submit', function (event) {
             event.preventDefault();
         });
     });
@@ -71,7 +71,7 @@ describe('Form', function () {
     });
 
     it('should have the "ch-form" classname', function () {
-        expect(ch.util.classList(form.container).contains('ch-form')).to.be.true;
+        expect(tiny.classList(form.container).contains('ch-form')).to.be.true;
     });
 
     it('should disable HTML5 validations', function () {
@@ -117,12 +117,12 @@ describe('Form', function () {
 
         it('.errors', function () {
             expect(form.errors).to.exist;
-            expect(ch.util.isArray(form.errors)).to.be.true;
+            expect(Array.isArray(form.errors)).to.be.true;
         });
 
         it('.validations', function () {
             expect(form.validations).to.exist;
-            expect(ch.util.isArray(form.validations)).to.be.true;
+            expect(Array.isArray(form.validations)).to.be.true;
         });
 
     });
@@ -143,17 +143,18 @@ describe('Form', function () {
     });
 
     describe('When the form is submitted it', function () {
-        it('should run "validate" method', function () {
+        before(function() {
             chai.spy.on(form, 'validate');
+            tiny.trigger(form.container, 'submit');
+        });
 
-            ch.Event.dispatchEvent(form.container, 'submit');
-
+        it('should run "validate" method', function () {
             expect(form.validate).to.have.been.called();
         });
     });
 
     describe('Its validate() method', function () {
-        before(function(){
+        before(function() {
             form
                 .once('beforevalidate', beforevalidateEvent)
                 .once('success', successEvent)
@@ -181,7 +182,7 @@ describe('Form', function () {
         it('should emit "success" event when it has not got errors', function () {
             input.setAttribute('value', 'success');
 
-            ch.Event.dispatchEvent(form.container, 'submit');
+            tiny.trigger(form.container, 'submit');
 
             expect(successEvent).to.have.been.called();
             form.reset();
@@ -218,7 +219,7 @@ describe('Form', function () {
             expect(clearEvent).to.have.been.called();
         });
 
-        it('should return the same instance than initialized component', function () {
+        it('should return the same instance as the initialized component', function () {
             expect(instance).to.eql(form);
         });
     });
@@ -256,12 +257,15 @@ describe('Form', function () {
     describe('Its enable() method', function () {
         var instance;
 
+        before(function(){
+            instance = form.enable();
+        });
+
         after(function(){
             form.reset();
         });
 
         it('should enable all validations', function () {
-            instance = form.enable();
             expect(form.hasError()).to.be.true;
         });
 
@@ -272,9 +276,11 @@ describe('Form', function () {
     });
 
     describe('Its destroy() method', function () {
+        before(function(){
+            form.destroy();
+        });
 
         it('should reset the $container', function () {
-            form.destroy();
             expect(form.container.getAttribute('novalidate')).to.be.null;
         });
 
