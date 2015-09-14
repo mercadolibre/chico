@@ -41,8 +41,8 @@ describe('Transition', function () {
         });
 
         it('specific CSS class names', function () {
-            expect(tiny.classList(c).contains('ch-transition')).to.be.true;
-            expect(tiny.classList(c).contains('ch-box-lite')).to.be.true;
+            expect(tiny.hasClass(c, 'ch-transition')).to.be.true;
+            expect(tiny.hasClass(c, 'ch-box-lite')).to.be.true;
         });
     });
 

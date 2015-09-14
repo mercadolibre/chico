@@ -333,7 +333,7 @@
         this._prev.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._prev.setAttribute('role', 'button');
         this._prev.setAttribute('aria-hidden', 'false');
-        tiny.classList(this._prev).add('ch-calendar-prev');
+        tiny.addClass(this._prev, 'ch-calendar-prev');
 
         /**
          * Template of next arrow.
@@ -343,7 +343,7 @@
         this._next.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._next.setAttribute('role', 'button');
         this._next.setAttribute('aria-hidden', 'false');
-        tiny.classList(this._next).add('ch-calendar-next');
+        tiny.addClass(this._next, 'ch-calendar-next');
 
 
         // Show or hide arrows depending on "from" and "to" limits
@@ -363,14 +363,14 @@
         this.container = this._el;
         this.container.insertBefore(this._prev, this.container.firstChild);
         this.container.insertBefore(this._next, this.container.firstChild);
-        tiny.classList(this.container).add('ch-calendar');
+        tiny.addClass(this.container, 'ch-calendar');
         this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         this._updateControls();
 
         // Avoid selection on the component
         that.container.setAttribute('unselectable', 'on');
-        tiny.classList(that.container).add('ch-user-no-select');
+        tiny.addClass(that.container, 'ch-user-no-select');
 
         return this;
     };
@@ -402,23 +402,23 @@
 
         // Show previous arrow when it's out of limit
         if (this._hasPrevMonth()) {
-            tiny.classList(this._prev).remove('ch-hide');
+            tiny.removeClass(this._prev, 'ch-hide');
             this._prev.setAttribute('aria-hidden', 'false');
 
         // Hide previous arrow when it's out of limit
         } else {
-            tiny.classList(this._prev).add('ch-hide');
+            tiny.addClass(this._prev, 'ch-hide');
             this._prev.setAttribute('aria-hidden', 'true');
         }
 
         // Show next arrow when it's out of limit
         if (this._hasNextMonth()) {
-            tiny.classList(this._next).remove('ch-hide');
+            tiny.removeClass(this._next, 'ch-hide');
             this._next.setAttribute('aria-hidden', 'false');
 
         // Hide next arrow when it's out of limit
         } else {
-            tiny.classList(this._next).add('ch-hide');
+            tiny.addClass(this._next, 'ch-hide');
             this._next.setAttribute('aria-hidden', 'true');
         }
 

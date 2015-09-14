@@ -29,14 +29,14 @@
 
         function showCallback(e) {
             if (useEffects) {
-                tiny.classList(that.container).remove('ch-fx-' + fx);
+                tiny.removeClass(that.container, 'ch-fx-' + fx);
 
                 // TODO: Use original height when it is defined
                 if (/^slide/.test(fx)) {
                     that.container.style.height = '';
                 }
             }
-            tiny.classList(that.container).remove('ch-hide');
+            tiny.removeClass(that.container, 'ch-hide');
             that.container.setAttribute('aria-hidden', 'false');
 
             if (e) {
@@ -57,13 +57,13 @@
 
         function hideCallback(e) {
             if (useEffects) {
-                tiny.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                tiny.removeClass(that.container, 'ch-fx-' + toggleEffects[fx]);
                 that.container.style.display = '';
                 if (/^slide/.test(fx)) {
                     that.container.style.height = '';
                 }
             }
-            tiny.classList(that.container).add('ch-hide');
+            tiny.addClass(that.container, 'ch-hide');
             that.container.setAttribute('aria-hidden', 'true');
 
             if (e) {
@@ -94,7 +94,7 @@
             that._shown = true;
 
             if (that.trigger !== undefined) {
-                tiny.classList(that.trigger).add(triggerClass);
+                tiny.addClass(that.trigger, triggerClass);
             }
 
             /**
@@ -115,7 +115,7 @@
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
                 tiny.off(that.container, tiny.support.transition.end, hideCallback);
-                tiny.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                tiny.removeClass(that.container, 'ch-fx-' + toggleEffects[fx]);
 
                 tiny.on(that.container, tiny.support.transition.end, showCallback);
 
@@ -146,7 +146,7 @@
                     }
                     that.container.style.paddingTop = pt;
                     that.container.style.paddingBottom = pb;
-                    tiny.classList(that.container).add('ch-fx-' + fx);
+                    tiny.addClass(that.container, 'ch-fx-' + fx);
                 }, 0);
             } else {
                 showCallback();
@@ -167,7 +167,7 @@
             that._shown = false;
 
             if (that.trigger !== undefined) {
-                tiny.classList(that.trigger).remove(triggerClass);
+                tiny.removeClass(that.trigger, triggerClass);
             }
 
             /**
@@ -186,7 +186,7 @@
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
                 tiny.off(that.container, tiny.support.transition.end, showCallback);
-                tiny.classList(that.container).remove('ch-fx-' + fx);
+                tiny.removeClass(that.container, 'ch-fx-' + fx);
 
                 tiny.on(that.container, tiny.support.transition.end, hideCallback);
                 // Set margin and padding to 0 to prevent content jumping at the transition end
@@ -196,11 +196,11 @@
                     setTimeout(function() {
                         that.container.style.height = '0px';
                         that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
-                        tiny.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                        tiny.addClass(that.container, 'ch-fx-' + toggleEffects[fx]);
                     }, 0);
                 } else {
                     setTimeout(function() {
-                        tiny.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                        tiny.addClass(that.container, 'ch-fx-' + toggleEffects[fx]);
                     }, 0);
                 }
             } else {

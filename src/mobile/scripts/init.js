@@ -1,5 +1,5 @@
     // Remove no-js classname
-    tiny.classList(document.documentElement).remove('no-js');
+    tiny.removeClass(document.documentElement, 'no-js');
 
     // Iphone scale fix
     ch.util.MBP.scaleFix();

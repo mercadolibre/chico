@@ -38,7 +38,7 @@
     "package.json"
   ],
   "dependencies": {
-    "tiny.js": "tiny#~0.0.3"
+    "tiny.js": "tiny#~0.0.4"
   },
   "devDependencies": {
     "bourbon": "*",

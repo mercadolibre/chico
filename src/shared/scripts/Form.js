@@ -127,7 +127,7 @@
          */
         this.container = this._el;
             // Add classname
-        tiny.classList(this.container).add('ch-form');
+        tiny.addClass(this.container, 'ch-form');
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit

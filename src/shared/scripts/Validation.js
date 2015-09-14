@@ -203,7 +203,7 @@
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (tiny.classList(this.trigger).contains('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (tiny.hasClass(this.trigger, 'ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -295,7 +295,7 @@
 
         if (!that._previousError.condition || !that._shown) {
             if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
-                tiny.classList(that.trigger).add('ch-validation-error');
+                tiny.addClass(that.trigger, 'ch-validation-error');
             }
 
             that._showErrorMessage(err.message || 'Error');
@@ -321,7 +321,7 @@
         }
 
         this.trigger.removeAttribute('aria-label');
-        tiny.classList(this.trigger).remove('ch-validation-error')
+        tiny.removeClass(this.trigger, 'ch-validation-error')
 
 
         this._hideErrorMessage();
@@ -409,7 +409,7 @@
     Validation.prototype.clear = function () {
 
         this.trigger.removeAttribute('aria-label');
-        tiny.classList(this.trigger).remove('ch-validation-error');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
 
         this.error = null;
 

@@ -132,8 +132,8 @@
          * expandable.trigger;
          */
         this.trigger = this._el;
-        tiny.classList(this.trigger).add(this._options._classNameTrigger);
-        tiny.classList(this.trigger).add(this._options._classNameIcon);
+        tiny.addClass(this.trigger, this._options._classNameTrigger);
+        tiny.addClass(this.trigger, this._options._classNameIcon);
         tiny.on(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
@@ -157,10 +157,10 @@
          */
         this.container = this._content = (this._options.container ?
             this._options.container : ch.util.nextElementSibling(this._el));
-        tiny.classList(this.container).add(this._options._classNameContainer);
-        tiny.classList(this.container).add('ch-hide');
+        tiny.addClass(this.container, this._options._classNameContainer);
+        tiny.addClass(this.container, 'ch-hide');
         if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
-            tiny.classList(this.container).add('ch-fx');
+            tiny.addClass(this.container, 'ch-fx');
         }
         this.container.setAttribute('aria-expanded', 'false');
 
@@ -182,7 +182,7 @@
             });
 
         this.trigger.setAttribute('unselectable', 'on');
-        tiny.classList(this.trigger).add('ch-user-no-select');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         return this;
     };
@@ -280,15 +280,20 @@
      * expandable = undefined;
      */
     Expandable.prototype.destroy = function () {
+        var trigger = this.trigger;
 
-        //this.$trigger.off('.expandable')
-        tiny.classList(this.trigger).remove('ch-expandable-trigger');
-        tiny.classList(this.trigger).remove('ch-expandable-ico');
-        tiny.classList(this.trigger).remove('ch-user-no-select');
+        [
+            'ch-expandable-trigger',
+            'ch-expandable-ico',
+            'ch-user-no-select'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
+
         this.trigger.removeAttribute('unselectable');
         this.trigger.removeAttribute('aria-controls');
-        tiny.classList(this.container).remove('ch-expandable-container');
-        tiny.classList(this.container).remove('ch-hide');
+        tiny.removeClass(this.container, 'ch-expandable-container');
+        tiny.removeClass(this.container, 'ch-hide');
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 

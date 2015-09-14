@@ -166,7 +166,7 @@
          */
         this._content = document.createElement('div');
 
-        tiny.classList(this._content).add('ch-popover-content');
+        tiny.addClass(this._content, 'ch-popover-content');
 
         this.container.appendChild(this._content);
 
@@ -274,7 +274,7 @@
         // Open event when configured as able to shown anyway
         if (this._options.shownby !== 'none') {
 
-            tiny.classList(this._el).add('ch-shownby-' + this._options.shownby);
+            tiny.addClass(this._el, 'ch-shownby-' + this._options.shownby);
 
             tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
@@ -631,7 +631,7 @@
             tiny.off(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
             tiny.off(this.trigger, ch.onpointerleave, this._hideTimer);
 
-            tiny.classList(this.trigger).remove('ch-' + this.name + '-trigger');
+            tiny.removeClass(this.trigger, 'ch-' + this.name + '-trigger');
 
             this.trigger.removeAttribute('data-title');
             this.trigger.removeAttribute('aria-owns');

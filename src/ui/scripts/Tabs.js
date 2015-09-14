@@ -141,7 +141,7 @@
          * @type {HTMLElement}
          */
         this.container = this._el;
-        tiny.classList(this.container).add('ch-tabs');
+        tiny.addClass(this.container, 'ch-tabs');
 
         /**
          * The tabs triggers.
@@ -149,7 +149,7 @@
          */
         this.triggers = this.container.children[0];
         this.triggers.setAttribute('role', 'tablist');
-        tiny.classList(this.triggers).add('ch-tabs-triggers')
+        tiny.addClass(this.triggers, 'ch-tabs-triggers');
 
         /**
          * A collection of tab panel.
@@ -163,8 +163,8 @@
          */
         this.panel = this.container.children[1];
         this.panel.setAttribute('role', 'presentation');
-        tiny.classList(this.panel).add('ch-tabs-panel')
-        tiny.classList(this.panel).add('ch-box-lite')
+        tiny.addClass(this.panel, 'ch-tabs-panel');
+        tiny.addClass(this.panel, 'ch-box-lite');
 
 
         /**

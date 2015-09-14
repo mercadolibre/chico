@@ -38,7 +38,7 @@ describe('Zoom', function () {
         });
 
         it('specific CSS class names', function () {
-            expect(tiny.classList(c).contains('ch-zoom')).to.be.true;
+            expect(tiny.hasClass(c, 'ch-zoom')).to.be.true;
         });
 
         it('specific size', function () {

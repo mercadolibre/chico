@@ -121,7 +121,7 @@ describe('Countdown', function () {
         });
 
         it('should add "ch-form-hint" classname to the element', function () {
-            expect(tiny.classList(container).contains('ch-form-hint')).to.be.true;
+            expect(tiny.hasClass(container, 'ch-form-hint')).to.be.true;
         });
 
         it('should set this message by default: "500 characters left."', function () {
@@ -142,8 +142,8 @@ describe('Countdown', function () {
 
             setTimeout(function() {
                 expect(container.innerText).to.equal('-10 characters left.');
-                expect(tiny.classList(container).contains('ch-countdown-exceeded')).to.be.true;
-                expect(tiny.classList(countdown2.trigger).contains('ch-validation-error')).to.be.true;
+                expect(tiny.hasClass(container, 'ch-countdown-exceeded')).to.be.true;
+                expect(tiny.hasClass(countdown2.trigger, 'ch-validation-error')).to.be.true;
                 done();
             }, 50);
         });

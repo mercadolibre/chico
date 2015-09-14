@@ -202,7 +202,7 @@
             // Case 3: HTML Element
             } else if (content.nodeType !== undefined) {
 
-                tiny.classList(content).remove('ch-hide');
+                tiny.removeClass(content, 'ch-hide');
                 parent = ch.util.parentElement(content);
 
                 setContent(content);

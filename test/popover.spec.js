@@ -146,15 +146,15 @@ describe('Popover', function () {
     describe('Its show() method', function () {
 
         it('should add "ch-popover-trigger-on" class name to trigger', function () {
-            expect(tiny.classList(trigger).contains('ch-popover-trigger-on')).to.be.false;
+            expect(tiny.hasClass(trigger, 'ch-popover-trigger-on')).to.be.false;
 
             popover1.show();
 
-            expect(tiny.classList(trigger).contains('ch-popover-trigger-on')).to.be.true;
+            expect(tiny.hasClass(trigger, 'ch-popover-trigger-on')).to.be.true;
 
             popover1.hide();
 
-            expect(tiny.classList(trigger).contains('ch-popover-trigger-on')).to.be.false;
+            expect(tiny.hasClass(trigger, 'ch-popover-trigger-on')).to.be.false;
         });
 
         describe('should create an element at the bottom of body that', function () {
@@ -175,16 +175,16 @@ describe('Popover', function () {
             });
 
             it('should have the "ch-popover" classname', function () {
-                expect(tiny.classList(container).contains('ch-popover')).to.be.true;
+                expect(tiny.hasClass(container, 'ch-popover')).to.be.true;
             });
 
             it('should have a child with the "ch-popover-content" classname', function () {
-                expect(tiny.classList(container.children[1]).contains('ch-popover-content')).to.be.true;
+                expect(tiny.hasClass(container.children[1], 'ch-popover-content')).to.be.true;
             });
 
             describe('have a close button', function () {
                 it('with the "ch-close" classname', function () {
-                    expect(tiny.classList(close).contains('ch-close')).to.be.true;
+                    expect(tiny.hasClass(close, 'ch-close')).to.be.true;
                 });
 
                 it('with the role "button"', function () {
@@ -215,7 +215,7 @@ describe('Popover', function () {
 
         it('should remove "ch-popover-trigger-on" class name to trigger', function () {
             popover1.show().hide();
-            expect(tiny.classList(trigger).contains('ch-popover-trigger-on')).to.be.false;
+            expect(tiny.hasClass(trigger, 'ch-popover-trigger-on')).to.be.false;
         });
 
         it('should delete the element from the DOM when it hidden', function () {
@@ -262,7 +262,7 @@ describe('Popover', function () {
 
         it('should prevent to show its container', function () {
             popover1.disable().show();
-            expect(tiny.classList(trigger).contains('ch-popover-trigger-on')).to.be.false;
+            expect(tiny.hasClass(trigger, 'ch-popover-trigger-on')).to.be.false;
         });
     });
 
@@ -274,7 +274,7 @@ describe('Popover', function () {
 
         it('should allow to show its container', function () {
             popover1.enable().show()
-            expect(tiny.classList(trigger).contains('ch-popover-trigger-on')).to.be.true;
+            expect(tiny.hasClass(trigger, 'ch-popover-trigger-on')).to.be.true;
         });
     });
 
@@ -336,20 +336,20 @@ describe('Popover', function () {
 
     describe('Instance a Popover configured', function () {
         it('with custom class names should contain the specified class names in its container', function () {
-            expect(tiny.classList(popover2.container).contains('ch-popover')).to.be.true;
-            expect(tiny.classList(popover2.container).contains('test')).to.be.true;
+            expect(tiny.hasClass(popover2.container, 'ch-popover')).to.be.true;
+            expect(tiny.hasClass(popover2.container, 'test')).to.be.true;
         });
 
         describe('with "shownby" preference:', function () {
 
             it('"pointertap" should give a pointer cursor to the trigger', function () {
-                expect(tiny.classList(popover1._el).contains('ch-shownby-pointertap')).to.be.true;
-                expect(tiny.classList(popover1._el).contains('ch-shownby-pointerenter')).to.be.false;
+                expect(tiny.hasClass(popover1._el, 'ch-shownby-pointertap')).to.be.true;
+                expect(tiny.hasClass(popover1._el, 'ch-shownby-pointerenter')).to.be.false;
             });
 
             it('"pointerenter" should give a default cursor to the trigger', function () {
-                expect(tiny.classList(popover2._el).contains('ch-shownby-pointerenter')).to.be.true;
-                expect(tiny.classList(popover2._el).contains('ch-shownby-pointertap')).to.be.false;
+                expect(tiny.hasClass(popover2._el, 'ch-shownby-pointerenter')).to.be.true;
+                expect(tiny.hasClass(popover2._el, 'ch-shownby-pointertap')).to.be.false;
             });
         });
     });
@@ -372,7 +372,7 @@ describe('Popover', function () {
         });
 
         it('should reset the "trigger"', function () {
-            expect(tiny.classList(t).contains('ch-popover-trigger')).to.be.false;
+            expect(tiny.hasClass(t, 'ch-popover-trigger')).to.be.false;
             expect(t.getAttribute('data-title')).to.be.null;
             expect(t.getAttribute('aria-owns')).to.be.null;
             expect(t.getAttribute('aria-haspopup')).to.be.null;

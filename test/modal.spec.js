@@ -40,8 +40,8 @@ describe('Modal', function () {
         });
 
         it('specific CSS class names', function () {
-            expect(tiny.classList(c).contains('ch-modal')).to.be.true;
-            expect(tiny.classList(c).contains('ch-box-lite')).to.be.true;
+            expect(tiny.hasClass(c, 'ch-modal')).to.be.true;
+            expect(tiny.hasClass(c, 'ch-box-lite')).to.be.true;
         });
 
         it('specific width', function () {

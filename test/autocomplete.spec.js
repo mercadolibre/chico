@@ -164,11 +164,11 @@ describe('ch.Autocomplete', function () {
         });
 
         it('should have the ".ch-autocomplete" class name ', function () {
-            expect(container.classList.contains('ch-autocomplete')).to.be.true;
+            expect(tiny.hasClass(container, 'ch-autocomplete')).to.be.true;
         });
 
         it('should be hidden', function () {
-            expect(container.classList.contains('ch-hide')).to.be.true;
+            expect(tiny.hasClass(container, 'ch-hide')).to.be.true;
             expect(container.getAttribute('aria-hidden')).to.equal('true');
         });
 
@@ -233,7 +233,7 @@ describe('ch.Autocomplete', function () {
 
         it('should add "ch-hide" class name to container', function () {
             instance = autocomplete.hide();
-            expect(container.classList.contains('ch-hide')).to.be.true;
+            expect(tiny.hasClass(container, 'ch-hide')).to.be.true;
         });
 
         it('should update the WAI-ARIA attribute "aria-hidden" to "true" on container', function () {

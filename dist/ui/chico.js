@@ -1055,7 +1055,7 @@ ch.factory = function (Klass) {
     };
 
     // Remove the no-js classname from html tag
-    tiny.classList(document.documentElement).remove('no-js');
+    tiny.removeClass(document.documentElement, 'no-js');
 
 	ch.version = '2.0.0-alpha.2';
 	window.ch = ch;
@@ -1264,7 +1264,7 @@ ch.factory = function (Klass) {
             // Case 3: HTML Element
             } else if (content.nodeType !== undefined) {
 
-                tiny.classList(content).remove('ch-hide');
+                tiny.removeClass(content, 'ch-hide');
                 parent = ch.util.parentElement(content);
 
                 setContent(content);
@@ -1326,14 +1326,14 @@ ch.factory = function (Klass) {
 
         function showCallback(e) {
             if (useEffects) {
-                tiny.classList(that.container).remove('ch-fx-' + fx);
+                tiny.removeClass(that.container, 'ch-fx-' + fx);
 
                 // TODO: Use original height when it is defined
                 if (/^slide/.test(fx)) {
                     that.container.style.height = '';
                 }
             }
-            tiny.classList(that.container).remove('ch-hide');
+            tiny.removeClass(that.container, 'ch-hide');
             that.container.setAttribute('aria-hidden', 'false');
 
             if (e) {
@@ -1354,13 +1354,13 @@ ch.factory = function (Klass) {
 
         function hideCallback(e) {
             if (useEffects) {
-                tiny.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                tiny.removeClass(that.container, 'ch-fx-' + toggleEffects[fx]);
                 that.container.style.display = '';
                 if (/^slide/.test(fx)) {
                     that.container.style.height = '';
                 }
             }
-            tiny.classList(that.container).add('ch-hide');
+            tiny.addClass(that.container, 'ch-hide');
             that.container.setAttribute('aria-hidden', 'true');
 
             if (e) {
@@ -1391,7 +1391,7 @@ ch.factory = function (Klass) {
             that._shown = true;
 
             if (that.trigger !== undefined) {
-                tiny.classList(that.trigger).add(triggerClass);
+                tiny.addClass(that.trigger, triggerClass);
             }
 
             /**
@@ -1412,7 +1412,7 @@ ch.factory = function (Klass) {
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
                 tiny.off(that.container, tiny.support.transition.end, hideCallback);
-                tiny.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                tiny.removeClass(that.container, 'ch-fx-' + toggleEffects[fx]);
 
                 tiny.on(that.container, tiny.support.transition.end, showCallback);
 
@@ -1443,7 +1443,7 @@ ch.factory = function (Klass) {
                     }
                     that.container.style.paddingTop = pt;
                     that.container.style.paddingBottom = pb;
-                    tiny.classList(that.container).add('ch-fx-' + fx);
+                    tiny.addClass(that.container, 'ch-fx-' + fx);
                 }, 0);
             } else {
                 showCallback();
@@ -1464,7 +1464,7 @@ ch.factory = function (Klass) {
             that._shown = false;
 
             if (that.trigger !== undefined) {
-                tiny.classList(that.trigger).remove(triggerClass);
+                tiny.removeClass(that.trigger, triggerClass);
             }
 
             /**
@@ -1483,7 +1483,7 @@ ch.factory = function (Klass) {
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
                 tiny.off(that.container, tiny.support.transition.end, showCallback);
-                tiny.classList(that.container).remove('ch-fx-' + fx);
+                tiny.removeClass(that.container, 'ch-fx-' + fx);
 
                 tiny.on(that.container, tiny.support.transition.end, hideCallback);
                 // Set margin and padding to 0 to prevent content jumping at the transition end
@@ -1493,11 +1493,11 @@ ch.factory = function (Klass) {
                     setTimeout(function() {
                         that.container.style.height = '0px';
                         that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
-                        tiny.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                        tiny.addClass(that.container, 'ch-fx-' + toggleEffects[fx]);
                     }, 0);
                 } else {
                     setTimeout(function() {
-                        tiny.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                        tiny.addClass(that.container, 'ch-fx-' + toggleEffects[fx]);
                     }, 0);
                 }
             } else {
@@ -2725,7 +2725,7 @@ ch.factory = function (Klass) {
          */
         this.container = this._el;
             // Add classname
-        tiny.classList(this.container).add('ch-form');
+        tiny.addClass(this.container, 'ch-form');
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
@@ -3040,7 +3040,7 @@ ch.factory = function (Klass) {
         'required': {
             'fn': function (value) {
 
-                var tag = tiny.classList(this.trigger).contains('ch-form-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = tiny.hasClass(this.trigger, 'ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
@@ -3402,7 +3402,7 @@ ch.factory = function (Klass) {
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (tiny.classList(this.trigger).contains('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (tiny.hasClass(this.trigger, 'ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -3494,7 +3494,7 @@ ch.factory = function (Klass) {
 
         if (!that._previousError.condition || !that._shown) {
             if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
-                tiny.classList(that.trigger).add('ch-validation-error');
+                tiny.addClass(that.trigger, 'ch-validation-error');
             }
 
             that._showErrorMessage(err.message || 'Error');
@@ -3520,7 +3520,7 @@ ch.factory = function (Klass) {
         }
 
         this.trigger.removeAttribute('aria-label');
-        tiny.classList(this.trigger).remove('ch-validation-error')
+        tiny.removeClass(this.trigger, 'ch-validation-error')
 
 
         this._hideErrorMessage();
@@ -3608,7 +3608,7 @@ ch.factory = function (Klass) {
     Validation.prototype.clear = function () {
 
         this.trigger.removeAttribute('aria-label');
-        tiny.classList(this.trigger).remove('ch-validation-error');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
 
         this.error = null;
 
@@ -3760,7 +3760,7 @@ ch.factory = function (Klass) {
                     span;
                 // CHECKBOX, RADIO
                 // TODO: when old forms be deprecated we must only support ch-form-options class
-                if (tiny.classList(trigger).contains('ch-form-options')) {
+                if (tiny.hasClass(trigger, 'ch-form-options')) {
                 // Helper reference from will be fired
                     if (trigger.querySelectorAll('h4').length > 0) {
                         // Wrap content with inline element
@@ -3979,8 +3979,8 @@ ch.factory = function (Klass) {
          * expandable.trigger;
          */
         this.trigger = this._el;
-        tiny.classList(this.trigger).add(this._options._classNameTrigger);
-        tiny.classList(this.trigger).add(this._options._classNameIcon);
+        tiny.addClass(this.trigger, this._options._classNameTrigger);
+        tiny.addClass(this.trigger, this._options._classNameIcon);
         tiny.on(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
@@ -4004,10 +4004,10 @@ ch.factory = function (Klass) {
          */
         this.container = this._content = (this._options.container ?
             this._options.container : ch.util.nextElementSibling(this._el));
-        tiny.classList(this.container).add(this._options._classNameContainer);
-        tiny.classList(this.container).add('ch-hide');
+        tiny.addClass(this.container, this._options._classNameContainer);
+        tiny.addClass(this.container, 'ch-hide');
         if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
-            tiny.classList(this.container).add('ch-fx');
+            tiny.addClass(this.container, 'ch-fx');
         }
         this.container.setAttribute('aria-expanded', 'false');
 
@@ -4029,7 +4029,7 @@ ch.factory = function (Klass) {
             });
 
         this.trigger.setAttribute('unselectable', 'on');
-        tiny.classList(this.trigger).add('ch-user-no-select');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         return this;
     };
@@ -4127,15 +4127,20 @@ ch.factory = function (Klass) {
      * expandable = undefined;
      */
     Expandable.prototype.destroy = function () {
+        var trigger = this.trigger;
 
-        //this.$trigger.off('.expandable')
-        tiny.classList(this.trigger).remove('ch-expandable-trigger');
-        tiny.classList(this.trigger).remove('ch-expandable-ico');
-        tiny.classList(this.trigger).remove('ch-user-no-select');
+        [
+            'ch-expandable-trigger',
+            'ch-expandable-ico',
+            'ch-user-no-select'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
+
         this.trigger.removeAttribute('unselectable');
         this.trigger.removeAttribute('aria-controls');
-        tiny.classList(this.container).remove('ch-expandable-container');
-        tiny.classList(this.container).remove('ch-hide');
+        tiny.removeClass(this.container, 'ch-expandable-container');
+        tiny.removeClass(this.container, 'ch-hide');
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 
@@ -4291,10 +4296,10 @@ ch.factory = function (Klass) {
          */
         this.container = this._el;
         this.container.setAttribute('role', 'navigation');
-        tiny.classList(this.container).add('ch-menu');
+        tiny.addClass(this.container, 'ch-menu');
 
-        this._options._className ? tiny.classList(this.container).add(this._options._className) : null;
-        this._options.addClass ? tiny.classList(this.container).add(this._options.addClass) : null;
+        this._options._className ? tiny.addClass(this.container, this._options._className) : null;
+        this._options.addClass ? tiny.addClass(this.container, this._options.addClass) : null;
 
         /**
          * A collection of folds.
@@ -4329,7 +4334,7 @@ ch.factory = function (Klass) {
                 menu;
 
             // List element
-            tiny.classList(li).add('ch-menu-fold');
+            tiny.addClass(li, 'ch-menu-fold');
 
             // Children of list elements
             child = li.children[0];
@@ -4339,7 +4344,7 @@ ch.factory = function (Klass) {
                 // Add attr role to match wai-aria
                 li.setAttribute('role', 'presentation');
                 //
-                tiny.classList(child).add('ch-fold-trigger');
+                tiny.addClass(child, 'ch-fold-trigger');
                 // Add anchor to that.fold
                 that.folds.push(child);
 
@@ -4659,7 +4664,7 @@ ch.factory = function (Klass) {
          */
         this._content = document.createElement('div');
 
-        tiny.classList(this._content).add('ch-popover-content');
+        tiny.addClass(this._content, 'ch-popover-content');
 
         this.container.appendChild(this._content);
 
@@ -4767,7 +4772,7 @@ ch.factory = function (Klass) {
         // Open event when configured as able to shown anyway
         if (this._options.shownby !== 'none') {
 
-            tiny.classList(this._el).add('ch-shownby-' + this._options.shownby);
+            tiny.addClass(this._el, 'ch-shownby-' + this._options.shownby);
 
             tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
@@ -5124,7 +5129,7 @@ ch.factory = function (Klass) {
             tiny.off(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
             tiny.off(this.trigger, ch.onpointerleave, this._hideTimer);
 
-            tiny.classList(this.trigger).remove('ch-' + this.name + '-trigger');
+            tiny.removeClass(this.trigger, 'ch-' + this.name + '-trigger');
 
             this.trigger.removeAttribute('data-title');
             this.trigger.removeAttribute('aria-owns');
@@ -5684,22 +5689,21 @@ ch.factory = function (Klass) {
      */
     Modal.prototype._showUnderlay = function () {
         var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
-            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = tiny.classList(underlay);
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase();
 
         document.body.appendChild(underlay);
 
         function showCallback(e) {
-            cl.remove(fxName + '-enter-active');
-            cl.remove(fxName + '-enter');
+            tiny.removeClass(underlay, fxName + '-enter-active');
+            tiny.removeClass(underlay, fxName + '-enter');
 
             tiny.off(e.target, e.type, showCallback);
         }
 
         if (useAnimation) {
-            cl.add(fxName + '-enter');
+            tiny.addClass(underlay, fxName + '-enter');
             setTimeout(function() {
-                cl.add(fxName + '-enter-active');
+                tiny.addClass(underlay, fxName + '-enter-active');
             },10);
             tiny.on(underlay, tiny.support.transition.end, showCallback);
         }
@@ -5714,21 +5718,20 @@ ch.factory = function (Klass) {
     Modal.prototype._hideUnderlay = function () {
         var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = tiny.classList(underlay),
             parent = underlay.parentNode;
 
         function hideCallback(e) {
-            cl.remove(fxName + '-leave-active');
-            cl.remove(fxName + '-leave');
+            tiny.removeClass(underlay, fxName + '-leave-active');
+            tiny.removeClass(underlay, fxName + '-leave');
 
             tiny.off(e.target, e.type, hideCallback);
             parent.removeChild(underlay);
         }
 
         if (useAnimation) {
-            cl.add(fxName + '-leave');
+            tiny.addClass(underlay, fxName + '-leave');
             setTimeout(function() {
-                cl.add(fxName + '-leave-active');
+                tiny.addClass(underlay, fxName + '-leave-active');
             },10);
             tiny.on(underlay, tiny.support.transition.end, hideCallback);
         } else {
@@ -6117,14 +6120,14 @@ ch.factory = function (Klass) {
 
         // Make the entire Show process if it tried to show before
         this.on('imageload', function () {
-            if (!tiny.classList(this._loading).contains('ch-hide')) {
+            if (!tiny.hasClass(this._loading, 'ch-hide')) {
                 that.show();
-                tiny.classList(this._loading).add('ch-hide');
+                tiny.addClass(this._loading, 'ch-hide');
             }
         });
 
         // Assign event handlers to the anchor
-        tiny.classList(this.trigger).add('ch-zoom-trigger');
+        tiny.addClass(this.trigger, 'ch-zoom-trigger');
 
         // Prevent to redirect to the href
         tiny.on(this.trigger, 'click', function (event) { event.preventDefault(); }, false);
@@ -6341,13 +6344,13 @@ ch.factory = function (Klass) {
 
         // Show feedback and trigger the image load, if it's not loaded
         if (!this._loaded) {
-            tiny.classList(this._loading).remove('ch-hide');
+            tiny.removeClass(this._loading, 'ch-hide');
             this.loadImage();
             return this;
         }
 
         // Delete the Loading and show the Seeker
-        tiny.classList(this._seeker).remove('ch-hide');
+        tiny.removeClass(this._seeker, 'ch-hide');
 
         // Execute the original show()
         parent.show.call(this, content, options);
@@ -6371,11 +6374,11 @@ ch.factory = function (Klass) {
 
         // Avoid unnecessary execution
         if (!this._loaded) {
-            tiny.classList(this._loading).add('ch-hide');
+            tiny.addClass(this._loading, 'ch-hide');
             return this;
         }
 
-        tiny.classList(this._seeker).add('ch-hide');
+        tiny.addClass(this._seeker, 'ch-hide');
 
         parent.hide.call(this);
 
@@ -6802,7 +6805,7 @@ ch.factory = function (Klass) {
         this._prev.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._prev.setAttribute('role', 'button');
         this._prev.setAttribute('aria-hidden', 'false');
-        tiny.classList(this._prev).add('ch-calendar-prev');
+        tiny.addClass(this._prev, 'ch-calendar-prev');
 
         /**
          * Template of next arrow.
@@ -6812,7 +6815,7 @@ ch.factory = function (Klass) {
         this._next.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._next.setAttribute('role', 'button');
         this._next.setAttribute('aria-hidden', 'false');
-        tiny.classList(this._next).add('ch-calendar-next');
+        tiny.addClass(this._next, 'ch-calendar-next');
 
 
         // Show or hide arrows depending on "from" and "to" limits
@@ -6832,14 +6835,14 @@ ch.factory = function (Klass) {
         this.container = this._el;
         this.container.insertBefore(this._prev, this.container.firstChild);
         this.container.insertBefore(this._next, this.container.firstChild);
-        tiny.classList(this.container).add('ch-calendar');
+        tiny.addClass(this.container, 'ch-calendar');
         this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         this._updateControls();
 
         // Avoid selection on the component
         that.container.setAttribute('unselectable', 'on');
-        tiny.classList(that.container).add('ch-user-no-select');
+        tiny.addClass(that.container, 'ch-user-no-select');
 
         return this;
     };
@@ -6871,23 +6874,23 @@ ch.factory = function (Klass) {
 
         // Show previous arrow when it's out of limit
         if (this._hasPrevMonth()) {
-            tiny.classList(this._prev).remove('ch-hide');
+            tiny.removeClass(this._prev, 'ch-hide');
             this._prev.setAttribute('aria-hidden', 'false');
 
         // Hide previous arrow when it's out of limit
         } else {
-            tiny.classList(this._prev).add('ch-hide');
+            tiny.addClass(this._prev, 'ch-hide');
             this._prev.setAttribute('aria-hidden', 'true');
         }
 
         // Show next arrow when it's out of limit
         if (this._hasNextMonth()) {
-            tiny.classList(this._next).remove('ch-hide');
+            tiny.removeClass(this._next, 'ch-hide');
             this._next.setAttribute('aria-hidden', 'false');
 
         // Hide next arrow when it's out of limit
         } else {
-            tiny.classList(this._next).add('ch-hide');
+            tiny.addClass(this._next, 'ch-hide');
             this._next.setAttribute('aria-hidden', 'true');
         }
 
@@ -7505,19 +7508,19 @@ ch.factory = function (Klass) {
          * @type {HTMLElement}
          */
         this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected')
-        tiny.classList(this.trigger).add('ch-dropdown-trigger');
+        tiny.addClass(this.trigger, 'ch-dropdown-trigger');
 
         this.trigger.setAttribute('unselectable', 'on');
-        tiny.classList(this.trigger).add('ch-user-no-select');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         // Skinned dropdown
         if (this._options.skin) {
-            tiny.classList(this.trigger).add('ch-dropdown-trigger-skin');
-            tiny.classList(this.container).add('ch-dropdown-skin');
+            tiny.addClass(this.trigger, 'ch-dropdown-trigger-skin');
+            tiny.addClass(this.container, 'ch-dropdown-skin');
         // Default Skin
         } else {
-            tiny.classList(this.trigger).add('ch-btn-skin');
-            tiny.classList(this.trigger).add('ch-btn-small');
+            tiny.addClass(this.trigger, 'ch-btn-skin');
+            tiny.addClass(this.trigger, 'ch-btn-small');
         }
 
         /**
@@ -7604,29 +7607,24 @@ ch.factory = function (Klass) {
      * dropdown = undefined;
      */
     Dropdown.prototype.destroy = function () {
+        var trigger = this.trigger;
 
+        [
+            'ch-dropdown-trigger',
+            'ch-dropdown-trigger-skin',
+            'ch-user-no-select',
+            'ch-btn-skin',
+            'ch-btn-small'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
 
+        trigger.removeAttribute('unselectable');
+        trigger.removeAttribute('aria-controls');
 
-        tiny.classList(this.trigger).remove('ch-dropdown-trigger');
-        tiny.classList(this.trigger).remove('ch-dropdown-trigger-skin');
-        tiny.classList(this.trigger).remove('ch-user-no-select');
-        this.trigger.removeAttribute('unselectable');
-        tiny.classList(this.trigger).remove('ch-btn-skin');
-        tiny.classList(this.trigger).remove('ch-btn-small');
-        this.trigger.removeAttribute('aria-controls');
-
-        this.trigger.insertAdjacentHTML('afterend', this._snippet);
-
-        // this.$trigger.off('.dropdown');
-        // this.$container.off('.dropdown');
+        trigger.insertAdjacentHTML('afterend', this._snippet);
 
         tiny.trigger(window.document, ch.onlayoutchange);
-
-        // $.each(this._$navigation, function (i, e) {
-        //     $(e).off(ch.onpointerenter);
-        // });
-
-
 
         parent.destroy.call(this);
 
@@ -7846,7 +7844,7 @@ ch.factory = function (Klass) {
          * @type {HTMLElement}
          */
         this.container = this._el;
-        tiny.classList(this.container).add('ch-tabs');
+        tiny.addClass(this.container, 'ch-tabs');
 
         /**
          * The tabs triggers.
@@ -7854,7 +7852,7 @@ ch.factory = function (Klass) {
          */
         this.triggers = this.container.children[0];
         this.triggers.setAttribute('role', 'tablist');
-        tiny.classList(this.triggers).add('ch-tabs-triggers')
+        tiny.addClass(this.triggers, 'ch-tabs-triggers');
 
         /**
          * A collection of tab panel.
@@ -7868,8 +7866,8 @@ ch.factory = function (Klass) {
          */
         this.panel = this.container.children[1];
         this.panel.setAttribute('role', 'presentation');
-        tiny.classList(this.panel).add('ch-tabs-panel')
-        tiny.classList(this.panel).add('ch-box-lite')
+        tiny.addClass(this.panel, 'ch-tabs-panel');
+        tiny.addClass(this.panel, 'ch-box-lite');
 
 
         /**
@@ -8335,8 +8333,8 @@ ch.factory = function (Klass) {
          */
         this._list = this._el.children[0];
 
-        tiny.classList(this._el).add('ch-carousel');
-        tiny.classList(this._list).add('ch-carousel-list');
+        tiny.addClass(this._el, 'ch-carousel');
+        tiny.addClass(this._list, 'ch-carousel-list');
 
         /**
          * Collection of each child of the slider list.
@@ -8350,7 +8348,7 @@ ch.factory = function (Klass) {
                     collectionLength = collection.length;
 
                 Array.prototype.forEach.call(collection, function(item){
-                    tiny.classList(item).add('ch-carousel-item');
+                    tiny.addClass(item, 'ch-carousel-item');
                 });
 
                 return collection;
@@ -8501,7 +8499,7 @@ ch.factory = function (Klass) {
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
-        if (!this._options.fx) { tiny.classList(this._list).add('ch-carousel-nofx'); }
+        if (!this._options.fx) { tiny.addClass(this._list, 'ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
         if (!tiny.support.transition) {
@@ -8677,7 +8675,7 @@ ch.factory = function (Klass) {
 
         // Avoid selection on the pagination
         that._pagination.setAttribute('unselectable', 'on');
-        tiny.classList(that._pagination).add('ch-user-no-select');
+        tiny.addClass(that._pagination, 'ch-user-no-select');
 
         // Check pagination as created
         that._paginationCreated = true;
@@ -8716,12 +8714,12 @@ ch.factory = function (Klass) {
         // Do it if is required
         if (this._options.fx && tiny.support.transition) {
             // Delete efects on list to make changes instantly
-            tiny.classList(this._list).add('ch-carousel-nofx');
+            tiny.addClass(this._list, 'ch-carousel-nofx');
             // Execute the custom method
             callback.call(this);
             // Restore efects to list
             // Use a setTimeout to be sure to do this AFTER changes
-            setTimeout(function () { tiny.classList(that._list).remove('ch-carousel-nofx'); }, 0);
+            setTimeout(function () { tiny.removeClass(that._list, 'ch-carousel-nofx'); }, 0);
         // Avoid to add/remove classes if it hasn't effects
         } else {
             callback.call(this);
@@ -8865,7 +8863,7 @@ ch.factory = function (Klass) {
         // Avoid selection on the arrows
         [this._prevArrow, this._nextArrow].forEach(function(el){
             el.setAttribute('unselectable', 'on');
-            tiny.classList(el).add('ch-user-no-select');
+            tiny.addClass(el, 'ch-user-no-select');
         });
 
         // Add arrows to DOM
@@ -8886,11 +8884,11 @@ ch.factory = function (Klass) {
     Carousel.prototype._disableArrows = function (prev, next) {
         this._prevArrow.setAttribute('aria-disabled', prev);
         this._prevArrow.setAttribute('aria-hidden', prev);
-        tiny.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny[prev ? 'addClass' : 'removeClass'](this._prevArrow, 'ch-carousel-disabled');
 
         this._nextArrow.setAttribute('aria-disabled', next);
         this._nextArrow.setAttribute('aria-hidden', next);
-        tiny.classList(this._nextArrow)[next ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny[next ? 'addClass' : 'removeClass'](this._nextArrow, 'ch-carousel-disabled');
     };
 
     /**
@@ -8967,11 +8965,11 @@ ch.factory = function (Klass) {
 
         // Unselect the thumbnail previously selected
         fromItem.setAttribute('aria-selected', false)
-        tiny.classList(fromItem).remove('ch-carousel-selected');
+        tiny.removeClass(fromItem, 'ch-carousel-selected');
 
         // Select the new thumbnail
         toItem.setAttribute('aria-selected', true)
-        tiny.classList(toItem).add('ch-carousel-selected');
+        tiny.addClass(toItem, 'ch-carousel-selected');
     };
 
     /**
@@ -9405,9 +9403,9 @@ ch.factory = function (Klass) {
             this._exceeded = true;
 
             this.trigger.setAttribute('aria-invalid', 'true');
-            tiny.classList(this.trigger).add('ch-validation-error');
+            tiny.addClass(this.trigger, 'ch-validation-error');
 
-            tiny.classList(this.container).add('ch-countdown-exceeded');
+            tiny.addClass(this.container, 'ch-countdown-exceeded');
         }
 
         // Change visible message of remaining characters
@@ -9428,10 +9426,10 @@ ch.factory = function (Klass) {
      * @returns {countdown}
      */
     Countdown.prototype._removeError = function () {
-        tiny.classList(this.trigger).remove('ch-validation-error');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
         this.trigger.setAttribute('aria-invalid', 'false');
 
-        tiny.classList(this.container).remove('ch-countdown-exceeded');
+        tiny.removeClass(this.container, 'ch-countdown-exceeded');
 
         return this;
     };
@@ -10205,7 +10203,7 @@ ch.factory = function (Klass) {
          * @private
          */
         this._suggestionsList = document.createElement('ul');
-        tiny.classList(this._suggestionsList).add('ch-autocomplete-list');
+        tiny.addClass(this._suggestionsList, 'ch-autocomplete-list');
 
         this.container.appendChild(this._suggestionsList);
 
@@ -10304,7 +10302,7 @@ ch.factory = function (Klass) {
 
             that._stopTyping = window.setTimeout(function () {
 
-                tiny.classList(that.trigger).add(that._options.loadingClass);
+                tiny.addClass(that.trigger, that._options.loadingClass);
                 /**
                  * Event emitted when the user is typing.
                  * @event ch.Autocomplete#type
@@ -10427,12 +10425,12 @@ ch.factory = function (Klass) {
 
         if (selectedItem !== null) {
             // background the highlighted item
-            tiny.classList(selectedItem).remove(this._options.highlightedClass);
+            tiny.removeClass(selectedItem, this._options.highlightedClass);
         }
 
         if (currentItem !== null) {
             // highlight the selected item
-            tiny.classList(currentItem).add(this._options.highlightedClass);
+            tiny.addClass(currentItem, this._options.highlightedClass);
         }
 
         return this;
@@ -10474,7 +10472,7 @@ ch.factory = function (Klass) {
             itemSelected = this.container.querySelector('.' + this._options.highlightedClass);
 
         // hide the loading feedback
-        tiny.classList(this.trigger).remove(that._options.loadingClass)
+        tiny.removeClass(this.trigger, that._options.loadingClass)
 
         // hides the suggestions list
         if (suggestionsLength === 0) {
@@ -10490,7 +10488,7 @@ ch.factory = function (Klass) {
 
         // remove the class from the extra added items
         if (itemSelected !== null) {
-            tiny.classList(itemSelected).remove(this._options.highlightedClass);
+            tiny.removeClass(itemSelected, this._options.highlightedClass);
         }
 
         // add each suggested item to the suggestion list

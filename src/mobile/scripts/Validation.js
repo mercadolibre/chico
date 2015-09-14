@@ -24,7 +24,7 @@
      */
     ch.Validation.prototype._showErrorMessage = function (message) {
         this._container.innerHTML = message;
-        tiny.classList(this._container).remove('ch-hide');
+        tiny.removeClass(this._container, 'ch-hide');
 
         return this;
     };
@@ -37,7 +37,7 @@
      * @returns {validation}
      */
     ch.Validation.prototype._hideErrorMessage = function () {
-        tiny.classList(this._container).add('ch-hide');
+        tiny.addClass(this._container, 'ch-hide');
 
         return this;
     };

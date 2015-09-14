@@ -174,7 +174,7 @@ describe('Validation', function () {
             });
 
             it('should add "ch-validation-error" to the element', function () {
-                expect(tiny.classList(validation1.trigger).contains('ch-validation-error')).to.be.true;
+                expect(tiny.hasClass(validation1.trigger, 'ch-validation-error')).to.be.true;
             });
 
             it('should add the ARIA attribute "aria-label" to the element', function () {
@@ -206,7 +206,7 @@ describe('Validation', function () {
             });
 
             it('should remove "ch-validation-error" from the element', function () {
-                expect(tiny.classList(validation1.trigger).contains('ch-validation-error')).to.be.false;
+                expect(tiny.hasClass(validation1.trigger, 'ch-validation-error')).to.be.false;
             });
 
             it('should remove the ARIA attribute "aria-label" to the element', function () {
@@ -242,7 +242,7 @@ describe('Validation', function () {
         });
 
         it('should remove "ch-validation-error" from the element', function () {
-            expect(tiny.classList(validation1.trigger).contains('ch-validation-error')).to.be.false;
+            expect(tiny.hasClass(validation1.trigger, 'ch-validation-error')).to.be.false;
         });
 
         it('should remove the ARIA attribute "aria-label" to the element', function () {

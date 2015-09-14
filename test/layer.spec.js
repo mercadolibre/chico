@@ -45,9 +45,9 @@ describe('Layer', function () {
         });
 
         it('specific CSS class names', function () {
-            expect(tiny.classList(c).contains('ch-layer')).to.be.true;
-            expect(tiny.classList(c).contains('ch-box-lite')).to.be.true;
-            expect(tiny.classList(c).contains('ch-cone')).to.be.true;
+            expect(tiny.hasClass(c, 'ch-layer')).to.be.true;
+            expect(tiny.hasClass(c, 'ch-box-lite')).to.be.true;
+            expect(tiny.hasClass(c, 'ch-cone')).to.be.true;
         });
 
         it('alignment', function () {

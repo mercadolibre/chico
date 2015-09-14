@@ -71,7 +71,7 @@ describe('Form', function () {
     });
 
     it('should have the "ch-form" classname', function () {
-        expect(tiny.classList(form.container).contains('ch-form')).to.be.true;
+        expect(tiny.hasClass(form.container, 'ch-form')).to.be.true;
     });
 
     it('should disable HTML5 validations', function () {

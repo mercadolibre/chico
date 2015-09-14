@@ -130,19 +130,19 @@
          * @type {HTMLElement}
          */
         this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected')
-        tiny.classList(this.trigger).add('ch-dropdown-trigger');
+        tiny.addClass(this.trigger, 'ch-dropdown-trigger');
 
         this.trigger.setAttribute('unselectable', 'on');
-        tiny.classList(this.trigger).add('ch-user-no-select');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         // Skinned dropdown
         if (this._options.skin) {
-            tiny.classList(this.trigger).add('ch-dropdown-trigger-skin');
-            tiny.classList(this.container).add('ch-dropdown-skin');
+            tiny.addClass(this.trigger, 'ch-dropdown-trigger-skin');
+            tiny.addClass(this.container, 'ch-dropdown-skin');
         // Default Skin
         } else {
-            tiny.classList(this.trigger).add('ch-btn-skin');
-            tiny.classList(this.trigger).add('ch-btn-small');
+            tiny.addClass(this.trigger, 'ch-btn-skin');
+            tiny.addClass(this.trigger, 'ch-btn-small');
         }
 
         /**
@@ -229,29 +229,24 @@
      * dropdown = undefined;
      */
     Dropdown.prototype.destroy = function () {
+        var trigger = this.trigger;
 
+        [
+            'ch-dropdown-trigger',
+            'ch-dropdown-trigger-skin',
+            'ch-user-no-select',
+            'ch-btn-skin',
+            'ch-btn-small'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
 
+        trigger.removeAttribute('unselectable');
+        trigger.removeAttribute('aria-controls');
 
-        tiny.classList(this.trigger).remove('ch-dropdown-trigger');
-        tiny.classList(this.trigger).remove('ch-dropdown-trigger-skin');
-        tiny.classList(this.trigger).remove('ch-user-no-select');
-        this.trigger.removeAttribute('unselectable');
-        tiny.classList(this.trigger).remove('ch-btn-skin');
-        tiny.classList(this.trigger).remove('ch-btn-small');
-        this.trigger.removeAttribute('aria-controls');
-
-        this.trigger.insertAdjacentHTML('afterend', this._snippet);
-
-        // this.$trigger.off('.dropdown');
-        // this.$container.off('.dropdown');
+        trigger.insertAdjacentHTML('afterend', this._snippet);
 
         tiny.trigger(window.document, ch.onlayoutchange);
-
-        // $.each(this._$navigation, function (i, e) {
-        //     $(e).off(ch.onpointerenter);
-        // });
-
-
 
         parent.destroy.call(this);
 

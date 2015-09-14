@@ -161,7 +161,7 @@ describe('Menu', function () {
     describe('It should have a container and', function () {
 
         it('should have the ".ch-menu" class name', function () {
-            expect(tiny.classList(menuContainer).contains('ch-menu')).to.be.true;
+            expect(tiny.hasClass(menuContainer, 'ch-menu')).to.be.true;
         });
 
         it('should have the WAI-ARIA role "navigation"', function () {
@@ -172,7 +172,7 @@ describe('Menu', function () {
     describe('It should have children and it', function () {
 
         it('have a "ch-menu-fold" class name', function () {
-            expect(tiny.classList(children[0]).contains('ch-menu-fold')).to.be.true;
+            expect(tiny.hasClass(children[0], 'ch-menu-fold')).to.be.true;
         });
 
         describe('should be Expandables and', function () {
@@ -205,7 +205,7 @@ describe('Menu', function () {
         });
 
         it('should be call with parameters', function () {
-            expect(tiny.classList(children[0].children[children[0].children.length - 1]).contains('ch-hide')).to.be.false;
+            expect(tiny.hasClass(children[0].children[children[0].children.length - 1], 'ch-hide')).to.be.false;
         });
 
         it('should emit the "show" event', function () {
@@ -226,7 +226,7 @@ describe('Menu', function () {
 
         it('should be call with parameters', function () {
             instance = menu1.hide(1);
-            expect(tiny.classList(children[0].children[children[0].children.length - 1]).contains('ch-hide')).to.be.true;
+            expect(tiny.hasClass(children[0].children[children[0].children.length - 1], 'ch-hide')).to.be.true;
         });
 
         it('should emit the "hide" event', function () {
@@ -240,7 +240,7 @@ describe('Menu', function () {
 
     describe('An instance by default', function () {
         it('should has its containers hidden', function () {
-            expect(tiny.classList(children[0].children[children[0].children.length - 1]).contains('ch-hide') ).to.be.true;
+            expect(tiny.hasClass(children[0].children[children[0].children.length - 1], 'ch-hide') ).to.be.true;
         });
     });
 
@@ -250,13 +250,13 @@ describe('Menu', function () {
         it('should receive an optional fold to disable', function () {
             instance = menu1.disable(1);
             menu1.show(1);
-            expect(tiny.classList(menu1.folds[0].trigger).contains('ch-expandable-trigger-on')).to.be.false;
+            expect(tiny.hasClass(menu1.folds[0].trigger, 'ch-expandable-trigger-on')).to.be.false;
         });
 
         it('should prevent to show new folds', function () {
             instance = menu1.disable();
             menu1.show(2);
-            expect(tiny.classList(menu1.folds[1].trigger).contains('ch-expandable-trigger-on')).to.be.false;
+            expect(tiny.hasClass(menu1.folds[1].trigger, 'ch-expandable-trigger-on')).to.be.false;
         });
 
         it('should return the same instance than initialized component', function () {
@@ -270,13 +270,13 @@ describe('Menu', function () {
         it('should receive an optional fold to enable', function () {
             instance = menu1.enable(1);
             menu1.show(1);
-            expect(tiny.classList(menu1.folds[0].trigger).contains('ch-expandable-trigger-on')).to.be.true;
+            expect(tiny.hasClass(menu1.folds[0].trigger, 'ch-expandable-trigger-on')).to.be.true;
         });
 
         it('should prevent to show its container', function () {
             instance = menu1.enable();
             menu1.show(2);
-            expect(tiny.classList(menu1.folds[1].trigger).contains('ch-expandable-trigger-on')).to.be.true;
+            expect(tiny.hasClass(menu1.folds[1].trigger, 'ch-expandable-trigger-on')).to.be.true;
         });
 
         it('should return the same instance than initialized component', function () {

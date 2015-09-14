@@ -35,9 +35,9 @@ describe('ch.Bubble', function () {
         });
 
         it('specific CSS class names', function () {
-            expect(bubble.container.classList.contains('ch-bubble')).to.be.true;
-            expect(bubble.container.classList.contains('ch-box-error')).to.be.true;
-            expect(bubble.container.classList.contains('ch-cone')).to.be.true;
+            expect(tiny.hasClass(bubble.container, 'ch-bubble')).to.be.true;
+            expect(tiny.hasClass(bubble.container, 'ch-box-error')).to.be.true;
+            expect(tiny.hasClass(bubble.container, 'ch-cone')).to.be.true;
         });
 
         it('alignment', function () {

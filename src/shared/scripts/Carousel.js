@@ -162,8 +162,8 @@
          */
         this._list = this._el.children[0];
 
-        tiny.classList(this._el).add('ch-carousel');
-        tiny.classList(this._list).add('ch-carousel-list');
+        tiny.addClass(this._el, 'ch-carousel');
+        tiny.addClass(this._list, 'ch-carousel-list');
 
         /**
          * Collection of each child of the slider list.
@@ -177,7 +177,7 @@
                     collectionLength = collection.length;
 
                 Array.prototype.forEach.call(collection, function(item){
-                    tiny.classList(item).add('ch-carousel-item');
+                    tiny.addClass(item, 'ch-carousel-item');
                 });
 
                 return collection;
@@ -328,7 +328,7 @@
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
-        if (!this._options.fx) { tiny.classList(this._list).add('ch-carousel-nofx'); }
+        if (!this._options.fx) { tiny.addClass(this._list, 'ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
         if (!tiny.support.transition) {
@@ -504,7 +504,7 @@
 
         // Avoid selection on the pagination
         that._pagination.setAttribute('unselectable', 'on');
-        tiny.classList(that._pagination).add('ch-user-no-select');
+        tiny.addClass(that._pagination, 'ch-user-no-select');
 
         // Check pagination as created
         that._paginationCreated = true;
@@ -543,12 +543,12 @@
         // Do it if is required
         if (this._options.fx && tiny.support.transition) {
             // Delete efects on list to make changes instantly
-            tiny.classList(this._list).add('ch-carousel-nofx');
+            tiny.addClass(this._list, 'ch-carousel-nofx');
             // Execute the custom method
             callback.call(this);
             // Restore efects to list
             // Use a setTimeout to be sure to do this AFTER changes
-            setTimeout(function () { tiny.classList(that._list).remove('ch-carousel-nofx'); }, 0);
+            setTimeout(function () { tiny.removeClass(that._list, 'ch-carousel-nofx'); }, 0);
         // Avoid to add/remove classes if it hasn't effects
         } else {
             callback.call(this);
@@ -692,7 +692,7 @@
         // Avoid selection on the arrows
         [this._prevArrow, this._nextArrow].forEach(function(el){
             el.setAttribute('unselectable', 'on');
-            tiny.classList(el).add('ch-user-no-select');
+            tiny.addClass(el, 'ch-user-no-select');
         });
 
         // Add arrows to DOM
@@ -713,11 +713,11 @@
     Carousel.prototype._disableArrows = function (prev, next) {
         this._prevArrow.setAttribute('aria-disabled', prev);
         this._prevArrow.setAttribute('aria-hidden', prev);
-        tiny.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny[prev ? 'addClass' : 'removeClass'](this._prevArrow, 'ch-carousel-disabled');
 
         this._nextArrow.setAttribute('aria-disabled', next);
         this._nextArrow.setAttribute('aria-hidden', next);
-        tiny.classList(this._nextArrow)[next ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny[next ? 'addClass' : 'removeClass'](this._nextArrow, 'ch-carousel-disabled');
     };
 
     /**
@@ -794,11 +794,11 @@
 
         // Unselect the thumbnail previously selected
         fromItem.setAttribute('aria-selected', false)
-        tiny.classList(fromItem).remove('ch-carousel-selected');
+        tiny.removeClass(fromItem, 'ch-carousel-selected');
 
         // Select the new thumbnail
         toItem.setAttribute('aria-selected', true)
-        tiny.classList(toItem).add('ch-carousel-selected');
+        tiny.addClass(toItem, 'ch-carousel-selected');
     };
 
     /**

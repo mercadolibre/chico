@@ -127,11 +127,11 @@ describe('Calendar', function () {
         describe('should have the following class names:', function () {
 
             it('.ch-calenaar', function () {
-                expect(tiny.classList(container).contains('ch-calendar')).to.be.true;
+                expect(tiny.hasClass(container, 'ch-calendar')).to.be.true;
             });
 
             it('.ch-user-no-select', function () {
-                expect(tiny.classList(container).contains('ch-user-no-select')).to.be.true;
+                expect(tiny.hasClass(container, 'ch-user-no-select')).to.be.true;
             });
         });
 
@@ -202,7 +202,7 @@ describe('Calendar', function () {
                 var weeks = table[0].querySelectorAll('tbody tr');
 
                 [].forEach.call(weeks, function(week){
-                    expect(tiny.classList(week).contains('ch-calendar-week')).to.be.true;
+                    expect(tiny.hasClass(week, 'ch-calendar-week')).to.be.true;
                 });
             });
 
@@ -212,7 +212,7 @@ describe('Calendar', function () {
                 Array.prototype.forEach.call(days, function(day, i){
                     var dayNum = parseInt(day.innerText);
                     if(!isNaN(dayNum) && (dayNum >= 1 || dayNum <= 31)) {
-                        expect(tiny.classList(day).contains('ch-calendar-day')).to.be.true;
+                        expect(tiny.hasClass(day, 'ch-calendar-day')).to.be.true;
                     }
                 });
 
@@ -350,7 +350,7 @@ describe('Calendar', function () {
                 var dayNum = parseInt(day.innerText);
 
                 if (dayNum < DATE.TODAY.day) {
-                    expect(tiny.classList(day).contains('ch-calendar-disabled')).to.be.true;
+                    expect(tiny.hasClass(day, 'ch-calendar-disabled')).to.be.true;
                 }
             });
         });
@@ -388,7 +388,7 @@ describe('Calendar', function () {
                 var dayNum = parseInt(day.innerText);
 
                 if (dayNum > DATE.TODAY.day) {
-                    expect(tiny.classList(day).contains('ch-calendar-disabled')).to.be.true;
+                    expect(tiny.hasClass(day, 'ch-calendar-disabled')).to.be.true;
                 }
             });
         });

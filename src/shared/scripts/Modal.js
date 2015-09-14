@@ -123,22 +123,21 @@
      */
     Modal.prototype._showUnderlay = function () {
         var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
-            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = tiny.classList(underlay);
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase();
 
         document.body.appendChild(underlay);
 
         function showCallback(e) {
-            cl.remove(fxName + '-enter-active');
-            cl.remove(fxName + '-enter');
+            tiny.removeClass(underlay, fxName + '-enter-active');
+            tiny.removeClass(underlay, fxName + '-enter');
 
             tiny.off(e.target, e.type, showCallback);
         }
 
         if (useAnimation) {
-            cl.add(fxName + '-enter');
+            tiny.addClass(underlay, fxName + '-enter');
             setTimeout(function() {
-                cl.add(fxName + '-enter-active');
+                tiny.addClass(underlay, fxName + '-enter-active');
             },10);
             tiny.on(underlay, tiny.support.transition.end, showCallback);
         }
@@ -153,21 +152,20 @@
     Modal.prototype._hideUnderlay = function () {
         var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = tiny.classList(underlay),
             parent = underlay.parentNode;
 
         function hideCallback(e) {
-            cl.remove(fxName + '-leave-active');
-            cl.remove(fxName + '-leave');
+            tiny.removeClass(underlay, fxName + '-leave-active');
+            tiny.removeClass(underlay, fxName + '-leave');
 
             tiny.off(e.target, e.type, hideCallback);
             parent.removeChild(underlay);
         }
 
         if (useAnimation) {
-            cl.add(fxName + '-leave');
+            tiny.addClass(underlay, fxName + '-leave');
             setTimeout(function() {
-                cl.add(fxName + '-leave-active');
+                tiny.addClass(underlay, fxName + '-leave-active');
             },10);
             tiny.on(underlay, tiny.support.transition.end, hideCallback);
         } else {
