@@ -50,7 +50,6 @@
      * @memberof ch
      * @constructor
      * @augments tiny.EventEmitter
-     * @requires ch.util
      * @returns {viewport} Returns a new instance of Viewport.
      */
     function Viewport() {
@@ -229,7 +228,7 @@
          * @type {Object}
          * @private
          */
-        var scroll = ch.util.getScroll();
+        var scroll = tiny.scroll();
 
         /**
          * The offset top of the viewport.

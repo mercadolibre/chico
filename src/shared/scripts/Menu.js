@@ -224,7 +224,7 @@
                         that.emit('hide');
                     });
 
-                menu = ch.util.nextElementSibling(child);
+                menu = tiny.next(child);
                 menu.setAttribute('role', 'menu');
 
                 Array.prototype.forEach.call(menu.children, function (item){

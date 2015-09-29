@@ -134,6 +134,15 @@
         this.trigger = this._el;
         tiny.addClass(this.trigger, this._options._classNameTrigger);
         tiny.addClass(this.trigger, this._options._classNameIcon);
+
+        if (navigator.pointerEnabled) {
+            tiny.on(this._el, 'click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                }
+            });
+        }
+
         tiny.on(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
@@ -156,7 +165,7 @@
          * expandable.container;
          */
         this.container = this._content = (this._options.container ?
-            this._options.container : ch.util.nextElementSibling(this._el));
+            this._options.container : tiny.next(this._el));
         tiny.addClass(this.container, this._options._classNameContainer);
         tiny.addClass(this.container, 'ch-hide');
         if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {

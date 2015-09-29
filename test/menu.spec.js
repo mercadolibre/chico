@@ -293,7 +293,7 @@ describe('Menu', function () {
         });
 
         it('should reset the container', function () {
-            expect(ch.util.parentElement(menu2.container)).to.be.null;
+            expect(tiny.parent(menu2.container)).to.be.null;
         });
 
         it('should remove the instance from the element', function () {

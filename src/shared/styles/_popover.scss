@@ -6,6 +6,10 @@
 .ch-popover {
     box-shadow: $popover-box-shadow;
     z-index: 1000;
+
+    .ch-underlay + & {
+        z-index: 1050;
+    }
 }
 
 .ch-shownby-pointertap {

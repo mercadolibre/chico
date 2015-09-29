@@ -123,7 +123,7 @@
          */
         var that = this,
             // The second element of the HTML snippet (the dropdown content)
-            content = ch.util.nextElementSibling(this.trigger);
+            content = tiny.next(this.trigger);
 
         /**
          * The dropdown trigger. It's the element that will show and hide the container.

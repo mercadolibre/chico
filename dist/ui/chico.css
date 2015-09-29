@@ -979,6 +979,9 @@ a.ch-btn-large:focus {
   box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.2);
   z-index: 1000;
 }
+.ch-underlay + .ch-popover {
+  z-index: 1050;
+}
 
 .ch-shownby-pointertap {
   cursor: pointer;

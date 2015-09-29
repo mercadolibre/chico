@@ -291,7 +291,7 @@ describe('Tabs', function () {
 
         it('should reset the container', function () {
             tabs2.destroy();
-            expect(ch.util.parentElement(tabs2.container)).to.be.null;
+            expect(tiny.parent(tabs2.container)).to.be.null;
         });
 
         it('should remove the instance from the element', function () {

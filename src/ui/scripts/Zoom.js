@@ -221,7 +221,7 @@
 
         var width = this._original.width,
             height = this._original.height,
-            offset = ch.util.getOffset(this._el);
+            offset = tiny.offset(this._el);
 
         // Set the wrapper anchor size (same as image)
         this.trigger.style.width = width + 'px';
@@ -488,7 +488,7 @@
     Zoom.prototype.destroy = function () {
         var parentElement;
 
-        parentElement = ch.util.parentElement(this._seeker);
+        parentElement = tiny.parent(this._seeker);
         parentElement.removeChild(this._seeker);
 
         parent.destroy.call(this);

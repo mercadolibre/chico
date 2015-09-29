@@ -200,14 +200,14 @@
          * @private
          * @type {Number}
          */
-        this._maskWidth = ch.util.getOuterDimensions(this._mask).width;
+        this._maskWidth = this._getOuterDimensions(this._mask).width;
 
         /**
          * The width of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
          * @type {Number}
          */
-        this._itemWidth = ch.util.getOuterDimensions(this._items[0]).width;
+        this._itemWidth = this._getOuterDimensions(this._items[0]).width;
 
         /**
          * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
@@ -228,7 +228,7 @@
          * @private
          * @type {Number}
          */
-        this._itemHeight = ch.util.getOuterDimensions(this._items[0]).height;
+        this._itemHeight = this._getOuterDimensions(this._items[0]).height;
 
         /**
          * The margin of all items. Updated in each refresh only if it's necessary.
@@ -674,7 +674,7 @@
         });
 
         // Update the mask height with the list height
-        this._mask.style.height = ch.util.getOuterDimensions(this._list).height + 'px';
+        this._mask.style.height = this._getOuterDimensions(this._list).height + 'px';
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -802,6 +802,22 @@
     };
 
     /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Carousel.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Carousel.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
+    };
+
+    /**
      * Triggers all the necessary recalculations to be up-to-date.
      * @memberof! ch.Carousel.prototype
      * @function
@@ -810,7 +826,7 @@
     Carousel.prototype.refresh = function () {
 
         var that = this,
-            maskWidth = ch.util.getOuterDimensions(this._mask).width;
+            maskWidth = this._getOuterDimensions(this._mask).width;
 
         // Check for changes on the width of mask, for the elastic carousel
         // Update the width of the mask

@@ -38,11 +38,10 @@
     "package.json"
   ],
   "dependencies": {
-    "tiny.js": "tiny#~0.0.4"
+    "tiny.js": "tiny#~0.0.5"
   },
   "devDependencies": {
     "bourbon": "*",
-    "es5-shim": "~4.1.1",
     "IE8": "https://github.com/WebReflection/ie8.git",
     "mesh": "https://github.com/mercadolibre/mesh.git#4.1.1"
   }

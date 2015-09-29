@@ -194,7 +194,7 @@
             if (typeof content === 'string') {
                 // Case 1: AJAX call
                 if ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(content)) {
-                    getAsyncContent(content, options);
+                    getAsyncContent(content.replace(/#.+/, ''), options);
                 // Case 2: Plain text
                 } else {
                     setContent(content);
@@ -203,7 +203,7 @@
             } else if (content.nodeType !== undefined) {
 
                 tiny.removeClass(content, 'ch-hide');
-                parent = ch.util.parentElement(content);
+                parent = tiny.parent(content);
 
                 setContent(content);
 

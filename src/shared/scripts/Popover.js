@@ -201,11 +201,11 @@
             that._timeout = window.setTimeout(function () {
                 that.hide();
             }, that._options._hideDelay);
-        }
+        };
 
         this._hideTimerCleaner = function () {
             window.clearTimeout(that._timeout);
-        }
+        };
 
         // Configure the way it hides
         this._configureHiding();
@@ -276,12 +276,17 @@
 
             tiny.addClass(this._el, 'ch-shownby-' + this._options.shownby);
 
+            if (this._options.shownby === shownbyEvent.pointertap && navigator.pointerEnabled) {
+                tiny.on(this._el, 'click', function(e) {
+                    e.preventDefault();
+                });
+            }
+
             tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
                 event.preventDefault();
                 showHandler();
             });
-
         }
 
         // Get a content if it's not defined

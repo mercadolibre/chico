@@ -160,7 +160,7 @@
          * @type {HTMLParagraphElement}
          */
         that.container = (function () {
-            var parent = ch.util.parentElement(that._el);
+            var parent = tiny.parent(that._el);
                 parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
 
             return parent.querySelector('#' + messageID);
@@ -266,7 +266,7 @@
      * countdown = undefined;
      */
     Countdown.prototype.destroy = function () {
-        var parentElement = ch.util.parentElement(this.container);
+        var parentElement = tiny.parent(this.container);
             parentElement.removeChild(this.container);
 
         tiny.trigger(window.document, ch.onlayoutchange);

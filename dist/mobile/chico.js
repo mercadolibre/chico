@@ -7,730 +7,6 @@
  * http://chico-ui.com.ar/license
  */
 
-(function(window) {
-    'use strict';
-
-    var POINTER_TYPE_TOUCH = "touch";
-    var POINTER_TYPE_PEN = "pen";
-    var POINTER_TYPE_MOUSE = "mouse";
-
-    // Due to polyfill IE8 can has document.createEvent but it has no support for
-    // custom Mouse Events
-    var supportsMouseEvents = !!window.MouseEvent;
-
-    // If the user agent already supports Pointer Events, do nothing
-    if (window.PointerEvent) {
-        return;
-    }
-
-    // The list of standardized pointer events http://www.w3.org/TR/pointerevents/
-    var upperCaseEventsNames = ["PointerDown", "PointerUp", "PointerMove", "PointerOver", "PointerOut", "PointerCancel", "PointerEnter", "PointerLeave"];
-    var supportedEventsNames = upperCaseEventsNames.map(function(name) {
-        return name.toLowerCase();
-    });
-
-    var previousTargets = {};
-
-    var checkPreventDefault = function (node) {
-        while (node && !node.ch_forcePreventDefault) {
-            node = node.parentNode;
-        }
-        return !!node || window.ch_forcePreventDefault;
-    };
-
-    // Touch events
-    var generateTouchClonedEvent = function (sourceEvent, newName, canBubble, target, relatedTarget) {
-        // Considering touch events are almost like super mouse events
-        var evObj;
-
-        if (document.createEvent && supportsMouseEvents) {
-            evObj = document.createEvent('MouseEvents');
-            // TODO: Replace 'initMouseEvent' with 'new MouseEvent'
-            evObj.initMouseEvent(newName, canBubble, true, window, 1, sourceEvent.screenX, sourceEvent.screenY,
-                sourceEvent.clientX, sourceEvent.clientY, sourceEvent.ctrlKey, sourceEvent.altKey,
-                sourceEvent.shiftKey, sourceEvent.metaKey, sourceEvent.button, relatedTarget || sourceEvent.relatedTarget);
-        } else {
-            evObj = document.createEventObject();
-            evObj.screenX = sourceEvent.screenX;
-            evObj.screenY = sourceEvent.screenY;
-            evObj.clientX = sourceEvent.clientX;
-            evObj.clientY = sourceEvent.clientY;
-            evObj.ctrlKey = sourceEvent.ctrlKey;
-            evObj.altKey = sourceEvent.altKey;
-            evObj.shiftKey = sourceEvent.shiftKey;
-            evObj.metaKey = sourceEvent.metaKey;
-            evObj.button = sourceEvent.button;
-            evObj.relatedTarget = relatedTarget || sourceEvent.relatedTarget;
-        }
-        // offsets
-        if (evObj.offsetX === undefined) {
-            if (sourceEvent.offsetX !== undefined) {
-
-                // For Opera which creates readonly properties
-                if (Object && Object.defineProperty !== undefined) {
-                    Object.defineProperty(evObj, "offsetX", {
-                        writable: true
-                    });
-                    Object.defineProperty(evObj, "offsetY", {
-                        writable: true
-                    });
-                }
-
-                evObj.offsetX = sourceEvent.offsetX;
-                evObj.offsetY = sourceEvent.offsetY;
-            } else if (Object && Object.defineProperty !== undefined) {
-                Object.defineProperty(evObj, "offsetX", {
-                    get: function () {
-                        if (this.currentTarget && this.currentTarget.offsetLeft) {
-                            return sourceEvent.clientX - this.currentTarget.offsetLeft;
-                        }
-                        return sourceEvent.clientX;
-                    }
-                });
-                Object.defineProperty(evObj, "offsetY", {
-                    get: function () {
-                        if (this.currentTarget && this.currentTarget.offsetTop) {
-                            return sourceEvent.clientY - this.currentTarget.offsetTop;
-                        }
-                        return sourceEvent.clientY;
-                    }
-                });
-            }
-            else if (sourceEvent.layerX !== undefined) {
-                evObj.offsetX = sourceEvent.layerX - sourceEvent.currentTarget.offsetLeft;
-                evObj.offsetY = sourceEvent.layerY - sourceEvent.currentTarget.offsetTop;
-            }
-        }
-
-        // adding missing properties
-
-        if (sourceEvent.isPrimary !== undefined)
-            evObj.isPrimary = sourceEvent.isPrimary;
-        else
-            evObj.isPrimary = true;
-
-        if (sourceEvent.pressure)
-            evObj.pressure = sourceEvent.pressure;
-        else {
-            var button = 0;
-
-            if (sourceEvent.which !== undefined)
-                button = sourceEvent.which;
-            else if (sourceEvent.button !== undefined) {
-                button = sourceEvent.button;
-            }
-            evObj.pressure = (button === 0) ? 0 : 0.5;
-        }
-
-        if (sourceEvent.rotation)
-            evObj.rotation = sourceEvent.rotation;
-        else
-            evObj.rotation = 0;
-
-        // Timestamp
-        if (sourceEvent.hwTimestamp)
-            evObj.hwTimestamp = sourceEvent.hwTimestamp;
-        else
-            evObj.hwTimestamp = 0;
-
-        // Tilts
-        if (sourceEvent.tiltX)
-            evObj.tiltX = sourceEvent.tiltX;
-        else
-            evObj.tiltX = 0;
-
-        if (sourceEvent.tiltY)
-            evObj.tiltY = sourceEvent.tiltY;
-        else
-            evObj.tiltY = 0;
-
-        // Width and Height
-        if (sourceEvent.height)
-            evObj.height = sourceEvent.height;
-        else
-            evObj.height = 0;
-
-        if (sourceEvent.width)
-            evObj.width = sourceEvent.width;
-        else
-            evObj.width = 0;
-
-        // preventDefault
-        evObj.preventDefault = function () {
-            if (sourceEvent.preventDefault !== undefined)
-                sourceEvent.preventDefault();
-        };
-
-        // stopPropagation
-        if (evObj.stopPropagation !== undefined) {
-            var current = evObj.stopPropagation;
-            evObj.stopPropagation = function () {
-                if (sourceEvent.stopPropagation !== undefined)
-                    sourceEvent.stopPropagation();
-                current.call(this);
-            };
-        }
-
-        // Pointer values
-        evObj.pointerId = sourceEvent.pointerId;
-        evObj.pointerType = sourceEvent.pointerType;
-
-        switch (evObj.pointerType) {// Old spec version check
-            case 2:
-                evObj.pointerType = POINTER_TYPE_TOUCH;
-                break;
-            case 3:
-                evObj.pointerType = POINTER_TYPE_PEN;
-                break;
-            case 4:
-                evObj.pointerType = POINTER_TYPE_MOUSE;
-                break;
-        }
-
-        // Fire event
-        if (target)
-            target.dispatchEvent(evObj);
-        else if (sourceEvent.target && supportsMouseEvents) {
-            sourceEvent.target.dispatchEvent(evObj);
-        } else {
-            sourceEvent.srcElement.fireEvent("on" + getMouseEquivalentEventName(newName), evObj); // We must fallback to mouse event for very old browsers
-        }
-    };
-
-    var generateMouseProxy = function (evt, eventName, canBubble, target, relatedTarget) {
-        evt.pointerId = 1;
-        evt.pointerType = POINTER_TYPE_MOUSE;
-        generateTouchClonedEvent(evt, eventName, canBubble, target, relatedTarget);
-    };
-
-    var generateTouchEventProxy = function (name, touchPoint, target, eventObject, canBubble, relatedTarget) {
-        var touchPointId = touchPoint.identifier + 2; // Just to not override mouse id
-
-        touchPoint.pointerId = touchPointId;
-        touchPoint.pointerType = POINTER_TYPE_TOUCH;
-        touchPoint.currentTarget = target;
-
-        if (eventObject.preventDefault !== undefined) {
-            touchPoint.preventDefault = function () {
-                eventObject.preventDefault();
-            };
-        }
-
-        generateTouchClonedEvent(touchPoint, name, canBubble, target, relatedTarget);
-    };
-
-    var checkEventRegistration = function (node, eventName) {
-        return node.__chGlobalRegisteredEvents && node.__chGlobalRegisteredEvents[eventName];
-    };
-    var findEventRegisteredNode = function (node, eventName) {
-        while (node && !checkEventRegistration(node, eventName))
-            node = node.parentNode;
-        if (node)
-            return node;
-        else if (checkEventRegistration(window, eventName))
-            return window;
-    };
-
-    var generateTouchEventProxyIfRegistered = function (eventName, touchPoint, target, eventObject, canBubble, relatedTarget) { // Check if user registered this event
-        if (findEventRegisteredNode(target, eventName)) {
-            generateTouchEventProxy(eventName, touchPoint, target, eventObject, canBubble, relatedTarget);
-        }
-    };
-
-    var getMouseEquivalentEventName = function (eventName) {
-        return eventName.toLowerCase().replace("pointer", "mouse");
-    };
-
-    var getPrefixEventName = function (prefix, eventName) {
-        var upperCaseIndex = supportedEventsNames.indexOf(eventName);
-        var newEventName = prefix + upperCaseEventsNames[upperCaseIndex];
-
-        return newEventName;
-    };
-
-    var registerOrUnregisterEvent = function (item, name, func, enable) {
-        if (item.__chRegisteredEvents === undefined) {
-            item.__chRegisteredEvents = [];
-        }
-
-        if (enable) {
-            if (item.__chRegisteredEvents[name] !== undefined) {
-                item.__chRegisteredEvents[name]++;
-                return;
-            }
-
-            item.__chRegisteredEvents[name] = 1;
-            item.addEventListener(name, func, false);
-        } else {
-
-            if (item.__chRegisteredEvents.indexOf(name) !== -1) {
-                item.__chRegisteredEvents[name]--;
-
-                if (item.__chRegisteredEvents[name] !== 0) {
-                    return;
-                }
-            }
-            item.removeEventListener(name, func);
-            item.__chRegisteredEvents[name] = 0;
-        }
-    };
-
-    var setTouchAware = function (item, eventName, enable) {
-        // Leaving tokens
-        if (!item.__chGlobalRegisteredEvents) {
-            item.__chGlobalRegisteredEvents = [];
-        }
-        if (enable) {
-            if (item.__chGlobalRegisteredEvents[eventName] !== undefined) {
-                item.__chGlobalRegisteredEvents[eventName]++;
-                return;
-            }
-            item.__chGlobalRegisteredEvents[eventName] = 1;
-        } else {
-            if (item.__chGlobalRegisteredEvents[eventName] !== undefined) {
-                item.__chGlobalRegisteredEvents[eventName]--;
-                if (item.__chGlobalRegisteredEvents[eventName] < 0) {
-                    item.__chGlobalRegisteredEvents[eventName] = 0;
-                }
-            }
-        }
-
-        var nameGenerator;
-        var eventGenerator;
-        if (window.MSPointerEvent) {
-            nameGenerator = function (name) { return getPrefixEventName("MS", name); };
-            eventGenerator = generateTouchClonedEvent;
-        }
-        else {
-            nameGenerator = getMouseEquivalentEventName;
-            eventGenerator = generateMouseProxy;
-        }
-        switch (eventName) {
-            case "pointerenter":
-            case "pointerleave":
-                var targetEvent = nameGenerator(eventName);
-                if (item['on' + targetEvent.toLowerCase()] !== undefined) {
-                    registerOrUnregisterEvent(item, targetEvent, function (evt) { eventGenerator(evt, eventName); }, enable);
-                }
-                break;
-        }
-    };
-
-    // Intercept addEventListener calls by changing the prototype
-    var interceptAddEventListener = function (root) {
-        var current = root.prototype ? root.prototype.addEventListener : root.addEventListener;
-
-        var customAddEventListener = function (name, func, capture) {
-            // Branch when a PointerXXX is used
-            if (supportedEventsNames.indexOf(name) !== -1) {
-                setTouchAware(this, name, true);
-            }
-
-            if (current === undefined) {
-                this.attachEvent("on" + getMouseEquivalentEventName(name), func);
-            } else {
-                current.call(this, name, func, capture);
-            }
-        };
-
-        if (root.prototype) {
-            root.prototype.addEventListener = customAddEventListener;
-        } else {
-            root.addEventListener = customAddEventListener;
-        }
-    };
-
-    // Intercept removeEventListener calls by changing the prototype
-    var interceptRemoveEventListener = function (root) {
-        var current = root.prototype ? root.prototype.removeEventListener : root.removeEventListener;
-
-        var customRemoveEventListener = function (name, func, capture) {
-            // Release when a PointerXXX is used
-            if (supportedEventsNames.indexOf(name) !== -1) {
-                setTouchAware(this, name, false);
-            }
-
-            if (current === undefined) {
-                this.detachEvent(getMouseEquivalentEventName(name), func);
-            } else {
-                current.call(this, name, func, capture);
-            }
-        };
-        if (root.prototype) {
-            root.prototype.removeEventListener = customRemoveEventListener;
-        } else {
-            root.removeEventListener = customRemoveEventListener;
-        }
-    };
-
-    // Hooks
-    interceptAddEventListener(window);
-    interceptAddEventListener(window.HTMLElement || window.Element);
-    interceptAddEventListener(document);
-    interceptAddEventListener(HTMLBodyElement);
-    interceptAddEventListener(HTMLDivElement);
-    interceptAddEventListener(HTMLImageElement);
-    interceptAddEventListener(HTMLUListElement);
-    interceptAddEventListener(HTMLAnchorElement);
-    interceptAddEventListener(HTMLLIElement);
-    interceptAddEventListener(HTMLTableElement);
-    if (window.HTMLSpanElement) {
-        interceptAddEventListener(HTMLSpanElement);
-    }
-    if (window.HTMLCanvasElement) {
-        interceptAddEventListener(HTMLCanvasElement);
-    }
-    if (window.SVGElement) {
-        interceptAddEventListener(SVGElement);
-    }
-
-    interceptRemoveEventListener(window);
-    interceptRemoveEventListener(window.HTMLElement || window.Element);
-    interceptRemoveEventListener(document);
-    interceptRemoveEventListener(HTMLBodyElement);
-    interceptRemoveEventListener(HTMLDivElement);
-    interceptRemoveEventListener(HTMLImageElement);
-    interceptRemoveEventListener(HTMLUListElement);
-    interceptRemoveEventListener(HTMLAnchorElement);
-    interceptRemoveEventListener(HTMLLIElement);
-    interceptRemoveEventListener(HTMLTableElement);
-    if (window.HTMLSpanElement) {
-        interceptRemoveEventListener(HTMLSpanElement);
-    }
-    if (window.HTMLCanvasElement) {
-        interceptRemoveEventListener(HTMLCanvasElement);
-    }
-    if (window.SVGElement) {
-        interceptRemoveEventListener(SVGElement);
-    }
-
-    // Prevent mouse event from being dispatched after Touch Events action
-    var touching = false;
-    var touchTimer = -1;
-
-    function setTouchTimer() {
-        touching = true;
-        clearTimeout(touchTimer);
-        touchTimer = setTimeout(function () {
-            touching = false;
-        }, 700);
-        // 1. Mobile browsers dispatch mouse events 300ms after touchend
-        // 2. Chrome for Android dispatch mousedown for long-touch about 650ms
-        // Result: Blocking Mouse Events for 700ms.
-    }
-
-    function getFirstCommonNode(x, y) {
-        while (x) {
-            if (x.contains(y))
-                return x;
-            x = x.parentNode;
-        }
-        return null;
-    }
-
-    //generateProxy receives a node to dispatch the event
-    function dispatchPointerEnter(currentTarget, relatedTarget, generateProxy) {
-        var commonParent = getFirstCommonNode(currentTarget, relatedTarget);
-        var node = currentTarget;
-        var nodelist = [];
-        while (node && node !== commonParent) {//target range: this to the direct child of parent relatedTarget
-            if (checkEventRegistration(node, "pointerenter")) //check if any parent node has pointerenter
-                nodelist.push(node);
-            node = node.parentNode;
-        }
-        while (nodelist.length > 0)
-            generateProxy(nodelist.pop());
-    }
-
-    //generateProxy receives a node to dispatch the event
-    function dispatchPointerLeave(currentTarget, relatedTarget, generateProxy) {
-        var commonParent = getFirstCommonNode(currentTarget, relatedTarget);
-        var node = currentTarget;
-        while (node && node !== commonParent) {//target range: this to the direct child of parent relatedTarget
-            if (checkEventRegistration(node, "pointerleave"))//check if any parent node has pointerleave
-                generateProxy(node);
-            node = node.parentNode;
-        }
-    }
-
-    // Handling events on window to prevent unwanted super-bubbling
-    // All mouse events are affected by touch fallback
-    function applySimpleEventTunnels(nameGenerator, eventGenerator) {
-        ["pointerdown", "pointermove", "pointerup", "pointerover", "pointerout"].forEach(function (eventName) {
-            window.addEventListener(nameGenerator(eventName), function (evt) {
-                if (!touching && findEventRegisteredNode(evt.target, eventName))
-                    eventGenerator(evt, eventName, true);
-            });
-        });
-        if (window['on' + nameGenerator("pointerenter").toLowerCase()] === undefined)
-            window.addEventListener(nameGenerator("pointerover"), function (evt) {
-                if (touching)
-                    return;
-                var foundNode = findEventRegisteredNode(evt.target, "pointerenter");
-                if (!foundNode || foundNode === window)
-                    return;
-                else if (!foundNode.contains(evt.relatedTarget)) {
-                    dispatchPointerEnter(foundNode, evt.relatedTarget, function (targetNode) {
-                        eventGenerator(evt, "pointerenter", false, targetNode, evt.relatedTarget);
-                    });
-                }
-            });
-        if (window['on' + nameGenerator("pointerleave").toLowerCase()] === undefined)
-            window.addEventListener(nameGenerator("pointerout"), function (evt) {
-                if (touching)
-                    return;
-                var foundNode = findEventRegisteredNode(evt.target, "pointerleave");
-                if (!foundNode || foundNode === window)
-                    return;
-                else if (!foundNode.contains(evt.relatedTarget)) {
-                    dispatchPointerLeave(foundNode, evt.relatedTarget, function (targetNode) {
-                        eventGenerator(evt, "pointerleave", false, targetNode, evt.relatedTarget);
-                    });
-                }
-            });
-    }
-
-    (function () {
-        if (window.MSPointerEvent) {
-            //IE 10
-            applySimpleEventTunnels(
-                function (name) { return getPrefixEventName("MS", name); },
-                generateTouchClonedEvent);
-        }
-        else {
-            applySimpleEventTunnels(getMouseEquivalentEventName, generateMouseProxy);
-
-            // Handling move on window to detect pointerleave/out/over
-            if (window.ontouchstart !== undefined) {
-                window.addEventListener('touchstart', function (eventObject) {
-                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
-                        var touchPoint = eventObject.changedTouches[i];
-                        previousTargets[touchPoint.identifier] = touchPoint.target;
-
-                        generateTouchEventProxyIfRegistered("pointerover", touchPoint, touchPoint.target, eventObject, true);
-
-                        //pointerenter should not be bubbled
-                        dispatchPointerEnter(touchPoint.target, null, function (targetNode) {
-                            generateTouchEventProxy("pointerenter", touchPoint, targetNode, eventObject, false);
-                        });
-
-                        generateTouchEventProxyIfRegistered("pointerdown", touchPoint, touchPoint.target, eventObject, true);
-                    }
-                    setTouchTimer();
-                });
-
-                window.addEventListener('touchend', function (eventObject) {
-                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
-                        var touchPoint = eventObject.changedTouches[i];
-                        var currentTarget = previousTargets[touchPoint.identifier];
-
-                        generateTouchEventProxyIfRegistered("pointerup", touchPoint, currentTarget, eventObject, true);
-                        generateTouchEventProxyIfRegistered("pointerout", touchPoint, currentTarget, eventObject, true);
-
-                        //pointerleave should not be bubbled
-                        dispatchPointerLeave(currentTarget, null, function (targetNode) {
-                            generateTouchEventProxy("pointerleave", touchPoint, targetNode, eventObject, false);
-                        });
-                    }
-                    setTouchTimer();
-                });
-
-                window.addEventListener('touchmove', function (eventObject) {
-                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
-                        var touchPoint = eventObject.changedTouches[i];
-                        var newTarget = document.elementFromPoint(touchPoint.clientX, touchPoint.clientY);
-                        var currentTarget = previousTargets[touchPoint.identifier];
-
-                        // If force preventDefault
-                        if (currentTarget && checkPreventDefault(currentTarget) === true)
-                            eventObject.preventDefault();
-
-                        generateTouchEventProxyIfRegistered("pointermove", touchPoint, currentTarget, eventObject, true);
-
-                        if (currentTarget === newTarget) {
-                            continue; // We can skip this as the pointer is effectively over the current target
-                        }
-
-                        if (currentTarget) {
-                            // Raise out
-                            generateTouchEventProxyIfRegistered("pointerout", touchPoint, currentTarget, eventObject, true, newTarget);
-
-                            // Raise leave
-                            if (!currentTarget.contains(newTarget)) { // Leave must be called if the new target is not a child of the current
-                                dispatchPointerLeave(currentTarget, newTarget, function (targetNode) {
-                                    generateTouchEventProxy("pointerleave", touchPoint, targetNode, eventObject, false, newTarget);
-                                });
-                            }
-                        }
-
-                        if (newTarget) {
-                            // Raise over
-                            generateTouchEventProxyIfRegistered("pointerover", touchPoint, newTarget, eventObject, true, currentTarget);
-
-                            // Raise enter
-                            if (!newTarget.contains(currentTarget)) { // Leave must be called if the new target is not the parent of the current
-                                dispatchPointerEnter(newTarget, currentTarget, function (targetNode) {
-                                    generateTouchEventProxy("pointerenter", touchPoint, targetNode, eventObject, false, currentTarget);
-                                })
-                            }
-                        }
-                        previousTargets[touchPoint.identifier] = newTarget;
-                    }
-                    setTouchTimer();
-                });
-
-                window.addEventListener('touchcancel', function (eventObject) {
-                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
-                        var touchPoint = eventObject.changedTouches[i];
-
-                        generateTouchEventProxyIfRegistered("pointercancel", touchPoint, previousTargets[touchPoint.identifier], eventObject, true);
-                    }
-                });
-            }
-        }
-    })();
-
-    // Extension to navigator
-    if (navigator.pointerEnabled === undefined) {
-
-        // Indicates if the browser will fire pointer events for pointing input
-        navigator.pointerEnabled = true;
-
-        // IE
-        if (navigator.msPointerEnabled) {
-            navigator.maxTouchPoints = navigator.msMaxTouchPoints;
-        }
-    }
-})(window);
-
-/**
- * Normalizes touch/touch+click events into a 'pointertap' event that is not
- * part of standard.
- * Uses pointerEvents polyfill or native PointerEvents when supported.
- *
- * @example
- * // Use pointertap as fastclick on touch enabled devices
- * document.querySelector('.btn').addEventListener(ch.pointertap, function(e) {
- *   console.log('tap');
- * });
- */
-(function () {
-    'use strict';
-
-    // IE8 has no support for custom Mouse Events, fallback to onclick
-    if (!window.MouseEvent) {
-        return;
-    }
-
-    var POINTER_TYPE_TOUCH = "touch";
-    var POINTER_TYPE_PEN = "pen";
-    var POINTER_TYPE_MOUSE = "mouse";
-
-    var isScrolling = false;
-    var scrollTimeout = false;
-    var sDistX = 0;
-    var sDistY = 0;
-    var activePointer;
-
-    window.addEventListener('scroll', function () {
-        if (!isScrolling) {
-            sDistX = window.pageXOffset;
-            sDistY = window.pageYOffset;
-        }
-        isScrolling = true;
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(function () {
-            isScrolling = false;
-            sDistX = 0;
-            sDistY = 0;
-        }, 100);
-    });
-
-    window.addEventListener('pointerdown', pointerDown);
-    window.addEventListener('pointerup', pointerUp);
-    window.addEventListener('pointerleave', pointerLeave);
-
-    window.addEventListener('pointermove', function (e) {});
-
-    /**
-     * Handles the 'pointerdown' event from pointerEvents polyfill or native PointerEvents when supported.
-     *
-     * @private
-     * @param {MouseEvent|PointerEvent} e Event.
-     */
-    function pointerDown(e) {
-        // don't register an activePointer if more than one touch is active.
-        var singleFinger = e.pointerType === POINTER_TYPE_MOUSE ||
-            e.pointerType === POINTER_TYPE_PEN ||
-            (e.pointerType === POINTER_TYPE_TOUCH && e.isPrimary);
-
-        if (!isScrolling && singleFinger) {
-            activePointer = {
-                id: e.pointerId,
-                clientX: e.clientX,
-                clientY: e.clientY,
-                x: (e.x || e.pageX),
-                y: (e.y || e.pageY),
-                type: e.pointerType
-            }
-        }
-    }
-
-    /**
-     * Handles the 'pointerleave' event from pointerEvents polyfill or native PointerEvents when supported.
-     *
-     * @private
-     * @param {MouseEvent|PointerEvent} e Event.
-     */
-    function pointerLeave(e) {
-        activePointer = null;
-    }
-
-    /**
-     * Handles the 'pointerup' event from pointerEvents polyfill or native PointerEvents when supported.
-     *
-     * @private
-     * @param {MouseEvent|PointerEvent} e Event.
-     */
-    function pointerUp(e) {
-        // Does our event is the same as the activePointer set by pointerdown?
-        if (activePointer && activePointer.id === e.pointerId) {
-            // Have we moved too much?
-            if (Math.abs(activePointer.x - (e.x || e.pageX)) < 5 &&
-                Math.abs(activePointer.y - (e.y || e.pageY)) < 5) {
-                // Have we scrolled too much?
-                if (!isScrolling ||
-                    (Math.abs(sDistX - window.pageXOffset) < 5 &&
-                    Math.abs(sDistY - window.pageYOffset) < 5)) {
-                    makePointertapEvent(e);
-                }
-            }
-        }
-        activePointer = null;
-    }
-
-    /**
-     * Creates the pointertap event that is not part of standard.
-     *
-     * @private
-     * @param {MouseEvent|PointerEvent} sourceEvent An event to use as a base for pointertap.
-     */
-    function makePointertapEvent(sourceEvent) {
-        var evt = document.createEvent('MouseEvents');
-        var newTarget = document.elementFromPoint(sourceEvent.clientX, sourceEvent.clientY);
-
-        // TODO: Replace 'initMouseEvent' with 'new MouseEvent'
-        evt.initMouseEvent('pointertap', true, true, window, 1, sourceEvent.screenX, sourceEvent.screenY,
-            sourceEvent.clientX, sourceEvent.clientY, sourceEvent.ctrlKey, sourceEvent.altKey,
-            sourceEvent.shiftKey, sourceEvent.metaKey, sourceEvent.button, newTarget);
-
-        evt.maskedEvent = sourceEvent;
-        newTarget.dispatchEvent(evt);
-
-        return evt;
-    }
-})();
-
 
 (function (window) {
 	'use strict';
@@ -760,142 +36,48 @@ var ch = function(selector, context) {
             return context.querySelectorAll(selector);
         };
 
-ch.util = {
+ch.factory = function (Klass) {
         /**
-         * Get the current vertical and horizontal positions of the scroll bar.
-         *
-         * @memberof ch.util
-         * @returns {Object}
-         * @example
-         * ch.util.getScroll();
+         * Identification of the constructor, in lowercases.
+         * @type {String}
          */
-        'getScroll': function () {
-            return {
-                'left': window.pageXOffset || document.documentElement.scrollLeft || 0,
-                'top': window.pageYOffset || document.documentElement.scrollTop || 0
-            };
-        },
+        var name = Klass.prototype.name;
 
-        /**
-         * Get the current outer dimensions of an element.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @returns {Object}
-         * @example
-         * ch.util.getOuterDimensions(el);
-         */
-        'getOuterDimensions': function (el) {
-            var obj = el.getBoundingClientRect();
-
-            return {
-                'width': (obj.right - obj.left),
-                'height': (obj.bottom - obj.top)
-            };
-        },
-
-        /**
-         * Get the current offset of an element.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @returns {Object}
-         * @example
-         * ch.util.getOffset(el);
-         */
-        'getOffset': function (el) {
-
-            var rect = el.getBoundingClientRect(),
-                fixedParent = ch.util.getPositionedParent(el, 'fixed'),
-                scroll = ch.util.getScroll(),
-                offset = {
-                    'left': rect.left,
-                    'top': rect.top
-                };
-
-            if (tiny.css(el, 'position') !== 'fixed' && fixedParent === null) {
-                offset.left += scroll.left;
-                offset.top += scroll.top;
-            }
-
-            return offset;
-        },
-
-        /**
-         * Get the current parentNode with the given position.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @param {String} position A given position (static, relative, fixed or absolute).
-         * @returns {HTMLElement}
-         * @example
-         * ch.util.getPositionedParent(el, 'fixed');
-         */
-        'getPositionedParent': function (el, position) {
-            var currentParent = el.offsetParent,
-                parent;
-
-            while (parent === undefined) {
-
-                if (currentParent === null) {
-                    parent = null;
-                    break;
-                }
-
-                if (tiny.css(currentParent, 'position') !== position) {
-                    currentParent = currentParent.offsetParent;
-                } else {
-                    parent = currentParent;
-                }
-
-            };
-
-            return parent;
-        },
-
-        // review this method :S
-        'parentElement': function(el, tagname) {
-            var parent = el.parentNode,
-                tag = tagname ? tagname.toUpperCase() : tagname;
-
-            if (parent === null) { return parent; }
-
-            // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
-            if (parent.nodeType !== 1) {
-                return this.parentElement(parent, tag);
-            }
-
-            if (tagname !== undefined && parent.tagName === tag) {
-                return parent;
-            } else if (tagname !== undefined && parent.tagName !== tag) {
-                return this.parentElement(parent, tag);
-            } else if (tagname === undefined) {
-                return parent;
-            }
-        },
-
-        /**
-         * IE8 safe method to get the next element sibling
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @returns {HTMLElement}
-         * @example
-         * ch.util.nextElementSibling(el);
-         */
-        'nextElementSibling': function(element) {
-            function next(el) {
-                do {
-                    el = el.nextSibling;
-                } while (el && el.nodeType !== 1);
-
-                return el;
-            }
-
-            return element.nextElementSibling || next(element);
-        }
+        // Uses the function.name property (non-standard) on the newest browsers OR
+        // uppercases the first letter from the identification name of the constructor
+        ch[(name.charAt(0).toUpperCase() + name.substr(1))] = Klass;
     };
-ch.util.fixLabels = function () {
+
+    // Remove no-js classname
+    tiny.removeClass(document.documentElement, 'no-js');
+
+    // Expose event names
+    for (var m in tiny) {
+        if (/^on\w+/.test(m) && typeof tiny[m] === 'string') {
+            ch[m] = tiny[m];
+        }
+    }
+
+    // Iphone scale fix
+    scaleFix();
+
+    // Prevent zoom onfocus
+    preventZoom();
+
+    // Fix the broken iPad/iPhone form label click issue
+    fixLabels();
+
+    // Cancel pointers if the user scroll.
+    cancelPointerOnScroll();
+
+    var viewportmeta = document.querySelector('meta[name=viewport]');
+
+    /**
+     * Fixes the broken iPad/iPhone form label click issue.
+     * @name fixLabels
+     * @see Based on: <a href="http://www.quirksmode.org/dom/getstyles.html" target="_blank">http://www.quirksmode.org/dom/getstyles.html</a>
+     */
+    function fixLabels() {
         var labels = document.getElementsByTagName('label'),
             target_id,
             el,
@@ -915,14 +97,13 @@ ch.util.fixLabels = function () {
                 tiny.on(labels[i], ch.onpointertap, labelTap);
             }
         }
-    };
+    }
 
     /**
      * Cancel pointers if the user scroll.
      * @name cancelPointerOnScroll
-     * @memberof ch.util
      */
-    ch.util.cancelPointerOnScroll = function () {
+    function cancelPointerOnScroll() {
 
         function blockPointer() {
             ch.pointerCanceled = true;
@@ -935,219 +116,45 @@ ch.util.fixLabels = function () {
         }
 
         tiny.on(document, 'touchmove', blockPointer);
-    };
+    }
 
-    /*!
-     * MBP - Mobile boilerplate helper functions
-     * @name MBP
-     * @memberof ch.util
-     * @namespace
-     * @see View on <a href="https://github.com/h5bp/mobile-boilerplate" target="_blank">https://github.com/h5bp/mobile-boilerplate</a>
-     */
-    ch.util.MBP = {
+    function gestureStart() {
+        viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=0.25, maximum-scale=1.6');
+    }
 
-        // Fix for iPhone viewport scale bug
-        // http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
-        'viewportmeta': document.querySelector('meta[name=viewport]'),
-
-        'gestureStart': function () {
-            ch.util.MBP.viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=0.25, maximum-scale=1.6');
-        },
-
-        'scaleFix': function () {
-            var ua = navigator.userAgent;
-            if (ch.util.MBP.viewportmeta && /iPhone|iPad|iPod/.test(ua) && !/Opera Mini/.test(ua)) {
-                ch.util.MBP.viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=1.0, maximum-scale=1.0');
-                document.addEventListener('gesturestart', ch.util.MBP.gestureStart, false);
-            }
-        },
-
-        /*
-        * Normalized hide address bar for iOS & Android
-        * (c) Scott Jehl, scottjehl.com
-        * MIT License
-        */
-        // If we cache this we don't need to re-calibrate everytime we call
-        // the hide url bar
-        'BODY_SCROLL_TOP': false,
-
-        // It should be up to the mobile
-        'hideUrlBar': function () {
-            // if there is a hash, or MBP.BODY_SCROLL_TOP hasn't been set yet, wait till that happens
-            if (!window.location.hash && ch.util.MBP.BODY_SCROLL_TOP !== false) {
-                window.scrollTo( 0, ch.util.MBP.BODY_SCROLL_TOP === 1 ? 0 : 1 );
-            }
-        },
-
-        'hideUrlBarOnLoad': function () {
-            // If there's a hash, or addEventListener is undefined, stop here
-            if( !window.location.hash && window.addEventListener ) {
-
-                var scrollTop = ch.util.getScroll().top;
-
-                //scroll to 1
-                window.scrollTo(0, 1);
-                ch.util.MBP.BODY_SCROLL_TOP = 1;
-
-                //reset to 0 on bodyready, if needed
-                var bodycheck = setInterval(function () {
-                    if(document.body) {
-                        clearInterval(bodycheck);
-                        ch.util.MBP.BODY_SCROLL_TOP = scrollTop;
-                        ch.util.MBP.hideUrlBar();
-                    }
-                }, 15 );
-
-                window.addEventListener('load', function() {
-                    setTimeout(function () {
-                        //at load, if user hasn't scrolled more than 20 or so...
-                        if(scrollTop < 20) {
-                            //reset to hide addr bar at onload
-                            ch.util.MBP.hideUrlBar();
-                        }
-                    }, 0);
-                });
-            }
-        },
-
-        // Prevent iOS from zooming onfocus
-        // https://github.com/h5bp/mobile-boilerplate/pull/108
-        'preventZoom': function () {
-            var formFields = document.querySelectorAll('input, select, textarea'),
-                contentString = 'width=device-width,initial-scale=1,maximum-scale=',
-                i = 0;
-
-            for (; i < formFields.length; i += 1) {
-
-                formFields[i].onfocus = function() {
-                    ch.util.MBP.viewportmeta.setAttribute('content', contentString + '1');
-                };
-
-                formFields[i].onblur = function () {
-                    ch.util.MBP.viewportmeta.setAttribute('content', contentString + '10');
-                };
-            }
+    // Fix for iPhone viewport scale bug
+    // http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
+    // @see View on <a href="https://github.com/h5bp/mobile-boilerplate" target="_blank">https://github.com/h5bp/mobile-boilerplate</a>
+    function scaleFix() {
+        var ua = navigator.userAgent;
+        if (viewportmeta && /iPhone|iPad|iPod/.test(ua) && !/Opera Mini/.test(ua)) {
+            viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=1.0, maximum-scale=1.0');
+            document.addEventListener('gesturestart', gestureStart, false);
         }
-    };
-ch.onlayoutchange = 'layoutchange';
+    }
 
-/**
- * Equivalent to 'resize'.
- * @constant
- * @memberof ch
- * @type {String}
- */
-ch.onresize = 'resize';
+    // Prevent iOS from zooming onfocus
+    // https://github.com/h5bp/mobile-boilerplate/pull/108
+    // @see View on <a href="https://github.com/h5bp/mobile-boilerplate" target="_blank">https://github.com/h5bp/mobile-boilerplate</a>
+    function preventZoom() {
+        var formFields = document.querySelectorAll('input, select, textarea'),
+            contentString = 'width=device-width,initial-scale=1,maximum-scale=',
+            i = 0;
 
-/**
- * Equivalent to 'scroll'.
- * @constant
- * @memberof ch
- * @type {String}
- */
-ch.onscroll = 'scroll';
+        if (!viewportmeta) {
+            return;
+        }
 
-/**
- * Equivalent to 'pointerdown' or 'mousedown', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointerdown | Pointer Events W3C Recommendation
- */
-ch.onpointerdown = window.MouseEvent ? 'pointerdown' : 'mousedown';
+        for (; i < formFields.length; i += 1) {
+            formFields[i].onfocus = function() {
+                viewportmeta.setAttribute('content', contentString + '1');
+            };
 
-/**
- * Equivalent to 'pointerup' or 'mouseup', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointerup | Pointer Events W3C Recommendation
- */
-ch.onpointerup = window.MouseEvent ? 'pointerup' : 'mouseup';
-
-/**
- * Equivalent to 'pointermove' or 'mousemove', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointermove | Pointer Events W3C Recommendation
- */
-ch.onpointermove = window.MouseEvent ? 'pointermove' : 'mousemove';
-
-/**
- * Equivalent to 'pointertap' or 'click', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#list-of-pointer-events | Pointer Events W3C Recommendation
- */
-ch.onpointertap = (tiny.support.touch && window.MouseEvent) ? 'pointertap' : 'click';
-
-/**
- * Equivalent to 'pointerenter' or 'mouseenter', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointerenter | Pointer Events W3C Recommendation
- */
-ch.onpointerenter = window.MouseEvent ? 'pointerenter' : 'mouseenter';
-
-/**
- * Equivalent to 'pointerleave' or 'mouseleave', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointerleave | Pointer Events W3C Recommendation
- */
-ch.onpointerleave = window.MouseEvent ? 'pointerleave' : 'mouseleave';
-
-/**
- * The DOM input event that is fired when the value of an <input> or <textarea>
- * element is changed. Equivalent to 'input' or 'keydown', depending on browser
- * capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- */
-ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';
-
-
-ch.factory = function (Klass) {
-        /**
-         * Identification of the constructor, in lowercases.
-         * @type {String}
-         */
-        var name = Klass.prototype.name;
-
-        // Uses the function.name property (non-standard) on the newest browsers OR
-        // uppercases the first letter from the identification name of the constructor
-        ch[(name.charAt(0).toUpperCase() + name.substr(1))] = Klass;
-    };
-
-    // Remove no-js classname
-    tiny.removeClass(document.documentElement, 'no-js');
-
-    // Iphone scale fix
-    ch.util.MBP.scaleFix();
-
-    // Hide navigation url bar
-    ch.util.MBP.hideUrlBarOnLoad();
-
-    // Prevent zoom onfocus
-    ch.util.MBP.preventZoom();
-
-    // Fix the broken iPad/iPhone form label click issue
-    ch.util.fixLabels();
-
-    // Cancel pointers if the user scroll.
-    ch.util.cancelPointerOnScroll();
+            formFields[i].onblur = function () {
+                viewportmeta.setAttribute('content', contentString + '10');
+            };
+        }
+    }
 
 	ch.version = '2.0.0-alpha.2';
 	window.ch = ch;
@@ -1348,7 +355,7 @@ ch.factory = function (Klass) {
             if (typeof content === 'string') {
                 // Case 1: AJAX call
                 if ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(content)) {
-                    getAsyncContent(content, options);
+                    getAsyncContent(content.replace(/#.+/, ''), options);
                 // Case 2: Plain text
                 } else {
                     setContent(content);
@@ -1357,7 +364,7 @@ ch.factory = function (Klass) {
             } else if (content.nodeType !== undefined) {
 
                 tiny.removeClass(content, 'ch-hide');
-                parent = ch.util.parentElement(content);
+                parent = tiny.parent(content);
 
                 setContent(content);
 
@@ -1673,7 +680,6 @@ ch.factory = function (Klass) {
      * @memberof ch
      * @constructor
      * @augments tiny.EventEmitter
-     * @requires ch.util
      * @returns {viewport} Returns a new instance of Viewport.
      */
     function Viewport() {
@@ -1852,7 +858,7 @@ ch.factory = function (Klass) {
          * @type {Object}
          * @private
          */
-        var scroll = ch.util.getScroll();
+        var scroll = tiny.scroll();
 
         /**
          * The offset top of the viewport.
@@ -1987,7 +993,6 @@ ch.factory = function (Klass) {
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
      * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
      * @param {String} [options.position] Thethe type of positioning used. You must use: "absolute" or "fixed". Default: "fixed".
-     * @requires ch.util
      * @requires ch.Viewport
      * @returns {positioner} Returns a new instance of Positioner.
      * @example
@@ -2155,14 +1160,14 @@ ch.factory = function (Klass) {
         reference.setAttribute('data-side', this._options.side);
         reference.setAttribute('data-align', this._options.align);
 
-        this._reference = ch.util.getOuterDimensions(reference);
+        this._reference = this._getOuterDimensions(reference);
 
         if (reference.offsetParent === this.target.offsetParent) {
             this._reference.left = reference.offsetLeft;
             this._reference.top = reference.offsetTop;
 
         } else {
-            offset = ch.util.getOffset(reference);
+            offset = tiny.offset(reference);
             this._reference.left = offset.left;
             this._reference.top = offset.top;
         }
@@ -2183,9 +1188,25 @@ ch.factory = function (Klass) {
         target.setAttribute('data-side', this._options.side);
         target.setAttribute('data-align', this._options.align);
 
-        this._target = ch.util.getOuterDimensions(target);
+        this._target = this._getOuterDimensions(target);
 
         return this;
+    };
+
+    /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Positioner.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Positioner.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
     };
 
     /**
@@ -2639,6 +1660,15 @@ ch.factory = function (Klass) {
         this.trigger = this._el;
         tiny.addClass(this.trigger, this._options._classNameTrigger);
         tiny.addClass(this.trigger, this._options._classNameIcon);
+
+        if (navigator.pointerEnabled) {
+            tiny.on(this._el, 'click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                }
+            });
+        }
+
         tiny.on(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
@@ -2661,7 +1691,7 @@ ch.factory = function (Klass) {
          * expandable.container;
          */
         this.container = this._content = (this._options.container ?
-            this._options.container : ch.util.nextElementSibling(this._el));
+            this._options.container : tiny.next(this._el));
         tiny.addClass(this.container, this._options._classNameContainer);
         tiny.addClass(this.container, 'ch-hide');
         if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
@@ -3039,7 +2069,7 @@ ch.factory = function (Klass) {
                         that.emit('hide');
                     });
 
-                menu = ch.util.nextElementSibling(child);
+                menu = tiny.next(child);
                 menu.setAttribute('role', 'menu');
 
                 Array.prototype.forEach.call(menu.children, function (item){
@@ -3357,11 +2387,11 @@ ch.factory = function (Klass) {
             that._timeout = window.setTimeout(function () {
                 that.hide();
             }, that._options._hideDelay);
-        }
+        };
 
         this._hideTimerCleaner = function () {
             window.clearTimeout(that._timeout);
-        }
+        };
 
         // Configure the way it hides
         this._configureHiding();
@@ -3432,12 +2462,17 @@ ch.factory = function (Klass) {
 
             tiny.addClass(this._el, 'ch-shownby-' + this._options.shownby);
 
+            if (this._options.shownby === shownbyEvent.pointertap && navigator.pointerEnabled) {
+                tiny.on(this._el, 'click', function(e) {
+                    e.preventDefault();
+                });
+            }
+
             tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
                 event.preventDefault();
                 showHandler();
             });
-
         }
 
         // Get a content if it's not defined
@@ -4462,7 +3497,7 @@ ch.factory = function (Klass) {
          */
         var that = this,
             // The second element of the HTML snippet (the dropdown content)
-            content = ch.util.nextElementSibling(this.trigger);
+            content = tiny.next(this.trigger);
 
         /**
          * The dropdown trigger. It's the element that will show and hide the container.
@@ -5394,7 +4429,7 @@ ch.factory = function (Klass) {
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = (ch.instances[ch.util.parentElement(that.trigger, 'form').getAttribute('data-uid')] || new ch.Form(ch.util.parentElement(that.trigger, 'form')));
+        this.form = (ch.instances[tiny.parent(that.trigger, 'form').getAttribute('data-uid')] || new ch.Form(tiny.parent(that.trigger, 'form')));
 
         this.form.validations.push(this);
 
@@ -5744,7 +4779,7 @@ ch.factory = function (Klass) {
      * @returns {validation}
      */
     ch.Validation.prototype._configureContainer = function () {
-        var parent = ch.util.parentElement(this.trigger);
+        var parent = tiny.parent(this.trigger);
         parent.insertAdjacentHTML('beforeend', '<div class="ch-validation-message ch-hide"></div>');
         this._container = parent.querySelector('.ch-validation-message');
         return this;
@@ -5940,7 +4975,7 @@ ch.factory = function (Klass) {
          * @type {HTMLParagraphElement}
          */
         that.container = (function () {
-            var parent = ch.util.parentElement(that._el);
+            var parent = tiny.parent(that._el);
                 parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
 
             return parent.querySelector('#' + messageID);
@@ -6046,7 +5081,7 @@ ch.factory = function (Klass) {
      * countdown = undefined;
      */
     Countdown.prototype.destroy = function () {
-        var parentElement = ch.util.parentElement(this.container);
+        var parentElement = tiny.parent(this.container);
             parentElement.removeChild(this.container);
 
         tiny.trigger(window.document, ch.onlayoutchange);
@@ -6262,14 +5297,14 @@ ch.factory = function (Klass) {
          * @private
          * @type {Number}
          */
-        this._maskWidth = ch.util.getOuterDimensions(this._mask).width;
+        this._maskWidth = this._getOuterDimensions(this._mask).width;
 
         /**
          * The width of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
          * @type {Number}
          */
-        this._itemWidth = ch.util.getOuterDimensions(this._items[0]).width;
+        this._itemWidth = this._getOuterDimensions(this._items[0]).width;
 
         /**
          * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
@@ -6290,7 +5325,7 @@ ch.factory = function (Klass) {
          * @private
          * @type {Number}
          */
-        this._itemHeight = ch.util.getOuterDimensions(this._items[0]).height;
+        this._itemHeight = this._getOuterDimensions(this._items[0]).height;
 
         /**
          * The margin of all items. Updated in each refresh only if it's necessary.
@@ -6736,7 +5771,7 @@ ch.factory = function (Klass) {
         });
 
         // Update the mask height with the list height
-        this._mask.style.height = ch.util.getOuterDimensions(this._list).height + 'px';
+        this._mask.style.height = this._getOuterDimensions(this._list).height + 'px';
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -6864,6 +5899,22 @@ ch.factory = function (Klass) {
     };
 
     /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Carousel.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Carousel.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
+    };
+
+    /**
      * Triggers all the necessary recalculations to be up-to-date.
      * @memberof! ch.Carousel.prototype
      * @function
@@ -6872,7 +5923,7 @@ ch.factory = function (Klass) {
     Carousel.prototype.refresh = function () {
 
         var that = this,
-            maskWidth = ch.util.getOuterDimensions(this._mask).width;
+            maskWidth = this._getOuterDimensions(this._mask).width;
 
         // Check for changes on the width of mask, for the elastic carousel
         // Update the width of the mask
@@ -8122,7 +7173,7 @@ ch.factory = function (Klass) {
          * The datepicker trigger.
          * @type {HTMLElement}
          */
-        this.trigger = ch.util.nextElementSibling(this.field);
+        this.trigger = tiny.next(this.field);
 
         /**
          * Reference to the Calendar component instanced.
@@ -8507,7 +7558,7 @@ ch.factory = function (Klass) {
      */
     Datepicker.prototype.destroy = function () {
 
-        ch.util.parentElement(this.trigger).removeChild(this.trigger);
+        tiny.parent(this.trigger).removeChild(this.trigger);
 
         this._el.removeAttribute('aria-describedby');
         this._el.type = 'date';

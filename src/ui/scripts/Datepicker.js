@@ -146,7 +146,7 @@
          * The datepicker trigger.
          * @type {HTMLElement}
          */
-        this.trigger = ch.util.nextElementSibling(this.field);
+        this.trigger = tiny.next(this.field);
 
         /**
          * Reference to the Calendar component instanced.
@@ -531,7 +531,7 @@
      */
     Datepicker.prototype.destroy = function () {
 
-        ch.util.parentElement(this.trigger).removeChild(this.trigger);
+        tiny.parent(this.trigger).removeChild(this.trigger);
 
         this._el.removeAttribute('aria-describedby');
         this._el.type = 'date';
