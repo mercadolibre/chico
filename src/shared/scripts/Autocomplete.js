@@ -103,9 +103,11 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Autocomplete, ch.Component),
+    tiny.inherits(Autocomplete, ch.Component);
+
+    var parent = Autocomplete.super_.prototype,
         // there is no mouseenter to highlight the item, so it happens when the user do mousedown
-        highlightEvent = (ch.support.touch) ? ch.onpointerdown : 'mouseover';
+        highlightEvent = (tiny.support.touch) ? ch.onpointerdown : 'mouseover';
 
     /**
      * The name of the component.
@@ -193,7 +195,7 @@
          * @private
          */
         this._suggestionsList = document.createElement('ul');
-        ch.util.classList(this._suggestionsList).add('ch-autocomplete-list');
+        tiny.addClass(this._suggestionsList, 'ch-autocomplete-list');
 
         this.container.appendChild(this._suggestionsList);
 
@@ -215,15 +217,15 @@
 
         };
 
-        ch.Event.addListener(this.container, highlightEvent, this._highlightSuggestion);
+        tiny.on(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        ch.Event.addListener(this.container, ch.onpointerdown, function itemEvents(event) {
+        tiny.on(this.container, ch.onpointerdown, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word
             if (target.nodeName === 'I' && !that._options.html) {
-                ch.util.prevent(event);
+                event.preventDefault();
                 that._el.value = that._suggestions[that._highlighted];
                 that.emit('type', that._el.value);
                 return;
@@ -245,8 +247,8 @@
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
 
-        ch.Event.addListener(this.trigger, 'focus', function turnon() { that._turn('on'); })
-        ch.Event.addListener(this.trigger, 'blur', function turnoff() {that._turn('off'); });
+        tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); })
+        tiny.on(this.trigger, 'blur', function turnoff() {that._turn('off'); });
 
         // Turn on when the input element is already has focus
         if (this._el === document.activeElement && !this._enabled) {
@@ -292,7 +294,7 @@
 
             that._stopTyping = window.setTimeout(function () {
 
-                ch.util.classList(that.trigger).add(that._options.loadingClass);
+                tiny.addClass(that.trigger, that._options.loadingClass);
                 /**
                  * Event emitted when the user is typing.
                  * @event ch.Autocomplete#type
@@ -337,21 +339,25 @@
 
         // IE8 don't support the input event at all
         // IE9 is the only browser that doesn't fire the input event when characters are removed
+        var ua = navigator.userAgent;
+        var MSIE = (/(msie|trident)/i).test(ua) ?
+            ua.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+
         if (turn === 'on') {
-            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
-                ch.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
+            if (!MSIE || MSIE > 9) {
+                tiny.on(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
-                    ch.Event.addListener(that.trigger, evtName, turnOnFallback);
+                    tiny.on(that.trigger, evtName, turnOnFallback);
                 });
             }
         } else if (turn === 'off') {
             this.hide();
-            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
-                ch.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
+            if (!MSIE || MSIE > 9) {
+                tiny.off(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
-                    ch.Event.removeListener(that.trigger, evtName, turnOnFallback);
+                    tiny.off(that.trigger, evtName, turnOnFallback);
                 });
             }
         }
@@ -411,12 +417,12 @@
 
         if (selectedItem !== null) {
             // background the highlighted item
-            ch.util.classList(selectedItem).remove(this._options.highlightedClass);
+            tiny.removeClass(selectedItem, this._options.highlightedClass);
         }
 
         if (currentItem !== null) {
             // highlight the selected item
-            ch.util.classList(currentItem).add(this._options.highlightedClass);
+            tiny.addClass(currentItem, this._options.highlightedClass);
         }
 
         return this;
@@ -458,7 +464,7 @@
             itemSelected = this.container.querySelector('.' + this._options.highlightedClass);
 
         // hide the loading feedback
-        ch.util.classList(this.trigger).remove(that._options.loadingClass)
+        tiny.removeClass(this.trigger, that._options.loadingClass)
 
         // hides the suggestions list
         if (suggestionsLength === 0) {
@@ -474,7 +480,7 @@
 
         // remove the class from the extra added items
         if (itemSelected !== null) {
-            ch.util.classList(itemSelected).remove(this._options.highlightedClass);
+            tiny.removeClass(itemSelected, this._options.highlightedClass);
         }
 
         // add each suggested item to the suggestion list
@@ -585,7 +591,7 @@
      */
     Autocomplete.prototype.destroy = function () {
 
-        ch.Event.removeListener(this.container, highlightEvent, this._highlightSuggestion);
+        tiny.off(this.container, highlightEvent, this._highlightSuggestion);
 
         this.trigger.removeAttribute('autocomplete');
         this.trigger.removeAttribute('aria-autocomplete');

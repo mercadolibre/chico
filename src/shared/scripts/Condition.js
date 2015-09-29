@@ -48,7 +48,7 @@
         'required': {
             'fn': function (value) {
 
-                var tag = ch.util.classList(this.trigger).contains('ch-form-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = tiny.hasClass(this.trigger, 'ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
@@ -120,7 +120,7 @@
      */
     function Condition(condition) {
 
-        ch.util.extend(this, conditions[condition.name], condition);
+        tiny.extend(this, conditions[condition.name], condition);
 
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
         if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {

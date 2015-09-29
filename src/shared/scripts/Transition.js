@@ -57,12 +57,12 @@
 
         // el is not defined
         if (el === undefined) {
-            el = ch.util.extend(ch.util.clone(this._defaults), options);
+            el = tiny.extend(tiny.clone(this._defaults), options);
         // el is present as a object configuration
         } else if (el.nodeType === undefined && typeof el === 'object') {
-            el = ch.util.extend(ch.util.clone(this._defaults), el);
+            el = tiny.extend(tiny.clone(this._defaults), el);
         } else if (options !== undefined) {
-            options = ch.util.extend(ch.util.clone(this._defaults), options);
+            options = tiny.extend(tiny.clone(this._defaults), options);
         }
 
         return new ch.Modal(el, options);
@@ -88,7 +88,7 @@
      * @type {Object}
      * @private
      */
-    Transition.prototype._defaults = ch.util.extend(ch.util.clone(ch.Modal.prototype._defaults), {
+    Transition.prototype._defaults = tiny.extend(tiny.clone(ch.Modal.prototype._defaults), {
         '_className': 'ch-transition ch-box-lite',
         '_ariaRole': 'alert',
         'hiddenby': 'none',

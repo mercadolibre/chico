@@ -73,9 +73,11 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Popover, ch.Component);
+
     var document = window.document,
-        // Inheritance
-        parent = ch.util.inherits(Popover, ch.Component),
+        parent = Popover.super_.prototype,
         shownbyEvent = {
             'pointertap': ch.onpointertap,
             'pointerenter': ch.onpointerenter
@@ -140,10 +142,10 @@
         container.innerHTML = [
             '<div',
             ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass +
-                (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
+                (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
-            ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
+            ' style="width:' + this._options.width + ';height:' + this._options.height + '"',
             '></div>'
         ].join('');
 
@@ -153,7 +155,7 @@
          */
         this.container = container.querySelector('div');
 
-        ch.Event.addListener(this.container, ch.onpointertap, function (event) {
+        tiny.on(this.container, ch.onpointertap, function (event) {
             event.stopPropagation();
         });
 
@@ -164,7 +166,7 @@
          */
         this._content = document.createElement('div');
 
-        ch.util.classList(this._content).add('ch-popover-content');
+        tiny.addClass(this._content, 'ch-popover-content');
 
         this.container.appendChild(this._content);
 
@@ -199,18 +201,18 @@
             that._timeout = window.setTimeout(function () {
                 that.hide();
             }, that._options._hideDelay);
-        }
+        };
 
         this._hideTimerCleaner = function () {
             window.clearTimeout(that._timeout);
-        }
+        };
 
         // Configure the way it hides
         this._configureHiding();
 
         // Refresh position:
         // on layout change
-        ch.Event.addListener(document, ch.onlayoutchange, this._refreshPositionListener)
+        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener)
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -272,14 +274,19 @@
         // Open event when configured as able to shown anyway
         if (this._options.shownby !== 'none') {
 
-            ch.util.classList(this._el).add('ch-shownby-' + this._options.shownby);
+            tiny.addClass(this._el, 'ch-shownby-' + this._options.shownby);
 
-            ch.Event.addListener(this._el, shownbyEvent[this._options.shownby], function (event) {
+            if (this._options.shownby === shownbyEvent.pointertap && navigator.pointerEnabled) {
+                tiny.on(this._el, 'click', function(e) {
+                    e.preventDefault();
+                });
+            }
+
+            tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
-                ch.util.prevent(event);
+                event.preventDefault();
                 showHandler();
             });
-
         }
 
         // Get a content if it's not defined
@@ -338,12 +345,12 @@
         // Hide by leaving the component
         if (hiddenby === 'pointerleave' && this.trigger !== undefined) {
 
-            ch.Event.addListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.addListener(this.trigger, ch.onpointerleave, this._hideTimer);
-
-            ch.Event.addListener(this.container, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.addListener(this.container, ch.onpointerleave, this._hideTimer);
-
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerenter, that._hideTimerCleaner);
+            });
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerleave, that._hideTimer);
+            });
         }
 
         // Hide with the button Close
@@ -352,7 +359,7 @@
             dummy.innerHTML = '<i class="ch-close" role="button" aria-label="Close"></i>';
             button = dummy.querySelector('i');
 
-            ch.Event.addListener(button, ch.onpointertap, function () {
+            tiny.on(button, ch.onpointertap, function () {
                 that.hide();
             });
 
@@ -374,7 +381,7 @@
      */
     Popover.prototype._normalizeOptions = function (options) {
         // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
-        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType !== undefined && options.nodeType === 1)) {
+        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType === 1)) {
             options = {
                 'content': options
             };
@@ -413,10 +420,7 @@
             return this;
         }
 
-        // Increase z-index and append to body
-        // Do it before set content because when content sets, it triggers the position refresh
-        this.container.style.zIndex = (ch.util.zIndex += 1);
-
+        // Append to body
         document.body.appendChild(this.container);
 
         // Open the collapsible
@@ -629,10 +633,10 @@
 
         if (this.trigger !== undefined) {
 
-            ch.Event.removeListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.removeListener(this.trigger, ch.onpointerleave, this._hideTimer);
+            tiny.off(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            tiny.off(this.trigger, ch.onpointerleave, this._hideTimer);
 
-            ch.util.classList(this.trigger).remove('ch-' + this.name + '-trigger');
+            tiny.removeClass(this.trigger, 'ch-' + this.name + '-trigger');
 
             this.trigger.removeAttribute('data-title');
             this.trigger.removeAttribute('aria-owns');
@@ -645,9 +649,9 @@
             this._snippet.title ? this.trigger.setAttribute('title', this._snippet.title) : null;
         }
 
-        ch.Event.removeListener(document, ch.onlayoutchange, this._refreshPositionListener);
+        tiny.off(document, ch.onlayoutchange, this._refreshPositionListener);
 
-        ch.viewport.off(ch.onresize, this._refreshPositionListener);
+        ch.viewport.removeListener(ch.onresize, this._refreshPositionListener);
 
         parent.destroy.call(this);
 

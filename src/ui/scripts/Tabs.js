@@ -47,7 +47,10 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Tabs, ch.Component),
+    tiny.inherits(Tabs, ch.Component);
+
+    // Inheritance
+    var parent = Tabs.super_.prototype,
 
         location = window.location,
 
@@ -57,7 +60,6 @@
 
         // Regular expresion to get hash
         hashRegExp = new RegExp('\\#!?\\/?(.[^\\?|\\&|\\s]+)');
-
 
     function createMethods(method) {
         Tabs.prototype[method] = function (tab) {
@@ -139,7 +141,7 @@
          * @type {HTMLElement}
          */
         this.container = this._el;
-        ch.util.classList(this.container).add('ch-tabs');
+        tiny.addClass(this.container, 'ch-tabs');
 
         /**
          * The tabs triggers.
@@ -147,7 +149,7 @@
          */
         this.triggers = this.container.children[0];
         this.triggers.setAttribute('role', 'tablist');
-        ch.util.classList(this.triggers).add('ch-tabs-triggers')
+        tiny.addClass(this.triggers, 'ch-tabs-triggers');
 
         /**
          * A collection of tab panel.
@@ -161,8 +163,8 @@
          */
         this.panel = this.container.children[1];
         this.panel.setAttribute('role', 'presentation');
-        ch.util.classList(this.panel).add('ch-tabs-panel')
-        ch.util.classList(this.panel).add('ch-box-lite')
+        tiny.addClass(this.panel, 'ch-tabs-panel');
+        tiny.addClass(this.panel, 'ch-box-lite');
 
 
         /**
@@ -453,7 +455,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
     };

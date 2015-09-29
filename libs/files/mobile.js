@@ -5,22 +5,10 @@ var JS = {},
 	CSS = {};
 
 /*
- * JS: Polyfills
- */
-JS.polyfills = [
-    "bower_components/es6-promise/promise.js",
-    "bower_components/fetch-compat/fetch.js",
-    "src/shared/scripts/polyfills/pointerEvents.js"
-];
-
-/*
  * JS: Core
  */
 JS.core = [
-    "src/shared/scripts/helpers.js",
-    "src/shared/scripts/util.js",
-    "src/mobile/scripts/util.js",
-    "src/shared/scripts/support.js",
+    "src/shared/scripts/core.js",
     "src/shared/scripts/events.js",
     "src/shared/scripts/factory.js",
     "src/mobile/scripts/init.js"
@@ -30,7 +18,6 @@ JS.core = [
  * JS: Abilities
  */
 JS.abilities = [
-    "src/shared/scripts/EventEmitter.js",
     "src/shared/scripts/Content.js",
     "src/shared/scripts/Collapsible.js",
     "src/shared/scripts/Viewport.js",

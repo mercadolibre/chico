@@ -69,9 +69,10 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var document = window.document,
-        // Inheritance
-        parent = ch.util.inherits(Dropdown, ch.Layer);
+    // Inheritance
+    tiny.inherits(Dropdown, ch.Layer);
+
+    var parent = Dropdown.super_.prototype;
 
     /**
      * The name of the component.
@@ -93,7 +94,7 @@
      * @type {Object}
      * @private
      */
-    Dropdown.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Dropdown.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-dropdown ch-box-lite',
         '_ariaRole': 'combobox',
         'fx': 'none',
@@ -122,26 +123,26 @@
          */
         var that = this,
             // The second element of the HTML snippet (the dropdown content)
-            content = ch.util.nextElementSibling(this.trigger);
+            content = tiny.next(this.trigger);
 
         /**
          * The dropdown trigger. It's the element that will show and hide the container.
          * @type {HTMLElement}
          */
         this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected')
-        ch.util.classList(this.trigger).add('ch-dropdown-trigger');
-        ch.util.avoidTextSelection(this.trigger);
+        tiny.addClass(this.trigger, 'ch-dropdown-trigger');
 
-
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         // Skinned dropdown
         if (this._options.skin) {
-            ch.util.classList(this.trigger).add('ch-dropdown-trigger-skin');
-            ch.util.classList(this.container).add('ch-dropdown-skin');
+            tiny.addClass(this.trigger, 'ch-dropdown-trigger-skin');
+            tiny.addClass(this.container, 'ch-dropdown-skin');
         // Default Skin
         } else {
-            ch.util.classList(this.trigger).add('ch-btn-skin');
-            ch.util.classList(this.trigger).add('ch-btn-small');
+            tiny.addClass(this.trigger, 'ch-btn-skin');
+            tiny.addClass(this.trigger, 'ch-btn-small');
         }
 
         /**
@@ -153,7 +154,7 @@
             var items = content.querySelectorAll('a');
             Array.prototype.forEach.call(items, function (item, index) {
                 item.setAttribute('role', 'option');
-                ch.Event.addListener(item, ch.onpointerenter, function () {
+                tiny.on(item, ch.onpointerenter, function () {
                     that._navigation[that._selected = index].focus();
                 });
             });
@@ -212,11 +213,6 @@
         // Execute the original show()
         parent.show.call(this, content, options);
 
-        // Z-index of trigger over content (secondary / skin dropdown)
-        if (this._options.skin) {
-            this.trigger.style.zIndex = ch.util.zIndex += 1;
-        }
-
         this._selected = -1;
 
         return this;
@@ -233,28 +229,24 @@
      * dropdown = undefined;
      */
     Dropdown.prototype.destroy = function () {
+        var trigger = this.trigger;
 
+        [
+            'ch-dropdown-trigger',
+            'ch-dropdown-trigger-skin',
+            'ch-user-no-select',
+            'ch-btn-skin',
+            'ch-btn-small'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
 
+        trigger.removeAttribute('unselectable');
+        trigger.removeAttribute('aria-controls');
 
-        ch.util.classList(this.trigger).remove('ch-dropdown-trigger');
-        ch.util.classList(this.trigger).remove('ch-dropdown-trigger-skin');
-        ch.util.classList(this.trigger).remove('ch-user-no-select');
-        ch.util.classList(this.trigger).remove('ch-btn-skin');
-        ch.util.classList(this.trigger).remove('ch-btn-small');
-        this.trigger.removeAttribute('aria-controls');
+        trigger.insertAdjacentHTML('afterend', this._snippet);
 
-        this.trigger.insertAdjacentHTML('afterend', this._snippet);
-
-        // this.$trigger.off('.dropdown');
-        // this.$container.off('.dropdown');
-
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
-
-        // $.each(this._$navigation, function (i, e) {
-        //     $(e).off(ch.onpointerenter);
-        // });
-
-
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

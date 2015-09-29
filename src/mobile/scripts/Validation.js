@@ -9,7 +9,7 @@
      * @returns {validation}
      */
     ch.Validation.prototype._configureContainer = function () {
-        var parent = ch.util.parentElement(this.trigger);
+        var parent = tiny.parent(this.trigger);
         parent.insertAdjacentHTML('beforeend', '<div class="ch-validation-message ch-hide"></div>');
         this._container = parent.querySelector('.ch-validation-message');
         return this;
@@ -24,7 +24,7 @@
      */
     ch.Validation.prototype._showErrorMessage = function (message) {
         this._container.innerHTML = message;
-        ch.util.classList(this._container).remove('ch-hide');
+        tiny.removeClass(this._container, 'ch-hide');
 
         return this;
     };
@@ -37,7 +37,7 @@
      * @returns {validation}
      */
     ch.Validation.prototype._hideErrorMessage = function () {
-        ch.util.classList(this._container).add('ch-hide');
+        tiny.addClass(this._container, 'ch-hide');
 
         return this;
     };

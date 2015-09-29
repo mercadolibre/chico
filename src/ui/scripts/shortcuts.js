@@ -177,7 +177,7 @@
             }
         };
 
-    ch.Event.addListener(document, 'keydown', shortcutsEmitter);
+    tiny.on(document, 'keydown', shortcutsEmitter);
 
     ch.shortcuts = shortcuts;
 

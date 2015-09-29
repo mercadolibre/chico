@@ -73,6 +73,9 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Modal, ch.Popover);
+
     var document = window.document,
         underlay = (function () {
             var dummyElement = document.createElement('div');
@@ -80,8 +83,7 @@
 
             return dummyElement.querySelector('div');
         }()),
-        // Inheritance
-        parent = ch.util.inherits(Modal, ch.Popover);
+        parent = Modal.super_.prototype;
 
     /**
      * The name of the component.
@@ -103,7 +105,7 @@
      * @type {Object}
      * @private
      */
-    Modal.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Modal.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-modal ch-box-lite',
         '_ariaRole': 'dialog',
         'width': '50%',
@@ -120,27 +122,24 @@
      * @private
      */
     Modal.prototype._showUnderlay = function () {
-        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
-            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = ch.util.classList(underlay);
-
-        underlay.style.zIndex = ch.util.zIndex;
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase();
 
         document.body.appendChild(underlay);
 
         function showCallback(e) {
-            cl.remove(fxName + '-enter-active');
-            cl.remove(fxName + '-enter');
+            tiny.removeClass(underlay, fxName + '-enter-active');
+            tiny.removeClass(underlay, fxName + '-enter');
 
-            ch.Event.removeListener(e.target, e.type, showCallback);
+            tiny.off(e.target, e.type, showCallback);
         }
 
         if (useAnimation) {
-            cl.add(fxName + '-enter');
+            tiny.addClass(underlay, fxName + '-enter');
             setTimeout(function() {
-                cl.add(fxName + '-enter-active');
+                tiny.addClass(underlay, fxName + '-enter-active');
             },10);
-            ch.Event.addListener(underlay, ch.support.transition.end, showCallback);
+            tiny.on(underlay, tiny.support.transition.end, showCallback);
         }
     };
 
@@ -151,25 +150,24 @@
      * @private
      */
     Modal.prototype._hideUnderlay = function () {
-        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = ch.util.classList(underlay),
             parent = underlay.parentNode;
 
         function hideCallback(e) {
-            cl.remove(fxName + '-leave-active');
-            cl.remove(fxName + '-leave');
+            tiny.removeClass(underlay, fxName + '-leave-active');
+            tiny.removeClass(underlay, fxName + '-leave');
 
-            ch.Event.removeListener(e.target, e.type, hideCallback);
+            tiny.off(e.target, e.type, hideCallback);
             parent.removeChild(underlay);
         }
 
         if (useAnimation) {
-            cl.add(fxName + '-leave');
+            tiny.addClass(underlay, fxName + '-leave');
             setTimeout(function() {
-                cl.add(fxName + '-leave-active');
+                tiny.addClass(underlay, fxName + '-leave-active');
             },10);
-            ch.Event.addListener(underlay, ch.support.transition.end, hideCallback);
+            tiny.on(underlay, tiny.support.transition.end, hideCallback);
         } else {
             parent.removeChild(underlay);
         }
@@ -221,7 +219,7 @@
 
         // Add to the underlay the ability to hide the component
         if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
-            ch.Event.addListener(underlay, ch.onpointertap, hideByUnderlay);
+            tiny.on(underlay, ch.onpointertap, hideByUnderlay);
         }
 
         // Show the underlay
@@ -247,7 +245,7 @@
         }
 
         // Delete the underlay listener
-        ch.Event.removeListener(underlay, ch.onpointertap)
+        tiny.off(underlay, ch.onpointertap)
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()

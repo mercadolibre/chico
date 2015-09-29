@@ -66,7 +66,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Form, ch.Component);
+    tiny.inherits(Form, ch.Component);
+
+    var parent = Form.super_.prototype;
 
     /**
      * The name of the component.
@@ -125,23 +127,24 @@
          */
         this.container = this._el;
             // Add classname
-        ch.util.classList(this.container).add('ch-form');
+        tiny.addClass(this.container, 'ch-form');
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-        ch.Event.addListener(this.container, 'submit', function (event) {
+        tiny.on(this.container, 'submit', function (event) {
             // Runs validations
             that.validate(event);
         });
 
         // Bind the reset
         if (this.container.querySelector('input[type="reset"]')) {
-            ch.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
-                ch.util.prevent(event);
+            tiny.on(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
+                event.preventDefault();
                 that.reset();
             });
         }
-
+        // Stub for EventEmitter to prevent the errors throwing
+        this.on('error', function(){});
 
         // Clean validations
         this.on('disable', this.clear);
@@ -206,7 +209,7 @@
             firstErrorVisible = firstError.trigger;
 
             // Find the closest visible parent if current element is hidden
-            while (ch.util.getStyles(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
+            while (tiny.css(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
                 firstErrorVisible = firstErrorVisible.parentElement;
             }
 
@@ -224,7 +227,9 @@
                 triggerError.focus();
             }
 
-            ch.util.prevent(event);
+            if (event && event.preventDefault) {
+                event.preventDefault();
+            }
 
             /**
              * It emits an event when a form has got errors.
@@ -294,11 +299,7 @@
 
         }
 
-        if (this.errors.length > 0) {
-            return true;
-        }
-
-        return false;
+        return this.errors.length > 0;
     };
 
     /**

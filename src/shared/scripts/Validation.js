@@ -78,7 +78,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Validation, ch.Component),
+    tiny.inherits(Validation, ch.Component);
+
+    var parent = Validation.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -187,11 +189,13 @@
             // Clean the validation if is shown;
             .on('disable', this.clear);
 
+        this.on('error', this._handleError);
+
         /**
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = (ch.instances[ch.util.parentElement(that.trigger, 'form').getAttribute('data-uid')] || new ch.Form(ch.util.parentElement(that.trigger, 'form')));
+        this.form = (ch.instances[tiny.parent(that.trigger, 'form').getAttribute('data-uid')] || new ch.Form(tiny.parent(that.trigger, 'form')));
 
         this.form.validations.push(this);
 
@@ -199,7 +203,7 @@
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (ch.util.classList(this.trigger).contains('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (tiny.hasClass(this.trigger, 'ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -252,7 +256,7 @@
             previousValue;
 
         // It must happen only once.
-        ch.Event.addListener(this.trigger, this._validationEvent, function () {
+        tiny.on(this.trigger, this._validationEvent, function () {
 
             if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
                 previousValue = this.value;
@@ -265,40 +269,43 @@
 
         });
 
-        // Lazy Loading pattern
-        this._error = function () {
-
-            if (!that._previousError.condition || !that._shown) {
-                if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
-                    ch.util.classList(that.trigger).add('ch-validation-error');
-                }
-
-                that._showErrorMessage(that.error.message || 'Error');
-            }
-
-            if (that.error.condition !== that._previousError.condition) {
-                that._showErrorMessage(that.error.message || that.form._messages[that.error.condition] || 'Error');
-            }
-
-            that._shown = true;
-
-            /**
-             * It emits an event when a validation hasn't got an error.
-             * @event ch.Validation#error
-             * @example
-             * // Subscribe to "error" event.
-             * validation.on('error', function (errors) {
-             *     console.log(errors.length);
-             * });
-             */
-            that.emit('error', that.error);
-
-            return that;
-        };
-
-        this._error();
+        /**
+         * It emits an error event when a validation got an error.
+         * @event ch.Validation#error
+         *
+         * @example
+         * // Subscribe to "error" event.
+         * validation.on('error', function (errors) {
+         *     console.log(errors.length);
+         * });
+         */
+        this.emit('error', this.error);
 
         return this;
+    };
+
+    /**
+     * Internal error handler, shows the errors when needed
+     *
+     * @param err {Object} A ch.Validation#error object that contain the error message and the error condition
+     * @private
+     */
+    Validation.prototype._handleError = function(err) {
+        var that = this;
+
+        if (!that._previousError.condition || !that._shown) {
+            if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
+                tiny.addClass(that.trigger, 'ch-validation-error');
+            }
+
+            that._showErrorMessage(err.message || 'Error');
+        }
+
+        if (err.condition !== that._previousError.condition) {
+            that._showErrorMessage(err.message || that.form._messages[err.condition] || 'Error');
+        }
+
+        that._shown = true;
     };
 
     /**
@@ -314,7 +321,7 @@
         }
 
         this.trigger.removeAttribute('aria-label');
-        ch.util.classList(this.trigger).remove('ch-validation-error')
+        tiny.removeClass(this.trigger, 'ch-validation-error')
 
 
         this._hideErrorMessage();
@@ -365,7 +372,7 @@
          * Stores the previous error object
          * @private
          */
-        this._previousError = ch.util.clone(this.error);
+        this._previousError = tiny.clone(this.error);
 
         // for each condition
         for (condition in this.conditions) {
@@ -402,7 +409,7 @@
     Validation.prototype.clear = function () {
 
         this.trigger.removeAttribute('aria-label');
-        ch.util.classList(this.trigger).remove('ch-validation-error');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
 
         this.error = null;
 

@@ -18,7 +18,8 @@
     }
   ],
   "scripts": {
-    "start": "grunt dev"
+    "start": "grunt dev",
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "repository": {
     "type": "git",
@@ -37,7 +38,18 @@
     "grunt-contrib-uglify": "^0.8.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-jsdoc": "^0.6.4",
-    "grunt-jslint": "0.2.6"
+    "grunt-jslint": "0.2.6",
+
+    "chai": "^3.2.0",
+    "chai-spies": "^0.6.0",
+    "karma": "^0.13.9",
+    "karma-chai": "^0.1.0",
+    "karma-chai-spies": "^0.1.1",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "mocha": "^2.2.5"
   },
   "license": "MIT",
   "engine": "node >= 0.8.6"

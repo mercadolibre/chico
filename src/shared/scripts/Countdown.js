@@ -71,7 +71,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Countdown, ch.Component);
+    tiny.inherits(Countdown, ch.Component);
+
+    var parent = Countdown.super_.prototype;
 
     /**
      * The name of the component.
@@ -138,17 +140,10 @@
          * countdown.trigger;
          */
         this.trigger = this._el;
-        ch.Event.addListener(this.trigger, 'keyup', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'keypress', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'keydown', function () { that._count(); });
-
-        // IE8 doesn't work
-        ch.Event.addListener(this.trigger, 'input', function () { that._count(); });
-
-        // IE8 - IE10 doesn't work
-        ch.Event.addListener(this.trigger, 'paste', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'cut', function () { that._count(); });
-
+        'keyup keypress keydown input paste cut'.split(' ')
+            .forEach(function(name) {
+                tiny.on(that.trigger, name, function () { that._count(); });
+            });
 
         /**
          * Amount of free characters until full the field.
@@ -165,7 +160,7 @@
          * @type {HTMLParagraphElement}
          */
         that.container = (function () {
-            var parent = ch.util.parentElement(that._el);
+            var parent = tiny.parent(that._el);
                 parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
 
             return parent.querySelector('#' + messageID);
@@ -229,9 +224,9 @@
             this._exceeded = true;
 
             this.trigger.setAttribute('aria-invalid', 'true');
-            ch.util.classList(this.trigger).add('ch-validation-error');
+            tiny.addClass(this.trigger, 'ch-validation-error');
 
-            ch.util.classList(this.container).add('ch-countdown-exceeded');
+            tiny.addClass(this.container, 'ch-countdown-exceeded');
         }
 
         // Change visible message of remaining characters
@@ -252,10 +247,10 @@
      * @returns {countdown}
      */
     Countdown.prototype._removeError = function () {
-        ch.util.classList(this.trigger).remove('ch-validation-error');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
         this.trigger.setAttribute('aria-invalid', 'false');
 
-        ch.util.classList(this.container).remove('ch-countdown-exceeded');
+        tiny.removeClass(this.container, 'ch-countdown-exceeded');
 
         return this;
     };
@@ -271,10 +266,10 @@
      * countdown = undefined;
      */
     Countdown.prototype.destroy = function () {
-        var parentElement = ch.util.parentElement(this.container);
+        var parentElement = tiny.parent(this.container);
             parentElement.removeChild(this.container);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

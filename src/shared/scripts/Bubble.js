@@ -72,7 +72,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Bubble, ch.Popover);
+    tiny.inherits(Bubble, ch.Popover);
+
+    var parent = Bubble.super_.prototype;
 
     /**
      * The name of the component.
@@ -94,7 +96,7 @@
      * @type {Object}
      * @private
      */
-    Bubble.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Bubble.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-bubble ch-box-icon ch-box-error ch-cone',
         '_ariaRole': 'alert',
         'shownby': 'none',

@@ -72,8 +72,9 @@
     }
 
     // Inheritance
-    var document = window.document,
-        parent = ch.util.inherits(Expandable, ch.Component);
+    tiny.inherits(Expandable, ch.Component);
+
+    var parent = Expandable.super_.prototype;
 
     /**
      * The name of the component.
@@ -131,14 +132,23 @@
          * expandable.trigger;
          */
         this.trigger = this._el;
-        ch.util.classList(this.trigger).add(this._options._classNameTrigger);
-        ch.util.classList(this.trigger).add(this._options._classNameIcon);
-        ch.Event.addListener(this.trigger, ch.onpointertap, function (event) {
+        tiny.addClass(this.trigger, this._options._classNameTrigger);
+        tiny.addClass(this.trigger, this._options._classNameIcon);
+
+        if (navigator.pointerEnabled) {
+            tiny.on(this._el, 'click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        tiny.on(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
             }
 
-            ch.util.prevent(event);
+            event.preventDefault();
 
             if (that._options.toggle) {
                 that._toggle();
@@ -155,11 +165,11 @@
          * expandable.container;
          */
         this.container = this._content = (this._options.container ?
-            this._options.container : ch.util.nextElementSibling(this._el));
-        ch.util.classList(this.container).add(this._options._classNameContainer);
-        ch.util.classList(this.container).add('ch-hide');
-        if (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
-            ch.util.classList(this.container).add('ch-fx');
+            this._options.container : tiny.next(this._el));
+        tiny.addClass(this.container, this._options._classNameContainer);
+        tiny.addClass(this.container, 'ch-hide');
+        if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
+            tiny.addClass(this.container, 'ch-fx');
         }
         this.container.setAttribute('aria-expanded', 'false');
 
@@ -174,13 +184,14 @@
 
         this
             .on('show', function () {
-                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             })
             .on('hide', function () {
-                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             });
 
-        ch.util.avoidTextSelection(this.trigger);
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         return this;
     };
@@ -278,19 +289,24 @@
      * expandable = undefined;
      */
     Expandable.prototype.destroy = function () {
+        var trigger = this.trigger;
 
-        //this.$trigger.off('.expandable')
-        ch.util.classList(this.trigger).remove('ch-expandable-trigger');
-        ch.util.classList(this.trigger).remove('ch-expandable-ico');
-        ch.util.classList(this.trigger).remove('ch-user-no-select');
+        [
+            'ch-expandable-trigger',
+            'ch-expandable-ico',
+            'ch-user-no-select'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
+
+        this.trigger.removeAttribute('unselectable');
         this.trigger.removeAttribute('aria-controls');
-
-        ch.util.classList(this.container).remove('ch-expandable-container');
-        ch.util.classList(this.container).remove('ch-hide');
+        tiny.removeClass(this.container, 'ch-expandable-container');
+        tiny.removeClass(this.container, 'ch-hide');
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

@@ -6,7 +6,6 @@
      * @memberof ch
      * @constructor
      * @augments ch.Layer
-     * @requires ch.OnImagesLoads
      * @param {String} selector A CSS Selector to create an instance of ch.Zoom.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
@@ -69,7 +68,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Zoom, ch.Layer);
+    tiny.inherits(Zoom, ch.Layer);
+
+    var parent = Zoom.super_.prototype;
 
     /**
      * The name of the component.
@@ -91,7 +92,7 @@
      * @type {Object}
      * @private
      */
-    Zoom.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Zoom.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-zoom',
         '_ariaRole': 'tooltip',
         '_hideDelay': 0,
@@ -181,31 +182,31 @@
         this._zoomed = new window.Image();
 
         // Assign event handlers to the original image
-        ch.onImagesLoads(this._original, function () {
+        onImagesLoads(this._original, function () {
             that._originalLoaded();
         });
 
         // Assign event handlers to the zoomed image
-        ch.onImagesLoads(this._zoomed, function () {
+        onImagesLoads(this._zoomed, function () {
             that._zoomedLoaded();
         });
 
         // Make the entire Show process if it tried to show before
         this.on('imageload', function () {
-            if (!ch.util.classList(this._loading).contains('ch-hide')) {
+            if (!tiny.hasClass(this._loading, 'ch-hide')) {
                 that.show();
-                ch.util.classList(this._loading).add('ch-hide');
+                tiny.addClass(this._loading, 'ch-hide');
             }
         });
 
         // Assign event handlers to the anchor
-        ch.util.classList(this.trigger).add('ch-zoom-trigger');
+        tiny.addClass(this.trigger, 'ch-zoom-trigger');
 
         // Prevent to redirect to the href
-        ch.Event.addListener(this.trigger, 'click', function (event) { ch.util.prevent(event); }, false);
+        tiny.on(this.trigger, 'click', function (event) { event.preventDefault(); }, false);
 
         // Bind move calculations
-        ch.Event.addListener(this.trigger, ch.onpointermove, function (event) { that._move(event); }, false);
+        tiny.on(this.trigger, ch.onpointermove, function (event) { that._move(event); }, false);
 
         return this;
     };
@@ -220,7 +221,7 @@
 
         var width = this._original.width,
             height = this._original.height,
-            offset = ch.util.getOffset(this._el);
+            offset = tiny.offset(this._el);
 
         // Set the wrapper anchor size (same as image)
         this.trigger.style.width = width + 'px';
@@ -416,13 +417,13 @@
 
         // Show feedback and trigger the image load, if it's not loaded
         if (!this._loaded) {
-            ch.util.classList(this._loading).remove('ch-hide');
+            tiny.removeClass(this._loading, 'ch-hide');
             this.loadImage();
             return this;
         }
 
         // Delete the Loading and show the Seeker
-        ch.util.classList(this._seeker).remove('ch-hide');
+        tiny.removeClass(this._seeker, 'ch-hide');
 
         // Execute the original show()
         parent.show.call(this, content, options);
@@ -446,11 +447,11 @@
 
         // Avoid unnecessary execution
         if (!this._loaded) {
-            ch.util.classList(this._loading).add('ch-hide');
+            tiny.addClass(this._loading, 'ch-hide');
             return this;
         }
 
-        ch.util.classList(this._seeker).add('ch-hide');
+        tiny.addClass(this._seeker, 'ch-hide');
 
         parent.hide.call(this);
 
@@ -487,7 +488,7 @@
     Zoom.prototype.destroy = function () {
         var parentElement;
 
-        parentElement = ch.util.parentElement(this._seeker);
+        parentElement = tiny.parent(this._seeker);
         parentElement.removeChild(this._seeker);
 
         parent.destroy.call(this);
@@ -496,5 +497,48 @@
     };
 
     ch.factory(Zoom, parent._normalizeOptions);
+
+
+    /**
+     * Executes a callback function when the images of a query selection loads.
+     * @private
+     * @param {HTMLImageElement} image An image or a collection of images.
+     * @param {Function} [callback] The handler the component will fire after the images loads.
+     *
+     * @example
+     * onImagesLoads(HTMLImageElement, function () {
+     *     console.log('The size of the loaded image is ' + this.width);
+     * });
+     */
+    function onImagesLoads(image, callback) {
+        var images;
+
+        if (Array.isArray(image)) {
+            images = image;
+        } else {
+            images = [image];
+        }
+
+        images.forEach(function (image) {
+            image.addEventListener('load', function onImgLoad() {
+                var len = images.length;
+
+                window.setTimeout(function () {
+                    if (--len <= 0) {
+                        callback.call(image);
+                    }
+                }, 200);
+
+                image.removeEventListener('load', onImgLoad);
+            }, false);
+
+            if (image.complete || image.complete === undefined) {
+                var src = image.src;
+                // Data uri fix bug in web-kit browsers
+                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                image.src = src;
+            }
+        });
+    }
 
 }(this, this.ch));

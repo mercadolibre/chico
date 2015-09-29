@@ -53,7 +53,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Menu, ch.Component),
+    tiny.inherits(Menu, ch.Component);
+
+    var parent = Menu.super_.prototype,
 
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
@@ -137,10 +139,10 @@
          */
         this.container = this._el;
         this.container.setAttribute('role', 'navigation');
-        ch.util.classList(this.container).add('ch-menu');
+        tiny.addClass(this.container, 'ch-menu');
 
-        this._options._className ? ch.util.classList(this.container).add(this._options._className) : null;
-        this._options.addClass ? ch.util.classList(this.container).add(this._options.addClass) : null;
+        this._options._className ? tiny.addClass(this.container, this._options._className) : null;
+        this._options.addClass ? tiny.addClass(this.container, this._options.addClass) : null;
 
         /**
          * A collection of folds.
@@ -175,7 +177,7 @@
                 menu;
 
             // List element
-            ch.util.classList(li).add('ch-menu-fold');
+            tiny.addClass(li, 'ch-menu-fold');
 
             // Children of list elements
             child = li.children[0];
@@ -185,7 +187,7 @@
                 // Add attr role to match wai-aria
                 li.setAttribute('role', 'presentation');
                 //
-                ch.util.classList(child).add('ch-fold-trigger');
+                tiny.addClass(child, 'ch-fold-trigger');
                 // Add anchor to that.fold
                 that.folds.push(child);
 
@@ -222,7 +224,7 @@
                         that.emit('hide');
                     });
 
-                menu = ch.util.nextElementSibling(child);
+                menu = tiny.next(child);
                 menu.setAttribute('role', 'menu');
 
                 Array.prototype.forEach.call(menu.children, function (item){
@@ -326,7 +328,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

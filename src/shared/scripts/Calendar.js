@@ -2,7 +2,7 @@
     'use strict';
 
     function normalizeOptions(options) {
-        if (typeof options === 'string' || ch.util.isArray(options)) {
+        if (typeof options === 'string' || Array.isArray(options)) {
             options = {
                 'selected': options
             };
@@ -71,6 +71,9 @@
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
+
+    // Inheritance
+    tiny.inherits(Calendar, ch.Component);
 
     /**
      * Completes with zero the numbers less than 10.
@@ -195,8 +198,7 @@
             'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
         },
 
-        // Inheritance
-        parent = ch.util.inherits(Calendar, ch.Component);
+        parent = Calendar.super_.prototype;
 
     /**
      * The name of the component.
@@ -271,7 +273,7 @@
             if (!selected) { return selected; }
 
             // Simple date selection
-            if (!ch.util.isArray(selected)) {
+            if (!Array.isArray(selected)) {
 
                 if (selected !== 'today') {
                     // Return date object and update currentDate
@@ -285,7 +287,7 @@
             } else {
                 selected.forEach(function (e, i){
                     // Simple date
-                    if (!ch.util.isArray(e)) {
+                    if (!Array.isArray(e)) {
                         selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
                     // Range
                     } else {
@@ -331,7 +333,7 @@
         this._prev.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._prev.setAttribute('role', 'button');
         this._prev.setAttribute('aria-hidden', 'false');
-        ch.util.classList(this._prev).add('ch-calendar-prev');
+        tiny.addClass(this._prev, 'ch-calendar-prev');
 
         /**
          * Template of next arrow.
@@ -341,12 +343,18 @@
         this._next.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._next.setAttribute('role', 'button');
         this._next.setAttribute('aria-hidden', 'false');
-        ch.util.classList(this._next).add('ch-calendar-next');
+        tiny.addClass(this._next, 'ch-calendar-next');
 
 
         // Show or hide arrows depending on "from" and "to" limits
-        ch.Event.addListener(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        ch.Event.addListener(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        tiny.on(this._prev, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.prevMonth();
+        });
+        tiny.on(this._next, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.nextMonth();
+        });
 
         /**
          * The calendar container.
@@ -355,13 +363,14 @@
         this.container = this._el;
         this.container.insertBefore(this._prev, this.container.firstChild);
         this.container.insertBefore(this._next, this.container.firstChild);
-        ch.util.classList(this.container).add('ch-calendar');
+        tiny.addClass(this.container, 'ch-calendar');
         this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         this._updateControls();
 
         // Avoid selection on the component
-        ch.util.avoidTextSelection(that.container);
+        that.container.setAttribute('unselectable', 'on');
+        tiny.addClass(that.container, 'ch-user-no-select');
 
         return this;
     };
@@ -393,23 +402,23 @@
 
         // Show previous arrow when it's out of limit
         if (this._hasPrevMonth()) {
-            ch.util.classList(this._prev).remove('ch-hide');
+            tiny.removeClass(this._prev, 'ch-hide');
             this._prev.setAttribute('aria-hidden', 'false');
 
         // Hide previous arrow when it's out of limit
         } else {
-            ch.util.classList(this._prev).add('ch-hide');
+            tiny.addClass(this._prev, 'ch-hide');
             this._prev.setAttribute('aria-hidden', 'true');
         }
 
         // Show next arrow when it's out of limit
         if (this._hasNextMonth()) {
-            ch.util.classList(this._next).remove('ch-hide');
+            tiny.removeClass(this._next, 'ch-hide');
             this._next.setAttribute('aria-hidden', 'false');
 
         // Hide next arrow when it's out of limit
         } else {
-            ch.util.classList(this._next).add('ch-hide');
+            tiny.addClass(this._next, 'ch-hide');
             this._next.setAttribute('aria-hidden', 'true');
         }
 
@@ -601,7 +610,7 @@
         yepnope = false;
 
         // Simple selection
-        if (!ch.util.isArray(this._dates.selected)) {
+        if (!Array.isArray(this._dates.selected)) {
             if (year === this._dates.selected.year && month === this._dates.selected.month && day === this._dates.selected.day) {
                 yepnope = true;
                 return yepnope;
@@ -611,7 +620,7 @@
         } else {
             this._dates.selected.forEach(function (e, i) {
                 // Simple date
-                if (!ch.util.isArray(e)) {
+                if (!Array.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {
                         yepnope = true;
                         return yepnope;
@@ -884,7 +893,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 

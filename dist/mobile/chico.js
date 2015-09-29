@@ -7,2024 +7,6 @@
  * http://chico-ui.com.ar/license
  */
 
-/*!
- * @overview es6-promise - a tiny implementation of Promises/A+.
- * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
- * @license   Licensed under MIT license
- *            See https://raw.githubusercontent.com/jakearchibald/es6-promise/master/LICENSE
- * @version   2.1.0
- */
-
-(function() {
-    "use strict";
-    function lib$es6$promise$utils$$objectOrFunction(x) {
-      return typeof x === 'function' || (typeof x === 'object' && x !== null);
-    }
-
-    function lib$es6$promise$utils$$isFunction(x) {
-      return typeof x === 'function';
-    }
-
-    function lib$es6$promise$utils$$isMaybeThenable(x) {
-      return typeof x === 'object' && x !== null;
-    }
-
-    var lib$es6$promise$utils$$_isArray;
-    if (!Array.isArray) {
-      lib$es6$promise$utils$$_isArray = function (x) {
-        return Object.prototype.toString.call(x) === '[object Array]';
-      };
-    } else {
-      lib$es6$promise$utils$$_isArray = Array.isArray;
-    }
-
-    var lib$es6$promise$utils$$isArray = lib$es6$promise$utils$$_isArray;
-    var lib$es6$promise$asap$$len = 0;
-    var lib$es6$promise$asap$$toString = {}.toString;
-    var lib$es6$promise$asap$$vertxNext;
-    function lib$es6$promise$asap$$asap(callback, arg) {
-      lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len] = callback;
-      lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len + 1] = arg;
-      lib$es6$promise$asap$$len += 2;
-      if (lib$es6$promise$asap$$len === 2) {
-        // If len is 2, that means that we need to schedule an async flush.
-        // If additional callbacks are queued before the queue is flushed, they
-        // will be processed by this flush that we are scheduling.
-        lib$es6$promise$asap$$scheduleFlush();
-      }
-    }
-
-    var lib$es6$promise$asap$$default = lib$es6$promise$asap$$asap;
-
-    var lib$es6$promise$asap$$browserWindow = (typeof window !== 'undefined') ? window : undefined;
-    var lib$es6$promise$asap$$browserGlobal = lib$es6$promise$asap$$browserWindow || {};
-    var lib$es6$promise$asap$$BrowserMutationObserver = lib$es6$promise$asap$$browserGlobal.MutationObserver || lib$es6$promise$asap$$browserGlobal.WebKitMutationObserver;
-    var lib$es6$promise$asap$$isNode = typeof process !== 'undefined' && {}.toString.call(process) === '[object process]';
-
-    // test for web worker but not in IE10
-    var lib$es6$promise$asap$$isWorker = typeof Uint8ClampedArray !== 'undefined' &&
-      typeof importScripts !== 'undefined' &&
-      typeof MessageChannel !== 'undefined';
-
-    // node
-    function lib$es6$promise$asap$$useNextTick() {
-      var nextTick = process.nextTick;
-      // node version 0.10.x displays a deprecation warning when nextTick is used recursively
-      // setImmediate should be used instead instead
-      var version = process.versions.node.match(/^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/);
-      if (Array.isArray(version) && version[1] === '0' && version[2] === '10') {
-        nextTick = setImmediate;
-      }
-      return function() {
-        nextTick(lib$es6$promise$asap$$flush);
-      };
-    }
-
-    // vertx
-    function lib$es6$promise$asap$$useVertxTimer() {
-      return function() {
-        lib$es6$promise$asap$$vertxNext(lib$es6$promise$asap$$flush);
-      };
-    }
-
-    function lib$es6$promise$asap$$useMutationObserver() {
-      var iterations = 0;
-      var observer = new lib$es6$promise$asap$$BrowserMutationObserver(lib$es6$promise$asap$$flush);
-      var node = document.createTextNode('');
-      observer.observe(node, { characterData: true });
-
-      return function() {
-        node.data = (iterations = ++iterations % 2);
-      };
-    }
-
-    // web worker
-    function lib$es6$promise$asap$$useMessageChannel() {
-      var channel = new MessageChannel();
-      channel.port1.onmessage = lib$es6$promise$asap$$flush;
-      return function () {
-        channel.port2.postMessage(0);
-      };
-    }
-
-    function lib$es6$promise$asap$$useSetTimeout() {
-      return function() {
-        setTimeout(lib$es6$promise$asap$$flush, 1);
-      };
-    }
-
-    var lib$es6$promise$asap$$queue = new Array(1000);
-    function lib$es6$promise$asap$$flush() {
-      for (var i = 0; i < lib$es6$promise$asap$$len; i+=2) {
-        var callback = lib$es6$promise$asap$$queue[i];
-        var arg = lib$es6$promise$asap$$queue[i+1];
-
-        callback(arg);
-
-        lib$es6$promise$asap$$queue[i] = undefined;
-        lib$es6$promise$asap$$queue[i+1] = undefined;
-      }
-
-      lib$es6$promise$asap$$len = 0;
-    }
-
-    function lib$es6$promise$asap$$attemptVertex() {
-      try {
-        var r = require;
-        var vertx = r('vertx');
-        lib$es6$promise$asap$$vertxNext = vertx.runOnLoop || vertx.runOnContext;
-        return lib$es6$promise$asap$$useVertxTimer();
-      } catch(e) {
-        return lib$es6$promise$asap$$useSetTimeout();
-      }
-    }
-
-    var lib$es6$promise$asap$$scheduleFlush;
-    // Decide what async method to use to triggering processing of queued callbacks:
-    if (lib$es6$promise$asap$$isNode) {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useNextTick();
-    } else if (lib$es6$promise$asap$$BrowserMutationObserver) {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useMutationObserver();
-    } else if (lib$es6$promise$asap$$isWorker) {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useMessageChannel();
-    } else if (lib$es6$promise$asap$$browserWindow === undefined && typeof require === 'function') {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$attemptVertex();
-    } else {
-      lib$es6$promise$asap$$scheduleFlush = lib$es6$promise$asap$$useSetTimeout();
-    }
-
-    function lib$es6$promise$$internal$$noop() {}
-
-    var lib$es6$promise$$internal$$PENDING   = void 0;
-    var lib$es6$promise$$internal$$FULFILLED = 1;
-    var lib$es6$promise$$internal$$REJECTED  = 2;
-
-    var lib$es6$promise$$internal$$GET_THEN_ERROR = new lib$es6$promise$$internal$$ErrorObject();
-
-    function lib$es6$promise$$internal$$selfFullfillment() {
-      return new TypeError("You cannot resolve a promise with itself");
-    }
-
-    function lib$es6$promise$$internal$$cannotReturnOwn() {
-      return new TypeError('A promises callback cannot return that same promise.');
-    }
-
-    function lib$es6$promise$$internal$$getThen(promise) {
-      try {
-        return promise.then;
-      } catch(error) {
-        lib$es6$promise$$internal$$GET_THEN_ERROR.error = error;
-        return lib$es6$promise$$internal$$GET_THEN_ERROR;
-      }
-    }
-
-    function lib$es6$promise$$internal$$tryThen(then, value, fulfillmentHandler, rejectionHandler) {
-      try {
-        then.call(value, fulfillmentHandler, rejectionHandler);
-      } catch(e) {
-        return e;
-      }
-    }
-
-    function lib$es6$promise$$internal$$handleForeignThenable(promise, thenable, then) {
-       lib$es6$promise$asap$$default(function(promise) {
-        var sealed = false;
-        var error = lib$es6$promise$$internal$$tryThen(then, thenable, function(value) {
-          if (sealed) { return; }
-          sealed = true;
-          if (thenable !== value) {
-            lib$es6$promise$$internal$$resolve(promise, value);
-          } else {
-            lib$es6$promise$$internal$$fulfill(promise, value);
-          }
-        }, function(reason) {
-          if (sealed) { return; }
-          sealed = true;
-
-          lib$es6$promise$$internal$$reject(promise, reason);
-        }, 'Settle: ' + (promise._label || ' unknown promise'));
-
-        if (!sealed && error) {
-          sealed = true;
-          lib$es6$promise$$internal$$reject(promise, error);
-        }
-      }, promise);
-    }
-
-    function lib$es6$promise$$internal$$handleOwnThenable(promise, thenable) {
-      if (thenable._state === lib$es6$promise$$internal$$FULFILLED) {
-        lib$es6$promise$$internal$$fulfill(promise, thenable._result);
-      } else if (promise._state === lib$es6$promise$$internal$$REJECTED) {
-        lib$es6$promise$$internal$$reject(promise, thenable._result);
-      } else {
-        lib$es6$promise$$internal$$subscribe(thenable, undefined, function(value) {
-          lib$es6$promise$$internal$$resolve(promise, value);
-        }, function(reason) {
-          lib$es6$promise$$internal$$reject(promise, reason);
-        });
-      }
-    }
-
-    function lib$es6$promise$$internal$$handleMaybeThenable(promise, maybeThenable) {
-      if (maybeThenable.constructor === promise.constructor) {
-        lib$es6$promise$$internal$$handleOwnThenable(promise, maybeThenable);
-      } else {
-        var then = lib$es6$promise$$internal$$getThen(maybeThenable);
-
-        if (then === lib$es6$promise$$internal$$GET_THEN_ERROR) {
-          lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$GET_THEN_ERROR.error);
-        } else if (then === undefined) {
-          lib$es6$promise$$internal$$fulfill(promise, maybeThenable);
-        } else if (lib$es6$promise$utils$$isFunction(then)) {
-          lib$es6$promise$$internal$$handleForeignThenable(promise, maybeThenable, then);
-        } else {
-          lib$es6$promise$$internal$$fulfill(promise, maybeThenable);
-        }
-      }
-    }
-
-    function lib$es6$promise$$internal$$resolve(promise, value) {
-      if (promise === value) {
-        lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$selfFullfillment());
-      } else if (lib$es6$promise$utils$$objectOrFunction(value)) {
-        lib$es6$promise$$internal$$handleMaybeThenable(promise, value);
-      } else {
-        lib$es6$promise$$internal$$fulfill(promise, value);
-      }
-    }
-
-    function lib$es6$promise$$internal$$publishRejection(promise) {
-      if (promise._onerror) {
-        promise._onerror(promise._result);
-      }
-
-      lib$es6$promise$$internal$$publish(promise);
-    }
-
-    function lib$es6$promise$$internal$$fulfill(promise, value) {
-      if (promise._state !== lib$es6$promise$$internal$$PENDING) { return; }
-
-      promise._result = value;
-      promise._state = lib$es6$promise$$internal$$FULFILLED;
-
-      if (promise._subscribers.length !== 0) {
-        lib$es6$promise$asap$$default(lib$es6$promise$$internal$$publish, promise);
-      }
-    }
-
-    function lib$es6$promise$$internal$$reject(promise, reason) {
-      if (promise._state !== lib$es6$promise$$internal$$PENDING) { return; }
-      promise._state = lib$es6$promise$$internal$$REJECTED;
-      promise._result = reason;
-
-      lib$es6$promise$asap$$default(lib$es6$promise$$internal$$publishRejection, promise);
-    }
-
-    function lib$es6$promise$$internal$$subscribe(parent, child, onFulfillment, onRejection) {
-      var subscribers = parent._subscribers;
-      var length = subscribers.length;
-
-      parent._onerror = null;
-
-      subscribers[length] = child;
-      subscribers[length + lib$es6$promise$$internal$$FULFILLED] = onFulfillment;
-      subscribers[length + lib$es6$promise$$internal$$REJECTED]  = onRejection;
-
-      if (length === 0 && parent._state) {
-        lib$es6$promise$asap$$default(lib$es6$promise$$internal$$publish, parent);
-      }
-    }
-
-    function lib$es6$promise$$internal$$publish(promise) {
-      var subscribers = promise._subscribers;
-      var settled = promise._state;
-
-      if (subscribers.length === 0) { return; }
-
-      var child, callback, detail = promise._result;
-
-      for (var i = 0; i < subscribers.length; i += 3) {
-        child = subscribers[i];
-        callback = subscribers[i + settled];
-
-        if (child) {
-          lib$es6$promise$$internal$$invokeCallback(settled, child, callback, detail);
-        } else {
-          callback(detail);
-        }
-      }
-
-      promise._subscribers.length = 0;
-    }
-
-    function lib$es6$promise$$internal$$ErrorObject() {
-      this.error = null;
-    }
-
-    var lib$es6$promise$$internal$$TRY_CATCH_ERROR = new lib$es6$promise$$internal$$ErrorObject();
-
-    function lib$es6$promise$$internal$$tryCatch(callback, detail) {
-      try {
-        return callback(detail);
-      } catch(e) {
-        lib$es6$promise$$internal$$TRY_CATCH_ERROR.error = e;
-        return lib$es6$promise$$internal$$TRY_CATCH_ERROR;
-      }
-    }
-
-    function lib$es6$promise$$internal$$invokeCallback(settled, promise, callback, detail) {
-      var hasCallback = lib$es6$promise$utils$$isFunction(callback),
-          value, error, succeeded, failed;
-
-      if (hasCallback) {
-        value = lib$es6$promise$$internal$$tryCatch(callback, detail);
-
-        if (value === lib$es6$promise$$internal$$TRY_CATCH_ERROR) {
-          failed = true;
-          error = value.error;
-          value = null;
-        } else {
-          succeeded = true;
-        }
-
-        if (promise === value) {
-          lib$es6$promise$$internal$$reject(promise, lib$es6$promise$$internal$$cannotReturnOwn());
-          return;
-        }
-
-      } else {
-        value = detail;
-        succeeded = true;
-      }
-
-      if (promise._state !== lib$es6$promise$$internal$$PENDING) {
-        // noop
-      } else if (hasCallback && succeeded) {
-        lib$es6$promise$$internal$$resolve(promise, value);
-      } else if (failed) {
-        lib$es6$promise$$internal$$reject(promise, error);
-      } else if (settled === lib$es6$promise$$internal$$FULFILLED) {
-        lib$es6$promise$$internal$$fulfill(promise, value);
-      } else if (settled === lib$es6$promise$$internal$$REJECTED) {
-        lib$es6$promise$$internal$$reject(promise, value);
-      }
-    }
-
-    function lib$es6$promise$$internal$$initializePromise(promise, resolver) {
-      try {
-        resolver(function resolvePromise(value){
-          lib$es6$promise$$internal$$resolve(promise, value);
-        }, function rejectPromise(reason) {
-          lib$es6$promise$$internal$$reject(promise, reason);
-        });
-      } catch(e) {
-        lib$es6$promise$$internal$$reject(promise, e);
-      }
-    }
-
-    function lib$es6$promise$enumerator$$Enumerator(Constructor, input) {
-      var enumerator = this;
-
-      enumerator._instanceConstructor = Constructor;
-      enumerator.promise = new Constructor(lib$es6$promise$$internal$$noop);
-
-      if (enumerator._validateInput(input)) {
-        enumerator._input     = input;
-        enumerator.length     = input.length;
-        enumerator._remaining = input.length;
-
-        enumerator._init();
-
-        if (enumerator.length === 0) {
-          lib$es6$promise$$internal$$fulfill(enumerator.promise, enumerator._result);
-        } else {
-          enumerator.length = enumerator.length || 0;
-          enumerator._enumerate();
-          if (enumerator._remaining === 0) {
-            lib$es6$promise$$internal$$fulfill(enumerator.promise, enumerator._result);
-          }
-        }
-      } else {
-        lib$es6$promise$$internal$$reject(enumerator.promise, enumerator._validationError());
-      }
-    }
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._validateInput = function(input) {
-      return lib$es6$promise$utils$$isArray(input);
-    };
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._validationError = function() {
-      return new Error('Array Methods must be provided an Array');
-    };
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._init = function() {
-      this._result = new Array(this.length);
-    };
-
-    var lib$es6$promise$enumerator$$default = lib$es6$promise$enumerator$$Enumerator;
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._enumerate = function() {
-      var enumerator = this;
-
-      var length  = enumerator.length;
-      var promise = enumerator.promise;
-      var input   = enumerator._input;
-
-      for (var i = 0; promise._state === lib$es6$promise$$internal$$PENDING && i < length; i++) {
-        enumerator._eachEntry(input[i], i);
-      }
-    };
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._eachEntry = function(entry, i) {
-      var enumerator = this;
-      var c = enumerator._instanceConstructor;
-
-      if (lib$es6$promise$utils$$isMaybeThenable(entry)) {
-        if (entry.constructor === c && entry._state !== lib$es6$promise$$internal$$PENDING) {
-          entry._onerror = null;
-          enumerator._settledAt(entry._state, i, entry._result);
-        } else {
-          enumerator._willSettleAt(c.resolve(entry), i);
-        }
-      } else {
-        enumerator._remaining--;
-        enumerator._result[i] = entry;
-      }
-    };
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._settledAt = function(state, i, value) {
-      var enumerator = this;
-      var promise = enumerator.promise;
-
-      if (promise._state === lib$es6$promise$$internal$$PENDING) {
-        enumerator._remaining--;
-
-        if (state === lib$es6$promise$$internal$$REJECTED) {
-          lib$es6$promise$$internal$$reject(promise, value);
-        } else {
-          enumerator._result[i] = value;
-        }
-      }
-
-      if (enumerator._remaining === 0) {
-        lib$es6$promise$$internal$$fulfill(promise, enumerator._result);
-      }
-    };
-
-    lib$es6$promise$enumerator$$Enumerator.prototype._willSettleAt = function(promise, i) {
-      var enumerator = this;
-
-      lib$es6$promise$$internal$$subscribe(promise, undefined, function(value) {
-        enumerator._settledAt(lib$es6$promise$$internal$$FULFILLED, i, value);
-      }, function(reason) {
-        enumerator._settledAt(lib$es6$promise$$internal$$REJECTED, i, reason);
-      });
-    };
-    function lib$es6$promise$promise$all$$all(entries) {
-      return new lib$es6$promise$enumerator$$default(this, entries).promise;
-    }
-    var lib$es6$promise$promise$all$$default = lib$es6$promise$promise$all$$all;
-    function lib$es6$promise$promise$race$$race(entries) {
-      /*jshint validthis:true */
-      var Constructor = this;
-
-      var promise = new Constructor(lib$es6$promise$$internal$$noop);
-
-      if (!lib$es6$promise$utils$$isArray(entries)) {
-        lib$es6$promise$$internal$$reject(promise, new TypeError('You must pass an array to race.'));
-        return promise;
-      }
-
-      var length = entries.length;
-
-      function onFulfillment(value) {
-        lib$es6$promise$$internal$$resolve(promise, value);
-      }
-
-      function onRejection(reason) {
-        lib$es6$promise$$internal$$reject(promise, reason);
-      }
-
-      for (var i = 0; promise._state === lib$es6$promise$$internal$$PENDING && i < length; i++) {
-        lib$es6$promise$$internal$$subscribe(Constructor.resolve(entries[i]), undefined, onFulfillment, onRejection);
-      }
-
-      return promise;
-    }
-    var lib$es6$promise$promise$race$$default = lib$es6$promise$promise$race$$race;
-    function lib$es6$promise$promise$resolve$$resolve(object) {
-      /*jshint validthis:true */
-      var Constructor = this;
-
-      if (object && typeof object === 'object' && object.constructor === Constructor) {
-        return object;
-      }
-
-      var promise = new Constructor(lib$es6$promise$$internal$$noop);
-      lib$es6$promise$$internal$$resolve(promise, object);
-      return promise;
-    }
-    var lib$es6$promise$promise$resolve$$default = lib$es6$promise$promise$resolve$$resolve;
-    function lib$es6$promise$promise$reject$$reject(reason) {
-      /*jshint validthis:true */
-      var Constructor = this;
-      var promise = new Constructor(lib$es6$promise$$internal$$noop);
-      lib$es6$promise$$internal$$reject(promise, reason);
-      return promise;
-    }
-    var lib$es6$promise$promise$reject$$default = lib$es6$promise$promise$reject$$reject;
-
-    var lib$es6$promise$promise$$counter = 0;
-
-    function lib$es6$promise$promise$$needsResolver() {
-      throw new TypeError('You must pass a resolver function as the first argument to the promise constructor');
-    }
-
-    function lib$es6$promise$promise$$needsNew() {
-      throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");
-    }
-
-    var lib$es6$promise$promise$$default = lib$es6$promise$promise$$Promise;
-    /**
-      Promise objects represent the eventual result of an asynchronous operation. The
-      primary way of interacting with a promise is through its `then` method, which
-      registers callbacks to receive either a promise’s eventual value or the reason
-      why the promise cannot be fulfilled.
-
-      Terminology
-      -----------
-
-      - `promise` is an object or function with a `then` method whose behavior conforms to this specification.
-      - `thenable` is an object or function that defines a `then` method.
-      - `value` is any legal JavaScript value (including undefined, a thenable, or a promise).
-      - `exception` is a value that is thrown using the throw statement.
-      - `reason` is a value that indicates why a promise was rejected.
-      - `settled` the final resting state of a promise, fulfilled or rejected.
-
-      A promise can be in one of three states: pending, fulfilled, or rejected.
-
-      Promises that are fulfilled have a fulfillment value and are in the fulfilled
-      state.  Promises that are rejected have a rejection reason and are in the
-      rejected state.  A fulfillment value is never a thenable.
-
-      Promises can also be said to *resolve* a value.  If this value is also a
-      promise, then the original promise's settled state will match the value's
-      settled state.  So a promise that *resolves* a promise that rejects will
-      itself reject, and a promise that *resolves* a promise that fulfills will
-      itself fulfill.
-
-
-      Basic Usage:
-      ------------
-
-      ```js
-      var promise = new Promise(function(resolve, reject) {
-        // on success
-        resolve(value);
-
-        // on failure
-        reject(reason);
-      });
-
-      promise.then(function(value) {
-        // on fulfillment
-      }, function(reason) {
-        // on rejection
-      });
-      ```
-
-      Advanced Usage:
-      ---------------
-
-      Promises shine when abstracting away asynchronous interactions such as
-      `XMLHttpRequest`s.
-
-      ```js
-      function getJSON(url) {
-        return new Promise(function(resolve, reject){
-          var xhr = new XMLHttpRequest();
-
-          xhr.open('GET', url);
-          xhr.onreadystatechange = handler;
-          xhr.responseType = 'json';
-          xhr.setRequestHeader('Accept', 'application/json');
-          xhr.send();
-
-          function handler() {
-            if (this.readyState === this.DONE) {
-              if (this.status === 200) {
-                resolve(this.response);
-              } else {
-                reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
-              }
-            }
-          };
-        });
-      }
-
-      getJSON('/posts.json').then(function(json) {
-        // on fulfillment
-      }, function(reason) {
-        // on rejection
-      });
-      ```
-
-      Unlike callbacks, promises are great composable primitives.
-
-      ```js
-      Promise.all([
-        getJSON('/posts'),
-        getJSON('/comments')
-      ]).then(function(values){
-        values[0] // => postsJSON
-        values[1] // => commentsJSON
-
-        return values;
-      });
-      ```
-
-      @class Promise
-      @param {function} resolver
-      Useful for tooling.
-      @constructor
-    */
-    function lib$es6$promise$promise$$Promise(resolver) {
-      this._id = lib$es6$promise$promise$$counter++;
-      this._state = undefined;
-      this._result = undefined;
-      this._subscribers = [];
-
-      if (lib$es6$promise$$internal$$noop !== resolver) {
-        if (!lib$es6$promise$utils$$isFunction(resolver)) {
-          lib$es6$promise$promise$$needsResolver();
-        }
-
-        if (!(this instanceof lib$es6$promise$promise$$Promise)) {
-          lib$es6$promise$promise$$needsNew();
-        }
-
-        lib$es6$promise$$internal$$initializePromise(this, resolver);
-      }
-    }
-
-    lib$es6$promise$promise$$Promise.all = lib$es6$promise$promise$all$$default;
-    lib$es6$promise$promise$$Promise.race = lib$es6$promise$promise$race$$default;
-    lib$es6$promise$promise$$Promise.resolve = lib$es6$promise$promise$resolve$$default;
-    lib$es6$promise$promise$$Promise.reject = lib$es6$promise$promise$reject$$default;
-
-    lib$es6$promise$promise$$Promise.prototype = {
-      constructor: lib$es6$promise$promise$$Promise,
-
-    /**
-      The primary way of interacting with a promise is through its `then` method,
-      which registers callbacks to receive either a promise's eventual value or the
-      reason why the promise cannot be fulfilled.
-
-      ```js
-      findUser().then(function(user){
-        // user is available
-      }, function(reason){
-        // user is unavailable, and you are given the reason why
-      });
-      ```
-
-      Chaining
-      --------
-
-      The return value of `then` is itself a promise.  This second, 'downstream'
-      promise is resolved with the return value of the first promise's fulfillment
-      or rejection handler, or rejected if the handler throws an exception.
-
-      ```js
-      findUser().then(function (user) {
-        return user.name;
-      }, function (reason) {
-        return 'default name';
-      }).then(function (userName) {
-        // If `findUser` fulfilled, `userName` will be the user's name, otherwise it
-        // will be `'default name'`
-      });
-
-      findUser().then(function (user) {
-        throw new Error('Found user, but still unhappy');
-      }, function (reason) {
-        throw new Error('`findUser` rejected and we're unhappy');
-      }).then(function (value) {
-        // never reached
-      }, function (reason) {
-        // if `findUser` fulfilled, `reason` will be 'Found user, but still unhappy'.
-        // If `findUser` rejected, `reason` will be '`findUser` rejected and we're unhappy'.
-      });
-      ```
-      If the downstream promise does not specify a rejection handler, rejection reasons will be propagated further downstream.
-
-      ```js
-      findUser().then(function (user) {
-        throw new PedagogicalException('Upstream error');
-      }).then(function (value) {
-        // never reached
-      }).then(function (value) {
-        // never reached
-      }, function (reason) {
-        // The `PedgagocialException` is propagated all the way down to here
-      });
-      ```
-
-      Assimilation
-      ------------
-
-      Sometimes the value you want to propagate to a downstream promise can only be
-      retrieved asynchronously. This can be achieved by returning a promise in the
-      fulfillment or rejection handler. The downstream promise will then be pending
-      until the returned promise is settled. This is called *assimilation*.
-
-      ```js
-      findUser().then(function (user) {
-        return findCommentsByAuthor(user);
-      }).then(function (comments) {
-        // The user's comments are now available
-      });
-      ```
-
-      If the assimliated promise rejects, then the downstream promise will also reject.
-
-      ```js
-      findUser().then(function (user) {
-        return findCommentsByAuthor(user);
-      }).then(function (comments) {
-        // If `findCommentsByAuthor` fulfills, we'll have the value here
-      }, function (reason) {
-        // If `findCommentsByAuthor` rejects, we'll have the reason here
-      });
-      ```
-
-      Simple Example
-      --------------
-
-      Synchronous Example
-
-      ```javascript
-      var result;
-
-      try {
-        result = findResult();
-        // success
-      } catch(reason) {
-        // failure
-      }
-      ```
-
-      Errback Example
-
-      ```js
-      findResult(function(result, err){
-        if (err) {
-          // failure
-        } else {
-          // success
-        }
-      });
-      ```
-
-      Promise Example;
-
-      ```javascript
-      findResult().then(function(result){
-        // success
-      }, function(reason){
-        // failure
-      });
-      ```
-
-      Advanced Example
-      --------------
-
-      Synchronous Example
-
-      ```javascript
-      var author, books;
-
-      try {
-        author = findAuthor();
-        books  = findBooksByAuthor(author);
-        // success
-      } catch(reason) {
-        // failure
-      }
-      ```
-
-      Errback Example
-
-      ```js
-
-      function foundBooks(books) {
-
-      }
-
-      function failure(reason) {
-
-      }
-
-      findAuthor(function(author, err){
-        if (err) {
-          failure(err);
-          // failure
-        } else {
-          try {
-            findBoooksByAuthor(author, function(books, err) {
-              if (err) {
-                failure(err);
-              } else {
-                try {
-                  foundBooks(books);
-                } catch(reason) {
-                  failure(reason);
-                }
-              }
-            });
-          } catch(error) {
-            failure(err);
-          }
-          // success
-        }
-      });
-      ```
-
-      Promise Example;
-
-      ```javascript
-      findAuthor().
-        then(findBooksByAuthor).
-        then(function(books){
-          // found books
-      }).catch(function(reason){
-        // something went wrong
-      });
-      ```
-
-      @method then
-      @param {Function} onFulfilled
-      @param {Function} onRejected
-      Useful for tooling.
-      @return {Promise}
-    */
-      then: function(onFulfillment, onRejection) {
-        var parent = this;
-        var state = parent._state;
-
-        if (state === lib$es6$promise$$internal$$FULFILLED && !onFulfillment || state === lib$es6$promise$$internal$$REJECTED && !onRejection) {
-          return this;
-        }
-
-        var child = new this.constructor(lib$es6$promise$$internal$$noop);
-        var result = parent._result;
-
-        if (state) {
-          var callback = arguments[state - 1];
-          lib$es6$promise$asap$$default(function(){
-            lib$es6$promise$$internal$$invokeCallback(state, child, callback, result);
-          });
-        } else {
-          lib$es6$promise$$internal$$subscribe(parent, child, onFulfillment, onRejection);
-        }
-
-        return child;
-      },
-
-    /**
-      `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
-      as the catch block of a try/catch statement.
-
-      ```js
-      function findAuthor(){
-        throw new Error('couldn't find that author');
-      }
-
-      // synchronous
-      try {
-        findAuthor();
-      } catch(reason) {
-        // something went wrong
-      }
-
-      // async with promises
-      findAuthor().catch(function(reason){
-        // something went wrong
-      });
-      ```
-
-      @method catch
-      @param {Function} onRejection
-      Useful for tooling.
-      @return {Promise}
-    */
-      'catch': function(onRejection) {
-        return this.then(null, onRejection);
-      }
-    };
-    function lib$es6$promise$polyfill$$polyfill() {
-      var local;
-
-      if (typeof global !== 'undefined') {
-          local = global;
-      } else if (typeof self !== 'undefined') {
-          local = self;
-      } else {
-          try {
-              local = Function('return this')();
-          } catch (e) {
-              throw new Error('polyfill failed because global object is unavailable in this environment');
-          }
-      }
-
-      var P = local.Promise;
-
-      if (P && Object.prototype.toString.call(P.resolve()) === '[object Promise]' && !P.cast) {
-        return;
-      }
-
-      local.Promise = lib$es6$promise$promise$$default;
-    }
-    var lib$es6$promise$polyfill$$default = lib$es6$promise$polyfill$$polyfill;
-
-    var lib$es6$promise$umd$$ES6Promise = {
-      'Promise': lib$es6$promise$promise$$default,
-      'polyfill': lib$es6$promise$polyfill$$default
-    };
-
-    /* global define:true module:true window: true */
-    if (typeof define === 'function' && define['amd']) {
-      define(function() { return lib$es6$promise$umd$$ES6Promise; });
-    } else if (typeof module !== 'undefined' && module['exports']) {
-      module['exports'] = lib$es6$promise$umd$$ES6Promise;
-    } else if (typeof this !== 'undefined') {
-      this['ES6Promise'] = lib$es6$promise$umd$$ES6Promise;
-    }
-
-    lib$es6$promise$polyfill$$default();
-}).call(this);
-
-
-(function() {
-  'use strict';
-
-  if (self.fetch) {
-    return
-  }
-
-  function normalizeName(name) {
-    if (typeof name !== 'string') {
-      name = String(name)
-    }
-    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
-      throw new TypeError('Invalid character in header field name')
-    }
-    return name.toLowerCase()
-  }
-
-  function normalizeValue(value) {
-    if (typeof value !== 'string') {
-      value = String(value)
-    }
-    return value
-  }
-
-  function Headers(headers) {
-    this.map = {}
-
-    if (headers instanceof Headers) {
-      headers.forEach(function(value, name) {
-        this.append(name, value)
-      }, this)
-
-    } else if (headers) {
-      Object.getOwnPropertyNames(headers).forEach(function(name) {
-        this.append(name, headers[name])
-      }, this)
-    }
-  }
-
-  Headers.prototype.append = function(name, value) {
-    name = normalizeName(name)
-    value = normalizeValue(value)
-    var list = this.map[name]
-    if (!list) {
-      list = []
-      this.map[name] = list
-    }
-    list.push(value)
-  }
-
-  Headers.prototype['delete'] = function(name) {
-    delete this.map[normalizeName(name)]
-  }
-
-  Headers.prototype.get = function(name) {
-    var values = this.map[normalizeName(name)]
-    return values ? values[0] : null
-  }
-
-  Headers.prototype.getAll = function(name) {
-    return this.map[normalizeName(name)] || []
-  }
-
-  Headers.prototype.has = function(name) {
-    return this.map.hasOwnProperty(normalizeName(name))
-  }
-
-  Headers.prototype.set = function(name, value) {
-    this.map[normalizeName(name)] = [normalizeValue(value)]
-  }
-
-  Headers.prototype.forEach = function(callback, thisArg) {
-    Object.getOwnPropertyNames(this.map).forEach(function(name) {
-      this.map[name].forEach(function(value) {
-        callback.call(thisArg, value, name, this)
-      }, this)
-    }, this)
-  }
-
-  function consumed(body) {
-    if (body.bodyUsed) {
-      return Promise.reject(new TypeError('Already read'))
-    }
-    body.bodyUsed = true
-  }
-
-  function fileReaderReady(reader) {
-    return new Promise(function(resolve, reject) {
-      reader.onload = function() {
-        resolve(reader.result)
-      }
-      reader.onerror = function() {
-        reject(reader.error)
-      }
-    })
-  }
-
-  function readBlobAsArrayBuffer(blob) {
-    var reader = new FileReader()
-    reader.readAsArrayBuffer(blob)
-    return fileReaderReady(reader)
-  }
-
-  function readBlobAsText(blob) {
-    var reader = new FileReader()
-    reader.readAsText(blob)
-    return fileReaderReady(reader)
-  }
-
-  var support = {
-    blob: 'FileReader' in self && 'Blob' in self && (function() {
-      try {
-        new Blob();
-        return true
-      } catch(e) {
-        return false
-      }
-    })(),
-    formData: 'FormData' in self
-  }
-
-  function Body() {
-    this.bodyUsed = false
-
-
-    this._initBody = function(body) {
-      this._bodyInit = body
-      if (typeof body === 'string') {
-        this._bodyText = body
-      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
-        this._bodyBlob = body
-      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
-        this._bodyFormData = body
-      } else if (!body) {
-        this._bodyText = ''
-      } else {
-        throw new Error('unsupported BodyInit type')
-      }
-    }
-
-    if (support.blob) {
-      this.blob = function() {
-        var rejected = consumed(this)
-        if (rejected) {
-          return rejected
-        }
-
-        if (this._bodyBlob) {
-          return Promise.resolve(this._bodyBlob)
-        } else if (this._bodyFormData) {
-          throw new Error('could not read FormData body as blob')
-        } else {
-          return Promise.resolve(new Blob([this._bodyText]))
-        }
-      }
-
-      this.arrayBuffer = function() {
-        return this.blob().then(readBlobAsArrayBuffer)
-      }
-
-      this.text = function() {
-        var rejected = consumed(this)
-        if (rejected) {
-          return rejected
-        }
-
-        if (this._bodyBlob) {
-          return readBlobAsText(this._bodyBlob)
-        } else if (this._bodyFormData) {
-          throw new Error('could not read FormData body as text')
-        } else {
-          return Promise.resolve(this._bodyText)
-        }
-      }
-    } else {
-      this.text = function() {
-        var rejected = consumed(this)
-        return rejected ? rejected : Promise.resolve(this._bodyText)
-      }
-    }
-
-    if (support.formData) {
-      this.formData = function() {
-        return this.text().then(decode)
-      }
-    }
-
-    this.json = function() {
-      return this.text().then(JSON.parse)
-    }
-
-    return this
-  }
-
-  // HTTP methods whose capitalization should be normalized
-  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
-
-  function normalizeMethod(method) {
-    var upcased = method.toUpperCase()
-    return (methods.indexOf(upcased) > -1) ? upcased : method
-  }
-
-  function Request(url, options) {
-    options = options || {}
-    this.url = url
-
-    this.credentials = options.credentials || 'omit'
-    this.headers = new Headers(options.headers)
-    this.method = normalizeMethod(options.method || 'GET')
-    this.mode = options.mode || null
-    this.referrer = null
-
-    if ((this.method === 'GET' || this.method === 'HEAD') && options.body) {
-      throw new TypeError('Body not allowed for GET or HEAD requests')
-    }
-    this._initBody(options.body)
-  }
-
-  function decode(body) {
-    var form = new FormData()
-    body.trim().split('&').forEach(function(bytes) {
-      if (bytes) {
-        var split = bytes.split('=')
-        var name = split.shift().replace(/\+/g, ' ')
-        var value = split.join('=').replace(/\+/g, ' ')
-        form.append(decodeURIComponent(name), decodeURIComponent(value))
-      }
-    })
-    return form
-  }
-
-  function headers(xhr) {
-    var head = new Headers()
-    var pairs = xhr.getAllResponseHeaders().trim().split('\n')
-    pairs.forEach(function(header) {
-      var split = header.trim().split(':')
-      var key = split.shift().trim()
-      var value = split.join(':').trim()
-      head.append(key, value)
-    })
-    return head
-  }
-
-  Body.call(Request.prototype)
-
-  function Response(bodyInit, options) {
-    if (!options) {
-      options = {}
-    }
-
-    this._initBody(bodyInit)
-    this.type = 'default'
-    this.url = null
-    this.status = options.status
-    this.ok = this.status >= 200 && this.status < 300
-    this.statusText = options.statusText
-    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
-    this.url = options.url || ''
-  }
-
-  Body.call(Response.prototype)
-
-  self.Headers = Headers;
-  self.Request = Request;
-  self.Response = Response;
-
-  self.fetch = function(input, init) {
-    // TODO: Request constructor should accept input, init
-    var request
-    if (Request.prototype.isPrototypeOf(input) && !init) {
-      request = input
-    } else {
-      request = new Request(input, init)
-    }
-
-    return new Promise(function(resolve, reject) {
-      var xhr = new XMLHttpRequest()
-
-      function responseURL() {
-        if ('responseURL' in xhr) {
-          return xhr.responseURL
-        }
-
-        // Avoid security warnings on getResponseHeader when not allowed by CORS
-        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
-          return xhr.getResponseHeader('X-Request-URL')
-        }
-
-        return;
-      }
-
-      xhr.onreadystatechange = function() {
-        //ready?
-        if (xhr.readyState !== 4) {
-          return
-        }
-
-        var status = (xhr.status === 1223) ? 204 : xhr.status
-        if (status < 100 || status > 599) {
-          reject(new TypeError('Network request failed'))
-          return
-        }
-        var options = {
-          status: status,
-          statusText: xhr.statusText,
-          headers: headers(xhr),
-          url: responseURL()
-        }
-        var body = 'response' in xhr ? xhr.response : xhr.responseText;
-        resolve(new Response(body, options))
-      }
-
-      xhr.onerror = function() {
-        reject(new TypeError('Network request failed'))
-      }
-
-      xhr.open(request.method, request.url, true)
-
-      if (request.credentials === 'include') {
-        xhr.withCredentials = true
-      }
-
-      if ('responseType' in xhr && support.blob) {
-        xhr.responseType = 'blob'
-      }
-
-      request.headers.forEach(function(value, name) {
-        xhr.setRequestHeader(name, value)
-      })
-
-      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
-    })
-  }
-  self.fetch.polyfill = true
-})();
-
-(function(window) {
-    'use strict';
-
-    var POINTER_TYPE_TOUCH = "touch";
-    var POINTER_TYPE_PEN = "pen";
-    var POINTER_TYPE_MOUSE = "mouse";
-
-    // Due to polyfill IE8 can has document.createEvent but it has no support for
-    // custom Mouse Events
-    var supportsMouseEvents = !!window.MouseEvent;
-
-    // If the user agent already supports Pointer Events, do nothing
-    if (window.PointerEvent) {
-        return;
-    }
-
-    // The list of standardized pointer events http://www.w3.org/TR/pointerevents/
-    var upperCaseEventsNames = ["PointerDown", "PointerUp", "PointerMove", "PointerOver", "PointerOut", "PointerCancel", "PointerEnter", "PointerLeave"];
-    var supportedEventsNames = upperCaseEventsNames.map(function(name) {
-        return name.toLowerCase();
-    });
-
-    var previousTargets = {};
-
-    var checkPreventDefault = function (node) {
-        while (node && !node.ch_forcePreventDefault) {
-            node = node.parentNode;
-        }
-        return !!node || window.ch_forcePreventDefault;
-    };
-
-    // Touch events
-    var generateTouchClonedEvent = function (sourceEvent, newName, canBubble, target, relatedTarget) {
-        // Considering touch events are almost like super mouse events
-        var evObj;
-
-        if (document.createEvent && supportsMouseEvents) {
-            evObj = document.createEvent('MouseEvents');
-            // TODO: Replace 'initMouseEvent' with 'new MouseEvent'
-            evObj.initMouseEvent(newName, canBubble, true, window, 1, sourceEvent.screenX, sourceEvent.screenY,
-                sourceEvent.clientX, sourceEvent.clientY, sourceEvent.ctrlKey, sourceEvent.altKey,
-                sourceEvent.shiftKey, sourceEvent.metaKey, sourceEvent.button, relatedTarget || sourceEvent.relatedTarget);
-        } else {
-            evObj = document.createEventObject();
-            evObj.screenX = sourceEvent.screenX;
-            evObj.screenY = sourceEvent.screenY;
-            evObj.clientX = sourceEvent.clientX;
-            evObj.clientY = sourceEvent.clientY;
-            evObj.ctrlKey = sourceEvent.ctrlKey;
-            evObj.altKey = sourceEvent.altKey;
-            evObj.shiftKey = sourceEvent.shiftKey;
-            evObj.metaKey = sourceEvent.metaKey;
-            evObj.button = sourceEvent.button;
-            evObj.relatedTarget = relatedTarget || sourceEvent.relatedTarget;
-        }
-        // offsets
-        if (evObj.offsetX === undefined) {
-            if (sourceEvent.offsetX !== undefined) {
-
-                // For Opera which creates readonly properties
-                if (Object && Object.defineProperty !== undefined) {
-                    Object.defineProperty(evObj, "offsetX", {
-                        writable: true
-                    });
-                    Object.defineProperty(evObj, "offsetY", {
-                        writable: true
-                    });
-                }
-
-                evObj.offsetX = sourceEvent.offsetX;
-                evObj.offsetY = sourceEvent.offsetY;
-            } else if (Object && Object.defineProperty !== undefined) {
-                Object.defineProperty(evObj, "offsetX", {
-                    get: function () {
-                        if (this.currentTarget && this.currentTarget.offsetLeft) {
-                            return sourceEvent.clientX - this.currentTarget.offsetLeft;
-                        }
-                        return sourceEvent.clientX;
-                    }
-                });
-                Object.defineProperty(evObj, "offsetY", {
-                    get: function () {
-                        if (this.currentTarget && this.currentTarget.offsetTop) {
-                            return sourceEvent.clientY - this.currentTarget.offsetTop;
-                        }
-                        return sourceEvent.clientY;
-                    }
-                });
-            }
-            else if (sourceEvent.layerX !== undefined) {
-                evObj.offsetX = sourceEvent.layerX - sourceEvent.currentTarget.offsetLeft;
-                evObj.offsetY = sourceEvent.layerY - sourceEvent.currentTarget.offsetTop;
-            }
-        }
-
-        // adding missing properties
-
-        if (sourceEvent.isPrimary !== undefined)
-            evObj.isPrimary = sourceEvent.isPrimary;
-        else
-            evObj.isPrimary = true;
-
-        if (sourceEvent.pressure)
-            evObj.pressure = sourceEvent.pressure;
-        else {
-            var button = 0;
-
-            if (sourceEvent.which !== undefined)
-                button = sourceEvent.which;
-            else if (sourceEvent.button !== undefined) {
-                button = sourceEvent.button;
-            }
-            evObj.pressure = (button === 0) ? 0 : 0.5;
-        }
-
-        if (sourceEvent.rotation)
-            evObj.rotation = sourceEvent.rotation;
-        else
-            evObj.rotation = 0;
-
-        // Timestamp
-        if (sourceEvent.hwTimestamp)
-            evObj.hwTimestamp = sourceEvent.hwTimestamp;
-        else
-            evObj.hwTimestamp = 0;
-
-        // Tilts
-        if (sourceEvent.tiltX)
-            evObj.tiltX = sourceEvent.tiltX;
-        else
-            evObj.tiltX = 0;
-
-        if (sourceEvent.tiltY)
-            evObj.tiltY = sourceEvent.tiltY;
-        else
-            evObj.tiltY = 0;
-
-        // Width and Height
-        if (sourceEvent.height)
-            evObj.height = sourceEvent.height;
-        else
-            evObj.height = 0;
-
-        if (sourceEvent.width)
-            evObj.width = sourceEvent.width;
-        else
-            evObj.width = 0;
-
-        // preventDefault
-        evObj.preventDefault = function () {
-            if (sourceEvent.preventDefault !== undefined)
-                sourceEvent.preventDefault();
-        };
-
-        // stopPropagation
-        if (evObj.stopPropagation !== undefined) {
-            var current = evObj.stopPropagation;
-            evObj.stopPropagation = function () {
-                if (sourceEvent.stopPropagation !== undefined)
-                    sourceEvent.stopPropagation();
-                current.call(this);
-            };
-        }
-
-        // Pointer values
-        evObj.pointerId = sourceEvent.pointerId;
-        evObj.pointerType = sourceEvent.pointerType;
-
-        switch (evObj.pointerType) {// Old spec version check
-            case 2:
-                evObj.pointerType = POINTER_TYPE_TOUCH;
-                break;
-            case 3:
-                evObj.pointerType = POINTER_TYPE_PEN;
-                break;
-            case 4:
-                evObj.pointerType = POINTER_TYPE_MOUSE;
-                break;
-        }
-
-        // Fire event
-        if (target)
-            target.dispatchEvent(evObj);
-        else if (sourceEvent.target && supportsMouseEvents) {
-            sourceEvent.target.dispatchEvent(evObj);
-        } else {
-            sourceEvent.srcElement.fireEvent("on" + getMouseEquivalentEventName(newName), evObj); // We must fallback to mouse event for very old browsers
-        }
-    };
-
-    var generateMouseProxy = function (evt, eventName, canBubble, target, relatedTarget) {
-        evt.pointerId = 1;
-        evt.pointerType = POINTER_TYPE_MOUSE;
-        generateTouchClonedEvent(evt, eventName, canBubble, target, relatedTarget);
-    };
-
-    var generateTouchEventProxy = function (name, touchPoint, target, eventObject, canBubble, relatedTarget) {
-        var touchPointId = touchPoint.identifier + 2; // Just to not override mouse id
-
-        touchPoint.pointerId = touchPointId;
-        touchPoint.pointerType = POINTER_TYPE_TOUCH;
-        touchPoint.currentTarget = target;
-
-        if (eventObject.preventDefault !== undefined) {
-            touchPoint.preventDefault = function () {
-                eventObject.preventDefault();
-            };
-        }
-
-        generateTouchClonedEvent(touchPoint, name, canBubble, target, relatedTarget);
-    };
-
-    var checkEventRegistration = function (node, eventName) {
-        return node.__chGlobalRegisteredEvents && node.__chGlobalRegisteredEvents[eventName];
-    };
-    var findEventRegisteredNode = function (node, eventName) {
-        while (node && !checkEventRegistration(node, eventName))
-            node = node.parentNode;
-        if (node)
-            return node;
-        else if (checkEventRegistration(window, eventName))
-            return window;
-    };
-
-    var generateTouchEventProxyIfRegistered = function (eventName, touchPoint, target, eventObject, canBubble, relatedTarget) { // Check if user registered this event
-        if (findEventRegisteredNode(target, eventName)) {
-            generateTouchEventProxy(eventName, touchPoint, target, eventObject, canBubble, relatedTarget);
-        }
-    };
-
-    var getMouseEquivalentEventName = function (eventName) {
-        return eventName.toLowerCase().replace("pointer", "mouse");
-    };
-
-    var getPrefixEventName = function (prefix, eventName) {
-        var upperCaseIndex = supportedEventsNames.indexOf(eventName);
-        var newEventName = prefix + upperCaseEventsNames[upperCaseIndex];
-
-        return newEventName;
-    };
-
-    var registerOrUnregisterEvent = function (item, name, func, enable) {
-        if (item.__chRegisteredEvents === undefined) {
-            item.__chRegisteredEvents = [];
-        }
-
-        if (enable) {
-            if (item.__chRegisteredEvents[name] !== undefined) {
-                item.__chRegisteredEvents[name]++;
-                return;
-            }
-
-            item.__chRegisteredEvents[name] = 1;
-            item.addEventListener(name, func, false);
-        } else {
-
-            if (item.__chRegisteredEvents.indexOf(name) !== -1) {
-                item.__chRegisteredEvents[name]--;
-
-                if (item.__chRegisteredEvents[name] !== 0) {
-                    return;
-                }
-            }
-            item.removeEventListener(name, func);
-            item.__chRegisteredEvents[name] = 0;
-        }
-    };
-
-    var setTouchAware = function (item, eventName, enable) {
-        // Leaving tokens
-        if (!item.__chGlobalRegisteredEvents) {
-            item.__chGlobalRegisteredEvents = [];
-        }
-        if (enable) {
-            if (item.__chGlobalRegisteredEvents[eventName] !== undefined) {
-                item.__chGlobalRegisteredEvents[eventName]++;
-                return;
-            }
-            item.__chGlobalRegisteredEvents[eventName] = 1;
-        } else {
-            if (item.__chGlobalRegisteredEvents[eventName] !== undefined) {
-                item.__chGlobalRegisteredEvents[eventName]--;
-                if (item.__chGlobalRegisteredEvents[eventName] < 0) {
-                    item.__chGlobalRegisteredEvents[eventName] = 0;
-                }
-            }
-        }
-
-        var nameGenerator;
-        var eventGenerator;
-        if (window.MSPointerEvent) {
-            nameGenerator = function (name) { return getPrefixEventName("MS", name); };
-            eventGenerator = generateTouchClonedEvent;
-        }
-        else {
-            nameGenerator = getMouseEquivalentEventName;
-            eventGenerator = generateMouseProxy;
-        }
-        switch (eventName) {
-            case "pointerenter":
-            case "pointerleave":
-                var targetEvent = nameGenerator(eventName);
-                if (item['on' + targetEvent.toLowerCase()] !== undefined) {
-                    registerOrUnregisterEvent(item, targetEvent, function (evt) { eventGenerator(evt, eventName); }, enable);
-                }
-                break;
-        }
-    };
-
-    // Intercept addEventListener calls by changing the prototype
-    var interceptAddEventListener = function (root) {
-        var current = root.prototype ? root.prototype.addEventListener : root.addEventListener;
-
-        var customAddEventListener = function (name, func, capture) {
-            // Branch when a PointerXXX is used
-            if (supportedEventsNames.indexOf(name) !== -1) {
-                setTouchAware(this, name, true);
-            }
-
-            if (current === undefined) {
-                this.attachEvent("on" + getMouseEquivalentEventName(name), func);
-            } else {
-                current.call(this, name, func, capture);
-            }
-        };
-
-        if (root.prototype) {
-            root.prototype.addEventListener = customAddEventListener;
-        } else {
-            root.addEventListener = customAddEventListener;
-        }
-    };
-
-    // Intercept removeEventListener calls by changing the prototype
-    var interceptRemoveEventListener = function (root) {
-        var current = root.prototype ? root.prototype.removeEventListener : root.removeEventListener;
-
-        var customRemoveEventListener = function (name, func, capture) {
-            // Release when a PointerXXX is used
-            if (supportedEventsNames.indexOf(name) !== -1) {
-                setTouchAware(this, name, false);
-            }
-
-            if (current === undefined) {
-                this.detachEvent(getMouseEquivalentEventName(name), func);
-            } else {
-                current.call(this, name, func, capture);
-            }
-        };
-        if (root.prototype) {
-            root.prototype.removeEventListener = customRemoveEventListener;
-        } else {
-            root.removeEventListener = customRemoveEventListener;
-        }
-    };
-
-    // Hooks
-    interceptAddEventListener(window);
-    interceptAddEventListener(window.HTMLElement || window.Element);
-    interceptAddEventListener(document);
-    interceptAddEventListener(HTMLBodyElement);
-    interceptAddEventListener(HTMLDivElement);
-    interceptAddEventListener(HTMLImageElement);
-    interceptAddEventListener(HTMLUListElement);
-    interceptAddEventListener(HTMLAnchorElement);
-    interceptAddEventListener(HTMLLIElement);
-    interceptAddEventListener(HTMLTableElement);
-    if (window.HTMLSpanElement) {
-        interceptAddEventListener(HTMLSpanElement);
-    }
-    if (window.HTMLCanvasElement) {
-        interceptAddEventListener(HTMLCanvasElement);
-    }
-    if (window.SVGElement) {
-        interceptAddEventListener(SVGElement);
-    }
-
-    interceptRemoveEventListener(window);
-    interceptRemoveEventListener(window.HTMLElement || window.Element);
-    interceptRemoveEventListener(document);
-    interceptRemoveEventListener(HTMLBodyElement);
-    interceptRemoveEventListener(HTMLDivElement);
-    interceptRemoveEventListener(HTMLImageElement);
-    interceptRemoveEventListener(HTMLUListElement);
-    interceptRemoveEventListener(HTMLAnchorElement);
-    interceptRemoveEventListener(HTMLLIElement);
-    interceptRemoveEventListener(HTMLTableElement);
-    if (window.HTMLSpanElement) {
-        interceptRemoveEventListener(HTMLSpanElement);
-    }
-    if (window.HTMLCanvasElement) {
-        interceptRemoveEventListener(HTMLCanvasElement);
-    }
-    if (window.SVGElement) {
-        interceptRemoveEventListener(SVGElement);
-    }
-
-    // Prevent mouse event from being dispatched after Touch Events action
-    var touching = false;
-    var touchTimer = -1;
-
-    function setTouchTimer() {
-        touching = true;
-        clearTimeout(touchTimer);
-        touchTimer = setTimeout(function () {
-            touching = false;
-        }, 700);
-        // 1. Mobile browsers dispatch mouse events 300ms after touchend
-        // 2. Chrome for Android dispatch mousedown for long-touch about 650ms
-        // Result: Blocking Mouse Events for 700ms.
-    }
-
-    function getFirstCommonNode(x, y) {
-        while (x) {
-            if (x.contains(y))
-                return x;
-            x = x.parentNode;
-        }
-        return null;
-    }
-
-    //generateProxy receives a node to dispatch the event
-    function dispatchPointerEnter(currentTarget, relatedTarget, generateProxy) {
-        var commonParent = getFirstCommonNode(currentTarget, relatedTarget);
-        var node = currentTarget;
-        var nodelist = [];
-        while (node && node !== commonParent) {//target range: this to the direct child of parent relatedTarget
-            if (checkEventRegistration(node, "pointerenter")) //check if any parent node has pointerenter
-                nodelist.push(node);
-            node = node.parentNode;
-        }
-        while (nodelist.length > 0)
-            generateProxy(nodelist.pop());
-    }
-
-    //generateProxy receives a node to dispatch the event
-    function dispatchPointerLeave(currentTarget, relatedTarget, generateProxy) {
-        var commonParent = getFirstCommonNode(currentTarget, relatedTarget);
-        var node = currentTarget;
-        while (node && node !== commonParent) {//target range: this to the direct child of parent relatedTarget
-            if (checkEventRegistration(node, "pointerleave"))//check if any parent node has pointerleave
-                generateProxy(node);
-            node = node.parentNode;
-        }
-    }
-
-    // Handling events on window to prevent unwanted super-bubbling
-    // All mouse events are affected by touch fallback
-    function applySimpleEventTunnels(nameGenerator, eventGenerator) {
-        ["pointerdown", "pointermove", "pointerup", "pointerover", "pointerout"].forEach(function (eventName) {
-            window.addEventListener(nameGenerator(eventName), function (evt) {
-                if (!touching && findEventRegisteredNode(evt.target, eventName))
-                    eventGenerator(evt, eventName, true);
-            });
-        });
-        if (window['on' + nameGenerator("pointerenter").toLowerCase()] === undefined)
-            window.addEventListener(nameGenerator("pointerover"), function (evt) {
-                if (touching)
-                    return;
-                var foundNode = findEventRegisteredNode(evt.target, "pointerenter");
-                if (!foundNode || foundNode === window)
-                    return;
-                else if (!foundNode.contains(evt.relatedTarget)) {
-                    dispatchPointerEnter(foundNode, evt.relatedTarget, function (targetNode) {
-                        eventGenerator(evt, "pointerenter", false, targetNode, evt.relatedTarget);
-                    });
-                }
-            });
-        if (window['on' + nameGenerator("pointerleave").toLowerCase()] === undefined)
-            window.addEventListener(nameGenerator("pointerout"), function (evt) {
-                if (touching)
-                    return;
-                var foundNode = findEventRegisteredNode(evt.target, "pointerleave");
-                if (!foundNode || foundNode === window)
-                    return;
-                else if (!foundNode.contains(evt.relatedTarget)) {
-                    dispatchPointerLeave(foundNode, evt.relatedTarget, function (targetNode) {
-                        eventGenerator(evt, "pointerleave", false, targetNode, evt.relatedTarget);
-                    });
-                }
-            });
-    }
-
-    (function () {
-        if (window.MSPointerEvent) {
-            //IE 10
-            applySimpleEventTunnels(
-                function (name) { return getPrefixEventName("MS", name); },
-                generateTouchClonedEvent);
-        }
-        else {
-            applySimpleEventTunnels(getMouseEquivalentEventName, generateMouseProxy);
-
-            // Handling move on window to detect pointerleave/out/over
-            if (window.ontouchstart !== undefined) {
-                window.addEventListener('touchstart', function (eventObject) {
-                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
-                        var touchPoint = eventObject.changedTouches[i];
-                        previousTargets[touchPoint.identifier] = touchPoint.target;
-
-                        generateTouchEventProxyIfRegistered("pointerover", touchPoint, touchPoint.target, eventObject, true);
-
-                        //pointerenter should not be bubbled
-                        dispatchPointerEnter(touchPoint.target, null, function (targetNode) {
-                            generateTouchEventProxy("pointerenter", touchPoint, targetNode, eventObject, false);
-                        });
-
-                        generateTouchEventProxyIfRegistered("pointerdown", touchPoint, touchPoint.target, eventObject, true);
-                    }
-                    setTouchTimer();
-                });
-
-                window.addEventListener('touchend', function (eventObject) {
-                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
-                        var touchPoint = eventObject.changedTouches[i];
-                        var currentTarget = previousTargets[touchPoint.identifier];
-
-                        generateTouchEventProxyIfRegistered("pointerup", touchPoint, currentTarget, eventObject, true);
-                        generateTouchEventProxyIfRegistered("pointerout", touchPoint, currentTarget, eventObject, true);
-
-                        //pointerleave should not be bubbled
-                        dispatchPointerLeave(currentTarget, null, function (targetNode) {
-                            generateTouchEventProxy("pointerleave", touchPoint, targetNode, eventObject, false);
-                        });
-                    }
-                    setTouchTimer();
-                });
-
-                window.addEventListener('touchmove', function (eventObject) {
-                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
-                        var touchPoint = eventObject.changedTouches[i];
-                        var newTarget = document.elementFromPoint(touchPoint.clientX, touchPoint.clientY);
-                        var currentTarget = previousTargets[touchPoint.identifier];
-
-                        // If force preventDefault
-                        if (currentTarget && checkPreventDefault(currentTarget) === true)
-                            eventObject.preventDefault();
-
-                        generateTouchEventProxyIfRegistered("pointermove", touchPoint, currentTarget, eventObject, true);
-
-                        if (currentTarget === newTarget) {
-                            continue; // We can skip this as the pointer is effectively over the current target
-                        }
-
-                        if (currentTarget) {
-                            // Raise out
-                            generateTouchEventProxyIfRegistered("pointerout", touchPoint, currentTarget, eventObject, true, newTarget);
-
-                            // Raise leave
-                            if (!currentTarget.contains(newTarget)) { // Leave must be called if the new target is not a child of the current
-                                dispatchPointerLeave(currentTarget, newTarget, function (targetNode) {
-                                    generateTouchEventProxy("pointerleave", touchPoint, targetNode, eventObject, false, newTarget);
-                                });
-                            }
-                        }
-
-                        if (newTarget) {
-                            // Raise over
-                            generateTouchEventProxyIfRegistered("pointerover", touchPoint, newTarget, eventObject, true, currentTarget);
-
-                            // Raise enter
-                            if (!newTarget.contains(currentTarget)) { // Leave must be called if the new target is not the parent of the current
-                                dispatchPointerEnter(newTarget, currentTarget, function (targetNode) {
-                                    generateTouchEventProxy("pointerenter", touchPoint, targetNode, eventObject, false, currentTarget);
-                                })
-                            }
-                        }
-                        previousTargets[touchPoint.identifier] = newTarget;
-                    }
-                    setTouchTimer();
-                });
-
-                window.addEventListener('touchcancel', function (eventObject) {
-                    for (var i = 0; i < eventObject.changedTouches.length; ++i) {
-                        var touchPoint = eventObject.changedTouches[i];
-
-                        generateTouchEventProxyIfRegistered("pointercancel", touchPoint, previousTargets[touchPoint.identifier], eventObject, true);
-                    }
-                });
-            }
-        }
-    })();
-
-    // Extension to navigator
-    if (navigator.pointerEnabled === undefined) {
-
-        // Indicates if the browser will fire pointer events for pointing input
-        navigator.pointerEnabled = true;
-
-        // IE
-        if (navigator.msPointerEnabled) {
-            navigator.maxTouchPoints = navigator.msMaxTouchPoints;
-        }
-    }
-})(window);
-
-/**
- * Normalizes touch/touch+click events into a 'pointertap' event that is not
- * part of standard.
- * Uses pointerEvents polyfill or native PointerEvents when supported.
- *
- * @example
- * // Use pointertap as fastclick on touch enabled devices
- * document.querySelector('.btn').addEventListener(ch.pointertap, function(e) {
- *   console.log('tap');
- * });
- */
-(function () {
-    'use strict';
-
-    // IE8 has no support for custom Mouse Events, fallback to onclick
-    if (!window.MouseEvent) {
-        return;
-    }
-
-    var POINTER_TYPE_TOUCH = "touch";
-    var POINTER_TYPE_PEN = "pen";
-    var POINTER_TYPE_MOUSE = "mouse";
-
-    var isScrolling = false;
-    var scrollTimeout = false;
-    var sDistX = 0;
-    var sDistY = 0;
-    var activePointer;
-
-    window.addEventListener('scroll', function () {
-        if (!isScrolling) {
-            sDistX = window.pageXOffset;
-            sDistY = window.pageYOffset;
-        }
-        isScrolling = true;
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(function () {
-            isScrolling = false;
-            sDistX = 0;
-            sDistY = 0;
-        }, 100);
-    });
-
-    window.addEventListener('pointerdown', pointerDown);
-    window.addEventListener('pointerup', pointerUp);
-    window.addEventListener('pointerleave', pointerLeave);
-
-    window.addEventListener('pointermove', function (e) {});
-
-    /**
-     * Handles the 'pointerdown' event from pointerEvents polyfill or native PointerEvents when supported.
-     *
-     * @private
-     * @param {MouseEvent|PointerEvent} e Event.
-     */
-    function pointerDown(e) {
-        // don't register an activePointer if more than one touch is active.
-        var singleFinger = e.pointerType === POINTER_TYPE_MOUSE ||
-            e.pointerType === POINTER_TYPE_PEN ||
-            (e.pointerType === POINTER_TYPE_TOUCH && e.isPrimary);
-
-        if (!isScrolling && singleFinger) {
-            activePointer = {
-                id: e.pointerId,
-                clientX: e.clientX,
-                clientY: e.clientY,
-                x: (e.x || e.pageX),
-                y: (e.y || e.pageY),
-                type: e.pointerType
-            }
-        }
-    }
-
-    /**
-     * Handles the 'pointerleave' event from pointerEvents polyfill or native PointerEvents when supported.
-     *
-     * @private
-     * @param {MouseEvent|PointerEvent} e Event.
-     */
-    function pointerLeave(e) {
-        activePointer = null;
-    }
-
-    /**
-     * Handles the 'pointerup' event from pointerEvents polyfill or native PointerEvents when supported.
-     *
-     * @private
-     * @param {MouseEvent|PointerEvent} e Event.
-     */
-    function pointerUp(e) {
-        // Does our event is the same as the activePointer set by pointerdown?
-        if (activePointer && activePointer.id === e.pointerId) {
-            // Have we moved too much?
-            if (Math.abs(activePointer.x - (e.x || e.pageX)) < 5 &&
-                Math.abs(activePointer.y - (e.y || e.pageY)) < 5) {
-                // Have we scrolled too much?
-                if (!isScrolling ||
-                    (Math.abs(sDistX - window.pageXOffset) < 5 &&
-                    Math.abs(sDistY - window.pageYOffset) < 5)) {
-                    makePointertapEvent(e);
-                }
-            }
-        }
-        activePointer = null;
-    }
-
-    /**
-     * Creates the pointertap event that is not part of standard.
-     *
-     * @private
-     * @param {MouseEvent|PointerEvent} sourceEvent An event to use as a base for pointertap.
-     */
-    function makePointertapEvent(sourceEvent) {
-        var evt = document.createEvent('MouseEvents');
-        var newTarget = document.elementFromPoint(sourceEvent.clientX, sourceEvent.clientY);
-
-        // TODO: Replace 'initMouseEvent' with 'new MouseEvent'
-        evt.initMouseEvent('pointertap', true, true, window, 1, sourceEvent.screenX, sourceEvent.screenY,
-            sourceEvent.clientX, sourceEvent.clientY, sourceEvent.ctrlKey, sourceEvent.altKey,
-            sourceEvent.shiftKey, sourceEvent.metaKey, sourceEvent.button, newTarget);
-
-        evt.maskedEvent = sourceEvent;
-        newTarget.dispatchEvent(evt);
-
-        return evt;
-    }
-})();
-
 
 (function (window) {
 	'use strict';
@@ -2052,732 +34,50 @@ var ch = function(selector, context) {
             }
 
             return context.querySelectorAll(selector);
-        },
+        };
 
+ch.factory = function (Klass) {
         /**
-         * Reference to the window.
-         * @private
-         * @type {Object}
-         */
-        window = window,
-
-        /**
-         * Reference to the navigator object.
-         * @private
-         * @type {Object}
-         */
-        navigator = window.navigator,
-
-        /**
-         * Reference to the userAgent.
-         * @private
+         * Identification of the constructor, in lowercases.
          * @type {String}
          */
-        userAgent = navigator.userAgent,
-
-        /**
-         * Reference to the HTMLDocument.
-         * @private
-         * @type {Object}
-         */
-        document = window.document,
-
-        /**
-         * Reference to the HTMLElement.
-         * @private
-         * @type {HTMLhtmlElement}
-         */
-        html = document.documentElement,
-
-        /**
-         * Reference to the Object Contructor.
-         * @private
-         * @constructor
-         */
-        Object = window.Object,
-
-        /**
-         * Reference to the Array Contructor.
-         * @private
-         * @constructor
-         */
-        Array = window.Array;
-
-ch.util = {
-
-        /**
-         * Returns true if an object is an array, false if it is not.
-         *
-         * @memberof ch.util
-         * @method
-         * @param {Object} obj The object to be checked.
-         * @returns {Boolean}
-         * @example
-         * ch.util.isArray([1, 2, 3]); // true
-         */
-        'isArray': (function () {
-            if (typeof Array.isArray === 'function') {
-                return Array.isArray;
-            }
-
-            return function (obj) {
-                if (obj === undefined) {
-                    throw new Error('"ch.util.isArray(obj)": It must receive a parameter.');
-                }
-
-                return (Object.prototype.toString.call(obj) === '[object Array]');
-            };
-        }()),
-
-        /**
-         * Checks if the url given is right to load content.
-         *
-         * @memberof ch.util
-         * @param {String} url The url to be checked.
-         * @returns {Boolean}
-         * @example
-         * ch.util.isUrl('www.chico-ui.com.ar'); // true
-         */
-        'isUrl': function (url) {
-            if (url === undefined || typeof url !== 'string') {
-                return false;
-            }
-
-            /*
-            # RegExp
-
-            https://github.com/mercadolibre/chico/issues/579#issuecomment-5206670
-
-            ```javascript
-            1   1.1                        1.2   1.3  1.4       1.5       1.6                   2                      3               4                    5
-            /^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?))+)((\?)(\w+=(\w?)+(&?))+)?$/
-            ```
-
-            ## Description
-            1. Checks for the start of the URL
-                1. if starts with a protocols followed by :// Example: file://chico
-                2. if start with www followed by . (dot) Example: www.chico
-                3. if starts with ./
-                4. if starts with ../ and can repeat one or more times
-                5. if start with double slash // Example: //chico.server
-                6. if start with an ip address
-            2. Checks the domain
-              letters, dash followed by a dot or by a slash. All this group can repeat one or more times
-            3. Ports
-             Zero or one time
-            4. Idem to point two
-            5. QueryString pairs
-
-            ## Allowed URLs
-            1. http://www.mercadolibre.com
-            2. http://mercadolibre.com/
-            3. http://mercadolibre.com:8080?hola=
-            4. http://mercadolibre.com/pepe
-            5. http://localhost:2020
-            6. http://192.168.1.1
-            7. http://192.168.1.1:9090
-            8. www.mercadolibre.com
-            9. /mercadolibre
-            10. /mercadolibre/mercado
-            11. /tooltip?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
-            12. ./pepe
-            13. ../../mercado/
-            14. www.mercadolibre.com?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
-            15. www.mercado-libre.com
-            16. http://ui.ml.com:8080/ajax.html
-
-            ## Forbiden URLs
-            1. http://
-            2. http://www&
-            3. http://hola=
-            4. /../../mercado/
-            5. /mercado/../pepe
-            6. mercadolibre.com
-            7. mercado/mercado
-            8. localhost:8080/mercadolibre
-            9. pepe/../pepe.html
-            10. /pepe/../pepe.html
-            11. 192.168.1.1
-            12. localhost:8080/pepe
-            13. localhost:80-80
-            14. www.mercadolibre.com?siteId=MLA&categId=1744&buyi ngMode=buy_it_now&listingTypeId=bronze
-            15. `<asd src="www.mercadolibre.com">`
-            16. Mercadolibre.................
-            17. /laksjdlkasjd../
-            18. /..pepe..
-            19. /pepe..
-            20. pepe:/
-            21. /:pepe
-            22. dadadas.pepe
-            23. qdasdasda
-            24. http://ui.ml.com:8080:8080/ajax.html
-            */
-            return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(url));
-        },
-
-        /**
-         * Detects an Internet Explorer and returns the version if so.
-         *
-         * @memberof ch.util
-         * @see From <a href="https://github.com/ded/bowser/blob/master/bowser.js">bowser</a>
-         * @returns {Boolean|Number}
-         */
-        'isMsie': function() {
-            return (/(msie|trident)/i).test(navigator.userAgent) ?
-                navigator.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
-        },
-
-        /**
-         * Adds CSS rules to disable text selection highlighting.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} HTMLElement to disable text selection highlighting.
-         * @example
-         * ch.util.avoidTextSelection(document.querySelector('.menu nav'), document.querySelector('.menu ol'));
-         */
-        'avoidTextSelection': function () {
-            var args = arguments,
-                len = arguments.length,
-                i = 0;
-
-            if (arguments.length < 1) {
-                throw new Error('"ch.util.avoidTextSelection(HTMLElement);": At least one Element is required.');
-            }
-
-            for (i; i < len; i += 1) {
-
-                if (ch.util.classList(html).contains('lt-ie10')) {
-                    args[i].setAttribute('unselectable', 'on');
-
-                } else {
-                    ch.util.classList(args[i]).add('ch-user-no-select');
-                }
-
-            }
-        },
-
-        /**
-         * Gives the final used values of all the CSS properties of an element.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el The HTMLElement for which to get the computed style.
-         * @param {string} prop The name of the CSS property to test.
-         * @returns {CSSStyleDeclaration}
-         * @link http://www.quirksmode.org/dom/getstyles.html
-         * @example
-         * ch.util.getStyles(HTMLElement, 'color'); // true
-         */
-        'getStyles': function (el, prop) {
-
-            if (el === undefined || !(el.nodeType === 1)) {
-                throw new Error('"ch.util.getStyles(el, prop)": The "el" parameter is required and must be a HTMLElement.');
-            }
-
-            if (prop === undefined || typeof prop !== 'string') {
-                throw new Error('"ch.util.getStyles(el, prop)": The "prop" parameter is required and must be a string.');
-            }
-
-            if (window.getComputedStyle) {
-                return window.getComputedStyle(el, "").getPropertyValue(prop);
-            // IE
-            } else {
-                // Turn style name into camel notation
-                prop = prop.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
-                return el.currentStyle[prop];
-            }
-        },
-
-        /**
-         * Returns a shallow-copied clone of the object.
-         *
-         * @memberof ch.util
-         * @param {Object} obj The object to copy.
-         * @returns {Object}
-         * @example
-         * ch.util.clone(object);
-         */
-        'clone': function (obj) {
-            if (obj === undefined || typeof obj !== 'object') {
-                throw new Error('"ch.util.clone(obj)": The "obj" parameter is required and must be a object.');
-            }
-
-            var copy = {},
-                prop;
-
-            for (prop in obj) {
-                if (obj[prop] !== undefined) {
-                    copy[prop] = obj[prop];
-                }
-            }
-
-            return copy;
-        },
-
-        /**
-         * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.
-         *
-         * @memberof ch.util
-         * @param {Function} obj The object that have new members.
-         * @param {Function} superConstructor The construsctor Class.
-         * @returns {Object}
-         * @exampleDescription
-         * @example
-         * ch.util.inherit(obj, parent);
-         */
-        'inherits': function (obj, superConstructor) {
-
-            if (obj === undefined || typeof obj !== 'function') {
-                throw new Error('"ch.util.inherits(obj, superConstructor)": The "obj" parameter is required and must be a constructor function.');
-            }
-
-            if (superConstructor === undefined || typeof superConstructor !== 'function') {
-                throw new Error('"ch.util.inherits(obj, superConstructor)": The "superConstructor" parameter is required and must be a constructor function.');
-            }
-
-            var child = obj.prototype || {};
-            obj.prototype = ch.util.extend(child, superConstructor.prototype);
-
-            return superConstructor.prototype;
-        },
-
-        /**
-         * Prevent default actions of a given event.
-         *
-         * @memberof ch.util
-         * @param {Event} event The event ot be prevented.
-         * @returns {Object}
-         * @example
-         * ch.util.prevent(event);
-         */
-        prevent: function (event) {
-            if (typeof event === 'object' && event.preventDefault) {
-                event.preventDefault();
-            } else {
-                return false;
-            }
-        },
-
-        /**
-         * Get the current vertical and horizontal positions of the scroll bar.
-         *
-         * @memberof ch.util
-         * @returns {Object}
-         * @example
-         * ch.util.getScroll();
-         */
-        'getScroll': function () {
-            return {
-                'left': window.pageXOffset || document.documentElement.scrollLeft || 0,
-                'top': window.pageYOffset || document.documentElement.scrollTop || 0
-            };
-        },
-
-        /**
-         * Get the current outer dimensions of an element.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @returns {Object}
-         * @example
-         * ch.util.getOuterDimensions(el);
-         */
-        'getOuterDimensions': function (el) {
-            var obj = el.getBoundingClientRect();
-
-            return {
-                'width': (obj.right - obj.left),
-                'height': (obj.bottom - obj.top)
-            };
-        },
-
-        /**
-         * Get the current offset of an element.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @returns {Object}
-         * @example
-         * ch.util.getOffset(el);
-         */
-        'getOffset': function (el) {
-
-            var rect = el.getBoundingClientRect(),
-                fixedParent = ch.util.getPositionedParent(el, 'fixed'),
-                scroll = ch.util.getScroll(),
-                offset = {
-                    'left': rect.left,
-                    'top': rect.top
-                };
-
-            if (ch.util.getStyles(el, 'position') !== 'fixed' && fixedParent === null) {
-                offset.left += scroll.left;
-                offset.top += scroll.top;
-            }
-
-            return offset;
-        },
-
-        /**
-         * Get the current parentNode with the given position.
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @param {String} position A given position (static, relative, fixed or absolute).
-         * @returns {HTMLElement}
-         * @example
-         * ch.util.getPositionedParent(el, 'fixed');
-         */
-        'getPositionedParent': function (el, position) {
-            var currentParent = el.offsetParent,
-                parent;
-
-            while (parent === undefined) {
-
-                if (currentParent === null) {
-                    parent = null;
-                    break;
-                }
-
-                if (ch.util.getStyles(currentParent, 'position') !== position) {
-                    currentParent = currentParent.offsetParent;
-                } else {
-                    parent = currentParent;
-                }
-
-            };
-
-            return parent;
-        },
-
-        /**
-         * Reference to the vendor prefix of the current browser.
-         *
-         * @constant
-         * @memberof ch.util
-         * @type {String}
-         * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
-         * @example
-         * ch.util.VENDOR_PREFIX === 'webkit';
-         */
-        'VENDOR_PREFIX': (function () {
-
-            var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
-                styleDeclaration = document.getElementsByTagName('script')[0].style,
-                prop;
-
-            for (prop in styleDeclaration) {
-                if (regex.test(prop)) {
-                    return prop.match(regex)[0].toLowerCase();
-                }
-            }
-
-            // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
-            // However (prop in style) returns the correct value, so we'll have to test for
-            // the precence of a specific property
-            if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
-            if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
-
-            return '';
-        }()),
-
-        /**
-         * zIndex values.
-         * @type {Number}
-         * @example
-         * ch.util.zIndex += 1;
-         */
-        'zIndex': 1000,
-
-        /**
-         * Add or remove class
-         *
-         * @name classList
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @see Based on: <a href="http://youmightnotneedjquery.com/" target="_blank">http://youmightnotneedjquery.com/</a>
-         * @example
-         * ch.util.classList(document.body).add('ch-example');
-         */
-        'classList': function (el) {
-            var isClassList = el.classList;
-
-            return {
-                'add': function add(className) {
-                    if (isClassList) {
-                        el.classList.add(className);
-                    } else {
-                        el.setAttribute('class', el.getAttribute('class') + ' ' + className);
-                    }
-                },
-                'remove': function remove(className) {
-                    if (isClassList) {
-                        el.classList.remove(className)
-                    } else {
-                        el.setAttribute('class', el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' '));
-                    }
-                },
-                'contains': function contains(className) {
-                    var exist;
-                    if (isClassList) {
-                        exist = el.classList.contains(className);
-                    } else {
-                        exist = new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
-                    }
-                    return exist;
-                }
-            }
-        },
-
-        /**
-         * Extends an object with other object
-         *
-         * @name extend
-         * @memberof ch.util
-         * @method
-         * @param {Object} target The destination of the other objects
-         * @param {Object} obj1 The objects to be merged
-         * @param {Object} objn The objects to be merged
-         * @see Based on: <a href="https://github.com/jquery" target="_blank">https://github.com/jquery/</a>
-         * @example
-         * ch.util.extend(target, obj1, objn);
-         */
-        'extend': function() {
-            var options,
-                name,
-                src,
-                copy,
-                copyIsArray,
-                clone,
-                target = arguments[0] || {},
-                i = 1,
-                length = arguments.length,
-                deep = false;
-
-            // Handle a deep copy situation
-            if (typeof target === "boolean") {
-                deep = target;
-
-                // Skip the boolean and the target
-                target = arguments[i] || {};
-                i++;
-            }
-
-            // Handle case when target is a string or something (possible in deep copy)
-            if (typeof target !== "object" && !typeof target === 'function') {
-                target = {};
-            }
-
-            // Nothing to extend, return original object
-            if (length <= i) {
-                return target;
-            }
-
-            for (; i < length; i++) {
-                // Only deal with non-null/undefined values
-                if ((options = arguments[i]) != null) {
-                    // Extend the base object
-                    for ( name in options ) {
-                        src = target[name];
-                        copy = options[name];
-
-                        // Prevent never-ending loop
-                        if ( target === copy ) {
-                            continue;
-                        }
-
-                        // Recurse if we're merging plain objects or arrays
-                        if (deep && copy && (ch.util.isPlainObject(copy) || (copyIsArray = ch.util.isArray(copy)) ) ) {
-
-                            if (copyIsArray) {
-                                copyIsArray = false;
-                                clone = src && ch.util.isArray(src) ? src : [];
-
-                            } else {
-                                clone = src && ch.util.isPlainObject(src) ? src : {};
-                            }
-
-                            // Never move original objects, clone them
-                            target[name] = ch.util.extend( deep, clone, copy );
-
-                        // Don't bring in undefined values
-                        } else if (copy !== undefined) {
-                            target[name] = copy;
-                        }
-                    }
-                }
-            }
-
-            // Return the modified object
-            return target;
-        },
-
-        'isPlainObject': function(obj) {
-            // Not plain objects:
-            // - Any object or value whose internal [[Class]] property is not "[object Object]"
-            // - DOM nodes
-            // - window
-            if (typeof obj !== "object" || obj.nodeType || (obj != null && obj === obj.window)) {
-                return false;
-            }
-
-            if (obj.constructor && !Object.prototype.hasOwnProperty.call(obj.constructor.prototype, "isPrototypeOf")) {
-                return false;
-            }
-
-            // If the function hasn't returned already, we're confident that
-            // |obj| is a plain object, created by {} or constructed with new Object
-            return true;
-        },
-
-        // review this method :S
-        'parentElement': function(el, tagname) {
-            var parent = el.parentNode,
-                tag = tagname ? tagname.toUpperCase() : tagname;
-
-            if (parent === null) { return parent; }
-
-            // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
-            if (parent.nodeType !== 1) {
-                return this.parentElement(parent, tag);
-            }
-
-            if (tagname !== undefined && parent.tagName === tag) {
-                return parent;
-            } else if (tagname !== undefined && parent.tagName !== tag) {
-                return this.parentElement(parent, tag);
-            } else if (tagname === undefined) {
-                return parent;
-            }
-
-        },
-
-        /**
-         * IE8 safe method to get the next element sibling
-         *
-         * @memberof ch.util
-         * @param {HTMLElement} el A given HTMLElement.
-         * @returns {HTMLElement}
-         * @example
-         * ch.util.nextElementSibling(el);
-         */
-        'nextElementSibling': function(element) {
-            function next(el) {
-                do {
-                    el = el.nextSibling;
-                } while (el && el.nodeType !== 1);
-
-                return el;
-            }
-
-            return element.nextElementSibling || next(element);
-        },
-
-        /**
-         * JSONP handler based on Promises
-         *
-         * @memberof ch.util
-         * @method
-         * @param {String} url
-         * @param {Object} [options] Optional options.
-         * @param {String} [options.callback] Callback prefix. Default: "__jsonp"
-         * @param {String} [options.param] QS parameter. Default: "callback"
-         * @param {Number} [options.timeout] How long after the request until a timeout error
-         *   will occur. Default: 15000
-         *
-         * @returns {Object} Returns a response promise and a cancel handler.
-         *
-         * @example
-         * var req = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=smartphone&v=1');
-         * req.promise
-         *   .then(function(results){
-         *     console.log(results)
-         *   })
-         *   .catch(function(err){
-         *     console.error(err);
-         *   });
-         * if (something) {
-         *   req.cancel();
-         * }
-         */
-        loadJSONP: (function() {
-            var noop = function() {},
-                // document.head is not available in IE<9
-                head = document.getElementsByTagName('head')[0],
-                jsonpCount = 0;
-
-            return function (url, options) {
-                var script,
-                    timer,
-                    cleanup,
-                    promise,
-                    cancel;
-
-                options = ch.util.extend({
-                    prefix: '__jsonp',
-                    param: 'callback',
-                    timeout : 15000
-                }, options);
-
-                // Generate a unique id for the request.
-                var id = options.prefix + (jsonpCount++);
-
-                cleanup = function() {
-                    // Remove the script tag.
-                    if (script && script.parentNode) {
-                        script.parentNode.removeChild(script);
-                    }
-
-                    window[id] = noop;
-
-                    if (timer) {
-                        clearTimeout(timer);
-                    }
-                };
-
-                promise = new Promise(function(resolve, reject) {
-                    if (options.timeout) {
-                        timer = setTimeout(function() {
-                            cleanup();
-                            reject(new Error('Timeout'));
-                        }, options.timeout);
-                    }
-
-                    window[id] = function(data) {
-                        cleanup();
-                        resolve(data);
-                    };
-
-                    // Add querystring component
-                    url += (~url.indexOf('?') ? '&' : '?') + options.param + '=' + encodeURIComponent(id);
-                    url = url.replace('?&', '?');
-
-                    // Create script element
-                    script = document.createElement('script');
-                    script.type = 'text/javascript';
-                    script.src = url;
-                    script.onerror = function(e) {
-                        cleanup();
-                        reject(new Error(e.message || 'Script Error'));
-                    };
-                    head.appendChild(script);
-
-                    // TODO: move cancel fn definition outside of promise
-                    cancel = function() {
-                        if (window[id]) {
-                            cleanup();
-                            reject(new Error('Canceled'));
-                        }
-                    };
-                });
-
-                return {
-                    promise: promise,
-                    cancel: cancel
-                };
-            }
-        })()
+        var name = Klass.prototype.name;
+
+        // Uses the function.name property (non-standard) on the newest browsers OR
+        // uppercases the first letter from the identification name of the constructor
+        ch[(name.charAt(0).toUpperCase() + name.substr(1))] = Klass;
     };
-ch.util.fixLabels = function () {
+
+    // Remove no-js classname
+    tiny.removeClass(document.documentElement, 'no-js');
+
+    // Expose event names
+    for (var m in tiny) {
+        if (/^on\w+/.test(m) && typeof tiny[m] === 'string') {
+            ch[m] = tiny[m];
+        }
+    }
+
+    // Iphone scale fix
+    scaleFix();
+
+    // Prevent zoom onfocus
+    preventZoom();
+
+    // Fix the broken iPad/iPhone form label click issue
+    fixLabels();
+
+    // Cancel pointers if the user scroll.
+    cancelPointerOnScroll();
+
+    var viewportmeta = document.querySelector('meta[name=viewport]');
+
+    /**
+     * Fixes the broken iPad/iPhone form label click issue.
+     * @name fixLabels
+     * @see Based on: <a href="http://www.quirksmode.org/dom/getstyles.html" target="_blank">http://www.quirksmode.org/dom/getstyles.html</a>
+     */
+    function fixLabels() {
         var labels = document.getElementsByTagName('label'),
             target_id,
             el,
@@ -2794,17 +94,16 @@ ch.util.fixLabels = function () {
 
         for (; labels[i]; i += 1) {
             if (labels[i].getAttribute('for')) {
-                ch.Event.addListener(labels[i], ch.onpointertap, labelTap);
+                tiny.on(labels[i], ch.onpointertap, labelTap);
             }
         }
-    };
+    }
 
     /**
      * Cancel pointers if the user scroll.
      * @name cancelPointerOnScroll
-     * @memberof ch.util
      */
-    ch.util.cancelPointerOnScroll = function () {
+    function cancelPointerOnScroll() {
 
         function blockPointer() {
             ch.pointerCanceled = true;
@@ -2813,644 +112,54 @@ ch.util.fixLabels = function () {
                 ch.pointerCanceled = false;
             }
 
-            ch.Event.addListenerOne(document, 'touchend', unblockPointer);
+            tiny.once(document, 'touchend', unblockPointer);
         }
 
-        ch.Event.addListener(document, 'touchmove', blockPointer);
-    };
-
-    /*!
-     * MBP - Mobile boilerplate helper functions
-     * @name MBP
-     * @memberof ch.util
-     * @namespace
-     * @see View on <a href="https://github.com/h5bp/mobile-boilerplate" target="_blank">https://github.com/h5bp/mobile-boilerplate</a>
-     */
-    ch.util.MBP = {
-
-        // Fix for iPhone viewport scale bug
-        // http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
-        'viewportmeta': document.querySelector('meta[name=viewport]'),
-
-        'gestureStart': function () {
-            ch.util.MBP.viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=0.25, maximum-scale=1.6');
-        },
-
-        'scaleFix': function () {
-            if (ch.util.MBP.viewportmeta && /iPhone|iPad|iPod/.test(userAgent) && !/Opera Mini/.test(userAgent)) {
-                ch.util.MBP.viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=1.0, maximum-scale=1.0');
-                document.addEventListener('gesturestart', ch.util.MBP.gestureStart, false);
-            }
-        },
-
-        /*
-        * Normalized hide address bar for iOS & Android
-        * (c) Scott Jehl, scottjehl.com
-        * MIT License
-        */
-        // If we cache this we don't need to re-calibrate everytime we call
-        // the hide url bar
-        'BODY_SCROLL_TOP': false,
-
-        // It should be up to the mobile
-        'hideUrlBar': function () {
-            // if there is a hash, or MBP.BODY_SCROLL_TOP hasn't been set yet, wait till that happens
-            if (!window.location.hash && ch.util.MBP.BODY_SCROLL_TOP !== false) {
-                window.scrollTo( 0, ch.util.MBP.BODY_SCROLL_TOP === 1 ? 0 : 1 );
-            }
-        },
-
-        'hideUrlBarOnLoad': function () {
-            // If there's a hash, or addEventListener is undefined, stop here
-            if( !window.location.hash && window.addEventListener ) {
-
-                var scrollTop = ch.util.getScroll().top;
-
-                //scroll to 1
-                window.scrollTo(0, 1);
-                ch.util.MBP.BODY_SCROLL_TOP = 1;
-
-                //reset to 0 on bodyready, if needed
-                var bodycheck = setInterval(function () {
-                    if(document.body) {
-                        clearInterval(bodycheck);
-                        ch.util.MBP.BODY_SCROLL_TOP = scrollTop;
-                        ch.util.MBP.hideUrlBar();
-                    }
-                }, 15 );
-
-                window.addEventListener('load', function() {
-                    setTimeout(function () {
-                        //at load, if user hasn't scrolled more than 20 or so...
-                        if(scrollTop < 20) {
-                            //reset to hide addr bar at onload
-                            ch.util.MBP.hideUrlBar();
-                        }
-                    }, 0);
-                });
-            }
-        },
-
-        // Prevent iOS from zooming onfocus
-        // https://github.com/h5bp/mobile-boilerplate/pull/108
-        'preventZoom': function () {
-            var formFields = document.querySelectorAll('input, select, textarea'),
-                contentString = 'width=device-width,initial-scale=1,maximum-scale=',
-                i = 0;
-
-            for (; i < formFields.length; i += 1) {
-
-                formFields[i].onfocus = function() {
-                    ch.util.MBP.viewportmeta.setAttribute('content', contentString + '1');
-                };
-
-                formFields[i].onblur = function () {
-                    ch.util.MBP.viewportmeta.setAttribute('content', contentString + '10');
-                };
-            }
-        }
-    };
-ch.support = {
-
-        /**
-         * Verify that CSS Transitions are supported (or any of its browser-specific implementations).
-         *
-         * @static
-         * @type {Boolean|Object}
-         * @example
-         * if (ch.support.transition) {
-         *     // Some code here!
-         * }
-         */
-        'transition': transitionEnd(),
-
-        /**
-         * Verify that CSS Animations are supported (or any of its browser-specific implementations).
-         *
-         * @static
-         * @type {Boolean|Object}
-         * @example
-         * if (ch.support.animation) {
-         *     // Some code here!
-         * }
-         */
-        'animation': animationEnd(),
-
-        /**
-         * Checks is the User Agent supports touch events.
-         * @type {Boolean}
-         * @example
-         * if (ch.support.touch) {
-         *     // Some code here!
-         * }
-         */
-        'touch': 'ontouchend' in document,
-
-        /**
-         * Checks is the User Agent supports custom events.
-         * @type {Boolean}
-         * @example
-         * if (ch.support.customEvent) {
-         *     // Some code here!
-         * }
-         */
-        'customEvent': (function() {
-            // TODO: find better solution for CustomEvent check
-            try {
-                // IE8 has no support for CustomEvent, in IE gte 9 it cannot be
-                // instantiated but exist
-                new CustomEvent(name, data);
-                return true;
-            } catch (e) {
-                return false;
-            }
-        })()
-    };
-
-    /**
-     * Checks for the CSS Transitions support (http://www.modernizr.com/)
-     *
-     * @function
-     * @private
-     */
-    function transitionEnd() {
-        var el = document.createElement('ch');
-
-        var transEndEventNames = {
-            WebkitTransition : 'webkitTransitionEnd',
-            MozTransition    : 'transitionend',
-            OTransition      : 'oTransitionEnd otransitionend',
-            transition       : 'transitionend'
-        };
-
-        for (var name in transEndEventNames) {
-            if (transEndEventNames.hasOwnProperty(name) && el.style[name] !== undefined) {
-                return { end: transEndEventNames[name] }
-            }
-        }
-
-        return false;
+        tiny.on(document, 'touchmove', blockPointer);
     }
 
-    /**
-     * Checks for the CSS Animations support
-     *
-     * @function
-     * @private
-     */
-    function animationEnd() {
-        var el = document.createElement('ch');
-
-        var animEndEventNames = {
-            WebkitAnimation : 'webkitAnimationEnd',
-            MozAnimation    : 'animationend',
-            OAnimation      : 'oAnimationEnd oanimationend',
-            animation       : 'animationend'
-        };
-
-        for (var name in animEndEventNames) {
-            if (animEndEventNames.hasOwnProperty(name) && el.style[name] !== undefined) {
-                return { end: animEndEventNames[name] }
-            }
-        }
-
-        return false;
+    function gestureStart() {
+        viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=0.25, maximum-scale=1.6');
     }
 
-ch.onlayoutchange = 'layoutchange';
-
-/**
- * Equivalent to 'resize'.
- * @constant
- * @memberof ch
- * @type {String}
- */
-ch.onresize = 'resize';
-
-/**
- * Equivalent to 'scroll'.
- * @constant
- * @memberof ch
- * @type {String}
- */
-ch.onscroll = 'scroll';
-
-/**
- * Equivalent to 'pointerdown' or 'mousedown', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointerdown | Pointer Events W3C Recommendation
- */
-ch.onpointerdown = window.MouseEvent ? 'pointerdown' : 'mousedown';
-
-/**
- * Equivalent to 'pointerup' or 'mouseup', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointerup | Pointer Events W3C Recommendation
- */
-ch.onpointerup = window.MouseEvent ? 'pointerup' : 'mouseup';
-
-/**
- * Equivalent to 'pointermove' or 'mousemove', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointermove | Pointer Events W3C Recommendation
- */
-ch.onpointermove = window.MouseEvent ? 'pointermove' : 'mousemove';
-
-/**
- * Equivalent to 'pointertap' or 'click', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#list-of-pointer-events | Pointer Events W3C Recommendation
- */
-ch.onpointertap = (ch.support.touch && window.MouseEvent) ? 'pointertap' : 'click';
-
-/**
- * Equivalent to 'pointerenter' or 'mouseenter', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointerenter | Pointer Events W3C Recommendation
- */
-ch.onpointerenter = window.MouseEvent ? 'pointerenter' : 'mouseenter';
-
-/**
- * Equivalent to 'pointerleave' or 'mouseleave', depending on browser capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- * @link http://www.w3.org/TR/pointerevents/#dfn-pointerleave | Pointer Events W3C Recommendation
- */
-ch.onpointerleave = window.MouseEvent ? 'pointerleave' : 'mouseleave';
-
-/**
- * The DOM input event that is fired when the value of an <input> or <textarea>
- * element is changed. Equivalent to 'input' or 'keydown', depending on browser
- * capabilities.
- *
- * @constant
- * @memberof ch
- * @type {String}
- */
-ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';
-
-/**
- * Event utility
- *
- * @constant
- * @memberof ch
- * @type {Object}
- */
-ch.Event = (function () {
-    var isStandard = document.addEventListener ? true : false,
-        addHandler = isStandard ? 'addEventListener' : 'attachEvent',
-        removeHandler = isStandard ? 'removeEventListener' : 'detachEvent',
-        dispatch = isStandard ? 'dispatchEvent' : 'fireEvent',
-        _custom = {};
-
-    function evtUtility(evt) {
-        return isStandard ? evt : ('on' + evt);
-    }
-
-    return {
-        /**
-         * Crossbrowser implementation of {HTMLElement}.addEventListener.
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to add listener to
-         * @param {String} evt Event name
-         * @param {Function} fn Event handler function
-         * @param {Boolean} bubbles Whether or not to be propagated to outer elements.
-         * @example
-         * ch.Event.addListener(document, 'click', function(){}, false);
-         */
-        'addListener': function addListener(el, evt, fn, bubbles) {
-            el[addHandler](evtUtility(evt), fn, bubbles || false);
-        },
-        /**
-         * Attach a handler to an event for the {HTMLElement} that executes only
-         * once.
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to add listener to
-         * @param {String} evt Event name
-         * @param {Function} fn Event handler function
-         * @param {Boolean} bubbles Whether or not to be propagated to outer elements.
-         * @example
-         * ch.Event.addListenerOne(document, 'click', function(){}, false);
-         */
-        'addListenerOne': function addListener(el, evt, fn, bubbles) {
-
-            function oneRemove() {
-                el[removeHandler](evtUtility(evt), fn);
-            }
-
-            // must remove the event after executes one time
-            el[addHandler](evtUtility(evt), fn, bubbles || false);
-            // TODO: Review this method, looks like has wrong behavior when listener should be removed
-            el[addHandler](evtUtility(evt), function () {
-                oneRemove()
-            }, bubbles || false);
-        },
-        /**
-         * Crossbrowser implementation of {HTMLElement}.removeEventListener.
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to remove listener from
-         * @param {String} evt Event name
-         * @param {Function} fn Event handler function to remove
-         * @example
-         * ch.Event.removeListener(document, 'click', fn);
-         */
-        'removeListener': function removeListener(el, evt, fn) {
-            el[removeHandler](evtUtility(evt), fn);
-        },
-        /**
-         * Crossbrowser implementation of {HTMLElement}.removeEventListener.
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to dispatch event to
-         * @param {String|Event} evt Event name or event object
-         * @example
-         * ch.Event.dispatchEvent(document, 'click');
-         */
-        'dispatchEvent': function dispatchEvent(el, e) {
-            var event = e;
-
-            if (typeof e === 'string') {
-                event = document.createEvent('Event');
-                event.initEvent(e, true, true);
-            }
-            el[dispatch](event);
-        },
-        /**
-         * Dispatches the custom event that is not the part of standard DOM Event
-         *
-         * @memberof ch.Event
-         * @type {Function}
-         * @param {HTMLElement} el An HTMLElement to dispatch event to
-         * @param {String} name Custom event name
-         * @param {Object} params Optional event params that should be passed to an event
-         * @example
-         * ch.Event.dispatchCustomEvent(document, ch.onlayoutchange, {
-         *   bubbles: true,
-         *   cancelable: false,
-         *   detail: {
-         *     x: 123
-         *   }
-         * });
-         */
-        'dispatchCustomEvent': function dispatchCustomEvent(el, name, params) {
-            if (!_custom[name]) {
-                var data = ch.util.extend({
-                        bubbles: false,
-                        cancelable: false,
-                        detail: undefined
-                    }, params),
-                    eventName = window.CustomEvent ? 'CustomEvent' : 'Event';
-
-                if (ch.support.customEvent) {
-                    _custom[name] = new CustomEvent(name, data);
-                } else {
-                    _custom[name] = document.createEvent(eventName);
-                    _custom[name]['init' + eventName](name, data.bubbles, data.cancelable, data.detail);
-                }
-            }
-
-            el[dispatch](_custom[name]);
+    // Fix for iPhone viewport scale bug
+    // http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
+    // @see View on <a href="https://github.com/h5bp/mobile-boilerplate" target="_blank">https://github.com/h5bp/mobile-boilerplate</a>
+    function scaleFix() {
+        var ua = navigator.userAgent;
+        if (viewportmeta && /iPhone|iPad|iPod/.test(ua) && !/Opera Mini/.test(ua)) {
+            viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=1.0, maximum-scale=1.0');
+            document.addEventListener('gesturestart', gestureStart, false);
         }
     }
-}());
 
-ch.factory = function (Klass) {
-        /**
-         * Identification of the constructor, in lowercases.
-         * @type {String}
-         */
-        var name = Klass.prototype.name;
+    // Prevent iOS from zooming onfocus
+    // https://github.com/h5bp/mobile-boilerplate/pull/108
+    // @see View on <a href="https://github.com/h5bp/mobile-boilerplate" target="_blank">https://github.com/h5bp/mobile-boilerplate</a>
+    function preventZoom() {
+        var formFields = document.querySelectorAll('input, select, textarea'),
+            contentString = 'width=device-width,initial-scale=1,maximum-scale=',
+            i = 0;
 
-        // Uses the function.name property (non-standard) on the newest browsers OR
-        // uppercases the first letter from the identification name of the constructor
-        ch[(name.charAt(0).toUpperCase() + name.substr(1))] = Klass;
-    };
+        if (!viewportmeta) {
+            return;
+        }
 
-    // Remove no-js classname
-    ch.util.classList(html).remove('no-js');
+        for (; i < formFields.length; i += 1) {
+            formFields[i].onfocus = function() {
+                viewportmeta.setAttribute('content', contentString + '1');
+            };
 
-    // Iphone scale fix
-    ch.util.MBP.scaleFix();
-
-    // Hide navigation url bar
-    ch.util.MBP.hideUrlBarOnLoad();
-
-    // Prevent zoom onfocus
-    ch.util.MBP.preventZoom();
-
-    // Fix the broken iPad/iPhone form label click issue
-    ch.util.fixLabels();
-
-    // Cancel pointers if the user scroll.
-    ch.util.cancelPointerOnScroll();
+            formFields[i].onblur = function () {
+                viewportmeta.setAttribute('content', contentString + '10');
+            };
+        }
+    }
 
 	ch.version = '2.0.0-alpha.2';
 	window.ch = ch;
 }(this));
 (function (ch) {
-    'use strict';
-
-    /**
-     * Event Emitter Class for the browser.
-     * @memberof ch
-     * @constructor
-     * @returns {Object} Returns a new instance of EventEmitter.
-     * @example
-     * // Create a new instance of EventEmitter.
-     * var emitter = new ch.EventEmitter();
-     * @example
-     * // Inheriting from EventEmitter.
-     * ch.util.inherits(Component, ch.EventEmitter);
-     */
-    function EventEmitter() {}
-
-    /**
-     * Adds a listener to the collection for a specified event.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event The event name to subscribe.
-     * @param {Function} listener Listener function.
-     * @param {Boolean} once Indicate if a listener function will be called only one time.
-     * @returns {component}
-     * @example
-     * // Will add an event listener to 'ready' event.
-     * component.on('ready', listener);
-     */
-    EventEmitter.prototype.on = function (event, listener, once) {
-
-        if (event === undefined) {
-            throw new Error('ch.EventEmitter - "on(event, listener)": It should receive an event.');
-        }
-
-        if (listener === undefined) {
-            throw new Error('ch.EventEmitter - "on(event, listener)": It should receive a listener function.');
-        }
-
-        this._eventsCollection = this._eventsCollection || {};
-
-        listener.once = once || false;
-
-        if (this._eventsCollection[event] === undefined) {
-            this._eventsCollection[event] = [];
-        }
-
-        this._eventsCollection[event].push(listener);
-
-        return this;
-    };
-
-    /**
-     * Adds a listener to the collection for a specified event to will execute only once.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event Event name.
-     * @param {Function} listener Listener function.
-     * @returns {component}
-     * @example
-     * // Will add an event handler to 'contentLoad' event once.
-     * component.once('contentLoad', listener);
-     */
-    EventEmitter.prototype.once = function (event, listener) {
-
-        this.on(event, listener, true);
-
-        return this;
-    };
-
-    /**
-     * Removes a listener from the collection for a specified event.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event Event name.
-     * @param {Function} listener Listener function.
-     * @returns {component}
-     * @example
-     * // Will remove event listener to 'ready' event.
-     * component.off('ready', listener);
-     */
-    EventEmitter.prototype.off = function (event, listener) {
-
-        if (event === undefined) {
-            throw new Error('EventEmitter - "off(event, listener)": It should receive an event.');
-        }
-
-        if (listener === undefined) {
-            throw new Error('EventEmitter - "off(event, listener)": It should receive a listener function.');
-        }
-
-        var listeners = this._eventsCollection[event],
-            i = 0,
-            len;
-
-        if (listeners !== undefined) {
-            len = listeners.length;
-            for (i; i < len; i += 1) {
-                if (listeners[i] === listener) {
-                    listeners.splice(i, 1);
-                    break;
-                }
-            }
-        }
-
-        return this;
-    };
-
-    /**
-     * Returns all listeners from the collection for a specified event.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event The event name.
-     * @returns {Array}
-     * @example
-     * // Returns listeners from 'ready' event.
-     * component.getListeners('ready');
-     */
-    EventEmitter.prototype.getListeners = function (event) {
-        if (event === undefined) {
-            throw new Error('ch.EventEmitter - "getListeners(event)": It should receive an event.');
-        }
-
-        return this._eventsCollection[event];
-    };
-
-    /**
-     * Execute each item in the listener collection in order with the specified data.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event The name of the event you want to emit.
-     * @param {...Object} var_args Data to pass to the listeners.
-     * @returns {component}
-     * @example
-     * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
-     * component.emit('ready', 'param1', 'param2');
-     */
-    EventEmitter.prototype.emit = function () {
-
-        var args = Array.prototype.slice.call(arguments, 0), // converted to array
-            event = args.shift(), // Store and remove events from args
-            listeners,
-            i = 0,
-            len;
-
-        if (event === undefined) {
-            throw new Error('ch.EventEmitter - "emit(event)": It should receive an event.');
-        }
-
-        if (typeof event === 'string') {
-            event = {'type': event};
-        }
-
-        if (!event.target) {
-            event.target = this;
-        }
-
-        if (this._eventsCollection !== undefined && this._eventsCollection[event.type] !== undefined) {
-            listeners = this._eventsCollection[event.type];
-            len = listeners.length;
-
-            for (i; i < len; i += 1) {
-                listeners[i].apply(this, args);
-
-                if (listeners[i].once) {
-                    this.off(event.type, listeners[i]);
-                    len -= 1;
-                    i -= 1;
-                }
-            }
-        }
-
-        return this;
-    };
-
-    // Expose EventEmitter
-    ch.EventEmitter = EventEmitter;
-
-}(this.ch));
-(function (ch, fetch) {
     'use strict';
 
     /**
@@ -3471,7 +180,6 @@ ch.factory = function (Klass) {
                 'method': this._options.method,
                 'params': this._options.params,
                 'cache': this._options.cache,
-                'async': this._options.async,
                 'waiting': this._options.waiting
             };
 
@@ -3561,11 +269,11 @@ ch.factory = function (Klass) {
         function getAsyncContent(url, options) {
             var requestCfg;
             // Initial options to be merged with the user's options
-            options = ch.util.extend({
+            options = tiny.extend({
                 'method': 'GET',
                 'params': '',
                 'waiting': '<div class="ch-loading-large"></div>'
-            }, options || defaults);
+            }, defaults, options);
 
             // Set loading
             setAsyncContent({
@@ -3575,50 +283,39 @@ ch.factory = function (Klass) {
 
             requestCfg = {
                 method: options.method,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
+                success: function(resp) {
+                    setAsyncContent({
+                        'status': 'done',
+                        'response': resp
+                    });
                 },
-                cache: 'default'
+                error: function(err) {
+                    setAsyncContent({
+                        'status': 'error',
+                        'response': '<p>Error on ajax call.</p>',
+                        'data': err.message || JSON.stringify(err)
+                    });
+                }
             };
 
             if (options.cache !== undefined) {
                 that._options.cache = options.cache;
             }
 
-            if (options.cache === false && ['GET', 'HEAD'].indexOf(options.method.toUpperCase()) === 0) {
-                requestCfg.cache = 'no-cache';
+            if (options.cache === false && ['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
+                requestCfg.cache = false;
             }
 
             if (options.params) {
-                url += (url.indexOf('?') !== -1 || options.params[0] === '?' ? '' : '?') + options.params;
+                if (['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
+                    url += (url.indexOf('?') !== -1 || options.params[0] === '?' ? '' : '?') + options.params;
+                } else {
+                    requestCfg.data = options.params
+                }
             }
 
             // Make a request
-            fetch(url, requestCfg)
-                .then(function(response) {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.text();
-                    } else {
-                        return this.reject(new Error(response.statusText));
-                    }
-                })
-                .then(function(body) {
-                    // Send the result data to the client
-                    setAsyncContent({
-                        'status': 'done',
-                        'response': body
-                    });
-                })
-                ['catch'](function(err) {
-                    // Send a defined error message
-                    setAsyncContent({
-                        'status': 'error',
-                        'response': '<p>Error on ajax call.</p>',
-
-                        // Grab all the parameters into a JSON to send to the client
-                        'data': err
-                    });
-                });
+            tiny.ajax(url, requestCfg);
         }
 
         /**
@@ -3657,8 +354,8 @@ ch.factory = function (Klass) {
 
             if (typeof content === 'string') {
                 // Case 1: AJAX call
-                if (ch.util.isUrl(content)) {
-                    getAsyncContent(content, options);
+                if ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(content)) {
+                    getAsyncContent(content.replace(/#.+/, ''), options);
                 // Case 2: Plain text
                 } else {
                     setContent(content);
@@ -3666,8 +363,8 @@ ch.factory = function (Klass) {
             // Case 3: HTML Element
             } else if (content.nodeType !== undefined) {
 
-                ch.util.classList(content).remove('ch-hide');
-                parent = ch.util.parentElement(content);
+                tiny.removeClass(content, 'ch-hide');
+                parent = tiny.parent(content);
 
                 setContent(content);
 
@@ -3695,7 +392,7 @@ ch.factory = function (Klass) {
 
     ch.Content = Content;
 
-}(this.ch, this.fetch));
+}(this.ch));
 
 (function (ch) {
     'use strict';
@@ -3723,19 +420,19 @@ ch.factory = function (Klass) {
         var that = this,
             triggerClass = 'ch-' + this.name + '-trigger-on',
             fx = this._options.fx,
-            useEffects = (ch.support.transition && fx !== 'none' && fx !== false),
+            useEffects = (tiny.support.transition && fx !== 'none' && fx !== false),
             pt, pb;
 
         function showCallback(e) {
             if (useEffects) {
-                ch.util.classList(that.container).remove('ch-fx-' + fx);
+                tiny.removeClass(that.container, 'ch-fx-' + fx);
 
                 // TODO: Use original height when it is defined
                 if (/^slide/.test(fx)) {
                     that.container.style.height = '';
                 }
             }
-            ch.util.classList(that.container).remove('ch-hide');
+            tiny.removeClass(that.container, 'ch-hide');
             that.container.setAttribute('aria-hidden', 'false');
 
             if (e) {
@@ -3756,13 +453,13 @@ ch.factory = function (Klass) {
 
         function hideCallback(e) {
             if (useEffects) {
-                ch.util.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                tiny.removeClass(that.container, 'ch-fx-' + toggleEffects[fx]);
                 that.container.style.display = '';
                 if (/^slide/.test(fx)) {
                     that.container.style.height = '';
                 }
             }
-            ch.util.classList(that.container).add('ch-hide');
+            tiny.addClass(that.container, 'ch-hide');
             that.container.setAttribute('aria-hidden', 'true');
 
             if (e) {
@@ -3793,7 +490,7 @@ ch.factory = function (Klass) {
             that._shown = true;
 
             if (that.trigger !== undefined) {
-                ch.util.classList(that.trigger).add(triggerClass);
+                tiny.addClass(that.trigger, triggerClass);
             }
 
             /**
@@ -3813,10 +510,10 @@ ch.factory = function (Klass) {
 
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
-                ch.Event.removeListener(that.container, ch.support.transition.end, hideCallback);
-                ch.util.classList(that.container).remove('ch-fx-' + toggleEffects[fx]);
+                tiny.off(that.container, tiny.support.transition.end, hideCallback);
+                tiny.removeClass(that.container, 'ch-fx-' + toggleEffects[fx]);
 
-                ch.Event.addListener(that.container, ch.support.transition.end, showCallback);
+                tiny.on(that.container, tiny.support.transition.end, showCallback);
 
                 // Reveal an element before the transition
                 that.container.style.display = 'block';
@@ -3825,8 +522,8 @@ ch.factory = function (Klass) {
                 if (/^slide/.test(fx)) {
                     // Cache the original paddings for the first time
                     if (!pt || !pb) {
-                        pt = ch.util.getStyles(that.container, 'padding-top');
-                        pb = ch.util.getStyles(that.container, 'padding-bottom');
+                        pt = tiny.css(that.container, 'padding-top');
+                        pb = tiny.css(that.container, 'padding-bottom');
 
                         that.container.style.marginTop = that.container.style.marginBottom =
                             that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
@@ -3845,7 +542,7 @@ ch.factory = function (Klass) {
                     }
                     that.container.style.paddingTop = pt;
                     that.container.style.paddingBottom = pb;
-                    ch.util.classList(that.container).add('ch-fx-' + fx);
+                    tiny.addClass(that.container, 'ch-fx-' + fx);
                 }, 0);
             } else {
                 showCallback();
@@ -3866,7 +563,7 @@ ch.factory = function (Klass) {
             that._shown = false;
 
             if (that.trigger !== undefined) {
-                ch.util.classList(that.trigger).remove(triggerClass);
+                tiny.removeClass(that.trigger, triggerClass);
             }
 
             /**
@@ -3884,22 +581,22 @@ ch.factory = function (Klass) {
             if (useEffects) {
                 // Be sure to remove an opposite class that probably exist and
                 // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
-                ch.Event.removeListener(that.container, ch.support.transition.end, showCallback);
-                ch.util.classList(that.container).remove('ch-fx-' + fx);
+                tiny.off(that.container, tiny.support.transition.end, showCallback);
+                tiny.removeClass(that.container, 'ch-fx-' + fx);
 
-                ch.Event.addListener(that.container, ch.support.transition.end, hideCallback);
+                tiny.on(that.container, tiny.support.transition.end, hideCallback);
                 // Set margin and padding to 0 to prevent content jumping at the transition end
                 if (/^slide/.test(fx)) {
-                    that.container.style.height = ch.util.getStyles(that.container, 'height');
+                    that.container.style.height = tiny.css(that.container, 'height');
                     // Uses nextTick to trigger the height change
                     setTimeout(function() {
                         that.container.style.height = '0px';
                         that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
-                        ch.util.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                        tiny.addClass(that.container, 'ch-fx-' + toggleEffects[fx]);
                     }, 0);
                 } else {
                     setTimeout(function() {
-                        ch.util.classList(that.container).add('ch-fx-' + toggleEffects[fx]);
+                        tiny.addClass(that.container, 'ch-fx-' + toggleEffects[fx]);
                     }, 0);
                 }
             } else {
@@ -3982,15 +679,14 @@ ch.factory = function (Klass) {
      * The Viewport is a component to ease viewport management. You can get the dimensions of the viewport and beyond, which can be quite helpful to perform some checks with JavaScript.
      * @memberof ch
      * @constructor
-     * @augments ch.EventEmitter
-     * @requires ch.util
+     * @augments tiny.EventEmitter
      * @returns {viewport} Returns a new instance of Viewport.
      */
     function Viewport() {
         this._init();
     }
 
-    ch.util.inherits(Viewport, ch.EventEmitter);
+    tiny.inherits(Viewport, tiny.EventEmitter);
 
     /**
      * Initialize a new instance of Viewport.
@@ -4000,6 +696,9 @@ ch.factory = function (Klass) {
      * @returns {viewport}
      */
     Viewport.prototype._init = function () {
+        // Set emitter to zero for unlimited listeners to avoid the warning in console
+        // @see https://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n
+        this.setMaxListeners(0);
 
         /**
          * Reference to context of an instance.
@@ -4159,7 +858,7 @@ ch.factory = function (Klass) {
          * @type {Object}
          * @private
          */
-        var scroll = ch.util.getScroll();
+        var scroll = tiny.scroll();
 
         /**
          * The offset top of the viewport.
@@ -4294,7 +993,6 @@ ch.factory = function (Klass) {
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
      * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
      * @param {String} [options.position] Thethe type of positioning used. You must use: "absolute" or "fixed". Default: "fixed".
-     * @requires ch.util
      * @requires ch.Viewport
      * @returns {positioner} Returns a new instance of Positioner.
      * @example
@@ -4343,7 +1041,7 @@ ch.factory = function (Klass) {
         }
 
         // Creates its private options
-        this._options = ch.util.clone(this._defaults);
+        this._options = tiny.clone(this._defaults);
 
         // Init
         this._configure(options);
@@ -4389,7 +1087,7 @@ ch.factory = function (Klass) {
     Positioner.prototype._configure = function (options) {
 
         // Merge user options with its options
-        ch.util.extend(this._options, options);
+        tiny.extend(this._options, options);
 
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);
@@ -4462,14 +1160,14 @@ ch.factory = function (Klass) {
         reference.setAttribute('data-side', this._options.side);
         reference.setAttribute('data-align', this._options.align);
 
-        this._reference = ch.util.getOuterDimensions(reference);
+        this._reference = this._getOuterDimensions(reference);
 
         if (reference.offsetParent === this.target.offsetParent) {
             this._reference.left = reference.offsetLeft;
             this._reference.top = reference.offsetTop;
 
         } else {
-            offset = ch.util.getOffset(reference);
+            offset = tiny.offset(reference);
             this._reference.left = offset.left;
             this._reference.top = offset.top;
         }
@@ -4490,9 +1188,25 @@ ch.factory = function (Klass) {
         target.setAttribute('data-side', this._options.side);
         target.setAttribute('data-align', this._options.align);
 
-        this._target = ch.util.getOuterDimensions(target);
+        this._target = this._getOuterDimensions(target);
 
         return this;
+    };
+
+    /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Positioner.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Positioner.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
     };
 
     /**
@@ -4562,15 +1276,14 @@ ch.factory = function (Klass) {
 (function (window, ch) {
     'use strict';
 
-    var util = ch.util,
-        uid = 0;
+    var uid = 0;
 
     /**
      * Base class for all components.
      *
      * @memberof ch
      * @constructor
-     * @augments ch.EventEmitter
+     * @augments tiny.EventEmitter
      * @param {HTMLElement} [el] It must be a HTMLElement.
      * @param {Object} [options] Configuration options.
      * @returns {component} Returns a new instance of Component.
@@ -4613,7 +1326,7 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    ch.util.inherits(Component, ch.EventEmitter);
+    tiny.inherits(Component, tiny.EventEmitter);
 
     /**
      * The name of a component.
@@ -4637,9 +1350,12 @@ ch.factory = function (Klass) {
      * @returns {component}
      */
     Component.prototype._init = function (el, options) {
+        // Set emitter to zero for unlimited listeners to avoid the warning in console
+        // @see https://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n
+        this.setMaxListeners(0);
 
         // Clones defaults or creates a defaults object
-        var defaults = (this._defaults) ? util.clone(this._defaults) : {};
+        var defaults = (this._defaults) ? tiny.clone(this._defaults) : {};
 
         if (el === null) {
             throw new Error('The "el" parameter is not present in the DOM');
@@ -4661,7 +1377,7 @@ ch.factory = function (Klass) {
             this._el.setAttribute('data-uid', this.uid);
 
             // we extend defaults with options parameter
-            this._options = ch.util.extend(defaults, options);
+            this._options = tiny.extend(defaults, options);
 
         // el is an object configuration
         } else if (el === undefined || el.nodeType === undefined && typeof el === 'object') {
@@ -4670,7 +1386,7 @@ ch.factory = function (Klass) {
             // this._el = document.createElement('div');
 
             // we extend defaults with the object that is in el parameter object
-            this._options = ch.util.extend(defaults, el);
+            this._options = tiny.extend(defaults, el);
         }
 
         /**
@@ -4882,8 +1598,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var document = window.document,
-        parent = ch.util.inherits(Expandable, ch.Component);
+    tiny.inherits(Expandable, ch.Component);
+
+    var parent = Expandable.super_.prototype;
 
     /**
      * The name of the component.
@@ -4941,14 +1658,23 @@ ch.factory = function (Klass) {
          * expandable.trigger;
          */
         this.trigger = this._el;
-        ch.util.classList(this.trigger).add(this._options._classNameTrigger);
-        ch.util.classList(this.trigger).add(this._options._classNameIcon);
-        ch.Event.addListener(this.trigger, ch.onpointertap, function (event) {
+        tiny.addClass(this.trigger, this._options._classNameTrigger);
+        tiny.addClass(this.trigger, this._options._classNameIcon);
+
+        if (navigator.pointerEnabled) {
+            tiny.on(this._el, 'click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        tiny.on(this.trigger, ch.onpointertap, function (event) {
             if (ch.pointerCanceled) {
                 return;
             }
 
-            ch.util.prevent(event);
+            event.preventDefault();
 
             if (that._options.toggle) {
                 that._toggle();
@@ -4965,11 +1691,11 @@ ch.factory = function (Klass) {
          * expandable.container;
          */
         this.container = this._content = (this._options.container ?
-            this._options.container : ch.util.nextElementSibling(this._el));
-        ch.util.classList(this.container).add(this._options._classNameContainer);
-        ch.util.classList(this.container).add('ch-hide');
-        if (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
-            ch.util.classList(this.container).add('ch-fx');
+            this._options.container : tiny.next(this._el));
+        tiny.addClass(this.container, this._options._classNameContainer);
+        tiny.addClass(this.container, 'ch-hide');
+        if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
+            tiny.addClass(this.container, 'ch-fx');
         }
         this.container.setAttribute('aria-expanded', 'false');
 
@@ -4984,13 +1710,14 @@ ch.factory = function (Klass) {
 
         this
             .on('show', function () {
-                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             })
             .on('hide', function () {
-                ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             });
 
-        ch.util.avoidTextSelection(this.trigger);
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         return this;
     };
@@ -5088,19 +1815,24 @@ ch.factory = function (Klass) {
      * expandable = undefined;
      */
     Expandable.prototype.destroy = function () {
+        var trigger = this.trigger;
 
-        //this.$trigger.off('.expandable')
-        ch.util.classList(this.trigger).remove('ch-expandable-trigger');
-        ch.util.classList(this.trigger).remove('ch-expandable-ico');
-        ch.util.classList(this.trigger).remove('ch-user-no-select');
+        [
+            'ch-expandable-trigger',
+            'ch-expandable-ico',
+            'ch-user-no-select'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
+
+        this.trigger.removeAttribute('unselectable');
         this.trigger.removeAttribute('aria-controls');
-
-        ch.util.classList(this.container).remove('ch-expandable-container');
-        ch.util.classList(this.container).remove('ch-hide');
+        tiny.removeClass(this.container, 'ch-expandable-container');
+        tiny.removeClass(this.container, 'ch-hide');
         this.container.removeAttribute('aria-expanded');
         this.container.removeAttribute('aria-hidden');
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -5166,7 +1898,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Menu, ch.Component),
+    tiny.inherits(Menu, ch.Component);
+
+    var parent = Menu.super_.prototype,
 
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
@@ -5250,10 +1984,10 @@ ch.factory = function (Klass) {
          */
         this.container = this._el;
         this.container.setAttribute('role', 'navigation');
-        ch.util.classList(this.container).add('ch-menu');
+        tiny.addClass(this.container, 'ch-menu');
 
-        this._options._className ? ch.util.classList(this.container).add(this._options._className) : null;
-        this._options.addClass ? ch.util.classList(this.container).add(this._options.addClass) : null;
+        this._options._className ? tiny.addClass(this.container, this._options._className) : null;
+        this._options.addClass ? tiny.addClass(this.container, this._options.addClass) : null;
 
         /**
          * A collection of folds.
@@ -5288,7 +2022,7 @@ ch.factory = function (Klass) {
                 menu;
 
             // List element
-            ch.util.classList(li).add('ch-menu-fold');
+            tiny.addClass(li, 'ch-menu-fold');
 
             // Children of list elements
             child = li.children[0];
@@ -5298,7 +2032,7 @@ ch.factory = function (Klass) {
                 // Add attr role to match wai-aria
                 li.setAttribute('role', 'presentation');
                 //
-                ch.util.classList(child).add('ch-fold-trigger');
+                tiny.addClass(child, 'ch-fold-trigger');
                 // Add anchor to that.fold
                 that.folds.push(child);
 
@@ -5335,7 +2069,7 @@ ch.factory = function (Klass) {
                         that.emit('hide');
                     });
 
-                menu = ch.util.nextElementSibling(child);
+                menu = tiny.next(child);
                 menu.setAttribute('role', 'menu');
 
                 Array.prototype.forEach.call(menu.children, function (item){
@@ -5439,7 +2173,7 @@ ch.factory = function (Klass) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -5525,9 +2259,11 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Popover, ch.Component);
+
     var document = window.document,
-        // Inheritance
-        parent = ch.util.inherits(Popover, ch.Component),
+        parent = Popover.super_.prototype,
         shownbyEvent = {
             'pointertap': ch.onpointertap,
             'pointerenter': ch.onpointerenter
@@ -5592,10 +2328,10 @@ ch.factory = function (Klass) {
         container.innerHTML = [
             '<div',
             ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass +
-                (ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
+                (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
-            ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
+            ' style="width:' + this._options.width + ';height:' + this._options.height + '"',
             '></div>'
         ].join('');
 
@@ -5605,7 +2341,7 @@ ch.factory = function (Klass) {
          */
         this.container = container.querySelector('div');
 
-        ch.Event.addListener(this.container, ch.onpointertap, function (event) {
+        tiny.on(this.container, ch.onpointertap, function (event) {
             event.stopPropagation();
         });
 
@@ -5616,7 +2352,7 @@ ch.factory = function (Klass) {
          */
         this._content = document.createElement('div');
 
-        ch.util.classList(this._content).add('ch-popover-content');
+        tiny.addClass(this._content, 'ch-popover-content');
 
         this.container.appendChild(this._content);
 
@@ -5651,18 +2387,18 @@ ch.factory = function (Klass) {
             that._timeout = window.setTimeout(function () {
                 that.hide();
             }, that._options._hideDelay);
-        }
+        };
 
         this._hideTimerCleaner = function () {
             window.clearTimeout(that._timeout);
-        }
+        };
 
         // Configure the way it hides
         this._configureHiding();
 
         // Refresh position:
         // on layout change
-        ch.Event.addListener(document, ch.onlayoutchange, this._refreshPositionListener)
+        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener)
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -5724,14 +2460,19 @@ ch.factory = function (Klass) {
         // Open event when configured as able to shown anyway
         if (this._options.shownby !== 'none') {
 
-            ch.util.classList(this._el).add('ch-shownby-' + this._options.shownby);
+            tiny.addClass(this._el, 'ch-shownby-' + this._options.shownby);
 
-            ch.Event.addListener(this._el, shownbyEvent[this._options.shownby], function (event) {
+            if (this._options.shownby === shownbyEvent.pointertap && navigator.pointerEnabled) {
+                tiny.on(this._el, 'click', function(e) {
+                    e.preventDefault();
+                });
+            }
+
+            tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
                 event.stopPropagation();
-                ch.util.prevent(event);
+                event.preventDefault();
                 showHandler();
             });
-
         }
 
         // Get a content if it's not defined
@@ -5790,12 +2531,12 @@ ch.factory = function (Klass) {
         // Hide by leaving the component
         if (hiddenby === 'pointerleave' && this.trigger !== undefined) {
 
-            ch.Event.addListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.addListener(this.trigger, ch.onpointerleave, this._hideTimer);
-
-            ch.Event.addListener(this.container, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.addListener(this.container, ch.onpointerleave, this._hideTimer);
-
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerenter, that._hideTimerCleaner);
+            });
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerleave, that._hideTimer);
+            });
         }
 
         // Hide with the button Close
@@ -5804,7 +2545,7 @@ ch.factory = function (Klass) {
             dummy.innerHTML = '<i class="ch-close" role="button" aria-label="Close"></i>';
             button = dummy.querySelector('i');
 
-            ch.Event.addListener(button, ch.onpointertap, function () {
+            tiny.on(button, ch.onpointertap, function () {
                 that.hide();
             });
 
@@ -5826,7 +2567,7 @@ ch.factory = function (Klass) {
      */
     Popover.prototype._normalizeOptions = function (options) {
         // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
-        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType !== undefined && options.nodeType === 1)) {
+        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType === 1)) {
             options = {
                 'content': options
             };
@@ -5865,10 +2606,7 @@ ch.factory = function (Klass) {
             return this;
         }
 
-        // Increase z-index and append to body
-        // Do it before set content because when content sets, it triggers the position refresh
-        this.container.style.zIndex = (ch.util.zIndex += 1);
-
+        // Append to body
         document.body.appendChild(this.container);
 
         // Open the collapsible
@@ -6081,10 +2819,10 @@ ch.factory = function (Klass) {
 
         if (this.trigger !== undefined) {
 
-            ch.Event.removeListener(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
-            ch.Event.removeListener(this.trigger, ch.onpointerleave, this._hideTimer);
+            tiny.off(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            tiny.off(this.trigger, ch.onpointerleave, this._hideTimer);
 
-            ch.util.classList(this.trigger).remove('ch-' + this.name + '-trigger');
+            tiny.removeClass(this.trigger, 'ch-' + this.name + '-trigger');
 
             this.trigger.removeAttribute('data-title');
             this.trigger.removeAttribute('aria-owns');
@@ -6097,9 +2835,9 @@ ch.factory = function (Klass) {
             this._snippet.title ? this.trigger.setAttribute('title', this._snippet.title) : null;
         }
 
-        ch.Event.removeListener(document, ch.onlayoutchange, this._refreshPositionListener);
+        tiny.off(document, ch.onlayoutchange, this._refreshPositionListener);
 
-        ch.viewport.off(ch.onresize, this._refreshPositionListener);
+        ch.viewport.removeListener(ch.onresize, this._refreshPositionListener);
 
         parent.destroy.call(this);
 
@@ -6182,11 +2920,13 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Layer, ch.Popover);
+
     // Reference to the last component open. Allows to close and to deny to
     // have 2 components open at the same time
     var lastShown,
-        // Inheritance
-        parent = ch.util.inherits(Layer, ch.Popover);
+        parent = Layer.super_.prototype;
 
     /**
      * The name of the component.
@@ -6208,7 +2948,7 @@ ch.factory = function (Klass) {
      * @type {Object}
      * @private
      */
-    Layer.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Layer.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
         '_ariaRole': 'tooltip',
         'shownby': 'pointerenter',
@@ -6346,6 +3086,9 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Modal, ch.Popover);
+
     var document = window.document,
         underlay = (function () {
             var dummyElement = document.createElement('div');
@@ -6353,8 +3096,7 @@ ch.factory = function (Klass) {
 
             return dummyElement.querySelector('div');
         }()),
-        // Inheritance
-        parent = ch.util.inherits(Modal, ch.Popover);
+        parent = Modal.super_.prototype;
 
     /**
      * The name of the component.
@@ -6376,7 +3118,7 @@ ch.factory = function (Klass) {
      * @type {Object}
      * @private
      */
-    Modal.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Modal.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-modal ch-box-lite',
         '_ariaRole': 'dialog',
         'width': '50%',
@@ -6393,27 +3135,24 @@ ch.factory = function (Klass) {
      * @private
      */
     Modal.prototype._showUnderlay = function () {
-        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
-            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = ch.util.classList(underlay);
-
-        underlay.style.zIndex = ch.util.zIndex;
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase();
 
         document.body.appendChild(underlay);
 
         function showCallback(e) {
-            cl.remove(fxName + '-enter-active');
-            cl.remove(fxName + '-enter');
+            tiny.removeClass(underlay, fxName + '-enter-active');
+            tiny.removeClass(underlay, fxName + '-enter');
 
-            ch.Event.removeListener(e.target, e.type, showCallback);
+            tiny.off(e.target, e.type, showCallback);
         }
 
         if (useAnimation) {
-            cl.add(fxName + '-enter');
+            tiny.addClass(underlay, fxName + '-enter');
             setTimeout(function() {
-                cl.add(fxName + '-enter-active');
+                tiny.addClass(underlay, fxName + '-enter-active');
             },10);
-            ch.Event.addListener(underlay, ch.support.transition.end, showCallback);
+            tiny.on(underlay, tiny.support.transition.end, showCallback);
         }
     };
 
@@ -6424,25 +3163,24 @@ ch.factory = function (Klass) {
      * @private
      */
     Modal.prototype._hideUnderlay = function () {
-        var useAnimation = ch.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
             fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
-            cl = ch.util.classList(underlay),
             parent = underlay.parentNode;
 
         function hideCallback(e) {
-            cl.remove(fxName + '-leave-active');
-            cl.remove(fxName + '-leave');
+            tiny.removeClass(underlay, fxName + '-leave-active');
+            tiny.removeClass(underlay, fxName + '-leave');
 
-            ch.Event.removeListener(e.target, e.type, hideCallback);
+            tiny.off(e.target, e.type, hideCallback);
             parent.removeChild(underlay);
         }
 
         if (useAnimation) {
-            cl.add(fxName + '-leave');
+            tiny.addClass(underlay, fxName + '-leave');
             setTimeout(function() {
-                cl.add(fxName + '-leave-active');
+                tiny.addClass(underlay, fxName + '-leave-active');
             },10);
-            ch.Event.addListener(underlay, ch.support.transition.end, hideCallback);
+            tiny.on(underlay, tiny.support.transition.end, hideCallback);
         } else {
             parent.removeChild(underlay);
         }
@@ -6494,7 +3232,7 @@ ch.factory = function (Klass) {
 
         // Add to the underlay the ability to hide the component
         if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
-            ch.Event.addListener(underlay, ch.onpointertap, hideByUnderlay);
+            tiny.on(underlay, ch.onpointertap, hideByUnderlay);
         }
 
         // Show the underlay
@@ -6520,7 +3258,7 @@ ch.factory = function (Klass) {
         }
 
         // Delete the underlay listener
-        ch.Event.removeListener(underlay, ch.onpointertap)
+        tiny.off(underlay, ch.onpointertap)
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()
@@ -6592,12 +3330,12 @@ ch.factory = function (Klass) {
 
         // el is not defined
         if (el === undefined) {
-            el = ch.util.extend(ch.util.clone(this._defaults), options);
+            el = tiny.extend(tiny.clone(this._defaults), options);
         // el is present as a object configuration
         } else if (el.nodeType === undefined && typeof el === 'object') {
-            el = ch.util.extend(ch.util.clone(this._defaults), el);
+            el = tiny.extend(tiny.clone(this._defaults), el);
         } else if (options !== undefined) {
-            options = ch.util.extend(ch.util.clone(this._defaults), options);
+            options = tiny.extend(tiny.clone(this._defaults), options);
         }
 
         return new ch.Modal(el, options);
@@ -6623,7 +3361,7 @@ ch.factory = function (Klass) {
      * @type {Object}
      * @private
      */
-    Transition.prototype._defaults = ch.util.extend(ch.util.clone(ch.Modal.prototype._defaults), {
+    Transition.prototype._defaults = tiny.extend(tiny.clone(ch.Modal.prototype._defaults), {
         '_className': 'ch-transition ch-box-lite',
         '_ariaRole': 'alert',
         'hiddenby': 'none',
@@ -6705,9 +3443,10 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var document = window.document,
-        // Inheritance
-        parent = ch.util.inherits(Dropdown, ch.Layer);
+    // Inheritance
+    tiny.inherits(Dropdown, ch.Layer);
+
+    var parent = Dropdown.super_.prototype;
 
     /**
      * The name of the component.
@@ -6729,7 +3468,7 @@ ch.factory = function (Klass) {
      * @type {Object}
      * @private
      */
-    Dropdown.prototype._defaults = ch.util.extend(ch.util.clone(parent._defaults), {
+    Dropdown.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-dropdown ch-box-lite',
         '_ariaRole': 'combobox',
         'fx': 'none',
@@ -6758,26 +3497,26 @@ ch.factory = function (Klass) {
          */
         var that = this,
             // The second element of the HTML snippet (the dropdown content)
-            content = ch.util.nextElementSibling(this.trigger);
+            content = tiny.next(this.trigger);
 
         /**
          * The dropdown trigger. It's the element that will show and hide the container.
          * @type {HTMLElement}
          */
         this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected')
-        ch.util.classList(this.trigger).add('ch-dropdown-trigger');
-        ch.util.avoidTextSelection(this.trigger);
+        tiny.addClass(this.trigger, 'ch-dropdown-trigger');
 
-
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         // Skinned dropdown
         if (this._options.skin) {
-            ch.util.classList(this.trigger).add('ch-dropdown-trigger-skin');
-            ch.util.classList(this.container).add('ch-dropdown-skin');
+            tiny.addClass(this.trigger, 'ch-dropdown-trigger-skin');
+            tiny.addClass(this.container, 'ch-dropdown-skin');
         // Default Skin
         } else {
-            ch.util.classList(this.trigger).add('ch-btn-skin');
-            ch.util.classList(this.trigger).add('ch-btn-small');
+            tiny.addClass(this.trigger, 'ch-btn-skin');
+            tiny.addClass(this.trigger, 'ch-btn-small');
         }
 
         /**
@@ -6789,7 +3528,7 @@ ch.factory = function (Klass) {
             var items = content.querySelectorAll('a');
             Array.prototype.forEach.call(items, function (item, index) {
                 item.setAttribute('role', 'option');
-                ch.Event.addListener(item, ch.onpointerenter, function () {
+                tiny.on(item, ch.onpointerenter, function () {
                     that._navigation[that._selected = index].focus();
                 });
             });
@@ -6848,11 +3587,6 @@ ch.factory = function (Klass) {
         // Execute the original show()
         parent.show.call(this, content, options);
 
-        // Z-index of trigger over content (secondary / skin dropdown)
-        if (this._options.skin) {
-            this.trigger.style.zIndex = ch.util.zIndex += 1;
-        }
-
         this._selected = -1;
 
         return this;
@@ -6869,28 +3603,24 @@ ch.factory = function (Klass) {
      * dropdown = undefined;
      */
     Dropdown.prototype.destroy = function () {
+        var trigger = this.trigger;
 
+        [
+            'ch-dropdown-trigger',
+            'ch-dropdown-trigger-skin',
+            'ch-user-no-select',
+            'ch-btn-skin',
+            'ch-btn-small'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
 
+        trigger.removeAttribute('unselectable');
+        trigger.removeAttribute('aria-controls');
 
-        ch.util.classList(this.trigger).remove('ch-dropdown-trigger');
-        ch.util.classList(this.trigger).remove('ch-dropdown-trigger-skin');
-        ch.util.classList(this.trigger).remove('ch-user-no-select');
-        ch.util.classList(this.trigger).remove('ch-btn-skin');
-        ch.util.classList(this.trigger).remove('ch-btn-small');
-        this.trigger.removeAttribute('aria-controls');
+        trigger.insertAdjacentHTML('afterend', this._snippet);
 
-        this.trigger.insertAdjacentHTML('afterend', this._snippet);
-
-        // this.$trigger.off('.dropdown');
-        // this.$container.off('.dropdown');
-
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
-
-        // $.each(this._$navigation, function (i, e) {
-        //     $(e).off(ch.onpointerenter);
-        // });
-
-
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -6969,7 +3699,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Form, ch.Component);
+    tiny.inherits(Form, ch.Component);
+
+    var parent = Form.super_.prototype;
 
     /**
      * The name of the component.
@@ -7028,23 +3760,24 @@ ch.factory = function (Klass) {
          */
         this.container = this._el;
             // Add classname
-        ch.util.classList(this.container).add('ch-form');
+        tiny.addClass(this.container, 'ch-form');
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-        ch.Event.addListener(this.container, 'submit', function (event) {
+        tiny.on(this.container, 'submit', function (event) {
             // Runs validations
             that.validate(event);
         });
 
         // Bind the reset
         if (this.container.querySelector('input[type="reset"]')) {
-            ch.Event.addListener(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
-                ch.util.prevent(event);
+            tiny.on(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
+                event.preventDefault();
                 that.reset();
             });
         }
-
+        // Stub for EventEmitter to prevent the errors throwing
+        this.on('error', function(){});
 
         // Clean validations
         this.on('disable', this.clear);
@@ -7109,7 +3842,7 @@ ch.factory = function (Klass) {
             firstErrorVisible = firstError.trigger;
 
             // Find the closest visible parent if current element is hidden
-            while (ch.util.getStyles(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
+            while (tiny.css(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
                 firstErrorVisible = firstErrorVisible.parentElement;
             }
 
@@ -7127,7 +3860,9 @@ ch.factory = function (Klass) {
                 triggerError.focus();
             }
 
-            ch.util.prevent(event);
+            if (event && event.preventDefault) {
+                event.preventDefault();
+            }
 
             /**
              * It emits an event when a form has got errors.
@@ -7197,11 +3932,7 @@ ch.factory = function (Klass) {
 
         }
 
-        if (this.errors.length > 0) {
-            return true;
-        }
-
-        return false;
+        return this.errors.length > 0;
     };
 
     /**
@@ -7344,7 +4075,7 @@ ch.factory = function (Klass) {
         'required': {
             'fn': function (value) {
 
-                var tag = ch.util.classList(this.trigger).contains('ch-form-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = tiny.hasClass(this.trigger, 'ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
@@ -7416,7 +4147,7 @@ ch.factory = function (Klass) {
      */
     function Condition(condition) {
 
-        ch.util.extend(this, conditions[condition.name], condition);
+        tiny.extend(this, conditions[condition.name], condition);
 
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
         if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {
@@ -7581,7 +4312,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Validation, ch.Component),
+    tiny.inherits(Validation, ch.Component);
+
+    var parent = Validation.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -7690,11 +4423,13 @@ ch.factory = function (Klass) {
             // Clean the validation if is shown;
             .on('disable', this.clear);
 
+        this.on('error', this._handleError);
+
         /**
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = (ch.instances[ch.util.parentElement(that.trigger, 'form').getAttribute('data-uid')] || new ch.Form(ch.util.parentElement(that.trigger, 'form')));
+        this.form = (ch.instances[tiny.parent(that.trigger, 'form').getAttribute('data-uid')] || new ch.Form(tiny.parent(that.trigger, 'form')));
 
         this.form.validations.push(this);
 
@@ -7702,7 +4437,7 @@ ch.factory = function (Klass) {
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (ch.util.classList(this.trigger).contains('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (tiny.hasClass(this.trigger, 'ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -7755,7 +4490,7 @@ ch.factory = function (Klass) {
             previousValue;
 
         // It must happen only once.
-        ch.Event.addListener(this.trigger, this._validationEvent, function () {
+        tiny.on(this.trigger, this._validationEvent, function () {
 
             if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
                 previousValue = this.value;
@@ -7768,40 +4503,43 @@ ch.factory = function (Klass) {
 
         });
 
-        // Lazy Loading pattern
-        this._error = function () {
-
-            if (!that._previousError.condition || !that._shown) {
-                if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
-                    ch.util.classList(that.trigger).add('ch-validation-error');
-                }
-
-                that._showErrorMessage(that.error.message || 'Error');
-            }
-
-            if (that.error.condition !== that._previousError.condition) {
-                that._showErrorMessage(that.error.message || that.form._messages[that.error.condition] || 'Error');
-            }
-
-            that._shown = true;
-
-            /**
-             * It emits an event when a validation hasn't got an error.
-             * @event ch.Validation#error
-             * @example
-             * // Subscribe to "error" event.
-             * validation.on('error', function (errors) {
-             *     console.log(errors.length);
-             * });
-             */
-            that.emit('error', that.error);
-
-            return that;
-        };
-
-        this._error();
+        /**
+         * It emits an error event when a validation got an error.
+         * @event ch.Validation#error
+         *
+         * @example
+         * // Subscribe to "error" event.
+         * validation.on('error', function (errors) {
+         *     console.log(errors.length);
+         * });
+         */
+        this.emit('error', this.error);
 
         return this;
+    };
+
+    /**
+     * Internal error handler, shows the errors when needed
+     *
+     * @param err {Object} A ch.Validation#error object that contain the error message and the error condition
+     * @private
+     */
+    Validation.prototype._handleError = function(err) {
+        var that = this;
+
+        if (!that._previousError.condition || !that._shown) {
+            if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
+                tiny.addClass(that.trigger, 'ch-validation-error');
+            }
+
+            that._showErrorMessage(err.message || 'Error');
+        }
+
+        if (err.condition !== that._previousError.condition) {
+            that._showErrorMessage(err.message || that.form._messages[err.condition] || 'Error');
+        }
+
+        that._shown = true;
     };
 
     /**
@@ -7817,7 +4555,7 @@ ch.factory = function (Klass) {
         }
 
         this.trigger.removeAttribute('aria-label');
-        ch.util.classList(this.trigger).remove('ch-validation-error')
+        tiny.removeClass(this.trigger, 'ch-validation-error')
 
 
         this._hideErrorMessage();
@@ -7868,7 +4606,7 @@ ch.factory = function (Klass) {
          * Stores the previous error object
          * @private
          */
-        this._previousError = ch.util.clone(this.error);
+        this._previousError = tiny.clone(this.error);
 
         // for each condition
         for (condition in this.conditions) {
@@ -7905,7 +4643,7 @@ ch.factory = function (Klass) {
     Validation.prototype.clear = function () {
 
         this.trigger.removeAttribute('aria-label');
-        ch.util.classList(this.trigger).remove('ch-validation-error');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
 
         this.error = null;
 
@@ -8041,7 +4779,7 @@ ch.factory = function (Klass) {
      * @returns {validation}
      */
     ch.Validation.prototype._configureContainer = function () {
-        var parent = ch.util.parentElement(this.trigger);
+        var parent = tiny.parent(this.trigger);
         parent.insertAdjacentHTML('beforeend', '<div class="ch-validation-message ch-hide"></div>');
         this._container = parent.querySelector('.ch-validation-message');
         return this;
@@ -8056,7 +4794,7 @@ ch.factory = function (Klass) {
      */
     ch.Validation.prototype._showErrorMessage = function (message) {
         this._container.innerHTML = message;
-        ch.util.classList(this._container).remove('ch-hide');
+        tiny.removeClass(this._container, 'ch-hide');
 
         return this;
     };
@@ -8069,7 +4807,7 @@ ch.factory = function (Klass) {
      * @returns {validation}
      */
     ch.Validation.prototype._hideErrorMessage = function () {
-        ch.util.classList(this._container).add('ch-hide');
+        tiny.addClass(this._container, 'ch-hide');
 
         return this;
     };
@@ -8148,7 +4886,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Countdown, ch.Component);
+    tiny.inherits(Countdown, ch.Component);
+
+    var parent = Countdown.super_.prototype;
 
     /**
      * The name of the component.
@@ -8215,17 +4955,10 @@ ch.factory = function (Klass) {
          * countdown.trigger;
          */
         this.trigger = this._el;
-        ch.Event.addListener(this.trigger, 'keyup', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'keypress', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'keydown', function () { that._count(); });
-
-        // IE8 doesn't work
-        ch.Event.addListener(this.trigger, 'input', function () { that._count(); });
-
-        // IE8 - IE10 doesn't work
-        ch.Event.addListener(this.trigger, 'paste', function () { that._count(); });
-        ch.Event.addListener(this.trigger, 'cut', function () { that._count(); });
-
+        'keyup keypress keydown input paste cut'.split(' ')
+            .forEach(function(name) {
+                tiny.on(that.trigger, name, function () { that._count(); });
+            });
 
         /**
          * Amount of free characters until full the field.
@@ -8242,7 +4975,7 @@ ch.factory = function (Klass) {
          * @type {HTMLParagraphElement}
          */
         that.container = (function () {
-            var parent = ch.util.parentElement(that._el);
+            var parent = tiny.parent(that._el);
                 parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
 
             return parent.querySelector('#' + messageID);
@@ -8306,9 +5039,9 @@ ch.factory = function (Klass) {
             this._exceeded = true;
 
             this.trigger.setAttribute('aria-invalid', 'true');
-            ch.util.classList(this.trigger).add('ch-validation-error');
+            tiny.addClass(this.trigger, 'ch-validation-error');
 
-            ch.util.classList(this.container).add('ch-countdown-exceeded');
+            tiny.addClass(this.container, 'ch-countdown-exceeded');
         }
 
         // Change visible message of remaining characters
@@ -8329,10 +5062,10 @@ ch.factory = function (Klass) {
      * @returns {countdown}
      */
     Countdown.prototype._removeError = function () {
-        ch.util.classList(this.trigger).remove('ch-validation-error');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
         this.trigger.setAttribute('aria-invalid', 'false');
 
-        ch.util.classList(this.container).remove('ch-countdown-exceeded');
+        tiny.removeClass(this.container, 'ch-countdown-exceeded');
 
         return this;
     };
@@ -8348,10 +5081,10 @@ ch.factory = function (Klass) {
      * countdown = undefined;
      */
     Countdown.prototype.destroy = function () {
-        var parentElement = ch.util.parentElement(this.container);
+        var parentElement = tiny.parent(this.container);
             parentElement.removeChild(this.container);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -8427,11 +5160,44 @@ ch.factory = function (Klass) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Carousel, ch.Component);
+
     var pointertap = ch.onpointertap,
         Math = window.Math,
         setTimeout = window.setTimeout,
-        // Inheritance
-        parent = ch.util.inherits(Carousel, ch.Component);
+        parent = Carousel.super_.prototype;
+
+    /**
+     * Reference to the vendor prefix of the current browser.
+     *
+     * @private
+     * @constant
+     * @type {String}
+     * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
+     * @example
+     * VENDOR_PREFIX === 'webkit';
+     */
+    var VENDOR_PREFIX = (function () {
+
+        var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
+            styleDeclaration = document.getElementsByTagName('script')[0].style,
+            prop;
+
+        for (prop in styleDeclaration) {
+            if (regex.test(prop)) {
+                return prop.match(regex)[0].toLowerCase();
+            }
+        }
+
+        // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+        // However (prop in style) returns the correct value, so we'll have to test for
+        // the precence of a specific property
+        if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
+        if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
+
+        return '';
+    }());
 
     /**
      * The name of the component.
@@ -8493,8 +5259,8 @@ ch.factory = function (Klass) {
          */
         this._list = this._el.children[0];
 
-        ch.util.classList(this._el).add('ch-carousel');
-        ch.util.classList(this._list).add('ch-carousel-list');
+        tiny.addClass(this._el, 'ch-carousel');
+        tiny.addClass(this._list, 'ch-carousel-list');
 
         /**
          * Collection of each child of the slider list.
@@ -8508,7 +5274,7 @@ ch.factory = function (Klass) {
                     collectionLength = collection.length;
 
                 Array.prototype.forEach.call(collection, function(item){
-                    ch.util.classList(item).add('ch-carousel-item');
+                    tiny.addClass(item, 'ch-carousel-item');
                 });
 
                 return collection;
@@ -8531,21 +5297,21 @@ ch.factory = function (Klass) {
          * @private
          * @type {Number}
          */
-        this._maskWidth = ch.util.getOuterDimensions(this._mask).width;
+        this._maskWidth = this._getOuterDimensions(this._mask).width;
 
         /**
          * The width of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
          * @type {Number}
          */
-        this._itemWidth = ch.util.getOuterDimensions(this._items[0]).width;
+        this._itemWidth = this._getOuterDimensions(this._items[0]).width;
 
         /**
          * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
          * @private
          * @type {Number}
          */
-        this._itemOuterWidth = parseInt(ch.util.getStyles(this._items[0], 'width'));
+        this._itemOuterWidth = parseInt(tiny.css(this._items[0], 'width'));
 
         /**
          * The size added to each item to make it elastic/responsive.
@@ -8559,7 +5325,7 @@ ch.factory = function (Klass) {
          * @private
          * @type {Number}
          */
-        this._itemHeight = ch.util.getOuterDimensions(this._items[0]).height;
+        this._itemHeight = this._getOuterDimensions(this._items[0]).height;
 
         /**
          * The margin of all items. Updated in each refresh only if it's necessary.
@@ -8626,7 +5392,7 @@ ch.factory = function (Klass) {
         this._prevArrow.setAttribute('role', 'button');
         this._prevArrow.setAttribute('aria-hidden', 'true');
         this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
-        ch.Event.addListener(this._prevArrow, pointertap, function () { that.prev(); }, false);
+        tiny.on(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
         /**
          * UI element of arrow that moves the Carousel to the next page.
@@ -8637,7 +5403,7 @@ ch.factory = function (Klass) {
         this._nextArrow.setAttribute('role', 'button');
         this._nextArrow.setAttribute('aria-hidden', 'true');
         this._nextArrow.setAttribute('class', 'ch-carousel-next');
-        ch.Event.addListener(this._nextArrow, pointertap, function () { that.next(); }, false);
+        tiny.on(this._nextArrow, pointertap, function () { that.next(); }, false);
 
         /**
          * UI element that contains all the thumbnails for pagination.
@@ -8648,7 +5414,7 @@ ch.factory = function (Klass) {
         this._pagination.setAttribute('role', 'navigation');
         this._pagination.setAttribute('class', 'ch-carousel-pages');
 
-        ch.Event.addListener(this._pagination, pointertap, function (event) {
+        tiny.on(this._pagination, pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
@@ -8659,10 +5425,10 @@ ch.factory = function (Klass) {
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
-        if (!this._options.fx) { ch.util.classList(this._list).add('ch-carousel-nofx'); }
+        if (!this._options.fx) { tiny.addClass(this._list, 'ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
-        if (!ch.support.transition) {
+        if (!tiny.support.transition) {
             this._list.style.cssText += 'position:absolute;left:0;';
         }
 
@@ -8834,7 +5600,8 @@ ch.factory = function (Klass) {
         that._el.appendChild(that._pagination);
 
         // Avoid selection on the pagination
-        ch.util.avoidTextSelection(that._pagination);
+        that._pagination.setAttribute('unselectable', 'on');
+        tiny.addClass(that._pagination, 'ch-user-no-select');
 
         // Check pagination as created
         that._paginationCreated = true;
@@ -8871,14 +5638,14 @@ ch.factory = function (Klass) {
         var that = this;
 
         // Do it if is required
-        if (this._options.fx && ch.support.transition) {
+        if (this._options.fx && tiny.support.transition) {
             // Delete efects on list to make changes instantly
-            ch.util.classList(this._list).add('ch-carousel-nofx');
+            tiny.addClass(this._list, 'ch-carousel-nofx');
             // Execute the custom method
             callback.call(this);
             // Restore efects to list
             // Use a setTimeout to be sure to do this AFTER changes
-            setTimeout(function () { ch.util.classList(that._list).remove('ch-carousel-nofx'); }, 0);
+            setTimeout(function () { tiny.removeClass(that._list, 'ch-carousel-nofx'); }, 0);
         // Avoid to add/remove classes if it hasn't effects
         } else {
             callback.call(this);
@@ -9004,7 +5771,7 @@ ch.factory = function (Klass) {
         });
 
         // Update the mask height with the list height
-        this._mask.style.height = ch.util.getOuterDimensions(this._list).height + 'px';
+        this._mask.style.height = this._getOuterDimensions(this._list).height + 'px';
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -9020,7 +5787,11 @@ ch.factory = function (Klass) {
      */
     Carousel.prototype._addArrows = function () {
         // Avoid selection on the arrows
-        ch.util.avoidTextSelection(this._prevArrow, this._nextArrow);
+        [this._prevArrow, this._nextArrow].forEach(function(el){
+            el.setAttribute('unselectable', 'on');
+            tiny.addClass(el, 'ch-user-no-select');
+        });
+
         // Add arrows to DOM
         this._el.insertBefore(this._prevArrow, this._el.children[0])
         this._el.appendChild(this._nextArrow);
@@ -9039,11 +5810,11 @@ ch.factory = function (Klass) {
     Carousel.prototype._disableArrows = function (prev, next) {
         this._prevArrow.setAttribute('aria-disabled', prev);
         this._prevArrow.setAttribute('aria-hidden', prev);
-        ch.util.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny[prev ? 'addClass' : 'removeClass'](this._prevArrow, 'ch-carousel-disabled');
 
         this._nextArrow.setAttribute('aria-disabled', next);
         this._nextArrow.setAttribute('aria-hidden', next);
-        ch.util.classList(this._nextArrow)[next ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny[next ? 'addClass' : 'removeClass'](this._nextArrow, 'ch-carousel-disabled');
     };
 
     /**
@@ -9081,11 +5852,11 @@ ch.factory = function (Klass) {
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform',
-            vendorTransformKey = ch.util.VENDOR_PREFIX ? ch.util.VENDOR_PREFIX + 'Transform' : null;
+        var transform = '-' + VENDOR_PREFIX + '-transform',
+            vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
-        if (ch.support.transition) {
+        if (tiny.support.transition) {
             return function (displacement) {
                 // Firefox has only "transform", Safari only "webkitTransform",
                 // Chrome has support for both. Applied required minimum
@@ -9120,11 +5891,27 @@ ch.factory = function (Klass) {
 
         // Unselect the thumbnail previously selected
         fromItem.setAttribute('aria-selected', false)
-        ch.util.classList(fromItem).remove('ch-carousel-selected');
+        tiny.removeClass(fromItem, 'ch-carousel-selected');
 
         // Select the new thumbnail
         toItem.setAttribute('aria-selected', true)
-        ch.util.classList(toItem).add('ch-carousel-selected');
+        tiny.addClass(toItem, 'ch-carousel-selected');
+    };
+
+    /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Carousel.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Carousel.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
     };
 
     /**
@@ -9136,7 +5923,7 @@ ch.factory = function (Klass) {
     Carousel.prototype.refresh = function () {
 
         var that = this,
-            maskWidth = ch.util.getOuterDimensions(this._mask).width;
+            maskWidth = this._getOuterDimensions(this._mask).width;
 
         // Check for changes on the width of mask, for the elastic carousel
         // Update the width of the mask
@@ -9321,7 +6108,7 @@ ch.factory = function (Klass) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -9336,7 +6123,7 @@ ch.factory = function (Klass) {
     'use strict';
 
     function normalizeOptions(options) {
-        if (typeof options === 'string' || ch.util.isArray(options)) {
+        if (typeof options === 'string' || Array.isArray(options)) {
             options = {
                 'selected': options
             };
@@ -9405,6 +6192,9 @@ ch.factory = function (Klass) {
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
+
+    // Inheritance
+    tiny.inherits(Calendar, ch.Component);
 
     /**
      * Completes with zero the numbers less than 10.
@@ -9529,8 +6319,7 @@ ch.factory = function (Klass) {
             'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
         },
 
-        // Inheritance
-        parent = ch.util.inherits(Calendar, ch.Component);
+        parent = Calendar.super_.prototype;
 
     /**
      * The name of the component.
@@ -9605,7 +6394,7 @@ ch.factory = function (Klass) {
             if (!selected) { return selected; }
 
             // Simple date selection
-            if (!ch.util.isArray(selected)) {
+            if (!Array.isArray(selected)) {
 
                 if (selected !== 'today') {
                     // Return date object and update currentDate
@@ -9619,7 +6408,7 @@ ch.factory = function (Klass) {
             } else {
                 selected.forEach(function (e, i){
                     // Simple date
-                    if (!ch.util.isArray(e)) {
+                    if (!Array.isArray(e)) {
                         selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
                     // Range
                     } else {
@@ -9665,7 +6454,7 @@ ch.factory = function (Klass) {
         this._prev.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._prev.setAttribute('role', 'button');
         this._prev.setAttribute('aria-hidden', 'false');
-        ch.util.classList(this._prev).add('ch-calendar-prev');
+        tiny.addClass(this._prev, 'ch-calendar-prev');
 
         /**
          * Template of next arrow.
@@ -9675,12 +6464,18 @@ ch.factory = function (Klass) {
         this._next.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
         this._next.setAttribute('role', 'button');
         this._next.setAttribute('aria-hidden', 'false');
-        ch.util.classList(this._next).add('ch-calendar-next');
+        tiny.addClass(this._next, 'ch-calendar-next');
 
 
         // Show or hide arrows depending on "from" and "to" limits
-        ch.Event.addListener(this._prev, ch.onpointertap, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        ch.Event.addListener(this._next, ch.onpointertap, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        tiny.on(this._prev, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.prevMonth();
+        });
+        tiny.on(this._next, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.nextMonth();
+        });
 
         /**
          * The calendar container.
@@ -9689,13 +6484,14 @@ ch.factory = function (Klass) {
         this.container = this._el;
         this.container.insertBefore(this._prev, this.container.firstChild);
         this.container.insertBefore(this._next, this.container.firstChild);
-        ch.util.classList(this.container).add('ch-calendar');
+        tiny.addClass(this.container, 'ch-calendar');
         this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         this._updateControls();
 
         // Avoid selection on the component
-        ch.util.avoidTextSelection(that.container);
+        that.container.setAttribute('unselectable', 'on');
+        tiny.addClass(that.container, 'ch-user-no-select');
 
         return this;
     };
@@ -9727,23 +6523,23 @@ ch.factory = function (Klass) {
 
         // Show previous arrow when it's out of limit
         if (this._hasPrevMonth()) {
-            ch.util.classList(this._prev).remove('ch-hide');
+            tiny.removeClass(this._prev, 'ch-hide');
             this._prev.setAttribute('aria-hidden', 'false');
 
         // Hide previous arrow when it's out of limit
         } else {
-            ch.util.classList(this._prev).add('ch-hide');
+            tiny.addClass(this._prev, 'ch-hide');
             this._prev.setAttribute('aria-hidden', 'true');
         }
 
         // Show next arrow when it's out of limit
         if (this._hasNextMonth()) {
-            ch.util.classList(this._next).remove('ch-hide');
+            tiny.removeClass(this._next, 'ch-hide');
             this._next.setAttribute('aria-hidden', 'false');
 
         // Hide next arrow when it's out of limit
         } else {
-            ch.util.classList(this._next).add('ch-hide');
+            tiny.addClass(this._next, 'ch-hide');
             this._next.setAttribute('aria-hidden', 'true');
         }
 
@@ -9935,7 +6731,7 @@ ch.factory = function (Klass) {
         yepnope = false;
 
         // Simple selection
-        if (!ch.util.isArray(this._dates.selected)) {
+        if (!Array.isArray(this._dates.selected)) {
             if (year === this._dates.selected.year && month === this._dates.selected.month && day === this._dates.selected.day) {
                 yepnope = true;
                 return yepnope;
@@ -9945,7 +6741,7 @@ ch.factory = function (Klass) {
         } else {
             this._dates.selected.forEach(function (e, i) {
                 // Simple date
-                if (!ch.util.isArray(e)) {
+                if (!Array.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {
                         yepnope = true;
                         return yepnope;
@@ -10218,7 +7014,7 @@ ch.factory = function (Klass) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -10301,7 +7097,9 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Datepicker, ch.Component),
+    tiny.inherits(Datepicker, ch.Component);
+
+    var parent = Datepicker.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -10375,7 +7173,7 @@ ch.factory = function (Klass) {
          * The datepicker trigger.
          * @type {HTMLElement}
          */
-        this.trigger = ch.util.nextElementSibling(this.field);
+        this.trigger = tiny.next(this.field);
 
         /**
          * Reference to the Calendar component instanced.
@@ -10401,7 +7199,7 @@ ch.factory = function (Klass) {
             'hiddenby': this._options.hiddenby
         });
 
-        ch.Event.addListener(this._popover._content, ch.onpointertap, function (event) {
+        tiny.on(this._popover._content, ch.onpointertap, function (event) {
             var el = event.target;
 
             // Day selection
@@ -10760,7 +7558,7 @@ ch.factory = function (Klass) {
      */
     Datepicker.prototype.destroy = function () {
 
-        ch.util.parentElement(this.trigger).removeChild(this.trigger);
+        tiny.parent(this.trigger).removeChild(this.trigger);
 
         this._el.removeAttribute('aria-describedby');
         this._el.type = 'date';
@@ -10892,9 +7690,11 @@ ch.factory = function (Klass) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Autocomplete, ch.Component),
+    tiny.inherits(Autocomplete, ch.Component);
+
+    var parent = Autocomplete.super_.prototype,
         // there is no mouseenter to highlight the item, so it happens when the user do mousedown
-        highlightEvent = (ch.support.touch) ? ch.onpointerdown : 'mouseover';
+        highlightEvent = (tiny.support.touch) ? ch.onpointerdown : 'mouseover';
 
     /**
      * The name of the component.
@@ -10982,7 +7782,7 @@ ch.factory = function (Klass) {
          * @private
          */
         this._suggestionsList = document.createElement('ul');
-        ch.util.classList(this._suggestionsList).add('ch-autocomplete-list');
+        tiny.addClass(this._suggestionsList, 'ch-autocomplete-list');
 
         this.container.appendChild(this._suggestionsList);
 
@@ -11004,15 +7804,15 @@ ch.factory = function (Klass) {
 
         };
 
-        ch.Event.addListener(this.container, highlightEvent, this._highlightSuggestion);
+        tiny.on(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        ch.Event.addListener(this.container, ch.onpointerdown, function itemEvents(event) {
+        tiny.on(this.container, ch.onpointerdown, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word
             if (target.nodeName === 'I' && !that._options.html) {
-                ch.util.prevent(event);
+                event.preventDefault();
                 that._el.value = that._suggestions[that._highlighted];
                 that.emit('type', that._el.value);
                 return;
@@ -11034,8 +7834,8 @@ ch.factory = function (Klass) {
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
 
-        ch.Event.addListener(this.trigger, 'focus', function turnon() { that._turn('on'); })
-        ch.Event.addListener(this.trigger, 'blur', function turnoff() {that._turn('off'); });
+        tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); })
+        tiny.on(this.trigger, 'blur', function turnoff() {that._turn('off'); });
 
         // Turn on when the input element is already has focus
         if (this._el === document.activeElement && !this._enabled) {
@@ -11081,7 +7881,7 @@ ch.factory = function (Klass) {
 
             that._stopTyping = window.setTimeout(function () {
 
-                ch.util.classList(that.trigger).add(that._options.loadingClass);
+                tiny.addClass(that.trigger, that._options.loadingClass);
                 /**
                  * Event emitted when the user is typing.
                  * @event ch.Autocomplete#type
@@ -11126,21 +7926,25 @@ ch.factory = function (Klass) {
 
         // IE8 don't support the input event at all
         // IE9 is the only browser that doesn't fire the input event when characters are removed
+        var ua = navigator.userAgent;
+        var MSIE = (/(msie|trident)/i).test(ua) ?
+            ua.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+
         if (turn === 'on') {
-            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
-                ch.Event.addListener(this.trigger, ch.onkeyinput, turnOn);
+            if (!MSIE || MSIE > 9) {
+                tiny.on(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
-                    ch.Event.addListener(that.trigger, evtName, turnOnFallback);
+                    tiny.on(that.trigger, evtName, turnOnFallback);
                 });
             }
         } else if (turn === 'off') {
             this.hide();
-            if (!ch.util.isMsie() || ch.util.isMsie() > 9) {
-                ch.Event.removeListener(this.trigger, ch.onkeyinput, turnOn);
+            if (!MSIE || MSIE > 9) {
+                tiny.off(this.trigger, ch.onkeyinput, turnOn);
             } else {
                 'keydown cut paste'.split(' ').forEach(function(evtName) {
-                    ch.Event.removeListener(that.trigger, evtName, turnOnFallback);
+                    tiny.off(that.trigger, evtName, turnOnFallback);
                 });
             }
         }
@@ -11200,12 +8004,12 @@ ch.factory = function (Klass) {
 
         if (selectedItem !== null) {
             // background the highlighted item
-            ch.util.classList(selectedItem).remove(this._options.highlightedClass);
+            tiny.removeClass(selectedItem, this._options.highlightedClass);
         }
 
         if (currentItem !== null) {
             // highlight the selected item
-            ch.util.classList(currentItem).add(this._options.highlightedClass);
+            tiny.addClass(currentItem, this._options.highlightedClass);
         }
 
         return this;
@@ -11247,7 +8051,7 @@ ch.factory = function (Klass) {
             itemSelected = this.container.querySelector('.' + this._options.highlightedClass);
 
         // hide the loading feedback
-        ch.util.classList(this.trigger).remove(that._options.loadingClass)
+        tiny.removeClass(this.trigger, that._options.loadingClass)
 
         // hides the suggestions list
         if (suggestionsLength === 0) {
@@ -11263,7 +8067,7 @@ ch.factory = function (Klass) {
 
         // remove the class from the extra added items
         if (itemSelected !== null) {
-            ch.util.classList(itemSelected).remove(this._options.highlightedClass);
+            tiny.removeClass(itemSelected, this._options.highlightedClass);
         }
 
         // add each suggested item to the suggestion list
@@ -11374,7 +8178,7 @@ ch.factory = function (Klass) {
      */
     Autocomplete.prototype.destroy = function () {
 
-        ch.Event.removeListener(this.container, highlightEvent, this._highlightSuggestion);
+        tiny.off(this.container, highlightEvent, this._highlightSuggestion);
 
         this.trigger.removeAttribute('autocomplete');
         this.trigger.removeAttribute('aria-autocomplete');

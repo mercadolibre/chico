@@ -21,11 +21,11 @@
         this
             .on('show', function () {
                 ch.shortcuts.on(that.uid);
-                ch.Event.addListener(document, ch.onpointertap, hide);
+                tiny.on(document, ch.onpointertap, hide);
             })
             .on('hide', function () {
                 ch.shortcuts.off(that.uid);
-                ch.Event.removeListener(document, ch.onpointertap, hide);
+                tiny.off(document, ch.onpointertap, hide);
             })
             .once('destroy', function () {
                 ch.shortcuts.remove(that.uid, ch.onkeyesc);

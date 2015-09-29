@@ -6,7 +6,7 @@
 <head>
     <script></script>
     <meta charset="utf-8" />
-    <title>Chico UI v1.1.1</title>
+    <title>Chico UI v2.0.0</title>
 
     <!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
     <meta name="HandheldFriendly" content="True">
@@ -14,12 +14,11 @@
     <meta http-equiv="cleartype" content="on">
 
     <!--[if IE 8]>
-    <script src="/bower_components/es5-shim/es5-shim.min.js"></script>
-    <script src="/bower_components/es5-shim/es5-sham.min.js"></script>
-    <script src="/bower_components/IE8/build/ie8.js"></script>
+    <script src="http://ui.mlstatic.com/polyfills/es5/4.1.13/es5-shim.min.js"></script>
+    <script src="http://ui.mlstatic.com/polyfills/es5/4.1.13/es5-sham.min.js"></script>
     <![endif]-->
 
-    <link rel="stylesheet" href="/bower_components/mesh/index.css">
+    <link rel="stylesheet" href="/bower_components/mesh/dist/mesh.css">
     <link rel="stylesheet" href="/dist/ui/chico.css">
     <style>
         /**
@@ -1259,6 +1258,7 @@
         </form>
     </div>
 
+    <script src="/bower_components/tiny.js/dist/tiny.js"></script>
     <script src="/dist/ui/chico.js"></script>
     <script>
 
@@ -1281,27 +1281,26 @@
             }
         }
 
-        var suggestion;
+        var suggestion,
+            cancelRequest;
         var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
                 .on('type', function (userInput) {
-                    // Cancel the jsonp callback if any
-                    if (suggestion && suggestion.cancel) {
-                        suggestion.cancel();
+                    // Cancel the jsonp request if any
+                    if (cancelRequest) {
+                        cancelRequest();
                     }
                     // Hide possibly active loading indicator
                     if (!userInput) {
-                        autocomplete.suggest([]);
+                        return autocomplete.suggest([]);
                     }
-                    suggestion = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1');
-                    suggestion.promise
-                        .then(parseResults)
-                        .catch(function(err) {
-                            console.error(err);
+                    cancelRequest = tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+                        name: 'autocompleteSuggestion',
+                        success: parseResults,
+                        error: function(err) {
                             autocomplete.suggest([]);
-                        })
-                        .then(function () {
-                            suggestion = null;
-                        });
+                        }
+                    });
+
                 });
 
         autocomplete.container.insertAdjacentHTML('beforeend', extraSuggestions);
@@ -1312,7 +1311,7 @@
         var expandable1 = new ch.Expandable(qS('.YOUR_SELECTOR_expandable'));
 
         expandable1.on('contentdone', function () {
-            ch.Event.addListener(document.querySelector('.test'), 'click', function () {
+            tiny.on('.test', 'click', function () {
                 console.log('contentdone' + that.uid);
             });
         });
@@ -1323,7 +1322,7 @@
         });
         expandable2.on('contentdone', function () {
             var that = this;
-            ch.Event.addListener(qS('h2'), 'click', function () {
+            tiny.on('h2', 'click', function () {
                 console.log('contentdone' + that.uid);
             });
         });
@@ -1489,7 +1488,7 @@
             'hiddenby': 'button'
         });
 
-        ch.Event.addListener(qS('#modal-form'), 'submit', function (e) {
+        tiny.on('#modal-form', 'submit', function (e) {
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
@@ -1569,7 +1568,7 @@
                      console.log(errors);
                  });
 
-        ch.Event.addListener(form._el, 'submit', function (event) {
+        tiny.on(form._el, 'submit', function (event) {
             if (!form.hasError()) {
                 event.preventDefault();
                 console.log('Ademas hago otra cosa en el submit');
@@ -1686,11 +1685,10 @@
             'conditions':[{'name': 'required'}]
         });
 
-        [].forEach.call(document.querySelectorAll('a[href="#"]'), function(a) {
-            a.addEventListener('click', function(e){
-                e.preventDefault();
-            });
+        tiny.on('a[href="#"]', 'click', function(e) {
+            e.preventDefault();
         });
+
     </script>
 </body>
 </html>

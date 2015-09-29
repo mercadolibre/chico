@@ -13,7 +13,6 @@
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
      * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
      * @param {String} [options.position] Thethe type of positioning used. You must use: "absolute" or "fixed". Default: "fixed".
-     * @requires ch.util
      * @requires ch.Viewport
      * @returns {positioner} Returns a new instance of Positioner.
      * @example
@@ -62,7 +61,7 @@
         }
 
         // Creates its private options
-        this._options = ch.util.clone(this._defaults);
+        this._options = tiny.clone(this._defaults);
 
         // Init
         this._configure(options);
@@ -108,7 +107,7 @@
     Positioner.prototype._configure = function (options) {
 
         // Merge user options with its options
-        ch.util.extend(this._options, options);
+        tiny.extend(this._options, options);
 
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);
@@ -181,14 +180,14 @@
         reference.setAttribute('data-side', this._options.side);
         reference.setAttribute('data-align', this._options.align);
 
-        this._reference = ch.util.getOuterDimensions(reference);
+        this._reference = this._getOuterDimensions(reference);
 
         if (reference.offsetParent === this.target.offsetParent) {
             this._reference.left = reference.offsetLeft;
             this._reference.top = reference.offsetTop;
 
         } else {
-            offset = ch.util.getOffset(reference);
+            offset = tiny.offset(reference);
             this._reference.left = offset.left;
             this._reference.top = offset.top;
         }
@@ -209,9 +208,25 @@
         target.setAttribute('data-side', this._options.side);
         target.setAttribute('data-align', this._options.align);
 
-        this._target = ch.util.getOuterDimensions(target);
+        this._target = this._getOuterDimensions(target);
 
         return this;
+    };
+
+    /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Positioner.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Positioner.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
     };
 
     /**

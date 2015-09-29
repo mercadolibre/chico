@@ -25,7 +25,7 @@
                     span;
                 // CHECKBOX, RADIO
                 // TODO: when old forms be deprecated we must only support ch-form-options class
-                if (ch.util.classList(trigger).contains('ch-form-options')) {
+                if (tiny.hasClass(trigger, 'ch-form-options')) {
                 // Helper reference from will be fired
                     if (trigger.querySelectorAll('h4').length > 0) {
                         // Wrap content with inline element

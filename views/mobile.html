@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8">
-    <title>Chico Mobile v1.1.1</title>
+    <title>Chico Mobile v2.0.0</title>
 
     <meta name="description" content="">
     <meta name="author" content="MercadoLibre">
@@ -888,6 +888,7 @@
         </form>
     </div>
 
+    <script src="/bower_components/tiny.js/dist/tiny.js"></script>
     <script src="/dist/mobile/chico.js"></script>
     <script>
 
@@ -908,25 +909,30 @@
 
                 // Show suggestions
                 autocomplete.suggest(data);
-            } else {
-                // Hide possibly active loading indicator
-                autocomplete.suggest([]);
             }
         }
 
-        var suggestion;
+        var suggestion,
+            cancelRequest;
         var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
-            .on('type', function (userInput) {
-                if (suggestion && suggestion.cancel) {
-                    suggestion.cancel();
-                }
-                suggestion = ch.util.loadJSONP('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1');
-                suggestion.promise
-                    .then(parseResults)
-                    .then(function() {
-                        suggestion = null;
+                .on('type', function (userInput) {
+                    // Cancel the jsonp request if any
+                    if (cancelRequest) {
+                        cancelRequest();
+                    }
+                    // Hide possibly active loading indicator
+                    if (!userInput) {
+                        return autocomplete.suggest([]);
+                    }
+                    cancelRequest = tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+                        name: 'autocompleteSuggestion',
+                        success: parseResults,
+                        error: function(err) {
+                            autocomplete.suggest([]);
+                        }
                     });
-            });
+
+                });
 
         var expadable1 = new ch.Expandable(qS('.categories1'));
         var expadable2 = new ch.Expandable(qS('.categories2'));
@@ -1031,7 +1037,7 @@
             'to': 'today'
         });
 
-        ch.Event.addListener(qS('#modal-form'), 'submit', function (e) {
+        tiny.on('#modal-form', 'submit', function (e) {
             e.preventDefault();
             modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
         });
@@ -1220,10 +1226,8 @@
 
         // }())
 
-        [].forEach.call(document.querySelectorAll('a[href="#"], a[href=""]'), function(a) {
-            a.addEventListener('click', function(e){
-                e.preventDefault();
-            });
+        tiny.on('a[href="#"], a[href=""]', 'click', function(e) {
+            e.preventDefault();
         });
     </script>
 </body>

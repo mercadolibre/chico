@@ -70,7 +70,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Datepicker, ch.Component),
+    tiny.inherits(Datepicker, ch.Component);
+
+    var parent = Datepicker.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -144,7 +146,7 @@
          * The datepicker trigger.
          * @type {HTMLElement}
          */
-        this.trigger = ch.util.nextElementSibling(this.field);
+        this.trigger = tiny.next(this.field);
 
         /**
          * Reference to the Calendar component instanced.
@@ -170,7 +172,7 @@
             'hiddenby': this._options.hiddenby
         });
 
-        ch.Event.addListener(this._popover._content, ch.onpointertap, function (event) {
+        tiny.on(this._popover._content, ch.onpointertap, function (event) {
             var el = event.target;
 
             // Day selection
@@ -529,7 +531,7 @@
      */
     Datepicker.prototype.destroy = function () {
 
-        ch.util.parentElement(this.trigger).removeChild(this.trigger);
+        tiny.parent(this.trigger).removeChild(this.trigger);
 
         this._el.removeAttribute('aria-describedby');
         this._el.type = 'date';

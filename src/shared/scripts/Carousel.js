@@ -63,11 +63,44 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Carousel, ch.Component);
+
     var pointertap = ch.onpointertap,
         Math = window.Math,
         setTimeout = window.setTimeout,
-        // Inheritance
-        parent = ch.util.inherits(Carousel, ch.Component);
+        parent = Carousel.super_.prototype;
+
+    /**
+     * Reference to the vendor prefix of the current browser.
+     *
+     * @private
+     * @constant
+     * @type {String}
+     * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
+     * @example
+     * VENDOR_PREFIX === 'webkit';
+     */
+    var VENDOR_PREFIX = (function () {
+
+        var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
+            styleDeclaration = document.getElementsByTagName('script')[0].style,
+            prop;
+
+        for (prop in styleDeclaration) {
+            if (regex.test(prop)) {
+                return prop.match(regex)[0].toLowerCase();
+            }
+        }
+
+        // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+        // However (prop in style) returns the correct value, so we'll have to test for
+        // the precence of a specific property
+        if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
+        if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
+
+        return '';
+    }());
 
     /**
      * The name of the component.
@@ -129,8 +162,8 @@
          */
         this._list = this._el.children[0];
 
-        ch.util.classList(this._el).add('ch-carousel');
-        ch.util.classList(this._list).add('ch-carousel-list');
+        tiny.addClass(this._el, 'ch-carousel');
+        tiny.addClass(this._list, 'ch-carousel-list');
 
         /**
          * Collection of each child of the slider list.
@@ -144,7 +177,7 @@
                     collectionLength = collection.length;
 
                 Array.prototype.forEach.call(collection, function(item){
-                    ch.util.classList(item).add('ch-carousel-item');
+                    tiny.addClass(item, 'ch-carousel-item');
                 });
 
                 return collection;
@@ -167,21 +200,21 @@
          * @private
          * @type {Number}
          */
-        this._maskWidth = ch.util.getOuterDimensions(this._mask).width;
+        this._maskWidth = this._getOuterDimensions(this._mask).width;
 
         /**
          * The width of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
          * @type {Number}
          */
-        this._itemWidth = ch.util.getOuterDimensions(this._items[0]).width;
+        this._itemWidth = this._getOuterDimensions(this._items[0]).width;
 
         /**
          * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
          * @private
          * @type {Number}
          */
-        this._itemOuterWidth = parseInt(ch.util.getStyles(this._items[0], 'width'));
+        this._itemOuterWidth = parseInt(tiny.css(this._items[0], 'width'));
 
         /**
          * The size added to each item to make it elastic/responsive.
@@ -195,7 +228,7 @@
          * @private
          * @type {Number}
          */
-        this._itemHeight = ch.util.getOuterDimensions(this._items[0]).height;
+        this._itemHeight = this._getOuterDimensions(this._items[0]).height;
 
         /**
          * The margin of all items. Updated in each refresh only if it's necessary.
@@ -262,7 +295,7 @@
         this._prevArrow.setAttribute('role', 'button');
         this._prevArrow.setAttribute('aria-hidden', 'true');
         this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
-        ch.Event.addListener(this._prevArrow, pointertap, function () { that.prev(); }, false);
+        tiny.on(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
         /**
          * UI element of arrow that moves the Carousel to the next page.
@@ -273,7 +306,7 @@
         this._nextArrow.setAttribute('role', 'button');
         this._nextArrow.setAttribute('aria-hidden', 'true');
         this._nextArrow.setAttribute('class', 'ch-carousel-next');
-        ch.Event.addListener(this._nextArrow, pointertap, function () { that.next(); }, false);
+        tiny.on(this._nextArrow, pointertap, function () { that.next(); }, false);
 
         /**
          * UI element that contains all the thumbnails for pagination.
@@ -284,7 +317,7 @@
         this._pagination.setAttribute('role', 'navigation');
         this._pagination.setAttribute('class', 'ch-carousel-pages');
 
-        ch.Event.addListener(this._pagination, pointertap, function (event) {
+        tiny.on(this._pagination, pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
@@ -295,10 +328,10 @@
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
-        if (!this._options.fx) { ch.util.classList(this._list).add('ch-carousel-nofx'); }
+        if (!this._options.fx) { tiny.addClass(this._list, 'ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
-        if (!ch.support.transition) {
+        if (!tiny.support.transition) {
             this._list.style.cssText += 'position:absolute;left:0;';
         }
 
@@ -470,7 +503,8 @@
         that._el.appendChild(that._pagination);
 
         // Avoid selection on the pagination
-        ch.util.avoidTextSelection(that._pagination);
+        that._pagination.setAttribute('unselectable', 'on');
+        tiny.addClass(that._pagination, 'ch-user-no-select');
 
         // Check pagination as created
         that._paginationCreated = true;
@@ -507,14 +541,14 @@
         var that = this;
 
         // Do it if is required
-        if (this._options.fx && ch.support.transition) {
+        if (this._options.fx && tiny.support.transition) {
             // Delete efects on list to make changes instantly
-            ch.util.classList(this._list).add('ch-carousel-nofx');
+            tiny.addClass(this._list, 'ch-carousel-nofx');
             // Execute the custom method
             callback.call(this);
             // Restore efects to list
             // Use a setTimeout to be sure to do this AFTER changes
-            setTimeout(function () { ch.util.classList(that._list).remove('ch-carousel-nofx'); }, 0);
+            setTimeout(function () { tiny.removeClass(that._list, 'ch-carousel-nofx'); }, 0);
         // Avoid to add/remove classes if it hasn't effects
         } else {
             callback.call(this);
@@ -640,7 +674,7 @@
         });
 
         // Update the mask height with the list height
-        this._mask.style.height = ch.util.getOuterDimensions(this._list).height + 'px';
+        this._mask.style.height = this._getOuterDimensions(this._list).height + 'px';
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -656,7 +690,11 @@
      */
     Carousel.prototype._addArrows = function () {
         // Avoid selection on the arrows
-        ch.util.avoidTextSelection(this._prevArrow, this._nextArrow);
+        [this._prevArrow, this._nextArrow].forEach(function(el){
+            el.setAttribute('unselectable', 'on');
+            tiny.addClass(el, 'ch-user-no-select');
+        });
+
         // Add arrows to DOM
         this._el.insertBefore(this._prevArrow, this._el.children[0])
         this._el.appendChild(this._nextArrow);
@@ -675,11 +713,11 @@
     Carousel.prototype._disableArrows = function (prev, next) {
         this._prevArrow.setAttribute('aria-disabled', prev);
         this._prevArrow.setAttribute('aria-hidden', prev);
-        ch.util.classList(this._prevArrow)[prev ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny[prev ? 'addClass' : 'removeClass'](this._prevArrow, 'ch-carousel-disabled');
 
         this._nextArrow.setAttribute('aria-disabled', next);
         this._nextArrow.setAttribute('aria-hidden', next);
-        ch.util.classList(this._nextArrow)[next ? 'add' : 'remove']('ch-carousel-disabled');
+        tiny[next ? 'addClass' : 'removeClass'](this._nextArrow, 'ch-carousel-disabled');
     };
 
     /**
@@ -717,11 +755,11 @@
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform',
-            vendorTransformKey = ch.util.VENDOR_PREFIX ? ch.util.VENDOR_PREFIX + 'Transform' : null;
+        var transform = '-' + VENDOR_PREFIX + '-transform',
+            vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
-        if (ch.support.transition) {
+        if (tiny.support.transition) {
             return function (displacement) {
                 // Firefox has only "transform", Safari only "webkitTransform",
                 // Chrome has support for both. Applied required minimum
@@ -756,11 +794,27 @@
 
         // Unselect the thumbnail previously selected
         fromItem.setAttribute('aria-selected', false)
-        ch.util.classList(fromItem).remove('ch-carousel-selected');
+        tiny.removeClass(fromItem, 'ch-carousel-selected');
 
         // Select the new thumbnail
         toItem.setAttribute('aria-selected', true)
-        ch.util.classList(toItem).add('ch-carousel-selected');
+        tiny.addClass(toItem, 'ch-carousel-selected');
+    };
+
+    /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Carousel.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Carousel.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
     };
 
     /**
@@ -772,7 +826,7 @@
     Carousel.prototype.refresh = function () {
 
         var that = this,
-            maskWidth = ch.util.getOuterDimensions(this._mask).width;
+            maskWidth = this._getOuterDimensions(this._mask).width;
 
         // Check for changes on the width of mask, for the elastic carousel
         // Update the width of the mask
@@ -957,7 +1011,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        ch.Event.dispatchCustomEvent(window.document, ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
