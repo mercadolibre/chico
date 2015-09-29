@@ -77,10 +77,16 @@ pre.language-javascript {
 
 .chico-title-section {
 	text-align: center;
+	font-size: 14px;
+}
+
+.chico-title-section-tagline {
+	display: block;
+	padding-bottom: 15px;
 }
 
 .chico-hero {
-	padding: 60px 0;
+	padding: 60px 0 15px 0;
 	text-align: center;
 }
 
@@ -104,6 +110,7 @@ pre.language-javascript {
 }
 
 .chico-features {
+	padding-top: 0px;
 	text-align: center;
 }
 
