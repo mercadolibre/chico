@@ -25,3 +25,42 @@ Wizard
         <a href="#">Secondary Action</a>
     </div>
 </form>
+
+<div class="example">
+{% highlight html %}
+<form action="/" class="ch-wizard">
+    <ol class="ch-wizard-breadcrumb ch-steps-four">
+        <li><a href="#1">Step 1</a></li>
+        <li><a href="#2">Step 2</a></li>
+        <li class="ch-wizard-current">Step 3</li>
+        <li class="ch-wizard-step">Step 4</li>
+    </ol>
+    <div class="ch-box-container">
+        <h2>Caption heading</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+    </div>
+
+    <div class="ch-actions">
+        <button type="submit" class="ch-btn">Primary Action</button>
+        <a href="#">Secondary Action</a>
+    </div>
+</form>
+{% endhighlight %}
+</div>
+
+{% highlight js %}
+// Create a new AutoComplete with configuration.
+var autocomplete = new AutoComplete('.my-autocomplete', {
+ 'loadingClass': 'custom-loading',
+ 'highlightedClass': 'custom-highlighted',
+ 'itemClass': 'custom-item',
+ 'addClass': 'carousel-cities',
+ 'keystrokesTime': 600,
+ 'html': true,
+ 'side': 'center',
+ 'align': 'center',
+ 'offsetX': 0,
+ 'offsetY': 0,
+ 'positioned': 'fixed'
+});
+{% endhighlight %}

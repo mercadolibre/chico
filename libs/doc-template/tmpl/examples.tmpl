@@ -1,8 +1,13 @@
 <?js
-	var data = obj;
+    var data = obj;
     data.forEach(function(example) {
-    ?>
-    <pre><code class="language-javascript"><?js= example.code ?></code></pre>
+?>
+<div class="jsdoc-example">
+{% highlight javascript %}
+<?js= example.code ?>
+{% endhighlight %}
+</div>
+
 <?js
     });
 ?>
