@@ -5,11 +5,10 @@
 <![endif]-->
 <!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
 
-
   <head>
     <!-- Define the charset always before the title -->
     <meta charset="utf-8"/>
-    <title>Chico UI</title>
+    <title>Index v1.2.0 - Chico UI API documentation</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta http-equiv="cleartype" content="on"/>
@@ -41,6 +40,8 @@
 </head>
 
 
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
   <body data-country="MLA">
 
       <header role="banner" class="ml-header">
@@ -60,7 +61,7 @@
                     <a class="" href="/chico/ui-components/">UI Components</a>
                 </li>
                 <li class="ml-navigation-item ml-navigation-account ">
-                    <a class="api-doc " href="/chico/api-doc/current/ui/ch">API Doc</a>
+                    <a class="api-doc  active" href="/chico/api-doc/current/ui/ch">API Doc</a>
 
                     <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
                     <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
@@ -77,7 +78,7 @@
         <nav class="ml-header-menu">
             <a class="" href="/chico/getting-started/">Getting started</a>
             <a class="" href="/chico/ui-components/">UI Components</a>
-            <a class="" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
+            <a class=" active" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
         </nav>
     </div>
 </header>
@@ -85,65 +86,47 @@
 
 
       <div class="ml-wrapper">
-        <main role="main">
-    <section class="chico-bg-noise chico-hero">
-        <div class="ml-bounds mesh-row">
-            <figure class="mesh-col-12">
-                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" class="chico-hero-img">
-            </figure>
+        <div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>Index</h1>
+                    
 
-            <div class="mesh-col-12">
-                <h1>Chico Components</h1>
-                <h3>
-                    UI components progressively enhanced without dependencies.
-                </h3>
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul><h3>Global</h3><ul><li><a href="../global/#cancelpointeronscroll">cancelPointerOnScroll</a></li><li><a href="../global/#fixlabels">fixLabels</a></li></ul>
+                </nav>
             </div>
-        </div>
-    </section>
-    <section class="chico-features">
-        <div class="ml-bounds mesh-row">
-            <h2>Mobile &amp; Desktop</h2>
-            <ul>
-                <li class="mesh-col-12 mesh-col-m-4">
-                    <img src="/chico/assets/ninja-1-c4c3f54158ef93f2b99ca03854e44b00.png">
-                    <h3>Easy to use</h3>
-                    <p>Instantiate and configure it with vanilla JavaScript.</p>
-                </li>
-
-                <li class="mesh-col-12 mesh-col-m-4">
-                    <img src="/chico/assets/ninja-2-fe56a8f3ffdb7cde1d7e5e4d2f8312d1.png">
-                    <h3>Themeable</h3>
-                    <p>Create a theme that adapts to your business.</p>
-                </li>
-
-                <li class="mesh-col-12 mesh-col-m-4">
-                    <img src="/chico/assets/ninja-3-093dce0cce49f9278e2f5c96f9a3ae33.png">
-                    <h3>Customizable</h3>
-                    <p>Choose the components you are going to use.</p>
-                </li>
-            </ul>
-        </div>
-    </section>
-    <section class="chico-bg-noise chico-bottom">
-        <div class="ml-bounds mesh-row">
-
-            <h2 class="chico-title-section">
-                <a href="https://github.com/mercadolibre/chico.git">
-                    <span class="chico-title-section-tagline">Developed and maintained by </span>
-                    <img src="/chico/assets/brand-ml-6b2515c8961ee76da12987a88828104a.png" class="brand-ml" alt="MercadoLibre">
-                </a>
-            </h2>
-
-            <div class="mesh-col-12">
-                <iframe src="http://ghbtns.com/github-btn.html?user=mercadolibre&repo=chico&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="102" height="20"></iframe>
-                <iframe src="http://ghbtns.com/github-btn.html?user=mercadolibre&repo=chico&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
-                <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="http://platform.twitter.com/widgets/tweet_button.1410989646.html#_=1411583434661&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Fchico-ui.com.ar%2F&amp;size=m&amp;text=Chico%20UI%2C%20MercadoLibre%27s%20Open%20Source%20Web%20Tools.&amp;url=http%3A%2F%2Fchico-ui.com.ar&amp;via=chicoui" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 102px; height: 20px;"></iframe>
-                <a href="https://twitter.com/chicoui" class="twitter-follow-button" data-show-count="false">Follow @chicoui</a>
-            </div>
-        </div>
-    </section>
-</main>
-
+        </section>
+    </main>
+</div>
       </div>
 
     <footer role="contentinfo" class="ml-footer">
@@ -183,11 +166,6 @@
         a.close()
     })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
 </script>
-
-    <script type="text/javascript">
-      /* Twitter */
-      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-    </script>
 
   </body>
 </html>

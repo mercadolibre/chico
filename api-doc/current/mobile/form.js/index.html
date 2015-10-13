@@ -1,0 +1,552 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>Source: shared/scripts/Form.js v1.2.0 - Chico UI API documentation</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="/chico/assets/ninja-45a14a876dfcc0a6718740e6eac2dbdd.ico">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
+
+    <!-- Chico -->
+    <link rel="stylesheet" href="/chico/assets/ui/chico-a6a56bc7503839ea5497b99baec2a721.css">
+
+    <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-e1ffe64577a2965a95eb4a0bd539a1e2.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-dcf1c4547da74b1419e1c449d0595532.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-da6396cbf0dae791010df11ba9bc2798.css">
+
+    <link rel="stylesheet" href="/chico/assets/ml-header-77d554c6e4451d2f3b0d7deff9d67022.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-24d8c2465ad820f9667a0ecc4266cd30.css">
+    <link rel="stylesheet" href="/chico/assets/highlighter-22319125406f6233c1ee514296bd36f3.css">
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css">
+    <![endif]-->
+</head>
+
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      <header role="banner" class="ml-header">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/chico/"><h1 class="ml-title">Chico UI</h1></a>
+
+        <a class="ml-logo" href="/chico/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico Components</span></a>
+
+        <label for="toggle-menu" class="toggle-label"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account ">
+                   <a class="" href="/chico/getting-started/">Getting started</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="" href="/chico/ui-components/">UI Components</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="api-doc  active" href="/chico/api-doc/current/ui/ch">API Doc</a>
+
+                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
+                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="ml-header-menu">
+            <a class="" href="/chico/getting-started/">Getting started</a>
+            <a class="" href="/chico/ui-components/">UI Components</a>
+            <a class=" active" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
+        </nav>
+    </div>
+</header>
+
+
+
+      <div class="ml-wrapper">
+        <div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>Source: shared/scripts/Form.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (window, ch) {
+    'use strict';
+
+    /**
+     * Form is a controller of DOM's HTMLFormElement.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Component
+     * @requires ch.Validations
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Form.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Object} [options.messages] A collections of validations messages.
+     * @param {String} [options.messages.required] A validation message.
+     * @param {String} [options.messages.string] A validation message.
+     * @param {String} [options.messages.url] A validation message.
+     * @param {String} [options.messages.email] A validation message.
+     * @param {String} [options.messages.maxLength] A validation message.
+     * @param {String} [options.messages.minLength] A validation message.
+     * @param {String} [options.messages.custom] A validation message.
+     * @param {String} [options.messages.number] A validation message.
+     * @param {String} [options.messages.min] A validation message.
+     * @param {String} [options.messages.max] A validation message.
+     * @returns {form} Returns a new instance of Form.
+     * @example
+     * // Create a new Form.
+     * var form = new ch.Form(el, [options]);
+     * @example
+     * // Create a new Form with custom messages.
+     * var form = new ch.Form({
+     *     'messages': {
+     *          'required': 'Some message!',
+     *          'email': 'Another message!'
+     *     }
+     * });
+     */
+    function Form(el, options) {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
+        that._init(el, options);
+
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Form is created.
+             * @memberof! ch.Form.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
+        /**
+         * It emits an event when the form is ready to use.
+         * @event ch.Form#ready
+         * @example
+         * // Subscribe to "ready" event.
+         * form.on('ready', function () {
+         *     // Some code here!
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
+    }
+
+    // Inheritance
+    tiny.inherits(Form, ch.Component);
+
+    var parent = Form.super_.prototype;
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Form.prototype
+     * @type {String}
+     */
+    Form.prototype.name = 'form';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Form.prototype
+     * @function
+     */
+    Form.prototype.constructor = Form;
+
+    /**
+     * Initialize a new instance of Form and merge custom options with defaults options.
+     * @memberof! ch.Form.prototype
+     * @function
+     * @private
+     * @returns {form}
+     */
+    Form.prototype._init = function (el, options) {
+        // Call to its parent init method
+        parent._init.call(this, el, options);
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
+        /**
+         * A collection of active errors.
+         * @type {Array}
+         */
+        this.errors = [];
+
+        /**
+         * Collection of defined messages.
+         * @type {Object}
+         * @private
+         */
+        this._messages = this._options.messages || {};
+
+        /**
+         * A collection of validations instances.
+         * @type {Array}
+         */
+        this.validations = [];
+
+        /**
+         * The form container.
+         * @type {HTMLElement}
+         */
+        this.container = this._el;
+            // Add classname
+        tiny.addClass(this.container, 'ch-form');
+            // Disable HTML5 browser-native validations
+        this.container.setAttribute('novalidate', 'novalidate');
+            // Bind the submit
+        tiny.on(this.container, 'submit', function (event) {
+            // Runs validations
+            that.validate(event);
+        });
+
+        // Bind the reset
+        if (this.container.querySelector('input[type="reset"]')) {
+            tiny.on(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
+                event.preventDefault();
+                that.reset();
+            });
+        }
+        // Stub for EventEmitter to prevent the errors throwing
+        this.on('error', function(){});
+
+        // Clean validations
+        this.on('disable', this.clear);
+
+        return this;
+    };
+
+    /**
+     * Executes all validations.
+     * @memberof! ch.Form.prototype
+     * @function
+     * @returns {form}
+     */
+    Form.prototype.validate = function (event) {
+
+        if (!this._enabled) {
+            return this;
+        }
+
+        /**
+         * It emits an event when the form will be validated.
+         * @event ch.Form#beforevalidate
+         * @example
+         * // Subscribe to "beforevalidate" event.
+         * component.on('beforevalidate', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('beforevalidate');
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this,
+            i = 0,
+            j = that.validations.length,
+            validation,
+            firstError,
+            firstErrorVisible,
+            triggerError;
+
+        this.errors.length = 0;
+
+        // Run validations
+        for (i; i &lt; j; i += 1) {
+            validation = that.validations[i];
+
+            // Validate
+            validation.validate();
+
+            // Store validations with errors
+            if (validation.isShown()) {
+                that.errors.push(validation);
+            }
+        }
+
+        // Is there's an error
+        if (that.errors.length > 0) {
+            firstError = that.errors[0];
+            firstErrorVisible = firstError.trigger;
+
+            // Find the closest visible parent if current element is hidden
+            while (tiny.css(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
+                firstErrorVisible = firstErrorVisible.parentElement;
+            }
+
+            firstErrorVisible.scrollIntoView();
+
+            // Issue UI-332: On validation must focus the first field with errors.
+            // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
+            triggerError = firstError.trigger;
+
+            if (triggerError.tagName === 'DIV') {
+                firstError.trigger.querySelector('input:first-child').focus();
+            }
+
+            if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
+                triggerError.focus();
+            }
+
+            if (event && event.preventDefault) {
+                event.preventDefault();
+            }
+
+            /**
+             * It emits an event when a form has got errors.
+             * @event ch.Form#error
+             * @example
+             * // Subscribe to "error" event.
+             * form.on('error', function (errors) {
+             *     console.log(errors.length);
+             * });
+             */
+            this.emit('error', this.errors);
+
+        } else {
+
+            /**
+             * It emits an event when a form hasn't got errors.
+             * @event ch.Form#success
+             * @example
+             * // Subscribe to "success" event.
+             * form.on("submit",function () {
+             *     // Some code here!
+             * });
+             * @example
+             * // Subscribe to "success" event and prevent the submit event.
+             * form.on("submit",function (event) {
+             *     event.preventDefault();
+             *     // Some code here!
+             * });
+             */
+            this.emit('success', event);
+        }
+
+        return this;
+    };
+
+    /**
+     * Checks if the form has got errors but it doesn't show bubbles.
+     * @memberof! ch.Form.prototype
+     * @function
+     * @returns {Boolean}
+     * @example
+     * // Checks if a form has errors and do something.
+     * if (form.hasError()) {
+     *     // Some code here!
+     * };
+     */
+    Form.prototype.hasError = function () {
+
+        if (!this._enabled) {
+            return false;
+        }
+
+        this.errors.length = 0;
+
+        var i = 0,
+            j = this.validations.length,
+            validation;
+
+        // Run hasError
+        for (i; i &lt; j; i += 1) {
+
+            validation = this.validations[i];
+
+            if (validation.hasError()) {
+                this.errors.push(validation);
+            }
+
+        }
+
+        return this.errors.length > 0;
+    };
+
+    /**
+     * Clear all active errors.
+     * @memberof! ch.Form.prototype
+     * @function
+     * @returns {form}
+     * @example
+     * // Clear active errors.
+     * form.clear();
+     */
+    Form.prototype.clear = function () {
+        var i = 0,
+            j = this.validations.length;
+
+        for (i; i &lt; j; i += 1) {
+            this.validations[i].clear();
+        }
+
+        /**
+         * It emits an event when the form is cleaned.
+         * @event ch.Form#clear
+         * @example
+         * // Subscribe to "clear" event.
+         * form.on('clear', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('clear');
+
+        return this;
+    };
+
+    /**
+     * Clear all active errors and executes the reset() native mehtod.
+     * @memberof! ch.Form.prototype
+     * @function
+     * @returns {form}
+     * @example
+     * // Resets form fields and clears active errors.
+     * form.reset();
+     */
+    Form.prototype.reset = function () {
+
+        // Clears all shown validations
+        this.clear();
+
+        // Executes the native reset() method
+        this._el.reset();
+
+        /**
+         * It emits an event when a form resets its fields.
+         * @event ch.Form#reset
+         * @example
+         * // Subscribe to "reset" event.
+         * form.on('reset', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('reset');
+
+        return this;
+    };
+
+    /**
+     * Destroys a Form instance.
+     * @memberof! ch.Form.prototype
+     * @function
+     * @example
+     * // Destroy a form
+     * form.destroy();
+     * // Empty the form reference
+     * form = undefined;
+     */
+    Form.prototype.destroy = function () {
+
+        // this.$container.off('.form')
+        this.container.removeAttribute('novalidate');
+
+        this.validations.forEach(function (e, i) {
+            e.destroy();
+        });
+
+        parent.destroy.call(this);
+
+        return;
+    };
+
+    // Factorize
+    ch.factory(Form);
+
+}(this, this.ch));</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul><h3>Global</h3><ul><li><a href="../global/#cancelpointeronscroll">cancelPointerOnScroll</a></li><li><a href="../global/#fixlabels">fixLabels</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <small>©2015 MercadoLibre.com</small>
+        <nav>
+            <a href="#">About</a>
+        </nav>
+        <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
+        <small class="contact">Contact us</small>
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+  </body>
+</html>
