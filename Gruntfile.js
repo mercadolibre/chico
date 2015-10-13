@@ -120,6 +120,13 @@ module.exports = function (grunt) {
                     'private': false
                 }
             }
+        },
+
+        'gh-pages': {
+            options: {
+                base: '_site'
+            },
+            src: ['**']
         }
     });
 
@@ -150,6 +157,10 @@ module.exports = function (grunt) {
     grunt.registerTask('apidoc', ['updatedata', 'jsdoc', 'checkCurrent']);
 
     grunt.registerTask('dev', ['copy', 'jekyll:dev', 'browserSync:dev', 'watch']);
+
+    grunt.registerTask('dist', ['copy', 'apidoc', 'jekyll:dist']);
+
+    grunt.registerTask('deploy', ['dist', 'gh-pages']);
 
     /*
      * Private Helpers
