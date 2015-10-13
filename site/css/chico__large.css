@@ -39,7 +39,7 @@ section {
 	right: 63px;
 }
 
-.chico-nav ul {
+.chico-nav > ul {
     border-left: solid 1px #ccc;
     padding-left: 20px;
 }

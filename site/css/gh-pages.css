@@ -111,19 +111,9 @@ header .ml-logo-mobile {
         display: none;
     }
 
-
     .chico-features ul li {
         margin: 0 0 30px 0;
     }
-
-    .ml-bounds {
-        text-align: center;
-    }
-
-    .ml-bounds h2 {
-        margin: 10px 0 20px 0;
-    }
-
 
     .chico-get-started section .ml-bounds article .language-javascript .class-name {
         margin-left: -220px;
@@ -201,10 +191,6 @@ footer .link-chico-footer {
     margin: 40px 0 10px 0;
 }
 
-.ml-bounds h2 {
-    margin: 50px 0 15px 0;
-}
-
 .language-markup code {
     position: relative;
     left: -180px;
@@ -214,48 +200,37 @@ footer .link-chico-footer {
 
 /* Ui components
 ---------------------------------------------------------------*/
-.ui-component .component-example {
-    margin: 20px 0 0 0;
+.component-example {
+    margin: 20px 0 0;
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+    padding: 12px;
+    position: relative;
 }
-/*
-.component-example h1,
-.component-example h2,
-.component-example h3,
-.component-example h4,
-.component-example h5,
-.component-example h6 {
-    font-weight: normal;
-    font-family: Arial,Helvetica,"Nimbus Sans L",sans-serif;
-    margin: 0;
-}
-
-.component-example h1 {
-    font-size: 22px;
-}
-
-.component-example h2 {
-    font-size: 20px;
-}
-
-.component-example h3 {
-    font-size: 18px;
-}
-
-.component-example h4 {
-    font-size: 16px;
-}
-
-.component-example h5 {
-    font-size: 15px;
-}
-
-.component-example h6 {
+.component-example:before {
+    display: block;
+    position: absolute;
+    padding: 0 4px;
+    content: "Example";
+    top: -12px;
+    left: 8px;
+    font-weight: bold;
     font-size: 14px;
+    background-color: #fff;
 }
-*/
+.component-example + .highlight,
+.ui-components .highlight + .highlight {
+    margin-top: -8px;
+}
+.component-example + .highlight > pre,
+.component-example + .highlight > code,
+.ui-components .highlight + .highlight > pre {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
 
-/* Help
----------------------------------------------------------------*/
+    /* Help
+    ---------------------------------------------------------------*/
 .help p {
     margin: 15px 0 30px 0;
 }

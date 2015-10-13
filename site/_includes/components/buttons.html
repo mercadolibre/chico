@@ -1,0 +1,76 @@
+<article id="buttons">
+    <h2>Buttons</h2>
+
+    <div class="component-example">
+        <div class="mesh-row">
+            <div class="mesh-col-m-6">
+                <div class="m-leftcolumn">
+                    <h3>Normal Buttons</h3>
+
+                    <p><input type="button" class="ch-btn ch-btn-large"
+                              value="Big button"></p>
+
+                    <p><input type="button" class="ch-btn" value="Button"></p>
+
+                    <p><input type="button" class="ch-btn ch-btn-small"
+                              value="Small button"></p>
+
+                    <p><input type="button" class="ch-btn-skin ch-btn-small"
+                              value="Skin button"></p>
+
+                    <p>
+                        <button class="ch-btn-skin ch-btn-small"><i
+                            class="ch-icon-heart"></i>Favorite
+                        </button>
+                    </p>
+                </div>
+            </div>
+            <div class="mesh-col-m-6">
+                <div class="m-rightcolumn">
+                    <h3>Disabled Buttons</h3>
+
+                    <p><input type="button"
+                              class="ch-btn ch-btn-large ch-btn-disabled"
+                              value="Big button disabled"></p>
+
+                    <p><input type="button" class="ch-btn ch-btn-disabled"
+                              value="Button disabled"></p>
+
+                    <p><input type="button"
+                              class="ch-btn ch-btn-small ch-btn-disabled"
+                              value="Small button disabled"></p>
+
+                    <p><input type="button"
+                              class="ch-btn-skin ch-btn-small ch-btn-disabled"
+                              value="Skin button disabled"></p>
+
+                    <p>
+                        <button class="ch-btn-skin ch-btn-small ch-btn-disabled"
+                                disabled><i class="ch-icon-heart"></i>Favorite
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% highlight html %}
+<!-- Normal buttons -->
+<input type="button" class="ch-btn ch-btn-large" value="Big button">
+<input type="button" class="ch-btn" value="Button">
+<input type="button" class="ch-btn ch-btn-small" value="Small button">
+<input type="button" class="ch-btn-skin ch-btn-small" value="Skin button">
+<button class="ch-btn-skin ch-btn-small">
+    <i class="ch-icon-heart"></i>Favorite
+</button>
+
+<!-- Disabled buttons -->
+<input type="button" class="ch-btn ch-btn-large ch-btn-disabled" value="Big button disabled">
+<input type="button" class="ch-btn ch-btn-disabled" value="Button disabled">
+<input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled">
+<input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled">
+<button class="ch-btn-skin ch-btn-small ch-btn-disabled" disabled>
+    <i class="ch-icon-heart"></i>Favorite
+</button>
+{% endhighlight %}
+
+</article>

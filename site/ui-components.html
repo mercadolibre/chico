@@ -16,22 +16,20 @@ id: ui-components
     <section>
         <div class="ml-bounds mesh-row">
 
-            <div class="mesh-col-12 mesh-col-m-9 ui-component">
-                {% for post in site.posts %}
-                <article id="{{ post.tags }}">
-                    {{ post.content }}
-                </article>
-                {% endfor %}
+            <div class="mesh-col-12 mesh-col-m-9 ui-components">
+                {% include components/headings.html %}
+                {% include components/paragraphs.html %}
+                {% include components/links.html %}
+                {% include components/lists.html %}
+                {% include components/boxes.html %}
+                {% include components/wizard.html %}
+                {% include components/loadings.html %}
+                {% include components/buttons.html %}
+                {% include components/autocomplete.html %}
+                {% include components/pagination.html %}
             </div>
-
             <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
-                <ul id="nav-sections">
-                    {% for post in site.posts %}
-                        <li>
-                            <a class="" href="#{{ post.tags }}" data-section="">{{ post.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% include nav-components.html %}
             </nav>
 
         </div>

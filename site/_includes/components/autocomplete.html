@@ -1,0 +1,62 @@
+<article id="autocomplete">
+    <h2>Autocomplete</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form method="get" action="http://www.mercadolibre.com.ar/jm/search" class="ch-form">
+            <div class="ch-form-row">
+                <label for="product">Find a product:</label>
+                <input type="text" name="as_word" id="product" class="autocomplete" placeholder="iphone 5" />
+                <p class="ch-form-hint">This is working with the MercadoLibre API</p>
+            </div>
+            <p class="ch-form-actions">
+                <input type="submit" name="autocompleteSubmit" class="ch-btn">
+            </p>
+        </form>
+    </div>
+{% highlight html %}
+<form method="get" action="http://www.mercadolibre.com.ar/jm/search" class="ch-form">
+    <input type="text" name="as_word" class="autocomplete" />
+    <input type="submit" name="autocompleteSubmit" class="ch-btn">
+</form>
+{% endhighlight %}
+
+{% highlight javascript %}
+var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
+    .on('type', function (userInput) {
+        tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+            name: 'autocompleteSuggestion',
+            success: parseResults,
+            error: function(err) {
+                autocomplete.suggest([]);
+            }
+        });
+    });
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            return false;
+
+            var cancelRequest;
+            var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
+                .on('type', function (userInput) {
+                    // Cancel the jsonp request if any
+                    if (cancelRequest) {
+                        cancelRequest();
+                    }
+                    // Hide possibly active loading indicator
+                    if (!userInput) {
+                        return autocomplete.suggest([]);
+                    }
+                    cancelRequest = tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+                        name: 'autocompleteSuggestion',
+                        success: parseResults,
+                        error: function(err) {
+                            autocomplete.suggest([]);
+                        }
+                    });
+                });
+        });
+    </script>
+</article>
