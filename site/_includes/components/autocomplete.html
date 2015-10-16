@@ -36,8 +36,16 @@ var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
 
     <script>
         document.addEventListener('DOMContentLoaded', function(e) {
-            return false;
-
+            function parseResults(results) {
+                var data = [];
+                if (results[2].suggested_queries !== undefined) {
+                    results[2].suggested_queries.forEach(function (e, i) {
+                        data.push(e.q);
+                    });
+                    // Show suggestions
+                    autocomplete.suggest(data);
+                }
+            }
             var cancelRequest;
             var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
                 .on('type', function (userInput) {
