@@ -1,0 +1,27 @@
+<article id="transition-window">
+    <h2>Transition window</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form action="{{ site.baseUrl }}/ajax.html">
+            <input type="submit" id="transition" class="ch-btn ch-btn-small" value="Execute it!">
+        </form>
+    </div>
+{% highlight html %}
+<input type="submit" id="transition" class="ch-btn ch-btn-small" value="Execute it!">
+{% endhighlight %}
+
+{% highlight javascript %}
+var transition = new ch.Transition(ch('#transition')[0]);
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            transition = new ch.Transition(ch('#transition')[0]);
+
+            tiny.on('#transition', 'click', function(e){
+                setTimeout(function(){transition.hide()}, 5000);
+            });
+        });
+    </script>
+</article>

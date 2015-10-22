@@ -75,7 +75,7 @@ module.exports = function (grunt) {
             },
             jekyll: {
                 files: [
-                    './**/*.{html,yml,md,markdown}',
+                    'site/**/*.{html,yml,md,markdown}',
                     'assets/**/*.{css,js,png}',
                     '!<%= app.dest %>'
                 ],

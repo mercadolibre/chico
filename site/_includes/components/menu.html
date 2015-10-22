@@ -1,0 +1,71 @@
+<article id="menu">
+    <h2>Menu</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <ul class="demo-menu ch-menu">
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Link</a>
+            </li>
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+{% highlight html %}
+<ul class="demo-menu ch-menu">
+    <li>
+        <span>Collapsible</span>
+        <ul>
+            <li>...</li>
+            <li>...</li>
+        </ul>
+    </li>
+    <li>
+        <span>Collapsible</span>
+        <ul>
+            <li>...</li>
+            <li>...</li>
+        </ul>
+    </li>
+</ul>
+{% endhighlight %}
+{% highlight javascript %}
+var menu = new ch.Menu(document.querySelector('.demo-menu'));
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var menu = new ch.Menu(document.querySelector('.demo-menu'));
+        });
+    </script>
+</article>

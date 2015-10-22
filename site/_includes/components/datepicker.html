@@ -1,0 +1,37 @@
+<article id="datepicker">
+    <h2>Date Picker</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form action="{{ site.baseUrl }}/ajax.html" class="ch-form">
+            <p class="ch-form-row">
+                <label for="val_date">
+                    Date:
+                </label>
+                <input type="date" id="val_date" class="myDatepicker" placeholder="DD/MM/YYYY">
+            </p>
+        </form>
+    </div>
+{% highlight html %}
+<input type="date" id="val_date" placeholder="DD/MM/YYYY">
+{% endhighlight %}
+
+{% highlight javascript %}
+var datepicker = new ch.Datepicker(ch('#val_date')[0], {
+    'selected': '2015/11/15',
+    'to': 'today'
+});
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var s1 = new Date();
+            s1.setDate(s1.getDate() - 14);
+
+            var datepicker = new ch.Datepicker(ch('#val_date')[0], {
+                'selected': s1.getFullYear()+'/'+(s1.getMonth()+1)+'/'+s1.getDate(),
+                'to': 'today'
+            });
+        });
+    </script>
+</article>

@@ -1,0 +1,155 @@
+<article id="tables">
+    <h2>Tables</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
+            <caption>Table</caption>
+            <thead>
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Operation</th>
+                <th scope="col">Seller</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select
+                </td>
+            </tr>
+            <tr>
+                <td>02/04/2011</td>
+                <td><a href="#">Purchase</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            <tr>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            <tr>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% highlight html %}
+<table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
+    <caption>Table</caption>
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            ...
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>02/04/2011</td>
+            ...
+        </tr>
+    </tbody>
+</table>
+{% endhighlight %}
+
+    <div class="component-example">
+        <table class="ch-datagrid-controls" summary="Listado de cobros en MercadoPago">
+            <caption>Table</caption>
+            <thead>
+            <tr>
+                <th scope="col"><input type="checkbox" name="mycheckall"/></th>
+                <th scope="col">Data</th>
+                <th scope="col">Operation</th>
+                <th scope="col">Seller</th>
+                <th scope="col">Description</th>
+                <th scope="col" class="ch-datagrid-selected">Price <i class="ch-datagrid-desc"></i></th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td scope="row"><input type="checkbox" name="mycheck"/></td>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select
+                </td>
+            </tr>
+            <tr class="ch-datagrid-selected">
+                <td scope="row"><input type="checkbox" name="mycheck" checked="checked"></td>
+                <td>02/04/2011</td>
+                <td><a href="#">Purchase</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            <tr>
+                <td scope="row"><input type="checkbox" name="mycheck"/></td>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            <tr>
+                <td scope="row"><input type="checkbox" name="mycheck"/></td>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% highlight html %}
+<table class="ch-datagrid-controls" summary="Listado de cobros en MercadoPago">
+    <caption>Table</caption>
+    <thead>
+    <tr>
+        <th scope="col">Date</th>
+        ...
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>02/04/2011</td>
+        ...
+    </tr>
+    </tbody>
+</table>
+{% endhighlight %}
+</article>

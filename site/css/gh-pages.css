@@ -229,6 +229,24 @@ footer .link-chico-footer {
     border-top-right-radius: 0;
 }
 
+.icons-showcase {
+    overflow: hidden;
+    padding: 1em;
+}
+.icons-showcase li {
+    float:left;
+    width: 33%;
+    line-height: 2em;
+}
+.icons-showcase li > i:before {
+    -webkit-transition: -webkit-transform .2s ease-out;
+    transition: transform .2s ease-out;
+}
+.icons-showcase li:hover > i:before {
+    -webkit-transform: scale(2.2);
+    transform: scale(2.2);
+}
+
     /* Help
     ---------------------------------------------------------------*/
 .help p {

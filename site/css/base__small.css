@@ -21,14 +21,6 @@ a.ch-btn-skin:visited {
 /* Base
 ---------------------------------------------------------------*/
 
-*,
-*:before,
-*:after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
 html,
 body {
     background-color: #fff;

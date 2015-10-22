@@ -1,0 +1,31 @@
+<article id="bubble">
+    <h2>Validation Bubble</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <button id="bubble1" class="ch-btn ch-btn-small">Show an error message</button>
+    </div>
+{% highlight html %}
+<button id="bubble1" class="ch-btn ch-btn-small">Show an error message</button>
+{% endhighlight %}
+
+{% highlight javascript %}
+var bubble = new ch.Bubble(ch('#bubble1')[0], {
+    content: 'Check the information, please.'
+});
+tiny.on('#bubble1', 'click', function(e) {
+    bubble.show();
+});
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var bubble = new ch.Bubble(ch('#bubble1')[0], {
+                content: 'Check the information, please.'
+            });
+            tiny.on('#bubble1', 'click', function(e) {
+                bubble.show();
+            });
+        });
+    </script>
+</article>
