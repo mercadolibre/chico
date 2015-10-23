@@ -151,15 +151,6 @@ footer {
     z-index: 999;
 }
 
-footer .contact {
-    float: right;
-    width: 76px;
-    border-right: 1px solid #DDD;
-    margin: 12px 14px 0 0;
-    height: 18px;
-    padding: 2px 0 0 0;
-}
-
 footer .icon-contact-us {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAARCAYAAAAyhueAAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK6wAACusBgosNWgAAABR0RVh0Q3JlYXRpb24gVGltZQA0LzEvMTTrBXF4AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAATlJREFUOI21kyGMwjAUhj84TGexD1u72Wk0drqGhGFxJCQnsFhmp2epncYOudnq6cmeGuIydsfBfbbtl9eX/5947/35fOZ2u/EOkiRhUte1P51ObxH2TN9q66Uiwnw+f5tQa800CALSNEUp9bJQREjTlKlzDucch8MBEfmzMAxDdrsd1lo+NpvNZ5ZlAGy3WwCapvm1TCnFer1muVyS5znX65VZf1iWJXVdY4whiiKyLKNt21Gh1hpjDM459vs9XdcBDEcqSRLiOMZaS1mWg8KxO7OhB0VRUFUVxhi01uR5fp9CRDDGAHA8Hgd/Mxp+pRSr1Yo4jqmqiiAIiKKIy+WCtfbhWgYn7em67j611pq2bSmK4sddj0p7mqZ5KhH/U9N/kYrIS036ThiGTLz3Hp5r0SOUUiwWC74AFYOLVWN2/4gAAAAASUVORK5CYII=) no-repeat;
     height: 22px;
