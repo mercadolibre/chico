@@ -46,31 +46,12 @@ id: getting-started
                 </article>
 
                 <article>
-
-                    <h3 id="jquery">jQuery JavaScript Library</h3>
-                    <p>Most of our framework’s functionality is built on jQuery. That’s why we need to pre-load this toolbox.
-                    You can get jQuery from many places like Google CDN:</p>
-
-{% highlight html %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"></script>
-{% endhighlight %}
-
-
-                    <h4>Or jQuery CDN:</h4>
-{% highlight html %}
-<script src="http://code.jquery.com/jquery-x.x.x.min.js"></script>
-{% endhighlight %}
-
-                </article>
-
-                <article>
-
                     <h3 id="">Title asdasd</h3>
                     <p>You only have to add the CSS, JavaScript and assets of Chico UI, and that’s all!</p>
                     <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
 
 {% highlight html %}
-<link rel="stylesheet" href="chico-min-x.x.x.css" />
+<link rel="stylesheet" href="dist/ui/chico.min.css" />
 {% endhighlight %}
 
                     <p>
@@ -78,7 +59,7 @@ id: getting-started
                     </p>
 
 {% highlight html %}
-<script src="dist/chico-min-x.x.x.js"></script>
+<script src="dist/ui/chico.min.js"></script>
 {% endhighlight %}
 
                     <p>
@@ -104,14 +85,13 @@ id: getting-started
 <meta charset="utf-8" />
 <title>Document Title</title>
 <!-- Chico UI Core stylesheet -->
-<link rel="stylesheet" href="build/chico-min-x.x.x.css" />
+<link rel="stylesheet" href="dist/ui/chico.min.css" />
 </head>
 <body>
 ...
 <!-- All markup here... -->
 ...
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"></script>
-<script src="build/chico-min-x.x.x.js"></script>
+<script src="dist/ui/chico.min.js"></script>
 <script src="Call your JavaScript here..."></script>
 </body>
 </html>
@@ -126,10 +106,9 @@ id: getting-started
                         <a href="#download" data-section="download">Download</a>
                     </li>
                     <li>
-                        <a href="#installing" data-section="installing">Installing Chico in your site</a>
+                        <a href="#installing" data-section="installing">Installing Chico on your site</a>
                         <ul>
                             <li><a href="#sniffing" data-section="sniffing">Browser sniffing</a></li>
-                            <li><a href="#jquery" data-section="jquery">JQuery JavaScript Library</a></li>
                             <li><a href="#overview" data-section="overview">Overview</a></li>
                         </ul>
                     </li>
