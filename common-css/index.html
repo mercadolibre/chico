@@ -1,0 +1,870 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>Chico UI</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="/chico/assets/ninja-45a14a876dfcc0a6718740e6eac2dbdd.ico">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
+
+    <!-- Chico -->
+    <link rel="stylesheet" href="/chico/assets/ui/chico-a6a56bc7503839ea5497b99baec2a721.css">
+
+    <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-54f91c3b2258b805714b2b33b770f482.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-da6396cbf0dae791010df11ba9bc2798.css">
+
+    <link rel="stylesheet" href="/chico/assets/ml-header-77d554c6e4451d2f3b0d7deff9d67022.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-3e66b68b5b9ed42066c44091f0dbc933.css">
+    <link rel="stylesheet" href="/chico/assets/highlighter-22319125406f6233c1ee514296bd36f3.css">
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css">
+    <![endif]-->
+</head>
+
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      <header role="banner" class="ml-header">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/chico/"><h1 class="ml-title">Chico UI</h1></a>
+
+        <a class="ml-logo" href="/chico/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico Components</span></a>
+
+        <label for="toggle-menu" class="toggle-label"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account ">
+                   <a class="" href="/chico/getting-started/">Getting started</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="" href="/chico/ui-components/">UI Components</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="api-doc " href="/chico/api-doc/current/ui/ch">API Doc</a>
+
+                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
+                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="ml-header-menu">
+            <a class="" href="/chico/getting-started/">Getting started</a>
+            <a class=" active" href="/chico/common-css/">Common CSS</a>
+            <a class="" href="/chico/components/">Components</a>
+            <a class="" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
+        </nav>
+    </div>
+</header>
+
+
+
+      <div class="ml-wrapper">
+        <main role="main" class="chico-common-css">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">Common CSS</h1>
+            <h3 class="mesh-col-12 mesh-6">
+                Global CSS settings including typography, buttons, iconography, tables, and much more.
+            </h3>
+        </div>
+    </section>
+
+    <section>
+        <div class="ml-bounds mesh-row">
+
+            <div class="mesh-col-12 mesh-col-m-9 ui-components">
+                <article id="overview">
+    <h2>Overview</h2>
+
+    <h3>CSS Reset</h3>
+
+    <p>Chico use the <a href="http://meyerweb.com/eric/tools/css/reset/">Reset CSS</a> to normalize the inconsistent default styling of HTML elements by browsers.</p>
+</article>
+
+                <article id="headings">
+    <h2>Headings</h2>
+
+    <p>These are the heading tha you can use to semanticize your html
+        markup.</p>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <h1>Header 1</h1>
+        <h2>Header 2</h2>
+        <h3>Header 3</h3>
+        <h4>Header 4</h4>
+        <h5>Header 5</h5>
+        <h6>Header 6</h6>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>Header 1<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;h2&gt;</span>Header 2<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;h3&gt;</span>Header 3<span class="nt">&lt;/h3&gt;</span>
+<span class="nt">&lt;h4&gt;</span>Header 4<span class="nt">&lt;/h4&gt;</span>
+<span class="nt">&lt;h5&gt;</span>Header 5<span class="nt">&lt;/h5&gt;</span>
+<span class="nt">&lt;h6&gt;</span>Header 6<span class="nt">&lt;/h6&gt;</span></code></pre></div>
+</article>
+
+                <article id="paragraphs">
+    <h2>Paragraphs</h2>
+
+    <p>Paragraphs description.</p>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec
+            ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc,
+            vitae tincidunt massa ornare vel. Nam ut felis odio.</p>
+
+        <p>Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            sed libero eget purus dictum fringilla non sed lectus. Etiam commodo
+            quam in neque vehicula dapibus.</p>
+
+        <p>Phasellus ornare lacus ut purus elementum eget sodales dui placerat.
+            Nunc ultrices porttitor mi, eu varius quam tristique in. Etiam
+            tempor porta sodales.</p>
+
+        <p>Phasellus dui nisi, hendrerit a porta vel, tempus bibendum
+            mauris.</p>
+
+        <p>Cum sociis natoque penatibus et magnis dis parturient montes,
+            nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span></code></pre></div>
+</article>
+
+                <article id="links">
+    <h2>Links</h2>
+
+    <p>These are the links tha you can use in your html.<p/>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <p><a href="http://www.mercadolibre.com">MercadoLibre</a></p>
+
+        <p><a href="http://www.mercadopago.com">MercadoPago</a></p>
+
+        <p><a href="http://www.mercadoshops.com">MercadoShops</a></p>
+
+        <p><a href="http://www.mercadoclics.com">MercadoClics</a></p>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;p&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.mercadolibre.com&quot;</span><span class="nt">&gt;</span>...<span class="nt">&lt;/a&gt;&lt;/p&gt;</span></code></pre></div>
+</article>
+
+                <article id="lists">
+    <h2>Lists</h2>
+
+    <p>These are the lists that you can use in your html.</p>
+
+    <div class="component-example">
+        <div class="mesh-row">
+            <div class="mesh-col-6 mesh-col-l-3">
+                <h3>Unstyled</h3>
+                <ul>
+                    <li><a href="http://www.mercadolibre.com">MercadoLibre</a>
+                    </li>
+                    <li><a href="http://www.mercadopago.com">MercadoPago</a>
+                    </li>
+                    <li><a href="http://www.mercadoshops.com">MercadoShops</a>
+                    </li>
+                    <li><a href="http://www.mercadoclics.com">MercadoClics</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mesh-col-6 mesh-col-l-3">
+                <h3>Unordered</h3>
+                <ul class="ch-list">
+                    <li><a href="http://www.mercadolibre.com">MercadoLibre</a>
+                    </li>
+                    <li><a href="http://www.mercadopago.com">MercadoPago</a>
+                    </li>
+                    <li><a href="http://www.mercadoshops.com">MercadoShops</a>
+                    </li>
+                    <li><a href="http://www.mercadoclics.com">MercadoClics</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mesh-col-6 mesh-col-l-3">
+                <h3>Ordered</h3>
+                <ol class="ch-list">
+                    <li><a href="http://www.mercadolibre.com">MercadoLibre</a>
+                    </li>
+                    <li><a href="http://www.mercadopago.com">MercadoPago</a>
+                    </li>
+                    <li><a href="http://www.mercadoshops.com">MercadoShops</a>
+                    </li>
+                    <li><a href="http://www.mercadoclics.com">MercadoClics</a>
+                    </li>
+                </ol>
+            </div>
+            <div class="mesh-col-6 mesh-col-l-3">
+                <h3>Description</h3>
+                <dl class="ch-list">
+                    <dt>MercadoLibre</dt>
+                    <dd>Donde compras y vendes de todo!</dd>
+                    <dt>MercadoPago</dt>
+                    <dd>La forma más simple de recibir pagos!</dd>
+                    <dt>MercadoShops</dt>
+                    <dd>Tu tienda virtual gratis y en minutos!</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!-- Unstyled list --&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.mercadolibre.com&quot;</span><span class="nt">&gt;</span>MercadoLibre<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    ...
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="c">&lt;!-- Unordered list --&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;ch-list&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.mercadolibre.com&quot;</span><span class="nt">&gt;</span>MercadoLibre<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    ...
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="c">&lt;!-- Ordered list --&gt;</span>
+<span class="nt">&lt;ol</span> <span class="na">class=</span><span class="s">&quot;ch-list&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.mercadolibre.com&quot;</span><span class="nt">&gt;</span>MercadoLibre<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    ...
+<span class="nt">&lt;/ol&gt;</span>
+
+<span class="c">&lt;!-- Definition list --&gt;</span>
+<span class="nt">&lt;dl</span> <span class="na">class=</span><span class="s">&quot;ch-list&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;dt&gt;</span>MercadoLibre<span class="nt">&lt;/dt&gt;</span>
+    <span class="nt">&lt;dd&gt;</span>Donde compras y vendes de todo!<span class="nt">&lt;/dd&gt;</span>
+    ...
+<span class="nt">&lt;/dl&gt;</span></code></pre></div>
+
+</article>
+
+                <article id="buttons">
+    <h2>Buttons</h2>
+
+    <div class="component-example">
+        <div class="mesh-row">
+            <div class="mesh-col-m-6">
+                <div class="m-leftcolumn">
+                    <h3>Normal Buttons</h3>
+
+                    <p><input type="button" class="ch-btn ch-btn-large"
+                              value="Big button"></p>
+
+                    <p><input type="button" class="ch-btn" value="Button"></p>
+
+                    <p><input type="button" class="ch-btn ch-btn-small"
+                              value="Small button"></p>
+
+                    <p><input type="button" class="ch-btn-skin ch-btn-small"
+                              value="Skin button"></p>
+
+                    <p>
+                        <button class="ch-btn-skin ch-btn-small"><i
+                            class="ch-icon-heart"></i>Favorite
+                        </button>
+                    </p>
+                </div>
+            </div>
+            <div class="mesh-col-m-6">
+                <div class="m-rightcolumn">
+                    <h3>Disabled Buttons</h3>
+
+                    <p><input type="button"
+                              class="ch-btn ch-btn-large ch-btn-disabled"
+                              value="Big button disabled"></p>
+
+                    <p><input type="button" class="ch-btn ch-btn-disabled"
+                              value="Button disabled"></p>
+
+                    <p><input type="button"
+                              class="ch-btn ch-btn-small ch-btn-disabled"
+                              value="Small button disabled"></p>
+
+                    <p><input type="button"
+                              class="ch-btn-skin ch-btn-small ch-btn-disabled"
+                              value="Skin button disabled"></p>
+
+                    <p>
+                        <button class="ch-btn-skin ch-btn-small ch-btn-disabled"
+                                disabled><i class="ch-icon-heart"></i>Favorite
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!-- Normal buttons --&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">class=</span><span class="s">&quot;ch-btn ch-btn-large&quot;</span> <span class="na">value=</span><span class="s">&quot;Big button&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">class=</span><span class="s">&quot;ch-btn&quot;</span> <span class="na">value=</span><span class="s">&quot;Button&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">class=</span><span class="s">&quot;ch-btn ch-btn-small&quot;</span> <span class="na">value=</span><span class="s">&quot;Small button&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">class=</span><span class="s">&quot;ch-btn-skin ch-btn-small&quot;</span> <span class="na">value=</span><span class="s">&quot;Skin button&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">&quot;ch-btn-skin ch-btn-small&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-heart&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>Favorite
+<span class="nt">&lt;/button&gt;</span>
+
+<span class="c">&lt;!-- Disabled buttons --&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">class=</span><span class="s">&quot;ch-btn ch-btn-large ch-btn-disabled&quot;</span> <span class="na">value=</span><span class="s">&quot;Big button disabled&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">class=</span><span class="s">&quot;ch-btn ch-btn-disabled&quot;</span> <span class="na">value=</span><span class="s">&quot;Button disabled&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">class=</span><span class="s">&quot;ch-btn ch-btn-small ch-btn-disabled&quot;</span> <span class="na">value=</span><span class="s">&quot;Small button disabled&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">class=</span><span class="s">&quot;ch-btn-skin ch-btn-small ch-btn-disabled&quot;</span> <span class="na">value=</span><span class="s">&quot;Skin button disabled&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">&quot;ch-btn-skin ch-btn-small ch-btn-disabled&quot;</span> <span class="na">disabled</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-heart&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>Favorite
+<span class="nt">&lt;/button&gt;</span></code></pre></div>
+
+</article>
+
+                <article id="boxes">
+    <h2>Boxes</h2>
+
+    <div class="component-example">
+        <div class="ch-box-container">
+            <h3>Container Box</h3>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a
+                href="#">adipiscing</a>.
+                Donec sit amet purus in sapien luctus sodales <a
+                    href="#">adipiscing</a>.</p>
+        </div>
+
+        <div class="ch-box-lite">
+            <h3>Box Lite</h3>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a
+                href="#">adipiscing</a>.
+                Donec sit amet purus in sapien luctus sodales <a
+                    href="#">adipiscing</a>.</p>
+        </div>
+
+        <div class="ch-box">
+            <h3>Box</h3>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a
+                href="#">adipiscing</a>.
+                Donec sit amet purus in sapien luctus sodales <a
+                    href="#">adipiscing</a>.</p>
+        </div>
+
+        <div class="ch-box-error">
+            <h3>Box Error</h3>
+
+            <p>Oops, something wrong happened. <a href="#">Click Here!</a></p>
+        </div>
+
+        <div class="ch-box-help">
+            <h3>Box Help</h3>
+
+            <p>Do you need any help?</p>
+        </div>
+
+        <div class="ch-box-info">
+            <h3>Box Info</h3>
+
+            <p>Here's more information <a href="#">Click Here!</a></p>
+        </div>
+
+        <div class="ch-box-warn">
+            <h3>Box Warn</h3>
+
+            <p>Warning! something might be wrong</p>
+        </div>
+
+        <div class="ch-box-ok">
+            <h3>Box Ok</h3>
+
+            <p>Everything is great!</p>
+        </div>
+
+        <div class="ch-box-icon">
+            <i class="ch-icon-truck"></i>
+
+            <p>This is a message, with an icon!</p>
+        </div>
+        <div class="ch-box-icon">
+            <i class="ch-icon-warning-sign"></i>
+
+            <h3>Warning!</h3>
+
+            <p>This is a big warning message, be careful!</p>
+        </div>
+
+        <div class="ch-box-icon ch-box-error"><i
+            class="ch-icon-remove-sign"></i>Oops,
+            something wrong happened
+        </div>
+        <div class="ch-box-icon ch-box-help"><i class="ch-icon-help-sign"></i>Do
+            you
+            need any help?
+        </div>
+        <div class="ch-box-icon ch-box-info"><i class="ch-icon-info-sign"></i>
+            Here's more information
+        </div>
+        <div class="ch-box-icon ch-box-warn"><i
+            class="ch-icon-warning-sign"></i>
+            Warning! something might be wrong
+        </div>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-container&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Container Box<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-lite&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Box Lite<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Box<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-error&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Box Error<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-help&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Box Help<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-info&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Box Info<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-warn&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Box Warn<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-ok&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Box Ok<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-icon&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-truck&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-icon&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-warning-sign&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>Warning!<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-icon ch-box-error&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-remove-sign&quot;</span><span class="nt">&gt;&lt;/i&gt;</span> ...<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-icon ch-box-help&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-help-sign&quot;</span><span class="nt">&gt;&lt;/i&gt;</span> ...<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-icon ch-box-info&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-info-sign&quot;</span><span class="nt">&gt;&lt;/i&gt;</span> ...<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ch-box-icon ch-box-warn&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-warning-sign&quot;</span><span class="nt">&gt;&lt;/i&gt;</span> ...<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+</article>
+
+                <article id="icons">
+    <h2>Icons</h2>
+
+    <p>The reference of all available icons.</p>
+
+    <div class="component-example">
+        <i class="ch-icon-camera ch-icon-xx-large"></i>
+        <i class="ch-icon-camera ch-icon-x-large"></i>
+        <i class="ch-icon-camera ch-icon-large"></i>
+        <i class="ch-icon-camera"></i>
+
+        <ul class="icons-showcase">
+            <li><i class="ch-icon-search"></i> ch-icon-search</li>
+            <li><i class="ch-icon-heart"></i> ch-icon-heart</li>
+            <li><i class="ch-icon-star"></i> ch-icon-star</li>
+            <li><i class="ch-icon-star-empty"></i> ch-icon-star-empty</li>
+            <li><i class="ch-icon-user"></i> ch-icon-user</li>
+            <li><i class="ch-icon-th-large"></i> ch-icon-th-large</li>
+            <li><i class="ch-icon-th"></i> ch-icon-th</li>
+            <li><i class="ch-icon-th-list"></i> ch-icon-user</li>
+            <li><i class="ch-icon-ok"></i> ch-icon-ok</li>
+            <li><i class="ch-icon-remove"></i> ch-icon-remove</li>
+            <li><i class="ch-icon-zoom-in"></i> ch-icon-zoom-in</li>
+            <li><i class="ch-icon-zoom-out"></i> ch-icon-zoom-out</li>
+            <li><i class="ch-icon-cog"></i> ch-icon-cog</li>
+            <li><i class="ch-icon-trash"></i> ch-icon-trash</li>
+            <li><i class="ch-icon-time"></i> ch-icon-time</li>
+            <li><i class="ch-icon-repeat"></i> ch-icon-repeat</li>
+            <li><i class="ch-icon-refresh"></i> ch-icon-refresh</li>
+            <li><i class="ch-icon-lock"></i> ch-icon-lock</li>
+            <li><i class="ch-icon-print"></i> ch-icon-print</li>
+            <li><i class="ch-icon-camera"></i> ch-icon-camera</li>
+            <li><i class="ch-icon-pencil"></i> ch-icon-pencil</li>
+            <li><i class="ch-icon-map-marker"></i> ch-icon-map-marker</li>
+            <li><i class="ch-icon-move"></i> ch-icon-move</li>
+            <li><i class="ch-icon-chevron-left"></i> ch-icon-chevron-left</li>
+            <li><i class="ch-icon-chevron-right"></i> ch-icon-chevron-right</li>
+            <li><i class="ch-icon-plus-sign"></i> ch-icon-plus-sign</li>
+            <li><i class="ch-icon-minus-sign"></i> ch-icon-minus-sign</li>
+            <li><i class="ch-icon-remove-sign"></i> ch-icon-remove-sign</li>
+            <li><i class="ch-icon-ok-sign"></i> ch-icon-ok-sign</li>
+            <li><i class="ch-icon-help-sign"></i> ch-icon-help-sign</li>
+            <li><i class="ch-icon-info-sign"></i> ch-icon-info-sign</li>
+            <li><i class="ch-icon-ban-circle"></i> ch-icon-ban-circle</li>
+            <li><i class="ch-icon-arrow-left"></i> ch-icon-arrow-left</li>
+            <li><i class="ch-icon-arrow-right"></i> ch-icon-arrow-right</li>
+            <li><i class="ch-icon-arrow-up"></i> ch-icon-arrow-up</li>
+            <li><i class="ch-icon-arrow-down"></i> ch-icon-arrow-down</li>
+            <li><i class="ch-icon-plus"></i> ch-icon-plus</li>
+            <li><i class="ch-icon-minus"></i> ch-icon-minus</li>
+            <li><i class="ch-icon-exclamation-sign"></i> ch-icon-exclamation-sign</li>
+            <li><i class="ch-icon-warning-sign"></i> ch-icon-warning-sign</li>
+            <li><i class="ch-icon-calendar"></i> ch-icon-calendar</li>
+            <li><i class="ch-icon-comment"></i> ch-icon-comment</li>
+            <li><i class="ch-icon-chevron-up"></i> ch-icon-chevron-up</li>
+            <li><i class="ch-icon-chevron-down"></i> ch-icon-chevron-down</li>
+            <li><i class="ch-icon-key"></i> ch-icon-key</li>
+            <li><i class="ch-icon-comments"></i> ch-icon-comments</li>
+            <li><i class="ch-icon-unlock"></i> ch-icon-unlock</li>
+            <li><i class="ch-icon-wrench"></i> ch-icon-wrench</li>
+            <li><i class="ch-icon-group"></i> ch-icon-group</li>
+            <li><i class="ch-icon-copy"></i> ch-icon-copy</li>
+            <li><i class="ch-icon-paper-clip"></i> ch-icon-paper-clip</li>
+            <li><i class="ch-icon-reorder"></i> ch-icon-reorder</li>
+            <li><i class="ch-icon-truck"></i> ch-icon-truck</li>
+            <li><i class="ch-icon-caret-down"></i> ch-icon-caret-down</li>
+            <li><i class="ch-icon-caret-up"></i> ch-icon-caret-up</li>
+            <li><i class="ch-icon-caret-left"></i> ch-icon-caret-left</li>
+            <li><i class="ch-icon-caret-right"></i> ch-icon-caret-right</li>
+            <li><i class="ch-icon-sort"></i> ch-icon-sort</li>
+            <li><i class="ch-icon-sort-down"></i> ch-icon-sort-down</li>
+            <li><i class="ch-icon-sort-up"></i> ch-icon-sort-up</li>
+            <li><i class="ch-icon-envelope-alt"></i> ch-icon-envelope-alt</li>
+            <li><i class="ch-icon-undo ch-ico"></i> ch-icon-undo</li>
+            <li><i class="ch-icon-comment-alt"></i> ch-icon-comment-alt</li>
+            <li><i class="ch-icon-comments-alt"></i> ch-icon-comments-alt</li>
+            <li><i class="ch-icon-phone"></i> ch-icon-phone</li>
+        </ul>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-camera ch-icon-xx-large&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>
+<span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-camera ch-icon-x-large&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>
+<span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-camera ch-icon-large&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>
+<span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-icon-camera&quot;</span><span class="nt">&gt;&lt;/i&gt;</span></code></pre></div>
+
+</article>
+
+                <article id="badges">
+    <h2>Badges</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <i class="ch-badge ch-icon-camera"></i>
+        <i class="ch-badge-skin ch-icon-map-marker"></i>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-badge ch-icon-camera&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>
+<span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;ch-badge-skin ch-icon-map-marker&quot;</span><span class="nt">&gt;&lt;/i&gt;</span></code></pre></div>
+</article>
+
+                <article id="pagination">
+    <h2>Pagination</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <ul class="ch-pagination">
+            <li><a type="prev" href="/2.html">Previous</a></li>
+            <li><a href="/1.html">1</a></li>
+            <li><a href="/2.html">2</a></li>
+            <li class="ch-pagination-current"><a href="/3.html">3</a></li>
+            <li><a href="/4.html">4</a></li>
+            <li><a href="/5.html">5</a></li>
+            <li><a type="next" href="/4.html">Next</a></li>
+        </ul>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;ch-pagination&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">type=</span><span class="s">&quot;prev&quot;</span> <span class="na">href=</span><span class="s">&quot;/2.html&quot;</span><span class="nt">&gt;</span>Previous<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/1.html&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/2.html&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;ch-pagination-current&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/3.html&quot;</span><span class="nt">&gt;</span>3<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/4.html&quot;</span><span class="nt">&gt;</span>4<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/5.html&quot;</span><span class="nt">&gt;</span>5<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">type=</span><span class="s">&quot;next&quot;</span> <span class="na">href=</span><span class="s">&quot;/4.html&quot;</span><span class="nt">&gt;</span>Next<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></div>
+</article>
+
+                <article id="tables">
+    <h2>Tables</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
+            <caption>Table</caption>
+            <thead>
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Operation</th>
+                <th scope="col">Seller</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select
+                </td>
+            </tr>
+            <tr>
+                <td>02/04/2011</td>
+                <td><a href="#">Purchase</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            <tr>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            <tr>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;ch-datagrid&quot;</span> <span class="na">summary=</span><span class="s">&quot;Listado de cobros en MercadoPago&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;caption&gt;</span>Table<span class="nt">&lt;/caption&gt;</span>
+    <span class="nt">&lt;thead&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th</span> <span class="na">scope=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;</span>Date<span class="nt">&lt;/th&gt;</span>
+            ...
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/thead&gt;</span>
+    <span class="nt">&lt;tbody&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>02/04/2011<span class="nt">&lt;/td&gt;</span>
+            ...
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/tbody&gt;</span>
+<span class="nt">&lt;/table&gt;</span></code></pre></div>
+
+    <div class="component-example">
+        <table class="ch-datagrid-controls" summary="Listado de cobros en MercadoPago">
+            <caption>Table</caption>
+            <thead>
+            <tr>
+                <th scope="col"><input type="checkbox" name="mycheckall"/></th>
+                <th scope="col">Data</th>
+                <th scope="col">Operation</th>
+                <th scope="col">Seller</th>
+                <th scope="col">Description</th>
+                <th scope="col" class="ch-datagrid-selected">Price <i class="ch-datagrid-desc"></i></th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td scope="row"><input type="checkbox" name="mycheck"/></td>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select
+                </td>
+            </tr>
+            <tr class="ch-datagrid-selected">
+                <td scope="row"><input type="checkbox" name="mycheck" checked="checked"></td>
+                <td>02/04/2011</td>
+                <td><a href="#">Purchase</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            <tr>
+                <td scope="row"><input type="checkbox" name="mycheck"/></td>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            <tr>
+                <td scope="row"><input type="checkbox" name="mycheck"/></td>
+                <td>02/04/2011</td>
+                <td><a href="#">Sale</a></td>
+                <td><a href="#">mail@example.com</a></td>
+                <td>Shopping at MercadoLibre</td>
+                <td><span class="value">$1200,30</span></td>
+                <td>Pending</td>
+                <td>select</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;ch-datagrid-controls&quot;</span> <span class="na">summary=</span><span class="s">&quot;Listado de cobros en MercadoPago&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;caption&gt;</span>Table<span class="nt">&lt;/caption&gt;</span>
+    <span class="nt">&lt;thead&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+        <span class="nt">&lt;th</span> <span class="na">scope=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;</span>Date<span class="nt">&lt;/th&gt;</span>
+        ...
+    <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/thead&gt;</span>
+    <span class="nt">&lt;tbody&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+        <span class="nt">&lt;td&gt;</span>02/04/2011<span class="nt">&lt;/td&gt;</span>
+        ...
+    <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/tbody&gt;</span>
+<span class="nt">&lt;/table&gt;</span></code></pre></div>
+</article>
+
+                <article id="loadings">
+    <h2>Loadings</h2>
+
+    <div class="component-example">
+        <span class="ch-loading-small"></span>
+        <span class="ch-loading"></span>
+        <span class="ch-loading-large"></span>
+    </div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;ch-loading-small&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;ch-loading&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;ch-loading-large&quot;</span><span class="nt">&gt;&lt;/span&gt;</span></code></pre></div>
+</article>
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <ul id="nav-sections">
+    <li>
+        <a class="" href="#overview" data-section="overview">Overview</a>
+    </li>
+    <li>
+        <a class="" href="#headings" data-section="headings">Headings</a>
+    </li>
+    <li>
+        <a class="" href="#paragraphs" data-section="paragraphs">Paragraphs</a>
+    </li>
+    <li>
+        <a class="" href="#links" data-section="links">Links</a>
+    </li>
+    <li>
+        <a class="" href="#lists" data-section="lists">Lists</a>
+    </li>
+    <li>
+        <a class="" href="#buttons" data-section="buttons">Buttons</a>
+    </li>
+    <li>
+        <a class="" href="#boxes" data-section="boxes">Boxes</a>
+    </li>
+    <li>
+        <a class="" href="#icons" data-section="icons">Icons</a>
+    </li>
+    <li>
+        <a class="" href="#badges" data-section="badges">Badges</a>
+    </li>
+    <li>
+        <a class="" href="#pagination" data-section="pagination">Pagination</a>
+    </li>
+    <li>
+        <a class="" href="#tables" data-section="tables">Tables</a>
+    </li>
+    <li>
+        <a class="" href="#loadings" data-section="loadings">Loadings</a>
+    </li>
+</ul>
+
+            </nav>
+
+        </div>
+    </section>
+</main>
+
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <small>©2015 MercadoLibre.com</small>
+
+        <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+
+    <script src="//ui.mlstatic.com/chico/tiny/0.1.1/tiny.min.js"></script>
+    <script src="//ui.mlstatic.com/chico/2.0.0-beta.1/ui/chico.min.js"></script>
+  </body>
+</html>

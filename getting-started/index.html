@@ -24,14 +24,14 @@
     <link rel="stylesheet" href="/chico/assets/ui/chico-a6a56bc7503839ea5497b99baec2a721.css">
 
     <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
-    <link rel="stylesheet" href="/chico/assets/base__small-e1ffe64577a2965a95eb4a0bd539a1e2.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
     <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css" media='(min-width: 768px)'>
-    <link rel="stylesheet" href="/chico/assets/chico__small-dcf1c4547da74b1419e1c449d0595532.css">
+    <link rel="stylesheet" href="/chico/assets/chico__small-54f91c3b2258b805714b2b33b770f482.css">
     <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css" media='(min-width: 768px)'>
     <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-da6396cbf0dae791010df11ba9bc2798.css">
 
     <link rel="stylesheet" href="/chico/assets/ml-header-77d554c6e4451d2f3b0d7deff9d67022.css">
-    <link rel="stylesheet" href="/chico/assets/gh-pages-24d8c2465ad820f9667a0ecc4266cd30.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-3e66b68b5b9ed42066c44091f0dbc933.css">
     <link rel="stylesheet" href="/chico/assets/highlighter-22319125406f6233c1ee514296bd36f3.css">
 
     <!--[if lt IE 9]>
@@ -76,7 +76,8 @@
 
         <nav class="ml-header-menu">
             <a class=" active" href="/chico/getting-started/">Getting started</a>
-            <a class="" href="/chico/ui-components/">UI Components</a>
+            <a class="" href="/chico/common-css/">Common CSS</a>
+            <a class="" href="/chico/components/">Components</a>
             <a class="" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
         </nav>
     </div>
@@ -126,32 +127,17 @@
                 </article>
 
                 <article>
-
-                    <h3 id="jquery">jQuery JavaScript Library</h3>
-                    <p>Most of our framework’s functionality is built on jQuery. That’s why we need to pre-load this toolbox.
-                    You can get jQuery from many places like Google CDN:</p>
-
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
-
-
-                    <h4>Or jQuery CDN:</h4>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://code.jquery.com/jquery-x.x.x.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
-
-                </article>
-
-                <article>
-
-                    <h3 id="">Title asdasd</h3>
+                    <h3 id="assets">Pointing to assets</h3>
                     <p>You only have to add the CSS, JavaScript and assets of Chico UI, and that’s all!</p>
                     <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
 
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;chico-min-x.x.x.css&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;dist/ui/chico.min.css&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
 
                     <p>
                         And you should add the JavaScript at bottom of page, before the <b>&lt;/body></b> closing tag and after jQuery script call.
                     </p>
 
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;dist/chico-min-x.x.x.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;dist/ui/chico.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
 
                     <p>
                         Don’t forget to link to asset files within the stylesheet code.
@@ -175,14 +161,13 @@
 <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;title&gt;</span>Document Title<span class="nt">&lt;/title&gt;</span>
 <span class="c">&lt;!-- Chico UI Core stylesheet --&gt;</span>
-<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;build/chico-min-x.x.x.css&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;dist/ui/chico.min.css&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/head&gt;</span>
 <span class="nt">&lt;body&gt;</span>
 ...
 <span class="c">&lt;!-- All markup here... --&gt;</span>
 ...
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;build/chico-min-x.x.x.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;dist/ui/chico.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;Call your JavaScript here...&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span></code></pre></div>
@@ -196,10 +181,10 @@
                         <a href="#download" data-section="download">Download</a>
                     </li>
                     <li>
-                        <a href="#installing" data-section="installing">Installing Chico in your site</a>
+                        <a href="#installing" data-section="installing">Installing Chico on your site</a>
                         <ul>
                             <li><a href="#sniffing" data-section="sniffing">Browser sniffing</a></li>
-                            <li><a href="#jquery" data-section="jquery">JQuery JavaScript Library</a></li>
+                            <li><a href="#assets" data-section="assets">Pointing to assets</a></li>
                             <li><a href="#overview" data-section="overview">Overview</a></li>
                         </ul>
                     </li>
@@ -215,11 +200,8 @@
     <footer role="contentinfo" class="ml-footer">
     <div class="ml-bounds">
         <small>©2015 MercadoLibre.com</small>
-        <nav>
-            <a href="#">About</a>
-        </nav>
+
         <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
-        <small class="contact">Contact us</small>
     </div>
 </footer>
 
