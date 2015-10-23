@@ -29,6 +29,12 @@ module.exports = function (grunt) {
         },
 
         copy: {
+            cname: {
+                src: './CNAME',
+                dest: '<%= app.dest %>/',
+                expand: true,
+                cwd: '.'
+            },
             chicoAssets: {
                 src: '*',
                 dest: '<%= app.dest %>/assets/assets',
