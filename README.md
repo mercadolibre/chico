@@ -219,4 +219,4 @@ Tests are executing using the karma test runner so feel free to run them in your
 ## License
 Licensed under the MIT license.
 
-Copyright (c) 2014 [MercadoLibre](http://github.com/mercadolibre).
+Copyright (c) 2015 [MercadoLibre](http://github.com/mercadolibre).
