@@ -1,8 +1,4 @@
-/*
- * Files routes objects
- */
-var JS = {},
-    CSS = {};
+var JS = {};
 
 /*
  * JS: Core
@@ -56,65 +52,4 @@ JS.components = [
     "src/ui/scripts/Autocomplete.js"
 ];
 
-
-/*
- * CSS routes
- */
-
-/*
- * CSS: Reset
- */
-CSS.resetML = [
-    "src/shared/styles/reset.css",
-    "src/ui/styles/reset.css",
-    "src/shared/styles/typography.css"
-];
-
-/*
- * CSS: Core
- */
-CSS.core = [
-    "src/shared/styles/base.css",
-    "src/ui/styles/base.css",
-    "src/shared/styles/icons.css",
-    "src/ui/styles/badges.css",
-    "src/shared/styles/boxes.css",
-    "src/ui/styles/boxes.css",
-    "src/shared/styles/loading.css"
-];
-
-/*
- * CSS: Components
- */
-CSS.components = [
-    "src/shared/styles/buttons.css",
-    "src/ui/styles/buttons.css",
-    "src/shared/styles/datagrid.css",
-    "src/shared/styles/lists.css",
-    "src/shared/styles/pagination.css",
-    "src/ui/styles/pagination.css",
-    "src/shared/styles/Form.css",
-    "src/ui/styles/Form.css",
-    "src/shared/styles/Popover.css",
-    "src/shared/styles/Tooltip.css",
-    "src/shared/styles/Bubble.css",
-    "src/shared/styles/Modal.css",
-    "src/shared/styles/Transition.css",
-    "src/ui/styles/Zoom.css",
-    "src/ui/styles/wizard.css",
-    "src/shared/styles/Calendar.css",
-    "src/shared/styles/Carousel.css",
-    "src/shared/styles/Dropdown.css",
-    "src/ui/styles/Expandable.css",
-    "src/ui/styles/Menu.css",
-    "src/ui/styles/Tabs.css",
-    "src/ui/styles/Datepicker.css",
-    "src/shared/styles/Autocomplete.css",
-    "src/ui/styles/Autocomplete.css"
-];
-
-/*
- * Expose both objects
- */
 exports.JS = JS;
-exports.CSS = CSS;

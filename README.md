@@ -5,6 +5,20 @@ Chico UI is a free and open source collection of easy-to-use UI components for d
 
 > Get things done, quickly.
 
+## Installing
+
+Using bower:
+
+```bash
+$ bower install chico
+```
+
+Using npm:
+
+```bash
+$ npm install chico
+```
+
 ## Development setup
 
 1. Install [Git](http://git-scm.com/), [NodeJS](http://nodejs.org/) and [Sass](http://sass-lang.com/install), requires Sass v3.4.x or above.
@@ -44,16 +58,6 @@ Please read through our code style guides:
 - [SASS] (https://github.com/mercadolibre/ui-sass_style_guide)
 - [JavaScript](https://github.com/mercadolibre/javascript-style-guide)
 
-## API Doc
-
-You can read our [API Doc](http://chico.mercadolibre.com/).
-
-The API doc may also be run locally by running:
-
-    grunt doc
-
-Navigate `./doc` directory and enjoy!
-
 ## How to use Chico Themes
 
 This is the structure and a small file reference guide:
@@ -82,7 +86,7 @@ src/
 |       |– _boxes.scsss        # Boxes rules
 |       ...                    # Etc…
 |       |
-|       `– _variables.scss  # Shared skin and structure variables
+|       `– _variables.scss  # Shared theme and structure variables
 |
 `– ui/ # Properties only for Desktop Browsers
     |
@@ -115,11 +119,11 @@ Example:
             `– _autocomplete-variables.scss  # Local component's only variables
 ```
 
-In the example, the first Sass file (_autocomplete.scss) imports the Sass file from the same folder (_autocomplete-variables.scss ) and includes the extra custom properties on the component.
+In the example, the first Sass file (_autocomplete.scss) imports the Sass file from the same folder (_autocomplete-variables.scss ) and includes the extra custom properties of the component.
 
-### How to create a new skin
+### How to create a new theme
 
-  * Install `Chico UI` via bower using `bower install git@github.com:mercadolibre/chico.git#>=1.2.0`
+  * Install `Chico UI` via bower using `bower install chico#>=1.2.0`
   * Install `bourbon` via bower using `bower install bourbon`
   * Create a theme folder and put a theme file into. E.g. `mkdir mytheme && touch mytheme/mytheme-ui.scss`
   * Edit the `mytheme/mytheme-ui.scss` and put into a minimal required content
@@ -205,4 +209,4 @@ Tests are executing using the karma test runner so feel free to run them in your
 ## License
 Licensed under the MIT license.
 
-Copyright (c) 2014 [MercadoLibre](http://github.com/mercadolibre).
+Copyright (c) 2015 [MercadoLibre](http://github.com/mercadolibre).
