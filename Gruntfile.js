@@ -260,26 +260,6 @@ module.exports = function (grunt) {
                 'failOnError': false, // defaults to true
                 'shebang': true // ignore shebang lines
             }
-        },
-
-        // Builds an API documentation
-        jsdoc: {
-            ui: {
-                'src': uiFiles.JS.core.concat(uiFiles.JS.abilities).concat(uiFiles.JS.components),
-                'options': {
-                    'template': './libs/doc-template',
-                    'destination': './doc/ui',
-                    'private': false
-                }
-            },
-            mobile: {
-                'src': mobileFiles.JS.core.concat(mobileFiles.JS.abilities).concat(mobileFiles.JS.components),
-                'options': {
-                    'template': './libs/doc-template',
-                    'destination': './doc/mobile',
-                    'private': false
-                }
-            }
         }
     });
 
@@ -295,12 +275,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-jslint');
-    grunt.loadNpmTasks('grunt-jsdoc');
 
     // Resgister task(s).
     grunt.registerTask('default', []);
     grunt.registerTask('lint', ['jslint']);
-    grunt.registerTask('doc', ['jsdoc:ui', 'jsdoc:mobile']);
     grunt.registerTask('build', ['copy:assets', 'sass', 'concat', 'clean']);
     grunt.registerTask('sync', ['browserSync:dev', 'watch']);
     grunt.registerTask('dev', ['build', 'sync']);

@@ -58,16 +58,6 @@ Please read through our code style guides:
 - [SASS] (https://github.com/mercadolibre/ui-sass_style_guide)
 - [JavaScript](https://github.com/mercadolibre/javascript-style-guide)
 
-## API Doc
-
-You can read our [API Doc](http://chico.mercadolibre.com/).
-
-The API doc may also be run locally by running:
-
-    grunt doc
-
-Navigate `./doc` directory and enjoy!
-
 ## How to use Chico Themes
 
 This is the structure and a small file reference guide:

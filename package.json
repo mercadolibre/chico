@@ -43,7 +43,6 @@
     "grunt-contrib-sass": "^0.9.2",
     "grunt-contrib-uglify": "^0.8.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-jsdoc": "^0.6.4",
     "grunt-jslint": "0.2.6",
     "karma": "^0.13.9",
     "karma-chai": "^0.1.0",
