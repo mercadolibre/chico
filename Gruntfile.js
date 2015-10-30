@@ -110,7 +110,7 @@ module.exports = function (grunt) {
                 lineNumbers: false,
                 sourcemap: 'auto', // auto, file, inline, none
                 loadPath: [
-                    'bower_components/bourbon/app/assets/stylesheets/',
+                    'node_modules/bourbon/app/assets/stylesheets/',
                     './'
                 ]
             },
