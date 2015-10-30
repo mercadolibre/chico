@@ -28,21 +28,13 @@ Chico UI is a free and open source collection of easy-to-use UI components for d
 
         $ npm install browser-sync -g
 
-7. Install `bower` package manager by running
-
-        $ npm install -g bower
-
-8. Install project dependencies:
-
-        $ bower install
-
-9. Run dev task
+7. Run dev task
 
         $ grunt dev
 
     [http://localhost:3040](http://localhost:3040/) will open in a default browser. Mobile version is located at [http://localhost:3040/mobile](http://localhost:3040/mobile).
 
-10. Develop! :)
+8. Develop! :)
 
 **NOTE**
 
