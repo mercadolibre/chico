@@ -171,17 +171,14 @@
          * @type {HTMLCollection}
          */
         this._items = (function () {
-                var item,
-                    // uses querySelectorAll because it need a static collection
-                    collection = that._list.querySelectorAll('li'),
-                    collectionLength = collection.length;
+            var collection = that._list.querySelectorAll('li');
 
-                Array.prototype.forEach.call(collection, function(item){
-                    tiny.addClass(item, 'ch-carousel-item');
-                });
+            Array.prototype.forEach.call(collection, function (item) {
+                tiny.addClass(item, 'ch-carousel-item');
+            });
 
-                return collection;
-            }());
+            return collection;
+        }());
 
         /**
          * Element that wraps the list and denies its overflow.
@@ -321,7 +318,7 @@
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
-            if (page !== null) { that.select(window.parseInt(page, 10)); }
+            if (page !== null) { that.select(window.parseInt(page, 10)); }
         }, false);
 
         // Refresh calculation when the viewport resizes
@@ -663,13 +660,13 @@
 
         // Get the height using new width and relation between width and height of item (ratio)
         cssItemText = [
-                'width:' + width + 'px;',
-                'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(3) + 'px;',
-                'margin-right:' + this._itemMargin + 'px;'
-            ].join('');
+            'width:' + width + 'px;',
+            'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(3) + 'px;',
+            'margin-right:' + this._itemMargin + 'px;'
+        ].join('');
 
         // Update element styles
-        Array.prototype.forEach.call(this._items, function (item, index){
+        Array.prototype.forEach.call(this._items, function (item){
             item.setAttribute('style', cssItemText);
         });
 
@@ -696,7 +693,7 @@
         });
 
         // Add arrows to DOM
-        this._el.insertBefore(this._prevArrow, this._el.children[0])
+        this._el.insertBefore(this._prevArrow, this._el.children[0]);
         this._el.appendChild(this._nextArrow);
         // Check arrows as created
         this._arrowsCreated = true;
@@ -755,8 +752,7 @@
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + VENDOR_PREFIX + '-transform',
-            vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
+        var vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
         if (tiny.support.transition) {
@@ -793,11 +789,11 @@
             toItem = children[to - 1];
 
         // Unselect the thumbnail previously selected
-        fromItem.setAttribute('aria-selected', false)
+        fromItem.setAttribute('aria-selected', false);
         tiny.removeClass(fromItem, 'ch-carousel-selected');
 
         // Select the new thumbnail
-        toItem.setAttribute('aria-selected', true)
+        toItem.setAttribute('aria-selected', true);
         tiny.addClass(toItem, 'ch-carousel-selected');
     };
 

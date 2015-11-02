@@ -24,7 +24,7 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(String | HTMLElement)} [options.content] The content to be shown into the Modal container.
      * @returns {modal} Returns a new instance of Modal.
      * @example
@@ -183,7 +183,7 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {modal}
      * @example
      * // Shows a basic modal.
@@ -223,7 +223,7 @@
         }
 
         // Show the underlay
-            this._showUnderlay();
+        this._showUnderlay();
         // Execute the original show()
         parent.show.call(this, content, options);
 
@@ -245,7 +245,7 @@
         }
 
         // Delete the underlay listener
-        tiny.off(underlay, ch.onpointertap)
+        tiny.off(underlay, ch.onpointertap);
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()

@@ -130,7 +130,7 @@
      * @private
      */
     Validation.prototype._defaults = {
-        'offsetX': 10
+        'offsetX': 10
     };
 
     /**
@@ -321,7 +321,7 @@
         }
 
         this.trigger.removeAttribute('aria-label');
-        tiny.removeClass(this.trigger, 'ch-validation-error')
+        tiny.removeClass(this.trigger, 'ch-validation-error');
 
 
         this._hideErrorMessage();
@@ -354,7 +354,7 @@
     Validation.prototype.hasError = function () {
 
         // Pre-validation: Don't validate disabled
-        if (this.trigger.getAttribute('disabled') || !this._enabled) {
+        if (this.trigger.getAttribute('disabled') || !this._enabled) {
             return false;
         }
 

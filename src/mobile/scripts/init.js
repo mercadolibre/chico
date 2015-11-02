@@ -29,7 +29,6 @@
      */
     function fixLabels() {
         var labels = document.getElementsByTagName('label'),
-            target_id,
             el,
             i = 0;
 

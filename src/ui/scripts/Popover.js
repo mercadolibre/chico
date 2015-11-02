@@ -9,7 +9,7 @@
 
         function hide(event) {
             // event.button === 0: Fix issue #933 Right click closes it on Firefox.
-            if (event.target !== that._el && event.target !== that.container && event.button === 0) {
+            if (event.target !== that._el && event.target !== that.container && event.button === 0) {
                 that.hide();
             }
         }

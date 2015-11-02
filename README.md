@@ -34,9 +34,9 @@ $ npm install chico
 
         $ npm install
 
-5. Install `grunt-cli`:
+5. Install `gulp`:
 
-        $ npm install grunt-cli -g
+        $ npm install gulp -g
 
 6. Install `BrowserSync`:
 
@@ -44,7 +44,7 @@ $ npm install chico
 
 7. Run dev task
 
-        $ grunt dev
+        $ gulp dev
 
     [http://localhost:3040](http://localhost:3040/) will open in a default browser. Mobile version is located at [http://localhost:3040/mobile](http://localhost:3040/mobile).
 

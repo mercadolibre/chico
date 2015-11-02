@@ -5,7 +5,7 @@
     function highlightSuggestion(target) {
         var posinset;
 
-        Array.prototype.forEach.call(this._suggestionsList.childNodes, function(e, i){
+        Array.prototype.forEach.call(this._suggestionsList.childNodes, function(e) {
             if(e.contains(target)){
                 posinset = parseInt(target.getAttribute('aria-posinset'), 10) - 1;
             }
@@ -16,7 +16,7 @@
         this._toogleHighlighted();
 
         return this;
-    };
+    }
 
     var specialKeyCodeMap = {
         9: 'tab',
@@ -247,7 +247,7 @@
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
 
-        tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); })
+        tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); });
         tiny.on(this.trigger, 'blur', function turnoff() {that._turn('off'); });
 
         // Turn on when the input element is already has focus
@@ -453,7 +453,7 @@
          */
         var that = this,
             items = [],
-            matchedRegExp = new RegExp('(' + this._currentQuery.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1") + ')', 'ig'),
+            matchedRegExp = new RegExp('(' + this._currentQuery.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1') + ')', 'ig'),
             totalItems = 0,
             itemDOMCollection,
             itemTemplate = this._options._itemTemplate,
@@ -464,7 +464,7 @@
             itemSelected = this.container.querySelector('.' + this._options.highlightedClass);
 
         // hide the loading feedback
-        tiny.removeClass(this.trigger, that._options.loadingClass)
+        tiny.removeClass(this.trigger, that._options.loadingClass);
 
         // hides the suggestions list
         if (suggestionsLength === 0) {

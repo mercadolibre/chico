@@ -99,7 +99,7 @@
                     update.call(that);
                 });
             }
-        };
+        }
 
         function viewportScroll() {
             // No changing, exit
@@ -113,7 +113,7 @@
                     update.call(that);
                 });
             }
-        };
+        }
 
         window.addEventListener(ch.onscroll, viewportScroll, false);
         window.addEventListener(ch.onresize, viewportResize, false);

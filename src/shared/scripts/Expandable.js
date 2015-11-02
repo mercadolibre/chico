@@ -206,7 +206,7 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {expandable}
      * @example
      * // Shows a basic expandable.
