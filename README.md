@@ -21,7 +21,9 @@ $ npm install chico
 
 ## Development setup
 
-1. Install [Git](http://git-scm.com/), [NodeJS](http://nodejs.org/) and [Sass](http://sass-lang.com/install), requires Sass v3.4.x or above.
+1. Make sure you have [Git](http://git-scm.com/) and [NodeJS](http://nodejs.org/)
+   up and running.
+
 2. Open your terminal and clone `mercadolibre/chico` by running:
 
         $ git clone git@github.com:mercadolibre/chico.git
