@@ -1,5 +1,5 @@
 /*!
- * Chico Theme UI v1.2.2
+ * Chico UI v2.0.0-beta.3
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2015, MercadoLibre.com
@@ -7,599 +7,60 @@
  * http://chico-ui.com.ar/license
  */
 
-
-(function (window, $) {
+(function (window) {
 	'use strict';
 
-var ch = {},
-
-        /**
-         * Reference to the window jQuery or Zepto Selector.
-         * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
-         */
-        $window = $(window),
-
-        /**
-         * Reference to the navigator object.
-         * @private
-         * @type {Object}
-         */
-        navigator = window.navigator,
-
-        /**
-         * Reference to the userAgent.
-         * @private
-         * @type {String}
-         */
-        userAgent = navigator.userAgent,
-
-        /**
-         * Reference to the HTMLDocument.
-         * @private
-         * @type {Object}
-         */
-        document = window.document,
-
-        /**
-         * Reference to the document jQuery or Zepto Selector.
-         * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
-         */
-        $document = $(document),
-
-        /**
-         * Reference to the HTMLBodyElement.
-         * @private
-         * @type {HTMLBodyElement}
-         */
-        body = document.body,
-
-        /**
-         * Reference to the body jQuery or Zepto Selector.
-         * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
-         */
-        $body = $(body),
-
-        /**
-         * Reference to the HTMLhtmlElement.
-         * @private
-         * @type {HTMLhtmlElement}
-         */
-        html = document.getElementsByTagName('html')[0],
-
-        /**
-         * Reference to the html jQuery or Zepto Selector.
-         * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
-         */
-        $html = $(html),
-
-        /**
-         * Reference to the Object Contructor.
-         * @private
-         * @constructor
-         */
-        Object = window.Object,
-
-        /**
-         * Reference to the Array Contructor.
-         * @private
-         * @constructor
-         */
-        Array = window.Array,
-
-        /**
-         * Reference to the vendor prefix of the current browser.
-         * @constant
-         * @private
-         * @type {String}
-         * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
-         */
-        VENDOR_PREFIX = (function () {
-
-            var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
-                styleDeclaration = document.getElementsByTagName('script')[0].style,
-                prop;
-
-            for (prop in styleDeclaration) {
-                if (regex.test(prop)) {
-                    return prop.match(regex)[0].toLowerCase();
-                }
-            }
-
-            // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
-            // However (prop in style) returns the correct value, so we'll have to test for
-            // the precence of a specific property
-            if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
-            if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
-
-            return '';
-        }());
-ch.util = {
-
-        /**
-         * Returns true if an object is an array, false if it is not.
-         * @param {Object} obj The object to be checked.
-         * @returns {Boolean}
-         * @example
-         * ch.util.isArray([1, 2, 3]); // true
-         */
-        'isArray': (function () {
-            if (typeof Array.isArray === 'function') {
-                return Array.isArray;
-            }
-
-            return function (obj) {
-                if (obj === undefined) {
-                    throw new Error('"ch.util.isArray(obj)": It must receive a parameter.');
-                }
-
-                return (Object.prototype.toString.call(obj) === '[object Array]');
-            };
-        }()),
-
-        /**
-         * Checks if the url given is right to load content.
-         * @param {String} url The url to be checked.
-         * @returns {Boolean}
-         * @example
-         * ch.util.isUrl('www.chico-ui.com.ar'); // true
-         */
-        'isUrl': function (url) {
-            if (url === undefined || typeof url !== 'string') {
-                return false;
-            }
-
-            /*
-            # RegExp
-
-            https://github.com/mercadolibre/chico/issues/579#issuecomment-5206670
-
-            ```javascript
-            1   1.1                        1.2   1.3  1.4       1.5       1.6                   2                      3               4                    5
-            /^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?))+)((\?)(\w+=(\w?)+(&?))+)?$/
-            ```
-
-            ## Description
-            1. Checks for the start of the URL
-                1. if starts with a protocols followed by :// Example: file://chico
-                2. if start with www followed by . (dot) Example: www.chico
-                3. if starts with ./
-                4. if starts with ../ and can repeat one or more times
-                5. if start with double slash // Example: //chico.server
-                6. if start with an ip address
-            2. Checks the domain
-              letters, dash followed by a dot or by a slash. All this group can repeat one or more times
-            3. Ports
-             Zero or one time
-            4. Idem to point two
-            5. QueryString pairs
-
-            ## Allowed URLs
-            1. http://www.mercadolibre.com
-            2. http://mercadolibre.com/
-            3. http://mercadolibre.com:8080?hola=
-            4. http://mercadolibre.com/pepe
-            5. http://localhost:2020
-            6. http://192.168.1.1
-            7. http://192.168.1.1:9090
-            8. www.mercadolibre.com
-            9. /mercadolibre
-            10. /mercadolibre/mercado
-            11. /tooltip?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
-            12. ./pepe
-            13. ../../mercado/
-            14. www.mercadolibre.com?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
-            15. www.mercado-libre.com
-            16. http://ui.ml.com:8080/ajax.html
-
-            ## Forbiden URLs
-            1. http://
-            2. http://www&
-            3. http://hola=
-            4. /../../mercado/
-            5. /mercado/../pepe
-            6. mercadolibre.com
-            7. mercado/mercado
-            8. localhost:8080/mercadolibre
-            9. pepe/../pepe.html
-            10. /pepe/../pepe.html
-            11. 192.168.1.1
-            12. localhost:8080/pepe
-            13. localhost:80-80
-            14. www.mercadolibre.com?siteId=MLA&categId=1744&buyi ngMode=buy_it_now&listingTypeId=bronze
-            15. `<asd src="www.mercadolibre.com">`
-            16. Mercadolibre.................
-            17. /laksjdlkasjd../
-            18. /..pepe..
-            19. /pepe..
-            20. pepe:/
-            21. /:pepe
-            22. dadadas.pepe
-            23. qdasdasda
-            24. http://ui.ml.com:8080:8080/ajax.html
-            */
-            return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(url));
-        },
-
-        /**
-         * Determines if a specified element is an instance of $.
-         * @param {Object} $el The element to be checked as instance of $.
-         * @returns {Boolean}
-         * @example
-         * ch.util.is$($('element')); // true
-         */
-        'is$': (function () {
-            if ($.zepto === undefined) {
-                return function ($el) {
-                    return $el instanceof $;
-                };
-            } else {
-                return function ($el) {
-                    return $.zepto.isZ($el);
-                };
-            }
-        }()),
-
-        /**
-         * Adds CSS rules to disable text selection highlighting.
-         * @param {...jQuerySelector} jQuery or Zepto Selector to disable text selection highlighting.
-         * @example
-         * ch.util.avoidTextSelection($(selector));
-         */
-        'avoidTextSelection': function () {
-            var args = arguments,
-                len = arguments.length,
-                i = 0;
-
-            if (arguments.length < 1) {
-                throw new Error('"ch.util.avoidTextSelection(selector);": The selector parameter is required.');
-            }
-
-            for (i; i < len; i += 1) {
-
-                if (!(args[i] instanceof $ || $.zepto.isZ(args[i]))) {
-                    throw new Error('"ch.util.avoidTextSelection(selector);": The parameter must be a jQuery or Zepto selector.');
-                }
-
-                if ($html.hasClass('lt-ie10')) {
-                    args[i].attr('unselectable', 'on');
-
-                } else {
-                    args[i].addClass('ch-user-no-select');
-                }
-
-            }
-        },
-
-        /**
-         * Gives the final used values of all the CSS properties of an element.
-         * @param {HTMLElement} el The HTMLElement for which to get the computed style.
-         * @param {string} prop The name of the CSS property to test.
-         * @returns {CSSStyleDeclaration}
-         * @link http://www.quirksmode.org/dom/getstyles.html
-         * @example
-         * ch.util.getStyles(HTMLElement, 'color'); // true
-         */
-        'getStyles': function (el, prop) {
-
-            if (el === undefined || !(el.nodeType === 1)) {
-                throw new Error('"ch.util.getStyles(el, prop)": The "el" parameter is required and must be a HTMLElement.');
-            }
-
-            if (prop === undefined || typeof prop !== 'string') {
-                throw new Error('"ch.util.getStyles(el, prop)": The "prop" parameter is required and must be a string.');
-            }
-
-            if (window.getComputedStyle) {
-                return window.getComputedStyle(el, "").getPropertyValue(prop);
-            // IE
-            } else {
-                // Turn style name into camel notation
-                prop = prop.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
-                return el.currentStyle[prop];
-            }
-        },
-
-        /**
-         * Returns a shallow-copied clone of the object.
-         * @param {Object} obj The object to copy.
-         * @returns {Object}
-         * @example
-         * ch.util.clone(object);
-         */
-        'clone': function (obj) {
-            if (obj === undefined || typeof obj !== 'object') {
-                throw new Error('"ch.util.clone(obj)": The "obj" parameter is required and must be a object.');
-            }
-
-            var copy = {},
-                prop;
-
-            for (prop in obj) {
-                if (obj[prop] !== undefined) {
-                    copy[prop] = obj[prop];
-                }
-            }
-
-            return copy;
-        },
-
-        /**
-         * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.
-         * @param {Function} obj The object that have new members.
-         * @param {Function} superConstructor The construsctor Class.
-         * @returns {Object}
-         * @exampleDescription
-         * @example
-         * ch.util.inherit(obj, parent);
-         */
-        'inherits': function (obj, superConstructor) {
-
-            if (obj === undefined || typeof obj !== 'function') {
-                throw new Error('"ch.util.inherits(obj, superConstructor)": The "obj" parameter is required and must be a constructor function.');
-            }
-
-            if (superConstructor === undefined || typeof superConstructor !== 'function') {
-                throw new Error('"ch.util.inherits(obj, superConstructor)": The "superConstructor" parameter is required and must be a constructor function.');
-            }
-
-            var child = obj.prototype || {};
-            obj.prototype = $.extend(child, superConstructor.prototype);
-
-            return superConstructor.prototype;
-        },
-
-        /**
-         * Prevent default actions of a given event.
-         * @param {Event} event The event ot be prevented.
-         * @returns {Object}
-         * @example
-         * ch.util.prevent(event);
-         */
-        prevent: function (event) {
-            if (typeof event === 'object') {
-                event.preventDefault();
-            }
-        },
-
-        /**
-         * Get the current vertical and horizontal positions of the scroll bar.
-         * @returns {Object}
-         * @example
-         * ch.util.getScroll();
-         */
-        'getScroll': function () {
-            return {
-                'left': window.pageXOffset || document.documentElement.scrollLeft || 0,
-                'top': window.pageYOffset || document.documentElement.scrollTop || 0
-            };
-        },
-
-        /**
-         * Get the current outer dimensions of an element.
-         * @param {HTMLElement} el A given HTMLElement.
-         * @returns {Object}
-         * @example
-         * ch.util.getOuterDimensions(el);
-         */
-        'getOuterDimensions': function (el) {
-            var obj = el.getBoundingClientRect();
-
-            return {
-                'width': (obj.right - obj.left),
-                'height': (obj.bottom - obj.top)
-            };
-        },
-
-        /**
-         * Get the current offset of an element.
-         * @param {HTMLElement} el A given HTMLElement.
-         * @returns {Object}
-         * @example
-         * ch.util.getOffset(el);
-         */
-        'getOffset': function (el) {
-
-            var rect = el.getBoundingClientRect(),
-                fixedParent = ch.util.getPositionedParent(el, 'fixed'),
-                scroll = ch.util.getScroll(),
-                offset = {
-                    'left': rect.left,
-                    'top': rect.top
-                };
-
-            if (ch.util.getStyles(el, 'position') !== 'fixed' && fixedParent === null) {
-                offset.left += scroll.left;
-                offset.top += scroll.top;
-            }
-
-            return offset;
-        },
-
-        /**
-         * Get the current parentNode with the given position.
-         * @param {HTMLElement} el A given HTMLElement.
-         * @param {String} position A given position (static, relative, fixed or absolute).
-         * @returns {HTMLElement}
-         * @example
-         * ch.util.getPositionedParent(el, 'fixed');
-         */
-        'getPositionedParent': function (el, position) {
-            var currentParent = el.offsetParent,
-                parent;
-
-            while (parent === undefined) {
-
-                if (currentParent === null) {
-                    parent = null;
-                    break;
-                }
-
-                if (ch.util.getStyles(currentParent, 'position') !== position) {
-                    currentParent = currentParent.offsetParent;
-                } else {
-                    parent = currentParent;
-                }
-
-            };
-
-            return parent;
-        },
-
-        /**
-         * Reference to the vendor prefix of the current browser.
-         * @constant
-         * @memberof ch.util
-         * @type {String}
-         * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
-         * @example
-         * ch.util.VENDOR_PREFIX === 'webkit';
-         */
-        'VENDOR_PREFIX': (function () {
-
-            var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
-                styleDeclaration = document.getElementsByTagName('script')[0].style,
-                prop;
-
-            for (prop in styleDeclaration) {
-                if (regex.test(prop)) {
-                    return prop.match(regex)[0].toLowerCase();
-                }
-            }
-
-            // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
-            // However (prop in style) returns the correct value, so we'll have to test for
-            // the precence of a specific property
-            if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
-            if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
-
-            return '';
-        }()),
-
-        /**
-         * zIndex values.
-         * @type {Number}
-         * @example
-         * ch.util.zIndex += 1;
-         */
-        'zIndex': 1000
+    /**
+     * An object which contains all the public members. A short alias for el.querySelectorAll
+     * @param {String} selector Valid CSS selector expression
+     * @param {String|HTMLElement} context A DOM Element, Document, or selector string to use as query context
+     * @returns {NodeList} A collection of matched elements
+     *
+     * @namespace
+     *
+     * @example
+     * // Get all first level headings
+     * var headings = ch('h1');
+     *
+     * // Get a list of p children elements under a container, whose parent is a div that has the class 'wrapper'
+     * var paragraphs = ch('p', ch('div.wrapper'));
+     * // The same as above
+     * var paragraphs = ch('p', 'div.wrapper');
+     */
+    /*eslint-disable no-unused-vars*/
+    var ch = function(selector, context) {
+        if (!context) {
+            context = document;
+        } else if (typeof context === 'string') {
+            context = document.querySelector(context);
+        }
+        // Since NodeList is an array-like object but Array.isArray is always falsy
+        // we should detect the NodeList
+        // Please replace NodeList detection with `context instanceof NodeList && context.length > 0`
+        //   when IE8 support will be dropped
+        // Please replace Object.prototype.hasOwnProperty.call with `context.hasOwnProperty` when IE8
+        //   support will be dropped
+        if (typeof context === 'object' &&
+            /^\[object (HTMLCollection|NodeList|Object)\]$/.test(Object.prototype.toString.call(context)) &&
+            Object.prototype.hasOwnProperty.call(context, 'length') && context.length > 0 && context[0].nodeType > 0) {
+            context = context[0];
+        }
+
+        if (context === null || !context.nodeType) {
+            context = document;
+        }
+
+        return context.querySelectorAll(selector);
     };
-ch.support = {
-
-        /**
-         * Verify that CSS Transitions are supported (or any of its browser-specific implementations).
-         * @type {Boolean}
-         * @link http://gist.github.com/373874
-         * @example
-         * if (ch.support.transition) {
-         *     // Some code here!
-         * }
-         */
-        'transition': body.style.WebkitTransition !== undefined || body.style.MozTransition !== undefined || body.style.MSTransition !== undefined || body.style.OTransition !== undefined || body.style.transition !== undefined,
-
-        /**
-         * Checks if the $ library has fx methods.
-         * @type {Boolean}
-         * @example
-         * if (ch.support.fx) {
-         *     // Some code here!
-         * }
-         */
-        'fx': !!$.fn.slideDown,
-
-        /**
-         * Checks if the User Agent support touch events.
-         * @type {Boolean}
-         * @example
-         * if (ch.support.touch) {
-         *     // Some code here!
-         * }
-         */
-        'touch': 'createTouch' in document
-    };
-ch.onlayoutchange = 'layoutchange';
+    /*eslint-enable no-unused-vars*/
 
     /**
-     * Equivalent to 'resize'.
+     * Tab key event.
      * @constant
      * @memberof ch
      * @type {String}
      */
-    ch.onresize = 'resize';
-
-    /**
-     * Equivalent to 'scroll'.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     */
-    ch.onscroll = 'scroll';
-
-    /**
-     * Equivalent to 'touchstart' or 'mousedown', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerdown | Pointer Events W3C Working Draft
-     */
-    ch.onpointerdown = (ch.support.touch) ? 'touchstart' : 'mousedown';
-
-    /**
-     * Equivalent to 'touchend' or 'mouseup', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerup | Pointer Events W3C Working Draft
-     */
-    ch.onpointerup = (ch.support.touch) ? 'touchend' : 'mouseup';
-
-    /**
-     * Equivalent to 'touchmove' or 'mousemove', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointermove | Pointer Events W3C Working Draft
-     */
-    ch.onpointermove = (ch.support.touch) ? 'touchmove' : 'mousemove';
-
-    /**
-     * Equivalent to 'touchend' or 'click', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#list-of-pointer-events | Pointer Events W3C Working Draft
-     */
-    ch.onpointertap = (ch.support.touch) ? 'touchend' : 'click';
-
-    /**
-     * Equivalent to 'touchstart' or 'mouseenter', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerenter | Pointer Events W3C Working Draft
-     */
-    ch.onpointerenter = (ch.support.touch) ? 'touchstart' : 'mouseenter';
-
-    /**
-     * Equivalent to 'touchend' or 'mouseleave', depending on device capabilities.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerleave | Pointer Events W3C Working Draft
-     */
-    ch.onpointerleave = (ch.support.touch) ? 'touchend' : 'mouseleave';
-
-    /**
-     * Alphanumeric keys event.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     */
-    ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';
-ch.onkeytab = 'tab';
+    ch.onkeytab = 'tab';
 
     /**
      * Enter key event.
@@ -656,285 +117,39 @@ ch.onkeytab = 'tab';
      * @type {String}
      */
     ch.onkeybackspace = 'backspace';
-ch.factory = function (Klass, fn) {
+    /**
+     * Method in change of expose a friendly interface of the Chico constructors.
+     *
+     * @memberof ch
+     * @param {Object} Klass Direct reference to the constructor from where the $-plugin will be created.
+     * @link http://docs.jquery.com/Plugins/Authoring | Authoring
+     */
+    ch.factory = function (Klass) {
         /**
          * Identification of the constructor, in lowercases.
          * @type {String}
          */
-        var name = Klass.prototype.name,
+        var name = Klass.prototype.name;
 
-            /**
-             * Reference to the class name. When it's a preset, take its constructor name via the "preset" property.
-             * @type {String}
-             */
-            constructorName = Klass.prototype._preset || name;
-
-        /**
-         * The class constructor exposed directly into the "ch" namespace.
-         * @exampleDescription Creating a component instance by specifying a query selector and a configuration object.
-         * @example
-         * ch.Component($('#example'), {
-         *     'key': 'value'
-         * });
-         */
         // Uses the function.name property (non-standard) on the newest browsers OR
         // uppercases the first letter from the identification name of the constructor
         ch[(name.charAt(0).toUpperCase() + name.substr(1))] = Klass;
-
-        /**
-         * The class constructor exposed into the "$" namespace.
-         * @ignore
-         * @exampleDescription Creating a component instance by specifying a query selector and a configuration object.
-         * @example
-         * $.component($('#example'), {
-         *     'key': 'value'
-         * });
-         * @exampleDescription Creating a component instance by specifying only a query selector. The default options of each component will be used.
-         * @example
-         * $.component($('#example')});
-         * @exampleDescription Creating a component instance by specifying only a cofiguration object. It only works on compatible components, when those doesn't depends on a element to be created.
-         * @example
-         * $.component({
-         *     'key': 'value'
-         * });
-         * @exampleDescription Creating a component instance by no specifying parameters. It only works on compatible components, when those doesn't depends on a element to be created. The default options of each component will be used.
-         * @example
-         * $.component();
-         */
-        $[name] = function ($el, options) {
-            // Create a new instance of the constructor and return it
-            return new Klass($el, options);
-        };
-
-        /**
-         * The class constructor exposed as a "$" plugin.
-         */
-        $.fn[name] = function (options) {
-
-            // Collection with each instanced component
-            var components = [];
-
-            // Normalize options
-            options = (fn !== undefined) ? fn.apply(this, arguments) : options;
-
-            // Analize every match of the main query selector
-            $.each(this, function () {
-                // Get into the "$" scope
-                var $el = $(this),
-                    // Try to get the "data" reference to this component related to the element
-                    data = $el.data(constructorName);
-
-                // When this component isn't related to the element via data, create a new instance and save
-                if (data === undefined) {
-
-                    // Save the reference to this instance into the element data
-                    data = new Klass($el, options);
-                    $el.data(constructorName, data);
-
-                } else {
-
-                    if (data.emit !== undefined) {
-                        data.emit('exist', options);
-                    }
-                }
-
-                // Add the component reference to the final collection
-                components.push(data);
-
-            });
-
-            // Return the instance/instances of components
-            return (components.length > 1) ? components : components[0];
-        };
     };
-    // Remove the no-js classname from html tag
-    $html.removeClass('no-js');
 
-    // Exposse private $ (jQuery) into ch.$
-    ch.$ = window.$;
-	ch.version = '1.2.2';
+// Remove the no-js classname from html tag
+tiny.removeClass(document.documentElement, 'no-js');
+
+// Expose event names
+for (var m in tiny) {
+    if (/^on\w+/.test(m) && typeof tiny[m] === 'string') {
+        ch[m] = tiny[m];
+    }
+}
+
+	ch.version = 'v2.0.0-beta.3';
 	window.ch = ch;
-}(this, this.$));
+}(this));
 (function (ch) {
-    'use strict';
-
-    /**
-     * Event Emitter Class for the browser.
-     * @memberof ch
-     * @constructor
-     * @returns {Object} Returns a new instance of EventEmitter.
-     * @example
-     * // Create a new instance of EventEmitter.
-     * var emitter = new ch.EventEmitter();
-     * @example
-     * // Inheriting from EventEmitter.
-     * ch.util.inherits(Component, ch.EventEmitter);
-     */
-    function EventEmitter() {}
-
-    /**
-     * Adds a listener to the collection for a specified event.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event The event name to subscribe.
-     * @param {Function} listener Listener function.
-     * @param {Boolean} once Indicate if a listener function will be called only one time.
-     * @returns {component}
-     * @example
-     * // Will add an event listener to 'ready' event.
-     * component.on('ready', listener);
-     */
-    EventEmitter.prototype.on = function (event, listener, once) {
-
-        if (event === undefined) {
-            throw new Error('ch.EventEmitter - "on(event, listener)": It should receive an event.');
-        }
-
-        if (listener === undefined) {
-            throw new Error('ch.EventEmitter - "on(event, listener)": It should receive a listener function.');
-        }
-
-        this._eventsCollection = this._eventsCollection || {};
-
-        listener.once = once || false;
-
-        if (this._eventsCollection[event] === undefined) {
-            this._eventsCollection[event] = [];
-        }
-
-        this._eventsCollection[event].push(listener);
-
-        return this;
-    };
-
-    /**
-     * Adds a listener to the collection for a specified event to will execute only once.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event Event name.
-     * @param {Function} listener Listener function.
-     * @returns {component}
-     * @example
-     * // Will add an event handler to 'contentLoad' event once.
-     * component.once('contentLoad', listener);
-     */
-    EventEmitter.prototype.once = function (event, listener) {
-
-        this.on(event, listener, true);
-
-        return this;
-    };
-
-    /**
-     * Removes a listener from the collection for a specified event.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event Event name.
-     * @param {Function} listener Listener function.
-     * @returns {component}
-     * @example
-     * // Will remove event listener to 'ready' event.
-     * component.off('ready', listener);
-     */
-    EventEmitter.prototype.off = function (event, listener) {
-
-        if (event === undefined) {
-            throw new Error('EventEmitter - "off(event, listener)": It should receive an event.');
-        }
-
-        if (listener === undefined) {
-            throw new Error('EventEmitter - "off(event, listener)": It should receive a listener function.');
-        }
-
-        var listeners = this._eventsCollection[event],
-            i = 0,
-            len;
-
-        if (listeners !== undefined) {
-            len = listeners.length;
-            for (i; i < len; i += 1) {
-                if (listeners[i] === listener) {
-                    listeners.splice(i, 1);
-                    break;
-                }
-            }
-        }
-
-        return this;
-    };
-
-    /**
-     * Returns all listeners from the collection for a specified event.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event The event name.
-     * @returns {Array}
-     * @example
-     * // Returns listeners from 'ready' event.
-     * component.getListeners('ready');
-     */
-    EventEmitter.prototype.getListeners = function (event) {
-        if (event === undefined) {
-            throw new Error('ch.EventEmitter - "getListeners(event)": It should receive an event.');
-        }
-
-        return this._eventsCollection[event];
-    };
-
-    /**
-     * Execute each item in the listener collection in order with the specified data.
-     * @memberof! ch.EventEmitter.prototype
-     * @function
-     * @param {String} event The name of the event you want to emit.
-     * @param {...Object} var_args Data to pass to the listeners.
-     * @returns {component}
-     * @example
-     * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
-     * component.emit('ready', 'param1', 'param2');
-     */
-    EventEmitter.prototype.emit = function () {
-
-        var args = Array.prototype.slice.call(arguments, 0), // converted to array
-            event = args.shift(), // Store and remove events from args
-            listeners,
-            i = 0,
-            len;
-
-        if (event === undefined) {
-            throw new Error('ch.EventEmitter - "emit(event)": It should receive an event.');
-        }
-
-        if (typeof event === 'string') {
-            event = {'type': event};
-        }
-
-        if (!event.target) {
-            event.target = this;
-        }
-
-        if (this._eventsCollection !== undefined && this._eventsCollection[event.type] !== undefined) {
-            listeners = this._eventsCollection[event.type];
-            len = listeners.length;
-
-            for (i; i < len; i += 1) {
-                listeners[i].apply(this, args);
-
-                if (listeners[i].once) {
-                    this.off(event.type, listeners[i]);
-                    len -= 1;
-                    i -= 1;
-                }
-            }
-        }
-
-        return this;
-    };
-
-    // Expose EventEmitter
-    ch.EventEmitter = EventEmitter;
-
-}(this.ch));
-(function ($, ch) {
     'use strict';
 
     /**
@@ -955,7 +170,6 @@ ch.factory = function (Klass, fn) {
                 'method': this._options.method,
                 'params': this._options.params,
                 'cache': this._options.cache,
-                'async': this._options.async,
                 'waiting': this._options.waiting
             };
 
@@ -965,7 +179,7 @@ ch.factory = function (Klass, fn) {
          */
         function setAsyncContent(event) {
 
-            that._$content.html(event.response);
+            that._content.innerHTML = event.response;
 
             /**
              * Event emitted when the content change.
@@ -1009,7 +223,13 @@ ch.factory = function (Klass, fn) {
          */
         function setContent(content) {
 
-            that._$content.html(content);
+            if (content.nodeType !== undefined) {
+                that._content.innerHTML = '';
+                that._content.appendChild(content);
+            } else {
+                that._content.innerHTML = content;
+            }
+
 
             that._options.cache = true;
 
@@ -1037,17 +257,13 @@ ch.factory = function (Klass, fn) {
          * @private
          */
         function getAsyncContent(url, options) {
+            var requestCfg;
             // Initial options to be merged with the user's options
-            options = $.extend({
+            options = tiny.extend({
                 'method': 'GET',
                 'params': '',
-                'async': true,
                 'waiting': '<div class="ch-loading-large"></div>'
-            }, options || defaults);
-
-            if (options.cache !== undefined) {
-                that._options.cache = options.cache;
-            }
+            }, defaults, options);
 
             // Set loading
             setAsyncContent({
@@ -1055,52 +271,53 @@ ch.factory = function (Klass, fn) {
                 'response': options.waiting
             });
 
-            // Make async request
-            $.ajax({
-                'url': url,
-                'type': options.method,
-                'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
-                'cache': that._options.cache,
-                'async': options.async,
-                'beforeSend': function (jqXHR) {
-                    // Set the AJAX default HTTP headers
-                    jqXHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                },
-                'success': function (data) {
-                    // Send the result data to the client
+            requestCfg = {
+                method: options.method,
+                success: function(resp) {
                     setAsyncContent({
                         'status': 'done',
-                        'response': data
+                        'response': resp
                     });
                 },
-                'error': function (jqXHR, textStatus, errorThrown) {
-                    // Send a defined error message
+                error: function(err) {
                     setAsyncContent({
                         'status': 'error',
                         'response': '<p>Error on ajax call.</p>',
-
-                         // Grab all the parameters into a JSON to send to the client
-                        'data': {
-                            'jqXHR': jqXHR,
-                            'textStatus': textStatus,
-                            'errorThrown': errorThrown
-                        }
+                        'data': err.message || JSON.stringify(err)
                     });
                 }
-            });
+            };
+
+            if (options.cache !== undefined) {
+                that._options.cache = options.cache;
+            }
+
+            if (options.cache === false && ['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
+                requestCfg.cache = false;
+            }
+
+            if (options.params) {
+                if (['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
+                    url += (url.indexOf('?') !== -1 || options.params[0] === '?' ? '' : '?') + options.params;
+                } else {
+                    requestCfg.data = options.params;
+                }
+            }
+
+            // Make a request
+            tiny.ajax(url, requestCfg);
         }
 
         /**
          * Allows to manage the components content.
          * @function
          * @memberof! ch.Content#
-         * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a component.
+         * @param {(String | HTMLElement)} content The content that will be used by a component.
          * @param {Object} [options] A custom options to be used with content loaded by ajax.
          * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
          * @param {String} [options.params] Params like query string to be sent to the server.
-         * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
-         * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-         * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+         * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true. false value will work only with HEAD and GET requests
+         * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
          * @example
          * // Update content with some string.
          * component.content('Some new content here!');
@@ -1112,10 +329,11 @@ ch.factory = function (Klass, fn) {
          * });
          */
         this.content = function (content, options) {
+            var parent;
 
             // Returns the last updated content.
             if (content === undefined) {
-                return that._$content.html();
+                return that._content.innerHTML;
             }
 
             that._options.content = content;
@@ -1126,15 +344,24 @@ ch.factory = function (Klass, fn) {
 
             if (typeof content === 'string') {
                 // Case 1: AJAX call
-                if (ch.util.isUrl(content)) {
-                    getAsyncContent(content, options);
+                if ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(content)) {
+                    getAsyncContent(content.replace(/#.+/, ''), options);
                 // Case 2: Plain text
                 } else {
                     setContent(content);
                 }
-            // Case 3: jQuery/Zepto/HTML Element
-            } else if (ch.util.is$(content) || content.nodeType !== undefined) {
-                setContent($(content).remove(null, true).removeClass('ch-hide'));
+            // Case 3: HTML Element
+            } else if (content.nodeType !== undefined) {
+
+                tiny.removeClass(content, 'ch-hide');
+                parent = tiny.parent(content);
+
+                setContent(content);
+
+                if (!that._options.cache) {
+                    parent.removeChild(content);
+                }
+
             }
 
             return that;
@@ -1155,7 +382,8 @@ ch.factory = function (Klass, fn) {
 
     ch.Content = Content;
 
-}(this.ch.$, this.ch));
+}(this.ch));
+
 (function (ch) {
     'use strict';
 
@@ -1182,13 +410,27 @@ ch.factory = function (Klass, fn) {
         var that = this,
             triggerClass = 'ch-' + this.name + '-trigger-on',
             fx = this._options.fx,
-            useEffects = (ch.support.fx && fx !== 'none' && fx !== false);
+            useEffects = (tiny.support.transition && fx !== 'none' && fx !== false),
+            pt, pb;
 
-        function showCallback() {
-            that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
+        function showCallback(e) {
+            if (useEffects) {
+                tiny.removeClass(that.container, 'ch-fx-' + fx);
+
+                // TODO: Use original height when it is defined
+                if (/^slide/.test(fx)) {
+                    that.container.style.height = '';
+                }
+            }
+            tiny.removeClass(that.container, 'ch-hide');
+            that.container.setAttribute('aria-hidden', 'false');
+
+            if (e) {
+                e.target.removeEventListener(e.type, showCallback);
+            }
 
             /**
-             * Event emitted when the componentg is shown.
+             * Event emitted when the component is shown.
              * @event ch.Collapsible#show
              * @example
              * // Subscribe to "show" event.
@@ -1199,8 +441,20 @@ ch.factory = function (Klass, fn) {
             that.emit('show');
         }
 
-        function hideCallback() {
-            that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
+        function hideCallback(e) {
+            if (useEffects) {
+                tiny.removeClass(that.container, 'ch-fx-' + toggleEffects[fx]);
+                that.container.style.display = '';
+                if (/^slide/.test(fx)) {
+                    that.container.style.height = '';
+                }
+            }
+            tiny.addClass(that.container, 'ch-hide');
+            that.container.setAttribute('aria-hidden', 'true');
+
+            if (e) {
+                e.target.removeEventListener(e.type, hideCallback);
+            }
 
             /**
              * Event emitted when the component is hidden.
@@ -1225,8 +479,8 @@ ch.factory = function (Klass, fn) {
 
             that._shown = true;
 
-            if (that.$trigger !== undefined) {
-                that.$trigger.addClass(triggerClass);
+            if (that.trigger !== undefined) {
+                tiny.addClass(that.trigger, triggerClass);
             }
 
             /**
@@ -1242,7 +496,44 @@ ch.factory = function (Klass, fn) {
 
             // Animate or not
             if (useEffects) {
-                that.$container[fx]('fast', showCallback);
+                var _h = 0;
+
+                // Be sure to remove an opposite class that probably exist and
+                // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
+                tiny.off(that.container, tiny.support.transition.end, hideCallback);
+                tiny.removeClass(that.container, 'ch-fx-' + toggleEffects[fx]);
+
+                tiny.on(that.container, tiny.support.transition.end, showCallback);
+
+                // Reveal an element before the transition
+                that.container.style.display = 'block';
+
+                // Set margin and padding to 0 to prevent content jumping at the transition end
+                if (/^slide/.test(fx)) {
+                    // Cache the original paddings for the first time
+                    if (!pt || !pb) {
+                        pt = tiny.css(that.container, 'padding-top');
+                        pb = tiny.css(that.container, 'padding-bottom');
+
+                        that.container.style.marginTop = that.container.style.marginBottom =
+                            that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
+                    }
+
+                    that.container.style.opacity = '0.01';
+                    _h = that.container.offsetHeight;
+                    that.container.style.opacity = '';
+                    that.container.style.height = '0px';
+                }
+
+                // Transition cannot be applied at the same time when changing the display property
+                setTimeout(function() {
+                    if (/^slide/.test(fx)) {
+                        that.container.style.height = _h + 'px';
+                    }
+                    that.container.style.paddingTop = pt;
+                    that.container.style.paddingBottom = pb;
+                    tiny.addClass(that.container, 'ch-fx-' + fx);
+                }, 0);
             } else {
                 showCallback();
             }
@@ -1261,8 +552,8 @@ ch.factory = function (Klass, fn) {
 
             that._shown = false;
 
-            if (that.$trigger !== undefined) {
-                that.$trigger.removeClass(triggerClass);
+            if (that.trigger !== undefined) {
+                tiny.removeClass(that.trigger, triggerClass);
             }
 
             /**
@@ -1278,7 +569,26 @@ ch.factory = function (Klass, fn) {
 
             // Animate or not
             if (useEffects) {
-                that.$container[toggleEffects[fx]]('fast', hideCallback);
+                // Be sure to remove an opposite class that probably exist and
+                // transitionend listener for an opposite transition, aka $.fn.stop(true, true)
+                tiny.off(that.container, tiny.support.transition.end, showCallback);
+                tiny.removeClass(that.container, 'ch-fx-' + fx);
+
+                tiny.on(that.container, tiny.support.transition.end, hideCallback);
+                // Set margin and padding to 0 to prevent content jumping at the transition end
+                if (/^slide/.test(fx)) {
+                    that.container.style.height = tiny.css(that.container, 'height');
+                    // Uses nextTick to trigger the height change
+                    setTimeout(function() {
+                        that.container.style.height = '0px';
+                        that.container.style.paddingTop = that.container.style.paddingBottom ='0px';
+                        tiny.addClass(that.container, 'ch-fx-' + toggleEffects[fx]);
+                    }, 0);
+                } else {
+                    setTimeout(function() {
+                        tiny.addClass(that.container, 'ch-fx-' + toggleEffects[fx]);
+                    }, 0);
+                }
             } else {
                 hideCallback();
             }
@@ -1308,11 +618,10 @@ ch.factory = function (Klass, fn) {
     ch.Collapsible = Collapsible;
 
 }(this.ch));
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
-    var $window = $(window),
-        resized = false,
+    var resized = false,
         scrolled = false,
         requestAnimFrame = (function () {
             return window.requestAnimationFrame ||
@@ -1360,15 +669,14 @@ ch.factory = function (Klass, fn) {
      * The Viewport is a component to ease viewport management. You can get the dimensions of the viewport and beyond, which can be quite helpful to perform some checks with JavaScript.
      * @memberof ch
      * @constructor
-     * @augments ch.EventEmitter
-     * @requires ch.util
+     * @augments tiny.EventEmitter
      * @returns {viewport} Returns a new instance of Viewport.
      */
     function Viewport() {
         this._init();
     }
 
-    ch.util.inherits(Viewport, ch.EventEmitter);
+    tiny.inherits(Viewport, tiny.EventEmitter);
 
     /**
      * Initialize a new instance of Viewport.
@@ -1378,6 +686,9 @@ ch.factory = function (Klass, fn) {
      * @returns {viewport}
      */
     Viewport.prototype._init = function () {
+        // Set emitter to zero for unlimited listeners to avoid the warning in console
+        // @see https://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n
+        this.setMaxListeners(0);
 
         /**
          * Reference to context of an instance.
@@ -1389,39 +700,43 @@ ch.factory = function (Klass, fn) {
         /**
          * Element representing the visible area.
          * @memberof! ch.viewport#element
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {Object}
          */
-        this.$el = $window;
+        this.el = window;
 
         this.refresh();
 
-        $window
-            .on(ch.onresize + '.viewport', function () {
-                // No changing, exit
-                if (!resized) {
-                    resized = true;
 
-                    /**
-                     * requestAnimationFrame
-                     */
-                    requestAnimFrame(function updateResize() {
-                        update.call(that);
-                    });
-                }
-            })
-            .on(ch.onscroll + '.viewport', function () {
-                // No changing, exit
-                if (!scrolled) {
-                    scrolled = true;
+        function viewportResize() {
+            // No changing, exit
+            if (!resized) {
+                resized = true;
 
-                    /**
-                     * requestAnimationFrame
-                     */
-                    requestAnimFrame(function updateScroll() {
-                        update.call(that);
-                    });
-                }
-            });
+                /**
+                 * requestAnimationFrame
+                 */
+                requestAnimFrame(function updateResize() {
+                    update.call(that);
+                });
+            }
+        }
+
+        function viewportScroll() {
+            // No changing, exit
+            if (!scrolled) {
+                scrolled = true;
+
+                /**
+                 * requestAnimationFrame
+                 */
+                requestAnimFrame(function updateScroll() {
+                    update.call(that);
+                });
+            }
+        }
+
+        window.addEventListener(ch.onscroll, viewportScroll, false);
+        window.addEventListener(ch.onresize, viewportResize, false);
     };
 
     /**
@@ -1464,7 +779,7 @@ ch.factory = function (Klass, fn) {
          * // Checks if the bottom client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 900) ? 'Yes': 'No';
          */
-        this.bottom = this.$el.height();
+        this.bottom = Math.max(this.el.innerHeight || 0, document.documentElement.clientHeight);
 
         /**
          * The current right client rect of the viewport (in pixels).
@@ -1475,7 +790,7 @@ ch.factory = function (Klass, fn) {
          * // Checks if the right client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 1200) ? 'Yes': 'No';
          */
-        this.right = this.$el.width();
+        this.right = Math.max(this.el.innerWidth || 0, document.documentElement.clientWidth);
 
         return this;
     };
@@ -1533,7 +848,7 @@ ch.factory = function (Klass, fn) {
          * @type {Object}
          * @private
          */
-        var scroll = ch.util.getScroll();
+        var scroll = tiny.scroll();
 
         /**
          * The offset top of the viewport.
@@ -1595,7 +910,7 @@ ch.factory = function (Klass, fn) {
          * // Checks if the orientation is "landscape".
          * (ch.viewport.orientation === 'landscape') ? 'Yes': 'No';
          */
-        this.orientation = (Math.abs(this.$el.orientation) === 90) ? 'landscape' : 'portrait';
+        this.orientation = (Math.abs(this.el.orientation) === 90) ? 'landscape' : 'portrait';
 
         return this;
     };
@@ -1652,8 +967,8 @@ ch.factory = function (Klass, fn) {
     // Creates an instance of the Viewport into ch namespace.
     ch.viewport = new Viewport();
 
-}(this, this.ch.$, this.ch));
-(function (window, $, ch) {
+}(this, this.ch));
+(function (window, ch) {
     'use strict';
 
     /**
@@ -1661,22 +976,21 @@ ch.factory = function (Klass, fn) {
      * @memberof ch
      * @constructor
      * @param {Object} options Configuration object.
-     * @param {(jQuerySelector | ZeptoSelector)} options.target Reference to the element to be positioned.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {String} options.target A HTMLElement that reference to the element to be positioned.
+     * @param {String} [options.reference] A HTMLElement that it's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
      * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
      * @param {String} [options.position] Thethe type of positioning used. You must use: "absolute" or "fixed". Default: "fixed".
-     * @requires ch.util
      * @requires ch.Viewport
      * @returns {positioner} Returns a new instance of Positioner.
      * @example
      * // Instance the Positioner It requires a little configuration.
      * // The default behavior place an element center into the Viewport.
      * var positioned = new ch.Positioner({
-     *     'target': $(selector),
-     *     'reference': $(selector),
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 20,
@@ -1686,8 +1000,8 @@ ch.factory = function (Klass, fn) {
      * // offsetX: The Positioner could be configurated with an offsetX.
      * // This example show an element displaced horizontally by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': $(selector),
-     *     'reference': $(selector),
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 10
@@ -1696,8 +1010,8 @@ ch.factory = function (Klass, fn) {
      * // offsetY: The Positioner could be configurated with an offsetY.
      * // This example show an element displaced vertically by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': $(selector),
-     *     'reference': $(selector),
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetY': 10
@@ -1705,8 +1019,8 @@ ch.factory = function (Klass, fn) {
      * @example
      * // positioned: The positioner could be configured to work with fixed or absolute position value.
      * var positioned = new ch.Positioner({
-     *     'target': $(selector),
-     *     'reference': $(selector),
+     *     'target': document.querySelector('.target'),
+     *     'reference': document.querySelector('.reference'),
      *     'position': 'fixed'
      * });
      */
@@ -1717,7 +1031,7 @@ ch.factory = function (Klass, fn) {
         }
 
         // Creates its private options
-        this._options = ch.util.clone(this._defaults);
+        this._options = tiny.clone(this._defaults);
 
         // Init
         this._configure(options);
@@ -1763,26 +1077,26 @@ ch.factory = function (Klass, fn) {
     Positioner.prototype._configure = function (options) {
 
         // Merge user options with its options
-        $.extend(this._options, options);
+        tiny.extend(this._options, options);
 
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);
 
         /**
          * Reference to the element to be positioned.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$target = options.target || this.$target;
+        this.target = options.target || this.target;
 
 
         /**
          * It's a reference to position and size of element that will be considered to carry out the position.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$reference = options.reference || this.$reference;
+        this.reference = options.reference || this.reference;
         this._reference = this._options.reference;
 
-        this.$target.css('position', this._options.position);
+        this.target.style.position = this._options.position;
 
         return this;
     };
@@ -1830,20 +1144,20 @@ ch.factory = function (Klass, fn) {
      */
     Positioner.prototype._calculateReference = function () {
 
-        var reference = this.$reference[0],
+        var reference = this.reference,
             offset;
 
         reference.setAttribute('data-side', this._options.side);
         reference.setAttribute('data-align', this._options.align);
 
-        this._reference = ch.util.getOuterDimensions(reference);
+        this._reference = this._getOuterDimensions(reference);
 
-        if (reference.offsetParent === this.$target[0].offsetParent) {
+        if (reference.offsetParent === this.target.offsetParent) {
             this._reference.left = reference.offsetLeft;
             this._reference.top = reference.offsetTop;
 
         } else {
-            offset = ch.util.getOffset(reference);
+            offset = tiny.offset(reference);
             this._reference.left = offset.left;
             this._reference.top = offset.top;
         }
@@ -1860,13 +1174,29 @@ ch.factory = function (Klass, fn) {
      */
     Positioner.prototype._calculateTarget = function () {
 
-        var target = this.$target[0];
+        var target = this.target;
         target.setAttribute('data-side', this._options.side);
         target.setAttribute('data-align', this._options.align);
 
-        this._target = ch.util.getOuterDimensions(target);
+        this._target = this._getOuterDimensions(target);
 
         return this;
+    };
+
+    /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Positioner.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Positioner.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
     };
 
     /**
@@ -1878,21 +1208,21 @@ ch.factory = function (Klass, fn) {
      */
     Positioner.prototype._setPoint = function () {
         var side = this._options.side,
-            oritentation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
+            orientation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
             coors,
-            oritentationMap;
+            orientationMap;
 
         // take the side and calculate the alignment and make the CSSpoint
-        if (oritentation === 'center') {
+        if (orientation === 'center') {
             // calculates the coordinates related to the center side to locate the target
             coors = {
                 'top': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
                 'left': (this._reference.left + (this._reference.width / 2 - this._target.width / 2))
             };
 
-        } else if (oritentation === 'horizontal') {
+        } else if (orientation === 'horizontal') {
             // calculates the coordinates related to the top or bottom side to locate the target
-            oritentationMap = {
+            orientationMap = {
                 'left': this._reference.left,
                 'center': (this._reference.left + (this._reference.width / 2 - this._target.width / 2)),
                 'right': (this._reference.left + this._reference.width - this._target.width),
@@ -1901,13 +1231,13 @@ ch.factory = function (Klass, fn) {
             };
 
             coors = {
-                'top': oritentationMap[side],
-                'left': oritentationMap[this._options.align]
+                'top': orientationMap[side],
+                'left': orientationMap[this._options.align]
             };
 
         } else {
             // calculates the coordinates related to the right or left side to locate the target
-            oritentationMap = {
+            orientationMap = {
                 'top': this._reference.top,
                 'center': (this._reference.top + (this._reference.height / 2 - this._target.height / 2)),
                 'bottom': (this._reference.top + this._reference.height - this._target.height),
@@ -1916,26 +1246,27 @@ ch.factory = function (Klass, fn) {
             };
 
             coors = {
-                'top': oritentationMap[this._options.align],
-                'left': oritentationMap[side]
+                'top': orientationMap[this._options.align],
+                'left': orientationMap[side]
             };
         }
 
         coors.top += this._options.offsetY;
         coors.left += this._options.offsetX;
 
-        this.$target.css(coors);
+        this.target.style.top = coors.top + 'px';
+        this.target.style.left = coors.left + 'px';
 
         return this;
     };
 
     ch.Positioner = Positioner;
 
-}(this, this.ch.$, this.ch));
-(function (window, $, ch) {
+}(this, this.ch));
+(function (window, ch) {
     'use strict';
 
-    var $document = $(window.document),
+    var document = window.document,
         codeMap = {
             '8': ch.onkeybackspace,
             '9': ch.onkeytab,
@@ -2084,91 +1415,61 @@ ch.factory = function (Klass, fn) {
 
                 return this;
             }
-        };
+        },
+        shortcutsEmitter = function (event) {
+            var keyCode = event.keyCode.toString(),
+                shortcut = codeMap[keyCode],
+                callbacks,
+                callbacksLenght,
+                i = 0;
 
-    $document.on('keydown.shortcuts', function (event) {
-        var keyCode = event.keyCode.toString(),
-            shortcut = codeMap[keyCode],
-            callbacks,
-            callbacksLenght,
-            i = 0;
+            if (shortcut !== undefined && shortcuts._active !== null) {
+                callbacks = shortcuts._collection[shortcuts._active][shortcut];
 
-        if (shortcut !== undefined && shortcuts._active !== null) {
-            callbacks = shortcuts._collection[shortcuts._active][shortcut];
-
-            event.type = shortcut;
+                event.shortcut = shortcut;
 
 
-            if (callbacks !== undefined) {
+                if (callbacks !== undefined) {
 
-                callbacksLenght = callbacks.length;
+                    callbacksLenght = callbacks.length;
 
-                for (i = 0; i < callbacksLenght; i += 1) {
-                    callbacks[i](event);
+                    for (i = 0; i < callbacksLenght; i += 1) {
+                        callbacks[i](event);
+                    }
+
                 }
 
             }
+        };
 
-        }
-    });
+    tiny.on(document, 'keydown', shortcutsEmitter);
 
     ch.shortcuts = shortcuts;
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
 
 (function (window, ch) {
     'use strict';
 
-    /**
-     * Executes a callback function when the images of a query selection loads.
-     * @memberof! ch
-     * @param $el An image or a collection of images.
-     * @param callback The handler the component will fire after the images loads.
-     * @example
-     * $('selector').onImagesLoads(function () {
-     *     console.log('The size of the loaded image is ' + this.width);
-     * });
-     */
-    function onImagesLoads($el, callback) {
-
-        $el
-            .one('load', function () {
-                var len = $el.length;
-
-                window.setTimeout(function () {
-                    if (--len <= 0) { callback.call($el); }
-                }, 200);
-            })
-            .each(function () {
-                // Cached images don't fire load sometimes, so we reset src.
-                if (this.complete || this.complete === undefined) {
-                    var src = this.src;
-                    // Data uri fix bug in web-kit browsers
-                    this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-                    this.src = src;
-                }
-            });
-    }
-
-    ch.onImagesLoads = onImagesLoads;
-
-}(this, this.ch));
-(function (window, $, ch) {
-    'use strict';
-
-    var util = ch.util,
-        uid = 0;
+    var uid = 0;
 
     /**
      * Base class for all components.
+     *
      * @memberof ch
      * @constructor
-     * @augments ch.EventEmitter
-     * @param {(jQuerySelector | ZeptoSelector)} $el jQuery or Zepto Selector.
+     * @augments tiny.EventEmitter
+     * @param {HTMLElement} [el] It must be a HTMLElement.
      * @param {Object} [options] Configuration options.
      * @returns {component} Returns a new instance of Component.
+     * @example
+     * // Create a new Component.
+     * var component = new ch.Component();
+     * var component = new ch.Component('.my-component', {'option': 'value'});
+     * var component = new ch.Component('.my-component');
+     * var component = new ch.Component({'option': 'value'});
      */
-    function Component($el, options) {
+    function Component(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -2177,7 +1478,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -2200,15 +1501,12 @@ ch.factory = function (Klass, fn) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    ch.util.inherits(Component, ch.EventEmitter);
+    tiny.inherits(Component, tiny.EventEmitter);
 
     /**
      * The name of a component.
      * @memberof! ch.Component.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var component = $(selector).data(name);
      */
     Component.prototype.name = 'component';
 
@@ -2226,39 +1524,16 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {component}
      */
-    Component.prototype._init = function ($el, options) {
+    Component.prototype._init = function (el, options) {
+        // Set emitter to zero for unlimited listeners to avoid the warning in console
+        // @see https://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n
+        this.setMaxListeners(0);
 
         // Clones defaults or creates a defaults object
-        var defaults = (this._defaults) ? util.clone(this._defaults) : {};
+        var defaults = (this._defaults) ? tiny.clone(this._defaults) : {};
 
-        // Clones the defaults options or creates a new object
-        if (options === undefined) {
-            if ($el === undefined) {
-                this._options = defaults;
-
-            } else if (util.is$($el)) {
-                this._$el = $el;
-                this._el = $el[0];
-                this._options = defaults;
-
-            } else if (typeof $el === 'object') {
-                options = $el;
-                $el = undefined;
-                this._options = $.extend(defaults, options);
-            }
-
-        } else if (typeof options === 'object') {
-            if ($el === undefined) {
-                this._options = $.extend(defaults, options);
-
-            } else if (util.is$($el)) {
-                this._$el = $el;
-                this._el = $el[0];
-                this._options = $.extend(defaults, options);
-            }
-
-        } else {
-            throw new window.Error('Unexpected parameters were found in the \'' + this.name + '\' instantiation.');
+        if (el === null) {
+            throw new Error('The "el" parameter is not present in the DOM');
         }
 
         /**
@@ -2267,12 +1542,42 @@ ch.factory = function (Klass, fn) {
          */
         this.uid = (uid += 1);
 
+        // el is HTMLElement
+        // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+        if (el !== undefined && el.nodeType !== undefined && el.nodeType === 1) {
+
+            this._el = el;
+
+            // set the uid to the element to help search for the instance in the collection instances
+            this._el.setAttribute('data-uid', this.uid);
+
+            // we extend defaults with options parameter
+            this._options = tiny.extend(defaults, options);
+
+        // el is an object configuration
+        } else if (el === undefined || el.nodeType === undefined && typeof el === 'object') {
+
+            // creates a empty element becouse the user not set a DOM elment to use, but we requires one
+            // this._el = document.createElement('div');
+
+            // we extend defaults with the object that is in el parameter object
+            this._options = tiny.extend(defaults, el);
+        }
+
         /**
          * Indicates if a component is enabled.
          * @type {Boolean}
          * @private
          */
         this._enabled = true;
+
+        /**
+         * Stores all instances created
+         * @type {Object}
+         * @public
+         */
+        ch.instances = ch.instances || {};
+        ch.instances[this.uid] = this;
     };
 
 
@@ -2372,7 +1677,8 @@ ch.factory = function (Klass, fn) {
         this.disable();
 
         if (this._el !== undefined) {
-            this._$el.removeData(this.name);
+            delete ch.instances[this._el.getAttribute('data-uid')];
+            this._el.removeAttribute('data-uid');
         }
 
         /**
@@ -2392,8 +1698,8 @@ ch.factory = function (Klass, fn) {
 
     ch.Component = Component;
 
-}(this, this.ch.$, this.ch));
-(function (window, $, ch) {
+}(this, this.ch));
+(function (window, ch) {
     'use strict';
 
     /**
@@ -2402,7 +1708,7 @@ ch.factory = function (Klass, fn) {
      * @constructor
      * @augments ch.Component
      * @requires ch.Validations
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Form.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Form.
      * @param {Object} [options] Options to customize an instance.
      * @param {Object} [options.messages] A collections of validations messages.
      * @param {String} [options.messages.required] A validation message.
@@ -2418,20 +1724,17 @@ ch.factory = function (Klass, fn) {
      * @returns {form} Returns a new instance of Form.
      * @example
      * // Create a new Form.
-     * var form = new ch.Form($el, [options]);
-     * @example
-     * // Create a new Form with jQuery or Zepto.
-     * var form = $(selector).form();
+     * var form = new ch.Form(el, [options]);
      * @example
      * // Create a new Form with custom messages.
-     * var form = $(selector).form({
+     * var form = new ch.Form({
      *     'messages': {
      *          'required': 'Some message!',
      *          'email': 'Another message!'
      *     }
      * });
      */
-    function Form($el, options) {
+    function Form(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -2440,7 +1743,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        that._init($el, options);
+        that._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -2464,15 +1767,14 @@ ch.factory = function (Klass, fn) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Form, ch.Component);
+    tiny.inherits(Form, ch.Component);
+
+    var parent = Form.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Form.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var form = $(selector).data('form');
      */
     Form.prototype.name = 'form';
 
@@ -2490,9 +1792,9 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {form}
      */
-    Form.prototype._init = function ($el, options) {
+    Form.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -2522,25 +1824,28 @@ ch.factory = function (Klass, fn) {
 
         /**
          * The form container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$container = this._$el
+        this.container = this._el;
             // Add classname
-            .addClass('ch-form')
+        tiny.addClass(this.container, 'ch-form');
             // Disable HTML5 browser-native validations
-            .attr('novalidate', 'novalidate')
+        this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-            .on('submit.form', function (event) {
-                // Runs validations
-                that.validate(event);
-            });
+        tiny.on(this.container, 'submit', function (event) {
+            // Runs validations
+            that.validate(event);
+        });
 
-        this.$container
-            // Bind the reset
-            .find('input[type="reset"]').on(ch.onpointertap + '.form', function (event) {
-                ch.util.prevent(event);
+        // Bind the reset
+        if (this.container.querySelector('input[type="reset"]')) {
+            tiny.on(this.container.querySelector('input[type="reset"]'), ch.onpointertap, function (event) {
+                event.preventDefault();
                 that.reset();
             });
+        }
+        // Stub for EventEmitter to prevent the errors throwing
+        this.on('error', function(){});
 
         // Clean validations
         this.on('disable', this.clear);
@@ -2602,10 +1907,10 @@ ch.factory = function (Klass, fn) {
         // Is there's an error
         if (that.errors.length > 0) {
             firstError = that.errors[0];
-            firstErrorVisible = firstError.$trigger[0];
+            firstErrorVisible = firstError.trigger;
 
             // Find the closest visible parent if current element is hidden
-            while(ch.util.getStyles(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
+            while (tiny.css(firstErrorVisible, 'display') === 'none' && firstErrorVisible !== document.documentElement) {
                 firstErrorVisible = firstErrorVisible.parentElement;
             }
 
@@ -2613,17 +1918,19 @@ ch.factory = function (Klass, fn) {
 
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-            triggerError = firstError.$trigger[0];
+            triggerError = firstError.trigger;
 
             if (triggerError.tagName === 'DIV') {
-                firstError.$trigger.find('input:first').focus();
+                firstError.trigger.querySelector('input:first-child').focus();
             }
 
-            if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
+            if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
                 triggerError.focus();
             }
 
-            ch.util.prevent(event);
+            if (event && event.preventDefault) {
+                event.preventDefault();
+            }
 
             /**
              * It emits an event when a form has got errors.
@@ -2693,11 +2000,7 @@ ch.factory = function (Klass, fn) {
 
         }
 
-        if (this.errors.length > 0) {
-            return true;
-        }
-
-        return false;
+        return this.errors.length > 0;
     };
 
     /**
@@ -2774,11 +2077,10 @@ ch.factory = function (Klass, fn) {
      */
     Form.prototype.destroy = function () {
 
-        this.$container
-            .off('.form')
-            .removeAttr('novalidate');
+        // this.$container.off('.form')
+        this.container.removeAttribute('novalidate');
 
-        $.each(this.validations, function (i, e) {
+        this.validations.forEach(function (e) {
             e.destroy();
         });
 
@@ -2790,8 +2092,8 @@ ch.factory = function (Klass, fn) {
     // Factorize
     ch.factory(Form);
 
-}(this, this.ch.$, this.ch));
-(function ($, ch) {
+}(this, this.ch));
+(function (ch) {
     'use strict';
 
     // Private Members
@@ -2841,12 +2143,12 @@ ch.factory = function (Klass, fn) {
         'required': {
             'fn': function (value) {
 
-                var tag = this.$trigger.hasClass('ch-form-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = tiny.hasClass(this.trigger, 'ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
                 case 'OPTIONS':
-                    validated = this.$trigger.find('input:checked').length !== 0;
+                    validated = this.trigger.querySelectorAll('input:checked').length !== 0;
                     break;
 
                 case 'SELECT':
@@ -2855,7 +2157,7 @@ ch.factory = function (Klass, fn) {
 
                 // INPUTS and TEXTAREAS
                 default:
-                    validated = $.trim(value).length !== 0;
+                    validated = value.replace(/^\s+|\s+$/g, '').length !== 0;
                     break;
                 }
 
@@ -2913,7 +2215,7 @@ ch.factory = function (Klass, fn) {
      */
     function Condition(condition) {
 
-        $.extend(this, conditions[condition.name], condition);
+        tiny.extend(this, conditions[condition.name], condition);
 
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
         if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {
@@ -2929,9 +2231,6 @@ ch.factory = function (Klass, fn) {
      * The name of the component.
      * @memberof! ch.Condition.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var condition = $(selector).data('condition');
      */
     Condition.prototype.name = 'condition';
 
@@ -3000,7 +2299,7 @@ ch.factory = function (Klass, fn) {
 
     ch.Condition = Condition;
 
-}(this.ch.$, this.ch));
+}(this.ch));
 (function (window, ch) {
     'use strict';
 
@@ -3012,13 +2311,13 @@ ch.factory = function (Klass, fn) {
      * @requires ch.Condition
      * @requires ch.Form
      * @requires ch.Bubble
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Validation.
      * @param {Object} [options] Options to customize an instance.
      * @param {Array} [options.conditions] A collection of conditions to validate.
      * @param {String} [options.conditions.name] The name of the condition.
      * @param {String} [options.conditions.message] The given error message to the condition.
      * @param {String} [options.conditions.fn] The method to validate a given condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 10.
@@ -3027,13 +2326,10 @@ ch.factory = function (Klass, fn) {
      * @returns {validation} Returns a new instance of Validation.
      * @example
      * // Create a new Validation.
-     * var validation = new ch.Validation($el, [options]);
-     * @example
-     * // Create a new Validation with jQuery or Zepto.
-     * var validation = $(selector).validation([options]);
+     * var validation = new ch.Validation(document.querySelector('.name-field'), [options]);
      * @example
      * // Create a validation with with custom options.
-     * var validation = $(selector).validation({
+     * var validation = new ch.Validation({
      *     'conditions': [
      *         {
      *             'name': 'required',
@@ -3051,7 +2347,7 @@ ch.factory = function (Klass, fn) {
      *     'align': 'left'
      * });
      */
-    function Validation($el, options) {
+    function Validation(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -3060,7 +2356,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -3084,7 +2380,9 @@ ch.factory = function (Klass, fn) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Validation, ch.Component),
+    tiny.inherits(Validation, ch.Component);
+
+    var parent = Validation.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -3118,9 +2416,6 @@ ch.factory = function (Klass, fn) {
      * The name of the component.
      * @memberof! ch.Validation.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var validation = $(selector).data('validation');
      */
     Validation.prototype.name = 'validation';
 
@@ -3137,7 +2432,7 @@ ch.factory = function (Klass, fn) {
      * @private
      */
     Validation.prototype._defaults = {
-        'offsetX': 10
+        'offsetX': 10
     };
 
     /**
@@ -3147,7 +2442,7 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {validation}
      */
-    Validation.prototype._init = function ($el, options) {
+    Validation.prototype._init = function (el, options) {
 
         /**
          * Reference to context of an instance.
@@ -3156,17 +2451,17 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * The validation trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$trigger = this._$el;
+        this.trigger = this._el;
 
         /**
          * The validation container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
         this._configureContainer();
 
@@ -3193,17 +2488,16 @@ ch.factory = function (Klass, fn) {
         this.error = null;
 
         this
-            .on('exist', function (data) {
-                this._mergeConditions(data.conditions);
-            })
             // Clean the validation if is shown;
             .on('disable', this.clear);
+
+        this.on('error', this._handleError);
 
         /**
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = (that.$trigger.parents('form').data('form') || that.$trigger.parents('form').form());
+        this.form = (ch.instances[tiny.parent(that.trigger, 'form').getAttribute('data-uid')] || new ch.Form(tiny.parent(that.trigger, 'form')));
 
         this.form.validations.push(this);
 
@@ -3211,7 +2505,7 @@ ch.factory = function (Klass, fn) {
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (this.$trigger.hasClass('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (tiny.hasClass(this.trigger, 'ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -3264,7 +2558,7 @@ ch.factory = function (Klass, fn) {
             previousValue;
 
         // It must happen only once.
-        this.$trigger.on(this._validationEvent + '.validation', function () {
+        tiny.on(this.trigger, this._validationEvent, function () {
 
             if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
                 previousValue = this.value;
@@ -3277,40 +2571,43 @@ ch.factory = function (Klass, fn) {
 
         });
 
-        // Lazy Loading pattern
-        this._error = function () {
-
-            if (!that._previousError.condition || !that._shown) {
-                if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
-                    that.$trigger.addClass('ch-validation-error');
-                }
-
-                that._showErrorMessage(that.error.message || 'Error');
-            }
-
-            if (that.error.condition !== that._previousError.condition) {
-                that._showErrorMessage(that.error.message || that.form._messages[that.error.condition] || 'Error');
-            }
-
-            that._shown = true;
-
-            /**
-             * It emits an event when a validation hasn't got an error.
-             * @event ch.Validation#error
-             * @example
-             * // Subscribe to "error" event.
-             * validation.on('error', function (errors) {
-             *     console.log(errors.length);
-             * });
-             */
-            that.emit('error', that.error);
-
-            return that;
-        };
-
-        this._error();
+        /**
+         * It emits an error event when a validation got an error.
+         * @event ch.Validation#error
+         *
+         * @example
+         * // Subscribe to "error" event.
+         * validation.on('error', function (errors) {
+         *     console.log(errors.length);
+         * });
+         */
+        this.emit('error', this.error);
 
         return this;
+    };
+
+    /**
+     * Internal error handler, shows the errors when needed
+     *
+     * @param err {Object} A ch.Validation#error object that contain the error message and the error condition
+     * @private
+     */
+    Validation.prototype._handleError = function(err) {
+        var that = this;
+
+        if (!that._previousError.condition || !that._shown) {
+            if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
+                tiny.addClass(that.trigger, 'ch-validation-error');
+            }
+
+            that._showErrorMessage(err.message || 'Error');
+        }
+
+        if (err.condition !== that._previousError.condition) {
+            that._showErrorMessage(err.message || that.form._messages[err.condition] || 'Error');
+        }
+
+        that._shown = true;
     };
 
     /**
@@ -3325,9 +2622,9 @@ ch.factory = function (Klass, fn) {
             this._shown = false;
         }
 
-        this.$trigger
-            .removeClass('ch-validation-error')
-            .removeAttr('aria-label');
+        this.trigger.removeAttribute('aria-label');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
+
 
         this._hideErrorMessage();
 
@@ -3359,7 +2656,7 @@ ch.factory = function (Klass, fn) {
     Validation.prototype.hasError = function () {
 
         // Pre-validation: Don't validate disabled
-        if (this.$trigger.attr('disabled') || !this._enabled) {
+        if (this.trigger.getAttribute('disabled') || !this._enabled) {
             return false;
         }
 
@@ -3377,7 +2674,7 @@ ch.factory = function (Klass, fn) {
          * Stores the previous error object
          * @private
          */
-        this._previousError = ch.util.clone(this.error);
+        this._previousError = tiny.clone(this.error);
 
         // for each condition
         for (condition in this.conditions) {
@@ -3413,9 +2710,8 @@ ch.factory = function (Klass, fn) {
      */
     Validation.prototype.clear = function () {
 
-        this.$trigger
-            .removeClass('ch-validation-error')
-            .removeAttr('aria-label');
+        this.trigger.removeAttribute('aria-label');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
 
         this.error = null;
 
@@ -3435,19 +2731,6 @@ ch.factory = function (Klass, fn) {
         this.emit('clear');
 
         return this;
-    };
-
-    /**
-     * Returns the jQuerySelector or ZeptoSelector to chaining more validations.
-     * @memberof! ch.Validation.prototype
-     * @function
-     * @returns {(jQuerySelector | ZeptoSelector)}
-     * @example
-     * // Concatenates another validation.
-     * validation.and().validation();
-     */
-    Validation.prototype.and = function () {
-        return this.$trigger;
     };
 
     /**
@@ -3541,9 +2824,8 @@ ch.factory = function (Klass, fn) {
      */
     Validation.prototype.destroy = function () {
 
-        this.$trigger
-            .off('.validation')
-            .removeAttr('data-side data-align');
+        // this.$trigger.off('.validation')
+        this.trigger.removeAttribute('data-side data-align');
 
         parent.destroy.call(this);
 
@@ -3554,7 +2836,7 @@ ch.factory = function (Klass, fn) {
     ch.factory(Validation);
 
 }(this, this.ch));
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -3573,29 +2855,33 @@ ch.factory = function (Klass, fn) {
          * @type {Bubble}
          * @see ch.Bubble
          */
-        this.bubble = this._container = $.bubble({
-            'reference': that._options.reference || (function () {
+        this.bubble = this._container = new ch.Bubble({
+            'reference': that._options.reference || (function () {
                 var reference,
-                    $trigger = that.$trigger,
-                    h4;
+                    trigger = that.trigger,
+                    h4,
+                    span;
                 // CHECKBOX, RADIO
                 // TODO: when old forms be deprecated we must only support ch-form-options class
-                if ($trigger.hasClass('ch-form-options')) {
+                if (tiny.hasClass(trigger, 'ch-form-options')) {
                 // Helper reference from will be fired
-                // H4
-                    if ($trigger.find('h4').length > 0) {
-                        h4 = $trigger.find('h4'); // Find h4
-                        h4.wrapInner('<span>'); // Wrap content with inline element
-                        reference = h4.children(); // Inline element in h4 like helper reference
+                    if (trigger.querySelectorAll('h4').length > 0) {
+                        // Wrap content with inline element
+                        h4 = trigger.querySelector('h4'); // Find h4
+                        span = document.createElement('span');
+                        span.insertAdjacentHTML('beforeend', h4.innerHTML);
+                        h4.innerHTML = '';
+                        h4.insertBefore(span, h4.firstChild);
+                        reference = h4.children[0]; // Inline element in h4 like helper reference
                     // Legend
-                    } else if ($trigger.prev().prop('tagName') === 'LEGEND') {
-                        reference = $trigger.prev(); // Legend like helper reference
+                    } else if (trigger.previousElementSibling && trigger.previousElementSibling.tagName === 'LEGEND') {
+                        reference = trigger.previousElementSibling; // Legend like helper reference
                     } else {
-                        reference = $($trigger.find('label')[0]);
+                        reference = trigger.querySelector('label');
                     }
                 // INPUT, SELECT, TEXTAREA
                 } else {
-                    reference = $trigger;
+                    reference = trigger;
                 }
 
                 return reference;
@@ -3618,7 +2904,7 @@ ch.factory = function (Klass, fn) {
      */
     ch.Validation.prototype._showErrorMessage = function (message) {
         this.bubble.content(message).show();
-        this.$trigger.attr('aria-label', 'ch-' + this.bubble.name + '-' + this.bubble.uid);
+        this.trigger.setAttribute('aria-label', 'ch-' + this.bubble.name + '-' + this.bubble.uid);
 
         return this;
     };
@@ -3632,7 +2918,7 @@ ch.factory = function (Klass, fn) {
      */
     ch.Validation.prototype._hideErrorMessage = function () {
         this.bubble.hide();
-        this.$trigger.removeAttr('aria-label');
+        this.trigger.removeAttribute('aria-label');
 
         return this;
     };
@@ -3661,1069 +2947,12 @@ ch.factory = function (Klass, fn) {
         return this;
     };
 
-}(this.ch.$, this.ch));
-(function (ch) {
-    'use strict';
-
-    /**
-     * Normalizes and creates an options object
-     * @private
-     * @function
-     * @returns {Object}
-     */
-    function normalizeOptions(message) {
-        var options,
-            condition = {
-                'name': 'string'
-            };
-
-        // If the first paramater is an object, it creates a condition and append to options
-        if (typeof message === 'object') {
-
-            // Stores the current options
-            options = message;
-
-            // Creates condition properties
-            condition.message = options.message;
-
-            // Removes the keys that has been stored into the condition
-            delete options.message;
-
-        // Creates an option object if receive more than one parameter
-        } else {
-            options = {};
-            condition.message = message;
-        }
-
-        // Appends condition object into conditions collection
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * String creates a new instance of Validation to validate a given value as string.
-     * @memberof ch
-     * @name ch.String
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new String Validation.
-     * var strValidation = new ch.String($el, [options]);
-     * @example
-     * // Create a new String validation with jQuery or Zepto.
-     * var strValidation = $(selector).string([options]);
-     * @example
-     * // Create a new String validation with custom options.
-     * var strValidation = $(selector).string({
-     *     'message': 'This field must be a string.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new String validation using the shorthand way (message as parameter).
-     * var strValidation = $(selector).string('This field must be a string.');
-     */
-    function Str($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.String.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var strValidation = $(selector).data('validation');
-     */
-    Str.prototype.name = 'string';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.String.prototype
-     * @function
-     */
-    Str.prototype.constructor = Str;
-
-    /**
-     * The preset name.
-     * @memberof! ch.String.prototype
-     * @type {String}
-     * @private
-     */
-    Str.prototype._preset = 'validation';
-
-    ch.factory(Str, normalizeOptions);
-
 }(this.ch));
 (function (window, ch) {
-    'use strict';
-
-    /**
-     * Normalizes and creates an options object
-     * @private
-     * @function
-     * @returns {Object}
-     */
-    function normalizeOptions(num, message) {
-        var options,
-            condition = {
-                'name': 'maxLength'
-            };
-
-        // If the first paramater is an object, it creates a condition and append to options
-        if (typeof num === 'object') {
-
-            // Stores the current options
-            options = num;
-
-            // Creates condition properties
-            condition.num = options.num;
-            condition.message = options.message;
-
-            // Removes the keys that has been stored into the condition
-            delete options.num;
-            delete options.message;
-
-        // Creates an option object if receive more than one parameter
-        } else {
-            options = {};
-            condition.num = num;
-            condition.message = message;
-        }
-
-        // Appends condition object into conditions collection
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * MaxLength creates a new instance of Validation to validate a maximun amount of characters.
-     * @memberof ch
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {Number} [options.num] A given maximun amount of characters.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horitontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new MaxLength Validation.
-     * var maxLengthValidation = new ch.MaxLength($el, [options]);
-     * @example
-     * // Create a new MaxLength validation with jQuery or Zepto.
-     * var maxLengthValidation = $(selector).maxLength([options]);
-     * @example
-     * // Create a new MaxLength validation with custom options.
-     * var maxLengthValidation = $(selector).maxLength({
-     *     'num': 10,
-     *     'message': 'No more than 10 characters.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new MaxLength validation using the shorthand way (number and message as parameters).
-     * var maxLengthValidation = $(selector).maxLength(10, 'No more than 10 characters.');
-     */
-    function MaxLength($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.MaxLength.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var maxLengthValidation = $(selector).data('validation');
-     */
-    MaxLength.prototype.name = 'maxLength';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.MaxLength.prototype
-     * @function
-     */
-    MaxLength.prototype.constructor = ch.MaxLength;
-
-    /**
-     * The preset name.
-     * @memberof! ch.MaxLength.prototype
-     * @type {String}
-     * @private
-     */
-    MaxLength.prototype._preset = 'validation';
-
-    ch.factory(MaxLength, normalizeOptions);
-
-}(this, this.ch));
-(function (window, ch) {
-    'use strict';
-
-    /**
-     * Normalizes and creates an options object
-     * @private
-     * @function
-     * @returns {Object}
-     */
-    function normalizeOptions(num, message) {
-        var options,
-            condition = {
-                'name': 'minLength'
-            };
-
-        // If the first paramater is an object, it creates a condition and append to options
-        if (typeof num === 'object') {
-
-            // Stores the current options
-            options = num;
-
-            // Creates condition properties
-            condition.num = options.num;
-            condition.message = options.message;
-
-            // Removes the keys that has been stored into the condition
-            delete options.num;
-            delete options.message;
-
-        // Creates an option object if receive more than one parameter
-        } else {
-            options = {};
-            condition.num = num;
-            condition.message = message;
-        }
-
-        // Appends condition object into conditions collection
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * MinLength creates a new instance of Validation to validate a minimun amount of characters.
-     * @memberof ch
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {Number} [options.num] A given minimun amount of characters.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new MinLength Validation.
-     * var minLengthValidation = new ch.MinLength($el, [options]);
-     * @example
-     * // Create a new MinLength validation with jQuery or Zepto.
-     * var minLengthValidation = $(selector).minLength([options]);
-     * @example
-     * // Create a new MinLength validation with custom options.
-     * var minLengthValidation = $(selector).minLength({
-     *     'num': 10,
-     *     'message': 'At least 10 characters.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new MinLength validation using the shorthand way (number and message as parameters).
-     * var minLengthValidation = $(selector).minLength('At least 10 characters.');
-     */
-    function MinLength($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.MinLength.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var minLengthValidation = $(selector).data('validation');
-     */
-    MinLength.prototype.name = 'minLength';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.MinLength.prototype
-     * @function
-     */
-    MinLength.prototype.constructor = ch.MinLength;
-
-    /**
-     * The preset name.
-     * @memberof! ch.MinLength.prototype
-     * @type {String}
-     * @private
-     */
-    MinLength.prototype._preset = 'validation';
-
-
-    ch.factory(MinLength, normalizeOptions);
-
-}(this, this.ch));
-(function (window, ch) {
-    'use strict';
-
-    function normalizeOptions(message) {
-        var options,
-            condition = {
-                'name': 'email'
-            };
-
-        if (typeof message === 'object') {
-
-            options = message;
-            condition.message = options.message;
-            delete options.message;
-
-        } else {
-            options = {};
-            condition.message = message;
-        }
-
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * Email creates a new instance of Validation to validate a correct email syntax.
-     * @memberof ch
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new Email Validation.
-     * var emailValidation = new ch.Email($el, [options]);
-     * @example
-     * // Create a new Email validation with jQuery or Zepto.
-     * var emailValidation = $(selector).email([options]);
-     * @example
-     * // Create a new Email validation with custom options.
-     * var emailValidation = $(selector).email({
-     *     'message': 'This field must be a valid email.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new Email validation using the shorthand way (message as parameter).
-     * var emailValidation = $(selector).email('This field must be a valid email.');
-     */
-    function Email($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.Email.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var emailValidation = $(selector).data('email');
-     */
-    Email.prototype.name = 'email';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.Email.prototype
-     * @function
-     */
-    Email.prototype.constructor = Email;
-
-    /**
-     * The preset name.
-     * @memberof! ch.Email.prototype
-     * @type {String}
-     * @private
-     */
-    Email.prototype._preset = 'validation';
-
-    ch.factory(Email, normalizeOptions);
-
-}(this, this.ch));
-(function (ch) {
-    'use strict';
-
-    /**
-     * Normalizes and creates an options object
-     * @private
-     * @function
-     * @returns {Object}
-     */
-    function normalizeOptions(message) {
-        var options,
-            condition = {
-                'name': 'url'
-            };
-
-        // If the first paramater is an object, it creates a condition and append to options
-        if (typeof message === 'object') {
-
-            // Stores the current options
-            options = message;
-
-            // Creates condition properties
-            condition.message = options.message;
-
-            // Removes the keys that has been stored into the condition
-            delete options.message;
-
-        // Creates an option object if receive more than one parameter
-        } else {
-            options = {};
-            condition.message = message;
-        }
-
-        // Appends condition object into conditions collection
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * URL creates a new instance of Validation to validate a correct URL syntax.
-     * @memberof ch
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new URL Validation.
-     * var urlValidation = new ch.Url($el, [options]);
-     * @example
-     * // Create a new URL validation with jQuery or Zepto.
-     * var urlValidation = $(selector).url([options]);
-     * @example
-     * // Create a new URL validation with custom options.
-     * var urlValidation = $(selector).url({
-     *     'message': 'This field must be a valid URL.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new URL validation using the shorthand way (message as parameter).
-     * var urlValidation = $(selector).url('This field must be a valid URL.');
-     */
-    function URL($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.URL.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var urlValidation = $(selector).data('validation');
-     */
-    URL.prototype.name = 'url';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.Url.prototype
-     * @function
-     */
-    URL.prototype.constructor = URL;
-
-    /**
-     * The preset name.
-     * @memberof! ch.URL.prototype
-     * @type {String}
-     * @private
-     */
-    URL.prototype._preset = 'validation';
-
-    ch.factory(URL, normalizeOptions);
-
-}(this.ch));
-(function (ch) {
-    'use strict';
-
-    /**
-     * Normalizes and creates an options object
-     * @private
-     * @function
-     * @returns {Object}
-     */
-    function normalizeOptions(message) {
-        var options,
-            condition = {
-                'name': 'number'
-            };
-
-        // If the first paramater is an object, it creates a condition and append to options
-        if (typeof message === 'object') {
-
-            // Stores the current options
-            options = message;
-
-            // Creates condition properties
-            condition.message = options.message;
-
-            // Removes the keys that has been stored into the condition
-            delete options.message;
-
-        // Creates an option object if receive more than one parameter
-        } else {
-            options = {};
-            condition.message = message;
-        }
-
-        // Appends condition object into conditions collection
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * Number creates a new instance of Validation to validate a given value as number.
-     * @memberof ch
-     * @name ch.Number
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horitontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new Number Validation.
-     * var numValidation = new ch.Number($el, [options]);
-     * @example
-     * // Create a new Number validation with jQuery or Zepto.
-     * var numValidation = $(selector).number([options]);
-     * @example
-     * // Create a new Number validation with custom options.
-     * var numValidation = $(selector).number({
-     *     'message': 'This field must be a number.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new Number validation using the shorthand way (message as parameter).
-     * var numValidation = $(selector).number('This field must be a number.');
-     */
-    function Num($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.Number.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var numValidation = $(selector).data('validation');
-     */
-    Num.prototype.name = 'number';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.Number.prototype
-     * @function
-     */
-    Num.prototype.constructor = Num;
-
-    /**
-     * The preset name.
-     * @memberof! ch.Num.prototype
-     * @type {String}
-     * @private
-     */
-    Num.prototype._preset = 'validation';
-
-    ch.factory(Num, normalizeOptions);
-
-}(this.ch));
-(function (window, ch) {
-    'use strict';
-
-    /**
-     * Normalizes and creates an options object
-     * @private
-     * @function
-     * @returns {Object}
-     */
-    function normalizeOptions(num, message) {
-        var options,
-            condition = {
-                'name': 'min'
-            };
-
-        // If the first paramater is an object, it creates a condition and append to options
-        if (typeof num === 'object') {
-
-            // Stores the current options
-            options = num;
-
-            // Creates condition properties
-            condition.num = options.num;
-            condition.message = options.message;
-
-            // Removes the keys that has been stored into the condition
-            delete options.num;
-            delete options.message;
-
-        // Creates an option object if receive more than one parameter
-        } else {
-            options = {};
-            condition.num = num;
-            condition.message = message;
-        }
-
-        // Appends condition object into conditions collection
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * Min creates a new instance of Validation to validate a number with a minimun value.
-     * @memberof ch
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {Number} [options.num] A given minimun value.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new Min Validation.
-     * var minValidation = new ch.Min($el, [options]);
-     * @example
-     * // Create a new Min validation with jQuery or Zepto.
-     * var minValidation = $(selector).min([options]);
-     * @example
-     * // Create a new Min validation with custom options.
-     * var minValidation = $(selector).min({
-     *     'num': 10,
-     *     'message': 'Write a number bigger than 10.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new Min validation using the shorthand way (number and message as parameters).
-     * var minValidation = $(selector).min(10, 'Write a number bigger than 10.');
-     */
-    function Min($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.Min.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var minValidation = $(selector).data('validation');
-     */
-    Min.prototype.name = 'min';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.Min.prototype
-     * @function
-     */
-    Min.prototype.constructor = Min;
-
-    /**
-     * The preset name.
-     * @memberof! ch.Min.prototype
-     * @type {String}
-     * @private
-     */
-    Min.prototype._preset = 'validation';
-
-    ch.factory(Min, normalizeOptions);
-
-}(this, this.ch));
-(function (window, ch) {
-    'use strict';
-
-    /**
-     * Normalizes and creates an options object
-     * @private
-     * @function
-     * @returns {Object}
-     */
-    function normalizeOptions(num, message) {
-        var options,
-            condition = {
-                'name': 'max'
-            };
-
-        // If the first paramater is an object, it creates a condition and append to options
-        if (typeof num === 'object') {
-
-            // Stores the current options
-            options = num;
-
-            // Creates condition properties
-            condition.num = options.num;
-            condition.message = options.message;
-
-            // Removes the keys that has been stored into the condition
-            delete options.num;
-            delete options.message;
-
-        // Creates an option object if receive more than one parameter
-        } else {
-            options = {};
-            condition.num = num;
-            condition.message = message;
-        }
-
-        // Appends condition object into conditions collection
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * Max creates a new instance of Validation to validate a number with a maximun value.
-     * @memberof ch
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {Number} [options.num] A given maximun value.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new Max Validation.
-     * var maxValidation = new ch.Max($el, [options]);
-     * @example
-     * // Create a new Max validation with jQuery or Zepto.
-     * var maxValidation = $(selector).max([options]);
-     * @example
-     * // Create a new Max validation with custom options.
-     * var maxValidation = $(selector).max({
-     *     'num': 10,
-     *     'message': 'Write a number smaller than 10.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new Max validation using the shorthand way (number and message as parameters).
-     * var maxValidation = $(selector).max(10, 'Write a number smaller than 10.');
-     */
-    function Max($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.Max.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var maxValidation = $(selector).data('validation');
-     */
-    Max.prototype.name = 'max';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.Max.prototype
-     * @function
-     */
-    Max.prototype.constructor = Max;
-
-    /**
-     * The preset name.
-     * @memberof! ch.Max.prototype
-     * @type {String}
-     * @private
-     */
-    Max.prototype._preset = 'validation';
-
-    ch.factory(Max, normalizeOptions);
-
-}(this, this.ch));
-(function (window, ch) {
-    'use strict';
-
-    /**
-     * Normalizes and creates an options object
-     * @private
-     * @function
-     * @returns {Object}
-     */
-    function normalizeOptions(name, fn, message) {
-        var options,
-            condition = {};
-
-        // If the first paramater is an object, it creates a condition and append to options
-        if (typeof name === 'object') {
-
-            // Stores the current options
-            options = name;
-
-            // Creates condition properties
-            condition.name = options.name;
-            condition.fn = options.fn;
-            condition.message = options.message;
-
-            // Removes the keys that has been stored into the condition
-            delete options.name;
-            delete options.fn;
-            delete options.message;
-
-        // Creates an option object if receive more than one parameter
-        } else {
-            options = {};
-            condition.name = name;
-            condition.fn = fn;
-            condition.message = message;
-        }
-
-        // Appends condition object into conditions collection
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * Custom creates a new instance of Validation to validate a custom condition.
-     * @memberof ch
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.name] The name of the custom condition.
-     * @param {String} [options.fn] The method to validate the custom condition.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new Custom Validation.
-     * var customValidation = new ch.Custom($el, [options]);
-     * @example
-     * // Create a new Custom validation with jQuery or Zepto.
-     * var customValidation = $(selector).custom([options]);
-     * @example
-     * // Create a new Custom validation with custom options.
-     * var customValidation = $(selector).custom({
-     *     'name': 'myCustom',
-     *     'fn': function (value) {
-     *         return (value % 2 == 0) ? true : false;
-     *     },
-     *     'message': 'Enter an even number.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new Custom validation using the shorthand way (name, fn and message as parameters).
-     * var customValidation = $(selector).custom('myCustom', function (value) {
-     *     return (value % 2 == 0) ? true : false;
-     * }, 'Enter an even number.');
-     */
-    function Custom($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.Custom.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var custom = $(selector).data('custom');
-     */
-    Custom.prototype.name = 'custom';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.Custom.prototype
-     * @function
-     */
-    Custom.prototype.constructor = Custom;
-
-    /**
-     * The preset name.
-     * @memberof! ch.Custom.prototype
-     * @type {String}
-     * @private
-     */
-    Custom.prototype._preset = 'validation';
-
-    ch.factory(Custom, normalizeOptions);
-
-}(this, this.ch));
-(function (window, ch) {
-    'use strict';
-
-    function normalizeOptions(message) {
-        var options,
-            condition = {
-                'name': 'required'
-            };
-
-        if (typeof message === 'object') {
-
-            options = message;
-            condition.message = options.message;
-            delete options.message;
-
-        } else {
-            options = {};
-            condition.message = message;
-        }
-
-        options.conditions = [condition];
-
-        return options;
-    }
-
-    /**
-     * Required creates a new instance of Validation to validate required values.
-     * @memberof ch
-     * @constructor
-     * @augments ch.Validation
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
-     * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.message] The given error message to the condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
-     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
-     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
-     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: "10px".
-     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: "0px".
-     * @param {String} [options.position] The type of positioning used. Default: "absolute".
-     * @returns {validation} Returns a new instance of Validation.
-     * @example
-     * // Create a new Required Validation.
-     * var reqValidation = new ch.Required($el, [options]);
-     * @example
-     * // Create a new Required validation with jQuery or Zepto.
-     * var reqValidation = $(selector).required([options]);
-     * @example
-     * // Create a new Required validation with custom options.
-     * var reqValidation = $(selector).required({
-     *     'message': 'This field is required.',
-     *     'offsetX': 0,
-     *     'offsetY': 10,
-     *     'side': 'bottom',
-     *     'align': 'left'
-     * });
-     * @example
-     * // Create a new Required validation using the shorthand way (message as parameter).
-     * var reqValidation = $(selector).required('This field is required.');
-     */
-    function Required($el, options) {
-        return new ch.Validation($el, options);
-    }
-
-    /**
-     * The name of the component.
-     * @memberof! ch.Required.prototype
-     * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var reqValidation = $(selector).data('validation');
-     */
-    Required.prototype.name = 'required';
-
-    /**
-     * Returns a reference to the constructor function.
-     * @memberof! ch.Required.prototype
-     * @function
-     */
-    Required.prototype.constructor = Required;
-
-    /**
-     * The preset name.
-     * @memberof! ch.Required.prototype
-     * @type {String}
-     * @private
-     */
-    Required.prototype._preset = 'validation';
-
-    ch.factory(Required, normalizeOptions);
-
-}(this, this.ch));
-(function (window, $, ch) {
     'use strict';
 
     function normalizeOptions(options) {
-        if (typeof options === 'string' || ch.util.is$(options)) {
+        if (typeof options === 'string' || options instanceof HTMLElement) {
             options = {
                 'content': options
             };
@@ -4738,32 +2967,29 @@ ch.factory = function (Klass, fn) {
      * @augments ch.Component
      * @mixes ch.Collapsible
      * @mixes ch.Content
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Expandable.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
      * @param {Boolean} [options.toggle] Customize toggle behavior. Default: true.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. Default: the next sibling of $el.
-     * @param {(jQuerySelector | ZeptoSelector | String)} [options.content] The content to be shown into the expandable container.
+     * @param {HTMLElement} [options.container] The container where the expanbdale puts its content. Default: the next sibling of el parameter.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the expandable container.
      * @returns {expandable} Returns a new instance of Expandable.
      * @example
      * // Create a new Expandable.
-     * var expandable = new ch.Expandable($el, [options]);
-     * @example
-     * // Create a new Expandable with jQuery or Zepto.
-     * var expandable = $(selector).expandable([options]);
+     * var expandable = new ch.Expandable([el], [options]);
      * @example
      * // Create a new Expandable with custom options.
-     * var expandable = $(selector).expandable({
-     *     'container': $(selector),
+     * var expandable = new ch.Expandable({
+     *     'container': document.querySelector('.my-container'),
      *     'toggle': false,
      *     'fx': 'slideDown',
      *     'content': 'http://ui.ml.com:3040/ajax'
      * });
      * @example
      * // Create a new Expandable using the shorthand way (content as parameter).
-     * var expandable = $(selector).expandable('http://ui.ml.com:3040/ajax');
+     * var expandable = new ch.Expandable('http://ui.ml.com:3040/ajax');
      */
-    function Expandable($el, options) {
+    function Expandable(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -4772,7 +2998,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -4796,16 +3022,14 @@ ch.factory = function (Klass, fn) {
     }
 
     // Inheritance
-    var $document = $(window.document),
-        parent = ch.util.inherits(Expandable, ch.Component);
+    tiny.inherits(Expandable, ch.Component);
+
+    var parent = Expandable.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Expandable.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var expandable = $(selector).data('expandable');
      */
     Expandable.prototype.name = 'expandable';
 
@@ -4822,8 +3046,9 @@ ch.factory = function (Klass, fn) {
      * @private
      */
     Expandable.prototype._defaults = {
-        '_classNameTrigger': 'ch-expandable-trigger ch-expandable-ico',
-        '_classNameContainer': 'ch-expandable-container ch-hide',
+        '_classNameTrigger': 'ch-expandable-trigger',
+        '_classNameIcon': 'ch-expandable-ico',
+        '_classNameContainer': 'ch-expandable-container',
         'fx': false,
         'toggle': true
     };
@@ -4835,9 +3060,9 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {expandable}
      */
-    Expandable.prototype._init = function ($el, options) {
+    Expandable.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         // Requires abilities
         this.require('Collapsible', 'Content');
@@ -4851,57 +3076,72 @@ ch.factory = function (Klass, fn) {
 
         /**
          * The expandable trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @example
          * // Gets the expandable trigger.
-         * expandable.$trigger;
+         * expandable.trigger;
          */
-        this.$trigger = this._$el
-            .addClass(this._options._classNameTrigger)
-            .on(ch.onpointertap + '.' + this.name, function (event) {
+        this.trigger = this._el;
+        tiny.addClass(this.trigger, this._options._classNameTrigger);
+        tiny.addClass(this.trigger, this._options._classNameIcon);
 
-                if (ch.pointerCanceled) {
-                    return;
-                }
-
-                ch.util.prevent(event);
-
-                if (that._options.toggle) {
-                    that._toggle();
-                } else {
-                    that.show();
+        if (navigator.pointerEnabled) {
+            tiny.on(this._el, 'click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
                 }
             });
+        }
+
+        tiny.on(this.trigger, ch.onpointertap, function (event) {
+            if (ch.pointerCanceled) {
+                return;
+            }
+
+            event.preventDefault();
+
+            if (that._options.toggle) {
+                that._toggle();
+            } else {
+                that.show();
+            }
+        });
 
         /**
          * The expandable container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @example
          * // Gets the expandable container.
-         * expandable.$container;
+         * expandable.container;
          */
-        this.$container = this._$content = (this._options.container || this._$el.next())
-            .addClass(this._options._classNameContainer)
-            .attr('aria-expanded', 'false');
+        this.container = this._content = (this._options.container ?
+            this._options.container : tiny.next(this._el));
+        tiny.addClass(this.container, this._options._classNameContainer);
+        tiny.addClass(this.container, 'ch-hide');
+        if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
+            tiny.addClass(this.container, 'ch-fx');
+        }
+        this.container.setAttribute('aria-expanded', 'false');
 
         /**
          * Default behavior
          */
-        if (this.$container.prop('id') === '') {
-            this.$container.prop('id', 'ch-expandable-' + this.uid);
+        if (this.container.getAttribute('id') === '') {
+            this.container.setAttribute('id', 'ch-expandable-' + this.uid);
         }
 
-        this.$trigger.attr('aria-controls', this.$container.prop('id'));
+        this.trigger.setAttribute('aria-controls', this.container.getAttribute('id'));
 
         this
             .on('show', function () {
-                $document.trigger(ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             })
             .on('hide', function () {
-                $document.trigger(ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             });
 
-        ch.util.avoidTextSelection(this.$trigger);
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         return this;
     };
@@ -4910,13 +3150,13 @@ ch.factory = function (Klass, fn) {
      * Shows expandable's content.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by expandable.
+     * @param {(String | HTMLElement)} [content] The content that will be used by expandable.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {expandable}
      * @example
      * // Shows a basic expandable.
@@ -4940,7 +3180,7 @@ ch.factory = function (Klass, fn) {
         this._show();
 
         // Update ARIA
-        this.$container.attr('aria-expanded', 'true');
+        this.container.setAttribute('aria-expanded', 'true');
 
         // Set new content
         if (content !== undefined) {
@@ -4967,7 +3207,7 @@ ch.factory = function (Klass, fn) {
 
         this._hide();
 
-        this.$container.attr('aria-expanded', 'false');
+        this.container.setAttribute('aria-expanded', 'false');
 
         return this;
     };
@@ -4999,17 +3239,24 @@ ch.factory = function (Klass, fn) {
      * expandable = undefined;
      */
     Expandable.prototype.destroy = function () {
+        var trigger = this.trigger;
 
-        this.$trigger
-            .off('.expandable')
-            .removeClass('ch-expandable-trigger ch-expandable-ico ch-user-no-select')
-            .removeAttr('aria-controls');
+        [
+            'ch-expandable-trigger',
+            'ch-expandable-ico',
+            'ch-user-no-select'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
 
-        this.$container
-            .removeClass('ch-expandable-container ch-hide')
-            .removeAttr('aria-expanded aria-hidden');
+        this.trigger.removeAttribute('unselectable');
+        this.trigger.removeAttribute('aria-controls');
+        tiny.removeClass(this.container, 'ch-expandable-container');
+        tiny.removeClass(this.container, 'ch-hide');
+        this.container.removeAttribute('aria-expanded');
+        this.container.removeAttribute('aria-hidden');
 
-        $document.trigger(ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -5019,8 +3266,8 @@ ch.factory = function (Klass, fn) {
     // Factorize
     ch.factory(Expandable, normalizeOptions);
 
-}(this, this.ch.$, this.ch));
-(function (window, $, ch) {
+}(this, this.ch));
+(function (window, ch) {
     'use strict';
 
     /**
@@ -5029,23 +3276,20 @@ ch.factory = function (Klass, fn) {
      * @constructor
      * @augments ch.Component
      * @requires ch.Expandable
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Menu.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Menu.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.fx] Enable or disable UI effects. You should use: "slideDown", "fadeIn" or "none". Default: "slideDown".
      * @returns {menu} Returns a new instance of Menu.
      * @example
      * // Create a new Menu.
-     * var menu = new ch.Menu($el, [options]);
-     * @example
-     * // Create a new Menu with jQuery or Zepto.
-     * var menu = $(selector).menu();
+     * var menu = new ch.Menu(el, [options]);
      * @example
      * // Create a new Menu with custom options.
-     * var menu = $(selector).menu({
+     * var menu = new ch.Menu({
      *     'fx': 'none'
      * });
      */
-    function Menu($el, options) {
+    function Menu(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -5054,7 +3298,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        that._init($el, options);
+        that._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -5078,7 +3322,9 @@ ch.factory = function (Klass, fn) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Menu, ch.Component),
+    tiny.inherits(Menu, ch.Component);
+
+    var parent = Menu.super_.prototype,
 
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
@@ -5123,9 +3369,6 @@ ch.factory = function (Klass, fn) {
      * The name of the component.
      * @memberof! ch.Menu.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var menu = $(selector).data('menu');
      */
     Menu.prototype.name = 'menu';
 
@@ -5152,20 +3395,23 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {menu}
      */
-    Menu.prototype._init = function ($el, options) {
+    Menu.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
 
         /**
          * The menu container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$container = this._$el
-            .attr('role', 'navigation')
-            .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
+        this.container = this._el;
+        this.container.setAttribute('role', 'navigation');
+        tiny.addClass(this.container, 'ch-menu');
+
+        this._options._className ? tiny.addClass(this.container, this._options._className) : null;
+        this._options.addClass ? tiny.addClass(this.container, this._options.addClass) : null;
 
         /**
          * A collection of folds.
@@ -5192,28 +3438,30 @@ ch.factory = function (Klass, fn) {
          * @private
          */
         var that = this,
-            $li,
-            $child;
+            child;
 
-        function createExpandable(i, li) {
+        function createExpandable(li, i) {
+            var expandable,
+                menu;
+
             // List element
-            $li = $(li).addClass('ch-menu-fold');
+            tiny.addClass(li, 'ch-menu-fold');
 
             // Children of list elements
-            $child = $li.children(':first-child');
+            child = li.children[0];
 
             // Anchor inside list
-            if ($child[0].tagName === 'A') {
+            if (child.tagName === 'A') {
                 // Add attr role to match wai-aria
-                $li.attr('role', 'presentation');
+                li.setAttribute('role', 'presentation');
                 //
-                $child.addClass('ch-fold-trigger');
+                tiny.addClass(child, 'ch-fold-trigger');
                 // Add anchor to that.fold
-                that.folds.push($child);
+                that.folds.push(child);
 
             } else {
                 // List inside list, inits an Expandable
-                var expandable = $child.expandable({
+                expandable = new ch.Expandable(child, {
                     // Show/hide on IE8- instead slideUp/slideDown
                     'fx': that._options.fx
                 });
@@ -5244,19 +3492,20 @@ ch.factory = function (Klass, fn) {
                         that.emit('hide');
                     });
 
-                $child.next()
-                    .attr('role', 'menu')
-                    .children()
-                        .attr('role', 'presentation')
-                        .children()
-                            .attr('role', 'menuitem');
+                menu = tiny.next(child);
+                menu.setAttribute('role', 'menu');
+
+                Array.prototype.forEach.call(menu.children, function (item){
+                    item.setAttribute('role', 'presentation');
+                    item.children[0] ? item.children[0].setAttribute('role', 'menuitem') : null;
+                });
 
                 // Add expandable to that.fold
                 that.folds.push(expandable);
             }
         }
 
-        $.each(this.$container.children(), createExpandable);
+        Array.prototype.forEach.call(this.container.children, createExpandable);
 
         return this;
     };
@@ -5298,19 +3547,19 @@ ch.factory = function (Klass, fn) {
     /**
      * Allows to manage the menu content.
      * @param {Number} fold A given fold to change its content.
-     * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a fold.
+     * @param {(String | HTMLElement)} content The content that will be used by a fold.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second fold with some string.
      * menu.content(2, 'http://ajax.com', {'cache': false});
      */
     Menu.prototype.content = function (fold, content, options) {
-        if (fold === undefined || typeof fold !== 'number') {
+        if (fold === undefined || typeof fold !== 'number') {
             throw new window.Error('Menu.content(fold, content, options): Expected number of fold.');
         }
 
@@ -5339,7 +3588,7 @@ ch.factory = function (Klass, fn) {
      */
     Menu.prototype.destroy = function () {
 
-        $.each(this.folds, function (i, e) {
+        this.folds.forEach(function (e) {
             if (e.destroy !== undefined) {
                 e.destroy();
             }
@@ -5347,7 +3596,7 @@ ch.factory = function (Klass, fn) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -5356,9 +3605,9 @@ ch.factory = function (Klass, fn) {
 
     ch.factory(Menu);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
 
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -5369,7 +3618,7 @@ ch.factory = function (Klass, fn) {
      * @mixes ch.Collapsible
      * @mixes ch.Content
      * @requires ch.Positioner
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Popover.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Popover.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -5377,7 +3626,7 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "button".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {HTMLElement} [options.reference] It's a HTMLElement reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -5387,25 +3636,22 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Popover container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Popover container.
      * @returns {popover} Returns a new instance of Popover.
      * @example
      * // Create a new Popover.
-     * var popover = new ch.Popover($el, [options]);
-     * @example
-     * // Create a new Popover with jQuery or Zepto.
-     * var popover = $(selector).popover([options]);
+     * var popover = new ch.Popover([el], [options]);
      * @example
      * // Create a new Popover with disabled effects.
-     * var popover = $(selector).popover({
+     * var popover = new ch.Popover(el, {
      *     'fx': 'none'
      * });
      * @example
      * // Create a new Popover using the shorthand way (content as parameter).
-     * var popover = $(selector).popover('http://ui.ml.com:3040/ajax');
+     * var popover = new ch.Popover(document.querySelector('.popover'), {'content': 'http://ui.ml.com:3040/ajax'});
      */
-    function Popover($el, options) {
+    function Popover(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -5413,7 +3659,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -5436,10 +3682,11 @@ ch.factory = function (Klass, fn) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var $document = $(window.document),
-        $body = $('body'),
-        // Inheritance
-        parent = ch.util.inherits(Popover, ch.Component),
+    // Inheritance
+    tiny.inherits(Popover, ch.Component);
+
+    var document = window.document,
+        parent = Popover.super_.prototype,
         shownbyEvent = {
             'pointertap': ch.onpointertap,
             'pointerenter': ch.onpointerenter
@@ -5449,9 +3696,6 @@ ch.factory = function (Klass, fn) {
      * The name of the component.
      * @memberof! ch.Popover.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var popover = $(selector).data('popover');
      */
     Popover.prototype.name = 'popover';
 
@@ -5489,9 +3733,9 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {popover}
      */
-    Popover.prototype._init = function ($el, options) {
+    Popover.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         // Require abilities
         this.require('Collapsible', 'Content');
@@ -5501,37 +3745,45 @@ ch.factory = function (Klass, fn) {
          * @type {Object}
          * @private
          */
-        var that = this;
+        var that = this,
+            container = document.createElement('div');
+
+        container.innerHTML = [
+            '<div',
+            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass +
+                (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
+            ' role="' + this._options._ariaRole + '"',
+            ' id="ch-' + this.name + '-' + this.uid + '"',
+            ' style="width:' + this._options.width + ';height:' + this._options.height + '"',
+            '></div>'
+        ].join('');
 
         /**
          * The popover container. It's the element that will be shown and hidden.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this.$container = $([
-            '<div',
-            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass + '"',
-            ' role="' + this._options._ariaRole + '"',
-            ' id="ch-' + this.name + '-' + this.uid + '"',
-            ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
-            '>'
-        ].join('')).on(ch.onpointertap + '.' + this.name, function (event) {
+        this.container = container.querySelector('div');
+
+        tiny.on(this.container, ch.onpointertap, function (event) {
             event.stopPropagation();
         });
 
         /**
          * Element where the content will be added.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$content = $('<div class="ch-popover-content">').appendTo(this.$container);
+        this._content = document.createElement('div');
+
+        tiny.addClass(this._content, 'ch-popover-content');
+
+        this.container.appendChild(this._content);
 
         // Add functionality to the trigger if it exists
         this._configureTrigger();
-        // Configure the way it hides
-        this._configureHiding();
 
         this._positioner = new ch.Positioner({
-            'target': this.$container,
+            'target': this.container,
             'reference': this._options.reference,
             'side': this._options.side,
             'align': this._options.align,
@@ -5554,20 +3806,29 @@ ch.factory = function (Klass, fn) {
             return that;
         };
 
+        this._hideTimer = function () {
+            that._timeout = window.setTimeout(function () {
+                that.hide();
+            }, that._options._hideDelay);
+        };
+
+        this._hideTimerCleaner = function () {
+            window.clearTimeout(that._timeout);
+        };
+
+        // Configure the way it hides
+        this._configureHiding();
+
         // Refresh position:
         // on layout change
-        $document.on(ch.onlayoutchange, this._refreshPositionListener);
+        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener);
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
         this
             .once('_show', this._refreshPositionListener)
             // on content change
-            .on('_contentchange', this._refreshPositionListener)
-            // Remove from DOM the component container after hide
-            .on('hide', function () {
-                that.$container.remove(null, true);
-            });
+            .on('_contentchange', this._refreshPositionListener);
 
         return this;
     };
@@ -5617,29 +3878,37 @@ ch.factory = function (Klass, fn) {
         this._snippet = this._el.cloneNode(true);
 
         // Use the trigger as the positioning reference
-        this._options.reference = this._options.reference || this._$el;
+        this._options.reference = this._options.reference || this._el;
 
         // Open event when configured as able to shown anyway
         if (this._options.shownby !== 'none') {
-            this._$el
-                .addClass('ch-shownby-' + this._options.shownby)
-                .on(shownbyEvent[this._options.shownby] + '.' + this.name, function (event) {
-                    ch.util.prevent(event);
-                    showHandler();
+
+            tiny.addClass(this._el, 'ch-shownby-' + this._options.shownby);
+
+            if (this._options.shownby === shownbyEvent.pointertap && navigator.pointerEnabled) {
+                tiny.on(this._el, 'click', function(e) {
+                    e.preventDefault();
                 });
+            }
+
+            tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+                showHandler();
+            });
         }
 
         // Get a content if it's not defined
         if (this._options.content === undefined) {
             // Content from anchor href
             // IE defines the href attribute equal to src attribute on images.
-            if (this._el.nodeName === 'A' && this._el.href !== '') {
-                this._options.content = this._el.href;
+            if (this._el.nodeName === 'A' && this._el.href !== '') {
+                this._options.content = this._el.href;
 
             // Content from title or alt
             } else if (this._el.title !== '' || this._el.alt !== '') {
                 // Set the configuration parameter
-                this._options.content = this._el.title || this._el.alt;
+                this._options.content = this._el.title || this._el.alt;
                 // Keep the attributes content into the element for possible usage
                 this._el.setAttribute('data-title', this._options.content);
                 // Avoid to trigger the native tooltip
@@ -5653,9 +3922,9 @@ ch.factory = function (Klass, fn) {
 
         /**
          * The popover trigger. It's the element that will show and hide the container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$trigger = this._$el;
+        this.trigger = this._el;
     };
 
     /**
@@ -5672,37 +3941,37 @@ ch.factory = function (Klass, fn) {
          */
         var that = this,
             hiddenby = this._options.hiddenby,
-            pointertap = ch.onpointertap + '.' + this.name,
-            timeout,
-            events = {};
+            dummy,
+            button;
 
-        function hideTimer() {
-            timeout = window.setTimeout(function () {
-                that.hide();
-            }, that._options._hideDelay);
-        }
+
 
         // Don't hide anytime
         if (hiddenby === 'none') { return; }
 
         // Hide by leaving the component
-        if (hiddenby === 'pointerleave' && this.$trigger !== undefined) {
+        if (hiddenby === 'pointerleave' && this.trigger !== undefined) {
 
-            events[ch.onpointerenter + '.' + this.name] = function () {
-                window.clearTimeout(timeout);
-            };
-
-            events[ch.onpointerleave + '.' + this.name] = hideTimer;
-
-            this.$trigger.on(events);
-            this.$container.on(events);
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerenter, that._hideTimerCleaner);
+            });
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerleave, that._hideTimer);
+            });
         }
 
         // Hide with the button Close
         if (hiddenby === 'button' || hiddenby === 'all') {
-            $('<i class="ch-close" role="button" aria-label="Close"></i>').on(pointertap, function () {
+            dummy = document.createElement('div');
+            dummy.innerHTML = '<i class="ch-close" role="button" aria-label="Close"></i>';
+            button = dummy.querySelector('i');
+
+            tiny.on(button, ch.onpointertap, function () {
                 that.hide();
-            }).prependTo(this.$container);
+            });
+
+            this.container.insertBefore(button, this.container.firstChild);
+
         }
 
         if ((hiddenby === 'pointers' || hiddenby === 'all') && this._hidingShortcuts !== undefined) {
@@ -5718,7 +3987,8 @@ ch.factory = function (Klass, fn) {
      * @function
      */
     Popover.prototype._normalizeOptions = function (options) {
-        if (typeof options === 'string' || ch.util.is$(options)) {
+        // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType === 1)) {
             options = {
                 'content': options
             };
@@ -5730,13 +4000,13 @@ ch.factory = function (Klass, fn) {
      * Shows the popover container and appends it to the body.
      * @memberof! ch.Popover.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by popover.
+     * @param {(String | HTMLElement)} [content] The content that will be used by popover.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {popover}
      * @example
      * // Shows a basic popover.
@@ -5757,9 +4027,8 @@ ch.factory = function (Klass, fn) {
             return this;
         }
 
-        // Increase z-index and append to body
-        // Do it before set content because when content sets, it triggers the position refresh
-        this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
+        // Append to body
+        document.body.appendChild(this.container);
 
         // Open the collapsible
         this._show();
@@ -5781,11 +4050,22 @@ ch.factory = function (Klass, fn) {
      * // Close a popover
      * popover.hide();
      */
-    Popover.prototype.hide = function () {
+    Popover.prototype.hide = function() {
+        var self = this,
+            parent;
         // Don't execute when it's disabled
         if (!this._enabled || !this._shown) {
             return this;
         }
+
+        // Detach the container from the DOM when it is hidden
+        this.once('hide', function() {
+            // Due to transitions this._shown can be outdated here
+            parent = self.container.parentNode;
+            if (parent !== null) {
+                parent.removeChild(self.container);
+            }
+        });
 
         // Close the collapsible
         this._hide();
@@ -5834,7 +4114,7 @@ ch.factory = function (Klass, fn) {
             return this._options.width;
         }
 
-        this.$container.css('width', data);
+        this.container.style.width = data;
 
         this._options.width = data;
 
@@ -5862,7 +4142,7 @@ ch.factory = function (Klass, fn) {
             return this._options.height;
         }
 
-        this.$container.css('height', data);
+        this.container.style.height = data;
 
         this._options.height = data;
 
@@ -5958,20 +4238,27 @@ ch.factory = function (Klass, fn) {
      */
     Popover.prototype.destroy = function () {
 
-        if (this.$trigger !== undefined) {
-            this.$trigger
-                .off('.' + this.name)
-                .removeClass('ch-' + this.name + '-trigger')
-                .removeAttr('data-title aria-owns aria-haspopup data-side data-align role')
-                .attr({
-                    'alt': this._snippet.alt,
-                    'title': this._snippet.title
-                });
+        if (this.trigger !== undefined) {
+
+            tiny.off(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            tiny.off(this.trigger, ch.onpointerleave, this._hideTimer);
+
+            tiny.removeClass(this.trigger, 'ch-' + this.name + '-trigger');
+
+            this.trigger.removeAttribute('data-title');
+            this.trigger.removeAttribute('aria-owns');
+            this.trigger.removeAttribute('aria-haspopup');
+            this.trigger.removeAttribute('data-side');
+            this.trigger.removeAttribute('data-align');
+            this.trigger.removeAttribute('role');
+
+            this._snippet.alt ? this.trigger.setAttribute('alt', this._snippet.alt) : null;
+            this._snippet.title ? this.trigger.setAttribute('title', this._snippet.title) : null;
         }
 
-        $document.off(ch.onlayoutchange, this._refreshPositionListener);
+        tiny.off(document, ch.onlayoutchange, this._refreshPositionListener);
 
-        ch.viewport.off(ch.onresize, this._refreshPositionListener);
+        ch.viewport.removeListener(ch.onresize, this._refreshPositionListener);
 
         parent.destroy.call(this);
 
@@ -5980,21 +4267,20 @@ ch.factory = function (Klass, fn) {
 
     ch.factory(Popover, Popover.prototype._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
 
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
-    var $document = $(window.document);
+    var document = window.document;
 
     ch.Popover.prototype._hidingShortcuts = function () {
 
-        var that = this,
-            pointertap = ch.onpointertap + '.' + this.name;
+        var that = this;
 
         function hide(event) {
             // event.button === 0: Fix issue #933 Right click closes it on Firefox.
-            if (event.target !== that._el && event.target !== that.$container[0] && event.button === 0) {
+            if (event.target !== that._el && event.target !== that.container && event.button === 0) {
                 that.hide();
             }
         }
@@ -6006,19 +4292,19 @@ ch.factory = function (Klass, fn) {
         this
             .on('show', function () {
                 ch.shortcuts.on(that.uid);
-                $document.on(pointertap, hide);
+                tiny.on(document, ch.onpointertap, hide);
             })
             .on('hide', function () {
                 ch.shortcuts.off(that.uid);
-                $document.off(pointertap, hide);
+                tiny.off(document, ch.onpointertap, hide);
             })
             .once('destroy', function () {
                 ch.shortcuts.remove(that.uid, ch.onkeyesc);
             });
     };
 
-}(this, this.ch.$, this.ch));
-(function (window, $, ch) {
+}(this, this.ch));
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6026,7 +4312,7 @@ ch.factory = function (Klass, fn) {
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Layer.
+     * @param {String} [el] A HTMLElement to create an instance of ch.Layer.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -6034,7 +4320,7 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointerenter".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "left".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -6044,25 +4330,22 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Layer container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {( String | HTMLElement)} [options.content] The content to be shown into the Layer container.
      * @returns {layer} Returns a new instance of Layer.
      * @example
      * // Create a new Layer.
-     * var layer = new ch.Layer($el, [options]);
-     * @example
-     * // Create a new Layer with jQuery or Zepto.
-     * var layer = $(selector).layer([options]);
+     * var layer = new ch.Layer([el], [options]);
      * @example
      * // Create a new Layer with disabled effects.
-     * var layer = $(selector).layer({
-     *     'fx': 'none'
+     * var layer = new ch.Layer({
+     *     'content': 'This is the content of the Layer'
      * });
      * @example
      * // Create a new Layer using the shorthand way (content as parameter).
-     * var layer = $(selector).layer('http://ui.ml.com:3040/ajax');
+     * var layer = new ch.Layer('http://ui.ml.com:3040/ajax');
      */
-    function Layer($el, options) {
+    function Layer(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -6070,7 +4353,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -6093,19 +4376,18 @@ ch.factory = function (Klass, fn) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    // Inheritance
+    tiny.inherits(Layer, ch.Popover);
+
     // Reference to the last component open. Allows to close and to deny to
     // have 2 components open at the same time
     var lastShown,
-        // Inheritance
-        parent = ch.util.inherits(Layer, ch.Popover);
+        parent = Layer.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Layer.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var layer = $(selector).data('layer');
      */
     Layer.prototype.name = 'layer';
 
@@ -6122,7 +4404,7 @@ ch.factory = function (Klass, fn) {
      * @type {Object}
      * @private
      */
-    Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Layer.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
         '_ariaRole': 'tooltip',
         'shownby': 'pointerenter',
@@ -6138,13 +4420,13 @@ ch.factory = function (Klass, fn) {
      * Shows the layer container and hides other layers.
      * @memberof! ch.Layer.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by layer.
+     * @param {(String | HTMLElement)} [content] The content that will be used by layer.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {layer}
      * @example
      * // Shows a basic layer.
@@ -6166,7 +4448,7 @@ ch.factory = function (Klass, fn) {
         }
 
         // Only hide if there was a component opened before
-        if (lastShown !== undefined && lastShown.name === this.name && lastShown !== this) {
+        if (lastShown !== undefined && lastShown.name === this.name && lastShown !== this) {
             lastShown.hide();
         }
 
@@ -6183,9 +4465,9 @@ ch.factory = function (Klass, fn) {
 
     ch.factory(Layer, parent._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
 
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -6193,7 +4475,7 @@ ch.factory = function (Klass, fn) {
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Tooltip.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Tooltip.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -6201,7 +4483,7 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointerenter".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "left".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -6211,34 +4493,29 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Tooltip container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Tooltip container.
      * @returns {tooltip} Returns a new instance of Tooltip.
      * @example
      * // Create a new Tooltip.
-     * var tooltip = new ch.Tooltip($el, [options]);
-     * @example
-     * // Create a new Tooltip with jQuery or Zepto.
-     * var tooltip = $(selector).tooltip([options]);
-     * @example
-     * // Create a new Tooltip with disabled effects.
-     * var tooltip = $(selector).tooltip({
-     *     'fx': 'none'
-     * });
+     * var tooltip = new ch.Tooltip(document.querySelector('.trigger'), [options]);
      * @example
      * // Create a new Tooltip using the shorthand way (content as parameter).
-     * var tooltip = $(selector).tooltip('http://ui.ml.com:3040/ajax');
+     * var tooltip = new ch.Tooltip(document.querySelector('.trigger'), {'content': 'http://ui.ml.com:3040/ajax'});
      */
-    function Tooltip($el, options) {
+    function Tooltip(el, options) {
 
-        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
-            options = $el;
-            $el = undefined;
+        // TODO: Review what's going on here with options
+        /*
+        if (options === undefined && el !== undefined && el.nodeType !== undefined) {
+            options = el;
+            el = undefined;
         }
+        */
 
-        options = $.extend(ch.util.clone(this._defaults), options);
+        options = tiny.extend(tiny.clone(this._defaults), options);
 
-        return new ch.Layer($el, options);
+        return new ch.Layer(el, options);
     }
 
     /**
@@ -6264,15 +4541,15 @@ ch.factory = function (Klass, fn) {
      * @type {Object}
      * @private
      */
-    Tooltip.prototype._defaults = $.extend(ch.util.clone(ch.Layer.prototype._defaults), {
+    Tooltip.prototype._defaults = tiny.extend(tiny.clone(ch.Layer.prototype._defaults), {
         '_className': 'ch-tooltip ch-cone'
     });
 
     ch.factory(Tooltip, ch.Layer.prototype._normalizeOptions);
 
-}(this.ch.$, this.ch));
+}(this.ch));
 
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6281,7 +4558,7 @@ ch.factory = function (Klass, fn) {
      * @constructor
      * @augments ch.Component
      * @requires ch.Positioner
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Bubble.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Bubble.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -6289,7 +4566,7 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "none".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "top".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 10.
@@ -6299,25 +4576,22 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Bubble container. Default: "Check the information, please."
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Bubble container. Default: "Check the information, please."
      * @returns {bubble} Returns a new instance of Bubble.
      * @example
      * // Create a new Bubble.
      * var bubble = new ch.Bubble($el, [options]);
      * @example
-     * // Create a new Bubble with jQuery or Zepto.
-     * var bubble = $(selector).bubble([options]);
-     * @example
      * // Create a new Bubble with disabled effects.
-     * var bubble = $(selector).bubble({
+     * var bubble = new ch.Bubble({
      *     'fx': 'none'
      * });
      * @example
      * // Create a new Bubble using the shorthand way (content as parameter).
-     * var bubble = $(selector).bubble('http://ui.ml.com:3040/ajax');
+     * var bubble = new ch.Bubble('http://ui.ml.com:3040/ajax');
      */
-    function Bubble($el, options) {
+    function Bubble(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -6325,7 +4599,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -6349,15 +4623,14 @@ ch.factory = function (Klass, fn) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Bubble, ch.Popover);
+    tiny.inherits(Bubble, ch.Popover);
+
+    var parent = Bubble.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Bubble.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var bubble = $(selector).data('bubble');
      */
     Bubble.prototype.name = 'bubble';
 
@@ -6374,7 +4647,7 @@ ch.factory = function (Klass, fn) {
      * @type {Object}
      * @private
      */
-    Bubble.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Bubble.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-bubble ch-box-icon ch-box-error ch-cone',
         '_ariaRole': 'alert',
         'shownby': 'none',
@@ -6392,20 +4665,20 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {bubble}
      */
-    Bubble.prototype._init = function ($el, options) {
+    Bubble.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
-        $('<i class="ch-icon-remove-sign"></i>').prependTo(this.$container);
+        this.container.insertAdjacentHTML('beforeend', '<i class="ch-icon-remove-sign"></i>');
 
         return this;
     };
 
     ch.factory(Bubble, parent._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
 
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6413,7 +4686,7 @@ ch.factory = function (Klass, fn) {
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Modal.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Modal.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -6421,7 +4694,7 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "all".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -6431,25 +4704,25 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Modal container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Modal container.
      * @returns {modal} Returns a new instance of Modal.
      * @example
      * // Create a new Modal.
-     * var modal = new ch.Modal($el, [options]);
+     * var modal = new ch.Modal([el], [options]);
      * @example
-     * // Create a new Modal with jQuery or Zepto.
-     * var modal = $(selector).modal([options]);
+     * // Create a new Modal.
+     * var modal = new ch.Modal([options]);
      * @example
      * // Create a new Modal with disabled effects.
-     * var modal = $(selector).modal({
-     *     'fx': 'none'
+     * var modal = new ch.Modal({
+     *     'content': 'This is the content of the Modal'
      * });
      * @example
      * // Create a new Modal using the shorthand way (content as parameter).
-     * var modal = $(selector).modal('http://ui.ml.com:3040/ajax');
+     * var modal = new ch.Modal('http://ui.ml.com:3040/ajax');
      */
-    function Modal($el, options) {
+    function Modal(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -6457,7 +4730,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -6480,18 +4753,22 @@ ch.factory = function (Klass, fn) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var $body = $('body'),
-        $underlay = $('<div class="ch-underlay ch-hide" tabindex="-1">'),
-        // Inheritance
-        parent = ch.util.inherits(Modal, ch.Popover);
+    // Inheritance
+    tiny.inherits(Modal, ch.Popover);
+
+    var document = window.document,
+        underlay = (function () {
+            var dummyElement = document.createElement('div');
+            dummyElement.innerHTML = '<div class="ch-underlay" tabindex="-1"></div>';
+
+            return dummyElement.querySelector('div');
+        }()),
+        parent = Modal.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Modal.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var modal = $(selector).data('modal');
      */
     Modal.prototype.name = 'modal';
 
@@ -6508,7 +4785,7 @@ ch.factory = function (Klass, fn) {
      * @type {Object}
      * @private
      */
-    Modal.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Modal.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-modal ch-box-lite',
         '_ariaRole': 'dialog',
         'width': '50%',
@@ -6525,15 +4802,24 @@ ch.factory = function (Klass, fn) {
      * @private
      */
     Modal.prototype._showUnderlay = function () {
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase();
 
-        $underlay.css('z-index', ch.util.zIndex).appendTo($body);
+        document.body.appendChild(underlay);
 
-        if (this._options.fx !== 'none') {
-            $underlay.fadeIn(function () {
-                $underlay.removeClass('ch-hide');
-            });
-        } else {
-            $underlay.removeClass('ch-hide');
+        function showCallback(e) {
+            tiny.removeClass(underlay, fxName + '-enter-active');
+            tiny.removeClass(underlay, fxName + '-enter');
+
+            tiny.off(e.target, e.type, showCallback);
+        }
+
+        if (useAnimation) {
+            tiny.addClass(underlay, fxName + '-enter');
+            setTimeout(function() {
+                tiny.addClass(underlay, fxName + '-enter-active');
+            },10);
+            tiny.on(underlay, tiny.support.transition.end, showCallback);
         }
     };
 
@@ -6544,10 +4830,26 @@ ch.factory = function (Klass, fn) {
      * @private
      */
     Modal.prototype._hideUnderlay = function () {
-        if (this._options.fx !== 'none') {
-            $underlay.fadeOut('normal', function () { $underlay.remove(null, true); });
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
+            parent = underlay.parentNode;
+
+        function hideCallback(e) {
+            tiny.removeClass(underlay, fxName + '-leave-active');
+            tiny.removeClass(underlay, fxName + '-leave');
+
+            tiny.off(e.target, e.type, hideCallback);
+            parent.removeChild(underlay);
+        }
+
+        if (useAnimation) {
+            tiny.addClass(underlay, fxName + '-leave');
+            setTimeout(function() {
+                tiny.addClass(underlay, fxName + '-leave-active');
+            },10);
+            tiny.on(underlay, tiny.support.transition.end, hideCallback);
         } else {
-            $underlay.addClass('ch-hide').remove(null, true);
+            parent.removeChild(underlay);
         }
     };
 
@@ -6555,13 +4857,13 @@ ch.factory = function (Klass, fn) {
      * Shows the modal container and the underlay.
      * @memberof! ch.Modal.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by modal.
+     * @param {(String | HTMLElement)} [content] The content that will be used by modal.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {modal}
      * @example
      * // Shows a basic modal.
@@ -6589,12 +4891,15 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
+        function hideByUnderlay(e) {
+            that.hide();
+            // Allow only one click to analyze the config every time and to close ONLY THIS modal
+            e.target.removeEventListener(e.type, hideByUnderlay);
+        }
+
         // Add to the underlay the ability to hide the component
         if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
-            // Allow only one click to analize the config every time and to close ONLY THIS modal
-            $underlay.one(ch.onpointertap, function () {
-                that.hide();
-            });
+            tiny.on(underlay, ch.onpointertap, hideByUnderlay);
         }
 
         // Show the underlay
@@ -6620,7 +4925,7 @@ ch.factory = function (Klass, fn) {
         }
 
         // Delete the underlay listener
-        $underlay.off(ch.onpointertap);
+        tiny.off(underlay, ch.onpointertap);
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()
@@ -6631,9 +4936,9 @@ ch.factory = function (Klass, fn) {
 
     ch.factory(Modal, parent._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
 
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -6641,7 +4946,7 @@ ch.factory = function (Klass, fn) {
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Transition.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Transition.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -6649,7 +4954,7 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
+     * @param {String} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -6659,45 +4964,54 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
+     * @param {(HTMLElement | String)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
      * @returns {transition} Returns a new instance of Transition.
      * @example
      * // Create a new Transition.
-     * var transition = new ch.Transition($el, [options]);
-     * @example
-     * // Create a new Transition with jQuery or Zepto.
-     * var transition = $(selector).transition([options]);
+     * var transition = new ch.Transition([el], [options]);
      * @example
      * // Create a new Transition with disabled effects.
-     * var transition = $(selector).transition({
+     * var transition = new ch.Transition({
      *     'fx': 'none'
      * });
      * @example
      * // Create a new Transition using the shorthand way (content as parameter).
-     * var transition = $(selector).transition('http://ui.ml.com:3040/ajax');
+     * var transition = new ch.Transition('http://ui.ml.com:3040/ajax');
      */
-    function Transition($el, options) {
+    function Transition(el, options) {
 
-        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
-            options = $el;
-            $el = undefined;
+        if (el === undefined || options === undefined) {
+            options = {};
         }
 
-        options = $.extend(ch.util.clone(this._defaults), options);
+        options.content = (function () {
+            var dummyElement = document.createElement('div'),
+                content = options.waiting || '';
 
-        options.content = $('<div class="ch-loading-large"></div><p>' + options.content + '</p>');
+            // TODO: options.content could be a HTMLElement
+            dummyElement.innerHTML = '<div class="ch-loading-large"></div><p>' + content + '</p>';
 
-        return new ch.Modal($el, options);
+            return dummyElement.firstChild;
+        }());
+
+        // el is not defined
+        if (el === undefined) {
+            el = tiny.extend(tiny.clone(this._defaults), options);
+        // el is present as a object configuration
+        } else if (el.nodeType === undefined && typeof el === 'object') {
+            el = tiny.extend(tiny.clone(this._defaults), el);
+        } else if (options !== undefined) {
+            options = tiny.extend(tiny.clone(this._defaults), options);
+        }
+
+        return new ch.Modal(el, options);
     }
 
     /**
      * The name of the component.
      * @memberof! ch.Transition.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var transition = $(selector).data('transition');
      */
     Transition.prototype.name = 'transition';
 
@@ -6714,7 +5028,7 @@ ch.factory = function (Klass, fn) {
      * @type {Object}
      * @private
      */
-    Transition.prototype._defaults = $.extend(ch.util.clone(ch.Modal.prototype._defaults), {
+    Transition.prototype._defaults = tiny.extend(tiny.clone(ch.Modal.prototype._defaults), {
         '_className': 'ch-transition ch-box-lite',
         '_ariaRole': 'alert',
         'hiddenby': 'none',
@@ -6723,9 +5037,9 @@ ch.factory = function (Klass, fn) {
 
     ch.factory(Transition, ch.Modal.prototype._normalizeOptions);
 
-}(this.ch.$, this.ch));
+}(this.ch));
 
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6733,8 +5047,7 @@ ch.factory = function (Klass, fn) {
      * @memberof ch
      * @constructor
      * @augments ch.Layer
-     * @requires ch.OnImagesLoads
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Zoom.
+     * @param {String} selector A CSS Selector to create an instance of ch.Zoom.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
@@ -6742,7 +5055,7 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.height] Set a height for the container. Default: "300px".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointerenter".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {String} [options.reference] It's a CSS Selector reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "top".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 20.
@@ -6752,22 +5065,19 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
+     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
      * @returns {zoom} Returns a new instance of Zoom.
      * @example
      * // Create a new Zoom.
-     * var zoom = new ch.Zoom($el, [options]);
-     * @example
-     * // Create a new Zoom with jQuery or Zepto.
-     * var zoom = $(selector).zoom([options]);
+     * var zoom = new ch.Zoom([selector], [options]);
      * @example
      * // Create a new Zoom with a defined width (half of the screen).
-     * $(selector).zoom({
+     * var zoom = new ch.Zoom({
      *     'width': (ch.viewport.width / 2) + 'px'
      * });
      */
-    function Zoom($el, options) {
+    function Zoom(selector, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -6775,7 +5085,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -6799,15 +5109,14 @@ ch.factory = function (Klass, fn) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Zoom, ch.Layer);
+    tiny.inherits(Zoom, ch.Layer);
+
+    var parent = Zoom.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Zoom.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var zoom = $(selector).data('zoom');
      */
     Zoom.prototype.name = 'zoom';
 
@@ -6824,7 +5133,7 @@ ch.factory = function (Klass, fn) {
      * @type {Object}
      * @private
      */
-    Zoom.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Zoom.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-zoom',
         '_ariaRole': 'tooltip',
         '_hideDelay': 0,
@@ -6845,9 +5154,9 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {zoom}
      */
-    Zoom.prototype._init = function ($el, options) {
+    Zoom.prototype._init = function (selector, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
         /**
          * Reference to context of an instance.
@@ -6865,70 +5174,80 @@ ch.factory = function (Klass, fn) {
 
         /**
          * Feedback showed before the zoomed image is load. It's a transition message and its content can be configured through parameter "waiting".
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @private
          * @example
          * // Changing the loading feedback.
-         * $(selector).zoom({
+         * var zoom = new ch.Zoom({
          *     'waiting': 'My custom message'
          * });
          */
-        this._$loading = $('<div class="ch-zoom-loading ch-hide"><div class="ch-loading-large"></div><p>' + this._options.waiting + '</p></div>').appendTo(this.$trigger);
+        this._loading = (function() {
+            var dummyElement = document.createElement('div');
+            dummyElement.innerHTML = '<div class="ch-zoom-loading ch-hide"><div class="ch-loading-large"></div><p>' + that._options.waiting + '</p></div>';
 
-        /**
-         * jQuery/Zepto Element (shape) with visual feedback to the relative size of the zoomed area.
-         * @type {(jQuerySelector | ZeptoSelector)}
-         * @private
-         */
-        this._$seeker = $('<div class="ch-zoom-seeker ch-hide">').appendTo(this.$trigger);
+            return dummyElement.firstChild;
+        }());
+
+        this.trigger.appendChild(this._loading);
+
 
         /**
          * HTML Element shape with visual feedback to the relative size of the zoomed area.
          * @type {HTMLDivElement}
          * @private
          */
-        this._seeker = this._$seeker[0];
+        this._seeker = (function (){
+            var dummyElement = document.createElement('div');
+            dummyElement.innerHTML = '<div class="ch-zoom-seeker ch-hide"></div>';
+
+            return dummyElement.firstChild;
+        }());
+
+        this.trigger.appendChild(this._seeker);
 
         /**
          * The main specified image with original size (not zoomed).
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @private
          */
-        this._$original = this.$trigger.children().eq(0);
+        this._original = this.trigger.children[0];
 
         /**
          * The zoomed image specified as a link href (see the HTML snippet).
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLImageElement}
          * @private
          */
-        // Use a new Image instead $('<img ...>') to calculate the
+        // Use a new Image to calculate the
         // size before append the image to DOM, in ALL the browsers.
         this._zoomed = new window.Image();
 
         // Assign event handlers to the original image
-        ch.onImagesLoads(this._$original, function () {
+        onImagesLoads(this._original, function () {
             that._originalLoaded();
         });
 
         // Assign event handlers to the zoomed image
-        ch.onImagesLoads($(this._zoomed), function () {
+        onImagesLoads(this._zoomed, function () {
             that._zoomedLoaded();
         });
 
         // Make the entire Show process if it tried to show before
         this.on('imageload', function () {
-            if (!that._$loading.hasClass('ch-hide')) {
+            if (!tiny.hasClass(this._loading, 'ch-hide')) {
                 that.show();
+                tiny.addClass(this._loading, 'ch-hide');
             }
         });
 
         // Assign event handlers to the anchor
-        this.$trigger.addClass('ch-zoom-trigger').on({
-            // Prevent to redirect to the href
-            'click.zoom': function (event) { ch.util.prevent(event); },
-            // Bind move calculations
-            'mousemove.zoom': function (event) { that._move(event); }
-        });
+        tiny.addClass(this.trigger, 'ch-zoom-trigger');
+
+        // Prevent to redirect to the href
+        tiny.on(this.trigger, 'click', function (event) { event.preventDefault(); }, false);
+
+        // Bind move calculations
+        tiny.on(this.trigger, ch.onpointermove, function (event) { that._move(event); }, false);
 
         return this;
     };
@@ -6941,21 +5260,19 @@ ch.factory = function (Klass, fn) {
      */
     Zoom.prototype._originalLoaded = function () {
 
-        var width = this._$original[0].width,
-            height = this._$original[0].height,
-            offset = ch.util.getOffset(this._el);
+        var width = this._original.width,
+            height = this._original.height,
+            offset = tiny.offset(this._el);
 
         // Set the wrapper anchor size (same as image)
-        this.$trigger.css({
-            'width': width,
-            'height': height
-        });
+        this.trigger.style.width = width + 'px';
+        this.trigger.style.height = height + 'px';
 
         // Loading position centered into the anchor
-        this._$loading.css({
-            'left': (width - this._$loading.width()) / 2,
-            'top': (height - this._$loading.height()) / 2
-        });
+        this._loading.style.display = 'block';
+        this._loading.style.left = (width - this._loading.clientWidth) / 2 + 'px',
+        this._loading.style.top = (height - this._loading.clientHeight) / 2 + 'px';
+        this._loading.style.display = '';
 
         /**
          * Width of the original specified image.
@@ -7072,8 +5389,10 @@ ch.factory = function (Klass, fn) {
 
         // By defining these variables in here, it avoids to make
         // the substraction twice if it's a free movement
-        var seekerLeft = event.pageX - this._seekerHalfWidth,
-            seekerTop = event.pageY - this._seekerHalfHeight,
+        var pageX = (event.pageX || event.clientX + document.documentElement.scrollLeft),
+            pageY = (event.pageY || event.clientY + document.documentElement.scrollTop),
+            seekerLeft = pageX - this._seekerHalfWidth,
+            seekerTop = pageY - this._seekerHalfHeight,
             x,
             y;
 
@@ -7081,7 +5400,7 @@ ch.factory = function (Klass, fn) {
         if (seekerLeft <= this._originalOffsetLeft) {
             x = 0;
         // Right side of seeker GREATER THAN right side of image
-        } else if (event.pageX + this._seekerHalfWidth > this._originalWidth + this._originalOffsetLeft) {
+        } else if (pageX + this._seekerHalfWidth > this._originalWidth + this._originalOffsetLeft) {
             x = this._originalWidth - this._seekerWidth - 2;
         // Free move
         } else {
@@ -7092,7 +5411,7 @@ ch.factory = function (Klass, fn) {
         if (seekerTop <= this._originalOffsetTop) {
             y = 0;
         // Bottom side of seeker GREATER THAN bottom side of image
-        } else if (event.pageY + this._seekerHalfHeight > this._originalHeight + this._originalOffsetTop) {
+        } else if (pageY + this._seekerHalfHeight > this._originalHeight + this._originalOffsetTop) {
             y = this._originalHeight - this._seekerHeight - 2;
         // Free move
         } else {
@@ -7109,13 +5428,13 @@ ch.factory = function (Klass, fn) {
      * Shows the zoom container and the Seeker, or show a loading feedback until the zoomed image loads.
      * @memberof! ch.Zoom.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by dropdown.
+     * @param {(String | HTMLElement)} [content] The content that will be used by dropdown.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {zoom}
      * @example
      * // Shows a basic zoom.
@@ -7138,14 +5457,13 @@ ch.factory = function (Klass, fn) {
 
         // Show feedback and trigger the image load, if it's not loaded
         if (!this._loaded) {
-            this._$loading.removeClass('ch-hide');
+            tiny.removeClass(this._loading, 'ch-hide');
             this.loadImage();
             return this;
         }
 
         // Delete the Loading and show the Seeker
-        this._$loading.remove();
-        this._$seeker.removeClass('ch-hide');
+        tiny.removeClass(this._seeker, 'ch-hide');
 
         // Execute the original show()
         parent.show.call(this, content, options);
@@ -7169,11 +5487,11 @@ ch.factory = function (Klass, fn) {
 
         // Avoid unnecessary execution
         if (!this._loaded) {
-            this._$loading.addClass('ch-hide');
+            tiny.addClass(this._loading, 'ch-hide');
             return this;
         }
 
-        this._$seeker.addClass('ch-hide');
+        tiny.addClass(this._seeker, 'ch-hide');
 
         parent.hide.call(this);
 
@@ -7208,8 +5526,10 @@ ch.factory = function (Klass, fn) {
      * zoom = undefined;
      */
     Zoom.prototype.destroy = function () {
+        var parentElement;
 
-        this._$seeker.remove();
+        parentElement = tiny.parent(this._seeker);
+        parentElement.removeChild(this._seeker);
 
         parent.destroy.call(this);
 
@@ -7218,13 +5538,56 @@ ch.factory = function (Klass, fn) {
 
     ch.factory(Zoom, parent._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
 
-(function (window, $, ch) {
+    /**
+     * Executes a callback function when the images of a query selection loads.
+     * @private
+     * @param {HTMLImageElement} image An image or a collection of images.
+     * @param {Function} [callback] The handler the component will fire after the images loads.
+     *
+     * @example
+     * onImagesLoads(HTMLImageElement, function () {
+     *     console.log('The size of the loaded image is ' + this.width);
+     * });
+     */
+    function onImagesLoads(image, callback) {
+        var images;
+
+        if (Array.isArray(image)) {
+            images = image;
+        } else {
+            images = [image];
+        }
+
+        images.forEach(function (image) {
+            image.addEventListener('load', function onImgLoad() {
+                var len = images.length;
+
+                window.setTimeout(function () {
+                    if (--len <= 0) {
+                        callback.call(image);
+                    }
+                }, 200);
+
+                image.removeEventListener('load', onImgLoad);
+            }, false);
+
+            if (image.complete || image.complete === undefined) {
+                var src = image.src;
+                // Data uri fix bug in web-kit browsers
+                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                image.src = src;
+            }
+        });
+    }
+
+}(this, this.ch));
+
+(function (window, ch) {
     'use strict';
 
     function normalizeOptions(options) {
-        if (typeof options === 'string' || ch.util.isArray(options)) {
+        if (typeof options === 'string' || Array.isArray(options)) {
             options = {
                 'selected': options
             };
@@ -7237,7 +5600,7 @@ ch.factory = function (Klass, fn) {
      * @memberof ch
      * @constructor
      * @augments ch.Component
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Calendar.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Calendar.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. You must use "DD/MM/YYYY", "MM/DD/YYYY" or "YYYY/MM/DD". Default: "DD/MM/YYYY".
      * @param {String} [options.selected] Sets a date that should be selected by default. Default: The date of today.
@@ -7248,13 +5611,10 @@ ch.factory = function (Klass, fn) {
      * @returns {calendar} Returns a new instance of Calendar.
      * @example
      * // Create a new Calendar.
-     * var calendar = new ch.Calendar($el, [options]);
-     * @example
-     * // Create a new Calendar with jQuery or Zepto.
-     * var calendar = $(selector).calendar();
+     * var calendar = new ch.Calendar([el], [options]);
      * @example
      * // Creates a new Calendar with custom options.
-     * var calendar =  $(selector).calendar({
+     * var calendar =  new ch.Calendar({
      *     'format': 'MM/DD/YYYY',
      *     'selected': '2011/12/25',
      *     'from': '2010/12/25',
@@ -7264,9 +5624,9 @@ ch.factory = function (Klass, fn) {
      * });
      * @example
      * // Creates a new Calendar using a shorthand way (selected date as parameter).
-     * var calendar = $(selector).calendar('2011/12/25');
+     * var calendar = new ch.Calendar('2011/12/25');
      */
-    function Calendar($el, options) {
+    function Calendar(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -7274,7 +5634,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -7296,6 +5656,9 @@ ch.factory = function (Klass, fn) {
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
+
+    // Inheritance
+    tiny.inherits(Calendar, ch.Component);
 
     /**
      * Completes with zero the numbers less than 10.
@@ -7400,36 +5763,12 @@ ch.factory = function (Klass, fn) {
             };
         },
 
-        /**
-         * Templates of arrows to move around months.
-         * @type {Object}
-         * @private
-         */
-        arrows = {
-
-            /**
-             * Template of previous arrow.
-             * @type {String}
-             */
-            'prev': '<div class="ch-calendar-prev" role="button" aria-hidden="false"></div>',
-
-            /**
-             * Template of next arrow.
-             * @type {String}
-             */
-            'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
-        },
-
-        // Inheritance
-        parent = ch.util.inherits(Calendar, ch.Component);
+        parent = Calendar.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Calendar.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var calendar = $(selector).data('calendar');
      */
     Calendar.prototype.name = 'calendar';
 
@@ -7458,9 +5797,9 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {calendar}
      */
-    Calendar.prototype._init = function ($el, options) {
+    Calendar.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -7499,7 +5838,7 @@ ch.factory = function (Klass, fn) {
             if (!selected) { return selected; }
 
             // Simple date selection
-            if (!ch.util.isArray(selected)) {
+            if (!Array.isArray(selected)) {
 
                 if (selected !== 'today') {
                     // Return date object and update currentDate
@@ -7511,9 +5850,9 @@ ch.factory = function (Klass, fn) {
 
             // Multiple date selection
             } else {
-                $.each(selected, function (i, e) {
+                selected.forEach(function (e, i){
                     // Simple date
-                    if (!ch.util.isArray(e)) {
+                    if (!Array.isArray(e)) {
                         selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
                     // Range
                     } else {
@@ -7551,24 +5890,52 @@ ch.factory = function (Klass, fn) {
 
         }());
 
+        /**
+         * Template of previous arrow.
+         * @type {HTMLDivElement}
+         */
+        this._prev = document.createElement('div');
+        this._prev.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
+        this._prev.setAttribute('role', 'button');
+        this._prev.setAttribute('aria-hidden', 'false');
+        tiny.addClass(this._prev, 'ch-calendar-prev');
+
+        /**
+         * Template of next arrow.
+         * @type {HTMLDivElement}
+         */
+        this._next = document.createElement('div');
+        this._next.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
+        this._next.setAttribute('role', 'button');
+        this._next.setAttribute('aria-hidden', 'false');
+        tiny.addClass(this._next, 'ch-calendar-next');
+
+
         // Show or hide arrows depending on "from" and "to" limits
-        this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        tiny.on(this._prev, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.prevMonth();
+        });
+        tiny.on(this._next, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.nextMonth();
+        });
 
         /**
          * The calendar container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$container = this._$el
-            .addClass('ch-calendar')
-            .prepend(this._$prev)
-            .prepend(this._$next)
-            .append(this._createTemplate(this._dates.current));
+        this.container = this._el;
+        this.container.insertBefore(this._prev, this.container.firstChild);
+        this.container.insertBefore(this._next, this.container.firstChild);
+        tiny.addClass(this.container, 'ch-calendar');
+        this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         this._updateControls();
 
         // Avoid selection on the component
-        ch.util.avoidTextSelection(that.$container);
+        that.container.setAttribute('unselectable', 'on');
+        tiny.addClass(that.container, 'ch-user-no-select');
 
         return this;
     };
@@ -7600,20 +5967,24 @@ ch.factory = function (Klass, fn) {
 
         // Show previous arrow when it's out of limit
         if (this._hasPrevMonth()) {
-            this._$prev.removeClass('ch-hide').attr('aria-hidden', 'false');
+            tiny.removeClass(this._prev, 'ch-hide');
+            this._prev.setAttribute('aria-hidden', 'false');
 
         // Hide previous arrow when it's out of limit
         } else {
-            this._$prev.addClass('ch-hide').attr('aria-hidden', 'true');
+            tiny.addClass(this._prev, 'ch-hide');
+            this._prev.setAttribute('aria-hidden', 'true');
         }
 
         // Show next arrow when it's out of limit
         if (this._hasNextMonth()) {
-            this._$next.removeClass('ch-hide').attr('aria-hidden', 'false');
+            tiny.removeClass(this._next, 'ch-hide');
+            this._next.setAttribute('aria-hidden', 'false');
 
         // Hide next arrow when it's out of limit
         } else {
-            this._$next.addClass('ch-hide').attr('aria-hidden', 'true');
+            tiny.addClass(this._next, 'ch-hide');
+            this._next.setAttribute('aria-hidden', 'true');
         }
 
         return this;
@@ -7625,14 +5996,17 @@ ch.factory = function (Klass, fn) {
      * @private
      */
     Calendar.prototype._updateTemplate = function (date) {
+        var month;
+
         // Update "currentDate" object
         this._dates.current = (typeof date === 'string') ? createDateObject(date) : date;
 
         // Delete old table
-        this.$container.children('table').remove();
+        month = this.container.querySelector('table');
+        this.container.removeChild(month);
 
         // Append new table to content
-        this.$container.append(this._createTemplate(this._dates.current));
+        this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         // Refresh arrows
         this._updateControls();
@@ -7801,7 +6175,7 @@ ch.factory = function (Klass, fn) {
         yepnope = false;
 
         // Simple selection
-        if (!ch.util.isArray(this._dates.selected)) {
+        if (!Array.isArray(this._dates.selected)) {
             if (year === this._dates.selected.year && month === this._dates.selected.month && day === this._dates.selected.day) {
                 yepnope = true;
                 return yepnope;
@@ -7809,9 +6183,9 @@ ch.factory = function (Klass, fn) {
 
         // Multiple selection (ranges)
         } else {
-            $.each(this._dates.selected, function (i, e) {
+            this._dates.selected.forEach(function (e) {
                 // Simple date
-                if (!ch.util.isArray(e)) {
+                if (!Array.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {
                         yepnope = true;
                         return yepnope;
@@ -7905,7 +6279,7 @@ ch.factory = function (Klass, fn) {
      * calendar.nextMonth();
      */
     Calendar.prototype.nextMonth = function () {
-        if (!this._enabled || !this._hasNextMonth()) {
+        if (!this._enabled || !this._hasNextMonth()) {
             return this;
         }
 
@@ -7943,7 +6317,7 @@ ch.factory = function (Klass, fn) {
      */
     Calendar.prototype.prevMonth = function () {
 
-        if (!this._enabled || !this._hasPrevMonth()) {
+        if (!this._enabled || !this._hasPrevMonth()) {
             return this;
         }
 
@@ -7981,7 +6355,7 @@ ch.factory = function (Klass, fn) {
      */
     Calendar.prototype.nextYear = function () {
 
-        if (!this._enabled || !this._hasNextMonth()) {
+        if (!this._enabled || !this._hasNextMonth()) {
             return this;
         }
 
@@ -8013,7 +6387,7 @@ ch.factory = function (Klass, fn) {
      */
     Calendar.prototype.prevYear = function () {
 
-        if (!this._enabled || !this._hasPrevMonth()) {
+        if (!this._enabled || !this._hasPrevMonth()) {
             return this;
         }
 
@@ -8084,7 +6458,7 @@ ch.factory = function (Klass, fn) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -8094,8 +6468,8 @@ ch.factory = function (Klass, fn) {
     // Factorize
     ch.factory(Calendar, normalizeOptions);
 
-}(this, this.ch.$, this.ch));
-(function (window, $, ch) {
+}(this, this.ch));
+(function (window, ch) {
     'use strict';
 
     /**
@@ -8103,7 +6477,7 @@ ch.factory = function (Klass, fn) {
      * @memberof ch
      * @constructor
      * @augments ch.Layer
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Dropdown.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Dropdown.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
@@ -8111,7 +6485,7 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "left".
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horizontally. Default: 0.
@@ -8121,24 +6495,21 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {Boolean} [options.skin] Sets a CSS class name to the trigger and container to get a variation of Dropdown. Default: false.
      * @param {Boolean} [options.shortcuts] Configures navigation shortcuts. Default: true.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Dropdown container.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Dropdown container.
      * @returns {dropdown} Returns a new instance of Dropdown.
      * @example
      * // Create a new Dropdown.
-     * var dropdown = new ch.Dropdown($el, [options]);
-     * @example
-     * // Create a new Dropdown with jQuery or Zepto.
-     * var dropdown = $(selector).dropdown([options]);
+     * var dropdown = new ch.Dropdown([el], [options]);
      * @example
      * // Create a new skinned Dropdown.
-     * var dropdown = $(selector).dropdown({
+     * var dropdown = new ch.Dropdown({
      *     'skin': true
      * });
      */
-    function Dropdown($el, options) {
+    function Dropdown(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -8146,7 +6517,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -8169,18 +6540,15 @@ ch.factory = function (Klass, fn) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var $document = $(window.document),
-        pointerenter = ch.onpointerenter + '.dropdown',
-        // Inheritance
-        parent = ch.util.inherits(Dropdown, ch.Layer);
+    // Inheritance
+    tiny.inherits(Dropdown, ch.Layer);
+
+    var parent = Dropdown.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Dropdown.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var dropdown = $(selector).data('dropdown');
      */
     Dropdown.prototype.name = 'dropdown';
 
@@ -8197,7 +6565,7 @@ ch.factory = function (Klass, fn) {
      * @type {Object}
      * @private
      */
-    Dropdown.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Dropdown.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-dropdown ch-box-lite',
         '_ariaRole': 'combobox',
         'fx': 'none',
@@ -8215,9 +6583,9 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {dropdown}
      */
-    Dropdown.prototype._init = function ($el, options) {
+    Dropdown.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -8226,46 +6594,50 @@ ch.factory = function (Klass, fn) {
          */
         var that = this,
             // The second element of the HTML snippet (the dropdown content)
-            $content = this.$trigger.next();
+            content = tiny.next(this.trigger);
 
         /**
          * The dropdown trigger. It's the element that will show and hide the container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$trigger
-            .addClass('ch-dropdown-trigger')
-            .prop('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected');
+        this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected');
+        tiny.addClass(this.trigger, 'ch-dropdown-trigger');
 
-        ch.util.avoidTextSelection(this.$trigger);
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         // Skinned dropdown
         if (this._options.skin) {
-            this.$trigger.addClass('ch-dropdown-trigger-skin');
-            this.$container.addClass('ch-dropdown-skin');
+            tiny.addClass(this.trigger, 'ch-dropdown-trigger-skin');
+            tiny.addClass(this.container, 'ch-dropdown-skin');
         // Default Skin
         } else {
-            this.$trigger.addClass('ch-btn-skin ch-btn-small');
+            tiny.addClass(this.trigger, 'ch-btn-skin');
+            tiny.addClass(this.trigger, 'ch-btn-small');
         }
 
         /**
          * A list of links with the navigation options of the component.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {NodeList}
          * @private
          */
-        this._$navigation = $content.find('a').prop('role', 'option');
-
-        // Item selected by mouseover
-        $.each(this._$navigation, function (i, e) {
-            $(e).on(pointerenter, function () {
-                that._$navigation[that._selected = i].focus();
+        this._navigation = (function () {
+            var items = content.querySelectorAll('a');
+            Array.prototype.forEach.call(items, function (item, index) {
+                item.setAttribute('role', 'option');
+                tiny.on(item, ch.onpointerenter, function () {
+                    that._navigation[that._selected = index].focus();
+                });
             });
-        });
+            return items;
+        }());
+
 
         if (this._options.shortcuts && this._navigationShortcuts !== undefined) {
             this._navigationShortcuts();
         }
 
-        this._options.content = $content;
+        this._options.content = content;
 
         /**
          * The original and entire element and its state, before initialization.
@@ -8273,7 +6645,7 @@ ch.factory = function (Klass, fn) {
          * @type {HTMLElement}
          */
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
-        this._snippet = this._options.content[0].cloneNode();
+        this._snippet = this._options.content.cloneNode(true);
 
         return this;
     };
@@ -8282,13 +6654,13 @@ ch.factory = function (Klass, fn) {
      * Shows the dropdown container.
      * @memberof! ch.Dropdown.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by dropdown.
+     * @param {(String | HTMLElement)} [content] The content that will be used by dropdown.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {dropdown}
      * @example
      * // Shows a basic dropdown.
@@ -8312,11 +6684,6 @@ ch.factory = function (Klass, fn) {
         // Execute the original show()
         parent.show.call(this, content, options);
 
-        // Z-index of trigger over content (secondary / skin dropdown)
-        if (this._options.skin) {
-            this.$trigger.css('z-index', ch.util.zIndex += 1);
-        }
-
         this._selected = -1;
 
         return this;
@@ -8333,20 +6700,24 @@ ch.factory = function (Klass, fn) {
      * dropdown = undefined;
      */
     Dropdown.prototype.destroy = function () {
+        var trigger = this.trigger;
 
-        this.$trigger
-            .off('.dropdown')
-            .removeClass('ch-dropdown-trigger ch-dropdown-trigger-skin ch-user-no-select ch-btn-skin ch-btn-small')
-            .removeAttr('aria-controls')
-            .after(this._snippet);
-
-        this.$container.off('.dropdown');
-
-        $document.trigger(ch.onlayoutchange);
-
-        $.each(this._$navigation, function (i, e) {
-            $(e).off(pointerenter);
+        [
+            'ch-dropdown-trigger',
+            'ch-dropdown-trigger-skin',
+            'ch-user-no-select',
+            'ch-btn-skin',
+            'ch-btn-small'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
         });
+
+        trigger.removeAttribute('unselectable');
+        trigger.removeAttribute('aria-controls');
+
+        trigger.insertAdjacentHTML('afterend', this._snippet);
+
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -8355,7 +6726,7 @@ ch.factory = function (Klass, fn) {
 
     ch.factory(Dropdown);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
 
 (function (ch) {
     'use strict';
@@ -8367,24 +6738,24 @@ ch.factory = function (Klass, fn) {
      */
     ch.Dropdown.prototype._highlightOption = function (key) {
 
-        var optionsLength = this._$navigation.length;
+        var optionsLength = this._navigation.length;
 
         if (!this._shown) { return; }
 
         // Sets limits behavior
-        if (this._selected === (key === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
+        if (this._selected === (key === ch.onkeydownarrow ? optionsLength - 1 : 0)) { return; }
 
         // Unselects current option
         if (this._selected !== -1) {
-            this._$navigation[this._selected].blur();
-            this._$navigation[this._selected].removeAttribute('id');
+            this._navigation[this._selected].blur();
+            this._navigation[this._selected].removeAttribute('id');
         }
 
-        if (key === 'down_arrow') { this._selected += 1; } else { this._selected -= 1; }
+        if (key === ch.onkeydownarrow) { this._selected += 1; } else { this._selected -= 1; }
 
         // Selects new current option
-        this._$navigation[this._selected].focus();
-        this._$navigation[this._selected].id = 'ch-dropdown' + this.uid + '-selected';
+        this._navigation[this._selected].focus();
+        this._navigation[this._selected].id = 'ch-dropdown' + this.uid + '-selected';
     };
 
     /**
@@ -8402,16 +6773,16 @@ ch.factory = function (Klass, fn) {
 
         ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
             // Prevent default behavior
-            ch.util.prevent(event);
+            event.preventDefault();
 
-            that._highlightOption(event.type);
+            that._highlightOption(event.shortcut);
         });
 
         ch.shortcuts.add(ch.onkeydownarrow, this.uid, function (event) {
             // Prevent default behavior
-            ch.util.prevent(event);
+            event.preventDefault();
 
-            that._highlightOption(event.type);
+            that._highlightOption(event.shortcut);
         });
 
         this.once('destroy', function () {
@@ -8423,7 +6794,7 @@ ch.factory = function (Klass, fn) {
     };
 
 }(this.ch));
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -8432,16 +6803,14 @@ ch.factory = function (Klass, fn) {
      * @constructor
      * @augments ch.Component
      * @requires ch.Expandable
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Tabs.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Tabs.
+     * @param {Object} [options] Options to customize an instance.
      * @returns {tabs} Returns a new instance of Tabs.
      * @example
      * // Create a new Tabs.
-     * var tabs = new ch.Tabs($el);
-     * @example
-     * // Create a new Tabs with jQuery or Zepto.
-     * var tabs = $(selector).tabs();
+     * var tabs = new ch.Tabs(el);
      */
-    function Tabs($el, options) {
+    function Tabs(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -8450,7 +6819,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -8474,7 +6843,10 @@ ch.factory = function (Klass, fn) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Tabs, ch.Component),
+    tiny.inherits(Tabs, ch.Component);
+
+    // Inheritance
+    var parent = Tabs.super_.prototype,
 
         location = window.location,
 
@@ -8484,7 +6856,6 @@ ch.factory = function (Klass, fn) {
 
         // Regular expresion to get hash
         hashRegExp = new RegExp('\\#!?\\/?(.[^\\?|\\&|\\s]+)');
-
 
     function createMethods(method) {
         Tabs.prototype[method] = function (tab) {
@@ -8538,8 +6909,8 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {tabs}
      */
-    Tabs.prototype._init = function ($el, options) {
-        parent._init.call(this, $el, options);
+    Tabs.prototype._init = function (el, options) {
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -8563,18 +6934,18 @@ ch.factory = function (Klass, fn) {
 
         /**
          * The tabs container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$container = this._$el
-            .addClass('ch-tabs');
+        this.container = this._el;
+        tiny.addClass(this.container, 'ch-tabs');
 
         /**
          * The tabs triggers.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$triggers = this.$container.children(':first-child')
-            .addClass('ch-tabs-triggers')
-            .attr('role', 'tablist');
+        this.triggers = this.container.children[0];
+        this.triggers.setAttribute('role', 'tablist');
+        tiny.addClass(this.triggers, 'ch-tabs-triggers');
 
         /**
          * A collection of tab panel.
@@ -8584,22 +6955,24 @@ ch.factory = function (Klass, fn) {
 
         /**
          * The container of tab panels.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$panel = this.$container.children(':last-child')
-            .addClass('ch-tabs-panel ch-box-lite')
-            .attr('role', 'presentation');
+        this.panel = this.container.children[1];
+        this.panel.setAttribute('role', 'presentation');
+        tiny.addClass(this.panel, 'ch-tabs-panel');
+        tiny.addClass(this.panel, 'ch-box-lite');
+
 
         /**
          * The tab panel's containers.
-         * @type {jQuery}
+         * @type {HTMLElement}
          * @private
          */
-        this._$tabsPanels = this.$panel.children();
+        this._tabsPanels = this.panel.children;
 
         // Creates tab
-        this.$triggers.find('a').each(function (i, e) {
-            that._createTab(i, e);
+        Array.prototype.forEach.call(this.triggers.getElementsByTagName('a'), function (el, index) {
+            that._createTab(index, el);
         });
 
         // Set the default shown tab.
@@ -8626,19 +6999,23 @@ ch.factory = function (Klass, fn) {
         var that = this,
             tab,
 
-            $panel = this._$tabsPanels.eq(i),
+            panel = this._tabsPanels[i],
 
             // Create Tab panel's options
             options = {
+                '_classNameIcon': null,
                 '_classNameTrigger': 'ch-tab',
-                '_classNameContainer': 'ch-tabpanel ch-hide',
+                '_classNameContainer': 'ch-tabpanel',
                 'toggle': false
             };
 
         // Tab panel async configuration
-        if ($panel[0] === undefined) {
+        if (panel === undefined) {
 
-            $panel = $('<div id="' + e.href.split('#')[1] + '">').appendTo(this.$panel);
+            panel = document.createElement('div');
+            panel.setAttribute('id', e.href.split('#')[1]);
+
+            this.panel.appendChild(panel);
 
             options.content = e.href;
             options.waiting = this._options.waiting;
@@ -8647,17 +7024,17 @@ ch.factory = function (Klass, fn) {
         }
 
         // Tab panel container configuration
-        options.container = $panel;
+        options.container = panel;
 
         // Creates new Tab panel
-        tab = new ch.Expandable($(e), options);
+        tab = new ch.Expandable(e, options);
 
         // Creates tab's hash
         tab._hash = e.href.split('#')[1];
 
         // Add ARIA roles
-        tab.$trigger.attr('role', 'tab');
-        tab.$container.attr('role', 'tabpanel');
+        tab.trigger.setAttribute('role', 'tab');
+        tab.container.setAttribute('role', 'tabpanel');
 
         // Binds show event
         tab.on('show', function () {
@@ -8804,19 +7181,19 @@ ch.factory = function (Klass, fn) {
     /**
      * Allows to manage the tabs content.
      * @param {Number} tab A given tab to change its content.
-     * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a tabpanel.
+     * @param {HTMLElement} content The content that will be used by a tabpanel.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second tab with some string.
      * tabs.content(2, 'http://ajax.com', {'cache': false});
      */
     Tabs.prototype.content = function (tab, content, options) {
-        if (tab === undefined || typeof tab !== 'number') {
+        if (tab === undefined || typeof tab !== 'number') {
             throw new window.Error('Tabs.content(tab, content, options): Expected a number of tab.');
         }
 
@@ -8874,7 +7251,7 @@ ch.factory = function (Klass, fn) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
     };
@@ -8884,15 +7261,15 @@ ch.factory = function (Klass, fn) {
      */
     ch.factory(Tabs);
 
-}(this, this.ch.$, this.ch));
-(function (window, $, ch) {
+}(this, this.ch));
+(function (window, ch) {
     'use strict';
 
     /**
      * A large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
      * @memberof ch
      * @constructor
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Carousel.
      * @param {Object} [options] Options to customize an instance.
      * @param {Number} [options.async] Defines the number of future asynchronous items to add to the component. Default: 0.
      * @param {Boolean} [options.arrows] Defines if the arrow-buttons must be created or not at initialization. Default: true.
@@ -8902,27 +7279,24 @@ ch.factory = function (Klass, fn) {
      * @returns {carousel} Returns a new instance of Carousel.
      * @example
      * // Create a new carousel.
-     * var carousel = new ch.Carousel($el, [options]);
-     * @example
-     * // Create a new Carousel with jQuery or Zepto.
-     * var carousel = $(selector).carousel([options]);
+     * var carousel = new ch.Carousel(el, [options]);
      * @example
      * // Create a new Carousel with disabled effects.
-     * var carousel = $(selector).carousel({
+     * var carousel = new ch.Carousel(el, {
      *     'fx': false
      * });
      * @example
      * // Create a new Carousel with items asynchronously loaded.
-     * var carousel = $(selector).carousel({
+     * var carousel = new ch.Carousel(el, {
      *     'async': 10
-     * }).on('itemsadd', function ($items) {
+     * }).on('itemsadd', function (collection) {
      *     // Inject content into the added <li> elements
-     *     $.each($items, function (i, e) {
+     *     $.each(collection, function (i, e) {
      *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
      *     });
      * });
      */
-    function Carousel($el, options) {
+    function Carousel(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -8930,7 +7304,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -8953,19 +7327,49 @@ ch.factory = function (Klass, fn) {
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var pointertap = ch.onpointertap + '.carousel',
+    // Inheritance
+    tiny.inherits(Carousel, ch.Component);
+
+    var pointertap = ch.onpointertap,
         Math = window.Math,
         setTimeout = window.setTimeout,
-        // Inheritance
-        parent = ch.util.inherits(Carousel, ch.Component);
+        parent = Carousel.super_.prototype;
+
+    /**
+     * Reference to the vendor prefix of the current browser.
+     *
+     * @private
+     * @constant
+     * @type {String}
+     * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
+     * @example
+     * VENDOR_PREFIX === 'webkit';
+     */
+    var VENDOR_PREFIX = (function () {
+
+        var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
+            styleDeclaration = document.getElementsByTagName('script')[0].style,
+            prop;
+
+        for (prop in styleDeclaration) {
+            if (regex.test(prop)) {
+                return prop.match(regex)[0].toLowerCase();
+            }
+        }
+
+        // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+        // However (prop in style) returns the correct value, so we'll have to test for
+        // the precence of a specific property
+        if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
+        if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
+
+        return '';
+    }());
 
     /**
      * The name of the component.
      * @memberof! ch.Carousel.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var carousel = $(selector).data('carousel');
      */
     Carousel.prototype.name = 'carousel';
 
@@ -8996,9 +7400,9 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {carousel}
      */
-    Carousel.prototype._init = function ($el, options) {
+    Carousel.prototype._init = function (el, options) {
         // Call to its parents init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -9018,44 +7422,60 @@ ch.factory = function (Klass, fn) {
         /**
          * Element that moves (slides) across the component (inside the mask).
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this._$list = this._$el.addClass('ch-carousel').children().addClass('ch-carousel-list');
+        this._list = this._el.children[0];
+
+        tiny.addClass(this._el, 'ch-carousel');
+        tiny.addClass(this._list, 'ch-carousel-list');
 
         /**
          * Collection of each child of the slider list.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLCollection}
          */
-        this._$items = this._$list.children().addClass('ch-carousel-item');
+        this._items = (function () {
+            var collection = that._list.querySelectorAll('li');
+
+            Array.prototype.forEach.call(collection, function (item) {
+                tiny.addClass(item, 'ch-carousel-item');
+            });
+
+            return collection;
+        }());
 
         /**
          * Element that wraps the list and denies its overflow.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$mask = $('<div class="ch-carousel-mask" role="tabpanel">').html(this._$list).appendTo(this._$el);
+        this._mask = document.createElement('div');
+        this._mask.setAttribute('role', 'tabpanel');
+        this._mask.setAttribute('class','ch-carousel-mask');
+        this._mask.appendChild(this._list);
+
+        this._el.appendChild(this._mask);
 
         /**
          * Size of the mask (width). Updated in each refresh.
          * @private
          * @type {Number}
          */
-        this._maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
+        this._maskWidth = this._getOuterDimensions(this._mask).width;
 
         /**
          * The width of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
          * @type {Number}
          */
-        this._itemWidth = this._$items.width();
+        this._itemWidth = this._getOuterDimensions(this._items[0]).width;
 
         /**
          * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
          * @private
          * @type {Number}
          */
-        this._itemOuterWidth = ch.util.getOuterDimensions(this._$items[0]).width;
+        this._itemOuterWidth = parseInt(tiny.css(this._items[0], 'width'));
 
         /**
          * The size added to each item to make it elastic/responsive.
@@ -9069,7 +7489,7 @@ ch.factory = function (Klass, fn) {
          * @private
          * @type {Number}
          */
-        this._itemHeight = this._$items.height();
+        this._itemHeight = this._getOuterDimensions(this._items[0]).height;
 
         /**
          * The margin of all items. Updated in each refresh only if it's necessary.
@@ -9130,39 +7550,51 @@ ch.factory = function (Klass, fn) {
         /**
          * UI element of arrow that moves the Carousel to the previous page.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$prevArrow = $('<div class="ch-carousel-prev ch-carousel-disabled" role="button" aria-hidden="true">')
-            .on(pointertap, function () { that.prev(); });
+        this._prevArrow = document.createElement('div');
+        this._prevArrow.setAttribute('role', 'button');
+        this._prevArrow.setAttribute('aria-hidden', 'true');
+        this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
+        tiny.on(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
         /**
          * UI element of arrow that moves the Carousel to the next page.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        that._$nextArrow = $('<div class="ch-carousel-next" role="button" aria-hidden="false">')
-            .on(pointertap, function () { that.next(); });
+        this._nextArrow = document.createElement('div');
+        this._nextArrow.setAttribute('role', 'button');
+        this._nextArrow.setAttribute('aria-hidden', 'true');
+        this._nextArrow.setAttribute('class', 'ch-carousel-next');
+        tiny.on(this._nextArrow, pointertap, function () { that.next(); }, false);
 
         /**
          * UI element that contains all the thumbnails for pagination.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$pagination = $('<div class="ch-carousel-pages" role="navigation">').on(pointertap, function (event) {
+        this._pagination = document.createElement('div');
+        this._pagination.setAttribute('role', 'navigation');
+        this._pagination.setAttribute('class', 'ch-carousel-pages');
+
+        tiny.on(this._pagination, pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
-            if (page !== null) { that.select(window.parseInt(page, 10)); }
-        });
+            if (page !== null) { that.select(window.parseInt(page, 10)); }
+        }, false);
 
         // Refresh calculation when the viewport resizes
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
-        if (!this._options.fx) { this._$list.addClass('ch-carousel-nofx'); }
+        if (!this._options.fx) { tiny.addClass(this._list, 'ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
-        if (!ch.support.transition) { this._$list.css({'position': 'absolute', 'left': '0'}); }
+        if (!tiny.support.transition) {
+            this._list.style.cssText += 'position:absolute;left:0;';
+        }
 
         // If there is a parameter specifying a pagination, add it
         if (this._options.pagination) { this._addPagination(); }
@@ -9196,12 +7628,12 @@ ch.factory = function (Klass, fn) {
          */
         var that = this,
             // Amount of items when ARIA is updated
-            total = this._$items.length + this._async,
+            total = this._items.length + this._async,
             // Page where each item is in
             page;
 
         // Update WAI-ARIA properties on all items
-        $.each(this._$items, function (i, item) {
+        Array.prototype.forEach.call(this._items, function (item, i) {
             // Update page where this item is in
             page = Math.floor(i / that._limitPerPage) + 1;
             // Update ARIA attributes
@@ -9210,6 +7642,7 @@ ch.factory = function (Klass, fn) {
             item.setAttribute('aria-posinset', (i + 1));
             item.setAttribute('aria-label', 'page' + page);
         });
+
     };
 
     /**
@@ -9226,7 +7659,7 @@ ch.factory = function (Klass, fn) {
         // Amount of items from the beginning to current page
         var total = this._currentPage * this._limitPerPage,
             // How many items needs to add to items rendered to complete to this page
-            amount = total - this._$items.length,
+            amount = total - this._items.length,
             // The new width calculated from current width plus extraWidth
             width = (this._itemWidth + this._itemExtraWidth),
             // Get the height using new width and relation between width and height of item (ratio)
@@ -9240,8 +7673,8 @@ ch.factory = function (Klass, fn) {
             ].join(''),
             // It stores <LI> that will be added to the DOM collection
             items = '',
-            // Wrapped items
-            $items;
+            // It stores the items that must be added, it helps to slice the items in the list
+            counter = 0;
 
         // Load only when there are items to add
         if (amount < 1) { return; }
@@ -9253,16 +7686,15 @@ ch.factory = function (Klass, fn) {
         while (amount) {
             items += item;
             amount -= 1;
+            counter += 1;
         }
 
-        // Wrap the string elements into jQuery/Zepto
-        $items = $(items);
-
         // Add sample items to the list
-        this._$list.append($items);
+        this._list.insertAdjacentHTML('beforeend', items);
 
         // Update items collection
-        this._$items = this._$list.children();
+        // uses querySelectorAll because it need a static collection
+        this._items = this._list.querySelectorAll('li');
 
         // Set WAI-ARIA properties to each item
         this._updateARIA();
@@ -9275,16 +7707,16 @@ ch.factory = function (Klass, fn) {
          * @event ch.Carousel#itemsadd
          * @example
          * // Create a new Carousel with items asynchronously loaded.
-         * var carousel = $(selector).carousel({
+         * var carousel = new ch.Carousel({
          *     'async': 10
-         * }).on('itemsadd', function ($items) {
+         * }).on('itemsadd', function (collection) {
          *     // Inject content into the added <li> elements
-         *     $.each($items, function (i, e) {
+         *     $.each(collection, function (i, e) {
          *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
          *     });
          * });
          */
-        this.emit('itemsadd', $items);
+        this.emit('itemsadd', Array.prototype.slice.call(this._items, -counter));
     };
 
     /**
@@ -9328,10 +7760,12 @@ ch.factory = function (Klass, fn) {
         }
 
         // Append thumbnails to pagination and append this to Carousel
-        that._$pagination.html(thumbs.join('')).appendTo(that._$el);
+        that._pagination.innerHTML = thumbs.join('');
+        that._el.appendChild(that._pagination);
 
         // Avoid selection on the pagination
-        ch.util.avoidTextSelection(that._$pagination);
+        that._pagination.setAttribute('unselectable', 'on');
+        tiny.addClass(that._pagination, 'ch-user-no-select');
 
         // Check pagination as created
         that._paginationCreated = true;
@@ -9347,7 +7781,7 @@ ch.factory = function (Klass, fn) {
         // Avoid to change something that not exists
         if (!this._paginationCreated) { return; }
         // Delete thumbnails
-        this._$pagination[0].innerHTML = '';
+        this._pagination.innerHTML = '';
         // Check pagination as deleted
         this._paginationCreated = false;
     };
@@ -9368,14 +7802,14 @@ ch.factory = function (Klass, fn) {
         var that = this;
 
         // Do it if is required
-        if (this._options.fx) {
+        if (this._options.fx && tiny.support.transition) {
             // Delete efects on list to make changes instantly
-            this._$list.addClass('ch-carousel-nofx');
+            tiny.addClass(this._list, 'ch-carousel-nofx');
             // Execute the custom method
             callback.call(this);
             // Restore efects to list
             // Use a setTimeout to be sure to do this AFTER changes
-            setTimeout(function () { that._$list.removeClass('ch-carousel-nofx'); }, 0);
+            setTimeout(function () { tiny.removeClass(that._list, 'ch-carousel-nofx'); }, 0);
         // Avoid to add/remove classes if it hasn't effects
         } else {
             callback.call(this);
@@ -9391,7 +7825,7 @@ ch.factory = function (Klass, fn) {
     Carousel.prototype._updatePages = function () {
         // Update the amount of total pages
         // The ratio between total amount of items and items in each page
-        this._pages = Math.ceil((this._$items.length + this._async) / this._limitPerPage);
+        this._pages = Math.ceil((this._items.length + this._async) / this._limitPerPage);
         // Add items to the list, if it's necessary
         this._loadAsyncItems();
         // Set WAI-ARIA properties to each item
@@ -9454,7 +7888,9 @@ ch.factory = function (Klass, fn) {
             // Amount of spaces to distribute the free space
             spaces,
             // The new width calculated from current width plus extraWidth
-            width;
+            width,
+            // Styles to update the item element width, height & margin-right
+            cssItemText;
 
         // Update ONLY IF margin changed from last refresh
         // If *new* and *old* extra width are 0, continue too
@@ -9483,19 +7919,23 @@ ch.factory = function (Klass, fn) {
         // Do it before item resizing to make space to all items
         // Delete efects on list to change width instantly
         this._standbyFX(function () {
-            this._$list.css('width', this._pageWidth * this._pages);
+            this._list.style.cssText = this._list.style.cssText + '; ' + 'width:' + (this._pageWidth * this._pages) + 'px;';
         });
 
-        // Update element styles
         // Get the height using new width and relation between width and height of item (ratio)
-        this._$items.css({
-            'width': width,
-            'height': ((width * this._itemHeight) / this._itemWidth).toFixed(3),
-            'margin-right': this._itemMargin
+        cssItemText = [
+            'width:' + width + 'px;',
+            'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(3) + 'px;',
+            'margin-right:' + this._itemMargin + 'px;'
+        ].join('');
+
+        // Update element styles
+        Array.prototype.forEach.call(this._items, function (item){
+            item.setAttribute('style', cssItemText);
         });
 
         // Update the mask height with the list height
-        this._$mask[0].style.height = ch.util.getOuterDimensions(this._$items[0]).height + 'px';
+        this._mask.style.height = this._getOuterDimensions(this._list).height + 'px';
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -9511,9 +7951,14 @@ ch.factory = function (Klass, fn) {
      */
     Carousel.prototype._addArrows = function () {
         // Avoid selection on the arrows
-        ch.util.avoidTextSelection(this._$prevArrow, this._$nextArrow);
+        [this._prevArrow, this._nextArrow].forEach(function(el){
+            el.setAttribute('unselectable', 'on');
+            tiny.addClass(el, 'ch-user-no-select');
+        });
+
         // Add arrows to DOM
-        this._$el.prepend(this._$prevArrow).append(this._$nextArrow);
+        this._el.insertBefore(this._prevArrow, this._el.children[0]);
+        this._el.appendChild(this._nextArrow);
         // Check arrows as created
         this._arrowsCreated = true;
     };
@@ -9527,8 +7972,13 @@ ch.factory = function (Klass, fn) {
      * @param {Boolean} next Defines if the "next" arrow must be disabled or not.
      */
     Carousel.prototype._disableArrows = function (prev, next) {
-        this._$prevArrow.attr('aria-disabled', prev)[prev ? 'addClass' : 'removeClass']('ch-carousel-disabled');
-        this._$nextArrow.attr('aria-disabled', next)[next ? 'addClass' : 'removeClass']('ch-carousel-disabled');
+        this._prevArrow.setAttribute('aria-disabled', prev);
+        this._prevArrow.setAttribute('aria-hidden', prev);
+        tiny[prev ? 'addClass' : 'removeClass'](this._prevArrow, 'ch-carousel-disabled');
+
+        this._nextArrow.setAttribute('aria-disabled', next);
+        this._nextArrow.setAttribute('aria-hidden', next);
+        tiny[next ? 'addClass' : 'removeClass'](this._nextArrow, 'ch-carousel-disabled');
     };
 
     /**
@@ -9566,19 +8016,23 @@ ch.factory = function (Klass, fn) {
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform';
+        var vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
-        if (ch.support.transition) {
+        if (tiny.support.transition) {
             return function (displacement) {
-                this._$list.css(transform, 'translateX(' + displacement + 'px)');
+                // Firefox has only "transform", Safari only "webkitTransform",
+                // Chrome has support for both. Applied required minimum
+                if (vendorTransformKey) {
+                    this._list.style[vendorTransformKey] = 'translateX(' + displacement + 'px)';
+                }
+                this._list.style.transform = 'translateX(' + displacement + 'px)';
             };
         }
 
-        // Use JS to move
-        // Ask for fx INTO the method because the "fx" is an instance property
+        // Use left position to move
         return function (displacement) {
-            this._$list[(this._options.fx) ? 'animate' : 'css']({'left': displacement});
+            this._list.style.left = displacement + 'px';
         };
     }());
 
@@ -9594,11 +8048,33 @@ ch.factory = function (Klass, fn) {
         // Avoid to change something that not exists
         if (!this._paginationCreated) { return; }
         // Get all thumbnails of pagination element
-        var children = this._$pagination.children();
+        var children = this._pagination.children,
+            fromItem = children[from - 1],
+            toItem = children[to - 1];
+
         // Unselect the thumbnail previously selected
-        children.eq(from - 1).attr('aria-selected', false).removeClass('ch-carousel-selected');
+        fromItem.setAttribute('aria-selected', false);
+        tiny.removeClass(fromItem, 'ch-carousel-selected');
+
         // Select the new thumbnail
-        children.eq(to - 1).attr('aria-selected', true).addClass('ch-carousel-selected');
+        toItem.setAttribute('aria-selected', true);
+        tiny.addClass(toItem, 'ch-carousel-selected');
+    };
+
+    /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Carousel.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Carousel.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
     };
 
     /**
@@ -9610,7 +8086,7 @@ ch.factory = function (Klass, fn) {
     Carousel.prototype.refresh = function () {
 
         var that = this,
-            maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
+            maskWidth = this._getOuterDimensions(this._mask).width;
 
         // Check for changes on the width of mask, for the elastic carousel
         // Update the width of the mask
@@ -9636,9 +8112,10 @@ ch.factory = function (Klass, fn) {
 
         // Check for a change in the total amount of items
         // Update items collection
-        if (this._$list.children().length !== this._$items.length) {
+        if (this._list.children.length !== this._items.length) {
             // Update the entire reference to items
-            this._$items = this._$list.children();
+            // uses querySelectorAll because it need a static collection
+            this._items = this._list.querySelectorAll('li');
             // Calculates the total amount of pages and executes internal methods
             this._updatePages();
             // Go to the last page in case that the current page no longer exists
@@ -9794,7 +8271,7 @@ ch.factory = function (Klass, fn) {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -9803,9 +8280,9 @@ ch.factory = function (Klass, fn) {
 
     ch.factory(Carousel);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
 
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     function normalizeOptions(options) {
@@ -9825,7 +8302,7 @@ ch.factory = function (Klass, fn) {
      * @memberof ch
      * @constructor
      * @augments ch.Component
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Countdown.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Countdown.
      * @param {Object} [options] Options to customize an instance.
      * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control. Default: 500.
      * @param {String} [options.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. Default: "# characters left.".
@@ -9833,22 +8310,19 @@ ch.factory = function (Klass, fn) {
      * @returns {countdown} Returns a new instance of Countdown.
      * @example
      * // Create a new Countdown.
-     * var countdown = new ch.Countdown($el, [options]);
-     * @example
-     * // Create a new Countdown with jQuery or Zepto.
-     * var countdown = $(selector).countdown();
+     * var countdown = new ch.Countdown([el], [options]);
      * @example
      * // Create a new Countdown with custom options.
-     * var countdown = $(selector).countdown({
+     * var countdown = new ch.Countdown({
      *     'max': 250,
      *     'plural': 'Left: # characters.',
      *     'singular': 'Left: # character.'
      * });
      * @example
      * // Create a new Countdown using the shorthand way (max as parameter).
-     * $(selector).countdown(500);
+     * var countdown = new ch.Countdown({'max': 500});
      */
-    function Countdown($el, options) {
+    function Countdown(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -9857,7 +8331,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        that._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -9877,19 +8351,18 @@ ch.factory = function (Klass, fn) {
          *     // Some code here!
          * });
          */
-        window.setTimeout(function () { that.emit("ready"); }, 50);
+        window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Countdown, ch.Component);
+    tiny.inherits(Countdown, ch.Component);
+
+    var parent = Countdown.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Countdown.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var countdown = $(selector).data('countdown');
      */
     Countdown.prototype.name = 'countdown';
 
@@ -9918,9 +8391,9 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {countdown}
      */
-    Countdown.prototype._init = function ($el, options) {
+    Countdown.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -9945,12 +8418,16 @@ ch.factory = function (Klass, fn) {
 
         /**
          * The countdown trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLTextAreaElement}
          * @example
          * // Gets the countdown trigger.
-         * countdown.$trigger;
+         * countdown.trigger;
          */
-        this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown input.countdown', function () { that._count(); });
+        this.trigger = this._el;
+        'keyup keypress keydown input paste cut'.split(' ')
+            .forEach(function(name) {
+                tiny.on(that.trigger, name, function () { that._count(); });
+            });
 
         /**
          * Amount of free characters until full the field.
@@ -9964,9 +8441,14 @@ ch.factory = function (Klass, fn) {
 
         /**
          * The countdown container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLParagraphElement}
          */
-        that.$container = $('<p class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>').appendTo(that._$el.parent());
+        that.container = (function () {
+            var parent = tiny.parent(that._el);
+            parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
+
+            return parent.querySelector('#' + messageID);
+        }());
 
         this.on('disable', this._removeError);
 
@@ -10025,11 +8507,10 @@ ch.factory = function (Klass, fn) {
             // Update exceeded flag
             this._exceeded = true;
 
-            this.$trigger
-                .addClass('ch-validation-error')
-                .attr('aria-invalid', 'true');
+            this.trigger.setAttribute('aria-invalid', 'true');
+            tiny.addClass(this.trigger, 'ch-validation-error');
 
-            this.$container.addClass('ch-countdown-exceeded');
+            tiny.addClass(this.container, 'ch-countdown-exceeded');
         }
 
         // Change visible message of remaining characters
@@ -10037,7 +8518,7 @@ ch.factory = function (Klass, fn) {
         message = (this._remaining !== 1 ? this._options.plural : this._options.singular).replace(/\#/g, this._remaining);
 
         // Update DOM text
-        this.$container.text(message);
+        this.container.innerText  = message;
 
         return this;
 
@@ -10050,11 +8531,10 @@ ch.factory = function (Klass, fn) {
      * @returns {countdown}
      */
     Countdown.prototype._removeError = function () {
-        this.$trigger
-            .removeClass('ch-validation-error')
-            .attr('aria-invalid', 'false');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
+        this.trigger.setAttribute('aria-invalid', 'false');
 
-        this.$container.removeClass('ch-countdown-exceeded');
+        tiny.removeClass(this.container, 'ch-countdown-exceeded');
 
         return this;
     };
@@ -10070,12 +8550,10 @@ ch.factory = function (Klass, fn) {
      * countdown = undefined;
      */
     Countdown.prototype.destroy = function () {
+        var parentElement = tiny.parent(this.container);
+        parentElement.removeChild(this.container);
 
-        this.$trigger.off('.countdown');
-
-        this.$container.remove();
-
-        $(window.document).trigger(ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -10085,8 +8563,8 @@ ch.factory = function (Klass, fn) {
     // Factorize
     ch.factory(Countdown, normalizeOptions);
 
-}(this, this.ch.$, this.ch));
-(function (window, $, ch) {
+}(this, this.ch));
+(function (window, ch) {
     'use strict';
 
     /**
@@ -10095,7 +8573,7 @@ ch.factory = function (Klass, fn) {
      * @constructor
      * @augments ch.Component
      * @requires ch.Calendar
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Datepicker.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Datepicker.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. Default: "DD/MM/YYYY".
      * @param {String} [options.selected] Sets a date that should be selected by default. Default: "today".
@@ -10103,8 +8581,8 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be "YYYY/MM/DD".
      * @param {Array} [options.monthsNames] A collection of months names. Default: ["Enero", ... , "Diciembre"].
      * @param {Array} [options.weekdays] A collection of weekdays. Default: ["Dom", ... , "Sab"].
-     * @param {Boolean} [conf.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {Boolean} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
+     * @param {HTMLElement} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally.
@@ -10113,13 +8591,10 @@ ch.factory = function (Klass, fn) {
      * @returns {datepicker} Returns a new instance of Datepicker.
      * @example
      * // Create a new Datepicker.
-     * var datepicker = new ch.Datepicker($el, [options]);
-     * @example
-     * // Create a new Datepicker with jQuery or Zepto.
-     * var datepicker = $(selector).datepicker();
+     * var datepicker = new ch.Datepicker([selector], [options]);
      * @example
      * // Create a new Datepicker with custom options.
-     * var datepicker = $(selector).datepicker({
+     * var datepicker = new ch.Datepicker({
      *     "format": "MM/DD/YYYY",
      *     "selected": "2011/12/25",
      *     "from": "2010/12/25",
@@ -10128,7 +8603,7 @@ ch.factory = function (Klass, fn) {
      *     "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
      * });
      */
-    function Datepicker($el, options) {
+    function Datepicker(selector, options) {
 
         /**
          * Reference to context of an instance.
@@ -10137,7 +8612,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -10161,7 +8636,9 @@ ch.factory = function (Klass, fn) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Datepicker, ch.Component),
+    tiny.inherits(Datepicker, ch.Component);
+
+    var parent = Datepicker.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -10213,9 +8690,9 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {datepicker}
      */
-    Datepicker.prototype._init = function ($el, options) {
+    Datepicker.prototype._init = function (selector, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
         /**
          * Reference to context of an instance.
@@ -10229,29 +8706,30 @@ ch.factory = function (Klass, fn) {
          * @type {HTMLElement}
          */
         this.field = this._el;
+        this.field.insertAdjacentHTML('afterend', '<i role="button" class="ch-datepicker-trigger ch-icon-calendar"></i>');
 
         /**
          * The datepicker trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$trigger = $('<i role="button" class="ch-datepicker-trigger ch-icon-calendar"></i>').insertAfter(this.field);
+        this.trigger = tiny.next(this.field);
 
         /**
          * Reference to the Calendar component instanced.
          * @type {ch.Calendar}
          * @private
          */
-        this._calendar = $('<div>').calendar(options);
+        this._calendar = new ch.Calendar(document.createElement('div'), options);
 
         /**
          * Reference to the Popover component instanced.
          * @type {ch.Popover}
          * @private
          */
-        this._popover = this.$trigger.popover({
+        this._popover = new ch.Popover(this.trigger, {
             '_className': 'ch-datepicker ch-cone',
             '_ariaRole': 'tooltip',
-            'content': this._calendar.$container,
+            'content': this._calendar.container,
             'side': this._options.side,
             'align': this._options.align,
             'offsetX': 1,
@@ -10260,7 +8738,7 @@ ch.factory = function (Klass, fn) {
             'hiddenby': this._options.hiddenby
         });
 
-        this._popover._$content.on(ch.onpointertap, function (event) {
+        tiny.on(this._popover._content, ch.onpointertap, function (event) {
             var el = event.target;
 
             // Day selection
@@ -10619,7 +9097,7 @@ ch.factory = function (Klass, fn) {
      */
     Datepicker.prototype.destroy = function () {
 
-        this.$trigger.remove();
+        tiny.parent(this.trigger).removeChild(this.trigger);
 
         this._el.removeAttribute('aria-describedby');
         this._el.type = 'date';
@@ -10632,9 +9110,36 @@ ch.factory = function (Klass, fn) {
     // Factorize
     ch.factory(Datepicker);
 
-}(this, this.ch.$, this.ch));
-(function (window, $, ch) {
+}(this, this.ch));
+(function (window, ch) {
     'use strict';
+
+
+    function highlightSuggestion(target) {
+        var posinset;
+
+        Array.prototype.forEach.call(this._suggestionsList.childNodes, function(e) {
+            if(e.contains(target)){
+                posinset = parseInt(target.getAttribute('aria-posinset'), 10) - 1;
+            }
+        });
+
+        this._highlighted = (typeof posinset === 'number') ? posinset : null;
+
+        this._toogleHighlighted();
+
+        return this;
+    }
+
+    var specialKeyCodeMap = {
+        9: 'tab',
+        27: 'esc',
+        37: 'left',
+        39: 'right',
+        13: 'enter',
+        38: 'up',
+        40: 'down'
+    };
 
     /**
      * Autocomplete Component shows a list of suggestions for a HTMLInputElement.
@@ -10642,7 +9147,7 @@ ch.factory = function (Klass, fn) {
      * @constructor
      * @augments ch.Component
      * @requires ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Autocomplete.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Autocomplete.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.loadingClass] Default: "ch-autocomplete-loading".
      * @param {String} [options.highlightedClass] Default: "ch-autocomplete-highlighted".
@@ -10658,10 +9163,10 @@ ch.factory = function (Klass, fn) {
      * @returns {autocomplete}
      * @example
      * // Create a new AutoComplete.
-     * var autocomplete = new AutoComplete($el, [options]);
+     * var autocomplete = new AutoComplete([el], [options]);
      * @example
      * // Create a new AutoComplete with configuration.
-     * var autocomplete = new AutoComplete($el, {
+     * var autocomplete = new AutoComplete('.my-autocomplete', {
      *  'loadingClass': 'custom-loading',
      *  'highlightedClass': 'custom-highlighted',
      *  'itemClass': 'custom-item',
@@ -10675,7 +9180,7 @@ ch.factory = function (Klass, fn) {
      *  'positioned': 'fixed'
      * });
      */
-    function Autocomplete($el, options) {
+    function Autocomplete(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -10684,7 +9189,7 @@ ch.factory = function (Klass, fn) {
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -10711,7 +9216,11 @@ ch.factory = function (Klass, fn) {
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Autocomplete, ch.Component);
+    tiny.inherits(Autocomplete, ch.Component);
+
+    var parent = Autocomplete.super_.prototype,
+        // there is no mouseenter to highlight the item, so it happens when the user do mousedown
+        highlightEvent = (tiny.support.touch) ? ch.onpointerdown : 'mouseover';
 
     /**
      * The name of the component.
@@ -10751,21 +9260,17 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {autocomplete}
      */
-    Autocomplete.prototype._init = function ($el, options) {
+    Autocomplete.prototype._init = function (el, options) {
 
         /**
          * Reference to context of an instance.
          * @type {Object}
          * @private
          */
-        var that = this,
-            POINTERDOWN = 'mousedown' + '.' + this.name,
-            MOUSEENTER = 'mouseover' + '.' + this.name,
-            // there is no mouseenter to highlight the item, so it happens when the user do mousedown
-            highlightEvent = (ch.support.touch) ? POINTERDOWN : MOUSEENTER;
+        var that = this;
 
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         // creates the basic item template for this instance
         this._options._itemTemplate = this._options._itemTemplate.replace('{{itemClass}}', this._options.itemClass);
@@ -10775,17 +9280,10 @@ ch.factory = function (Klass, fn) {
             this._options._itemTemplate = this._options._itemTemplate.replace('{{suggestedData}}', '');
         }
 
-        /**
-         * The autocomplete suggestion list.
-         * @type {(jQuerySelector | ZeptoSelector)}
-         * @private
-         */
-        this._$suggestionsList = $('<ul class="ch-autocomplete-list"></ul>');
-
         // The component who shows and manage the suggestions.
-        this._popover = $.popover({
-            'reference': this._$el,
-            'content': this._$suggestionsList,
+        this._popover = new ch.Popover({
+            'reference': this._el,
+            'content': this._suggestionsList,
             'side': this._options.side,
             'align': this._options.align,
             'addClass': this._options.addClass,
@@ -10795,47 +9293,80 @@ ch.factory = function (Klass, fn) {
         });
         /**
          * The autocomplete container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          * @example
          * // Gets the autocomplete container to append or prepend content.
-         * autocomplete.$container.append('&lt;button&gt;Hide Suggestions&lt;/button&gt;');
+         * autocomplete.container.appendChild(document.createElement('div'));
          */
-        this.$container = this._popover.$container.attr('aria-hidden', 'true')
-            .on(highlightEvent, function (event) {
-                that._highlightSuggestion($(event.target));
-            })
-            .on(POINTERDOWN, function (event) {
+        this.container = this._popover.container;
 
-                // completes the value, it is a shortcut to avoid write the complete word
-                if (event.target.nodeName === 'I' && !that._options.html) {
-                    ch.util.prevent(event);
-                    that._el.value = that._suggestions[that._highlighted];
-                    that.emit('type', that._el.value);
-                    return;
-                }
+        this.container.setAttribute('aria-hidden', 'true');
 
-                if ((event.target.nodeName === 'LI' && event.target.className.indexOf(that._options.itemClass) !== -1) || (event.target.parentElement.nodeName === 'LI' && event.target.parentElement.className.indexOf(that._options.itemClass) !== -1)) {
-                    that._selectSuggestion();
-                }
-            });
+        /**
+         * The autocomplete suggestion list.
+         * @type {HTMLUListElement}
+         * @private
+         */
+        this._suggestionsList = document.createElement('ul');
+        tiny.addClass(this._suggestionsList, 'ch-autocomplete-list');
+
+        this.container.appendChild(this._suggestionsList);
+
+        /**
+         * Selects the items
+         * @memberof! ch.Autocomplete.prototype
+         * @function
+         * @private
+         * @returns {autocomplete}
+         */
+
+        this._highlightSuggestion = function (event) {
+            var target = event.target || event.srcElement,
+                item = (target.nodeName === 'LI') ? target : (target.parentNode.nodeName === 'LI') ? target.parentNode : null;
+
+            if (item !== null) {
+                highlightSuggestion.call(that, item);
+            }
+
+        };
+
+        tiny.on(this.container, highlightEvent, this._highlightSuggestion);
+
+
+        tiny.on(this.container, ch.onpointerdown, function itemEvents(event) {
+            var target = event.target || event.srcElement;
+
+            // completes the value, it is a shortcut to avoid write the complete word
+            if (target.nodeName === 'I' && !that._options.html) {
+                event.preventDefault();
+                that._el.value = that._suggestions[that._highlighted];
+                that.emit('type', that._el.value);
+                return;
+            }
+
+            if ((target.nodeName === 'LI' && target.className.indexOf(that._options.itemClass) !== -1) || (target.parentElement.nodeName === 'LI' && target.parentElement.className.indexOf(that._options.itemClass) !== -1)) {
+                that._selectSuggestion();
+            }
+        });
 
         /**
          * The autocomplete trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$trigger = this._$el
-            .attr({
-                'aria-autocomplete': 'list',
-                'aria-haspopup': 'true',
-                'aria-owns': this.$container[0].id,
-                'autocomplete': 'off'
-            })
-            .on('focus.' + this.name, function () {
-                that._turnOn();
-            })
-            .on('blur.' + this.name, function () {
-                that._turnOff();
-            });
+        this.trigger = this._el;
+
+        this.trigger.setAttribute('aria-autocomplete', 'list');
+        this.trigger.setAttribute('aria-haspopup', 'true');
+        this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
+        this.trigger.setAttribute('autocomplete', 'off');
+
+        tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); });
+        tiny.on(this.trigger, 'blur', function turnoff() {that._turn('off'); });
+
+        // Turn on when the input element is already has focus
+        if (this._el === document.activeElement && !this._enabled) {
+            this._turn('on');
+        }
 
         // The number of the selected item or null when no selected item is.
         this._highlighted = null;
@@ -10850,10 +9381,6 @@ ch.factory = function (Klass, fn) {
             this._configureShortcuts();
         }
 
-        if (this._$el.is(':focus')) {
-            this._turnOn();
-        }
-
         return this;
     };
 
@@ -10864,30 +9391,23 @@ ch.factory = function (Klass, fn) {
      * @private
      * @returns {autocomplete}
      */
-    Autocomplete.prototype._turnOn = function () {
+    Autocomplete.prototype._turn = function (turn) {
+        var that = this;
 
         if (!this._enabled) {
             return this;
         }
 
-        var that = this;
 
-        this._originalQuery = this._el.value;
-
-        this.$trigger.on(ch.onkeyinput, function () {
-
-            // .trim()
-            that._currentQuery = that._el.value.replace(/^\s+|\s+$/g, '');
-
-            if (that._currentQuery === '') {
-                return that.hide();
-            }
+        function turnOn() {
+            that._currentQuery = that._el.value.trim();
 
             // when the user writes
             window.clearTimeout(that._stopTyping);
 
             that._stopTyping = window.setTimeout(function () {
-                that.$trigger.addClass(that._options.loadingClass);
+
+                tiny.addClass(that.trigger, that._options.loadingClass);
                 /**
                  * Event emitted when the user is typing.
                  * @event ch.Autocomplete#type
@@ -10918,31 +9438,45 @@ ch.factory = function (Klass, fn) {
                  */
                 that.emit('type', that._currentQuery);
             }, that._options.keystrokesTime);
-
-        });
-
-        return this;
-
-    };
-
-    /**
-     * Turns off the ability off listen the keystrokes
-     * @memberof! ch.Autocomplete.prototype
-     * @function
-     * @private
-     * @returns {autocomplete}
-     */
-    Autocomplete.prototype._turnOff = function () {
-
-        if (!this._enabled) {
-            return this;
         }
 
-        this.hide();
+        function turnOnFallback(e) {
+            if (specialKeyCodeMap[e.which || e.keyCode]) {
+                return;
+            }
+            // When keydown is fired that.trigger still has an old value
+            setTimeout(turnOn, 1);
+        }
 
-        this.$trigger.off(ch.onkeyinput);
+        this._originalQuery = this._el.value;
+
+        // IE8 don't support the input event at all
+        // IE9 is the only browser that doesn't fire the input event when characters are removed
+        var ua = navigator.userAgent;
+        var MSIE = (/(msie|trident)/i).test(ua) ?
+            ua.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+
+        if (turn === 'on') {
+            if (!MSIE || MSIE > 9) {
+                tiny.on(this.trigger, ch.onkeyinput, turnOn);
+            } else {
+                'keydown cut paste'.split(' ').forEach(function(evtName) {
+                    tiny.on(that.trigger, evtName, turnOnFallback);
+                });
+            }
+        } else if (turn === 'off') {
+            this.hide();
+            if (!MSIE || MSIE > 9) {
+                tiny.off(this.trigger, ch.onkeyinput, turnOn);
+            } else {
+                'keydown cut paste'.split(' ').forEach(function(evtName) {
+                    tiny.off(that.trigger, evtName, turnOnFallback);
+                });
+            }
+        }
 
         return this;
+
     };
 
     /**
@@ -10981,24 +9515,6 @@ ch.factory = function (Klass, fn) {
     };
 
     /**
-     * Selects the items
-     * @memberof! ch.Autocomplete.prototype
-     * @function
-     * @private
-     * @returns {autocomplete}
-     */
-    Autocomplete.prototype._highlightSuggestion = function ($target) {
-        var $suggestion = $target.attr('aria-posinset') ? $target : $target.parents('li[aria-posinset]');
-
-        // TODO: Documentation - Number or null
-        this._highlighted = ($suggestion[0] !== undefined) ? (parseInt($suggestion.attr('aria-posinset'), 10) - 1) : null;
-
-        this._toogleHighlighted();
-
-        return this;
-    };
-
-    /**
      * It highlights the item adding the "ch-autocomplete-highlighted" class name or the class name that you configured as "highlightedClass" option.
      * @memberof! ch.Autocomplete.prototype
      * @function
@@ -11006,16 +9522,21 @@ ch.factory = function (Klass, fn) {
      * @returns {autocomplete}
      */
     Autocomplete.prototype._toogleHighlighted = function () {
+        // null is when is not a selected item but,
+        // increments 1 _highlighted because aria-posinset starts in 1 instead 0 as the collection that stores the data
+        var current = (this._highlighted === null) ? null : (this._highlighted + 1),
+            currentItem = this.container.querySelector('[aria-posinset="' + current + '"]'),
+            selectedItem = this.container.querySelector('[aria-posinset].' + this._options.highlightedClass);
 
-        var id = '#' + this.$container[0].id,
-            // null is when is not a selected item but,
-            // increments 1 _highlighted because aria-posinset starts in 1 instead 0 as the collection that stores the data
-            current = (this._highlighted === null) ? null : (this._highlighted + 1);
+        if (selectedItem !== null) {
+            // background the highlighted item
+            tiny.removeClass(selectedItem, this._options.highlightedClass);
+        }
 
-        // background the highlighted item
-        $(id + ' [aria-posinset].' + this._options.highlightedClass).removeClass(this._options.highlightedClass);
-        // highlight the selected item
-        $(id + ' [aria-posinset="' + current + '"]').addClass(this._options.highlightedClass);
+        if (currentItem !== null) {
+            // highlight the selected item
+            tiny.addClass(currentItem, this._options.highlightedClass);
+        }
 
         return this;
     };
@@ -11045,17 +9566,18 @@ ch.factory = function (Klass, fn) {
          */
         var that = this,
             items = [],
-            matchedRegExp = new RegExp('(' + this._currentQuery.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1") + ')', 'ig'),
+            matchedRegExp = new RegExp('(' + this._currentQuery.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1') + ')', 'ig'),
             totalItems = 0,
-            $items,
+            itemDOMCollection,
             itemTemplate = this._options._itemTemplate,
             suggestedItem,
             term,
             suggestionsLength = suggestions.length,
-            el;
+            el,
+            itemSelected = this.container.querySelector('.' + this._options.highlightedClass);
 
         // hide the loading feedback
-        this.$trigger.removeClass(that._options.loadingClass);
+        tiny.removeClass(this.trigger, that._options.loadingClass);
 
         // hides the suggestions list
         if (suggestionsLength === 0) {
@@ -11070,7 +9592,9 @@ ch.factory = function (Klass, fn) {
         }
 
         // remove the class from the extra added items
-        $('.' + this._options.highlightedClass, this.$container).removeClass(this._options.highlightedClass);
+        if (itemSelected !== null) {
+            tiny.removeClass(itemSelected, this._options.highlightedClass);
+        }
 
         // add each suggested item to the suggestion list
         for (suggestedItem = 0; suggestedItem < suggestionsLength; suggestedItem += 1) {
@@ -11086,18 +9610,18 @@ ch.factory = function (Klass, fn) {
             items.push(itemTemplate.replace('{{term}}', term));
         }
 
-        this._$suggestionsList[0].innerHTML = items.join('');
+        this._suggestionsList.innerHTML = items.join('');
 
-        $items = $('.' + this._options.itemClass, this.$container);
+        itemDOMCollection = this.container.querySelectorAll('.' + this._options.itemClass);
 
         // with this we set the aria-setsize value that counts the total
-        totalItems = $items.length;
+        totalItems = itemDOMCollection.length;
 
         // Reset suggestions collection.
         this._suggestions.length = 0;
 
         for (suggestedItem = 0; suggestedItem < totalItems; suggestedItem += 1) {
-            el = $items[suggestedItem];
+            el = itemDOMCollection[suggestedItem];
 
             // add the data to the suggestions collection
             that._suggestions.push(el.getAttribute('data-suggested'));
@@ -11180,9 +9704,12 @@ ch.factory = function (Klass, fn) {
      */
     Autocomplete.prototype.destroy = function () {
 
-        this.$trigger
-            .off('.' + this.name)
-            .removeAttr('autocomplete aria-autocomplete aria-haspopup aria-owns');
+        tiny.off(this.container, highlightEvent, this._highlightSuggestion);
+
+        this.trigger.removeAttribute('autocomplete');
+        this.trigger.removeAttribute('aria-autocomplete');
+        this.trigger.removeAttribute('aria-haspopup');
+        this.trigger.removeAttribute('aria-owns');
 
         this._popover.destroy();
 
@@ -11193,7 +9720,7 @@ ch.factory = function (Klass, fn) {
 
     ch.factory(Autocomplete);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
 
 (function (Autocomplete, ch) {
     'use strict';
@@ -11215,7 +9742,7 @@ ch.factory = function (Klass, fn) {
 
         // Shortcuts
         ch.shortcuts.add(ch.onkeyenter, this.uid, function (event) {
-            ch.util.prevent(event);
+            event.preventDefault();
             that._selectSuggestion();
         });
 
@@ -11225,7 +9752,7 @@ ch.factory = function (Klass, fn) {
         });
 
         ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
-            ch.util.prevent(event);
+            event.preventDefault();
 
             var value;
 

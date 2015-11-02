@@ -1,5 +1,9 @@
-    // Remove the no-js classname from html tag
-    $html.removeClass('no-js');
+// Remove the no-js classname from html tag
+tiny.removeClass(document.documentElement, 'no-js');
 
-    // Exposse private $ (jQuery) into ch.$
-    ch.$ = window.$;
+// Expose event names
+for (var m in tiny) {
+    if (/^on\w+/.test(m) && typeof tiny[m] === 'string') {
+        ch[m] = tiny[m];
+    }
+}

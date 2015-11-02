@@ -35,29 +35,29 @@ a.ch-btn-large:focus {
 .lt-ie10 .ch-btn,
 .lt-ie10 .ch-btn:focus,
 .lt-ie10 .ch-btn:visited {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$btn-ie-filter-start-bg-color}', endColorstr='#{$btn-ie-filter-end-bg-color}');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($btn-ie-filter-start-bg-color)}', endColorstr='#{ie-hex-str($btn-ie-filter-end-bg-color)}');
 }
 
 .lt-ie10 .ch-btn-skin,
 .lt-ie10 .ch-btn-skin:focus,
 .lt-ie10 .ch-btn-skin:visited {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$btn-skin-ie-filter-start-bg-color}', endColorstr='#{$btn-skin-ie-filter-end-bg-color}');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($btn-skin-ie-filter-start-bg-color)}', endColorstr='#{ie-hex-str($btn-skin-ie-filter-end-bg-color)}');
 }
 
 .lt-ie10 .ch-btn:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$btn-hover-ie-filter-start-bg-color}', endColorstr='#{$btn-hover-ie-filter-end-bg-color}');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($btn-hover-ie-filter-start-bg-color)}', endColorstr='#{ie-hex-str($btn-hover-ie-filter-end-bg-color)}');
 }
 
 .lt-ie10 .ch-btn-skin:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$btn-skin-hover-ie-filter-start-bg-color}', endColorstr='#{$btn-skin-hover-ie-filter-end-bg-color}');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($btn-skin-hover-ie-filter-start-bg-color)}', endColorstr='#{ie-hex-str($btn-skin-hover-ie-filter-end-bg-color)}');
 }
 
 .lt-ie10 .ch-btn:active {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$btn-active-ie-filter-start-bg-color}', endColorstr='#{$btn-active-ie-filter-end-bg-color}');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($btn-active-ie-filter-start-bg-color)}', endColorstr='#{ie-hex-str($btn-active-ie-filter-end-bg-color)}');
 }
 
 .lt-ie10 .ch-btn-skin:active {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$btn-skin-active-ie-filter-start-bg-color}', endColorstr='#{$btn-skin-active-ie-filter-end-bg-color}');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($btn-skin-active-ie-filter-start-bg-color)}', endColorstr='#{ie-hex-str($btn-skin-active-ie-filter-end-bg-color)}');
 }
 
 .lt-ie10 .ch-btn.ch-btn-disabled,
@@ -70,7 +70,7 @@ a.ch-btn-large:focus {
 .lt-ie10 [class*="ch-btn"][disabled]:active,
 .lt-ie10 [class*="ch-btn"][disabled]:focus {
     filter: alpha(opacity=$btn-skin-disabled-ie-opacity);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$btn-skin-disabled-ie-filter-start-bg-color}', endColorstr='#{$btn-skin-disabled-ie-filter-end-bg-color}');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($btn-skin-disabled-ie-filter-start-bg-color)}', endColorstr='#{ie-hex-str($btn-skin-disabled-ie-filter-end-bg-color)}');
 }
 
 .ie8 [class*="ch-btn"]:focus,

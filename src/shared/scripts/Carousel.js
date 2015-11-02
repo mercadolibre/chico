@@ -1,11 +1,11 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
      * A large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
      * @memberof ch
      * @constructor
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Carousel.
      * @param {Object} [options] Options to customize an instance.
      * @param {Number} [options.async] Defines the number of future asynchronous items to add to the component. Default: 0.
      * @param {Boolean} [options.arrows] Defines if the arrow-buttons must be created or not at initialization. Default: true.
@@ -15,27 +15,24 @@
      * @returns {carousel} Returns a new instance of Carousel.
      * @example
      * // Create a new carousel.
-     * var carousel = new ch.Carousel($el, [options]);
-     * @example
-     * // Create a new Carousel with jQuery or Zepto.
-     * var carousel = $(selector).carousel([options]);
+     * var carousel = new ch.Carousel(el, [options]);
      * @example
      * // Create a new Carousel with disabled effects.
-     * var carousel = $(selector).carousel({
+     * var carousel = new ch.Carousel(el, {
      *     'fx': false
      * });
      * @example
      * // Create a new Carousel with items asynchronously loaded.
-     * var carousel = $(selector).carousel({
+     * var carousel = new ch.Carousel(el, {
      *     'async': 10
-     * }).on('itemsadd', function ($items) {
+     * }).on('itemsadd', function (collection) {
      *     // Inject content into the added <li> elements
-     *     $.each($items, function (i, e) {
+     *     $.each(collection, function (i, e) {
      *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
      *     });
      * });
      */
-    function Carousel($el, options) {
+    function Carousel(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -43,7 +40,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -66,19 +63,49 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var pointertap = ch.onpointertap + '.carousel',
+    // Inheritance
+    tiny.inherits(Carousel, ch.Component);
+
+    var pointertap = ch.onpointertap,
         Math = window.Math,
         setTimeout = window.setTimeout,
-        // Inheritance
-        parent = ch.util.inherits(Carousel, ch.Component);
+        parent = Carousel.super_.prototype;
+
+    /**
+     * Reference to the vendor prefix of the current browser.
+     *
+     * @private
+     * @constant
+     * @type {String}
+     * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
+     * @example
+     * VENDOR_PREFIX === 'webkit';
+     */
+    var VENDOR_PREFIX = (function () {
+
+        var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
+            styleDeclaration = document.getElementsByTagName('script')[0].style,
+            prop;
+
+        for (prop in styleDeclaration) {
+            if (regex.test(prop)) {
+                return prop.match(regex)[0].toLowerCase();
+            }
+        }
+
+        // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+        // However (prop in style) returns the correct value, so we'll have to test for
+        // the precence of a specific property
+        if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
+        if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
+
+        return '';
+    }());
 
     /**
      * The name of the component.
      * @memberof! ch.Carousel.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var carousel = $(selector).data('carousel');
      */
     Carousel.prototype.name = 'carousel';
 
@@ -109,9 +136,9 @@
      * @private
      * @returns {carousel}
      */
-    Carousel.prototype._init = function ($el, options) {
+    Carousel.prototype._init = function (el, options) {
         // Call to its parents init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -131,44 +158,60 @@
         /**
          * Element that moves (slides) across the component (inside the mask).
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this._$list = this._$el.addClass('ch-carousel').children().addClass('ch-carousel-list');
+        this._list = this._el.children[0];
+
+        tiny.addClass(this._el, 'ch-carousel');
+        tiny.addClass(this._list, 'ch-carousel-list');
 
         /**
          * Collection of each child of the slider list.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLCollection}
          */
-        this._$items = this._$list.children().addClass('ch-carousel-item');
+        this._items = (function () {
+            var collection = that._list.querySelectorAll('li');
+
+            Array.prototype.forEach.call(collection, function (item) {
+                tiny.addClass(item, 'ch-carousel-item');
+            });
+
+            return collection;
+        }());
 
         /**
          * Element that wraps the list and denies its overflow.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$mask = $('<div class="ch-carousel-mask" role="tabpanel">').html(this._$list).appendTo(this._$el);
+        this._mask = document.createElement('div');
+        this._mask.setAttribute('role', 'tabpanel');
+        this._mask.setAttribute('class','ch-carousel-mask');
+        this._mask.appendChild(this._list);
+
+        this._el.appendChild(this._mask);
 
         /**
          * Size of the mask (width). Updated in each refresh.
          * @private
          * @type {Number}
          */
-        this._maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
+        this._maskWidth = this._getOuterDimensions(this._mask).width;
 
         /**
          * The width of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
          * @type {Number}
          */
-        this._itemWidth = this._$items.width();
+        this._itemWidth = this._getOuterDimensions(this._items[0]).width;
 
         /**
          * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
          * @private
          * @type {Number}
          */
-        this._itemOuterWidth = ch.util.getOuterDimensions(this._$items[0]).width;
+        this._itemOuterWidth = parseInt(tiny.css(this._items[0], 'width'));
 
         /**
          * The size added to each item to make it elastic/responsive.
@@ -182,7 +225,7 @@
          * @private
          * @type {Number}
          */
-        this._itemHeight = this._$items.height();
+        this._itemHeight = this._getOuterDimensions(this._items[0]).height;
 
         /**
          * The margin of all items. Updated in each refresh only if it's necessary.
@@ -243,39 +286,51 @@
         /**
          * UI element of arrow that moves the Carousel to the previous page.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$prevArrow = $('<div class="ch-carousel-prev ch-carousel-disabled" role="button" aria-hidden="true">')
-            .on(pointertap, function () { that.prev(); });
+        this._prevArrow = document.createElement('div');
+        this._prevArrow.setAttribute('role', 'button');
+        this._prevArrow.setAttribute('aria-hidden', 'true');
+        this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
+        tiny.on(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
         /**
          * UI element of arrow that moves the Carousel to the next page.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        that._$nextArrow = $('<div class="ch-carousel-next" role="button" aria-hidden="false">')
-            .on(pointertap, function () { that.next(); });
+        this._nextArrow = document.createElement('div');
+        this._nextArrow.setAttribute('role', 'button');
+        this._nextArrow.setAttribute('aria-hidden', 'true');
+        this._nextArrow.setAttribute('class', 'ch-carousel-next');
+        tiny.on(this._nextArrow, pointertap, function () { that.next(); }, false);
 
         /**
          * UI element that contains all the thumbnails for pagination.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$pagination = $('<div class="ch-carousel-pages" role="navigation">').on(pointertap, function (event) {
+        this._pagination = document.createElement('div');
+        this._pagination.setAttribute('role', 'navigation');
+        this._pagination.setAttribute('class', 'ch-carousel-pages');
+
+        tiny.on(this._pagination, pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
-            if (page !== null) { that.select(window.parseInt(page, 10)); }
-        });
+            if (page !== null) { that.select(window.parseInt(page, 10)); }
+        }, false);
 
         // Refresh calculation when the viewport resizes
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
-        if (!this._options.fx) { this._$list.addClass('ch-carousel-nofx'); }
+        if (!this._options.fx) { tiny.addClass(this._list, 'ch-carousel-nofx'); }
 
         // Position absolutelly the list when CSS transitions aren't supported
-        if (!ch.support.transition) { this._$list.css({'position': 'absolute', 'left': '0'}); }
+        if (!tiny.support.transition) {
+            this._list.style.cssText += 'position:absolute;left:0;';
+        }
 
         // If there is a parameter specifying a pagination, add it
         if (this._options.pagination) { this._addPagination(); }
@@ -309,12 +364,12 @@
          */
         var that = this,
             // Amount of items when ARIA is updated
-            total = this._$items.length + this._async,
+            total = this._items.length + this._async,
             // Page where each item is in
             page;
 
         // Update WAI-ARIA properties on all items
-        $.each(this._$items, function (i, item) {
+        Array.prototype.forEach.call(this._items, function (item, i) {
             // Update page where this item is in
             page = Math.floor(i / that._limitPerPage) + 1;
             // Update ARIA attributes
@@ -323,6 +378,7 @@
             item.setAttribute('aria-posinset', (i + 1));
             item.setAttribute('aria-label', 'page' + page);
         });
+
     };
 
     /**
@@ -339,7 +395,7 @@
         // Amount of items from the beginning to current page
         var total = this._currentPage * this._limitPerPage,
             // How many items needs to add to items rendered to complete to this page
-            amount = total - this._$items.length,
+            amount = total - this._items.length,
             // The new width calculated from current width plus extraWidth
             width = (this._itemWidth + this._itemExtraWidth),
             // Get the height using new width and relation between width and height of item (ratio)
@@ -353,8 +409,8 @@
             ].join(''),
             // It stores <LI> that will be added to the DOM collection
             items = '',
-            // Wrapped items
-            $items;
+            // It stores the items that must be added, it helps to slice the items in the list
+            counter = 0;
 
         // Load only when there are items to add
         if (amount < 1) { return; }
@@ -366,16 +422,15 @@
         while (amount) {
             items += item;
             amount -= 1;
+            counter += 1;
         }
 
-        // Wrap the string elements into jQuery/Zepto
-        $items = $(items);
-
         // Add sample items to the list
-        this._$list.append($items);
+        this._list.insertAdjacentHTML('beforeend', items);
 
         // Update items collection
-        this._$items = this._$list.children();
+        // uses querySelectorAll because it need a static collection
+        this._items = this._list.querySelectorAll('li');
 
         // Set WAI-ARIA properties to each item
         this._updateARIA();
@@ -388,16 +443,16 @@
          * @event ch.Carousel#itemsadd
          * @example
          * // Create a new Carousel with items asynchronously loaded.
-         * var carousel = $(selector).carousel({
+         * var carousel = new ch.Carousel({
          *     'async': 10
-         * }).on('itemsadd', function ($items) {
+         * }).on('itemsadd', function (collection) {
          *     // Inject content into the added <li> elements
-         *     $.each($items, function (i, e) {
+         *     $.each(collection, function (i, e) {
          *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
          *     });
          * });
          */
-        this.emit('itemsadd', $items);
+        this.emit('itemsadd', Array.prototype.slice.call(this._items, -counter));
     };
 
     /**
@@ -441,10 +496,12 @@
         }
 
         // Append thumbnails to pagination and append this to Carousel
-        that._$pagination.html(thumbs.join('')).appendTo(that._$el);
+        that._pagination.innerHTML = thumbs.join('');
+        that._el.appendChild(that._pagination);
 
         // Avoid selection on the pagination
-        ch.util.avoidTextSelection(that._$pagination);
+        that._pagination.setAttribute('unselectable', 'on');
+        tiny.addClass(that._pagination, 'ch-user-no-select');
 
         // Check pagination as created
         that._paginationCreated = true;
@@ -460,7 +517,7 @@
         // Avoid to change something that not exists
         if (!this._paginationCreated) { return; }
         // Delete thumbnails
-        this._$pagination[0].innerHTML = '';
+        this._pagination.innerHTML = '';
         // Check pagination as deleted
         this._paginationCreated = false;
     };
@@ -481,14 +538,14 @@
         var that = this;
 
         // Do it if is required
-        if (this._options.fx) {
+        if (this._options.fx && tiny.support.transition) {
             // Delete efects on list to make changes instantly
-            this._$list.addClass('ch-carousel-nofx');
+            tiny.addClass(this._list, 'ch-carousel-nofx');
             // Execute the custom method
             callback.call(this);
             // Restore efects to list
             // Use a setTimeout to be sure to do this AFTER changes
-            setTimeout(function () { that._$list.removeClass('ch-carousel-nofx'); }, 0);
+            setTimeout(function () { tiny.removeClass(that._list, 'ch-carousel-nofx'); }, 0);
         // Avoid to add/remove classes if it hasn't effects
         } else {
             callback.call(this);
@@ -504,7 +561,7 @@
     Carousel.prototype._updatePages = function () {
         // Update the amount of total pages
         // The ratio between total amount of items and items in each page
-        this._pages = Math.ceil((this._$items.length + this._async) / this._limitPerPage);
+        this._pages = Math.ceil((this._items.length + this._async) / this._limitPerPage);
         // Add items to the list, if it's necessary
         this._loadAsyncItems();
         // Set WAI-ARIA properties to each item
@@ -567,7 +624,9 @@
             // Amount of spaces to distribute the free space
             spaces,
             // The new width calculated from current width plus extraWidth
-            width;
+            width,
+            // Styles to update the item element width, height & margin-right
+            cssItemText;
 
         // Update ONLY IF margin changed from last refresh
         // If *new* and *old* extra width are 0, continue too
@@ -596,19 +655,23 @@
         // Do it before item resizing to make space to all items
         // Delete efects on list to change width instantly
         this._standbyFX(function () {
-            this._$list.css('width', this._pageWidth * this._pages);
+            this._list.style.cssText = this._list.style.cssText + '; ' + 'width:' + (this._pageWidth * this._pages) + 'px;';
         });
 
-        // Update element styles
         // Get the height using new width and relation between width and height of item (ratio)
-        this._$items.css({
-            'width': width,
-            'height': ((width * this._itemHeight) / this._itemWidth).toFixed(3),
-            'margin-right': this._itemMargin
+        cssItemText = [
+            'width:' + width + 'px;',
+            'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(3) + 'px;',
+            'margin-right:' + this._itemMargin + 'px;'
+        ].join('');
+
+        // Update element styles
+        Array.prototype.forEach.call(this._items, function (item){
+            item.setAttribute('style', cssItemText);
         });
 
         // Update the mask height with the list height
-        this._$mask[0].style.height = ch.util.getOuterDimensions(this._$items[0]).height + 'px';
+        this._mask.style.height = this._getOuterDimensions(this._list).height + 'px';
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -624,9 +687,14 @@
      */
     Carousel.prototype._addArrows = function () {
         // Avoid selection on the arrows
-        ch.util.avoidTextSelection(this._$prevArrow, this._$nextArrow);
+        [this._prevArrow, this._nextArrow].forEach(function(el){
+            el.setAttribute('unselectable', 'on');
+            tiny.addClass(el, 'ch-user-no-select');
+        });
+
         // Add arrows to DOM
-        this._$el.prepend(this._$prevArrow).append(this._$nextArrow);
+        this._el.insertBefore(this._prevArrow, this._el.children[0]);
+        this._el.appendChild(this._nextArrow);
         // Check arrows as created
         this._arrowsCreated = true;
     };
@@ -640,8 +708,13 @@
      * @param {Boolean} next Defines if the "next" arrow must be disabled or not.
      */
     Carousel.prototype._disableArrows = function (prev, next) {
-        this._$prevArrow.attr('aria-disabled', prev)[prev ? 'addClass' : 'removeClass']('ch-carousel-disabled');
-        this._$nextArrow.attr('aria-disabled', next)[next ? 'addClass' : 'removeClass']('ch-carousel-disabled');
+        this._prevArrow.setAttribute('aria-disabled', prev);
+        this._prevArrow.setAttribute('aria-hidden', prev);
+        tiny[prev ? 'addClass' : 'removeClass'](this._prevArrow, 'ch-carousel-disabled');
+
+        this._nextArrow.setAttribute('aria-disabled', next);
+        this._nextArrow.setAttribute('aria-hidden', next);
+        tiny[next ? 'addClass' : 'removeClass'](this._nextArrow, 'ch-carousel-disabled');
     };
 
     /**
@@ -679,19 +752,23 @@
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + ch.util.VENDOR_PREFIX + '-transform';
+        var vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
-        if (ch.support.transition) {
+        if (tiny.support.transition) {
             return function (displacement) {
-                this._$list.css(transform, 'translateX(' + displacement + 'px)');
+                // Firefox has only "transform", Safari only "webkitTransform",
+                // Chrome has support for both. Applied required minimum
+                if (vendorTransformKey) {
+                    this._list.style[vendorTransformKey] = 'translateX(' + displacement + 'px)';
+                }
+                this._list.style.transform = 'translateX(' + displacement + 'px)';
             };
         }
 
-        // Use JS to move
-        // Ask for fx INTO the method because the "fx" is an instance property
+        // Use left position to move
         return function (displacement) {
-            this._$list[(this._options.fx) ? 'animate' : 'css']({'left': displacement});
+            this._list.style.left = displacement + 'px';
         };
     }());
 
@@ -707,11 +784,33 @@
         // Avoid to change something that not exists
         if (!this._paginationCreated) { return; }
         // Get all thumbnails of pagination element
-        var children = this._$pagination.children();
+        var children = this._pagination.children,
+            fromItem = children[from - 1],
+            toItem = children[to - 1];
+
         // Unselect the thumbnail previously selected
-        children.eq(from - 1).attr('aria-selected', false).removeClass('ch-carousel-selected');
+        fromItem.setAttribute('aria-selected', false);
+        tiny.removeClass(fromItem, 'ch-carousel-selected');
+
         // Select the new thumbnail
-        children.eq(to - 1).attr('aria-selected', true).addClass('ch-carousel-selected');
+        toItem.setAttribute('aria-selected', true);
+        tiny.addClass(toItem, 'ch-carousel-selected');
+    };
+
+    /**
+     * Get the current outer dimensions of an element.
+     *
+     * @memberof ch.Carousel.prototype
+     * @param {HTMLElement} el A given HTMLElement.
+     * @returns {Object}
+     */
+    Carousel.prototype._getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        };
     };
 
     /**
@@ -723,7 +822,7 @@
     Carousel.prototype.refresh = function () {
 
         var that = this,
-            maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
+            maskWidth = this._getOuterDimensions(this._mask).width;
 
         // Check for changes on the width of mask, for the elastic carousel
         // Update the width of the mask
@@ -749,9 +848,10 @@
 
         // Check for a change in the total amount of items
         // Update items collection
-        if (this._$list.children().length !== this._$items.length) {
+        if (this._list.children.length !== this._items.length) {
             // Update the entire reference to items
-            this._$items = this._$list.children();
+            // uses querySelectorAll because it need a static collection
+            this._items = this._list.querySelectorAll('li');
             // Calculates the total amount of pages and executes internal methods
             this._updatePages();
             // Go to the last page in case that the current page no longer exists
@@ -907,7 +1007,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -916,4 +1016,4 @@
 
     ch.factory(Carousel);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

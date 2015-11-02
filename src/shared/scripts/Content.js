@@ -1,4 +1,4 @@
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -19,7 +19,6 @@
                 'method': this._options.method,
                 'params': this._options.params,
                 'cache': this._options.cache,
-                'async': this._options.async,
                 'waiting': this._options.waiting
             };
 
@@ -29,7 +28,7 @@
          */
         function setAsyncContent(event) {
 
-            that._$content.html(event.response);
+            that._content.innerHTML = event.response;
 
             /**
              * Event emitted when the content change.
@@ -73,7 +72,13 @@
          */
         function setContent(content) {
 
-            that._$content.html(content);
+            if (content.nodeType !== undefined) {
+                that._content.innerHTML = '';
+                that._content.appendChild(content);
+            } else {
+                that._content.innerHTML = content;
+            }
+
 
             that._options.cache = true;
 
@@ -101,17 +106,13 @@
          * @private
          */
         function getAsyncContent(url, options) {
+            var requestCfg;
             // Initial options to be merged with the user's options
-            options = $.extend({
+            options = tiny.extend({
                 'method': 'GET',
                 'params': '',
-                'async': true,
                 'waiting': '<div class="ch-loading-large"></div>'
-            }, options || defaults);
-
-            if (options.cache !== undefined) {
-                that._options.cache = options.cache;
-            }
+            }, defaults, options);
 
             // Set loading
             setAsyncContent({
@@ -119,52 +120,53 @@
                 'response': options.waiting
             });
 
-            // Make async request
-            $.ajax({
-                'url': url,
-                'type': options.method,
-                'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
-                'cache': that._options.cache,
-                'async': options.async,
-                'beforeSend': function (jqXHR) {
-                    // Set the AJAX default HTTP headers
-                    jqXHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                },
-                'success': function (data) {
-                    // Send the result data to the client
+            requestCfg = {
+                method: options.method,
+                success: function(resp) {
                     setAsyncContent({
                         'status': 'done',
-                        'response': data
+                        'response': resp
                     });
                 },
-                'error': function (jqXHR, textStatus, errorThrown) {
-                    // Send a defined error message
+                error: function(err) {
                     setAsyncContent({
                         'status': 'error',
                         'response': '<p>Error on ajax call.</p>',
-
-                         // Grab all the parameters into a JSON to send to the client
-                        'data': {
-                            'jqXHR': jqXHR,
-                            'textStatus': textStatus,
-                            'errorThrown': errorThrown
-                        }
+                        'data': err.message || JSON.stringify(err)
                     });
                 }
-            });
+            };
+
+            if (options.cache !== undefined) {
+                that._options.cache = options.cache;
+            }
+
+            if (options.cache === false && ['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
+                requestCfg.cache = false;
+            }
+
+            if (options.params) {
+                if (['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
+                    url += (url.indexOf('?') !== -1 || options.params[0] === '?' ? '' : '?') + options.params;
+                } else {
+                    requestCfg.data = options.params;
+                }
+            }
+
+            // Make a request
+            tiny.ajax(url, requestCfg);
         }
 
         /**
          * Allows to manage the components content.
          * @function
          * @memberof! ch.Content#
-         * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a component.
+         * @param {(String | HTMLElement)} content The content that will be used by a component.
          * @param {Object} [options] A custom options to be used with content loaded by ajax.
          * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
          * @param {String} [options.params] Params like query string to be sent to the server.
-         * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
-         * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-         * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+         * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true. false value will work only with HEAD and GET requests
+         * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
          * @example
          * // Update content with some string.
          * component.content('Some new content here!');
@@ -176,10 +178,11 @@
          * });
          */
         this.content = function (content, options) {
+            var parent;
 
             // Returns the last updated content.
             if (content === undefined) {
-                return that._$content.html();
+                return that._content.innerHTML;
             }
 
             that._options.content = content;
@@ -190,15 +193,24 @@
 
             if (typeof content === 'string') {
                 // Case 1: AJAX call
-                if (ch.util.isUrl(content)) {
-                    getAsyncContent(content, options);
+                if ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(content)) {
+                    getAsyncContent(content.replace(/#.+/, ''), options);
                 // Case 2: Plain text
                 } else {
                     setContent(content);
                 }
-            // Case 3: jQuery/Zepto/HTML Element
-            } else if (ch.util.is$(content) || content.nodeType !== undefined) {
-                setContent($(content).remove(null, true).removeClass('ch-hide'));
+            // Case 3: HTML Element
+            } else if (content.nodeType !== undefined) {
+
+                tiny.removeClass(content, 'ch-hide');
+                parent = tiny.parent(content);
+
+                setContent(content);
+
+                if (!that._options.cache) {
+                    parent.removeChild(content);
+                }
+
             }
 
             return that;
@@ -219,4 +231,4 @@
 
     ch.Content = Content;
 
-}(this.ch.$, this.ch));
+}(this.ch));

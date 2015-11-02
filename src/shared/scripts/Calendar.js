@@ -1,8 +1,8 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     function normalizeOptions(options) {
-        if (typeof options === 'string' || ch.util.isArray(options)) {
+        if (typeof options === 'string' || Array.isArray(options)) {
             options = {
                 'selected': options
             };
@@ -15,7 +15,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Component
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Calendar.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Calendar.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. You must use "DD/MM/YYYY", "MM/DD/YYYY" or "YYYY/MM/DD". Default: "DD/MM/YYYY".
      * @param {String} [options.selected] Sets a date that should be selected by default. Default: The date of today.
@@ -26,13 +26,10 @@
      * @returns {calendar} Returns a new instance of Calendar.
      * @example
      * // Create a new Calendar.
-     * var calendar = new ch.Calendar($el, [options]);
-     * @example
-     * // Create a new Calendar with jQuery or Zepto.
-     * var calendar = $(selector).calendar();
+     * var calendar = new ch.Calendar([el], [options]);
      * @example
      * // Creates a new Calendar with custom options.
-     * var calendar =  $(selector).calendar({
+     * var calendar =  new ch.Calendar({
      *     'format': 'MM/DD/YYYY',
      *     'selected': '2011/12/25',
      *     'from': '2010/12/25',
@@ -42,9 +39,9 @@
      * });
      * @example
      * // Creates a new Calendar using a shorthand way (selected date as parameter).
-     * var calendar = $(selector).calendar('2011/12/25');
+     * var calendar = new ch.Calendar('2011/12/25');
      */
-    function Calendar($el, options) {
+    function Calendar(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -52,7 +49,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -74,6 +71,9 @@
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
+
+    // Inheritance
+    tiny.inherits(Calendar, ch.Component);
 
     /**
      * Completes with zero the numbers less than 10.
@@ -178,36 +178,12 @@
             };
         },
 
-        /**
-         * Templates of arrows to move around months.
-         * @type {Object}
-         * @private
-         */
-        arrows = {
-
-            /**
-             * Template of previous arrow.
-             * @type {String}
-             */
-            'prev': '<div class="ch-calendar-prev" role="button" aria-hidden="false"></div>',
-
-            /**
-             * Template of next arrow.
-             * @type {String}
-             */
-            'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
-        },
-
-        // Inheritance
-        parent = ch.util.inherits(Calendar, ch.Component);
+        parent = Calendar.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Calendar.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var calendar = $(selector).data('calendar');
      */
     Calendar.prototype.name = 'calendar';
 
@@ -236,9 +212,9 @@
      * @private
      * @returns {calendar}
      */
-    Calendar.prototype._init = function ($el, options) {
+    Calendar.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -277,7 +253,7 @@
             if (!selected) { return selected; }
 
             // Simple date selection
-            if (!ch.util.isArray(selected)) {
+            if (!Array.isArray(selected)) {
 
                 if (selected !== 'today') {
                     // Return date object and update currentDate
@@ -289,9 +265,9 @@
 
             // Multiple date selection
             } else {
-                $.each(selected, function (i, e) {
+                selected.forEach(function (e, i){
                     // Simple date
-                    if (!ch.util.isArray(e)) {
+                    if (!Array.isArray(e)) {
                         selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
                     // Range
                     } else {
@@ -329,24 +305,52 @@
 
         }());
 
+        /**
+         * Template of previous arrow.
+         * @type {HTMLDivElement}
+         */
+        this._prev = document.createElement('div');
+        this._prev.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
+        this._prev.setAttribute('role', 'button');
+        this._prev.setAttribute('aria-hidden', 'false');
+        tiny.addClass(this._prev, 'ch-calendar-prev');
+
+        /**
+         * Template of next arrow.
+         * @type {HTMLDivElement}
+         */
+        this._next = document.createElement('div');
+        this._next.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
+        this._next.setAttribute('role', 'button');
+        this._next.setAttribute('aria-hidden', 'false');
+        tiny.addClass(this._next, 'ch-calendar-next');
+
+
         // Show or hide arrows depending on "from" and "to" limits
-        this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        tiny.on(this._prev, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.prevMonth();
+        });
+        tiny.on(this._next, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.nextMonth();
+        });
 
         /**
          * The calendar container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$container = this._$el
-            .addClass('ch-calendar')
-            .prepend(this._$prev)
-            .prepend(this._$next)
-            .append(this._createTemplate(this._dates.current));
+        this.container = this._el;
+        this.container.insertBefore(this._prev, this.container.firstChild);
+        this.container.insertBefore(this._next, this.container.firstChild);
+        tiny.addClass(this.container, 'ch-calendar');
+        this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         this._updateControls();
 
         // Avoid selection on the component
-        ch.util.avoidTextSelection(that.$container);
+        that.container.setAttribute('unselectable', 'on');
+        tiny.addClass(that.container, 'ch-user-no-select');
 
         return this;
     };
@@ -378,20 +382,24 @@
 
         // Show previous arrow when it's out of limit
         if (this._hasPrevMonth()) {
-            this._$prev.removeClass('ch-hide').attr('aria-hidden', 'false');
+            tiny.removeClass(this._prev, 'ch-hide');
+            this._prev.setAttribute('aria-hidden', 'false');
 
         // Hide previous arrow when it's out of limit
         } else {
-            this._$prev.addClass('ch-hide').attr('aria-hidden', 'true');
+            tiny.addClass(this._prev, 'ch-hide');
+            this._prev.setAttribute('aria-hidden', 'true');
         }
 
         // Show next arrow when it's out of limit
         if (this._hasNextMonth()) {
-            this._$next.removeClass('ch-hide').attr('aria-hidden', 'false');
+            tiny.removeClass(this._next, 'ch-hide');
+            this._next.setAttribute('aria-hidden', 'false');
 
         // Hide next arrow when it's out of limit
         } else {
-            this._$next.addClass('ch-hide').attr('aria-hidden', 'true');
+            tiny.addClass(this._next, 'ch-hide');
+            this._next.setAttribute('aria-hidden', 'true');
         }
 
         return this;
@@ -403,14 +411,17 @@
      * @private
      */
     Calendar.prototype._updateTemplate = function (date) {
+        var month;
+
         // Update "currentDate" object
         this._dates.current = (typeof date === 'string') ? createDateObject(date) : date;
 
         // Delete old table
-        this.$container.children('table').remove();
+        month = this.container.querySelector('table');
+        this.container.removeChild(month);
 
         // Append new table to content
-        this.$container.append(this._createTemplate(this._dates.current));
+        this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
 
         // Refresh arrows
         this._updateControls();
@@ -579,7 +590,7 @@
         yepnope = false;
 
         // Simple selection
-        if (!ch.util.isArray(this._dates.selected)) {
+        if (!Array.isArray(this._dates.selected)) {
             if (year === this._dates.selected.year && month === this._dates.selected.month && day === this._dates.selected.day) {
                 yepnope = true;
                 return yepnope;
@@ -587,9 +598,9 @@
 
         // Multiple selection (ranges)
         } else {
-            $.each(this._dates.selected, function (i, e) {
+            this._dates.selected.forEach(function (e) {
                 // Simple date
-                if (!ch.util.isArray(e)) {
+                if (!Array.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {
                         yepnope = true;
                         return yepnope;
@@ -683,7 +694,7 @@
      * calendar.nextMonth();
      */
     Calendar.prototype.nextMonth = function () {
-        if (!this._enabled || !this._hasNextMonth()) {
+        if (!this._enabled || !this._hasNextMonth()) {
             return this;
         }
 
@@ -721,7 +732,7 @@
      */
     Calendar.prototype.prevMonth = function () {
 
-        if (!this._enabled || !this._hasPrevMonth()) {
+        if (!this._enabled || !this._hasPrevMonth()) {
             return this;
         }
 
@@ -759,7 +770,7 @@
      */
     Calendar.prototype.nextYear = function () {
 
-        if (!this._enabled || !this._hasNextMonth()) {
+        if (!this._enabled || !this._hasNextMonth()) {
             return this;
         }
 
@@ -791,7 +802,7 @@
      */
     Calendar.prototype.prevYear = function () {
 
-        if (!this._enabled || !this._hasPrevMonth()) {
+        if (!this._enabled || !this._hasPrevMonth()) {
             return this;
         }
 
@@ -862,7 +873,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -872,4 +883,4 @@
     // Factorize
     ch.factory(Calendar, normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

@@ -5,6 +5,11 @@
 
 .ch-popover {
     box-shadow: $popover-box-shadow;
+    z-index: 1000;
+
+    .ch-underlay + & {
+        z-index: 1050;
+    }
 }
 
 .ch-shownby-pointertap {
@@ -32,6 +37,7 @@
     height: 0;
     width: 0;
     position: absolute;
+    -ms-touch-action: none;
     pointer-events: none;
     display: block;
 }
@@ -210,3 +216,20 @@
     top: 50%;
 }
 
+/* Transitions */
+.ch-popover {
+    &.ch-hide.ch-fx {
+        visibility: hidden;
+        opacity: 0;
+    }
+    &.ch-fx.ch-fx-fadeIn {
+        visibility: visible;
+        opacity: 1;
+        @include transition(opacity .3s ease-out);
+    }
+    &.ch-fx.ch-fx-fadeOut {
+        visibility: hidden;
+        opacity: 0;
+        @include transition(opacity .3s ease-out, visibility 0s linear .3s);
+    }
+}

@@ -1,0 +1,17 @@
+.ch-datepicker {
+    background-color: #fff;
+}
+.ch-datepicker-trigger {
+    margin-top: -43px;
+    margin-right: 0px;
+    float: right;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    vertical-align: bottom;
+}
+
+.ch-datepicker-trigger:before {
+    margin-top: 12px;
+}

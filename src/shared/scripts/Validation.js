@@ -9,13 +9,13 @@
      * @requires ch.Condition
      * @requires ch.Form
      * @requires ch.Bubble
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Validation.
      * @param {Object} [options] Options to customize an instance.
      * @param {Array} [options.conditions] A collection of conditions to validate.
      * @param {String} [options.conditions.name] The name of the condition.
      * @param {String} [options.conditions.message] The given error message to the condition.
      * @param {String} [options.conditions.fn] The method to validate a given condition.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 10.
@@ -24,13 +24,10 @@
      * @returns {validation} Returns a new instance of Validation.
      * @example
      * // Create a new Validation.
-     * var validation = new ch.Validation($el, [options]);
-     * @example
-     * // Create a new Validation with jQuery or Zepto.
-     * var validation = $(selector).validation([options]);
+     * var validation = new ch.Validation(document.querySelector('.name-field'), [options]);
      * @example
      * // Create a validation with with custom options.
-     * var validation = $(selector).validation({
+     * var validation = new ch.Validation({
      *     'conditions': [
      *         {
      *             'name': 'required',
@@ -48,7 +45,7 @@
      *     'align': 'left'
      * });
      */
-    function Validation($el, options) {
+    function Validation(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -57,7 +54,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -81,7 +78,9 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Validation, ch.Component),
+    tiny.inherits(Validation, ch.Component);
+
+    var parent = Validation.super_.prototype,
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -115,9 +114,6 @@
      * The name of the component.
      * @memberof! ch.Validation.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var validation = $(selector).data('validation');
      */
     Validation.prototype.name = 'validation';
 
@@ -134,7 +130,7 @@
      * @private
      */
     Validation.prototype._defaults = {
-        'offsetX': 10
+        'offsetX': 10
     };
 
     /**
@@ -144,7 +140,7 @@
      * @private
      * @returns {validation}
      */
-    Validation.prototype._init = function ($el, options) {
+    Validation.prototype._init = function (el, options) {
 
         /**
          * Reference to context of an instance.
@@ -153,17 +149,17 @@
          */
         var that = this;
 
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * The validation trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$trigger = this._$el;
+        this.trigger = this._el;
 
         /**
          * The validation container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
         this._configureContainer();
 
@@ -190,17 +186,16 @@
         this.error = null;
 
         this
-            .on('exist', function (data) {
-                this._mergeConditions(data.conditions);
-            })
             // Clean the validation if is shown;
             .on('disable', this.clear);
+
+        this.on('error', this._handleError);
 
         /**
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = (that.$trigger.parents('form').data('form') || that.$trigger.parents('form').form());
+        this.form = (ch.instances[tiny.parent(that.trigger, 'form').getAttribute('data-uid')] || new ch.Form(tiny.parent(that.trigger, 'form')));
 
         this.form.validations.push(this);
 
@@ -208,7 +203,7 @@
          * Set a validation event to add listeners.
          * @private
          */
-        this._validationEvent = (this.$trigger.hasClass('ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (tiny.hasClass(this.trigger, 'ch-form-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -261,7 +256,7 @@
             previousValue;
 
         // It must happen only once.
-        this.$trigger.on(this._validationEvent + '.validation', function () {
+        tiny.on(this.trigger, this._validationEvent, function () {
 
             if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
                 previousValue = this.value;
@@ -274,40 +269,43 @@
 
         });
 
-        // Lazy Loading pattern
-        this._error = function () {
-
-            if (!that._previousError.condition || !that._shown) {
-                if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
-                    that.$trigger.addClass('ch-validation-error');
-                }
-
-                that._showErrorMessage(that.error.message || 'Error');
-            }
-
-            if (that.error.condition !== that._previousError.condition) {
-                that._showErrorMessage(that.error.message || that.form._messages[that.error.condition] || 'Error');
-            }
-
-            that._shown = true;
-
-            /**
-             * It emits an event when a validation hasn't got an error.
-             * @event ch.Validation#error
-             * @example
-             * // Subscribe to "error" event.
-             * validation.on('error', function (errors) {
-             *     console.log(errors.length);
-             * });
-             */
-            that.emit('error', that.error);
-
-            return that;
-        };
-
-        this._error();
+        /**
+         * It emits an error event when a validation got an error.
+         * @event ch.Validation#error
+         *
+         * @example
+         * // Subscribe to "error" event.
+         * validation.on('error', function (errors) {
+         *     console.log(errors.length);
+         * });
+         */
+        this.emit('error', this.error);
 
         return this;
+    };
+
+    /**
+     * Internal error handler, shows the errors when needed
+     *
+     * @param err {Object} A ch.Validation#error object that contain the error message and the error condition
+     * @private
+     */
+    Validation.prototype._handleError = function(err) {
+        var that = this;
+
+        if (!that._previousError.condition || !that._shown) {
+            if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
+                tiny.addClass(that.trigger, 'ch-validation-error');
+            }
+
+            that._showErrorMessage(err.message || 'Error');
+        }
+
+        if (err.condition !== that._previousError.condition) {
+            that._showErrorMessage(err.message || that.form._messages[err.condition] || 'Error');
+        }
+
+        that._shown = true;
     };
 
     /**
@@ -322,9 +320,9 @@
             this._shown = false;
         }
 
-        this.$trigger
-            .removeClass('ch-validation-error')
-            .removeAttr('aria-label');
+        this.trigger.removeAttribute('aria-label');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
+
 
         this._hideErrorMessage();
 
@@ -356,7 +354,7 @@
     Validation.prototype.hasError = function () {
 
         // Pre-validation: Don't validate disabled
-        if (this.$trigger.attr('disabled') || !this._enabled) {
+        if (this.trigger.getAttribute('disabled') || !this._enabled) {
             return false;
         }
 
@@ -374,7 +372,7 @@
          * Stores the previous error object
          * @private
          */
-        this._previousError = ch.util.clone(this.error);
+        this._previousError = tiny.clone(this.error);
 
         // for each condition
         for (condition in this.conditions) {
@@ -410,9 +408,8 @@
      */
     Validation.prototype.clear = function () {
 
-        this.$trigger
-            .removeClass('ch-validation-error')
-            .removeAttr('aria-label');
+        this.trigger.removeAttribute('aria-label');
+        tiny.removeClass(this.trigger, 'ch-validation-error');
 
         this.error = null;
 
@@ -432,19 +429,6 @@
         this.emit('clear');
 
         return this;
-    };
-
-    /**
-     * Returns the jQuerySelector or ZeptoSelector to chaining more validations.
-     * @memberof! ch.Validation.prototype
-     * @function
-     * @returns {(jQuerySelector | ZeptoSelector)}
-     * @example
-     * // Concatenates another validation.
-     * validation.and().validation();
-     */
-    Validation.prototype.and = function () {
-        return this.$trigger;
     };
 
     /**
@@ -538,9 +522,8 @@
      */
     Validation.prototype.destroy = function () {
 
-        this.$trigger
-            .off('.validation')
-            .removeAttr('data-side data-align');
+        // this.$trigger.off('.validation')
+        this.trigger.removeAttribute('data-side data-align');
 
         parent.destroy.call(this);
 

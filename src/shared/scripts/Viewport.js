@@ -1,8 +1,7 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
-    var $window = $(window),
-        resized = false,
+    var resized = false,
         scrolled = false,
         requestAnimFrame = (function () {
             return window.requestAnimationFrame ||
@@ -50,15 +49,14 @@
      * The Viewport is a component to ease viewport management. You can get the dimensions of the viewport and beyond, which can be quite helpful to perform some checks with JavaScript.
      * @memberof ch
      * @constructor
-     * @augments ch.EventEmitter
-     * @requires ch.util
+     * @augments tiny.EventEmitter
      * @returns {viewport} Returns a new instance of Viewport.
      */
     function Viewport() {
         this._init();
     }
 
-    ch.util.inherits(Viewport, ch.EventEmitter);
+    tiny.inherits(Viewport, tiny.EventEmitter);
 
     /**
      * Initialize a new instance of Viewport.
@@ -68,6 +66,9 @@
      * @returns {viewport}
      */
     Viewport.prototype._init = function () {
+        // Set emitter to zero for unlimited listeners to avoid the warning in console
+        // @see https://nodejs.org/api/events.html#events_emitter_setmaxlisteners_n
+        this.setMaxListeners(0);
 
         /**
          * Reference to context of an instance.
@@ -79,39 +80,43 @@
         /**
          * Element representing the visible area.
          * @memberof! ch.viewport#element
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {Object}
          */
-        this.$el = $window;
+        this.el = window;
 
         this.refresh();
 
-        $window
-            .on(ch.onresize + '.viewport', function () {
-                // No changing, exit
-                if (!resized) {
-                    resized = true;
 
-                    /**
-                     * requestAnimationFrame
-                     */
-                    requestAnimFrame(function updateResize() {
-                        update.call(that);
-                    });
-                }
-            })
-            .on(ch.onscroll + '.viewport', function () {
-                // No changing, exit
-                if (!scrolled) {
-                    scrolled = true;
+        function viewportResize() {
+            // No changing, exit
+            if (!resized) {
+                resized = true;
 
-                    /**
-                     * requestAnimationFrame
-                     */
-                    requestAnimFrame(function updateScroll() {
-                        update.call(that);
-                    });
-                }
-            });
+                /**
+                 * requestAnimationFrame
+                 */
+                requestAnimFrame(function updateResize() {
+                    update.call(that);
+                });
+            }
+        }
+
+        function viewportScroll() {
+            // No changing, exit
+            if (!scrolled) {
+                scrolled = true;
+
+                /**
+                 * requestAnimationFrame
+                 */
+                requestAnimFrame(function updateScroll() {
+                    update.call(that);
+                });
+            }
+        }
+
+        window.addEventListener(ch.onscroll, viewportScroll, false);
+        window.addEventListener(ch.onresize, viewportResize, false);
     };
 
     /**
@@ -154,7 +159,7 @@
          * // Checks if the bottom client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 900) ? 'Yes': 'No';
          */
-        this.bottom = this.$el.height();
+        this.bottom = Math.max(this.el.innerHeight || 0, document.documentElement.clientHeight);
 
         /**
          * The current right client rect of the viewport (in pixels).
@@ -165,7 +170,7 @@
          * // Checks if the right client rect of the viewport is equal to a number.
          * (ch.viewport.bottom === 1200) ? 'Yes': 'No';
          */
-        this.right = this.$el.width();
+        this.right = Math.max(this.el.innerWidth || 0, document.documentElement.clientWidth);
 
         return this;
     };
@@ -223,7 +228,7 @@
          * @type {Object}
          * @private
          */
-        var scroll = ch.util.getScroll();
+        var scroll = tiny.scroll();
 
         /**
          * The offset top of the viewport.
@@ -285,7 +290,7 @@
          * // Checks if the orientation is "landscape".
          * (ch.viewport.orientation === 'landscape') ? 'Yes': 'No';
          */
-        this.orientation = (Math.abs(this.$el.orientation) === 90) ? 'landscape' : 'portrait';
+        this.orientation = (Math.abs(this.el.orientation) === 90) ? 'landscape' : 'portrait';
 
         return this;
     };
@@ -342,4 +347,4 @@
     // Creates an instance of the Viewport into ch namespace.
     ch.viewport = new Viewport();
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

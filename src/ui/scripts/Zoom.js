@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6,8 +6,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Layer
-     * @requires ch.OnImagesLoads
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Zoom.
+     * @param {String} selector A CSS Selector to create an instance of ch.Zoom.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
@@ -15,7 +14,7 @@
      * @param {String} [options.height] Set a height for the container. Default: "300px".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointerenter".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {String} [options.reference] It's a CSS Selector reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "top".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 20.
@@ -25,22 +24,19 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
+     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
      * @returns {zoom} Returns a new instance of Zoom.
      * @example
      * // Create a new Zoom.
-     * var zoom = new ch.Zoom($el, [options]);
-     * @example
-     * // Create a new Zoom with jQuery or Zepto.
-     * var zoom = $(selector).zoom([options]);
+     * var zoom = new ch.Zoom([selector], [options]);
      * @example
      * // Create a new Zoom with a defined width (half of the screen).
-     * $(selector).zoom({
+     * var zoom = new ch.Zoom({
      *     'width': (ch.viewport.width / 2) + 'px'
      * });
      */
-    function Zoom($el, options) {
+    function Zoom(selector, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -48,7 +44,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(selector, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -72,15 +68,14 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Zoom, ch.Layer);
+    tiny.inherits(Zoom, ch.Layer);
+
+    var parent = Zoom.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Zoom.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var zoom = $(selector).data('zoom');
      */
     Zoom.prototype.name = 'zoom';
 
@@ -97,7 +92,7 @@
      * @type {Object}
      * @private
      */
-    Zoom.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Zoom.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-zoom',
         '_ariaRole': 'tooltip',
         '_hideDelay': 0,
@@ -118,9 +113,9 @@
      * @private
      * @returns {zoom}
      */
-    Zoom.prototype._init = function ($el, options) {
+    Zoom.prototype._init = function (selector, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, selector, options);
 
         /**
          * Reference to context of an instance.
@@ -138,70 +133,80 @@
 
         /**
          * Feedback showed before the zoomed image is load. It's a transition message and its content can be configured through parameter "waiting".
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @private
          * @example
          * // Changing the loading feedback.
-         * $(selector).zoom({
+         * var zoom = new ch.Zoom({
          *     'waiting': 'My custom message'
          * });
          */
-        this._$loading = $('<div class="ch-zoom-loading ch-hide"><div class="ch-loading-large"></div><p>' + this._options.waiting + '</p></div>').appendTo(this.$trigger);
+        this._loading = (function() {
+            var dummyElement = document.createElement('div');
+            dummyElement.innerHTML = '<div class="ch-zoom-loading ch-hide"><div class="ch-loading-large"></div><p>' + that._options.waiting + '</p></div>';
 
-        /**
-         * jQuery/Zepto Element (shape) with visual feedback to the relative size of the zoomed area.
-         * @type {(jQuerySelector | ZeptoSelector)}
-         * @private
-         */
-        this._$seeker = $('<div class="ch-zoom-seeker ch-hide">').appendTo(this.$trigger);
+            return dummyElement.firstChild;
+        }());
+
+        this.trigger.appendChild(this._loading);
+
 
         /**
          * HTML Element shape with visual feedback to the relative size of the zoomed area.
          * @type {HTMLDivElement}
          * @private
          */
-        this._seeker = this._$seeker[0];
+        this._seeker = (function (){
+            var dummyElement = document.createElement('div');
+            dummyElement.innerHTML = '<div class="ch-zoom-seeker ch-hide"></div>';
+
+            return dummyElement.firstChild;
+        }());
+
+        this.trigger.appendChild(this._seeker);
 
         /**
          * The main specified image with original size (not zoomed).
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @private
          */
-        this._$original = this.$trigger.children().eq(0);
+        this._original = this.trigger.children[0];
 
         /**
          * The zoomed image specified as a link href (see the HTML snippet).
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLImageElement}
          * @private
          */
-        // Use a new Image instead $('<img ...>') to calculate the
+        // Use a new Image to calculate the
         // size before append the image to DOM, in ALL the browsers.
         this._zoomed = new window.Image();
 
         // Assign event handlers to the original image
-        ch.onImagesLoads(this._$original, function () {
+        onImagesLoads(this._original, function () {
             that._originalLoaded();
         });
 
         // Assign event handlers to the zoomed image
-        ch.onImagesLoads($(this._zoomed), function () {
+        onImagesLoads(this._zoomed, function () {
             that._zoomedLoaded();
         });
 
         // Make the entire Show process if it tried to show before
         this.on('imageload', function () {
-            if (!that._$loading.hasClass('ch-hide')) {
+            if (!tiny.hasClass(this._loading, 'ch-hide')) {
                 that.show();
+                tiny.addClass(this._loading, 'ch-hide');
             }
         });
 
         // Assign event handlers to the anchor
-        this.$trigger.addClass('ch-zoom-trigger').on({
-            // Prevent to redirect to the href
-            'click.zoom': function (event) { ch.util.prevent(event); },
-            // Bind move calculations
-            'mousemove.zoom': function (event) { that._move(event); }
-        });
+        tiny.addClass(this.trigger, 'ch-zoom-trigger');
+
+        // Prevent to redirect to the href
+        tiny.on(this.trigger, 'click', function (event) { event.preventDefault(); }, false);
+
+        // Bind move calculations
+        tiny.on(this.trigger, ch.onpointermove, function (event) { that._move(event); }, false);
 
         return this;
     };
@@ -214,21 +219,19 @@
      */
     Zoom.prototype._originalLoaded = function () {
 
-        var width = this._$original[0].width,
-            height = this._$original[0].height,
-            offset = ch.util.getOffset(this._el);
+        var width = this._original.width,
+            height = this._original.height,
+            offset = tiny.offset(this._el);
 
         // Set the wrapper anchor size (same as image)
-        this.$trigger.css({
-            'width': width,
-            'height': height
-        });
+        this.trigger.style.width = width + 'px';
+        this.trigger.style.height = height + 'px';
 
         // Loading position centered into the anchor
-        this._$loading.css({
-            'left': (width - this._$loading.width()) / 2,
-            'top': (height - this._$loading.height()) / 2
-        });
+        this._loading.style.display = 'block';
+        this._loading.style.left = (width - this._loading.clientWidth) / 2 + 'px',
+        this._loading.style.top = (height - this._loading.clientHeight) / 2 + 'px';
+        this._loading.style.display = '';
 
         /**
          * Width of the original specified image.
@@ -345,8 +348,10 @@
 
         // By defining these variables in here, it avoids to make
         // the substraction twice if it's a free movement
-        var seekerLeft = event.pageX - this._seekerHalfWidth,
-            seekerTop = event.pageY - this._seekerHalfHeight,
+        var pageX = (event.pageX || event.clientX + document.documentElement.scrollLeft),
+            pageY = (event.pageY || event.clientY + document.documentElement.scrollTop),
+            seekerLeft = pageX - this._seekerHalfWidth,
+            seekerTop = pageY - this._seekerHalfHeight,
             x,
             y;
 
@@ -354,7 +359,7 @@
         if (seekerLeft <= this._originalOffsetLeft) {
             x = 0;
         // Right side of seeker GREATER THAN right side of image
-        } else if (event.pageX + this._seekerHalfWidth > this._originalWidth + this._originalOffsetLeft) {
+        } else if (pageX + this._seekerHalfWidth > this._originalWidth + this._originalOffsetLeft) {
             x = this._originalWidth - this._seekerWidth - 2;
         // Free move
         } else {
@@ -365,7 +370,7 @@
         if (seekerTop <= this._originalOffsetTop) {
             y = 0;
         // Bottom side of seeker GREATER THAN bottom side of image
-        } else if (event.pageY + this._seekerHalfHeight > this._originalHeight + this._originalOffsetTop) {
+        } else if (pageY + this._seekerHalfHeight > this._originalHeight + this._originalOffsetTop) {
             y = this._originalHeight - this._seekerHeight - 2;
         // Free move
         } else {
@@ -382,13 +387,13 @@
      * Shows the zoom container and the Seeker, or show a loading feedback until the zoomed image loads.
      * @memberof! ch.Zoom.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by dropdown.
+     * @param {(String | HTMLElement)} [content] The content that will be used by dropdown.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {zoom}
      * @example
      * // Shows a basic zoom.
@@ -411,14 +416,13 @@
 
         // Show feedback and trigger the image load, if it's not loaded
         if (!this._loaded) {
-            this._$loading.removeClass('ch-hide');
+            tiny.removeClass(this._loading, 'ch-hide');
             this.loadImage();
             return this;
         }
 
         // Delete the Loading and show the Seeker
-        this._$loading.remove();
-        this._$seeker.removeClass('ch-hide');
+        tiny.removeClass(this._seeker, 'ch-hide');
 
         // Execute the original show()
         parent.show.call(this, content, options);
@@ -442,11 +446,11 @@
 
         // Avoid unnecessary execution
         if (!this._loaded) {
-            this._$loading.addClass('ch-hide');
+            tiny.addClass(this._loading, 'ch-hide');
             return this;
         }
 
-        this._$seeker.addClass('ch-hide');
+        tiny.addClass(this._seeker, 'ch-hide');
 
         parent.hide.call(this);
 
@@ -481,8 +485,10 @@
      * zoom = undefined;
      */
     Zoom.prototype.destroy = function () {
+        var parentElement;
 
-        this._$seeker.remove();
+        parentElement = tiny.parent(this._seeker);
+        parentElement.removeChild(this._seeker);
 
         parent.destroy.call(this);
 
@@ -491,4 +497,47 @@
 
     ch.factory(Zoom, parent._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+
+    /**
+     * Executes a callback function when the images of a query selection loads.
+     * @private
+     * @param {HTMLImageElement} image An image or a collection of images.
+     * @param {Function} [callback] The handler the component will fire after the images loads.
+     *
+     * @example
+     * onImagesLoads(HTMLImageElement, function () {
+     *     console.log('The size of the loaded image is ' + this.width);
+     * });
+     */
+    function onImagesLoads(image, callback) {
+        var images;
+
+        if (Array.isArray(image)) {
+            images = image;
+        } else {
+            images = [image];
+        }
+
+        images.forEach(function (image) {
+            image.addEventListener('load', function onImgLoad() {
+                var len = images.length;
+
+                window.setTimeout(function () {
+                    if (--len <= 0) {
+                        callback.call(image);
+                    }
+                }, 200);
+
+                image.removeEventListener('load', onImgLoad);
+            }, false);
+
+            if (image.complete || image.complete === undefined) {
+                var src = image.src;
+                // Data uri fix bug in web-kit browsers
+                image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                image.src = src;
+            }
+        });
+    }
+
+}(this, this.ch));

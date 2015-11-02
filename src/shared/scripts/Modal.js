@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Popover
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Modal.
+     * @param {HTMLElement} [el] A HTMLElement to create an instance of ch.Modal.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -14,7 +14,7 @@
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "all".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -24,25 +24,25 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Modal container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Modal container.
      * @returns {modal} Returns a new instance of Modal.
      * @example
      * // Create a new Modal.
-     * var modal = new ch.Modal($el, [options]);
+     * var modal = new ch.Modal([el], [options]);
      * @example
-     * // Create a new Modal with jQuery or Zepto.
-     * var modal = $(selector).modal([options]);
+     * // Create a new Modal.
+     * var modal = new ch.Modal([options]);
      * @example
      * // Create a new Modal with disabled effects.
-     * var modal = $(selector).modal({
-     *     'fx': 'none'
+     * var modal = new ch.Modal({
+     *     'content': 'This is the content of the Modal'
      * });
      * @example
      * // Create a new Modal using the shorthand way (content as parameter).
-     * var modal = $(selector).modal('http://ui.ml.com:3040/ajax');
+     * var modal = new ch.Modal('http://ui.ml.com:3040/ajax');
      */
-    function Modal($el, options) {
+    function Modal(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -50,7 +50,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -73,18 +73,22 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var $body = $('body'),
-        $underlay = $('<div class="ch-underlay ch-hide" tabindex="-1">'),
-        // Inheritance
-        parent = ch.util.inherits(Modal, ch.Popover);
+    // Inheritance
+    tiny.inherits(Modal, ch.Popover);
+
+    var document = window.document,
+        underlay = (function () {
+            var dummyElement = document.createElement('div');
+            dummyElement.innerHTML = '<div class="ch-underlay" tabindex="-1"></div>';
+
+            return dummyElement.querySelector('div');
+        }()),
+        parent = Modal.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Modal.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var modal = $(selector).data('modal');
      */
     Modal.prototype.name = 'modal';
 
@@ -101,7 +105,7 @@
      * @type {Object}
      * @private
      */
-    Modal.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Modal.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-modal ch-box-lite',
         '_ariaRole': 'dialog',
         'width': '50%',
@@ -118,15 +122,24 @@
      * @private
      */
     Modal.prototype._showUnderlay = function () {
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase();
 
-        $underlay.css('z-index', ch.util.zIndex).appendTo($body);
+        document.body.appendChild(underlay);
 
-        if (this._options.fx !== 'none') {
-            $underlay.fadeIn(function () {
-                $underlay.removeClass('ch-hide');
-            });
-        } else {
-            $underlay.removeClass('ch-hide');
+        function showCallback(e) {
+            tiny.removeClass(underlay, fxName + '-enter-active');
+            tiny.removeClass(underlay, fxName + '-enter');
+
+            tiny.off(e.target, e.type, showCallback);
+        }
+
+        if (useAnimation) {
+            tiny.addClass(underlay, fxName + '-enter');
+            setTimeout(function() {
+                tiny.addClass(underlay, fxName + '-enter-active');
+            },10);
+            tiny.on(underlay, tiny.support.transition.end, showCallback);
         }
     };
 
@@ -137,10 +150,26 @@
      * @private
      */
     Modal.prototype._hideUnderlay = function () {
-        if (this._options.fx !== 'none') {
-            $underlay.fadeOut('normal', function () { $underlay.remove(null, true); });
+        var useAnimation = tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false,
+            fxName = 'ch-fx-' + this._options.fx.toLowerCase(),
+            parent = underlay.parentNode;
+
+        function hideCallback(e) {
+            tiny.removeClass(underlay, fxName + '-leave-active');
+            tiny.removeClass(underlay, fxName + '-leave');
+
+            tiny.off(e.target, e.type, hideCallback);
+            parent.removeChild(underlay);
+        }
+
+        if (useAnimation) {
+            tiny.addClass(underlay, fxName + '-leave');
+            setTimeout(function() {
+                tiny.addClass(underlay, fxName + '-leave-active');
+            },10);
+            tiny.on(underlay, tiny.support.transition.end, hideCallback);
         } else {
-            $underlay.addClass('ch-hide').remove(null, true);
+            parent.removeChild(underlay);
         }
     };
 
@@ -148,13 +177,13 @@
      * Shows the modal container and the underlay.
      * @memberof! ch.Modal.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by modal.
+     * @param {(String | HTMLElement)} [content] The content that will be used by modal.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {modal}
      * @example
      * // Shows a basic modal.
@@ -182,12 +211,15 @@
          */
         var that = this;
 
+        function hideByUnderlay(e) {
+            that.hide();
+            // Allow only one click to analyze the config every time and to close ONLY THIS modal
+            e.target.removeEventListener(e.type, hideByUnderlay);
+        }
+
         // Add to the underlay the ability to hide the component
         if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
-            // Allow only one click to analize the config every time and to close ONLY THIS modal
-            $underlay.one(ch.onpointertap, function () {
-                that.hide();
-            });
+            tiny.on(underlay, ch.onpointertap, hideByUnderlay);
         }
 
         // Show the underlay
@@ -213,7 +245,7 @@
         }
 
         // Delete the underlay listener
-        $underlay.off(ch.onpointertap);
+        tiny.off(underlay, ch.onpointertap);
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()
@@ -224,4 +256,4 @@
 
     ch.factory(Modal, parent._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

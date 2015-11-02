@@ -1,4 +1,4 @@
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
     // Private Members
@@ -48,12 +48,12 @@
         'required': {
             'fn': function (value) {
 
-                var tag = this.$trigger.hasClass('ch-form-options') ? 'OPTIONS' : this._el.tagName,
+                var tag = tiny.hasClass(this.trigger, 'ch-form-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
                 case 'OPTIONS':
-                    validated = this.$trigger.find('input:checked').length !== 0;
+                    validated = this.trigger.querySelectorAll('input:checked').length !== 0;
                     break;
 
                 case 'SELECT':
@@ -62,7 +62,7 @@
 
                 // INPUTS and TEXTAREAS
                 default:
-                    validated = $.trim(value).length !== 0;
+                    validated = value.replace(/^\s+|\s+$/g, '').length !== 0;
                     break;
                 }
 
@@ -120,7 +120,7 @@
      */
     function Condition(condition) {
 
-        $.extend(this, conditions[condition.name], condition);
+        tiny.extend(this, conditions[condition.name], condition);
 
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
         if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {
@@ -136,9 +136,6 @@
      * The name of the component.
      * @memberof! ch.Condition.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var condition = $(selector).data('condition');
      */
     Condition.prototype.name = 'condition';
 
@@ -207,4 +204,4 @@
 
     ch.Condition = Condition;
 
-}(this.ch.$, this.ch));
+}(this.ch));

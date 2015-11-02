@@ -46,7 +46,7 @@
 }
 
 .lt-ie10 .ch-calendar caption {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$main-neutral-color}', endColorstr='#{$gray-100}');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($main-neutral-color)}', endColorstr='#{ie-hex-str($gray-100)}');
 }
 
 .ch-calendar-today {

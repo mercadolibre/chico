@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -9,7 +9,7 @@
      * @mixes ch.Collapsible
      * @mixes ch.Content
      * @requires ch.Positioner
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Popover.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Popover.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
@@ -17,7 +17,7 @@
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "button".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {HTMLElement} [options.reference] It's a HTMLElement reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
@@ -27,25 +27,22 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Popover container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Popover container.
      * @returns {popover} Returns a new instance of Popover.
      * @example
      * // Create a new Popover.
-     * var popover = new ch.Popover($el, [options]);
-     * @example
-     * // Create a new Popover with jQuery or Zepto.
-     * var popover = $(selector).popover([options]);
+     * var popover = new ch.Popover([el], [options]);
      * @example
      * // Create a new Popover with disabled effects.
-     * var popover = $(selector).popover({
+     * var popover = new ch.Popover(el, {
      *     'fx': 'none'
      * });
      * @example
      * // Create a new Popover using the shorthand way (content as parameter).
-     * var popover = $(selector).popover('http://ui.ml.com:3040/ajax');
+     * var popover = new ch.Popover(document.querySelector('.popover'), {'content': 'http://ui.ml.com:3040/ajax'});
      */
-    function Popover($el, options) {
+    function Popover(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -53,7 +50,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -76,10 +73,11 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var $document = $(window.document),
-        $body = $('body'),
-        // Inheritance
-        parent = ch.util.inherits(Popover, ch.Component),
+    // Inheritance
+    tiny.inherits(Popover, ch.Component);
+
+    var document = window.document,
+        parent = Popover.super_.prototype,
         shownbyEvent = {
             'pointertap': ch.onpointertap,
             'pointerenter': ch.onpointerenter
@@ -89,9 +87,6 @@
      * The name of the component.
      * @memberof! ch.Popover.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var popover = $(selector).data('popover');
      */
     Popover.prototype.name = 'popover';
 
@@ -129,9 +124,9 @@
      * @private
      * @returns {popover}
      */
-    Popover.prototype._init = function ($el, options) {
+    Popover.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         // Require abilities
         this.require('Collapsible', 'Content');
@@ -141,37 +136,45 @@
          * @type {Object}
          * @private
          */
-        var that = this;
+        var that = this,
+            container = document.createElement('div');
+
+        container.innerHTML = [
+            '<div',
+            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass +
+                (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false ? ' ch-fx' : '') + '"',
+            ' role="' + this._options._ariaRole + '"',
+            ' id="ch-' + this.name + '-' + this.uid + '"',
+            ' style="width:' + this._options.width + ';height:' + this._options.height + '"',
+            '></div>'
+        ].join('');
 
         /**
          * The popover container. It's the element that will be shown and hidden.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this.$container = $([
-            '<div',
-            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass + '"',
-            ' role="' + this._options._ariaRole + '"',
-            ' id="ch-' + this.name + '-' + this.uid + '"',
-            ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
-            '>'
-        ].join('')).on(ch.onpointertap + '.' + this.name, function (event) {
+        this.container = container.querySelector('div');
+
+        tiny.on(this.container, ch.onpointertap, function (event) {
             event.stopPropagation();
         });
 
         /**
          * Element where the content will be added.
          * @private
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLDivElement}
          */
-        this._$content = $('<div class="ch-popover-content">').appendTo(this.$container);
+        this._content = document.createElement('div');
+
+        tiny.addClass(this._content, 'ch-popover-content');
+
+        this.container.appendChild(this._content);
 
         // Add functionality to the trigger if it exists
         this._configureTrigger();
-        // Configure the way it hides
-        this._configureHiding();
 
         this._positioner = new ch.Positioner({
-            'target': this.$container,
+            'target': this.container,
             'reference': this._options.reference,
             'side': this._options.side,
             'align': this._options.align,
@@ -194,20 +197,29 @@
             return that;
         };
 
+        this._hideTimer = function () {
+            that._timeout = window.setTimeout(function () {
+                that.hide();
+            }, that._options._hideDelay);
+        };
+
+        this._hideTimerCleaner = function () {
+            window.clearTimeout(that._timeout);
+        };
+
+        // Configure the way it hides
+        this._configureHiding();
+
         // Refresh position:
         // on layout change
-        $document.on(ch.onlayoutchange, this._refreshPositionListener);
+        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener);
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
         this
             .once('_show', this._refreshPositionListener)
             // on content change
-            .on('_contentchange', this._refreshPositionListener)
-            // Remove from DOM the component container after hide
-            .on('hide', function () {
-                that.$container.remove(null, true);
-            });
+            .on('_contentchange', this._refreshPositionListener);
 
         return this;
     };
@@ -257,29 +269,37 @@
         this._snippet = this._el.cloneNode(true);
 
         // Use the trigger as the positioning reference
-        this._options.reference = this._options.reference || this._$el;
+        this._options.reference = this._options.reference || this._el;
 
         // Open event when configured as able to shown anyway
         if (this._options.shownby !== 'none') {
-            this._$el
-                .addClass('ch-shownby-' + this._options.shownby)
-                .on(shownbyEvent[this._options.shownby] + '.' + this.name, function (event) {
-                    ch.util.prevent(event);
-                    showHandler();
+
+            tiny.addClass(this._el, 'ch-shownby-' + this._options.shownby);
+
+            if (this._options.shownby === shownbyEvent.pointertap && navigator.pointerEnabled) {
+                tiny.on(this._el, 'click', function(e) {
+                    e.preventDefault();
                 });
+            }
+
+            tiny.on(this._el, shownbyEvent[this._options.shownby], function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+                showHandler();
+            });
         }
 
         // Get a content if it's not defined
         if (this._options.content === undefined) {
             // Content from anchor href
             // IE defines the href attribute equal to src attribute on images.
-            if (this._el.nodeName === 'A' && this._el.href !== '') {
-                this._options.content = this._el.href;
+            if (this._el.nodeName === 'A' && this._el.href !== '') {
+                this._options.content = this._el.href;
 
             // Content from title or alt
             } else if (this._el.title !== '' || this._el.alt !== '') {
                 // Set the configuration parameter
-                this._options.content = this._el.title || this._el.alt;
+                this._options.content = this._el.title || this._el.alt;
                 // Keep the attributes content into the element for possible usage
                 this._el.setAttribute('data-title', this._options.content);
                 // Avoid to trigger the native tooltip
@@ -293,9 +313,9 @@
 
         /**
          * The popover trigger. It's the element that will show and hide the container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$trigger = this._$el;
+        this.trigger = this._el;
     };
 
     /**
@@ -312,37 +332,37 @@
          */
         var that = this,
             hiddenby = this._options.hiddenby,
-            pointertap = ch.onpointertap + '.' + this.name,
-            timeout,
-            events = {};
+            dummy,
+            button;
 
-        function hideTimer() {
-            timeout = window.setTimeout(function () {
-                that.hide();
-            }, that._options._hideDelay);
-        }
+
 
         // Don't hide anytime
         if (hiddenby === 'none') { return; }
 
         // Hide by leaving the component
-        if (hiddenby === 'pointerleave' && this.$trigger !== undefined) {
+        if (hiddenby === 'pointerleave' && this.trigger !== undefined) {
 
-            events[ch.onpointerenter + '.' + this.name] = function () {
-                window.clearTimeout(timeout);
-            };
-
-            events[ch.onpointerleave + '.' + this.name] = hideTimer;
-
-            this.$trigger.on(events);
-            this.$container.on(events);
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerenter, that._hideTimerCleaner);
+            });
+            [this.trigger, this.container].forEach(function(el) {
+                tiny.on(el, ch.onpointerleave, that._hideTimer);
+            });
         }
 
         // Hide with the button Close
         if (hiddenby === 'button' || hiddenby === 'all') {
-            $('<i class="ch-close" role="button" aria-label="Close"></i>').on(pointertap, function () {
+            dummy = document.createElement('div');
+            dummy.innerHTML = '<i class="ch-close" role="button" aria-label="Close"></i>';
+            button = dummy.querySelector('i');
+
+            tiny.on(button, ch.onpointertap, function () {
                 that.hide();
-            }).prependTo(this.$container);
+            });
+
+            this.container.insertBefore(button, this.container.firstChild);
+
         }
 
         if ((hiddenby === 'pointers' || hiddenby === 'all') && this._hidingShortcuts !== undefined) {
@@ -358,7 +378,8 @@
      * @function
      */
     Popover.prototype._normalizeOptions = function (options) {
-        if (typeof options === 'string' || ch.util.is$(options)) {
+        // IE8 and earlier don't define the node type constants, 1 === document.ELEMENT_NODE
+        if (typeof options === 'string' || (typeof options === 'object' && options.nodeType === 1)) {
             options = {
                 'content': options
             };
@@ -370,13 +391,13 @@
      * Shows the popover container and appends it to the body.
      * @memberof! ch.Popover.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by popover.
+     * @param {(String | HTMLElement)} [content] The content that will be used by popover.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {popover}
      * @example
      * // Shows a basic popover.
@@ -397,9 +418,8 @@
             return this;
         }
 
-        // Increase z-index and append to body
-        // Do it before set content because when content sets, it triggers the position refresh
-        this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
+        // Append to body
+        document.body.appendChild(this.container);
 
         // Open the collapsible
         this._show();
@@ -421,11 +441,22 @@
      * // Close a popover
      * popover.hide();
      */
-    Popover.prototype.hide = function () {
+    Popover.prototype.hide = function() {
+        var self = this,
+            parent;
         // Don't execute when it's disabled
         if (!this._enabled || !this._shown) {
             return this;
         }
+
+        // Detach the container from the DOM when it is hidden
+        this.once('hide', function() {
+            // Due to transitions this._shown can be outdated here
+            parent = self.container.parentNode;
+            if (parent !== null) {
+                parent.removeChild(self.container);
+            }
+        });
 
         // Close the collapsible
         this._hide();
@@ -474,7 +505,7 @@
             return this._options.width;
         }
 
-        this.$container.css('width', data);
+        this.container.style.width = data;
 
         this._options.width = data;
 
@@ -502,7 +533,7 @@
             return this._options.height;
         }
 
-        this.$container.css('height', data);
+        this.container.style.height = data;
 
         this._options.height = data;
 
@@ -598,20 +629,27 @@
      */
     Popover.prototype.destroy = function () {
 
-        if (this.$trigger !== undefined) {
-            this.$trigger
-                .off('.' + this.name)
-                .removeClass('ch-' + this.name + '-trigger')
-                .removeAttr('data-title aria-owns aria-haspopup data-side data-align role')
-                .attr({
-                    'alt': this._snippet.alt,
-                    'title': this._snippet.title
-                });
+        if (this.trigger !== undefined) {
+
+            tiny.off(this.trigger, ch.onpointerenter, this._hideTimerCleaner);
+            tiny.off(this.trigger, ch.onpointerleave, this._hideTimer);
+
+            tiny.removeClass(this.trigger, 'ch-' + this.name + '-trigger');
+
+            this.trigger.removeAttribute('data-title');
+            this.trigger.removeAttribute('aria-owns');
+            this.trigger.removeAttribute('aria-haspopup');
+            this.trigger.removeAttribute('data-side');
+            this.trigger.removeAttribute('data-align');
+            this.trigger.removeAttribute('role');
+
+            this._snippet.alt ? this.trigger.setAttribute('alt', this._snippet.alt) : null;
+            this._snippet.title ? this.trigger.setAttribute('title', this._snippet.title) : null;
         }
 
-        $document.off(ch.onlayoutchange, this._refreshPositionListener);
+        tiny.off(document, ch.onlayoutchange, this._refreshPositionListener);
 
-        ch.viewport.off(ch.onresize, this._refreshPositionListener);
+        ch.viewport.removeListener(ch.onresize, this._refreshPositionListener);
 
         parent.destroy.call(this);
 
@@ -620,4 +658,4 @@
 
     ch.factory(Popover, Popover.prototype._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

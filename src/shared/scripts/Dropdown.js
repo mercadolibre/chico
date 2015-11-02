@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Layer
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Dropdown.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Dropdown.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
@@ -14,7 +14,7 @@
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
      * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {HTMLElement} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "left".
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horizontally. Default: 0.
@@ -24,24 +24,21 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {Boolean} [options.skin] Sets a CSS class name to the trigger and container to get a variation of Dropdown. Default: false.
      * @param {Boolean} [options.shortcuts] Configures navigation shortcuts. Default: true.
-     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Dropdown container.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the Dropdown container.
      * @returns {dropdown} Returns a new instance of Dropdown.
      * @example
      * // Create a new Dropdown.
-     * var dropdown = new ch.Dropdown($el, [options]);
-     * @example
-     * // Create a new Dropdown with jQuery or Zepto.
-     * var dropdown = $(selector).dropdown([options]);
+     * var dropdown = new ch.Dropdown([el], [options]);
      * @example
      * // Create a new skinned Dropdown.
-     * var dropdown = $(selector).dropdown({
+     * var dropdown = new ch.Dropdown({
      *     'skin': true
      * });
      */
-    function Dropdown($el, options) {
+    function Dropdown(el, options) {
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -49,7 +46,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -72,18 +69,15 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var $document = $(window.document),
-        pointerenter = ch.onpointerenter + '.dropdown',
-        // Inheritance
-        parent = ch.util.inherits(Dropdown, ch.Layer);
+    // Inheritance
+    tiny.inherits(Dropdown, ch.Layer);
+
+    var parent = Dropdown.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Dropdown.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var dropdown = $(selector).data('dropdown');
      */
     Dropdown.prototype.name = 'dropdown';
 
@@ -100,7 +94,7 @@
      * @type {Object}
      * @private
      */
-    Dropdown.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+    Dropdown.prototype._defaults = tiny.extend(tiny.clone(parent._defaults), {
         '_className': 'ch-dropdown ch-box-lite',
         '_ariaRole': 'combobox',
         'fx': 'none',
@@ -118,9 +112,9 @@
      * @private
      * @returns {dropdown}
      */
-    Dropdown.prototype._init = function ($el, options) {
+    Dropdown.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         /**
          * Reference to context of an instance.
@@ -129,46 +123,50 @@
          */
         var that = this,
             // The second element of the HTML snippet (the dropdown content)
-            $content = this.$trigger.next();
+            content = tiny.next(this.trigger);
 
         /**
          * The dropdown trigger. It's the element that will show and hide the container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          */
-        this.$trigger
-            .addClass('ch-dropdown-trigger')
-            .prop('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected');
+        this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected');
+        tiny.addClass(this.trigger, 'ch-dropdown-trigger');
 
-        ch.util.avoidTextSelection(this.$trigger);
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         // Skinned dropdown
         if (this._options.skin) {
-            this.$trigger.addClass('ch-dropdown-trigger-skin');
-            this.$container.addClass('ch-dropdown-skin');
+            tiny.addClass(this.trigger, 'ch-dropdown-trigger-skin');
+            tiny.addClass(this.container, 'ch-dropdown-skin');
         // Default Skin
         } else {
-            this.$trigger.addClass('ch-btn-skin ch-btn-small');
+            tiny.addClass(this.trigger, 'ch-btn-skin');
+            tiny.addClass(this.trigger, 'ch-btn-small');
         }
 
         /**
          * A list of links with the navigation options of the component.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {NodeList}
          * @private
          */
-        this._$navigation = $content.find('a').prop('role', 'option');
-
-        // Item selected by mouseover
-        $.each(this._$navigation, function (i, e) {
-            $(e).on(pointerenter, function () {
-                that._$navigation[that._selected = i].focus();
+        this._navigation = (function () {
+            var items = content.querySelectorAll('a');
+            Array.prototype.forEach.call(items, function (item, index) {
+                item.setAttribute('role', 'option');
+                tiny.on(item, ch.onpointerenter, function () {
+                    that._navigation[that._selected = index].focus();
+                });
             });
-        });
+            return items;
+        }());
+
 
         if (this._options.shortcuts && this._navigationShortcuts !== undefined) {
             this._navigationShortcuts();
         }
 
-        this._options.content = $content;
+        this._options.content = content;
 
         /**
          * The original and entire element and its state, before initialization.
@@ -176,7 +174,7 @@
          * @type {HTMLElement}
          */
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
-        this._snippet = this._options.content[0].cloneNode();
+        this._snippet = this._options.content.cloneNode(true);
 
         return this;
     };
@@ -185,13 +183,13 @@
      * Shows the dropdown container.
      * @memberof! ch.Dropdown.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by dropdown.
+     * @param {(String | HTMLElement)} [content] The content that will be used by dropdown.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {dropdown}
      * @example
      * // Shows a basic dropdown.
@@ -215,11 +213,6 @@
         // Execute the original show()
         parent.show.call(this, content, options);
 
-        // Z-index of trigger over content (secondary / skin dropdown)
-        if (this._options.skin) {
-            this.$trigger.css('z-index', ch.util.zIndex += 1);
-        }
-
         this._selected = -1;
 
         return this;
@@ -236,20 +229,24 @@
      * dropdown = undefined;
      */
     Dropdown.prototype.destroy = function () {
+        var trigger = this.trigger;
 
-        this.$trigger
-            .off('.dropdown')
-            .removeClass('ch-dropdown-trigger ch-dropdown-trigger-skin ch-user-no-select ch-btn-skin ch-btn-small')
-            .removeAttr('aria-controls')
-            .after(this._snippet);
-
-        this.$container.off('.dropdown');
-
-        $document.trigger(ch.onlayoutchange);
-
-        $.each(this._$navigation, function (i, e) {
-            $(e).off(pointerenter);
+        [
+            'ch-dropdown-trigger',
+            'ch-dropdown-trigger-skin',
+            'ch-user-no-select',
+            'ch-btn-skin',
+            'ch-btn-small'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
         });
+
+        trigger.removeAttribute('unselectable');
+        trigger.removeAttribute('aria-controls');
+
+        trigger.insertAdjacentHTML('afterend', this._snippet);
+
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -258,4 +255,4 @@
 
     ch.factory(Dropdown);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

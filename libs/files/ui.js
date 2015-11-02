@@ -1,16 +1,10 @@
-/*
- * Files routes objects
- */
-var JS = {},
-    CSS = {};
+var JS = {};
 
 /*
  * JS: Core
  */
 JS.core = [
-    "src/shared/scripts/helpers.js",
-    "src/shared/scripts/util.js",
-    "src/shared/scripts/support.js",
+    "src/shared/scripts/core.js",
     "src/shared/scripts/events.js",
     "src/ui/scripts/events.js",
     "src/shared/scripts/factory.js",
@@ -21,7 +15,6 @@ JS.core = [
  * JS: Abilities
  */
 JS.abilities = [
-    "src/shared/scripts/EventEmitter.js",
     "src/shared/scripts/Content.js",
     "src/shared/scripts/Collapsible.js",
     "src/shared/scripts/Viewport.js",
@@ -33,22 +26,11 @@ JS.abilities = [
  * JS: Components
  */
 JS.components = [
-    "src/shared/scripts/onImagesLoads.js",
     "src/shared/scripts/Component.js",
     "src/shared/scripts/Form.js",
     "src/shared/scripts/Condition.js",
     "src/shared/scripts/Validation.js",
     "src/ui/scripts/Validation.js",
-    "src/shared/scripts/String.js",
-    "src/shared/scripts/MaxLength.js",
-    "src/shared/scripts/MinLength.js",
-    "src/shared/scripts/Email.js",
-    "src/shared/scripts/URL.js",
-    "src/shared/scripts/Number.js",
-    "src/shared/scripts/Min.js",
-    "src/shared/scripts/Max.js",
-    "src/shared/scripts/Custom.js",
-    "src/shared/scripts/Required.js",
     "src/shared/scripts/Expandable.js",
     "src/shared/scripts/Menu.js",
     "src/shared/scripts/Popover.js",
@@ -70,65 +52,4 @@ JS.components = [
     "src/ui/scripts/Autocomplete.js"
 ];
 
-
-/*
- * CSS routes
- */
-
-/*
- * CSS: Reset
- */
-CSS.resetML = [
-    "src/shared/styles/reset.css",
-    "src/ui/styles/reset.css",
-    "src/shared/styles/typography.css"
-];
-
-/*
- * CSS: Core
- */
-CSS.core = [
-    "src/shared/styles/base.css",
-    "src/ui/styles/base.css",
-    "src/shared/styles/icons.css",
-    "src/ui/styles/badges.css",
-    "src/shared/styles/boxes.css",
-    "src/ui/styles/boxes.css",
-    "src/shared/styles/loading.css"
-];
-
-/*
- * CSS: Components
- */
-CSS.components = [
-    "src/shared/styles/buttons.css",
-    "src/ui/styles/buttons.css",
-    "src/shared/styles/datagrid.css",
-    "src/shared/styles/lists.css",
-    "src/shared/styles/pagination.css",
-    "src/ui/styles/pagination.css",
-    "src/shared/styles/Form.css",
-    "src/ui/styles/Form.css",
-    "src/shared/styles/Popover.css",
-    "src/shared/styles/Tooltip.css",
-    "src/shared/styles/Bubble.css",
-    "src/shared/styles/Modal.css",
-    "src/shared/styles/Transition.css",
-    "src/ui/styles/Zoom.css",
-    "src/ui/styles/wizard.css",
-    "src/shared/styles/Calendar.css",
-    "src/shared/styles/Carousel.css",
-    "src/shared/styles/Dropdown.css",
-    "src/ui/styles/Expandable.css",
-    "src/ui/styles/Menu.css",
-    "src/ui/styles/Tabs.css",
-    "src/ui/styles/Datepicker.css",
-    "src/shared/styles/Autocomplete.css",
-    "src/ui/styles/Autocomplete.css"
-];
-
-/*
- * Expose both objects
- */
 exports.JS = JS;
-exports.CSS = CSS;

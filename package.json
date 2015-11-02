@@ -1,6 +1,6 @@
 {
   "name": "chico",
-  "version": "1.2.2",
+  "version": "v2.0.0-beta.3",
   "description": "Chico UI is a free and open source collection of easy-to-use web components for developers and designers.",
   "author": "<chico@mercadolibre.com>",
   "contributors": [
@@ -18,29 +18,45 @@
     }
   ],
   "scripts": {
-    "start": "grunt dev"
+    "start": "gulp dev",
+    "prepublish": "gulp lint && gulp dist && npm test",
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/mercadolibre/chico.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tiny.js": "^0.1.1"
+  },
   "devDependencies": {
-    "ejs": "*",
-    "express": "3.x",
-    "grunt": "~0.4.1",
-    "grunt-banner": "^0.3.1",
-    "grunt-browser-sync": "^2.0.0",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-copy": "^0.8.0",
-    "grunt-contrib-cssmin": "^0.12.2",
-    "grunt-contrib-sass": "^0.9.2",
-    "grunt-contrib-uglify": "^0.8.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-jsdoc": "~0.4.0",
-    "grunt-jslint": "0.2.6"
+    "Mesh": "mercadolibre/mesh#v4.2.0",
+    "bourbon": "^4.2.6",
+    "browser-sync": "^2.9.11",
+    "chai": "^3.2.0",
+    "chai-spies": "^0.6.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssnano": "^2.0.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-load-plugins": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.4.2",
+    "gulp-wrapper": "^1.0.0",
+    "karma": "^0.13.9",
+    "karma-chai": "^0.1.0",
+    "karma-chai-spies": "^0.1.1",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "mocha": "^2.2.5",
+    "node-sass": "^3.4.1",
+    "run-sequence": "^1.1.4",
+    "streamqueue": "^1.1.1"
   },
   "license": "MIT",
-  "engine": "node >= 0.8.6"
+  "engine": "node >= 0.10.0"
 }

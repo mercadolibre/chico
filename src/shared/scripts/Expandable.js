@@ -1,8 +1,8 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     function normalizeOptions(options) {
-        if (typeof options === 'string' || ch.util.is$(options)) {
+        if (typeof options === 'string' || options instanceof HTMLElement) {
             options = {
                 'content': options
             };
@@ -17,32 +17,29 @@
      * @augments ch.Component
      * @mixes ch.Collapsible
      * @mixes ch.Content
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Expandable.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
      * @param {Boolean} [options.toggle] Customize toggle behavior. Default: true.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. Default: the next sibling of $el.
-     * @param {(jQuerySelector | ZeptoSelector | String)} [options.content] The content to be shown into the expandable container.
+     * @param {HTMLElement} [options.container] The container where the expanbdale puts its content. Default: the next sibling of el parameter.
+     * @param {(String | HTMLElement)} [options.content] The content to be shown into the expandable container.
      * @returns {expandable} Returns a new instance of Expandable.
      * @example
      * // Create a new Expandable.
-     * var expandable = new ch.Expandable($el, [options]);
-     * @example
-     * // Create a new Expandable with jQuery or Zepto.
-     * var expandable = $(selector).expandable([options]);
+     * var expandable = new ch.Expandable([el], [options]);
      * @example
      * // Create a new Expandable with custom options.
-     * var expandable = $(selector).expandable({
-     *     'container': $(selector),
+     * var expandable = new ch.Expandable({
+     *     'container': document.querySelector('.my-container'),
      *     'toggle': false,
      *     'fx': 'slideDown',
      *     'content': 'http://ui.ml.com:3040/ajax'
      * });
      * @example
      * // Create a new Expandable using the shorthand way (content as parameter).
-     * var expandable = $(selector).expandable('http://ui.ml.com:3040/ajax');
+     * var expandable = new ch.Expandable('http://ui.ml.com:3040/ajax');
      */
-    function Expandable($el, options) {
+    function Expandable(el, options) {
 
         /**
          * Reference to context of an instance.
@@ -51,7 +48,7 @@
          */
         var that = this;
 
-        this._init($el, options);
+        this._init(el, options);
 
         if (this.initialize !== undefined) {
             /**
@@ -75,16 +72,14 @@
     }
 
     // Inheritance
-    var $document = $(window.document),
-        parent = ch.util.inherits(Expandable, ch.Component);
+    tiny.inherits(Expandable, ch.Component);
+
+    var parent = Expandable.super_.prototype;
 
     /**
      * The name of the component.
      * @memberof! ch.Expandable.prototype
      * @type {String}
-     * @example
-     * // You can reach the associated instance.
-     * var expandable = $(selector).data('expandable');
      */
     Expandable.prototype.name = 'expandable';
 
@@ -101,8 +96,9 @@
      * @private
      */
     Expandable.prototype._defaults = {
-        '_classNameTrigger': 'ch-expandable-trigger ch-expandable-ico',
-        '_classNameContainer': 'ch-expandable-container ch-hide',
+        '_classNameTrigger': 'ch-expandable-trigger',
+        '_classNameIcon': 'ch-expandable-ico',
+        '_classNameContainer': 'ch-expandable-container',
         'fx': false,
         'toggle': true
     };
@@ -114,9 +110,9 @@
      * @private
      * @returns {expandable}
      */
-    Expandable.prototype._init = function ($el, options) {
+    Expandable.prototype._init = function (el, options) {
         // Call to its parent init method
-        parent._init.call(this, $el, options);
+        parent._init.call(this, el, options);
 
         // Requires abilities
         this.require('Collapsible', 'Content');
@@ -130,57 +126,72 @@
 
         /**
          * The expandable trigger.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @example
          * // Gets the expandable trigger.
-         * expandable.$trigger;
+         * expandable.trigger;
          */
-        this.$trigger = this._$el
-            .addClass(this._options._classNameTrigger)
-            .on(ch.onpointertap + '.' + this.name, function (event) {
+        this.trigger = this._el;
+        tiny.addClass(this.trigger, this._options._classNameTrigger);
+        tiny.addClass(this.trigger, this._options._classNameIcon);
 
-                if (ch.pointerCanceled) {
-                    return;
-                }
-
-                ch.util.prevent(event);
-
-                if (that._options.toggle) {
-                    that._toggle();
-                } else {
-                    that.show();
+        if (navigator.pointerEnabled) {
+            tiny.on(this._el, 'click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
                 }
             });
+        }
+
+        tiny.on(this.trigger, ch.onpointertap, function (event) {
+            if (ch.pointerCanceled) {
+                return;
+            }
+
+            event.preventDefault();
+
+            if (that._options.toggle) {
+                that._toggle();
+            } else {
+                that.show();
+            }
+        });
 
         /**
          * The expandable container.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {HTMLElement}
          * @example
          * // Gets the expandable container.
-         * expandable.$container;
+         * expandable.container;
          */
-        this.$container = this._$content = (this._options.container || this._$el.next())
-            .addClass(this._options._classNameContainer)
-            .attr('aria-expanded', 'false');
+        this.container = this._content = (this._options.container ?
+            this._options.container : tiny.next(this._el));
+        tiny.addClass(this.container, this._options._classNameContainer);
+        tiny.addClass(this.container, 'ch-hide');
+        if (tiny.support.transition && this._options.fx !== 'none' && this._options.fx !== false) {
+            tiny.addClass(this.container, 'ch-fx');
+        }
+        this.container.setAttribute('aria-expanded', 'false');
 
         /**
          * Default behavior
          */
-        if (this.$container.prop('id') === '') {
-            this.$container.prop('id', 'ch-expandable-' + this.uid);
+        if (this.container.getAttribute('id') === '') {
+            this.container.setAttribute('id', 'ch-expandable-' + this.uid);
         }
 
-        this.$trigger.attr('aria-controls', this.$container.prop('id'));
+        this.trigger.setAttribute('aria-controls', this.container.getAttribute('id'));
 
         this
             .on('show', function () {
-                $document.trigger(ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             })
             .on('hide', function () {
-                $document.trigger(ch.onlayoutchange);
+                tiny.trigger(window.document, ch.onlayoutchange);
             });
 
-        ch.util.avoidTextSelection(this.$trigger);
+        this.trigger.setAttribute('unselectable', 'on');
+        tiny.addClass(this.trigger, 'ch-user-no-select');
 
         return this;
     };
@@ -189,13 +200,13 @@
      * Shows expandable's content.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by expandable.
+     * @param {(String | HTMLElement)} [content] The content that will be used by expandable.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {expandable}
      * @example
      * // Shows a basic expandable.
@@ -219,7 +230,7 @@
         this._show();
 
         // Update ARIA
-        this.$container.attr('aria-expanded', 'true');
+        this.container.setAttribute('aria-expanded', 'true');
 
         // Set new content
         if (content !== undefined) {
@@ -246,7 +257,7 @@
 
         this._hide();
 
-        this.$container.attr('aria-expanded', 'false');
+        this.container.setAttribute('aria-expanded', 'false');
 
         return this;
     };
@@ -278,17 +289,24 @@
      * expandable = undefined;
      */
     Expandable.prototype.destroy = function () {
+        var trigger = this.trigger;
 
-        this.$trigger
-            .off('.expandable')
-            .removeClass('ch-expandable-trigger ch-expandable-ico ch-user-no-select')
-            .removeAttr('aria-controls');
+        [
+            'ch-expandable-trigger',
+            'ch-expandable-ico',
+            'ch-user-no-select'
+        ].forEach(function(className){
+            tiny.removeClass(trigger, className);
+        });
 
-        this.$container
-            .removeClass('ch-expandable-container ch-hide')
-            .removeAttr('aria-expanded aria-hidden');
+        this.trigger.removeAttribute('unselectable');
+        this.trigger.removeAttribute('aria-controls');
+        tiny.removeClass(this.container, 'ch-expandable-container');
+        tiny.removeClass(this.container, 'ch-hide');
+        this.container.removeAttribute('aria-expanded');
+        this.container.removeAttribute('aria-hidden');
 
-        $document.trigger(ch.onlayoutchange);
+        tiny.trigger(window.document, ch.onlayoutchange);
 
         parent.destroy.call(this);
 
@@ -298,4 +316,4 @@
     // Factorize
     ch.factory(Expandable, normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));
