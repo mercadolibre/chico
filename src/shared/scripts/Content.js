@@ -149,7 +149,7 @@
                 if (['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
                     url += (url.indexOf('?') !== -1 || options.params[0] === '?' ? '' : '?') + options.params;
                 } else {
-                    requestCfg.data = options.params
+                    requestCfg.data = options.params;
                 }
             }
 
@@ -166,7 +166,7 @@
          * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
          * @param {String} [options.params] Params like query string to be sent to the server.
          * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true. false value will work only with HEAD and GET requests
-         * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+         * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
          * @example
          * // Update content with some string.
          * component.content('Some new content here!');

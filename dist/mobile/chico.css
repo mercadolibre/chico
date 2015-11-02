@@ -1,12 +1,11 @@
 /*!
- * Chico UI vv2.0.0-beta.2
+ * Chico UI v2.0.0-beta.3
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2015, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
-
 /**
  * Reset
  * @based on: Eric Meyer
@@ -119,17 +118,18 @@ img {
 @font-face {
   font-family: 'icons';
   /*
-   * IE9 Compat Modes
-   * IE6-IE8
-   * Modern Browsers
-   * Safari, Android, iOS
-   * Legacy iOS
-   */
+     * IE9 Compat Modes
+     * IE6-IE8
+     * Modern Browsers
+     * Safari, Android, iOS
+     * Legacy iOS
+     */
   src: url("../assets/icons.eot");
   src: url("../assets/icons.eot?#iefix") format("embedded-opentype"), url("../assets/icons.woff") format("woff"), url("../assets/icons.ttf") format("truetype"), url("../assets/icons.svg#icons") format("svg");
   font-weight: normal;
   font-style: normal;
 }
+
 [class*='ch-icon-'] {
   text-align: center;
   display: inline-block;
@@ -479,6 +479,7 @@ img {
 .ch-actions {
   margin: 20px 0 0 0;
 }
+
 .ch-actions a {
   margin: 0 0 0 15px;
 }
@@ -628,11 +629,13 @@ a:focus {
   font-size: 16px;
   font-weight: bold;
 }
+
 .ch-price sup {
   font-size: 10px;
   vertical-align: text-top;
   line-height: 1em;
 }
+
 .ch-price span {
   color: #999;
   font-size: 13px;
@@ -684,6 +687,7 @@ a:focus {
   position: relative;
   padding-left: 32px;
 }
+
 .ch-box-icon [class*='ch-icon-'] {
   position: absolute;
   top: 7px;
@@ -713,6 +717,7 @@ a:focus {
 .ch-box-error {
   background-color: #f5e6e6;
 }
+
 .ch-box-error a:visited {
   color: #03b;
 }
@@ -740,6 +745,7 @@ a:focus {
 .ch-box-info {
   background-color: #e4f2f9;
 }
+
 .ch-box-info a {
   text-decoration: underline !important;
 }
@@ -768,6 +774,7 @@ a:focus {
   border: 1px solid #dedede;
   padding: 0;
 }
+
 .ch-box-list li {
   position: relative;
   border-bottom: 1px dotted #cdcdcd;
@@ -775,9 +782,11 @@ a:focus {
   font-size: 16px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
+
 .ch-box-list li:last-child {
   border-bottom: none;
 }
+
 .ch-box-list li:active {
   background-color: #e9e9e9;
 }
@@ -792,6 +801,7 @@ a:focus {
   padding: 14px 42px 14px 20px;
   position: relative;
 }
+
 .ch-box-list li a:after {
   content: '\f054';
   font-size: 19px;
@@ -811,6 +821,7 @@ a:focus {
   left: 16px;
   color: #999;
 }
+
 .ch-box-list [class*='ch-icon'] + a {
   padding-left: 48px;
 }
@@ -1015,6 +1026,7 @@ a.ch-btn-large:focus {
   box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.2);
   z-index: 1000;
 }
+
 .ch-underlay + .ch-popover {
   z-index: 1050;
 }
@@ -1070,9 +1082,11 @@ a.ch-btn-large:focus {
   bottom: 100%;
   border-bottom-style: solid;
 }
+
 .ch-cone[data-side=bottom] .ch-popover-content:before {
   border-bottom-color: #dedede;
 }
+
 .ch-cone[data-side=bottom] .ch-popover-content:after {
   border-bottom-color: #fff;
 }
@@ -1086,9 +1100,11 @@ a.ch-btn-large:focus {
   top: 100%;
   border-top-style: solid;
 }
+
 .ch-cone[data-side=top] .ch-popover-content:before {
   border-top-color: #dedede;
 }
+
 .ch-cone[data-side=top] .ch-popover-content:after {
   border-top-color: #fff;
 }
@@ -1102,9 +1118,11 @@ a.ch-btn-large:focus {
   right: 100%;
   border-right-style: solid;
 }
+
 .ch-cone[data-side=right] .ch-popover-content:before {
   border-right-color: #dedede;
 }
+
 .ch-cone[data-side=right] .ch-popover-content:after {
   border-right-color: #fff;
 }
@@ -1118,9 +1136,11 @@ a.ch-btn-large:focus {
   left: 100%;
   border-left-style: solid;
 }
+
 .ch-cone[data-side=left] .ch-popover-content:before {
   border-left-color: #dedede;
 }
+
 .ch-cone[data-side=left] .ch-popover-content:after {
   border-left-color: #fff;
 }
@@ -1209,6 +1229,7 @@ a.ch-btn-large:focus {
   visibility: hidden;
   opacity: 0;
 }
+
 .ch-popover.ch-fx.ch-fx-fadeIn {
   visibility: visible;
   opacity: 1;
@@ -1216,6 +1237,7 @@ a.ch-btn-large:focus {
   -moz-transition: opacity 0.3s ease-out;
   transition: opacity 0.3s ease-out;
 }
+
 .ch-popover.ch-fx.ch-fx-fadeOut {
   visibility: hidden;
   opacity: 0;
@@ -1328,6 +1350,7 @@ a.ch-btn-large:focus {
   text-align: center;
   width: 100%;
 }
+
 .ch-carousel-pages span {
   background-color: #f0f0f0;
   border-radius: 100%;
@@ -1356,6 +1379,7 @@ a.ch-btn-large:focus {
   position: relative;
   display: inline-block;
 }
+
 .ch-calendar caption {
   background-color: #fff;
   background-image: -webkit-linear-gradient(#fff, #f0f0f0);
@@ -1365,20 +1389,24 @@ a.ch-btn-large:focus {
   text-shadow: 0 1px 0 #fff;
   border-bottom: none;
 }
+
 .ch-calendar thead {
   border-weight: 0 1px;
 }
+
 .ch-calendar td {
   cursor: default;
   height: 39px;
   line-height: 39px;
   width: 14.28%;
 }
+
 .ch-calendar th {
   font-size: 11px;
   font-weight: normal;
   width: 14.28%;
 }
+
 .ch-calendar caption,
 .ch-calendar thead,
 .ch-calendar td {
@@ -1477,12 +1505,12 @@ a.ch-btn-large:focus {
   .ch-calendar-month {
     width: 280px;
   }
-
   .ch-calendar td {
     height: 39px;
     line-height: 39px;
   }
 }
+
 /**
  * Tables
  */
@@ -1535,6 +1563,7 @@ table {
   background-image: linear-gradient(#f9f9f9, #e9e9e9);
   cursor: pointer;
 }
+
 .ch-datagrid-controls th:hover {
   background: #f9f9f9;
 }
@@ -1553,6 +1582,7 @@ table {
 .ch-datagrid-selected .ch-datagrid-desc {
   float: right;
 }
+
 .ch-datagrid-selected .ch-datagrid-asc:after,
 .ch-datagrid-selected .ch-datagrid-desc:after {
   font-family: icons;
@@ -1640,9 +1670,11 @@ table {
   z-index: 1011;
   /* Trigger Down icon */
 }
+
 .ch-modal .ch-dropdown-trigger {
   z-index: 1101;
 }
+
 .ch-dropdown-trigger:after {
   font-family: icons;
   content: "\f0d7";
@@ -1668,9 +1700,11 @@ table {
   /* Container */
   /* List of links */
 }
+
 .ch-modal .ch-dropdown {
   z-index: 1100;
 }
+
 .ch-dropdown menu a {
   color: #000;
   display: block;
@@ -1714,9 +1748,11 @@ table {
   padding: 0 28px 0 13px;
   /* Trigger Actived */
 }
+
 .ch-dropdown-trigger-skin:after {
   color: #999;
 }
+
 .ch-dropdown-trigger-skin :active {
   color: #00d;
 }
@@ -1763,6 +1799,7 @@ table {
   padding: 0;
   /* Interaction of list */
 }
+
 .ch-dropdown-skin menu a:focus {
   background: none;
   text-decoration: underline;
@@ -1847,6 +1884,7 @@ table {
 .ch-expandable-container.ch-box-list li {
   font-size: 14px;
 }
+
 .ch-expandable-container.ch-box-list li a:after {
   color: #333;
 }
@@ -1863,21 +1901,25 @@ table {
 .ch-expandable-container.ch-hide.ch-fx {
   visibility: hidden;
 }
+
 .ch-expandable-container.ch-fx-slideDown {
   overflow: hidden;
   -webkit-transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
   -moz-transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
   transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
 }
+
 .ch-expandable-container.ch-fx-slideUp {
   overflow: hidden;
   -webkit-transition: height 0.3s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in, visibility 0s linear 0.3s;
   -moz-transition: height 0.3s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in, visibility 0s linear 0.3s;
   transition: height 0.3s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in, visibility 0s linear 0.3s;
 }
+
 .ch-expandable-container.ch-fx.ch-fx-slideDown {
   visibility: visible;
 }
+
 .ch-expandable-container.ch-fx.ch-fx-slideUp {
   visibility: hidden;
 }
@@ -1968,6 +2010,7 @@ select[multiple],
   border-radius: 3px;
   padding: 6px;
 }
+
 input[type="text"]:focus,
 input[type="url"]:focus,
 input[type="email"]:focus,
@@ -2066,6 +2109,7 @@ input.ch-form-icon-input:focus {
   padding: 5px 0;
   position: relative;
 }
+
 .ch-form-row label {
   display: inline-block;
   position: relative;
@@ -2207,6 +2251,7 @@ input.ch-form-icon-input:focus {
   padding: 12px 10px;
   margin: 5px 0;
 }
+
 .ch-form-big input[type="text"]:focus,
 .ch-form-big input[type="url"]:focus,
 .ch-form-big input[type="email"]:focus,
@@ -2398,6 +2443,7 @@ input[type="checkbox"]:focus {
 .ch-list {
   margin: 0 0 10px 0;
 }
+
 .ch-list li {
   margin: 5px 0;
   padding: 2px 35px 2px 10px;
@@ -2415,13 +2461,16 @@ ol.ch-list {
 dl.ch-list {
   margin: 0 0 18px 0;
 }
+
 dl.ch-list dt,
 dl.ch-list dd {
   line-height: 18px;
 }
+
 dl.ch-list dt {
   font-weight: bold;
 }
+
 dl.ch-list dd {
   margin: 5px 0 10px 10px;
 }
@@ -2526,6 +2575,7 @@ dl.ch-list dd {
   text-align: center;
   padding: 40px;
 }
+
 .ch-modal-lite h2 {
   margin: 0;
 }
@@ -2542,20 +2592,25 @@ dl.ch-list dd {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1049;
 }
+
 .ch-underlay.ch-fx-fadein-enter, .ch-underlay.ch-fx-fadein-leave, .ch-underlay.ch-fx-slidedown-enter, .ch-underlay.ch-fx-slidedown-leave {
   -webkit-transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .ch-underlay.ch-fx-fadein-enter, .ch-underlay.ch-fx-slidedown-enter {
   opacity: 0;
 }
+
 .ch-underlay.ch-fx-fadein-enter-active, .ch-underlay.ch-fx-slidedown-enter-active {
   opacity: 1;
 }
+
 .ch-underlay.ch-fx-fadein-leave, .ch-underlay.ch-fx-slidedown-leave {
   opacity: 1;
 }
+
 .ch-underlay.ch-fx-fadein-leave-active, .ch-underlay.ch-fx-fadein-slidedown-active {
   opacity: 0;
 }
@@ -2586,10 +2641,12 @@ dl.ch-list dd {
   margin: 10px 0;
   text-align: center;
 }
+
 .ch-pagination li {
   display: inline-block;
   margin: 0 4px;
 }
+
 .ch-pagination li a {
   border-radius: 3px;
   padding: 5px 8px;
@@ -2786,6 +2843,7 @@ a.ch-tag,
   width: 40px;
   height: 40px;
 }
+
 .ch-autocomplete-list .ch-icon-arrow-up[data-js="ch-autocomplete-complete-query"]:before {
   color: #f0f0f0;
   display: block;

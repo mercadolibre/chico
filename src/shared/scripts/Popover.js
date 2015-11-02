@@ -27,7 +27,7 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(String | HTMLElement)} [options.content] The content to be shown into the Popover container.
      * @returns {popover} Returns a new instance of Popover.
      * @example
@@ -212,7 +212,7 @@
 
         // Refresh position:
         // on layout change
-        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener)
+        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener);
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -293,13 +293,13 @@
         if (this._options.content === undefined) {
             // Content from anchor href
             // IE defines the href attribute equal to src attribute on images.
-            if (this._el.nodeName === 'A' && this._el.href !== '') {
-                this._options.content = this._el.href;
+            if (this._el.nodeName === 'A' && this._el.href !== '') {
+                this._options.content = this._el.href;
 
             // Content from title or alt
             } else if (this._el.title !== '' || this._el.alt !== '') {
                 // Set the configuration parameter
-                this._options.content = this._el.title || this._el.alt;
+                this._options.content = this._el.title || this._el.alt;
                 // Keep the attributes content into the element for possible usage
                 this._el.setAttribute('data-title', this._options.content);
                 // Avoid to trigger the native tooltip
@@ -333,9 +333,7 @@
         var that = this,
             hiddenby = this._options.hiddenby,
             dummy,
-            button,
-            timeout,
-            events = {};
+            button;
 
 
 
@@ -399,7 +397,7 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {popover}
      * @example
      * // Shows a basic popover.

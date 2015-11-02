@@ -1,5 +1,5 @@
 /*!
- * Chico UI vv2.0.0-beta.2
+ * Chico UI v2.0.0-beta.3
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2015, MercadoLibre.com
@@ -7,36 +7,61 @@
  * http://chico-ui.com.ar/license
  */
 
-
 (function (window) {
 	'use strict';
 
-var ch = function(selector, context) {
-            if (!context) {
-                context = document;
-            } else if (typeof context === 'string') {
-                context = document.querySelector(context);
-            }
-            // Since NodeList is an array-like object but Array.isArray is always falsy
-            // we should detect the NodeList
-            // Please replace NodeList detection with `context instanceof NodeList && context.length > 0`
-            //   when IE8 support will be dropped
-            // Please replace Object.prototype.hasOwnProperty.call with `context.hasOwnProperty` when IE8
-            //   support will be dropped
-            if (typeof context === 'object' &&
-                /^\[object (HTMLCollection|NodeList|Object)\]$/.test(Object.prototype.toString.call(context)) &&
-                Object.prototype.hasOwnProperty.call(context, 'length') && context.length > 0 && context[0].nodeType > 0) {
-                context = context[0];
-            }
+    /**
+     * An object which contains all the public members. A short alias for el.querySelectorAll
+     * @param {String} selector Valid CSS selector expression
+     * @param {String|HTMLElement} context A DOM Element, Document, or selector string to use as query context
+     * @returns {NodeList} A collection of matched elements
+     *
+     * @namespace
+     *
+     * @example
+     * // Get all first level headings
+     * var headings = ch('h1');
+     *
+     * // Get a list of p children elements under a container, whose parent is a div that has the class 'wrapper'
+     * var paragraphs = ch('p', ch('div.wrapper'));
+     * // The same as above
+     * var paragraphs = ch('p', 'div.wrapper');
+     */
+    /*eslint-disable no-unused-vars*/
+    var ch = function(selector, context) {
+        if (!context) {
+            context = document;
+        } else if (typeof context === 'string') {
+            context = document.querySelector(context);
+        }
+        // Since NodeList is an array-like object but Array.isArray is always falsy
+        // we should detect the NodeList
+        // Please replace NodeList detection with `context instanceof NodeList && context.length > 0`
+        //   when IE8 support will be dropped
+        // Please replace Object.prototype.hasOwnProperty.call with `context.hasOwnProperty` when IE8
+        //   support will be dropped
+        if (typeof context === 'object' &&
+            /^\[object (HTMLCollection|NodeList|Object)\]$/.test(Object.prototype.toString.call(context)) &&
+            Object.prototype.hasOwnProperty.call(context, 'length') && context.length > 0 && context[0].nodeType > 0) {
+            context = context[0];
+        }
 
-            if (context === null || !context.nodeType) {
-                context = document;
-            }
+        if (context === null || !context.nodeType) {
+            context = document;
+        }
 
-            return context.querySelectorAll(selector);
-        };
+        return context.querySelectorAll(selector);
+    };
+    /*eslint-enable no-unused-vars*/
 
-ch.factory = function (Klass) {
+    /**
+     * Method in change of expose a friendly interface of the Chico constructors.
+     *
+     * @memberof ch
+     * @param {Object} Klass Direct reference to the constructor from where the $-plugin will be created.
+     * @link http://docs.jquery.com/Plugins/Authoring | Authoring
+     */
+    ch.factory = function (Klass) {
         /**
          * Identification of the constructor, in lowercases.
          * @type {String}
@@ -79,7 +104,6 @@ ch.factory = function (Klass) {
      */
     function fixLabels() {
         var labels = document.getElementsByTagName('label'),
-            target_id,
             el,
             i = 0;
 
@@ -156,7 +180,7 @@ ch.factory = function (Klass) {
         }
     }
 
-	ch.version = 'v2.0.0-beta.2';
+	ch.version = 'v2.0.0-beta.3';
 	window.ch = ch;
 }(this));
 (function (ch) {
@@ -310,7 +334,7 @@ ch.factory = function (Klass) {
                 if (['GET', 'HEAD'].indexOf(options.method.toUpperCase()) !== -1) {
                     url += (url.indexOf('?') !== -1 || options.params[0] === '?' ? '' : '?') + options.params;
                 } else {
-                    requestCfg.data = options.params
+                    requestCfg.data = options.params;
                 }
             }
 
@@ -327,7 +351,7 @@ ch.factory = function (Klass) {
          * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
          * @param {String} [options.params] Params like query string to be sent to the server.
          * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true. false value will work only with HEAD and GET requests
-         * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+         * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
          * @example
          * // Update content with some string.
          * component.content('Some new content here!');
@@ -729,7 +753,7 @@ ch.factory = function (Klass) {
                     update.call(that);
                 });
             }
-        };
+        }
 
         function viewportScroll() {
             // No changing, exit
@@ -743,7 +767,7 @@ ch.factory = function (Klass) {
                     update.call(that);
                 });
             }
-        };
+        }
 
         window.addEventListener(ch.onscroll, viewportScroll, false);
         window.addEventListener(ch.onresize, viewportResize, false);
@@ -1732,7 +1756,7 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {expandable}
      * @example
      * // Shows a basic expandable.
@@ -2014,7 +2038,6 @@ ch.factory = function (Klass) {
          * @private
          */
         var that = this,
-            li,
             child;
 
         function createExpandable(li, i) {
@@ -2130,13 +2153,13 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second fold with some string.
      * menu.content(2, 'http://ajax.com', {'cache': false});
      */
     Menu.prototype.content = function (fold, content, options) {
-        if (fold === undefined || typeof fold !== 'number') {
+        if (fold === undefined || typeof fold !== 'number') {
             throw new window.Error('Menu.content(fold, content, options): Expected number of fold.');
         }
 
@@ -2165,7 +2188,7 @@ ch.factory = function (Klass) {
      */
     Menu.prototype.destroy = function () {
 
-        this.folds.forEach(function (e, i) {
+        this.folds.forEach(function (e) {
             if (e.destroy !== undefined) {
                 e.destroy();
             }
@@ -2213,7 +2236,7 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(String | HTMLElement)} [options.content] The content to be shown into the Popover container.
      * @returns {popover} Returns a new instance of Popover.
      * @example
@@ -2398,7 +2421,7 @@ ch.factory = function (Klass) {
 
         // Refresh position:
         // on layout change
-        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener)
+        tiny.on(document, ch.onlayoutchange, this._refreshPositionListener);
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -2479,13 +2502,13 @@ ch.factory = function (Klass) {
         if (this._options.content === undefined) {
             // Content from anchor href
             // IE defines the href attribute equal to src attribute on images.
-            if (this._el.nodeName === 'A' && this._el.href !== '') {
-                this._options.content = this._el.href;
+            if (this._el.nodeName === 'A' && this._el.href !== '') {
+                this._options.content = this._el.href;
 
             // Content from title or alt
             } else if (this._el.title !== '' || this._el.alt !== '') {
                 // Set the configuration parameter
-                this._options.content = this._el.title || this._el.alt;
+                this._options.content = this._el.title || this._el.alt;
                 // Keep the attributes content into the element for possible usage
                 this._el.setAttribute('data-title', this._options.content);
                 // Avoid to trigger the native tooltip
@@ -2519,9 +2542,7 @@ ch.factory = function (Klass) {
         var that = this,
             hiddenby = this._options.hiddenby,
             dummy,
-            button,
-            timeout,
-            events = {};
+            button;
 
 
 
@@ -2585,7 +2606,7 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {popover}
      * @example
      * // Shows a basic popover.
@@ -2874,8 +2895,8 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {( String | HTMLElement)} [options.content] The content to be shown into the Layer container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {( String | HTMLElement)} [options.content] The content to be shown into the Layer container.
      * @returns {layer} Returns a new instance of Layer.
      * @example
      * // Create a new Layer.
@@ -2970,7 +2991,7 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {layer}
      * @example
      * // Shows a basic layer.
@@ -2992,7 +3013,7 @@ ch.factory = function (Klass) {
         }
 
         // Only hide if there was a component opened before
-        if (lastShown !== undefined && lastShown.name === this.name && lastShown !== this) {
+        if (lastShown !== undefined && lastShown.name === this.name && lastShown !== this) {
             lastShown.hide();
         }
 
@@ -3037,7 +3058,7 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(String | HTMLElement)} [options.content] The content to be shown into the Modal container.
      * @returns {modal} Returns a new instance of Modal.
      * @example
@@ -3196,7 +3217,7 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {modal}
      * @example
      * // Shows a basic modal.
@@ -3236,7 +3257,7 @@ ch.factory = function (Klass) {
         }
 
         // Show the underlay
-            this._showUnderlay();
+        this._showUnderlay();
         // Execute the original show()
         parent.show.call(this, content, options);
 
@@ -3258,7 +3279,7 @@ ch.factory = function (Klass) {
         }
 
         // Delete the underlay listener
-        tiny.off(underlay, ch.onpointertap)
+        tiny.off(underlay, ch.onpointertap);
         // Hide the underlay element
         this._hideUnderlay();
         // Execute the original hide()
@@ -3297,8 +3318,8 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(HTMLElement | String)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
-     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
+     * @param {(HTMLElement | String)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
      * @returns {transition} Returns a new instance of Transition.
      * @example
      * // Create a new Transition.
@@ -3398,7 +3419,7 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {Boolean} [options.skin] Sets a CSS class name to the trigger and container to get a variation of Dropdown. Default: false.
      * @param {Boolean} [options.shortcuts] Configures navigation shortcuts. Default: true.
      * @param {(String | HTMLElement)} [options.content] The content to be shown into the Dropdown container.
@@ -3503,7 +3524,7 @@ ch.factory = function (Klass) {
          * The dropdown trigger. It's the element that will show and hide the container.
          * @type {HTMLElement}
          */
-        this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected')
+        this.trigger.setAttribute('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected');
         tiny.addClass(this.trigger, 'ch-dropdown-trigger');
 
         this.trigger.setAttribute('unselectable', 'on');
@@ -3563,7 +3584,7 @@ ch.factory = function (Klass) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {dropdown}
      * @example
      * // Shows a basic dropdown.
@@ -3764,7 +3785,7 @@ ch.factory = function (Klass) {
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-        tiny.on(this.container, 'submit', function (event) {
+        tiny.on(this.container, 'submit', function (event) {
             // Runs validations
             that.validate(event);
         });
@@ -3856,7 +3877,7 @@ ch.factory = function (Klass) {
                 firstError.trigger.querySelector('input:first-child').focus();
             }
 
-            if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
+            if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
                 triggerError.focus();
             }
 
@@ -4012,7 +4033,7 @@ ch.factory = function (Klass) {
         // this.$container.off('.form')
         this.container.removeAttribute('novalidate');
 
-        this.validations.forEach(function (e, i) {
+        this.validations.forEach(function (e) {
             e.destroy();
         });
 
@@ -4364,7 +4385,7 @@ ch.factory = function (Klass) {
      * @private
      */
     Validation.prototype._defaults = {
-        'offsetX': 10
+        'offsetX': 10
     };
 
     /**
@@ -4555,7 +4576,7 @@ ch.factory = function (Klass) {
         }
 
         this.trigger.removeAttribute('aria-label');
-        tiny.removeClass(this.trigger, 'ch-validation-error')
+        tiny.removeClass(this.trigger, 'ch-validation-error');
 
 
         this._hideErrorMessage();
@@ -4588,7 +4609,7 @@ ch.factory = function (Klass) {
     Validation.prototype.hasError = function () {
 
         // Pre-validation: Don't validate disabled
-        if (this.trigger.getAttribute('disabled') || !this._enabled) {
+        if (this.trigger.getAttribute('disabled') || !this._enabled) {
             return false;
         }
 
@@ -4976,7 +4997,7 @@ ch.factory = function (Klass) {
          */
         that.container = (function () {
             var parent = tiny.parent(that._el);
-                parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
+            parent.insertAdjacentHTML('beforeend', '<span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</span>');
 
             return parent.querySelector('#' + messageID);
         }());
@@ -5082,7 +5103,7 @@ ch.factory = function (Klass) {
      */
     Countdown.prototype.destroy = function () {
         var parentElement = tiny.parent(this.container);
-            parentElement.removeChild(this.container);
+        parentElement.removeChild(this.container);
 
         tiny.trigger(window.document, ch.onlayoutchange);
 
@@ -5268,17 +5289,14 @@ ch.factory = function (Klass) {
          * @type {HTMLCollection}
          */
         this._items = (function () {
-                var item,
-                    // uses querySelectorAll because it need a static collection
-                    collection = that._list.querySelectorAll('li'),
-                    collectionLength = collection.length;
+            var collection = that._list.querySelectorAll('li');
 
-                Array.prototype.forEach.call(collection, function(item){
-                    tiny.addClass(item, 'ch-carousel-item');
-                });
+            Array.prototype.forEach.call(collection, function (item) {
+                tiny.addClass(item, 'ch-carousel-item');
+            });
 
-                return collection;
-            }());
+            return collection;
+        }());
 
         /**
          * Element that wraps the list and denies its overflow.
@@ -5418,7 +5436,7 @@ ch.factory = function (Klass) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
-            if (page !== null) { that.select(window.parseInt(page, 10)); }
+            if (page !== null) { that.select(window.parseInt(page, 10)); }
         }, false);
 
         // Refresh calculation when the viewport resizes
@@ -5760,13 +5778,13 @@ ch.factory = function (Klass) {
 
         // Get the height using new width and relation between width and height of item (ratio)
         cssItemText = [
-                'width:' + width + 'px;',
-                'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(3) + 'px;',
-                'margin-right:' + this._itemMargin + 'px;'
-            ].join('');
+            'width:' + width + 'px;',
+            'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(3) + 'px;',
+            'margin-right:' + this._itemMargin + 'px;'
+        ].join('');
 
         // Update element styles
-        Array.prototype.forEach.call(this._items, function (item, index){
+        Array.prototype.forEach.call(this._items, function (item){
             item.setAttribute('style', cssItemText);
         });
 
@@ -5793,7 +5811,7 @@ ch.factory = function (Klass) {
         });
 
         // Add arrows to DOM
-        this._el.insertBefore(this._prevArrow, this._el.children[0])
+        this._el.insertBefore(this._prevArrow, this._el.children[0]);
         this._el.appendChild(this._nextArrow);
         // Check arrows as created
         this._arrowsCreated = true;
@@ -5852,8 +5870,7 @@ ch.factory = function (Klass) {
      */
     Carousel.prototype._translate = (function () {
         // CSS property written as string to use on CSS movement
-        var transform = '-' + VENDOR_PREFIX + '-transform',
-            vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
+        var vendorTransformKey = VENDOR_PREFIX ? VENDOR_PREFIX + 'Transform' : null;
 
         // Use CSS transform to move
         if (tiny.support.transition) {
@@ -5890,11 +5907,11 @@ ch.factory = function (Klass) {
             toItem = children[to - 1];
 
         // Unselect the thumbnail previously selected
-        fromItem.setAttribute('aria-selected', false)
+        fromItem.setAttribute('aria-selected', false);
         tiny.removeClass(fromItem, 'ch-carousel-selected');
 
         // Select the new thumbnail
-        toItem.setAttribute('aria-selected', true)
+        toItem.setAttribute('aria-selected', true);
         tiny.addClass(toItem, 'ch-carousel-selected');
     };
 
@@ -6299,26 +6316,6 @@ ch.factory = function (Klass) {
             };
         },
 
-        /**
-         * Templates of arrows to move around months.
-         * @type {Object}
-         * @private
-         */
-        arrows = {
-
-            /**
-             * Template of previous arrow.
-             * @type {HTMLDivElement}
-             */
-            'prev': '<div class="ch-calendar-prev" role="button" aria-hidden="false"></div>',
-
-            /**
-             * Template of next arrow.
-             * @type {HTMLDivElement}
-             */
-            'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
-        },
-
         parent = Calendar.super_.prototype;
 
     /**
@@ -6394,7 +6391,7 @@ ch.factory = function (Klass) {
             if (!selected) { return selected; }
 
             // Simple date selection
-            if (!Array.isArray(selected)) {
+            if (!Array.isArray(selected)) {
 
                 if (selected !== 'today') {
                     // Return date object and update currentDate
@@ -6408,7 +6405,7 @@ ch.factory = function (Klass) {
             } else {
                 selected.forEach(function (e, i){
                     // Simple date
-                    if (!Array.isArray(e)) {
+                    if (!Array.isArray(e)) {
                         selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
                     // Range
                     } else {
@@ -6739,7 +6736,7 @@ ch.factory = function (Klass) {
 
         // Multiple selection (ranges)
         } else {
-            this._dates.selected.forEach(function (e, i) {
+            this._dates.selected.forEach(function (e) {
                 // Simple date
                 if (!Array.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {
@@ -6835,7 +6832,7 @@ ch.factory = function (Klass) {
      * calendar.nextMonth();
      */
     Calendar.prototype.nextMonth = function () {
-        if (!this._enabled || !this._hasNextMonth()) {
+        if (!this._enabled || !this._hasNextMonth()) {
             return this;
         }
 
@@ -6873,7 +6870,7 @@ ch.factory = function (Klass) {
      */
     Calendar.prototype.prevMonth = function () {
 
-        if (!this._enabled || !this._hasPrevMonth()) {
+        if (!this._enabled || !this._hasPrevMonth()) {
             return this;
         }
 
@@ -6911,7 +6908,7 @@ ch.factory = function (Klass) {
      */
     Calendar.prototype.nextYear = function () {
 
-        if (!this._enabled || !this._hasNextMonth()) {
+        if (!this._enabled || !this._hasNextMonth()) {
             return this;
         }
 
@@ -6943,7 +6940,7 @@ ch.factory = function (Klass) {
      */
     Calendar.prototype.prevYear = function () {
 
-        if (!this._enabled || !this._hasPrevMonth()) {
+        if (!this._enabled || !this._hasPrevMonth()) {
             return this;
         }
 
@@ -7592,7 +7589,7 @@ ch.factory = function (Klass) {
     function highlightSuggestion(target) {
         var posinset;
 
-        Array.prototype.forEach.call(this._suggestionsList.childNodes, function(e, i){
+        Array.prototype.forEach.call(this._suggestionsList.childNodes, function(e) {
             if(e.contains(target)){
                 posinset = parseInt(target.getAttribute('aria-posinset'), 10) - 1;
             }
@@ -7603,7 +7600,7 @@ ch.factory = function (Klass) {
         this._toogleHighlighted();
 
         return this;
-    };
+    }
 
     var specialKeyCodeMap = {
         9: 'tab',
@@ -7834,7 +7831,7 @@ ch.factory = function (Klass) {
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
 
-        tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); })
+        tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); });
         tiny.on(this.trigger, 'blur', function turnoff() {that._turn('off'); });
 
         // Turn on when the input element is already has focus
@@ -8040,7 +8037,7 @@ ch.factory = function (Klass) {
          */
         var that = this,
             items = [],
-            matchedRegExp = new RegExp('(' + this._currentQuery.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1") + ')', 'ig'),
+            matchedRegExp = new RegExp('(' + this._currentQuery.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1') + ')', 'ig'),
             totalItems = 0,
             itemDOMCollection,
             itemTemplate = this._options._itemTemplate,
@@ -8051,7 +8048,7 @@ ch.factory = function (Klass) {
             itemSelected = this.container.querySelector('.' + this._options.highlightedClass);
 
         // hide the loading feedback
-        tiny.removeClass(this.trigger, that._options.loadingClass)
+        tiny.removeClass(this.trigger, that._options.loadingClass);
 
         // hides the suggestions list
         if (suggestionsLength === 0) {

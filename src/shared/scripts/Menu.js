@@ -169,7 +169,6 @@
          * @private
          */
         var that = this,
-            li,
             child;
 
         function createExpandable(li, i) {
@@ -285,13 +284,13 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second fold with some string.
      * menu.content(2, 'http://ajax.com', {'cache': false});
      */
     Menu.prototype.content = function (fold, content, options) {
-        if (fold === undefined || typeof fold !== 'number') {
+        if (fold === undefined || typeof fold !== 'number') {
             throw new window.Error('Menu.content(fold, content, options): Expected number of fold.');
         }
 
@@ -320,7 +319,7 @@
      */
     Menu.prototype.destroy = function () {
 
-        this.folds.forEach(function (e, i) {
+        this.folds.forEach(function (e) {
             if (e.destroy !== undefined) {
                 e.destroy();
             }

@@ -131,7 +131,7 @@
             // Disable HTML5 browser-native validations
         this.container.setAttribute('novalidate', 'novalidate');
             // Bind the submit
-        tiny.on(this.container, 'submit', function (event) {
+        tiny.on(this.container, 'submit', function (event) {
             // Runs validations
             that.validate(event);
         });
@@ -223,7 +223,7 @@
                 firstError.trigger.querySelector('input:first-child').focus();
             }
 
-            if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
+            if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
                 triggerError.focus();
             }
 
@@ -379,7 +379,7 @@
         // this.$container.off('.form')
         this.container.removeAttribute('novalidate');
 
-        this.validations.forEach(function (e, i) {
+        this.validations.forEach(function (e) {
             e.destroy();
         });
 

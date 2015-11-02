@@ -24,8 +24,8 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
-     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
+     * @param {(HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
      * @returns {zoom} Returns a new instance of Zoom.
      * @example
      * // Create a new Zoom.
@@ -143,7 +143,7 @@
          */
         this._loading = (function() {
             var dummyElement = document.createElement('div');
-                dummyElement.innerHTML = '<div class="ch-zoom-loading ch-hide"><div class="ch-loading-large"></div><p>' + that._options.waiting + '</p></div>';
+            dummyElement.innerHTML = '<div class="ch-zoom-loading ch-hide"><div class="ch-loading-large"></div><p>' + that._options.waiting + '</p></div>';
 
             return dummyElement.firstChild;
         }());
@@ -158,7 +158,7 @@
          */
         this._seeker = (function (){
             var dummyElement = document.createElement('div');
-                dummyElement.innerHTML = '<div class="ch-zoom-seeker ch-hide"></div>';
+            dummyElement.innerHTML = '<div class="ch-zoom-seeker ch-hide"></div>';
 
             return dummyElement.firstChild;
         }());
@@ -393,7 +393,7 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {zoom}
      * @example
      * // Shows a basic zoom.
@@ -409,7 +409,6 @@
      * });
      */
     Zoom.prototype.show = function (content, options) {
-        var parentElement;
         // Don't execute when it's disabled
         if (!this._enabled || this._shown) {
             return this;

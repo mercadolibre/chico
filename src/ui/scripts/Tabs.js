@@ -391,13 +391,13 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second tab with some string.
      * tabs.content(2, 'http://ajax.com', {'cache': false});
      */
     Tabs.prototype.content = function (tab, content, options) {
-        if (tab === undefined || typeof tab !== 'number') {
+        if (tab === undefined || typeof tab !== 'number') {
             throw new window.Error('Tabs.content(tab, content, options): Expected a number of tab.');
         }
 

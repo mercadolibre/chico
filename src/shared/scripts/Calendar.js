@@ -178,26 +178,6 @@
             };
         },
 
-        /**
-         * Templates of arrows to move around months.
-         * @type {Object}
-         * @private
-         */
-        arrows = {
-
-            /**
-             * Template of previous arrow.
-             * @type {HTMLDivElement}
-             */
-            'prev': '<div class="ch-calendar-prev" role="button" aria-hidden="false"></div>',
-
-            /**
-             * Template of next arrow.
-             * @type {HTMLDivElement}
-             */
-            'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
-        },
-
         parent = Calendar.super_.prototype;
 
     /**
@@ -273,7 +253,7 @@
             if (!selected) { return selected; }
 
             // Simple date selection
-            if (!Array.isArray(selected)) {
+            if (!Array.isArray(selected)) {
 
                 if (selected !== 'today') {
                     // Return date object and update currentDate
@@ -287,7 +267,7 @@
             } else {
                 selected.forEach(function (e, i){
                     // Simple date
-                    if (!Array.isArray(e)) {
+                    if (!Array.isArray(e)) {
                         selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
                     // Range
                     } else {
@@ -618,7 +598,7 @@
 
         // Multiple selection (ranges)
         } else {
-            this._dates.selected.forEach(function (e, i) {
+            this._dates.selected.forEach(function (e) {
                 // Simple date
                 if (!Array.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {
@@ -714,7 +694,7 @@
      * calendar.nextMonth();
      */
     Calendar.prototype.nextMonth = function () {
-        if (!this._enabled || !this._hasNextMonth()) {
+        if (!this._enabled || !this._hasNextMonth()) {
             return this;
         }
 
@@ -752,7 +732,7 @@
      */
     Calendar.prototype.prevMonth = function () {
 
-        if (!this._enabled || !this._hasPrevMonth()) {
+        if (!this._enabled || !this._hasPrevMonth()) {
             return this;
         }
 
@@ -790,7 +770,7 @@
      */
     Calendar.prototype.nextYear = function () {
 
-        if (!this._enabled || !this._hasNextMonth()) {
+        if (!this._enabled || !this._hasNextMonth()) {
             return this;
         }
 
@@ -822,7 +802,7 @@
      */
     Calendar.prototype.prevYear = function () {
 
-        if (!this._enabled || !this._hasPrevMonth()) {
+        if (!this._enabled || !this._hasPrevMonth()) {
             return this;
         }
 
