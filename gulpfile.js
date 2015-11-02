@@ -212,7 +212,7 @@ gulp.task('browser-sync', ['build'], function () {
 
     gulp.watch('dist/**/*.js').on('change', reload);
     gulp.watch('src/views/*.html').on('change', reload);
-    gulp.watch('src/styles/*.scss', ['sass']);
+    gulp.watch('src/**/styles/**/*.scss', ['sass']);
 });
 
 // Validates JavaScript files with ESLint
