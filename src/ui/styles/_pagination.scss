@@ -17,12 +17,10 @@
     border: 1px solid $pagination-to-select-hover-border;
 }
 
-.ch-pagination a[type="prev"]:hover,
-.ch-pagination a[type="next"]:hover {
-    border-color: $pagination-next-and-prev-hover-border;
-}
-
-.ch-pagination a[type="prev"],
-.ch-pagination a[type="next"] {
+.ch-pagination .ch-pagination-sequence a {
     border-color: $pagination-next-and-prev-border;
+
+    &:hover {
+        border-color: $pagination-next-and-prev-hover-border;
+    }
 }
