@@ -495,65 +495,6 @@ img {
 }
 
 /**
- * Close button
- */
-.ch-close,
-.ch-close:visited,
-.ch-close:focus {
-  background-color: transparent;
-  background-image: -webkit-linear-gradient( top , transparent 15%, rgba(100, 100, 100, 0.1) 100%);
-  background-image: linear-gradient(to bottom, transparent 15%, rgba(100, 100, 100, 0.1) 100%);
-  border: 1px solid #dedede;
-  border-radius: 3px;
-  cursor: pointer;
-  display: inline-block;
-  padding: 0;
-  text-indent: 0;
-  color: #cdcdcd;
-  width: 21px;
-  height: 21px;
-  font: normal 22px/21px Arial, sans-serif;
-  text-align: center;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-  z-index: 1;
-}
-
-.ch-close:active {
-  color: #fff;
-  background-color: #bf0602;
-  background-image: -webkit-linear-gradient(#bf0602, #8f2f00);
-  background-image: linear-gradient(#bf0602, #8f2f00);
-}
-
-.ch-close:before {
-  content: "\00D7";
-}
-
-.ch-close:active
-.ch-close:focus,
-.ch-close:hover {
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-  border: 1px solid #dedede;
-}
-
-.ch-close:focus,
-.ch-close:hover {
-  color: #fff;
-  background-color: #fA5900;
-  background-color: #fA5900;
-  background-image: -webkit-linear-gradient(#fA5900, #ca0c02);
-  background-image: linear-gradient(#fA5900, #ca0c02);
-  text-decoration: none;
-}
-
-/**
  * Headings
  */
 h1,
@@ -657,6 +598,65 @@ a:focus {
 [class*="ch-box"] h5,
 [class*="ch-box"] h6 {
   margin-bottom: 5px;
+}
+
+/**
+ * Close button
+ */
+.ch-close,
+.ch-close:visited,
+.ch-close:focus {
+  background-color: transparent;
+  background-image: -webkit-linear-gradient( top , transparent 15%, rgba(100, 100, 100, 0.1) 100%);
+  background-image: linear-gradient(to bottom, transparent 15%, rgba(100, 100, 100, 0.1) 100%);
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  text-indent: 0;
+  color: #cdcdcd;
+  width: 21px;
+  height: 21px;
+  font: normal 22px/21px Arial, sans-serif;
+  text-align: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  z-index: 1;
+}
+
+.ch-close:active {
+  color: #fff;
+  background-color: #bf0602;
+  background-image: -webkit-linear-gradient(#bf0602, #8f2f00);
+  background-image: linear-gradient(#bf0602, #8f2f00);
+}
+
+.ch-close:before {
+  content: "\00D7";
+}
+
+.ch-close:active
+.ch-close:focus,
+.ch-close:hover {
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid #dedede;
+}
+
+.ch-close:focus,
+.ch-close:hover {
+  color: #fff;
+  background-color: #fA5900;
+  background-color: #fA5900;
+  background-image: -webkit-linear-gradient(#fA5900, #ca0c02);
+  background-image: linear-gradient(#fA5900, #ca0c02);
+  text-decoration: none;
 }
 
 /**
@@ -2666,8 +2666,7 @@ dl.ch-list dd {
   font-size: 16px;
 }
 
-.ch-pagination a[type="prev"],
-.ch-pagination a[type="next"] {
+.ch-pagination .ch-pagination-sequence a {
   background-color: transparent;
   border-color: transparent;
 }
