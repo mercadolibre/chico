@@ -146,7 +146,7 @@ for (var m in tiny) {
     }
 }
 
-	ch.version = 'v2.0.0-beta.3';
+	ch.version = '2.0.0-beta.3';
 	window.ch = ch;
 }(this));
 (function (ch) {

@@ -18,7 +18,7 @@ input[type="password"],
 textarea,
 select,
 select[multiple] {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     display: block;
     font-size: $generic-input-text-size;
     line-height: $generic-input-line-height;
@@ -132,7 +132,7 @@ input[type="checkbox"]:focus {
 }
 
 .ch-box-list input + label {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     font-size: $form-box-list-label-text-size;
     width: 100%;
     padding: $form-box-list-label-padding;

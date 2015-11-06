@@ -6,15 +6,14 @@ var reload = browserSync.reload;
 var path = require('path');
 var streamqueue = require('streamqueue');
 var eslint = require('gulp-eslint');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
 
 // UI JavaScript
 var uiJS = require('./libs/files/ui').JS;
 
 // Mobile JavaScript
 var mobileJS = require('./libs/files/mobile').JS;
-
-// Path where is located the Bourbon source
-var bourbonPath = 'node_modules/bourbon/app/assets/stylesheets/';
 
 // Package data
 var pkg = require('./package.json');
@@ -24,7 +23,7 @@ var distPath = './dist';
 var banner = {
     full: [
         '/*!',
-        ' * Chico UI ' + pkg.version,
+        ' * Chico UI v' + pkg.version,
         ' * http://chico-ui.com.ar/',
         ' *',
         ' * Copyright (c) ' + (new Date().getFullYear()) + ', MercadoLibre.com',
@@ -55,9 +54,11 @@ gulp.task('sass:ui', function () {
     return gulp.src('src/ui/styles/ui-theme.scss')
         .pipe($.sourcemaps.init())
         .pipe($.sass({
-            outputStyle: 'expanded', // nested, compact, compressed, expanded
-            includePaths: [bourbonPath]
+            outputStyle: 'expanded' // nested, compact, compressed, expanded
         }))
+        .pipe(postcss([
+            autoprefixer({'browsers': ['last 5 versions', '> 1%']})
+        ]))
         .pipe($.rename('chico.css'))
         .pipe($.wrapper({
             header: banner.full
@@ -71,9 +72,11 @@ gulp.task('sass:mobile', function () {
     return gulp.src('src/mobile/styles/mobile-theme.scss')
         .pipe($.sourcemaps.init())
         .pipe($.sass({
-            outputStyle: 'expanded', // nested, compact, compressed, expanded
-            includePaths: [bourbonPath]
+            outputStyle: 'expanded' // nested, compact, compressed, expanded
         }))
+        .pipe(postcss([
+            autoprefixer({'browsers': ['last 5 versions', 'android >= 2.1', '> 1%']})
+        ]))
         .pipe($.rename('chico.css'))
         .pipe($.wrapper({
             header: banner.full

@@ -1,3 +1,5 @@
+@import "functions";
+
 // > Mixins
 // ----------------------------------------------------------------
 
@@ -24,7 +26,6 @@
 @mixin no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -39,16 +40,86 @@
   white-space: nowrap;
 }
 
+@mixin linear-gradient($pos, $g1, $g2: null,
+                       $g3: null, $g4: null,
+                       $g5: null, $g6: null,
+                       $g7: null, $g8: null,
+                       $g9: null, $g10: null,
+                       $fallback: null) {
+    // Detect what type of value exists in $pos
+    $pos-type: type-of(nth($pos, 1));
+    $pos-spec: null;
+    $pos-degree: null;
 
-// >> Box sizing
-// ------------------------------------------------------
+    // If $pos is missing from mixin, reassign vars and add default position
+    @if ($pos-type == color) or (nth($pos, 1) == "transparent")  {
+        $g10: $g9; $g9: $g8; $g8: $g7; $g7: $g6; $g6: $g5;
+        $g5: $g4; $g4: $g3; $g3: $g2; $g2: $g1; $g1: $pos;
+        $pos: null;
+    }
 
-// The box-sizing mixin is deprecated by Bourbon library  and will be removed in
-// the next major version release. We are still going to support older browsers
-// so to prevent Bourbon warnings the mixing is overriding here but without the
-// warn.
-@mixin box-sizing($box) {
-    @include prefixer(box-sizing, $box, webkit moz spec);
+    @if $pos {
+        $positions: _linear-positions-parser($pos);
+        $pos-degree: nth($positions, 1);
+        $pos-spec:   nth($positions, 2);
+    }
+
+    $full: $g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9, $g10;
+
+    // Set $g1 as the default fallback color
+    $fallback-color: nth($g1, 1);
+
+    // If $fallback is a color use that color as the fallback color
+    @if (type-of($fallback) == color) or ($fallback == "transparent") {
+        $fallback-color: $fallback;
+    }
+
+    background-color: $fallback-color;
+    background-image: -webkit-linear-gradient($pos-degree $full); // Safari 5.1+, Chrome
+    background-image: unquote("linear-gradient(#{$pos-spec}#{$full})");
+}
+
+//************************************************************************//
+// Background-image property for adding multiple background images with
+// gradients, or for stringing multiple gradients together.
+//************************************************************************//
+
+@mixin background-image($images...) {
+    $webkit-images: ();
+    $spec-images: ();
+
+    @each $image in $images {
+        $webkit-image: ();
+        $spec-image: ();
+
+        @if (type-of($image) == string) {
+            $url-str:       str-slice($image, 1, 3);
+            $gradient-type: str-slice($image, 1, 6);
+
+            @if $url-str == "url" {
+                $webkit-image: $image;
+                $spec-image:   $image;
+            }
+
+            @else if $gradient-type == "linear" {
+                $gradients: _linear-gradient-parser($image);
+                $webkit-image:  map-get($gradients, webkit-image);
+                $spec-image:    map-get($gradients, spec-image);
+            }
+
+            @else if $gradient-type == "radial" {
+                $gradients: _radial-gradient-parser($image);
+                $webkit-image: map-get($gradients, webkit-image);
+                $spec-image:   map-get($gradients, spec-image);
+            }
+        }
+
+        $webkit-images: append($webkit-images, $webkit-image, comma);
+        $spec-images:   append($spec-images,   $spec-image,   comma);
+    }
+
+    background-image: $webkit-images;
+    background-image: $spec-images;
 }
 
 // >> Complex background
@@ -69,7 +140,9 @@
         @if $secondary-color and $primary-color != $secondary-color{
             @include background-image(linear-gradient($primary-color, $secondary-color));
         }
-    } @else if length($colors) > 2 {
+    }
+
+    @else if length($colors) > 2 {
         @include background-image(linear-gradient($colors));
     }
 }
