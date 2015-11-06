@@ -23,7 +23,7 @@
   position: absolute;
   right: $close-button-position-right;
   top: $close-button-position-top;
-  @include appearance(none);
+  appearance: none;
   z-index: 1;
 }
 
@@ -46,7 +46,6 @@
 .ch-close:focus,
 .ch-close:hover {
   color: $close-button-focus-hover-text-color;
-  background-color: $close-button-focus-hover-bg-color;
   @include complex-background($close-button-focus-hover-bg-color, $close-button-focus-hover-bg-color-secondary);
   text-decoration: none;
 }

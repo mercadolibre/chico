@@ -58,7 +58,7 @@ input[type="search"]{
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    @include appearance(none);
+    appearance: none;
     margin: 0;
 }
 

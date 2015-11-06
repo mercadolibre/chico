@@ -58,11 +58,11 @@
     }
     &.ch-fx-slideDown {
         overflow: hidden;
-        @include transition(height .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out);
+        transition: height .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out;
     }
     &.ch-fx-slideUp {
         overflow: hidden;
-        @include transition(height .3s ease-in, padding-top .3s ease-in, padding-bottom .3s ease-in, visibility 0s linear .3s);
+        transition: height .3s ease-in, padding-top .3s ease-in, padding-bottom .3s ease-in, visibility 0s linear .3s;
     }
     &.ch-fx.ch-fx-slideDown {
         visibility: visible;

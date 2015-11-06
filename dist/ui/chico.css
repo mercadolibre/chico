@@ -467,6 +467,7 @@ p + p {
 }
 
 .ch-ellipsis {
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -484,7 +485,6 @@ p + p {
 .ch-user-no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -592,6 +592,7 @@ a:focus {
 .ch-close:focus {
   background-color: transparent;
   background-image: -webkit-linear-gradient( top , transparent 15%, rgba(100, 100, 100, 0.1) 100%);
+  background-image: -webkit-linear-gradient(top, transparent 15%, rgba(100, 100, 100, 0.1) 100%);
   background-image: linear-gradient(to bottom, transparent 15%, rgba(100, 100, 100, 0.1) 100%);
   border: 1px solid #dedede;
   border-radius: 3px;
@@ -608,10 +609,8 @@ a:focus {
   right: 10px;
   top: 10px;
   -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   z-index: 1;
 }
 
@@ -636,7 +635,6 @@ a:focus {
 .ch-close:focus,
 .ch-close:hover {
   color: #fff;
-  background-color: #fA5900;
   background-color: #fA5900;
   background-image: -webkit-linear-gradient(#fA5900, #ca0c02);
   background-image: linear-gradient(#fA5900, #ca0c02);
@@ -794,6 +792,7 @@ a:focus {
 .ch-box {
   background-color: #f0f0f0;
   background-image: -webkit-linear-gradient(top, #f0f0f0, #fff 25px, #fff);
+  background-image: -webkit-linear-gradient(top,#f0f0f0, #fff 25px, #fff);
   background-image: linear-gradient(to bottom,#f0f0f0, #fff 25px, #fff);
 }
 
@@ -1285,17 +1284,15 @@ a.ch-btn-large:focus {
 .ch-popover.ch-fx.ch-fx-fadeIn {
   visibility: visible;
   opacity: 1;
-  -webkit-transition: opacity 0.3s ease-out;
-  -moz-transition: opacity 0.3s ease-out;
-  transition: opacity 0.3s ease-out;
+  -webkit-transition: opacity .3s ease-out;
+  transition: opacity .3s ease-out;
 }
 
 .ch-popover.ch-fx.ch-fx-fadeOut {
   visibility: hidden;
   opacity: 0;
-  -webkit-transition: opacity 0.3s ease-out, visibility 0s linear 0.3s;
-  -moz-transition: opacity 0.3s ease-out, visibility 0s linear 0.3s;
-  transition: opacity 0.3s ease-out, visibility 0s linear 0.3s;
+  -webkit-transition: opacity .3s ease-out, visibility 0s linear .3s;
+  transition: opacity .3s ease-out, visibility 0s linear .3s;
 }
 
 /**
@@ -1426,10 +1423,7 @@ a.ch-btn-large:focus {
   position: relative;
   /* Enable hardware acceleration */
   -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  transform: translateZ(0);
+          transform: translateZ(0);
 }
 
 .ch-carousel-mask {
@@ -1442,9 +1436,8 @@ a.ch-btn-large:focus {
 .ch-carousel > ul,
 .ch-carousel-list {
   overflow: hidden;
-  -webkit-transition: all 0.8s ease;
-  -moz-transition: all 0.8s ease;
-  transition: all 0.8s ease;
+  -webkit-transition: all .8s ease;
+  transition: all .8s ease;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -1455,7 +1448,6 @@ a.ch-btn-large:focus {
 
 .ch-carousel ul.ch-carousel-nofx {
   -webkit-transition: none;
-  -moz-transition: none;
   transition: none;
 }
 
@@ -1526,7 +1518,6 @@ a.ch-btn-large:focus {
 .ch-carousel-pages span {
   background-color: #f0f0f0;
   border-radius: 100%;
-  -webkit-box-shadow: inset 1px 1px #999;
   box-shadow: inset 1px 1px #999;
   cursor: pointer;
   display: inline-block;
@@ -1698,7 +1689,6 @@ table {
 .ch-datepicker .ch-calendar caption {
   border-bottom: 1px solid #dedede;
   margin: 0;
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -1846,7 +1836,6 @@ table {
 }
 
 .ch-dropdown-trigger-skin.ch-btn-skin:active {
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -1950,16 +1939,14 @@ table {
 
 .ch-expandable-container.ch-fx-slideDown {
   overflow: hidden;
-  -webkit-transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
-  -moz-transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
-  transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
+  -webkit-transition: height .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out;
+  transition: height .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out;
 }
 
 .ch-expandable-container.ch-fx-slideUp {
   overflow: hidden;
-  -webkit-transition: height 0.3s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in, visibility 0s linear 0.3s;
-  -moz-transition: height 0.3s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in, visibility 0s linear 0.3s;
-  transition: height 0.3s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in, visibility 0s linear 0.3s;
+  -webkit-transition: height .3s ease-in, padding-top .3s ease-in, padding-bottom .3s ease-in, visibility 0s linear .3s;
+  transition: height .3s ease-in, padding-top .3s ease-in, padding-bottom .3s ease-in, visibility 0s linear .3s;
 }
 
 .ch-expandable-container.ch-fx.ch-fx-slideDown {
@@ -2027,10 +2014,7 @@ input[type="search"] {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  appearance: none;
+          appearance: none;
   margin: 0;
 }
 
@@ -2667,7 +2651,6 @@ dl.ch-list dd {
 
 .ch-underlay.ch-fx-fadein-enter, .ch-underlay.ch-fx-fadein-leave, .ch-underlay.ch-fx-slidedown-enter, .ch-underlay.ch-fx-slidedown-leave {
   -webkit-transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -3078,8 +3061,6 @@ dl.ch-list dd {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-top: none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 

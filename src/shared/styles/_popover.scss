@@ -225,11 +225,11 @@
     &.ch-fx.ch-fx-fadeIn {
         visibility: visible;
         opacity: 1;
-        @include transition(opacity .3s ease-out);
+        transition: opacity .3s ease-out;
     }
     &.ch-fx.ch-fx-fadeOut {
         visibility: hidden;
         opacity: 0;
-        @include transition(opacity .3s ease-out, visibility 0s linear .3s);
+        transition: opacity .3s ease-out, visibility 0s linear .3s;
     }
 }

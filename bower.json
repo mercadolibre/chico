@@ -1,7 +1,7 @@
 {
   "name": "chico",
   "description": "Chico UI is a free and open source collection of easy-to-use web components for developers and designers.",
-  "version": "v2.0.0-beta.3",
+  "version": "2.0.0-beta.3",
   "keywords": [
     "css",
     "js",
@@ -38,6 +38,6 @@
     "package.json"
   ],
   "dependencies": {
-    "tiny.js": "tiny#~0.1.1"
+    "tiny.js": "tiny#~0.1.2"
   }
 }

@@ -7,7 +7,7 @@
     overflow: auto;
     position: relative;
     /* Enable hardware acceleration */
-    @include transform(translateZ(0));
+    transform: translateZ(0);
 }
 
 .ch-carousel-mask {
@@ -20,7 +20,7 @@
 .ch-carousel > ul,
 .ch-carousel-list {
     overflow: hidden;
-    @include transition(all .8s ease);
+    transition: all .8s ease;
     width: -webkit-max-content;
     width: -moz-max-content;
     width: max-content;
@@ -30,7 +30,7 @@
 }
 
 .ch-carousel ul.ch-carousel-nofx {
-    @include transition(none);
+    transition: none;
 }
 
 /* Both are the same elements, but it can apply styles before the component initialization */

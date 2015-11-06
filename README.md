@@ -2,21 +2,21 @@
 
 Chico UI is a free and open source collection of easy-to-use UI components for designers and developers.
 
-
 > Get things done, quickly.
 
+
 ## Installing
-
-Using bower:
-
-```bash
-$ bower install chico
-```
 
 Using npm:
 
 ```bash
 $ npm install chico
+```
+
+Using bower:
+
+```bash
+$ bower install chico
 ```
 
 ## Development setup
@@ -125,40 +125,33 @@ In the example, the first Sass file (_autocomplete.scss) imports the Sass file f
 
 ### How to create a new theme
 
-  * Install `Chico UI` via bower using `bower install chico#>=1.2.0`
-  * Install `bourbon` via bower using `bower install bourbon`
+  * Install `Chico UI` via bower using `npm install chico@2.x.x`
   * Create a theme folder and put a theme file into. E.g. `mkdir mytheme && touch mytheme/mytheme-ui.scss`
   * Edit the `mytheme/mytheme-ui.scss` and put into a minimal required content
 
 ```
-@import 'bourbon';
-@import '../bower_components/chico/src/shared/styles/mixins';
-@import '../bower_components/chico/src/shared/styles/variables';
+@import '../node_modules/chico/src/shared/styles/mixins';
+@import '../node_modules/chico/src/shared/styles/variables';
 ```
 
   * Import all required components
 
 ```
 ...
-@import '../bower_components/chico/src/shared/styles/icons';
+@import '../node_modules/chico/src/shared/styles/icons';
 ...
 ```
 
   * Compile a theme. The fastest way is using a `sass` command line tool
 
-```sass -I ./bower_components/bourbon/app/assets/stylesheets/ mytheme/mytheme-ui.scss mytheme/mytheme-ui.css```
+```sass mytheme/mytheme-ui.scss mytheme/mytheme-ui.css```
 
 Strictly recommended to use some task runner such `grunt` or `gulp`. Typical gulp task may look like
 
 ```js
 gulp.task('sass:ui', function () {
     return gulp.src('mytheme/mytheme-ui.scss')
-        .pipe($.sass({
-            includePaths: [
-                'bower_components/bourbon/app/assets/stylesheets/',
-                './'
-            ]
-        }))
+        .pipe($.sass())
         .pipe(gulp.dest('mytheme/'));
 });
 ```
@@ -169,7 +162,7 @@ gulp.task('sass:ui', function () {
 // File that contain all overrides
 @import 'settings';
 // Default theme with all components
-@import '../bower_components/chico/src/ui/styles/ui-theme';
+@import '../node_modules/chico/src/ui/styles/ui-theme';
 ```
 
 **Note**: Variables reference is pending

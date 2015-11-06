@@ -45,7 +45,7 @@
 
 a.ch-btn-large,
 a.ch-btn-large:focus {
-	@include box-sizing(border-box);
+	box-sizing: border-box;
 }
 
 /* Small h: ~26px */
