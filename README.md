@@ -1,8 +1,11 @@
-# Chico UI  ![Get things done, quickly.](http://isitmaintained.com/badge/resolution/mercadolibre/chico.svg "Get things done, quickly.")
+# Chico UI
 
-Chico UI is a free and open source collection of easy-to-use UI components for designers and developers.
+[![npm version](https://img.shields.io/npm/v/chico.svg)](https://www.npmjs.com/package/chico)
+![Bower version](https://img.shields.io/bower/v/chico.svg)
+[![Build Status](https://travis-ci.org/mercadolibre/chico.svg?branch=master)](https://travis-ci.org/mercadolibre/chico)
+[![devDependency Status](https://img.shields.io/david/dev/mercadolibre/chico.svg)](https://david-dm.org/mercadolibre/chico#info=devDependencies)
 
-> Get things done, quickly.
+> Chico UI is a free and open source collection of easy-to-use UI components for designers and developers.
 
 
 ## Installing
