@@ -98,31 +98,3 @@ table {
     padding: $table-row-selected-padding;
     vertical-align: $table-row-selected-v-align;
 }
-
-/* IE */
-.lt-ie10 .ch-datagrid-controls th {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($table-header-controls-bg-color)}', endColorstr='#{ie-hex-str($table-header-controls-bg-color-secondary)}');
-}
-
-.lt-ie10 .ch-datagrid-controls th:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
-
-.lt-ie10 .ch-datagrid-controls th:active,
-.lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
-
-.lt-ie9 .ch-datagrid-controls thead tr,
-.lt-ie9 .ch-datagrid thead tr {
-    border: 1px solid #dedede;
-}
-
-.lt-ie10 .ch-datagrid-selected {
-    border: 1px solid #dedede;
-}
-
-.lt-ie10 .ch-datagrid-controls td,
-.lt-ie10 .ch-datagrid td {
-    border-top: 1px solid #dedede;
-}

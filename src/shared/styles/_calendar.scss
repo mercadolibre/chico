@@ -45,10 +45,6 @@
     width: $calendar-width;
 }
 
-.lt-ie10 .ch-calendar caption {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($main-neutral-color)}', endColorstr='#{ie-hex-str($gray-100)}');
-}
-
 .ch-calendar-today {
     background-color: $calendar-day-today-bg-color;
 }
@@ -111,10 +107,4 @@
 .ch-calendar-next:after {
     content: "\f054";
     right: $calendar-head-control-next-icon-position;
-}
-
-/* IE */
-.ie9 .ch-calendar caption,
-.ie8 .ch-calendar caption {
-    margin:0;
 }

@@ -1,1 +1,6 @@
 @import '../../shared/styles/modal';
+
+.ie8 .ch-underlay {
+    background-color: #000;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}

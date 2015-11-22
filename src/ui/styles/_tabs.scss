@@ -53,11 +53,6 @@
     box-shadow: $tab-trigger-box-shadow;
 }
 
-.lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
-.lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($tab-trigger-bg-color)}', endColorstr='#{ie-hex-str($tab-trigger-bg-color-secondary)}');
-}
-
 /* Container */
 .ch-tabs .ch-box-lite {
     border-radius: 0;

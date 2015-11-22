@@ -9,16 +9,3 @@
 .ie9 .ch-close {
   line-height: 17px;
 }
-
-.lt-ie10 .ch-close {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str(#F7F7F7)}', endColorstr='#{ie-hex-str(#EEEEEE)}');
-}
-
-.lt-ie10 .ch-close:hover,
-.lt-ie10 .ch-close:focus {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($close-button-focus-hover-bg-color)}', endColorstr='#{ie-hex-str($close-button-focus-hover-bg-color-secondary)}');
-}
-
-.lt-ie10 .ch-close:active {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($close-button-active-bg-color)}', endColorstr='#{ie-hex-str($close-button-active-bg-color-secondary)}');
-}

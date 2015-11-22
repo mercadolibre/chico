@@ -1,1 +1,8 @@
 @import '../../shared/styles/dropdown';
+
+/* IE */
+.lt-ie10 .ch-dropdown-trigger-skin,
+.lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on,
+.lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}

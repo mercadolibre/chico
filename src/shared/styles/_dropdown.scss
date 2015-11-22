@@ -112,7 +112,6 @@
 }
 
 .ch-dropdown-trigger-skin.ch-btn-skin:active {
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
@@ -144,16 +143,4 @@
     background: none;
     text-decoration: underline;
     }
-}
-
-/* IE */
-.lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on,
-.lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($trigger-active-bg-color-top)}', endColorstr='#{ie-hex-str($trigger-active-bg-color)}');
-}
-
-.lt-ie10 .ch-dropdown-trigger-skin,
-.lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on,
-.lt-ie10 .ch-dropdown-trigger-skin.ch-dropdown-trigger-on:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
