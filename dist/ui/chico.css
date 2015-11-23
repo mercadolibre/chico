@@ -604,7 +604,7 @@ a:focus {
   color: #cdcdcd;
   width: 16px;
   height: 16px;
-  font: normal 20px/16px Arial, sans-serif;
+  font: normal 20px / 16px Arial, sans-serif;
   text-align: center;
   position: absolute;
   right: 10px;
