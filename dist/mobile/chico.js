@@ -5734,9 +5734,6 @@
      * @function
      */
     Carousel.prototype._updateDistribution = function () {
-
-        console.log(this._maskWidth);
-
         var moreThanOne = this._limitPerPage > 1,
             // Total space to use as margin into mask
             // It's the difference between mask width and total width of all items
