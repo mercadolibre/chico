@@ -111,7 +111,7 @@ input.ch-btn-small::-moz-focus-inner {
     box-shadow: $btn-disabled-box-shadow inset;
     color: $btn-disabled-text-color !important; /* important for links */
     cursor: not-allowed;
-    @include opacity($btn-disabled-opacity);
+    opacity: $btn-disabled-opacity;
     text-shadow: $btn-disabled-text-shadow;
     -ms-touch-action: none;
     pointer-events: none;

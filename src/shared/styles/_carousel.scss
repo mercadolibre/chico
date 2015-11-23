@@ -21,8 +21,6 @@
 .ch-carousel-list {
     overflow: hidden;
     transition: all .8s ease;
-    width: -webkit-max-content;
-    width: -moz-max-content;
     width: max-content;
     margin: 0;
     padding: 0;
@@ -97,8 +95,7 @@
 
     span {
         background-color: $carousel-pagination-bg-color;
-        border-radius: 100%; 
-        -webkit-box-shadow: $carousel-pagination-shadow;
+        border-radius: 100%;
         box-shadow: $carousel-pagination-shadow;
         cursor: pointer;
         display: inline-block;

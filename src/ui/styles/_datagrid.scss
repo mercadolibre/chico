@@ -1,1 +1,25 @@
 @import '../../shared/styles/datagrid';
+
+/* IE */
+.lt-ie10 .ch-datagrid-controls th:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.lt-ie10 .ch-datagrid-controls th:active,
+.lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.lt-ie9 .ch-datagrid-controls thead tr,
+.lt-ie9 .ch-datagrid thead tr {
+    border: 1px solid #dedede;
+}
+
+.lt-ie10 .ch-datagrid-selected {
+    border: 1px solid #dedede;
+}
+
+.lt-ie10 .ch-datagrid-controls td,
+.lt-ie10 .ch-datagrid td {
+    border-top: 1px solid #dedede;
+}

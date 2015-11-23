@@ -17,8 +17,6 @@
 
 .ch-autocomplete-item:last-of-type {
     border-bottom: none;
-    -webkit-border-bottom-left-radius: $autocomplete-lastitem-border-bottom-left;
-    -webkit-border-bottom-right-radius: $autocomplete-lastitem-border-bottom-right;
     border-bottom-left-radius: $autocomplete-lastitem-border-bottom-left;
     border-bottom-right-radius: $autocomplete-lastitem-border-bottom-right;
 }
@@ -39,8 +37,6 @@
         color: $autocomplete-item-icon-before-text-color;
         display: block;
         transform: rotate(-45deg);
-        -webkit-transform: rotate(-45deg);
-        -moz-transform: rotate(-45deg);
         font-size: $autocomplete-item-icon-before-text-size;
         overflow: hidden;
         line-height: $autocomplete-item-icon-before-line-height;

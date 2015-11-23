@@ -32,8 +32,6 @@
 }
 
 .ch-expandable-trigger-on {
-	-webkit-border-bottom-left-radius: 0;
-	-webkit-border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 }
@@ -50,16 +48,12 @@
 	overflow: hidden;
 	border: $expandable-content-border;
     border-top: none;
-	-webkit-border-bottom-left-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
 
 .ch-expandable-container.ch-box-list {
     padding: $expandable-list-padding;
-    -webkit-border-top-left-radius: 0;
-    -webkit-border-top-right-radius: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }

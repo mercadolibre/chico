@@ -1,1 +1,7 @@
 @import '../../shared/styles/calendar';
+
+/* IE */
+.ie9 .ch-calendar caption,
+.ie8 .ch-calendar caption {
+    margin:0;
+}

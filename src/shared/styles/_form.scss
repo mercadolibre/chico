@@ -111,13 +111,11 @@ input[readonly]:focus {
 }
 
 .ch-form-icon-inner {
-    /* Mixin output */
-    @include opacity($input-inner-icon-opacity);
+    opacity: $input-inner-icon-opacity;
 }
 
 .ch-form-icon-input:focus + .ch-form-icon-inner {
-    /* Mixin output */
-    @include opacity($input-inner-icon-focus-opacity);
+    opacity: $input-inner-icon-focus-opacity;
 }
 
 /* Icon inside input */

@@ -7,6 +7,8 @@ var path = require('path');
 var streamqueue = require('streamqueue');
 var eslint = require('gulp-eslint');
 var postcss = require('gulp-postcss');
+var postcssOpacity = require('postcss-opacity');
+var postcssFilterGradient = require('postcss-filter-gradient');
 var autoprefixer = require('autoprefixer');
 
 // UI JavaScript
@@ -57,7 +59,9 @@ gulp.task('sass:ui', function () {
             outputStyle: 'expanded' // nested, compact, compressed, expanded
         }))
         .pipe(postcss([
-            autoprefixer({'browsers': ['last 5 versions', '> 1%']})
+            postcssFilterGradient,
+            autoprefixer({'browsers': ['last 5 versions', '> 1%']}),
+            postcssOpacity
         ]))
         .pipe($.rename('chico.css'))
         .pipe($.wrapper({
