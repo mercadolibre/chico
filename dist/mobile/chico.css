@@ -1304,6 +1304,9 @@ a.ch-btn-large:focus {
   display: inline-block;
   float: left;
   /* Fixes the inline-block inner space between li elements */
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  /* Fixes the width when item has a border and/or padding */
 }
 
 .ch-carousel-prev,
