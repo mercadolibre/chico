@@ -31,27 +31,27 @@
 /* Default h: ~38px */
 .ch-btn,
 .ch-btn:focus {
-	line-height: $btn-line-height;
+    line-height: $btn-line-height;
     outline: 0;
-	padding: $btn-padding;
+    padding: $btn-padding;
 }
 
 /* Large h: ~44px */
 .ch-btn-large,
 .ch-btn-large:focus {
-	width: 100%;
-	line-height: $btn-large-line-height;
+    width: 100%;
+    line-height: $btn-large-line-height;
 }
 
 a.ch-btn-large,
 a.ch-btn-large:focus {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /* Small h: ~26px */
 .ch-btn-small,
 .ch-btn-small:focus {
-	font-size: $btn-small-text-size;
-	line-height: $btn-small-line-height;
-	padding: $btn-small-padding;
+    font-size: $btn-small-text-size;
+    line-height: $btn-small-line-height;
+    padding: $btn-small-padding;
 }

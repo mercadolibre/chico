@@ -5,16 +5,16 @@
 
 .ch-fold-trigger,
 .ch-expandable-trigger {
-	cursor: $expandable-cursor;
-	display: block;
-	margin: 0;
+    cursor: $expandable-cursor;
+    display: block;
+    margin: 0;
     padding: $expandable-padding;
     position: relative;
     color: $expandable-text-color;
     font-size: $expandable-text-size;
     font-weight: $expandable-text-weight;
     text-shadow: $expandable-text-shadow;
-	background-color: $expandable-bg-color;
+    background-color: $expandable-bg-color;
     border: $expandable-border;
     border-radius: $expandable-border-radius;
 }
@@ -32,24 +32,24 @@
 }
 
 .ch-expandable-trigger-on {
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .ch-expandable-trigger-on:after {
-	content: '\f077';
-	color: $expandable-icon-active-text-color;
+    content: '\f077';
+    color: $expandable-icon-active-text-color;
 }
 
 .ch-expandable-container {
     background-color: $expandable-content-bg-color;
-	margin: $expandable-content-margin;
-	padding: $expandable-content-padding;
-	overflow: hidden;
-	border: $expandable-content-border;
+    margin: $expandable-content-margin;
+    padding: $expandable-content-padding;
+    overflow: hidden;
+    border: $expandable-content-border;
     border-top: none;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .ch-expandable-container.ch-box-list {

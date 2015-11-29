@@ -171,7 +171,7 @@ input.ch-form-icon-input:focus {
     }
 }
 
-/* Label inline not used yet */
+    /* Label inline not used yet */
     .ch-form-row input + label,
     .ch-form-row select + label,
     .ch-label-inline {
@@ -181,7 +181,7 @@ input.ch-form-icon-input:focus {
         margin-left: 0;
     }
 
-/* Label required **/
+    /* Label required **/
     .ch-form-required label {
         font-weight: $input-row-label-required-text-weight;
     }
@@ -191,14 +191,14 @@ input.ch-form-icon-input:focus {
         z-index: 1;
     }
 
-/* Icon indication of required */
+    /* Icon indication of required */
     .ch-form-required em {
         display: block;
         position: absolute;
         right: $icon-required-position;
         top: $icon-required-position;
     }
-/* Icon indication of required in options */
+    /* Icon indication of required in options */
     .ch-form-required.ch-form-options em {
         display: inline;
         position: relative;

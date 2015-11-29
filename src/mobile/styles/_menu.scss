@@ -4,8 +4,8 @@
 @import 'menu-variables';
 
 .ch-menu {
-	border: $menu-border;
-	border-radius: $menu-border-radius
+    border: $menu-border;
+    border-radius: $menu-border-radius
 }
 
 .ch-fold-trigger,
@@ -13,8 +13,8 @@
 .ch-menu .ch-expandable-container,
 /* The last fold, if it's an expanded trigger */
 .ch-menu-fold:last-of-type .ch-expandable-trigger.ch-expandable-trigger-on {
-	border: none;
-	border-radius: 0;
+    border: none;
+    border-radius: 0;
     border-bottom: $menu-row-border-bottom;
 }
 
@@ -30,6 +30,6 @@
 .ch-menu-fold:last-of-type .ch-expandable-trigger,
 .ch-menu-fold:last-of-type .ch-expandable-container {
     border-bottom: none;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }

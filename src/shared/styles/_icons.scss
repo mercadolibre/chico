@@ -14,9 +14,9 @@
      */
     src: url('#{$assets-path}/icons.eot');
     src: url('#{$assets-path}/icons.eot?#iefix') format('embedded-opentype'),
-         url('#{$assets-path}/icons.woff') format('woff'),
-         url('#{$assets-path}/icons.ttf') format('truetype'),
-         url('#{$assets-path}/icons.svg#icons') format('svg');
+        url('#{$assets-path}/icons.woff') format('woff'),
+        url('#{$assets-path}/icons.ttf') format('truetype'),
+        url('#{$assets-path}/icons.svg#icons') format('svg');
     font-weight: normal;
     font-style: normal;
 }

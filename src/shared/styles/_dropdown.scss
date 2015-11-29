@@ -72,7 +72,7 @@
 /* Interaction of list */
 .ch-dropdown menu a:focus {
     background-color: $list-item-focus-bg-color;
-    outline:  $list-item-focus-outline;
+    outline: $list-item-focus-outline;
 }
 
 /**
@@ -140,7 +140,7 @@
 
     /* Interaction of list */
     &:focus {
-    background: none;
-    text-decoration: underline;
+        background: none;
+        text-decoration: underline;
     }
 }
