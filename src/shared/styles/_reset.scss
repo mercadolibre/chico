@@ -24,6 +24,28 @@ progress, section, time, video {
     vertical-align: baseline;
 }
 
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+}
+
 ol, ul, menu {
     list-style: none;
 }
