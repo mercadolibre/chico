@@ -13,21 +13,43 @@
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, address, big, cite, code,
-del, em, img, ins, q, s,
+del, dfn, em, img, ins, q, s,
 small, strong, sub, sup,
 b, u, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, audio, canvas,
-datalist, details, dialog, figure, footer,
-header, mark, menu, meter, nav, output,
+abbr, article, aside, audio, canvas,
+datalist, details, summary, dialog, figcaption, figure,
+footer, header, main, mark, menu, meter, nav, output,
 progress, section, time, video {
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
   vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
 }
 
 ol, ul, menu {
