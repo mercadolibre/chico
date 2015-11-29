@@ -2,11 +2,11 @@
  * Dropdown
  */
 @import 'dropdown-variables';
- 
+
 /* Trigger */
 .ch-dropdown-trigger {
     cursor: $dropdown-trigger-cursor;
-    position: relative; 
+    position: relative;
     display: inline-block;
     padding: $dropdown-trigger-padding;
     z-index: 1011;
@@ -43,7 +43,7 @@
     .ch-modal & {
         z-index: 1100;
     }
-    
+
     /* Container */
     /* List of links */
     menu a {
@@ -89,7 +89,7 @@
     padding: $trigger-skin-padding;
 
     &:after {
-        color: $trigger-skin-after-text-color;  
+        color: $trigger-skin-after-text-color;
     }
 
     /* Trigger Actived */
@@ -134,7 +134,7 @@
 .ch-dropdown-skin menu a {
     background: $skin-list-item-bg-color;
     color: $skin-list-item-color;
-    display: inline; 
+    display: inline;
     line-height: $skin-list-item-line-height;
     padding: $skin-list-item-padding;
 
