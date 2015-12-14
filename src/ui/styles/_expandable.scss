@@ -12,12 +12,12 @@
     font-size: $expandable-trigger-text-size;
 
     &:active {
-        color: $expandable-trigger-active-text-color;  
+        color: $expandable-trigger-active-text-color;
     &:visited {
-        color: $expandable-trigger-visited-text-color;   
+        color: $expandable-trigger-visited-text-color;
     }
     &:hover {
-        text-decoration: $expandable-trigger-visited-text-decoration;       
+        text-decoration: $expandable-trigger-visited-text-decoration;
     }
 }
 

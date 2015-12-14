@@ -16,7 +16,7 @@ $table-title-text-weight: normal !default;
 // >>> Table header row
 // --------------------------------------------
 
-$table-header-bg-color:	$gray-100 !default;
+$table-header-bg-color: $gray-100 !default;
 $table-header-row-border: 1px solid $main-border-color !default;
 $table-header-row-border-left: 1px solid $main-border-color !default;
 $table-header-row-text-align: left !default;
@@ -44,7 +44,7 @@ $table-header-controls-hover-bg-color: $gray-50 !default;
 // >>> Table header with controls active
 // --------------------------------------------
 
-$table-header-controls-active-bg-color:	$gray-400 !default;
+$table-header-controls-active-bg-color: $gray-400 !default;
 $table-header-controls-active-border: 1px solid $main-border-color !default;
 
 // >>> Table title
@@ -63,6 +63,6 @@ $table-header-row-padding: 0 10px !default;
 // >>> Table row selected
 // --------------------------------------------
 
-$table-row-selected-height:	40px !default;
+$table-row-selected-height: 40px !default;
 $table-row-selected-padding: 0 10px !default;
 $table-row-selected-v-align: middle !default;

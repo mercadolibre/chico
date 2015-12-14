@@ -74,7 +74,7 @@ In the "src" folder you'll find all Sass files. From here you can may make chang
 ```
 src/
 |
-|– mobile/ # Properties only for Mobile 
+|– mobile/ # Properties only for Mobile
 |   |
 |   |– styles/ # Components list
 |       |– _autocomplete.scss  # Autocomplete rules

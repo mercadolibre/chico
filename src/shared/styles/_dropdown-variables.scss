@@ -25,8 +25,8 @@ $trigger-active-border-radius: 3px 3px 0 0 !default;
 // >>> Trigger active
 // --------------------------------------------
 
-$trigger-active-border:	$main-border-color !default;
-$trigger-active-box-shadow:	0 1px 6px rgba(71, 98, 116, .6) !default;
+$trigger-active-border: $main-border-color !default;
+$trigger-active-box-shadow: 0 1px 6px rgba(71, 98, 116, .6) !default;
 
 $skin-list-item-bg-color: none !default;
 $skin-list-item-color: $main-primary-color !default;
@@ -34,7 +34,7 @@ $skin-list-item-color: $main-primary-color !default;
 // >>> Trigger
 // --------------------------------------------
 
-$trigger-skin-bg-color:	transparent !default;
+$trigger-skin-bg-color: transparent !default;
 $trigger-skin-border: 1px solid transparent !default;
 $trigger-skin-border-radius: 0 !default;
 $trigger-skin-text-color: $main-primary-color !default;
@@ -55,7 +55,7 @@ $trigger-skin-active-text-color: #00d !default;
 
 $trigger-on-skin-bg-color: $main-neutral-color !default;
 $trigger-on-skin-border: $gray-400 !default;
-$trigger-on-skin-border-radius:	0 !default;
+$trigger-on-skin-border-radius: 0 !default;
 $trigger-on-skin-box-shadow: 2px 0 0 rgba(100, 100, 100, .2) !default;
 
 // >> General
@@ -87,7 +87,7 @@ $skin-box-padding: 5px 10px !default;
 // >>> List item
 // --------------------------------------------
 
-$skin-list-item-margin:	5px 0 !default;
+$skin-list-item-margin: 5px 0 !default;
 $skin-list-item-line-height: 20px !default;
 $skin-list-item-padding: 0 !default;
 
@@ -95,4 +95,4 @@ $skin-list-item-padding: 0 !default;
 // --------------------------------------------
 
 $trigger-skin-padding: 0 28px 0 13px !default;
-$trigger-skin-border-width:	0 1px !default;
+$trigger-skin-border-width: 0 1px !default;

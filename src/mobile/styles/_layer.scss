@@ -3,7 +3,7 @@
 */
 
 .ch-layer-content {
-	position: relative;
+    position: relative;
 }
 
 .ch-layer-content.ch-cone.ch-points-ctcb,
@@ -12,43 +12,43 @@
 .ch-layer-content.ch-cone.ch-points-ltlb,
 .ch-layer-content.ch-cone.ch-points-rtrb,
 .ch-layer-content.ch-cone.ch-points-rtrb {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 /* Cones */
 .ch-cone:after,
 .ch-cone:before {
-	/* border transparent bug on FF: http://stackoverflow.com/a/6225439 */
-	border: outset transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	-ms-touch-action: none;
-	pointer-events: none;
-	display: block;
+    /* border transparent bug on FF: http://stackoverflow.com/a/6225439 */
+    border: outset transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    -ms-touch-action: none;
+    pointer-events: none;
+    display: block;
 }
 
 .ch-cone:after {
-	border-width: $layer-cone-border - $layer-border-width;
+    border-width: $layer-cone-border - $layer-border-width;
 }
 
 .ch-cone:before {
-	border-width: $layer-cone-size;
+    border-width: $layer-cone-size;
 }
 
 .ch-cone.ch-points-ctcb:after,
 .ch-cone.ch-points-cbct:after,
 .ch-cone.ch-points-ctcb:before,
 .ch-cone.ch-points-cbct:before {
-	left: 50%;
+    left: 50%;
 }
 
 .ch-cone.ch-points-lmrm:after,
 .ch-cone.ch-points-rmlm:after,
 .ch-cone.ch-points-lmrm:before,
 .ch-cone.ch-points-rmlm:before {
-	top: 50%;
+    top: 50%;
 }
 
 .ch-cone.ch-points-ctcb:after,
@@ -57,8 +57,8 @@
 .ch-cone.ch-points-ltlb:before,
 .ch-cone.ch-points-rtrb:after,
 .ch-cone.ch-points-rtrb:before {
-	bottom: 100%;
-	border-bottom-style: solid;
+    bottom: 100%;
+    border-bottom-style: solid;
 }
 
 .ch-cone.ch-points-cbct:after,
@@ -67,8 +67,8 @@
 .ch-cone.ch-points-lblt:before,
 .ch-cone.ch-points-rbrt:after,
 .ch-cone.ch-points-rbrt:before {
-	top: 100%;
-	border-top-style: solid;
+    top: 100%;
+    border-top-style: solid;
 }
 
 .ch-cone.ch-points-lmrm:after,
@@ -77,8 +77,8 @@
 .ch-cone.ch-points-ltrt:before,
 .ch-cone.ch-points-lbrb:after,
 .ch-cone.ch-points-lbrb:before {
-	right: 100%;
-	border-right-style: solid;
+    right: 100%;
+    border-right-style: solid;
 }
 
 .ch-cone.ch-points-rmlm:after,
@@ -87,68 +87,68 @@
 .ch-cone.ch-points-rtlt:before,
 .ch-cone.ch-points-rblb:after,
 .ch-cone.ch-points-rblb:before {
-	left: 100%;
-	border-left-style: solid;
+    left: 100%;
+    border-left-style: solid;
 }
 
 .ch-cone.ch-points-ltlb:after,
 .ch-cone.ch-points-lblt:after {
-	left: $layer-cone-size - $layer-border-width;
+    left: $layer-cone-size - $layer-border-width;
 }
 
 .ch-cone.ch-points-ltlb:before,
 .ch-cone.ch-points-lblt:before {
-	left: 7px;
+    left: 7px;
 }
 
 .ch-cone.ch-points-rtrb:after,
 .ch-cone.ch-points-rbrt:after {
-	right: $layer-cone-size - $layer-border-width;
+    right: $layer-cone-size - $layer-border-width;
 }
 
 .ch-cone.ch-points-rtrb:before,
 .ch-cone.ch-points-rbrt:before {
-	right: 7px;
+    right: 7px;
 }
 
 .ch-cone.ch-points-ltrt:after,
 .ch-cone.ch-points-rtlt:after {
-	top: $layer-cone-size / 2;
+    top: $layer-cone-size / 2;
 }
 
 .ch-cone.ch-points-ltrt:before,
 .ch-cone.ch-points-rtlt:before {
-	top: 3px;
+    top: 3px;
 }
 
 .ch-cone.ch-points-lbrb:after,
 .ch-cone.ch-points-rblb:after {
-	bottom: $layer-cone-size / 2;
+    bottom: $layer-cone-size / 2;
 }
 
 .ch-cone.ch-points-lbrb:before,
 .ch-cone.ch-points-rblb:before {
-	bottom: 3px;
+    bottom: 3px;
 }
 
 .ch-cone.ch-points-ctcb:after,
 .ch-cone.ch-points-cbct:after {
-	margin-left: -$layer-cone-border;
+    margin-left: -$layer-cone-border;
 }
 
 .ch-cone.ch-points-lmrm:after,
 .ch-cone.ch-points-rmlm:after {
-	margin-top: -$layer-cone-border;
+    margin-top: -$layer-cone-border;
 }
 
 .ch-cone.ch-points-ctcb:before,
 .ch-cone.ch-points-cbct:before {
-	margin-left: -($layer-cone-border + 1)
+    margin-left: -($layer-cone-border + 1)
 }
 
 .ch-cone.ch-points-lmrm:before,
 .ch-cone.ch-points-rmlm:before {
-	margin-top: -($layer-cone-border + 1)
+    margin-top: -($layer-cone-border + 1)
 }
 
 
@@ -160,12 +160,12 @@
 .ch-layer-content.ch-points-ltlb:after,
 .ch-layer-content.ch-points-ctcb:after,
 .ch-layer-content.ch-points-rtrb:after {
-	border-bottom-color: $layer-border-primary-bg-color;
+    border-bottom-color: $layer-border-primary-bg-color;
 }
 .ch-layer-content.ch-points-ltlb:before,
 .ch-layer-content.ch-points-ctcb:before,
 .ch-layer-content.ch-points-rtrb:before {
-	border-bottom-color: $layer-border-secondary-bg-color;
+    border-bottom-color: $layer-border-secondary-bg-color;
 }
 
 /* Top */
@@ -173,12 +173,12 @@
 .ch-layer-content.ch-points-lblt:after,
 .ch-layer-content.ch-points-cbct:after,
 .ch-layer-content.ch-points-rbrt:after {
-	border-top-color: $layer-border-primary-bg-color;
+    border-top-color: $layer-border-primary-bg-color;
 }
 .ch-layer-content.ch-points-lblt:before,
 .ch-layer-content.ch-points-cbct:before,
 .ch-layer-content.ch-points-rbrt:before {
-	border-top-color: $layer-border-secondary-bg-color;
+    border-top-color: $layer-border-secondary-bg-color;
 }
 
 /* Right */
@@ -186,12 +186,12 @@
 .ch-layer-content.ch-points-ltrt:after,
 .ch-layer-content.ch-points-lmrm:after,
 .ch-layer-content.ch-points-lbrb:after {
-	border-right-color: $layer-border-primary-bg-color;
+    border-right-color: $layer-border-primary-bg-color;
 }
 .ch-layer-content.ch-points-ltrt:before,
 .ch-layer-content.ch-points-lmrm:before,
 .ch-layer-content.ch-points-lbrb:before {
-	border-right-color: $layer-border-secondary-bg-color;
+    border-right-color: $layer-border-secondary-bg-color;
 }
 
 /* Left */
@@ -199,32 +199,32 @@
 .ch-layer-content.ch-points-rtlt:after,
 .ch-layer-content.ch-points-rmlm:after,
 .ch-layer-content.ch-points-rblb:after {
-	border-left-color: $layer-border-primary-bg-color;
+    border-left-color: $layer-border-primary-bg-color;
 }
 
 .ch-layer-content.ch-points-rtlt:before,
 .ch-layer-content.ch-points-rmlm:before,
 .ch-layer-content.ch-points-rblb:before {
-	border-left-color: $layer-border-secondary-bg-color;
+    border-left-color: $layer-border-secondary-bg-color;
 }
 
 /* Cone Y position */
 .ch-layer-content.ch-cone.ch-points-ltrt:after,
 .ch-layer-content.ch-cone.ch-points-rtlt:after {
-	top: $layer-cone-border - $layer-border-width;
+    top: $layer-cone-border - $layer-border-width;
 }
 
 .ch-layer-content.ch-cone.ch-points-ltrt:before,
 .ch-layer-content.ch-cone.ch-points-rtlt:before {
-	top: $layer-cone-border - ($layer-border-width * 2);
+    top: $layer-cone-border - ($layer-border-width * 2);
 }
 
 .ch-layer-content.ch-cone.ch-points-lbrb:after,
 .ch-layer-content.ch-cone.ch-points-rblb:after {
-	bottom: $layer-cone-border - $layer-border-width;
+    bottom: $layer-cone-border - $layer-border-width;
 }
 
 .ch-layer-content.ch-cone.ch-points-lbrb:before,
 .ch-layer-content.ch-cone.ch-points-rblb:before {
-	bottom: $layer-cone-border - ($layer-border-width * 2);
+    bottom: $layer-cone-border - ($layer-border-width * 2);
 }

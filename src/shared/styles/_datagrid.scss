@@ -52,7 +52,7 @@ table {
     cursor: pointer;
 
     &:hover {
-        background: $table-header-controls-hover-bg-color;   
+        background: $table-header-controls-hover-bg-color;
     }
 }
 
@@ -73,7 +73,7 @@ table {
     &:after {
         font-family: icons;
         font-style: normal;
-        content: "\f0dc";       
+        content: "\f0dc";
     }
 }
 
@@ -89,7 +89,7 @@ table {
 
 
 .ch-datagrid-selected {
-    background-color:  $table-row-selected-bg-color;
+    background-color: $table-row-selected-bg-color;
 }
 
 .ch-datagrid-controls td,
