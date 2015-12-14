@@ -7,6 +7,11 @@
     box-sizing: border-box;
 }
 
+.ch-autocomplete-item {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .ch-autocomplete-item,
 .ch-autocomplete-highlighted {
     margin: $autocomplete-item-margin;

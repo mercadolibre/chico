@@ -3037,6 +3037,11 @@ dl.ch-list dd {
   box-sizing: border-box;
 }
 
+.ch-autocomplete-item {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 .ch-autocomplete-item,
 .ch-autocomplete-highlighted {
   margin: 0 5px;
