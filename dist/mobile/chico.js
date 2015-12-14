@@ -652,6 +652,7 @@
     ch.Collapsible = Collapsible;
 
 }(this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -1002,6 +1003,7 @@
     ch.viewport = new Viewport();
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -1297,6 +1299,7 @@
     ch.Positioner = Positioner;
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -1548,6 +1551,7 @@
     ch.Component = Component;
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -1867,6 +1871,7 @@
     ch.factory(Expandable, normalizeOptions);
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -4046,6 +4051,7 @@
     ch.factory(Form);
 
 }(this, this.ch));
+
 (function (ch) {
     'use strict';
 
@@ -4253,6 +4259,7 @@
     ch.Condition = Condition;
 
 }(this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -4789,6 +4796,7 @@
     ch.factory(Validation);
 
 }(this, this.ch));
+
 (function (ch) {
     'use strict';
 
@@ -4834,6 +4842,7 @@
     };
 
 }(this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -5116,6 +5125,7 @@
     ch.factory(Countdown, normalizeOptions);
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -7025,6 +7035,7 @@
     ch.factory(Calendar, normalizeOptions);
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -7572,6 +7583,7 @@
     ch.factory(Datepicker);
 
 }(this, this.ch));
+
 (function (Datepicker) {
     'use strict';
 
@@ -7585,6 +7597,7 @@
 
 
 }(this.ch.Datepicker));
+
 (function (window, ch) {
     'use strict';
 
