@@ -117,6 +117,7 @@
      * @type {String}
      */
     ch.onkeybackspace = 'backspace';
+
     /**
      * Method in change of expose a friendly interface of the Chico constructors.
      *
@@ -618,6 +619,7 @@ for (var m in tiny) {
     ch.Collapsible = Collapsible;
 
 }(this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -968,6 +970,7 @@ for (var m in tiny) {
     ch.viewport = new Viewport();
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -1263,6 +1266,7 @@ for (var m in tiny) {
     ch.Positioner = Positioner;
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -1699,6 +1703,7 @@ for (var m in tiny) {
     ch.Component = Component;
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -2093,6 +2098,7 @@ for (var m in tiny) {
     ch.factory(Form);
 
 }(this, this.ch));
+
 (function (ch) {
     'use strict';
 
@@ -2300,6 +2306,7 @@ for (var m in tiny) {
     ch.Condition = Condition;
 
 }(this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -2836,6 +2843,7 @@ for (var m in tiny) {
     ch.factory(Validation);
 
 }(this, this.ch));
+
 (function (ch) {
     'use strict';
 
@@ -2948,6 +2956,7 @@ for (var m in tiny) {
     };
 
 }(this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -3267,6 +3276,7 @@ for (var m in tiny) {
     ch.factory(Expandable, normalizeOptions);
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -4304,6 +4314,7 @@ for (var m in tiny) {
     };
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -6469,6 +6480,7 @@ for (var m in tiny) {
     ch.factory(Calendar, normalizeOptions);
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -6794,6 +6806,7 @@ for (var m in tiny) {
     };
 
 }(this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -7262,6 +7275,7 @@ for (var m in tiny) {
     ch.factory(Tabs);
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -8567,6 +8581,7 @@ for (var m in tiny) {
     ch.factory(Countdown, normalizeOptions);
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 
@@ -9114,6 +9129,7 @@ for (var m in tiny) {
     ch.factory(Datepicker);
 
 }(this, this.ch));
+
 (function (window, ch) {
     'use strict';
 

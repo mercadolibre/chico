@@ -1872,11 +1872,11 @@ table {
   color: #00D;
 }
 
-.ch-expandable-trigger:active:visited {
+.ch-expandable-trigger:visited {
   color: #809;
 }
 
-.ch-expandable-trigger:active:hover {
+.ch-expandable-trigger:hover {
   text-decoration: underline;
 }
 
