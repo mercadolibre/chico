@@ -220,7 +220,7 @@
         tiny.on(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        tiny.on(this.container, ch.onpointerdown, function itemEvents(event) {
+        tiny.on(this.container, ch.onpointertap, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word
