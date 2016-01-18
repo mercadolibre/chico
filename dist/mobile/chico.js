@@ -1,8 +1,8 @@
 /*!
- * Chico UI v2.0.1
+ * Chico UI v2.0.2
  * http://chico-ui.com.ar/
  *
- * Copyright (c) 2015, MercadoLibre.com
+ * Copyright (c) 2016, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
@@ -180,7 +180,7 @@
         }
     }
 
-	ch.version = '2.0.1';
+	ch.version = '2.0.2';
 	window.ch = ch;
 }(this));
 (function (ch) {
@@ -2243,7 +2243,10 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(String | HTMLElement)} [options.content] The content to be shown into the Popover container.
+     * @param {(Boolean | String)} [options.wrapper] Wrap the reference element and place the container into it instead of body. When value is a string it will be applied as additional wrapper class. Default: false.
+     *
      * @returns {popover} Returns a new instance of Popover.
+     *
      * @example
      * // Create a new Popover.
      * var popover = new ch.Popover([el], [options]);
@@ -2328,7 +2331,8 @@
         'shownby': 'pointertap',
         'hiddenby': 'button',
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
-        'position': 'absolute'
+        'position': 'absolute',
+        'wrapper': false
     };
 
     /**
@@ -2352,6 +2356,8 @@
          */
         var that = this,
             container = document.createElement('div');
+
+        this._configureWrapper();
 
         container.innerHTML = [
             '<div',
@@ -2602,6 +2608,42 @@
     };
 
     /**
+     * Wraps the target element and use the wrapper as the placement for container
+     * @memberof! ch.Popover.prototype
+     * @private
+     * @function
+     */
+    Popover.prototype._configureWrapper = function() {
+        var target = this._el || this._options.reference,
+            wrapper = this._options.wrapper;
+
+        if (wrapper && target && target.nodeType === 1) {
+            // Create the wrapper element and append to it
+            wrapper = document.createElement('span');
+            tiny.addClass(wrapper, 'ch-popover-wrapper');
+
+            if (typeof this._options.wrapper === 'string') {
+                this._options.wrapper.split(' ').forEach(function(className) {
+                    tiny.addClass(wrapper, className);
+                });
+            }
+
+            tiny.parent(target).insertBefore(wrapper, target);
+            wrapper.appendChild(target);
+            if (tiny.css(wrapper, 'position') === 'static') {
+                tiny.css(wrapper, {
+                    display: 'inline-block',
+                    position: 'relative'
+                });
+            }
+
+            this._containerWrapper = wrapper;
+        } else {
+            this._containerWrapper = document.body;
+        }
+    };
+
+    /**
      * Shows the popover container and appends it to the body.
      * @memberof! ch.Popover.prototype
      * @function
@@ -2632,8 +2674,8 @@
             return this;
         }
 
-        // Append to body
-        document.body.appendChild(this.container);
+        // Append to the configured holder
+        this._containerWrapper.appendChild(this.container);
 
         // Open the collapsible
         this._show();
@@ -2902,6 +2944,8 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {( String | HTMLElement)} [options.content] The content to be shown into the Layer container.
+     * @param {(Boolean | String)} [options.wrapper] Wrap the reference element and place the container into it instead of body. When value is a string it will be applied as additional wrapper class. Default: false.
+     *
      * @returns {layer} Returns a new instance of Layer.
      * @example
      * // Create a new Layer.
@@ -2983,7 +3027,8 @@
         'align': 'left',
         'offsetX': 0,
         'offsetY': 10,
-        'waiting': '<div class="ch-loading-small"></div>'
+        'waiting': '<div class="ch-loading-small"></div>',
+        'wrapper': false
     });
 
     /**
@@ -7647,6 +7692,8 @@
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally.
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
+     * @param {(Boolean | String)} [options.wrapper] Wrap the reference element and place the container into it instead of body. When value is a string it will be applied as additional wrapper class. Default: false.
+     *
      * @returns {autocomplete}
      * @example
      * // Create a new AutoComplete.
@@ -7699,7 +7746,6 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
 
         return this;
-
     }
 
     // Inheritance
@@ -7737,7 +7783,8 @@
         'html': false,
         '_hiddenby': 'none',
         'keystrokesTime': 150,
-        '_itemTemplate': '<li class="{{itemClass}}"{{suggestedData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autocomplete-complete-query"></i></li>'
+        '_itemTemplate': '<li class="{{itemClass}}"{{suggestedData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autocomplete-complete-query"></i></li>',
+        'wrapper': false
     };
 
     /**
@@ -7776,8 +7823,10 @@
             'addClass': this._options.addClass,
             'hiddenby': this._options._hiddenby,
             'width': this._el.getBoundingClientRect().width + 'px',
-            'fx': this._options.fx
+            'fx': this._options.fx,
+            'wrapper': this._options.wrapper
         });
+
         /**
          * The autocomplete container.
          * @type {HTMLDivElement}
@@ -7820,7 +7869,7 @@
         tiny.on(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        tiny.on(this.container, ch.onpointerdown, function itemEvents(event) {
+        tiny.on(this.container, ch.onpointertap, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word

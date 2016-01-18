@@ -1,8 +1,8 @@
 /*!
- * Chico UI v2.0.1
+ * Chico UI v2.0.2
  * http://chico-ui.com.ar/
  *
- * Copyright (c) 2015, MercadoLibre.com
+ * Copyright (c) 2016, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
@@ -1069,6 +1069,11 @@ a.ch-btn-large:focus {
 
 .ch-underlay + .ch-popover {
   z-index: 1050;
+}
+
+.ch-popover-wrapper {
+  display: inline-block;
+  position: relative;
 }
 
 .ch-shownby-pointertap {
@@ -2806,6 +2811,10 @@ a.ch-tag,
 
 .ch-autocomplete {
   padding: 0;
+}
+
+.ch-autocomplete-wrapper {
+  display: block;
 }
 
 .ch-autocomplete-item {
