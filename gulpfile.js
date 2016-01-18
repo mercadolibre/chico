@@ -217,6 +217,8 @@ gulp.task('browser-sync', ['build'], function () {
         }
     });
 
+    gulp.watch(['src/shared/**/*.js', 'src/ui/**/*.js'], ['concatJS:ui']);
+    gulp.watch(['src/shared/**/*.js', 'src/mobile/**/*.js'], ['concatJS:mobile']);
     gulp.watch('dist/**/*.js').on('change', reload);
     gulp.watch('src/views/*.html').on('change', reload);
     gulp.watch('src/**/styles/**/*.scss', ['sass']);
