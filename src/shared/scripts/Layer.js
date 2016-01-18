@@ -26,6 +26,8 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {( String | HTMLElement)} [options.content] The content to be shown into the Layer container.
+     * @param {(Boolean | String)} [options.wrapper] Wrap the reference element and place the container into it instead of body. When value is a string it will be applied as additional wrapper class. Default: false.
+     *
      * @returns {layer} Returns a new instance of Layer.
      * @example
      * // Create a new Layer.
@@ -107,7 +109,8 @@
         'align': 'left',
         'offsetX': 0,
         'offsetY': 10,
-        'waiting': '<div class="ch-loading-small"></div>'
+        'waiting': '<div class="ch-loading-small"></div>',
+        'wrapper': false
     });
 
     /**

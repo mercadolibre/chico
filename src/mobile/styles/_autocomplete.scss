@@ -3,6 +3,10 @@
 
 .ch-autocomplete {
     padding: $autocomplete-padding;
+
+    &-wrapper {
+        display: block;
+    }
 }
 
 .ch-autocomplete-item {

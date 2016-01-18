@@ -1283,7 +1283,7 @@
 
         var suggestion,
             cancelRequest;
-        var autocomplete = new ch.Autocomplete(qS('.autocomplete'))
+        var autocomplete = new ch.Autocomplete(qS('.autocomplete'), {wrapper: 'ch-autocomplete-wrapper'})
                 .on('type', function (userInput) {
                     // Cancel the jsonp request if any
                     if (cancelRequest) {
