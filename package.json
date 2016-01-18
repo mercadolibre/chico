@@ -27,7 +27,7 @@
     "url": "https://github.com/mercadolibre/chico.git"
   },
   "dependencies": {
-    "tiny.js": "^0.1.4"
+    "tiny.js": "^0.1.6"
   },
   "devDependencies": {
     "Mesh": "mercadolibre/mesh#v4.2.0",

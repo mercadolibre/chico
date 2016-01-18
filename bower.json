@@ -38,6 +38,6 @@
     "package.json"
   ],
   "dependencies": {
-    "tiny.js": "tiny#~0.1.4"
+    "tiny.js": "tiny#~0.1.6"
   }
 }
