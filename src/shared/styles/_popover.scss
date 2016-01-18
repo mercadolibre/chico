@@ -10,6 +10,11 @@
     .ch-underlay + & {
         z-index: 1050;
     }
+
+    &-wrapper {
+        display: inline-block;
+        position: relative;
+    }
 }
 
 .ch-shownby-pointertap {

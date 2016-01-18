@@ -47,6 +47,8 @@
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally.
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
+     * @param {(Boolean | String)} [options.wrapper] Wrap the reference element and place the container into it instead of body. When value is a string it will be applied as additional wrapper class. Default: false.
+     *
      * @returns {autocomplete}
      * @example
      * // Create a new AutoComplete.
@@ -99,7 +101,6 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
 
         return this;
-
     }
 
     // Inheritance
@@ -137,7 +138,8 @@
         'html': false,
         '_hiddenby': 'none',
         'keystrokesTime': 150,
-        '_itemTemplate': '<li class="{{itemClass}}"{{suggestedData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autocomplete-complete-query"></i></li>'
+        '_itemTemplate': '<li class="{{itemClass}}"{{suggestedData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autocomplete-complete-query"></i></li>',
+        'wrapper': false
     };
 
     /**
@@ -176,8 +178,10 @@
             'addClass': this._options.addClass,
             'hiddenby': this._options._hiddenby,
             'width': this._el.getBoundingClientRect().width + 'px',
-            'fx': this._options.fx
+            'fx': this._options.fx,
+            'wrapper': this._options.wrapper
         });
+
         /**
          * The autocomplete container.
          * @type {HTMLDivElement}
@@ -220,7 +224,7 @@
         tiny.on(this.container, highlightEvent, this._highlightSuggestion);
 
 
-        tiny.on(this.container, ch.onpointerdown, function itemEvents(event) {
+        tiny.on(this.container, ch.onpointertap, function itemEvents(event) {
             var target = event.target || event.srcElement;
 
             // completes the value, it is a shortcut to avoid write the complete word

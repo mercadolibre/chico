@@ -29,7 +29,10 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(String | HTMLElement)} [options.content] The content to be shown into the Popover container.
+     * @param {(Boolean | String)} [options.wrapper] Wrap the reference element and place the container into it instead of body. When value is a string it will be applied as additional wrapper class. Default: false.
+     *
      * @returns {popover} Returns a new instance of Popover.
+     *
      * @example
      * // Create a new Popover.
      * var popover = new ch.Popover([el], [options]);
@@ -114,7 +117,8 @@
         'shownby': 'pointertap',
         'hiddenby': 'button',
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
-        'position': 'absolute'
+        'position': 'absolute',
+        'wrapper': false
     };
 
     /**
@@ -138,6 +142,8 @@
          */
         var that = this,
             container = document.createElement('div');
+
+        this._configureWrapper();
 
         container.innerHTML = [
             '<div',
@@ -388,6 +394,42 @@
     };
 
     /**
+     * Wraps the target element and use the wrapper as the placement for container
+     * @memberof! ch.Popover.prototype
+     * @private
+     * @function
+     */
+    Popover.prototype._configureWrapper = function() {
+        var target = this._el || this._options.reference,
+            wrapper = this._options.wrapper;
+
+        if (wrapper && target && target.nodeType === 1) {
+            // Create the wrapper element and append to it
+            wrapper = document.createElement('span');
+            tiny.addClass(wrapper, 'ch-popover-wrapper');
+
+            if (typeof this._options.wrapper === 'string') {
+                this._options.wrapper.split(' ').forEach(function(className) {
+                    tiny.addClass(wrapper, className);
+                });
+            }
+
+            tiny.parent(target).insertBefore(wrapper, target);
+            wrapper.appendChild(target);
+            if (tiny.css(wrapper, 'position') === 'static') {
+                tiny.css(wrapper, {
+                    display: 'inline-block',
+                    position: 'relative'
+                });
+            }
+
+            this._containerWrapper = wrapper;
+        } else {
+            this._containerWrapper = document.body;
+        }
+    };
+
+    /**
      * Shows the popover container and appends it to the body.
      * @memberof! ch.Popover.prototype
      * @function
@@ -418,8 +460,8 @@
             return this;
         }
 
-        // Append to body
-        document.body.appendChild(this.container);
+        // Append to the configured holder
+        this._containerWrapper.appendChild(this.container);
 
         // Open the collapsible
         this._show();
