@@ -1,5 +1,5 @@
 /*!
- * Chico UI v2.0.2
+ * Chico UI v2.0.3
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2016, MercadoLibre.com
@@ -147,7 +147,7 @@ for (var m in tiny) {
     }
 }
 
-	ch.version = '2.0.2';
+	ch.version = '2.0.3';
 	window.ch = ch;
 }(this));
 (function (ch) {
@@ -737,8 +737,8 @@ for (var m in tiny) {
             }
         }
 
-        window.addEventListener(ch.onscroll, viewportScroll, false);
-        window.addEventListener(ch.onresize, viewportResize, false);
+        tiny.on(window, ch.onscroll, viewportScroll, false);
+        tiny.on(window, ch.onresize, viewportResize, false);
     };
 
     /**
@@ -5616,7 +5616,7 @@ for (var m in tiny) {
         }
 
         images.forEach(function (image) {
-            image.addEventListener('load', function onImgLoad() {
+            tiny.on(image, 'load', function onImgLoad() {
                 var len = images.length;
 
                 window.setTimeout(function () {
