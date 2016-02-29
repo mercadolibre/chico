@@ -115,8 +115,8 @@
             }
         }
 
-        window.addEventListener(ch.onscroll, viewportScroll, false);
-        window.addEventListener(ch.onresize, viewportResize, false);
+        tiny.on(window, ch.onscroll, viewportScroll, false);
+        tiny.on(window, ch.onresize, viewportResize, false);
     };
 
     /**
