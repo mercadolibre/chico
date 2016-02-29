@@ -519,7 +519,7 @@
         }
 
         images.forEach(function (image) {
-            image.addEventListener('load', function onImgLoad() {
+            tiny.on(image, 'load', function onImgLoad() {
                 var len = images.length;
 
                 window.setTimeout(function () {
