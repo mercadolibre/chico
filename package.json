@@ -27,7 +27,7 @@
     "url": "https://github.com/mercadolibre/chico.git"
   },
   "dependencies": {
-    "tiny.js": "^0.1.6"
+    "tiny.js": "^0.1.7"
   },
   "devDependencies": {
     "Mesh": "mercadolibre/mesh#v4.2.0",
@@ -38,7 +38,7 @@
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-cssnano": "^2.0.0",
-    "gulp-eslint": "^1.1.0",
+    "gulp-eslint": "^2.0.0",
     "gulp-load-plugins": "^1.0.0",
     "gulp-postcss": "^6.0.1",
     "gulp-rename": "^1.2.2",
@@ -51,11 +51,12 @@
     "karma-chai-spies": "^0.1.1",
     "karma-chrome-launcher": "^0.2.0",
     "karma-mocha": "^0.2.1",
-    "karma-mocha-reporter": "^1.1.2",
-    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-mocha-reporter": "^2.0.0",
+    "karma-phantomjs-launcher": "^1.0.0",
     "mocha": "^2.3.4",
     "node-sass": "^3.4.2",
-    "postcss-filter-gradient": "^0.1.1",
+    "phantomjs-prebuilt": "^2.1.7",
+    "postcss-filter-gradient": "^0.2.4",
     "postcss-opacity": "^3.0.0",
     "run-sequence": "^1.1.5",
     "streamqueue": "^1.1.1"
