@@ -58,6 +58,7 @@ JS.components = [
     "src/shared/scripts/Required.js",
     "src/shared/scripts/Countdown.js",
     "src/shared/scripts/Carousel.js",
+    "src/mobile/scripts/Carousel.js",
     // "src/shared/scripts/Calendar.js",
     "src/shared/scripts/Autocomplete.js"
 ];
