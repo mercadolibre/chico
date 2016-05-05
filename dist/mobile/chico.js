@@ -1,3 +1,12 @@
+/*!
+ * Chico Theme UI v1.2.3
+ * http://chico-ui.com.ar/
+ *
+ * Copyright (c) 2016, MercadoLibre.com
+ * Released under the MIT license.
+ * http://chico-ui.com.ar/license
+ */
+
 
 (function (window, $) {
 	'use strict';
@@ -829,7 +838,7 @@ ch.factory = function (Klass, fn) {
 
     // Exposse private $ (Zepto) into ch.$
     ch.$ = $;
-	ch.version = '1.2.2';
+	ch.version = '1.2.3';
 	window.ch = ch;
 }(this, this.$));
 (function (ch) {
