@@ -29,8 +29,6 @@ JS.components = [
     "src/shared/scripts/Menu.js",
     "src/shared/scripts/Popover.js",
     "src/shared/scripts/Layer.js",
-    // "src/shared/scripts/Tooltip.js",
-    // "src/shared/scripts/Bubble.js",
     "src/shared/scripts/Modal.js",
     "src/shared/scripts/Transition.js",
     "src/shared/scripts/Dropdown.js",
