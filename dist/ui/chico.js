@@ -1,5 +1,5 @@
 /*!
- * Chico UI v2.0.4
+ * Chico UI v2.0.5
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2016, MercadoLibre.com
@@ -147,7 +147,7 @@ for (var m in tiny) {
     }
 }
 
-	ch.version = '2.0.4';
+	ch.version = '2.0.5';
 	window.ch = ch;
 }(this));
 (function (ch) {
@@ -5281,6 +5281,8 @@ for (var m in tiny) {
         // Assign event handlers to the original image
         onImagesLoads(this._original, function () {
             that._originalLoaded();
+
+            tiny.on(window, 'resize', that._updateOffset.bind(that));
         });
 
         // Assign event handlers to the zoomed image
@@ -5317,8 +5319,7 @@ for (var m in tiny) {
     Zoom.prototype._originalLoaded = function () {
 
         var width = this._original.width,
-            height = this._original.height,
-            offset = tiny.offset(this._el);
+            height = this._original.height;
 
         // Set the wrapper anchor size (same as image)
         this.trigger.style.width = width + 'px';
@@ -5326,7 +5327,7 @@ for (var m in tiny) {
 
         // Loading position centered into the anchor
         this._loading.style.display = 'block';
-        this._loading.style.left = (width - this._loading.clientWidth) / 2 + 'px',
+        this._loading.style.left = (width - this._loading.clientWidth) / 2 + 'px';
         this._loading.style.top = (height - this._loading.clientHeight) / 2 + 'px';
         this._loading.style.display = '';
 
@@ -5344,6 +5345,16 @@ for (var m in tiny) {
          */
         this._originalHeight = height;
 
+        this._updateOffset();
+    };
+
+    /**
+     * Recalculate an offset of the original image that is used as reference element for Popover
+     * @private
+     */
+    Zoom.prototype._updateOffset = function() {
+        var offset = tiny.offset(this._el);
+
         /**
          * Left position of the original specified anchor/image.
          * @type {Number}
@@ -5357,6 +5368,9 @@ for (var m in tiny) {
          * @private
          */
         this._originalOffsetTop = offset.top;
+
+        // Refresh zoomed image position that stays in a Popover
+        this._positioner.refresh();
     };
 
     /**
@@ -5588,8 +5602,6 @@ for (var m in tiny) {
         parentElement.removeChild(this._seeker);
 
         parent.destroy.call(this);
-
-        return;
     };
 
     ch.factory(Zoom, parent._normalizeOptions);

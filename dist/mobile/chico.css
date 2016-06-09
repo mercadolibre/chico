@@ -1,5 +1,5 @@
 /*!
- * Chico UI v2.0.4
+ * Chico UI v2.0.5
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2016, MercadoLibre.com
@@ -638,7 +638,7 @@ a:focus {
   color: #cdcdcd;
   width: 21px;
   height: 21px;
-  font: normal 22px / 21px Arial, sans-serif;
+  font: normal 22px/21px Arial, sans-serif;
   text-align: center;
   position: absolute;
   right: 10px;

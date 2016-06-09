@@ -1,5 +1,5 @@
 /*!
- * Chico UI v2.0.4
+ * Chico UI v2.0.5
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2016, MercadoLibre.com
@@ -180,7 +180,7 @@
         }
     }
 
-	ch.version = '2.0.4';
+	ch.version = '2.0.5';
 	window.ch = ch;
 }(this));
 (function (ch) {
