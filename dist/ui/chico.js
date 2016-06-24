@@ -7347,6 +7347,7 @@ for (var m in tiny) {
      * @param {Boolean} [options.pagination] Defines if a pagination must be created or not at initialization. Default: false.
      * @param {Boolean} [options.fx] Enable or disable the slide effect. Default: true.
      * @param {Boolean} [options.autoHeight] Enable or disable the recalculation of item height on a proportional basis maintaining the proportions of an item. Default: true.
+     * @param {Boolean} [options.autoMargin] Enable or disable the addition of a proportional margin to each item. Default: true.
      * @param {Number} [options.limitPerPage] Set the maximum amount of items to show in each page.
      * @returns {carousel} Returns a new instance of Carousel.
      * @example
@@ -7463,7 +7464,8 @@ for (var m in tiny) {
         'arrows': true,
         'pagination': false,
         'fx': true,
-        'autoHeight': true
+        'autoHeight': true,
+        'autoMargin': true
     };
 
     /**
@@ -7743,7 +7745,7 @@ for (var m in tiny) {
                 ' class="ch-carousel-item"',
                 ' style="width:' + (width % 1 === 0 ? width : width.toFixed(4)) + 'px;',
                 (this._options.autoHeight ? 'height:' + height + 'px;' : ''),
-                'margin-right:' + (this._itemMargin % 1 === 0 ? this._itemMargin : this._itemMargin.toFixed(4)) + 'px"',
+                (this._options.autoMargin ? 'margin-right:' + (this._itemMargin % 1 === 0 ? this._itemMargin : this._itemMargin.toFixed(4)) + 'px"' : ''),
                 '></li>'
             ].join(''),
             // It stores <LI> that will be added to the DOM collection
@@ -7955,10 +7957,12 @@ for (var m in tiny) {
             // Total space to use as margin into mask
             // It's the difference between mask width and total width of all items
             freeSpace = this._maskWidth - (this._itemOuterWidth * this._limitPerPage),
+            // Defines how to distribute the freeSpace.
+            freeSpaceDistribution = this._options.autoMargin ? (freeSpace / this._limitPerPage / 2) : (freeSpace / this._limitPerPage),
             // Width to add to each item to get responsivity
             // When there are more than one item, get extra width for each one
             // When there are only one item, extraWidth must be just the freeSpace
-            extraWidth = moreThanOne ? (freeSpace / this._limitPerPage / 2) : freeSpace,
+            extraWidth = moreThanOne ? freeSpaceDistribution : freeSpace,
             // Amount of spaces to distribute the free space
             spaces,
             // The new width calculated from current width plus extraWidth
@@ -7983,7 +7987,7 @@ for (var m in tiny) {
         // Ceil to delete float numbers (not Floor, because next page is seen)
         // There is no margin when there are only one item in a page
         // Update global values
-        this._itemMargin = moreThanOne ? (freeSpace / spaces / 2) : 0;
+        this._itemMargin = this._options.autoMargin && moreThanOne ? (freeSpace / spaces / 2) : 0;
 
         // Update distance needed to move ONLY ONE page
         // The width of all items on a page, plus the width of all margins of items
@@ -8000,7 +8004,7 @@ for (var m in tiny) {
         cssItemText = [
             'width:' + (width % 1 === 0 ? width : width.toFixed(4)) + 'px;',
             this._options.autoHeight ? 'height:' + ((width * this._itemHeight) / this._itemWidth).toFixed(4) + 'px;' : '',
-            'margin-right:' + (this._itemMargin % 1 === 0 ? this._itemMargin : this._itemMargin.toFixed(4)) + 'px;'
+            this._options.autoMargin ? 'margin-right:' + (this._itemMargin % 1 === 0 ? this._itemMargin : this._itemMargin.toFixed(4)) + 'px;' : ''
         ].join('');
 
         // Update element styles
