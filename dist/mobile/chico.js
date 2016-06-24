@@ -5583,7 +5583,7 @@
                 ' class="ch-carousel-item"',
                 ' style="width:' + (width % 1 === 0 ? width : width.toFixed(4)) + 'px;',
                 (this._options.autoHeight ? 'height:' + height + 'px;' : ''),
-                (this._options.autoMargin ? 'margin-right:' + (this._itemMargin % 1 === 0 ? this._itemMargin : this._itemMargin.toFixed(4)) + 'px"' : ''),
+                (this._options.autoMargin ? 'margin-right:' + (this._itemMargin % 1 === 0 ? this._itemMargin : this._itemMargin.toFixed(4)) + 'px"' : '"'),
                 '></li>'
             ].join(''),
             // It stores <LI> that will be added to the DOM collection
