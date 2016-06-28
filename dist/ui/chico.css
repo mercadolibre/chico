@@ -1,5 +1,5 @@
 /*!
- * Chico UI v2.0.5
+ * Chico UI v2.0.6
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2016, MercadoLibre.com
@@ -1004,8 +1004,8 @@ input.ch-btn-small::-moz-focus-inner {
   color: #999 !important;
   /* important for links */
   cursor: not-allowed;
-  opacity: 0.5;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  opacity: 0.5;
   text-shadow: none;
   -ms-touch-action: none;
   pointer-events: none;
@@ -1262,22 +1262,22 @@ a.ch-btn-large:focus {
 /* Transitions */
 .ch-popover.ch-hide.ch-fx {
   visibility: hidden;
-  opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
 }
 
 .ch-popover.ch-fx.ch-fx-fadeIn {
   visibility: visible;
-  opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  opacity: 1;
   -webkit-transition: opacity .3s ease-out;
   transition: opacity .3s ease-out;
 }
 
 .ch-popover.ch-fx.ch-fx-fadeOut {
   visibility: hidden;
-  opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
   -webkit-transition: opacity .3s ease-out, visibility 0s linear .3s;
   transition: opacity .3s ease-out, visibility 0s linear .3s;
 }
@@ -1485,8 +1485,8 @@ a.ch-btn-large:focus {
 
 .ch-carousel-prev:hover,
 .ch-carousel-next:hover {
-  opacity: 0.7;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  opacity: 0.7;
 }
 
 .ch-carousel-disabled {
@@ -2062,13 +2062,13 @@ input[readonly]:focus {
 }
 
 .ch-form-icon-inner {
-  opacity: 0.3;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  opacity: 0.3;
 }
 
 .ch-form-icon-input:focus + .ch-form-icon-inner {
-  opacity: 0.7;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  opacity: 0.7;
 }
 
 /* Icon inside input */
@@ -2633,23 +2633,23 @@ dl.ch-list dd {
 }
 
 .ch-underlay.ch-fx-fadein-enter, .ch-underlay.ch-fx-slidedown-enter {
-  opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
 }
 
 .ch-underlay.ch-fx-fadein-enter-active, .ch-underlay.ch-fx-slidedown-enter-active {
-  opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  opacity: 1;
 }
 
 .ch-underlay.ch-fx-fadein-leave, .ch-underlay.ch-fx-slidedown-leave {
-  opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  opacity: 1;
 }
 
 .ch-underlay.ch-fx-fadein-leave-active, .ch-underlay.ch-fx-fadein-slidedown-active {
-  opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
 }
 
 .ie8 .ch-underlay {
