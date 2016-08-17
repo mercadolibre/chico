@@ -1,0 +1,88 @@
+<article id="modal">
+    <h2>Modals</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <h3>Modal with AJAX content</h3>
+        <p><a id="modal1" href="{{ site.baseUrl }}/ajax.html">Executed by a link</a>.</p>
+
+        <h3>Modal with DOM content</h3>
+        <p><button id="modal2" class="ch-btn ch-btn-small">Get content from DOM</button></p>
+        <div id="invisible-content" class="ch-hide">
+            <h1>Caption heading</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+            <div class="ch-actions">
+                <button class="ch-btn">Primary Action</button>
+                <a href="#">Secondary Action</a>
+            </div>
+        </div>
+
+        <h3>Modal Lite</h3>
+        <button id="modal3" class="ch-btn ch-btn-small">Show me</button>
+
+        <h3>Modal from Form without trigger</h3>
+        <form id="modal-form" action="{{ site.baseUrl }}/ajax.html">
+            <p><input id="modalX" type="submit" class="ch-btn ch-btn-small" value="Executed by submit a form"></p>
+        </form>
+
+    </div>
+{% highlight html %}
+<a id="modal1" href="/ajax.html">Executed by a link</a>
+
+<button id="modal2" class="ch-btn ch-btn-small">Get content from DOM</button>
+<div id="invisible-content" class="ch-hide">
+    ...
+</div>
+
+<button id="modal3" class="ch-btn ch-btn-small">Show me</button>
+
+<form id="modal-form" action="/ajax.html">
+    <input id="modalX" type="submit" class="ch-btn ch-btn-small" value="Executed by submit a form"/>
+</form>
+
+{% endhighlight %}
+
+{% highlight javascript %}
+var modal1 = new ch.Modal(ch('#modal1')[0], {
+    'width': '500px',
+    'height': '300px'
+});
+// Modal with invisible DOM Content
+var modal2 = new ch.Modal(ch('#modal2')[0], {'content': document.querySelector('#invisible-content')});
+// Modal lite
+var modal3 = new ch.Modal(ch('#modal3')[0], {
+    'content': '<h2>Heading or content</h2>',
+    'addClass': 'ch-modal-lite'
+});
+var modalX = new ch.Modal({
+    'hiddenby': 'button'
+});
+tiny.on('#modal-form', 'submit', function (e) {
+    e.preventDefault();
+    modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
+});
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var modal1 = new ch.Modal(ch('#modal1')[0], {
+                'width': '500px',
+                'height': '300px'
+            });
+            // Modal with invisible DOM Content
+            var modal2 = new ch.Modal(ch('#modal2')[0], {'content': document.querySelector('#invisible-content')});
+            // Modal lite
+            var modal3 = new ch.Modal(ch('#modal3')[0], {
+                'content': '<h2>Heading or content</h2>',
+                'addClass': 'ch-modal-lite'
+            });
+            var modalX = new ch.Modal({
+                'hiddenby': 'button'
+            });
+            tiny.on('#modal-form', 'submit', function (e) {
+                e.preventDefault();
+                modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
+            });
+        });
+    </script>
+</article>

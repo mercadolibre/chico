@@ -1,0 +1,55 @@
+<article id="expandable">
+    <h2>Expandable</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <h4 class="demo_expandable1 ch-expandable-trigger">Lorem ipsum dolor sit amet.</h4>
+        <div id="container1" class="ch-hide">
+            <div id="content">
+                <h2 class="demo-expandable-test">Lorem</h2>
+                <p>ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p>
+            </div>
+        </div>
+
+        <h4 class="demo_expandable2">Lorem ipsum dolor sit amet.</h4>
+        <div class="container_expandable2"></div>
+    </div>
+{% highlight html %}
+<h4 class="demo_expandable1 ch-expandable-trigger">Lorem ipsum dolor sit amet.</h4>
+<div class="ch-hide">
+    <div>
+        <!-- Expandable content -->
+        ...
+    </div>
+</div>
+
+<h4 class="demo_expandable2">Lorem ipsum dolor sit amet.</h4>
+<div class="container_expandable2"><!-- Content will load with Ajax --></div>
+{% endhighlight %}
+
+{% highlight javascript %}
+var expandable1 = new ch.Expandable(document.querySelector('.demo_expandable1'));
+
+var expandable2 = new ch.Expandable(document.querySelector('.demo_expandable2'), {
+    'content': '{{ site.baseurl }}/ajax.html',
+    'container': document.querySelector('.container_expandable2')
+});
+expandable2.on('contentdone', function () {
+    console.log('Content loaded for component ' + this.uid);
+});
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var expandable1 = new ch.Expandable(document.querySelector('.demo_expandable1'));
+
+            var expandable2 = new ch.Expandable(document.querySelector('.demo_expandable2'), {
+                'content': '{{ site.baseurl }}/ajax.html',
+                'container': document.querySelector('.container_expandable2')
+            });
+            expandable2.on('contentdone', function () {
+                console.log('Content loaded for component  ' + this.uid);
+            });
+        });
+    </script>
+</article>

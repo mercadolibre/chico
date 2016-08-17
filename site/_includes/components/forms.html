@@ -1,0 +1,551 @@
+<article id="validations">
+    <h2>Form Validations</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form action="{{ site.baseUrl }}/ajax.html" class="ch-form myForm" method="GET">
+            <fieldset>
+                <legend>Inputs</legend>
+                <p class="ch-form-hint">* Required fields</p>
+                <div class="ch-form-row">
+                    <label for="input_ico">
+                        Icon:
+                    </label>
+                    <input type="text" id="input_ico" name="input_ico" size="30" placeholder="">
+                    <i class="ch-form-icon ch-icon-help-sign"></i>
+                </div>
+                <div class="ch-form-row">
+                    <label for="input_ico_inside">
+                        Icon inside:
+                    </label>
+                    <input class="ch-form-icon-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
+                    <i class="ch-form-icon-inner ch-icon-key"></i>
+                </div>
+                <div class="ch-form-row">
+                    <label for="input_button">
+                        Category:
+                    </label>
+                    <input type="text" id="input_button" name="input_button" size="30" placeholder="">
+                    <input type="button" name="add_category" value="Add" class="ch-btn ch-btn-small ch-btn-skin">
+                    <span class="ch-form-hint">Add your category</span>
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="email">
+                        E-mail:
+                        <em>*</em>
+                    </label>
+                    <input type="email" id="email" name="email" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+                    <span class="ch-form-hint">It will be your login name</span>
+                </div>
+                <div class="ch-form-row">
+                    <label for="email2">
+                        E-mail:
+                    </label>
+                    <input type="email" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+                    <input type="checkbox" id="news" name="news" checked="checked" class="ch-form-checkbox-inline">
+                    <label for="news" class="ch-label-inline">
+                        Accept to receive weekly news
+                    </label>
+                </div>
+                <div class="ch-form-row">
+                    <label for="url">
+                        URL:
+                    </label>
+                    <input type="url" id="url" name="url" size="60" placeholder="http://www.chico-ui.com.ar">
+                </div>
+                <div class="ch-form-row">
+                    <label for="number">
+                        Numeric field:
+                    </label>
+                    <input type="number" id="number" name="number" min="18" max="99" placeholder="30">
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="range">
+                        Numeric range:
+                        <em>*</em>
+                    </label>
+                    <input type="range" id="range" name="range" min="1" max="20">
+                    <span class="ch-form-hint">Between 8 to 10</span>
+                </div>
+                <div class="ch-form-row ch-form-required ch-form-disabled">
+                    <label for="required_disabled">
+                        Required disabled:
+                        <em>*</em>
+                    </label>
+                    <input type="text" id="required_disabled" required="required" disabled="disabled">
+                    <span class="ch-form-hint">It's a unknown use case</span>
+                </div>
+                <div class="ch-form-row">
+                    <label for="characters">
+                        Characters:
+                    </label>
+                    <input type="text" id="characters">
+                </div>
+                <div class="ch-form-row">
+                    <label for="custom">
+                        Custom:
+                    </label>
+                    <input type="text" id="custom" placeholder="12" size="2">
+                </div>
+                <div class="ch-form-row">
+                    <label for="readonly">
+                        Readonly:
+                    </label>
+                    <input type="text" readonly="readonly" id="readonly" value="its a readonly value">
+                </div>
+                <div class="ch-form-row">
+                    <label for="double">
+                        It's an input text with double line:
+                    </label>
+                    <input type="text" id="double">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Selects</legend>
+                <div class="ch-form-row">
+                    <label for="select1">
+                        Common field:
+                    </label>
+                    <select id="select1">
+                        <option value="-1">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="select2">
+                        Required: <em>*</em>
+                    </label>
+                    <select id="select2" required="required" pattern="[^-1]">
+                        <option value="">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-required ch-form-disabled">
+                    <label for="select3" class="required disabled">
+                        Required disabled: <em>*</em>
+                    </label>
+                    <select id="select3" required="required" disabled="disabled">
+                        <option value="">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-disabled">
+                    <label for="select4">
+                        Disabled:
+                    </label>
+                    <select id="select4" disabled="disabled">
+                        <option value="0">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Misc</legend>
+                <div class="ch-form-row">
+                    <label for="street">
+                        Domicilio:
+                    </label>
+                    <input type="text" size="30" id="street" placeholder="Av. Costanera Rafael Obligado" />
+                    <input type="number" id="door" placeholder="1345" />
+                    <select id="state">
+                        <option value="">Select one state/province...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-row-inline">
+                    <label for="select5">
+                        Common field:
+                    </label>
+                    <select id="select5">
+                        <option value="0">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                    <input type="text" id="secondary_option" placeholder="Common field" />
+                </div>
+                <div class="ch-form-row ch-form-row-inline">
+                    <label for="num1">
+                        CUIT:
+                    </label>
+                    <input type="number" id="num1" placeholder="20" max="30" min="20" /> -
+                    <input type="number" id="num2" placeholder="23111399" max="99999999" min="0" /> /
+                    <input type="number" id="num3" placeholder="4" max="9" min="0" />
+                </div>
+                <div class="ch-form-row ch-form-row-inline">
+                    <label for="tc1">
+                        Expires:
+                    </label>
+                    <input type="number" id="tc1" min="1" max="12" placeholder="11" />
+                    <input type="number" id="tc2" min="2011" max="2020" placeholder="2013" />
+                </div>
+                <div class="ch-form-row">
+                    <label for="select6">
+                        House features:
+                    </label>
+                    <select id="select6" multiple="multiple" size="5" class="ch-form-select-multiple">
+                        <option value="0">Air conditioning</option>
+                        <option value="1">Rooms</option>
+                        <option value="2">Balcony</option>
+                        <option value="3">Laundry</option>
+                        <option value="4">Kitchen</option>
+                        <option value="5">Living</option>
+                        <option value="6">Dining room</option>
+                        <option value="7">Amenities</option>
+                    </select>
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <div class="ch-form-options ch-form-row ch-form-required required-check">
+                    <input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
+                    <label for="check4a">
+                        Unique checkbox
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Checkbox</legend>
+                <div class="ch-form-options ch-form-required required-option">
+                    <h4 class="ch-form-subtitle">Label of checkboxs group: <em>*</em></h4>
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
+                            <label for="check1a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="beta" id="check1b" name="version1b">
+                            <label for="check1b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legend of required group <em>*</em></legend>
+                <div class="ch-form-options ch-form-required check2 required-option">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="alpha" id="check2a" name="version2">
+                            <label for="check2a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="beta" id="check2b" name="version2">
+                            <label for="check2b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legend of checkboxes group</legend>
+                <div class="ch-form-options ch-form-required check3 required-option">
+                    <h4 class="ch-form-subtitle">Label of required group: <em>*</em></h4>
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="check3a" name="version3">
+                            <label for="check3a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="check3b" name="version3">
+                            <label for="check3b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Radio buttons</legend>
+                <div class="ch-form-options">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio1a" name="version4">
+                            <label for="radio1a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio1b" name="version4">
+                            <label for="radio1b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Radio buttons required<em>*</em></legend>
+                <div class="ch-form-options radio2 required-option">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio2a" name="version5">
+                            <label for="radio2a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio2b" name="version5">
+                            <label for="radio2b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legend of radio group</legend>
+                <div class="ch-form-options ch-form-required radio3 required-option">
+                    <h4 class="ch-form-subtitle">Radios required: <em>*</em></h4>
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio3a" name="version6">
+                            <label for="radio3a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio3b" name="version6">
+                            <label for="radio3b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="ch-form-options radio4">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio4a" name="version7">
+                            <label for="radio4a">
+                                Lorem ipsum dolor sit amet
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio4b" name="version7">
+                            <label for="radio4b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Textarea</legend>
+                <div class="ch-form-row">
+                    <label for="textarea1">
+                        Textarea:
+                    </label>
+                    <textarea id="textarea1" cols="40" rows="4"></textarea>
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="textarea2">
+                        Required: <em>*</em>
+                    </label>
+                    <textarea id="textarea2" cols="40" rows="4" required="required"></textarea>
+                </div>
+
+                <div class="ch-form-row ch-form-required ch-form-disabled">
+                    <label for="textarea3">
+                        Required disabled: <em>*</em>
+                    </label>
+                    <textarea id="textarea3" cols="40" rows="4" required="required" disabled="disabled"></textarea>
+                </div>
+
+                <div class="ch-form-row ch-form-disabled">
+                    <label for="textarea4">
+                        Disabled:
+                    </label>
+                    <textarea id="textarea4" cols="40" rows="4" disabled="disabled"></textarea>
+                </div>
+            </fieldset>
+
+            <div class="ch-form-actions">
+                <input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn">
+                <input type="reset" value="Reset" class="ch-btn ch-btn-small ch-btn-skin">
+            </div>
+        </form>
+
+        <form action="{{ site.baseUrl }}/ajax.html" class="ch-form ch-form-big">
+            <fieldset>
+                <legend>Big inputs</legend>
+                <div class="ch-form-row">
+                    <label for="input_user">User:</label>
+                    <input class="ch-form-icon-input" type="text" id="input_user" name="input_user" size="50">
+                    <i class="ch-form-icon-inner ch-icon-user"></i>
+                </div>
+                <div class="ch-form-row">
+                    <label for="input_pass">Password:</label>
+                    <input class="ch-form-icon-input" type="password" id="input_pass" name="input_pass" size="50">
+                    <i class="ch-form-icon-inner ch-icon-lock"></i>
+                </div>
+                <div class="ch-form-actions">
+                    <input type="submit" name="confirmation" value="Login" class="ch-btn">
+                    <a href="#">Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% highlight html %}
+<form>
+    <div class="ch-form-row">
+        <label for="input_ico">Icon:</label>
+        <input type="text" id="input_ico" name="input_ico" size="30"
+               placeholder="">
+        <i class="ch-form-icon ch-icon-help-sign"></i>
+    </div>
+</form>
+{% endhighlight %}
+
+{% highlight javascript %}
+var form = new ch.Form(ch('.myForm')[0])
+    .on('success', function (event) {
+        event.preventDefault();
+        // Do something
+    })
+    .on('error', function (errors) {
+        // Do another thing
+    });
+
+var  validation1 = new ch.Validation(ch('#input_ico')[0], {
+    'conditions': [
+        {'name': 'required'},
+        {'name': 'string'}
+    ],
+    'reference': ch('#input_ico + .ch-form-icon.ch-icon-help-sign')[0]
+});
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var message = (function (message, value) {
+                var messages = {
+                    'option': 'Choose an option.',
+                    'requiredCheck': 'Accept the Terms of Use.',
+                    'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
+                };
+                return function (message, value) {
+                    var message = messages[message] || message;
+                    if(value){
+                        return message.replace('{#num#}', value)
+                    }
+                    return message;
+                }
+            }());
+
+            var m = new ch.Modal();
+            var form = new ch.Form(ch('.myForm')[0])
+                .on('success', function (event) {
+                    event.preventDefault();
+                    m.show('success');
+                })
+                .on('error', function (errors) {
+                    console.log(errors);
+                });
+
+            tiny.on(form._el, 'submit', function (event) {
+                if (!form.hasError()) {
+                    event.preventDefault();
+                    console.log('Ademas hago otra cosa en el submit');
+                }
+            });
+            var  validation1 = new ch.Validation(ch('#input_ico')[0], {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    },
+                    {
+                        'name': 'string'
+                    }
+                ],
+                'reference': ch('#input_ico + .ch-form-icon.ch-icon-help-sign')[0]
+            });
+            var  validation2 = new ch.Validation(ch('#input_ico_inside')[0], {
+                'conditions':[{'name': 'required'}, {'name': 'number'}]
+            });
+            var  validation4 = new ch.Validation(ch('#email')[0], {
+                'conditions':[{'name': 'required'}, {'name': 'email'}]
+            });
+            var  validation5 = new ch.Validation(ch('#custom')[0], {'conditions':[
+                {
+                    'name': 'myCustom1',
+                    'fn': function (v) {
+                        if (v.toString().indexOf("1") > -1) {
+                            return true;
+                        }
+                        return false;
+                    },
+                    'message': 'The number must contain a 1.'
+                },
+                {
+                    'name': 'myCustom2',
+                    'fn': function (v) {
+                        if (v.toString().indexOf("2") > -1) {
+                            return true;
+                        }
+                        return false;
+                    },
+                    'message': 'The number must contain a 2.'
+                }
+            ]});
+            var validation6 = new ch.Validation(ch('#url')[0], {'conditions':[{'name': 'url'}]});
+            var validation7 = new ch.Validation(ch('#number')[0], {
+                'conditions':[{'name': 'number'}, {'name': 'min', 'num': 5}]
+            });
+            var validation8 = new ch.Validation(ch('#range')[0], {
+                'conditions':[{'name': 'min', 'num': 8}, {'name': 'max', 'num': 10}]
+            });
+            var validation9 = new ch.Validation(ch('#characters')[0], {
+                'conditions':[{'name': 'maxLength', 'num': 20}, {'name': 'minLength', 'num': 6}]
+            });
+            var validation10 = new ch.Validation(ch('#select2')[0], {
+                'conditions':[{'name': 'required', 'message': message('option')}]
+            });
+            var validation11 = new ch.Validation(ch('.required-check')[0], {
+                'conditions':[{'name': 'required', 'message': message('requiredCheck')}]
+            });
+            var validation12 = new ch.Validation(ch('.required-option')[0], {
+                'conditions':[{'name': 'required', 'message': message('option')}]
+            });
+            var validation13 = new ch.Validation(ch('#double')[0], {
+                'conditions':[{'name': 'required', 'message': message('link')}, {'name': 'number'}]
+            });
+            var validation14 = new ch.Validation(ch('#textarea2')[0], {
+                'conditions':[{'name': 'required'}]
+            });
+        });
+    </script>
+</article>

@@ -1,0 +1,52 @@
+<article id="carousel">
+    <h2>Carousel</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <div class="demo-carousel ch-carousel">
+            <ul>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png alt="Ninja" %}</li>
+            </ul>
+        </div>
+    </div>
+{% highlight html %}
+<div class="demo-carousel ch-carousel">
+    <ul>
+        <li><img src="img.png"></li>
+        <li><img src="img.png"></li>
+        ...
+    </ul>
+</div>
+{% endhighlight %}
+
+{% highlight javascript %}
+var carousel = new ch.Carousel(ch('.demo-carousel')[0], {
+    pagination: true
+});
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var carousel = new ch.Carousel(ch('.demo-carousel')[0], {
+                pagination: true
+            });
+        });
+    </script>
+</article>

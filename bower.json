@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "chico": "git@github.com:mercadolibre/chico.git#>=2.0.0-alpha.2"
+    "chico": "chico#2.0.6"
   }
 }

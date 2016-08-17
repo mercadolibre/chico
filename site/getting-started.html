@@ -32,65 +32,35 @@ id: getting-started
                 <article>
                     <h3 id="sniffing">Browser sniffing</h3>
                     <p>
-                        We hate writting CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
+                        We hate writing CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
                     </p>
-                    <pre class="language-javascript">
-                        <code class=" language-javascript">
-                            <span class="token class-name">&lt;!DOCTYPE html></span>
-                            <span class="token class-name">&lt;html></span>
-                            <span class="token class-name">&lt;head></span>
-                            <span class="token class-name">&lt;!--[if IE 7]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 lt-ie8 ie7&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;</span>
-                            <span class="token class-name">&lt;!--[if IE 8]&gt;&lt;html class=&quot;no-js lt-ie10 lt-ie9 ie8&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;</span>
-                            <span class="token class-name">&lt;!--[if IE 9]&gt;&lt;html class=&quot;no-js lt-ie10 ie9&quot; lang=&quot;en&quot;&gt;&lt;![endif]--&gt;</span>
-                            <span class="token class-name">&lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot; lang=&quot;en&quot;&gt;&lt;!--&lt;![endif]--&gt;</span>
-                        </code>
-                    </pre>
+{% highlight html %}
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 ie6"> <![endif]-->
+<!--[if IE 7]>	<html class="no-js  lt-ie10 lt-ie9 lt-ie8 ie7"> <![endif]-->
+<!--[if IE 8]>	<html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>	<html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+{% endhighlight %}
 
                 </article>
 
                 <article>
-
-                    <h3 id="jquery">jQuery JavaScript Library</h3>
-                    <p>Most of our framework’s functionality is built on jQuery. That’s why we need to pre-load this toolbox.
-                    You can get jQuery from many places like Google CDN:</p>
-
-                    <pre class="language-javascript">
-                        <code class=" language-javascript">
-                            <span class="token class-name">&lt;script src=<span class="token string">"https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"</span>>&lt;/script></span>
-                        </code>
-                    </pre>
-
-
-                    <h4>Or jQuery CDN:</h4>
-                    <pre class="language-javascript">
-                        <code class=" language-javascript">
-                            <span class="token class-name">&lt;script src=<span class="token string">"http://code.jquery.com/jquery-x.x.x.min.js"</span>>&lt;/script></span>
-                        </code>
-                    </pre>
-
-                </article>
-
-                <article>
-
-                    <h3 id="">Title asdasd</h3>
+                    <h3 id="assets">Pointing to assets</h3>
                     <p>You only have to add the CSS, JavaScript and assets of Chico UI, and that’s all!</p>
                     <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
 
-                    <pre class="language-javascript">
-                        <code class=" language-javascript">
-                            <span class="token class-name">&lt;link rel=<span class="token string">"stylesheet"</span> href=<span class="token string">"chico-min-x.x.x.css"</span>/></span>
-                        </code>
-                    </pre>
+{% highlight html %}
+<link rel="stylesheet" href="dist/ui/chico.min.css" />
+{% endhighlight %}
 
                     <p>
-                        And you should add the JavaScript at bottom of page, before <b>&lt;/body></b> tag close and after jQuery script call.
+                        And you should add the JavaScript at bottom of page, before the <b>&lt;/body></b> closing tag and after jQuery script call.
                     </p>
 
-                    <pre class="language-javascript">
-                        <code class=" language-javascript">
-                            <span class="token class-name">&lt;script src=<span class="token string">"build/chico-min-x.x.x.js"</span>>&lt;/script></span>
-                        </code>
-                    </pre>
+{% highlight html %}
+<script src="dist/ui/chico.min.js"></script>
+{% endhighlight %}
 
                     <p>
                         Don’t forget to link to asset files within the stylesheet code.
@@ -102,36 +72,32 @@ id: getting-started
 
                     <h3 id="overview">Overview</h3>
 
-                    <pre class="language-javascript">
-                        <code class=" language-javascript">
-                            <span class="token class-name">&lt;!doctype html&gt;</span>
-                            <span class="token class-name">&lt;!--[if IE 7]&gt;&lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"&gt;&lt;![endif]--&gt;</span>
-                            <span class="token class-name">&lt;!--[if IE 8]&gt;&lt;html class="no-js lt-ie10 lt-ie9 ie8" lang="en"&gt;&lt;![endif]--&gt;</span>
-                            <span class="token class-name">&lt;!--[if IE 9]&gt;&lt;html class="no-js lt-ie10 ie9" lang="en"&gt;&lt;![endif]--&gt;</span>
-                            <span class="token class-name">&lt;!--[if gt IE 9]&gt;&lt;!--&gt; &lt;html class="no-js" lang="en"&gt;&lt;!--&lt;![endif]--&gt;</span>
-                            <span class="token class-name">&lt;head&gt;</span>
-                            <span class="token comment">&lt;!-- Avoid script blocking --&gt;</span>
-                            <span class="token class-name">&lt;script&gt;&lt;/script&gt;</span>
-                            <span class="token class-name">&lt;meta charset="utf-8"/&gt;</span>
-                            <span class="token class-name">&lt;title&gt;Document Title&lt;/title&gt;</span>
-                            <span class="token comment">&lt;!-- Chico UI Core stylesheet --&gt;</span>
-                            <span class="token class-name">&lt;link rel="stylesheet" href="build/chico-min-x.x.x.css"/&gt;</span>
-                            <span class="token class-name">&lt;/head&gt;</span>
-                            <span class="token class-name">&lt;body&gt;</span>
-                            <span class="token class-name">...</span>
-                            <span class="token comment">&lt;!-- All markup here... --&gt;</span>
-                            <span class="token class-name">...</span>
-                            <span class="token class-name">&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"&gt;</span>
-                            <span class="token class-name">&lt;/script&gt;</span>
-                            <span class="token class-name">&lt;script src="build/chico-min-x.x.x.js"&gt;&lt;/script&gt;</span>
-                            <span class="token class-name">&lt;script src="Call your JavaScript here..."&gt;&lt;/script&gt;</span>
-                            <span class="token class-name">&lt;/body&gt;</span>
-                            <span class="token class-name">&lt;/html&gt;</span>
-                        </code>
-                    </pre>
+{% highlight html %}
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 ie6"> <![endif]-->
+<!--[if IE 7]>	<html class="no-js  lt-ie10 lt-ie9 lt-ie8 ie7"> <![endif]-->
+<!--[if IE 8]>	<html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]>	<html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+<!-- Avoid script blocking -->
+<script></script>
+<meta charset="utf-8" />
+<title>Document Title</title>
+<!-- Chico UI Core stylesheet -->
+<link rel="stylesheet" href="dist/ui/chico.min.css" />
+</head>
+<body>
+...
+<!-- All markup here... -->
+...
+<script src="dist/ui/chico.min.js"></script>
+<script src="Call your JavaScript here..."></script>
+</body>
+</html>
+{% endhighlight %}
 
                 </article>
-
             </div>
 
             <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
@@ -140,10 +106,10 @@ id: getting-started
                         <a href="#download" data-section="download">Download</a>
                     </li>
                     <li>
-                        <a href="#installing" data-section="installing">Installing Chico in your site</a>
+                        <a href="#installing" data-section="installing">Installing Chico on your site</a>
                         <ul>
                             <li><a href="#sniffing" data-section="sniffing">Browser sniffing</a></li>
-                            <li><a href="#jquery" data-section="jquery">JQuery JavaScript Library</a></li>
+                            <li><a href="#assets" data-section="assets">Pointing to assets</a></li>
                             <li><a href="#overview" data-section="overview">Overview</a></li>
                         </ul>
                     </li>

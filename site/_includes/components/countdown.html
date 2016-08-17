@@ -1,0 +1,34 @@
+<article id="countdown">
+    <h2>Countdown</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form action="{{ site.baseUrl }}/ajax.html" class="ch-form">
+            <p class="ch-form-row">
+                <label for="text_cd">Text:</label>
+                <textarea id="text_cd" cols="35" rows="4"></textarea>
+            </p>
+        </form>
+    </div>
+{% highlight html %}
+<textarea id="text_cd" cols="35" rows="4"></textarea>
+{% endhighlight %}
+
+{% highlight javascript %}
+var countdown = new ch.Countdown(ch('#text_cd')[0], {
+    'max': 140,
+    'plural': '# chars left',
+    'singular': '# char left'
+});
+{% endhighlight %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var countdown = new ch.Countdown(ch('#text_cd')[0], {
+                'max': 140,
+                'plural': '# chars left',
+                'singular': '# char left'
+            });
+        });
+    </script>
+</article>
