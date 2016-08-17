@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
 
     <!-- Chico -->
-    <link rel="stylesheet" href="/chico/assets/ui/chico-a6a56bc7503839ea5497b99baec2a721.css">
+    <link rel="stylesheet" href="/chico/assets/ui/chico-103b59c0942fbe87c478a127bb916917.css">
 
     <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
     <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
@@ -110,32 +110,32 @@
         <h2 class="api-title">How-to</h2>
         
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new condition object with patt.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new condition object with patt.</span>
 <span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Condition</span><span class="p">({</span>
-    <span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;patt&#39;</span><span class="o">:</span> <span class="sr">/^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/</span><span class="p">,</span>
-    <span class="s1">&#39;message&#39;</span><span class="o">:</span> <span class="s1">&#39;Some message here!&#39;</span>
-<span class="p">});</span></code></pre></div>
+    <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'string'</span><span class="p">,</span>
+    <span class="s1">'patt'</span><span class="p">:</span> <span class="o">/^</span><span class="p">([</span><span class="nx">a</span><span class="o">-</span><span class="nx">zA</span><span class="o">-</span><span class="nx">Z</span><span class="err">\</span><span class="nx">u00C0</span><span class="o">-</span><span class="err">\</span><span class="nx">u00C4</span><span class="err">\</span><span class="nx">u00C8</span><span class="o">-</span><span class="err">\</span><span class="nx">u00CF</span><span class="err">\</span><span class="nx">u00D2</span><span class="o">-</span><span class="err">\</span><span class="nx">u00D6</span><span class="err">\</span><span class="nx">u00D9</span><span class="o">-</span><span class="err">\</span><span class="nx">u00DC</span><span class="err">\</span><span class="nx">u00E0</span><span class="o">-</span><span class="err">\</span><span class="nx">u00E4</span><span class="err">\</span><span class="nx">u00E8</span><span class="o">-</span><span class="err">\</span><span class="nx">u00EF</span><span class="err">\</span><span class="nx">u00F2</span><span class="o">-</span><span class="err">\</span><span class="nx">u00F6</span><span class="err">\</span><span class="nx">u00E9</span><span class="o">-</span><span class="err">\</span><span class="nx">u00FC</span><span class="err">\</span><span class="nx">u00C7</span><span class="err">\</span><span class="nx">u00E7</span><span class="err">\</span><span class="nx">s</span><span class="p">]</span><span class="o">*</span><span class="p">)</span><span class="nx">$</span><span class="o">/</span><span class="p">,</span>
+    <span class="s1">'message'</span><span class="p">:</span> <span class="s1">'Some message here!'</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//Create a new condition object with expr.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//Create a new condition object with expr.</span>
 <span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Condition</span><span class="p">({</span>
-    <span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="s1">&#39;maxLength&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;patt&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="nx">b</span> <span class="p">},</span>
-    <span class="s1">&#39;message&#39;</span><span class="o">:</span> <span class="s1">&#39;Some message here!&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;value&#39;</span><span class="o">:</span> <span class="mi">4</span>
-<span class="p">});</span></code></pre></div>
+    <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'maxLength'</span><span class="p">,</span>
+    <span class="s1">'patt'</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="nx">b</span> <span class="p">},</span>
+    <span class="s1">'message'</span><span class="p">:</span> <span class="s1">'Some message here!'</span><span class="p">,</span>
+    <span class="s1">'value'</span><span class="p">:</span> <span class="mi">4</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new condition object with func.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new condition object with func.</span>
 <span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Condition</span><span class="p">({</span>
-    <span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="s1">&#39;custom&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;patt&#39;</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="s1">&#39;ChicoUI&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'custom'</span><span class="p">,</span>
+    <span class="s1">'patt'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="s1">'ChicoUI'</span><span class="p">)</span> <span class="p">{</span>
 
             <span class="c1">// Some code here!</span>
 
@@ -144,8 +144,8 @@
 
         <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">},</span>
-    <span class="s1">&#39;message&#39;</span><span class="o">:</span> <span class="s1">&#39;Your message here!&#39;</span>
-<span class="p">});</span></code></pre></div>
+    <span class="s1">'message'</span><span class="p">:</span> <span class="s1">'Your message here!'</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -250,8 +250,8 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// You can reach the associated instance.</span>
-<span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;condition&#39;</span><span class="p">);</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// You can reach the associated instance.</span>
+<span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">'condition'</span><span class="p">);</span></code></pre></figure>
 </div>
 
 
@@ -294,14 +294,14 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Disabling an instance of Condition.</span>
-<span class="nx">condition</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Disabling an instance of Condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Disabling a condition.</span>
-<span class="nx">condition</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Disabling a condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span></code></pre></figure>
 </div>
 
 
@@ -324,14 +324,14 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Enabling an instance of Condition.</span>
-<span class="nx">condition</span><span class="p">.</span><span class="nx">enable</span><span class="p">();</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Enabling an instance of Condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">enable</span><span class="p">();</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Enabling a condition.</span>
-<span class="nx">condition</span><span class="p">.</span><span class="nx">enable</span><span class="p">();</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Enabling a condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">enable</span><span class="p">();</span></code></pre></figure>
 </div>
 
 
@@ -386,8 +386,8 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Testing a condition.</span>
-<span class="nx">condition</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;foobar&#39;</span><span class="p">,</span> <span class="nx">validationA</span><span class="p">);</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Testing a condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">'foobar'</span><span class="p">,</span> <span class="nx">validationA</span><span class="p">);</span></code></pre></figure>
 </div>
 
 
@@ -418,7 +418,7 @@
 
     <footer role="contentinfo" class="ml-footer">
     <div class="ml-bounds">
-        <small>©2015 MercadoLibre.com</small>
+        <small>©2016 MercadoLibre.com</small>
 
         <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
     </div>

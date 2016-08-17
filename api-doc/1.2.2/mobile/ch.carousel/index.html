@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
 
     <!-- Chico -->
-    <link rel="stylesheet" href="/chico/assets/ui/chico-a6a56bc7503839ea5497b99baec2a721.css">
+    <link rel="stylesheet" href="/chico/assets/ui/chico-103b59c0942fbe87c478a127bb916917.css">
 
     <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
     <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
@@ -110,35 +110,35 @@
         <h2 class="api-title">How-to</h2>
         
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new carousel.</span>
-<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Carousel</span><span class="p">(</span><span class="nx">$el</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new carousel.</span>
+<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Carousel</span><span class="p">(</span><span class="nx">$el</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with jQuery or Zepto.</span>
-<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">carousel</span><span class="p">([</span><span class="nx">options</span><span class="p">]);</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with jQuery or Zepto.</span>
+<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">carousel</span><span class="p">([</span><span class="nx">options</span><span class="p">]);</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with disabled effects.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with disabled effects.</span>
 <span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">carousel</span><span class="p">({</span>
-    <span class="s1">&#39;fx&#39;</span><span class="o">:</span> <span class="kc">false</span>
-<span class="p">});</span></code></pre></div>
+    <span class="s1">'fx'</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with items asynchronously loaded.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with items asynchronously loaded.</span>
 <span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">carousel</span><span class="p">({</span>
-    <span class="s1">&#39;async&#39;</span><span class="o">:</span> <span class="mi">10</span>
-<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;itemsadd&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$items</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s1">'async'</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'itemsadd'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$items</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Inject content into the added &lt;li&gt; elements</span>
     <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">$items</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">e</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;Content into one of newly inserted &lt;li&gt; elements.&#39;</span><span class="p">;</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">'Content into one of newly inserted &lt;li&gt; elements.'</span><span class="p">;</span>
     <span class="p">});</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -282,8 +282,8 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// You can reach the associated instance.</span>
-<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;carousel&#39;</span><span class="p">);</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// You can reach the associated instance.</span>
+<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">'carousel'</span><span class="p">);</span></code></pre></figure>
 </div>
 
 
@@ -458,15 +458,15 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with items asynchronously loaded.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with items asynchronously loaded.</span>
 <span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">carousel</span><span class="p">({</span>
-    <span class="s1">&#39;async&#39;</span><span class="o">:</span> <span class="mi">10</span>
-<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;itemsadd&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$items</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s1">'async'</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'itemsadd'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$items</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Inject content into the added &lt;li&gt; elements</span>
     <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">$items</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">e</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;Content into one of newly inserted &lt;li&gt; elements.&#39;</span><span class="p">;</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">'Content into one of newly inserted &lt;li&gt; elements.'</span><span class="p">;</span>
     <span class="p">});</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -489,9 +489,9 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;next&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Carousel has moved to the next page.&#39;</span><span class="p">);</span>
-<span class="p">});</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'next'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'Carousel has moved to the next page.'</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -514,9 +514,9 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;prev&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Carousel has moved to the previous page.&#39;</span><span class="p">);</span>
-<span class="p">});</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'prev'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'Carousel has moved to the previous page.'</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -539,10 +539,10 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;ready&quot; event.</span>
-<span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to "ready" event.</span>
+<span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'ready'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Some code here!</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -565,10 +565,10 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;refresh&quot; event.</span>
-<span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;refresh&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Carousel was refreshed.&#39;</span><span class="p">);</span>
-<span class="p">});</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to "refresh" event.</span>
+<span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'refresh'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'Carousel was refreshed.'</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -591,10 +591,10 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;select&quot; event.</span>
-<span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Carousel was moved.&#39;</span><span class="p">);</span>
-<span class="p">});</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to "select" event.</span>
+<span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'select'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'Carousel was moved.'</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -621,7 +621,7 @@
 
     <footer role="contentinfo" class="ml-footer">
     <div class="ml-bounds">
-        <small>©2015 MercadoLibre.com</small>
+        <small>©2016 MercadoLibre.com</small>
 
         <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
     </div>

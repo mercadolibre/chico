@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
 
     <!-- Chico -->
-    <link rel="stylesheet" href="/chico/assets/ui/chico-a6a56bc7503839ea5497b99baec2a721.css">
+    <link rel="stylesheet" href="/chico/assets/ui/chico-103b59c0942fbe87c478a127bb916917.css">
 
     <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
     <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
@@ -110,52 +110,52 @@
         <h2 class="api-title">How-to</h2>
         
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Instance the Positioner It requires a little configuration.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Instance the Positioner It requires a little configuration.</span>
 <span class="c1">// The default behavior place an element center into the Viewport.</span>
 <span class="kd">var</span> <span class="nx">positioned</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Positioner</span><span class="p">({</span>
-    <span class="s1">&#39;target&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
-    <span class="s1">&#39;reference&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
-    <span class="s1">&#39;side&#39;</span><span class="o">:</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;align&#39;</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;offsetX&#39;</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="s1">&#39;offsetY&#39;</span><span class="o">:</span> <span class="mi">10</span>
-<span class="p">});</span></code></pre></div>
+    <span class="s1">'target'</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
+    <span class="s1">'reference'</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
+    <span class="s1">'side'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">,</span>
+    <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">,</span>
+    <span class="s1">'offsetX'</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s1">'offsetY'</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// offsetX: The Positioner could be configurated with an offsetX.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// offsetX: The Positioner could be configurated with an offsetX.</span>
 <span class="c1">// This example show an element displaced horizontally by 10px of defined position.</span>
 <span class="kd">var</span> <span class="nx">positioned</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Positioner</span><span class="p">({</span>
-    <span class="s1">&#39;target&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
-    <span class="s1">&#39;reference&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
-    <span class="s1">&#39;side&#39;</span><span class="o">:</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;align&#39;</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;offsetX&#39;</span><span class="o">:</span> <span class="mi">10</span>
-<span class="p">});</span></code></pre></div>
+    <span class="s1">'target'</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
+    <span class="s1">'reference'</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
+    <span class="s1">'side'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">,</span>
+    <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">,</span>
+    <span class="s1">'offsetX'</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// offsetY: The Positioner could be configurated with an offsetY.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// offsetY: The Positioner could be configurated with an offsetY.</span>
 <span class="c1">// This example show an element displaced vertically by 10px of defined position.</span>
 <span class="kd">var</span> <span class="nx">positioned</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Positioner</span><span class="p">({</span>
-    <span class="s1">&#39;target&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
-    <span class="s1">&#39;reference&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
-    <span class="s1">&#39;side&#39;</span><span class="o">:</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;align&#39;</span><span class="o">:</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;offsetY&#39;</span><span class="o">:</span> <span class="mi">10</span>
-<span class="p">});</span></code></pre></div>
+    <span class="s1">'target'</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
+    <span class="s1">'reference'</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
+    <span class="s1">'side'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">,</span>
+    <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">,</span>
+    <span class="s1">'offsetY'</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// positioned: The positioner could be configured to work with fixed or absolute position value.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// positioned: The positioner could be configured to work with fixed or absolute position value.</span>
 <span class="kd">var</span> <span class="nx">positioned</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Positioner</span><span class="p">({</span>
-    <span class="s1">&#39;target&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
-    <span class="s1">&#39;reference&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
-    <span class="s1">&#39;position&#39;</span><span class="o">:</span> <span class="s1">&#39;fixed&#39;</span>
-<span class="p">});</span></code></pre></div>
+    <span class="s1">'target'</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
+    <span class="s1">'reference'</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span>
+    <span class="s1">'position'</span><span class="p">:</span> <span class="s1">'fixed'</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -364,17 +364,17 @@
 
     
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Updates the current position.</span>
-<span class="nx">positioned</span><span class="p">.</span><span class="nx">refresh</span><span class="p">();</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Updates the current position.</span>
+<span class="nx">positioned</span><span class="p">.</span><span class="nx">refresh</span><span class="p">();</span></code></pre></figure>
 </div>
 
 
 <div class="jsdoc-example">
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Updates the current position with new offsetX and offsetY.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Updates the current position with new offsetX and offsetY.</span>
 <span class="nx">positioned</span><span class="p">.</span><span class="nx">refresh</span><span class="p">({</span>
-    <span class="s1">&#39;offestX&#39;</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="s1">&#39;offestY&#39;</span><span class="o">:</span> <span class="mi">10</span>
-<span class="p">});</span></code></pre></div>
+    <span class="s1">'offestX'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">'offestY'</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">});</span></code></pre></figure>
 </div>
 
 
@@ -405,7 +405,7 @@
 
     <footer role="contentinfo" class="ml-footer">
     <div class="ml-bounds">
-        <small>©2015 MercadoLibre.com</small>
+        <small>©2016 MercadoLibre.com</small>
 
         <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
     </div>
