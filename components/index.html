@@ -1,0 +1,1665 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>Chico UI</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="/chico/assets/ninja-45a14a876dfcc0a6718740e6eac2dbdd.ico">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
+
+    <!-- Chico -->
+    <link rel="stylesheet" href="/chico/assets/ui/chico-103b59c0942fbe87c478a127bb916917.css">
+
+    <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-54f91c3b2258b805714b2b33b770f482.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-da6396cbf0dae791010df11ba9bc2798.css">
+
+    <link rel="stylesheet" href="/chico/assets/ml-header-77d554c6e4451d2f3b0d7deff9d67022.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-3e66b68b5b9ed42066c44091f0dbc933.css">
+    <link rel="stylesheet" href="/chico/assets/highlighter-22319125406f6233c1ee514296bd36f3.css">
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css">
+    <![endif]-->
+</head>
+
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      <header role="banner" class="ml-header">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/chico/"><h1 class="ml-title">Chico UI</h1></a>
+
+        <a class="ml-logo" href="/chico/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico Components</span></a>
+
+        <label for="toggle-menu" class="toggle-label"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account ">
+                   <a class="" href="/chico/getting-started/">Getting started</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="" href="/chico/ui-components/">UI Components</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="api-doc " href="/chico/api-doc/current/ui/ch">API Doc</a>
+
+                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
+                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="ml-header-menu">
+            <a class="" href="/chico/getting-started/">Getting started</a>
+            <a class="" href="/chico/common-css/">Common CSS</a>
+            <a class=" active" href="/chico/components/">Components</a>
+            <a class="" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
+        </nav>
+    </div>
+</header>
+
+
+
+      <div class="ml-wrapper">
+        <main role="main" class="chico-components">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">UI Components</h1>
+            <h3 class="mesh-col-12 mesh-6">
+                Amazing components built to provide dropdowns, input groups, navigation, modals, and much more.
+            </h3>
+        </div>
+    </section>
+
+    <section>
+        <div class="ml-bounds mesh-row">
+
+            <div class="mesh-col-12 mesh-col-m-9 ui-components">
+                <article id="autocomplete">
+    <h2>Autocomplete</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form method="get" action="http://www.mercadolibre.com.ar/jm/search" class="ch-form">
+            <div class="ch-form-row">
+                <label for="product">Find a product:</label>
+                <input type="text" name="as_word" id="product" class="autocomplete" placeholder="iphone 5" />
+                <p class="ch-form-hint">This is working with the MercadoLibre API</p>
+            </div>
+            <p class="ch-form-actions">
+                <input type="submit" name="autocompleteSubmit" class="ch-btn">
+            </p>
+        </form>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"get"</span> <span class="na">action=</span><span class="s">"http://www.mercadolibre.com.ar/jm/search"</span> <span class="na">class=</span><span class="s">"ch-form"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"as_word"</span> <span class="na">class=</span><span class="s">"autocomplete"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">name=</span><span class="s">"autocompleteSubmit"</span> <span class="na">class=</span><span class="s">"ch-btn"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">autocomplete</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Autocomplete</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'.autocomplete'</span><span class="p">))</span>
+    <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">userInput</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">tiny</span><span class="p">.</span><span class="nx">jsonp</span><span class="p">(</span><span class="s1">'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='</span> <span class="o">+</span> <span class="nx">userInput</span> <span class="o">+</span> <span class="s1">'&amp;v=1'</span><span class="p">,</span> <span class="p">{</span>
+            <span class="na">name</span><span class="p">:</span> <span class="s1">'autocompleteSuggestion'</span><span class="p">,</span>
+            <span class="na">success</span><span class="p">:</span> <span class="nx">parseResults</span><span class="p">,</span>
+            <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">autocomplete</span><span class="p">.</span><span class="nx">suggest</span><span class="p">([]);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            function parseResults(results) {
+                var data = [];
+                if (results[2].suggested_queries !== undefined) {
+                    results[2].suggested_queries.forEach(function (e, i) {
+                        data.push(e.q);
+                    });
+                    // Show suggestions
+                    autocomplete.suggest(data);
+                }
+            }
+            var cancelRequest;
+            var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
+                .on('type', function (userInput) {
+                    // Cancel the jsonp request if any
+                    if (cancelRequest) {
+                        cancelRequest();
+                    }
+                    // Hide possibly active loading indicator
+                    if (!userInput) {
+                        return autocomplete.suggest([]);
+                    }
+                    cancelRequest = tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+                        name: 'autocompleteSuggestion',
+                        success: parseResults,
+                        error: function(err) {
+                            autocomplete.suggest([]);
+                        }
+                    });
+                });
+        });
+    </script>
+</article>
+
+                <article id="expandable">
+    <h2>Expandable</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <h4 class="demo_expandable1 ch-expandable-trigger">Lorem ipsum dolor sit amet.</h4>
+        <div id="container1" class="ch-hide">
+            <div id="content">
+                <h2 class="demo-expandable-test">Lorem</h2>
+                <p>ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p>
+            </div>
+        </div>
+
+        <h4 class="demo_expandable2">Lorem ipsum dolor sit amet.</h4>
+        <div class="container_expandable2"></div>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"demo_expandable1 ch-expandable-trigger"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet.<span class="nt">&lt;/h4&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ch-hide"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div&gt;</span>
+        <span class="c">&lt;!-- Expandable content --&gt;</span>
+        ...
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"demo_expandable2"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet.<span class="nt">&lt;/h4&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container_expandable2"</span><span class="nt">&gt;</span><span class="c">&lt;!-- Content will load with Ajax --&gt;</span><span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">expandable1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Expandable</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'.demo_expandable1'</span><span class="p">));</span>
+
+<span class="kd">var</span> <span class="nx">expandable2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Expandable</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'.demo_expandable2'</span><span class="p">),</span> <span class="p">{</span>
+    <span class="s1">'content'</span><span class="p">:</span> <span class="s1">'/chico/ajax.html'</span><span class="p">,</span>
+    <span class="s1">'container'</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'.container_expandable2'</span><span class="p">)</span>
+<span class="p">});</span>
+<span class="nx">expandable2</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'contentdone'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Content loaded for component '</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">uid</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var expandable1 = new ch.Expandable(document.querySelector('.demo_expandable1'));
+
+            var expandable2 = new ch.Expandable(document.querySelector('.demo_expandable2'), {
+                'content': '/chico/ajax.html',
+                'container': document.querySelector('.container_expandable2')
+            });
+            expandable2.on('contentdone', function () {
+                console.log('Content loaded for component  ' + this.uid);
+            });
+        });
+    </script>
+</article>
+
+                <article id="menu">
+    <h2>Menu</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <ul class="demo-menu ch-menu">
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Link</a>
+            </li>
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"demo-menu ch-menu"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;</span>
+        <span class="nt">&lt;span&gt;</span>Collapsible<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>...<span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>...<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>
+        <span class="nt">&lt;span&gt;</span>Collapsible<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>...<span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>...<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">menu</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Menu</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'.demo-menu'</span><span class="p">));</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var menu = new ch.Menu(document.querySelector('.demo-menu'));
+        });
+    </script>
+</article>
+
+                <article id="dropdown">
+    <h2>Dropdown</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <h3 class="demo-dropdown1">Default</h3>
+        <menu label="Links" class="ch-hide">
+            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        </menu>
+
+        <i class="ch-icon-heart demo-dropdown2"></i>
+        <ul class="ch-hide">
+            <li>
+                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='50'>
+                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='50'>
+                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='50'>
+            </li>
+            <li>
+                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='50'>
+                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='50'>
+                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='50'>
+            </li>
+            <li>
+                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='50'>
+                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='50'>
+                <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='50'>
+            </li>
+        </ul>
+
+        <p class="demo-dropdown3">With skin</p>
+        <menu label="Links" class="ch-hide">
+            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        </menu>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"demo-dropdown1"</span><span class="nt">&gt;</span>Default<span class="nt">&lt;/h3&gt;</span>
+<span class="nt">&lt;menu</span> <span class="na">label=</span><span class="s">"Links"</span> <span class="na">class=</span><span class="s">"ch-hide"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"http://www.mercadolibre.com"</span><span class="nt">&gt;</span>MercadoLibre<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    ...
+<span class="nt">&lt;/menu&gt;</span>
+
+<span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"ch-icon-heart demo-dropdown2"</span><span class="nt">&gt;&lt;/i&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"ch-hide"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;</span>
+        <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"..."</span> <span class="nt">/&gt;</span>
+        ...
+    <span class="nt">&lt;/li&gt;</span>
+    ...
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"demo-dropdown3"</span><span class="nt">&gt;</span>With skin<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;menu</span> <span class="na">label=</span><span class="s">"Links"</span> <span class="na">class=</span><span class="s">"ch-hide"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"http://www.mercadolibre.com"</span><span class="nt">&gt;</span>MercadoLibre<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    ...
+<span class="nt">&lt;/menu&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">dropdown1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Dropdown</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'.demo-dropdown1'</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">dropdown2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Dropdown</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'.demo-dropdown2'</span><span class="p">),</span> <span class="p">{</span>
+    <span class="s1">'shortcuts'</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s1">'skin'</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">dropdown3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Dropdown</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'.demo-dropdown3'</span><span class="p">),</span> <span class="p">{</span>
+    <span class="s1">'skin'</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var dropdown1 = new ch.Dropdown(document.querySelector('.demo-dropdown1'));
+            var dropdown2 = new ch.Dropdown(document.querySelector('.demo-dropdown2'), {'shortcuts': false, 'skin': true});
+            var dropdown3 = new ch.Dropdown(document.querySelector('.demo-dropdown3'), {'skin': true});
+        });
+    </script>
+</article>
+
+                <article id="tooltip">
+    <h2>Tooltip</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <div class="mesh-row">
+            <div class="mesh-col-m-6">
+                <div class="ch-box-container">
+                    <h3>Bottom</h3>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-default'>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-ctcb'>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-rtrb'>
+                </div>
+
+                <div class="ch-box-container">
+                    <h3>Top</h3>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-lblt'>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-cbct'>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-rbrt'>
+                </div>
+            </div>
+
+            <div class="mesh-col-m-6">
+                <div class="ch-box-container">
+                    <h3>Right</h3>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-ltrt'>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-lmrm'>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-lbrb'>
+                </div>
+
+                <div class="ch-box-container">
+                    <h3>Left</h3>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-rtlt'>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-rmlm'>
+                    <img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" width='120' alt='This is a tooltip' id='tooltip-rblb'>
+                </div>
+            </div>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"..."</span> <span class="na">alt=</span><span class="s">"Tooltip content"</span> <span class="na">id=</span><span class="s">"tooltip-default"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"..."</span> <span class="na">alt=</span><span class="s">"Tooltip content"</span> <span class="na">id=</span><span class="s">"tooltip-ctcb"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"..."</span> <span class="na">alt=</span><span class="s">"Tooltip content"</span> <span class="na">id=</span><span class="s">"tooltip-lblt"</span> <span class="nt">/&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Default tooltip</span>
+<span class="kd">var</span> <span class="nx">tooltip1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Tooltip</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#tooltip-default'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// lt lb</span>
+
+<span class="c1">// Custom position</span>
+<span class="kd">var</span> <span class="nx">tooltip2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Tooltip</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#tooltip-ctcb'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'side'</span><span class="p">:</span> <span class="s1">'bottom'</span><span class="p">,</span>
+    <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'center'</span>
+<span class="p">});</span>
+
+<span class="c1">// Tooltip with offset</span>
+<span class="kd">var</span> <span class="nx">tooltip3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Tooltip</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#tooltip-lblt'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'side'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">,</span>
+    <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">,</span>
+    <span class="s1">'offsetX'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">'offsetY'</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var tooltip1 = new ch.Tooltip(ch('#tooltip-default')[0]); // lt lb
+
+            var tooltip2 = new ch.Tooltip(ch('#tooltip-ctcb')[0], {
+                'side': 'bottom',
+                'align': 'center'
+            });
+            var tooltip3 = new ch.Tooltip(ch('#tooltip-rtrb')[0], {
+                'side': 'bottom',
+                'align': 'right'
+            });
+            // Top
+            var tooltip4 = new ch.Tooltip(ch('#tooltip-lblt')[0], {
+                'side': 'top',
+                'align': 'left',
+                'offsetY': -10
+            });
+            var tooltip5 = new ch.Tooltip(ch('#tooltip-cbct')[0], {
+                'side': 'top',
+                'align': 'center',
+                'offsetY': -10
+            });
+            var tooltip6 = new ch.Tooltip(ch('#tooltip-rbrt')[0], {
+                'side': 'top',
+                'align': 'right',
+                'offsetY': -10
+            });
+            // Right
+            var tooltip7 = new ch.Tooltip(ch('#tooltip-ltrt')[0], {
+                'side': 'right',
+                'align': 'top',
+                'offsetX': 10
+            });
+            var tooltip8 = new ch.Tooltip(ch('#tooltip-lmrm')[0], {
+                'side': 'right',
+                'align': 'center',
+                'offsetX': 10
+            });
+            var tooltip9 = new ch.Tooltip(ch('#tooltip-lbrb')[0], {
+                'side': 'right',
+                'align': 'bottom',
+                'offsetX': 10
+            });
+            // Left
+            var tooltip10 = new ch.Tooltip(ch('#tooltip-rtlt')[0], {
+                'side': 'left',
+                'align': 'top',
+                'offsetX': -10
+            });
+            var tooltip11 = new ch.Tooltip(ch('#tooltip-rmlm')[0], {
+                'side': 'left',
+                'align': 'center',
+                'offsetX': -10
+            });
+            var tooltip12 = new ch.Tooltip(ch('#tooltip-rblb')[0], {
+                'side': 'left',
+                'align': 'bottom',
+                'offsetX': -10
+            });
+        });
+    </script>
+</article>
+
+                <article id="layer">
+    <h2>Layer</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <ul class="ch-list">
+            <li><span id="layer1">Executed on: <strong>pointerenter</strong>, Content: <strong>unique parameter</strong>.</span></li>
+            <li><span id="layer2">Executed on: <strong>pointertap</strong>, Content: <strong>HTML Element</strong>, Hidden by: <strong>all</strong>.</span></li>
+            <li><span id="layer3">Executed on: <strong>pointertap</strong>, Content: <strong>element in DOM</strong>, Hidden by: <strong>none</strong>.</span></li>
+            <li><span id="layer4">Executed on: <strong>pointertap</strong>, Content: <strong>plain text</strong>, Hidden by: <strong>button</strong>.</span></li>
+            <li><span id="layer5">Executed on: <strong>pointertap</strong>, Content: <strong>AJAX</strong>, Hidden by: <strong>pointers</strong>.</span></li>
+        </ul>
+        <div id="invisible-content-for-layer" class="ch-hide">
+            <h1>This content is invisible</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+        </div>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"layer1"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"layer2"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/span&gt;</span>
+...
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"invisible-content-for-layer"</span> <span class="na">class=</span><span class="s">"ch-hide"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>This content is invisible<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">layer1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Layer</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#layer1'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'content'</span><span class="p">:</span> <span class="s1">'foo'</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">layerContent</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'p'</span><span class="p">);</span>
+<span class="nx">layerContent</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">'This is an HTML P Element as content.'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">layer2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Layer</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#layer2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'content'</span><span class="p">:</span> <span class="nx">layerContent</span><span class="p">,</span>
+    <span class="s1">'shownby'</span><span class="p">:</span> <span class="s1">'pointertap'</span><span class="p">,</span>
+    <span class="s1">'hiddenby'</span><span class="p">:</span> <span class="s1">'all'</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">layer3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Layer</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#layer3'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'content'</span><span class="p">:</span> <span class="nx">ch</span><span class="p">(</span><span class="s1">'#invisible-content-for-layer'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s1">'shownby'</span><span class="p">:</span> <span class="s1">'pointertap'</span><span class="p">,</span>
+    <span class="s1">'hiddenby'</span><span class="p">:</span> <span class="s1">'none'</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">layer4</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Layer</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#layer4'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'content'</span><span class="p">:</span> <span class="s1">'Plain text.'</span><span class="p">,</span>
+    <span class="s1">'shownby'</span><span class="p">:</span> <span class="s1">'pointertap'</span><span class="p">,</span>
+    <span class="s1">'hiddenby'</span><span class="p">:</span> <span class="s1">'button'</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">layer5</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Layer</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#layer5'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'content'</span><span class="p">:</span> <span class="s1">'/ajax.html'</span><span class="p">,</span>
+    <span class="s1">'shownby'</span><span class="p">:</span> <span class="s1">'pointertap'</span><span class="p">,</span>
+    <span class="s1">'hiddenby'</span><span class="p">:</span> <span class="s1">'pointers'</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">layerX</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Layer</span><span class="p">({</span>
+    <span class="s1">'content'</span><span class="p">:</span> <span class="s1">'Layer without trigger!'</span><span class="p">,</span>
+    <span class="s1">'reference'</span><span class="p">:</span> <span class="nx">ch</span><span class="p">(</span><span class="s1">'#layer5'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var layer1 = new ch.Layer(ch('#layer1')[0], {'content': 'foo'});
+            var layerContent = document.createElement('p');
+            layerContent.innerHTML = 'This is an HTML P Element as content.';
+            var layer2 = new ch.Layer(ch('#layer2')[0], {
+                'content': layerContent,
+                'shownby': 'pointertap',
+                'hiddenby': 'all'
+            });
+            var invisibleContent = ch('#invisible-content-for-layer');
+            var layer3 = new ch.Layer(ch('#layer3')[0], {
+                'content': ch('#invisible-content-for-layer')[0],
+                'shownby': 'pointertap',
+                'hiddenby': 'none'
+            });
+            var layer4 = new ch.Layer(ch('#layer4')[0], {
+                'content': 'Plain text.',
+                'shownby': 'pointertap',
+                'hiddenby': 'button'
+            });
+            var layer5 = new ch.Layer(ch('#layer5')[0], {
+                'content': '/ajax.html',
+                'shownby': 'pointertap',
+                'hiddenby': 'pointers'
+            });
+            var layerX = new ch.Layer({
+                'content': 'Layer without trigger!',
+                'reference': ch('#layer5')[0]
+            });
+        });
+    </script>
+</article>
+
+                <article id="bubble">
+    <h2>Validation Bubble</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <button id="bubble1" class="ch-btn ch-btn-small">Show an error message</button>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"bubble1"</span> <span class="na">class=</span><span class="s">"ch-btn ch-btn-small"</span><span class="nt">&gt;</span>Show an error message<span class="nt">&lt;/button&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">bubble</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Bubble</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#bubble1'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="na">content</span><span class="p">:</span> <span class="s1">'Check the information, please.'</span>
+<span class="p">});</span>
+<span class="nx">tiny</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'#bubble1'</span><span class="p">,</span> <span class="s1">'click'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bubble</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var bubble = new ch.Bubble(ch('#bubble1')[0], {
+                content: 'Check the information, please.'
+            });
+            tiny.on('#bubble1', 'click', function(e) {
+                bubble.show();
+            });
+        });
+    </script>
+</article>
+
+                <article id="modal">
+    <h2>Modals</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <h3>Modal with AJAX content</h3>
+        <p><a id="modal1" href="/ajax.html">Executed by a link</a>.</p>
+
+        <h3>Modal with DOM content</h3>
+        <p><button id="modal2" class="ch-btn ch-btn-small">Get content from DOM</button></p>
+        <div id="invisible-content" class="ch-hide">
+            <h1>Caption heading</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+            <div class="ch-actions">
+                <button class="ch-btn">Primary Action</button>
+                <a href="#">Secondary Action</a>
+            </div>
+        </div>
+
+        <h3>Modal Lite</h3>
+        <button id="modal3" class="ch-btn ch-btn-small">Show me</button>
+
+        <h3>Modal from Form without trigger</h3>
+        <form id="modal-form" action="/ajax.html">
+            <p><input id="modalX" type="submit" class="ch-btn ch-btn-small" value="Executed by submit a form"></p>
+        </form>
+
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">"modal1"</span> <span class="na">href=</span><span class="s">"/ajax.html"</span><span class="nt">&gt;</span>Executed by a link<span class="nt">&lt;/a&gt;</span>
+
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"modal2"</span> <span class="na">class=</span><span class="s">"ch-btn ch-btn-small"</span><span class="nt">&gt;</span>Get content from DOM<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"invisible-content"</span> <span class="na">class=</span><span class="s">"ch-hide"</span><span class="nt">&gt;</span>
+    ...
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"modal3"</span> <span class="na">class=</span><span class="s">"ch-btn ch-btn-small"</span><span class="nt">&gt;</span>Show me<span class="nt">&lt;/button&gt;</span>
+
+<span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">"modal-form"</span> <span class="na">action=</span><span class="s">"/ajax.html"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"modalX"</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"ch-btn ch-btn-small"</span> <span class="na">value=</span><span class="s">"Executed by submit a form"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">modal1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Modal</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#modal1'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'width'</span><span class="p">:</span> <span class="s1">'500px'</span><span class="p">,</span>
+    <span class="s1">'height'</span><span class="p">:</span> <span class="s1">'300px'</span>
+<span class="p">});</span>
+<span class="c1">// Modal with invisible DOM Content</span>
+<span class="kd">var</span> <span class="nx">modal2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Modal</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#modal2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span><span class="s1">'content'</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#invisible-content'</span><span class="p">)});</span>
+<span class="c1">// Modal lite</span>
+<span class="kd">var</span> <span class="nx">modal3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Modal</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#modal3'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'content'</span><span class="p">:</span> <span class="s1">'&lt;h2&gt;Heading or content&lt;/h2&gt;'</span><span class="p">,</span>
+    <span class="s1">'addClass'</span><span class="p">:</span> <span class="s1">'ch-modal-lite'</span>
+<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">modalX</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Modal</span><span class="p">({</span>
+    <span class="s1">'hiddenby'</span><span class="p">:</span> <span class="s1">'button'</span>
+<span class="p">});</span>
+<span class="nx">tiny</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'#modal-form'</span><span class="p">,</span> <span class="s1">'submit'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="nx">modalX</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="s1">'&lt;h2&gt;Heading or content&lt;/h2&gt;&lt;p&gt;Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.&lt;/p&gt;'</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var modal1 = new ch.Modal(ch('#modal1')[0], {
+                'width': '500px',
+                'height': '300px'
+            });
+            // Modal with invisible DOM Content
+            var modal2 = new ch.Modal(ch('#modal2')[0], {'content': document.querySelector('#invisible-content')});
+            // Modal lite
+            var modal3 = new ch.Modal(ch('#modal3')[0], {
+                'content': '<h2>Heading or content</h2>',
+                'addClass': 'ch-modal-lite'
+            });
+            var modalX = new ch.Modal({
+                'hiddenby': 'button'
+            });
+            tiny.on('#modal-form', 'submit', function (e) {
+                e.preventDefault();
+                modalX.show('<h2>Heading or content</h2><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>');
+            });
+        });
+    </script>
+</article>
+
+                <article id="transition-window">
+    <h2>Transition window</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form action="/ajax.html">
+            <input type="submit" id="transition" class="ch-btn ch-btn-small" value="Execute it!">
+        </form>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">id=</span><span class="s">"transition"</span> <span class="na">class=</span><span class="s">"ch-btn ch-btn-small"</span> <span class="na">value=</span><span class="s">"Execute it!"</span><span class="nt">&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">transition</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Transition</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#transition'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            transition = new ch.Transition(ch('#transition')[0]);
+
+            tiny.on('#transition', 'click', function(e){
+                setTimeout(function(){transition.hide()}, 5000);
+            });
+        });
+    </script>
+</article>
+
+                <article id="zoom">
+    <h2>Zoom</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <div class="mesh-row">
+            <div class="mesh-col-m-3">
+                <h3>Default behavior</h3>
+                <a id="zoom-default" class="zoom" href="/chico/assets/html5-logo-big-094dcd183ff59234fc31119b67389f15.png" target="_blank">
+                    <img src="/chico/assets/html5-logo-medium-f3a692e7d71bc8239f6d4c1aa741ecc2.png" alt="HTML5">
+                </a>
+            </div>
+
+            <div class="mesh-col-m-3">
+                <h3>Preloaded image</h3>
+                <a id="zoom-preload" class="zoom" href="/chico/assets/html5-logo-big-094dcd183ff59234fc31119b67389f15.png" target="_blank">
+                    <img src="/chico/assets/html5-logo-medium-f3a692e7d71bc8239f6d4c1aa741ecc2.png" alt="HTML5">
+                </a>
+            </div>
+        </div>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">"zoom-default"</span> <span class="na">class=</span><span class="s">"zoom"</span> <span class="na">href=</span><span class="s">"html5-logo-big.png"</span> <span class="na">target=</span><span class="s">"_blank"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"html5-logo-medium.png"</span> <span class="na">alt=</span><span class="s">"HTML5"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/a&gt;</span>
+
+<span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">"zoom-preload"</span> <span class="na">class=</span><span class="s">"zoom"</span> <span class="na">href=</span><span class="s">"html5-logo-big.png"</span> <span class="na">target=</span><span class="s">"_blank"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"html5-logo-medium.png"</span> <span class="na">alt=</span><span class="s">"HTML5"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/a&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">zoom1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Zoom</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#zoom-default'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span>
+
+<span class="kd">var</span> <span class="nx">zoom2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Zoom</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#zoom-preload'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="c1">// Preload image</span>
+<span class="nx">zoom2</span><span class="p">.</span><span class="nx">loadImage</span><span class="p">();</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var zoom1 = new ch.Zoom(ch('#zoom-default')[0]);
+
+            var zoom2 = new ch.Zoom(ch('#zoom-preload')[0]);
+            // Preload image
+            zoom2.loadImage();
+        });
+    </script>
+</article>
+
+                <article id="carousel">
+    <h2>Carousel</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <div class="demo-carousel ch-carousel">
+            <ul>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+                <li><img src="/chico/assets/ninja-05d9f051452922f6acc373c053e35477.png" alt="Ninja"></li>
+            </ul>
+        </div>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"demo-carousel ch-carousel"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;img</span> <span class="na">src=</span><span class="s">"img.png"</span><span class="nt">&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;img</span> <span class="na">src=</span><span class="s">"img.png"</span><span class="nt">&gt;&lt;/li&gt;</span>
+        ...
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Carousel</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'.demo-carousel'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="na">pagination</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var carousel = new ch.Carousel(ch('.demo-carousel')[0], {
+                pagination: true
+            });
+        });
+    </script>
+</article>
+
+                <article id="tabs">
+    <h2>Tabs</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <div class="demo-tabs ch-tabs">
+            <ul class="ch-tabs-triggers">
+                <li><a href="#tab1-a" class="ch-tab">Tab1</a></li>
+                <li><a href="#tab2-a" class="ch-tab">Tab2</a></li>
+                <li><a href="#tab3-a" class="ch-tab">Tab3</a></li>
+                <li><a href="/ajax.html#ajax-a" class="ch-tab">Tab4</a></li>
+            </ul>
+            <div class="ch-box-lite">
+                <div id="tab1-a">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+                </div>
+
+                <div id="tab2-a" class="ch-hide">
+                    <p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
+                </div>
+
+                <div id="tab3-a" class="ch-hide">
+                    <p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"demo-tabs ch-tabs"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"ch-tabs-triggers"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#tab1-a"</span> <span class="na">class=</span><span class="s">"ch-tab"</span><span class="nt">&gt;</span>Tab1<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        ...
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/ajax.html#ajax-a"</span> <span class="na">class=</span><span class="s">"ch-tab"</span><span class="nt">&gt;</span>Tab4<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ch-box-lite"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"tab1-a"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>....<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        ...
+        <span class="c">&lt;!-- There is no container for content which loads via Ajax --&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">tabs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Tabs</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s2">".demo-tabs"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var tabs = new ch.Tabs(ch(".demo-tabs")[0]);
+        });
+    </script>
+</article>
+
+                <article id="calendar">
+    <h2>Calendar</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <div class="demo-calendar"></div>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"demo-calendar"</span><span class="nt">&gt;&lt;/div&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">calendar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Calendar</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'.demo-calendar'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'selected'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'2015/01/22'</span><span class="p">,</span><span class="s1">'2015/01/21'</span><span class="p">]</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var s1 = new Date();
+            var s2 = new Date();
+
+            s1.setDate(s1.getDate() - 7);
+            s2.setDate(s2.getDate() - 3);
+
+            var calendar = new ch.Calendar(ch('.demo-calendar')[0], {
+                'selected': [s1.getFullYear()+'/'+(s1.getMonth()+1)+'/'+s1.getDate(),s2.getFullYear()+'/'+(s2.getMonth()+1)+'/'+s2.getDate()]
+            });
+        });
+    </script>
+</article>
+
+                <article id="datepicker">
+    <h2>Date Picker</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form action="/ajax.html" class="ch-form">
+            <p class="ch-form-row">
+                <label for="val_date">
+                    Date:
+                </label>
+                <input type="date" id="val_date" class="myDatepicker" placeholder="DD/MM/YYYY">
+            </p>
+        </form>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"date"</span> <span class="na">id=</span><span class="s">"val_date"</span> <span class="na">placeholder=</span><span class="s">"DD/MM/YYYY"</span><span class="nt">&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">datepicker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Datepicker</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#val_date'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'selected'</span><span class="p">:</span> <span class="s1">'2015/11/15'</span><span class="p">,</span>
+    <span class="s1">'to'</span><span class="p">:</span> <span class="s1">'today'</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var s1 = new Date();
+            s1.setDate(s1.getDate() - 14);
+
+            var datepicker = new ch.Datepicker(ch('#val_date')[0], {
+                'selected': s1.getFullYear()+'/'+(s1.getMonth()+1)+'/'+s1.getDate(),
+                'to': 'today'
+            });
+        });
+    </script>
+</article>
+
+                <article id="countdown">
+    <h2>Countdown</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form action="/ajax.html" class="ch-form">
+            <p class="ch-form-row">
+                <label for="text_cd">Text:</label>
+                <textarea id="text_cd" cols="35" rows="4"></textarea>
+            </p>
+        </form>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;textarea</span> <span class="na">id=</span><span class="s">"text_cd"</span> <span class="na">cols=</span><span class="s">"35"</span> <span class="na">rows=</span><span class="s">"4"</span><span class="nt">&gt;&lt;/textarea&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">countdown</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Countdown</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#text_cd'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'max'</span><span class="p">:</span> <span class="mi">140</span><span class="p">,</span>
+    <span class="s1">'plural'</span><span class="p">:</span> <span class="s1">'# chars left'</span><span class="p">,</span>
+    <span class="s1">'singular'</span><span class="p">:</span> <span class="s1">'# char left'</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var countdown = new ch.Countdown(ch('#text_cd')[0], {
+                'max': 140,
+                'plural': '# chars left',
+                'singular': '# char left'
+            });
+        });
+    </script>
+</article>
+
+                <article id="validations">
+    <h2>Form Validations</h2>
+
+    <!-- Component example -->
+    <div class="component-example">
+        <form action="/ajax.html" class="ch-form myForm" method="GET">
+            <fieldset>
+                <legend>Inputs</legend>
+                <p class="ch-form-hint">* Required fields</p>
+                <div class="ch-form-row">
+                    <label for="input_ico">
+                        Icon:
+                    </label>
+                    <input type="text" id="input_ico" name="input_ico" size="30" placeholder="">
+                    <i class="ch-form-icon ch-icon-help-sign"></i>
+                </div>
+                <div class="ch-form-row">
+                    <label for="input_ico_inside">
+                        Icon inside:
+                    </label>
+                    <input class="ch-form-icon-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
+                    <i class="ch-form-icon-inner ch-icon-key"></i>
+                </div>
+                <div class="ch-form-row">
+                    <label for="input_button">
+                        Category:
+                    </label>
+                    <input type="text" id="input_button" name="input_button" size="30" placeholder="">
+                    <input type="button" name="add_category" value="Add" class="ch-btn ch-btn-small ch-btn-skin">
+                    <span class="ch-form-hint">Add your category</span>
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="email">
+                        E-mail:
+                        <em>*</em>
+                    </label>
+                    <input type="email" id="email" name="email" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+                    <span class="ch-form-hint">It will be your login name</span>
+                </div>
+                <div class="ch-form-row">
+                    <label for="email2">
+                        E-mail:
+                    </label>
+                    <input type="email" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+                    <input type="checkbox" id="news" name="news" checked="checked" class="ch-form-checkbox-inline">
+                    <label for="news" class="ch-label-inline">
+                        Accept to receive weekly news
+                    </label>
+                </div>
+                <div class="ch-form-row">
+                    <label for="url">
+                        URL:
+                    </label>
+                    <input type="url" id="url" name="url" size="60" placeholder="http://www.chico-ui.com.ar">
+                </div>
+                <div class="ch-form-row">
+                    <label for="number">
+                        Numeric field:
+                    </label>
+                    <input type="number" id="number" name="number" min="18" max="99" placeholder="30">
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="range">
+                        Numeric range:
+                        <em>*</em>
+                    </label>
+                    <input type="range" id="range" name="range" min="1" max="20">
+                    <span class="ch-form-hint">Between 8 to 10</span>
+                </div>
+                <div class="ch-form-row ch-form-required ch-form-disabled">
+                    <label for="required_disabled">
+                        Required disabled:
+                        <em>*</em>
+                    </label>
+                    <input type="text" id="required_disabled" required="required" disabled="disabled">
+                    <span class="ch-form-hint">It's a unknown use case</span>
+                </div>
+                <div class="ch-form-row">
+                    <label for="characters">
+                        Characters:
+                    </label>
+                    <input type="text" id="characters">
+                </div>
+                <div class="ch-form-row">
+                    <label for="custom">
+                        Custom:
+                    </label>
+                    <input type="text" id="custom" placeholder="12" size="2">
+                </div>
+                <div class="ch-form-row">
+                    <label for="readonly">
+                        Readonly:
+                    </label>
+                    <input type="text" readonly="readonly" id="readonly" value="its a readonly value">
+                </div>
+                <div class="ch-form-row">
+                    <label for="double">
+                        It's an input text with double line:
+                    </label>
+                    <input type="text" id="double">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Selects</legend>
+                <div class="ch-form-row">
+                    <label for="select1">
+                        Common field:
+                    </label>
+                    <select id="select1">
+                        <option value="-1">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="select2">
+                        Required: <em>*</em>
+                    </label>
+                    <select id="select2" required="required" pattern="[^-1]">
+                        <option value="">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-required ch-form-disabled">
+                    <label for="select3" class="required disabled">
+                        Required disabled: <em>*</em>
+                    </label>
+                    <select id="select3" required="required" disabled="disabled">
+                        <option value="">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-disabled">
+                    <label for="select4">
+                        Disabled:
+                    </label>
+                    <select id="select4" disabled="disabled">
+                        <option value="0">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Misc</legend>
+                <div class="ch-form-row">
+                    <label for="street">
+                        Domicilio:
+                    </label>
+                    <input type="text" size="30" id="street" placeholder="Av. Costanera Rafael Obligado" />
+                    <input type="number" id="door" placeholder="1345" />
+                    <select id="state">
+                        <option value="">Select one state/province...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-row-inline">
+                    <label for="select5">
+                        Common field:
+                    </label>
+                    <select id="select5">
+                        <option value="0">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                    <input type="text" id="secondary_option" placeholder="Common field" />
+                </div>
+                <div class="ch-form-row ch-form-row-inline">
+                    <label for="num1">
+                        CUIT:
+                    </label>
+                    <input type="number" id="num1" placeholder="20" max="30" min="20" /> -
+                    <input type="number" id="num2" placeholder="23111399" max="99999999" min="0" /> /
+                    <input type="number" id="num3" placeholder="4" max="9" min="0" />
+                </div>
+                <div class="ch-form-row ch-form-row-inline">
+                    <label for="tc1">
+                        Expires:
+                    </label>
+                    <input type="number" id="tc1" min="1" max="12" placeholder="11" />
+                    <input type="number" id="tc2" min="2011" max="2020" placeholder="2013" />
+                </div>
+                <div class="ch-form-row">
+                    <label for="select6">
+                        House features:
+                    </label>
+                    <select id="select6" multiple="multiple" size="5" class="ch-form-select-multiple">
+                        <option value="0">Air conditioning</option>
+                        <option value="1">Rooms</option>
+                        <option value="2">Balcony</option>
+                        <option value="3">Laundry</option>
+                        <option value="4">Kitchen</option>
+                        <option value="5">Living</option>
+                        <option value="6">Dining room</option>
+                        <option value="7">Amenities</option>
+                    </select>
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <div class="ch-form-options ch-form-row ch-form-required required-check">
+                    <input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
+                    <label for="check4a">
+                        Unique checkbox
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Checkbox</legend>
+                <div class="ch-form-options ch-form-required required-option">
+                    <h4 class="ch-form-subtitle">Label of checkboxs group: <em>*</em></h4>
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
+                            <label for="check1a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="beta" id="check1b" name="version1b">
+                            <label for="check1b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legend of required group <em>*</em></legend>
+                <div class="ch-form-options ch-form-required check2 required-option">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="alpha" id="check2a" name="version2">
+                            <label for="check2a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="beta" id="check2b" name="version2">
+                            <label for="check2b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legend of checkboxes group</legend>
+                <div class="ch-form-options ch-form-required check3 required-option">
+                    <h4 class="ch-form-subtitle">Label of required group: <em>*</em></h4>
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="check3a" name="version3">
+                            <label for="check3a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="check3b" name="version3">
+                            <label for="check3b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Radio buttons</legend>
+                <div class="ch-form-options">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio1a" name="version4">
+                            <label for="radio1a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio1b" name="version4">
+                            <label for="radio1b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Radio buttons required<em>*</em></legend>
+                <div class="ch-form-options radio2 required-option">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio2a" name="version5">
+                            <label for="radio2a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio2b" name="version5">
+                            <label for="radio2b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legend of radio group</legend>
+                <div class="ch-form-options ch-form-required radio3 required-option">
+                    <h4 class="ch-form-subtitle">Radios required: <em>*</em></h4>
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio3a" name="version6">
+                            <label for="radio3a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio3b" name="version6">
+                            <label for="radio3b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="ch-form-options radio4">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio4a" name="version7">
+                            <label for="radio4a">
+                                Lorem ipsum dolor sit amet
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio4b" name="version7">
+                            <label for="radio4b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Textarea</legend>
+                <div class="ch-form-row">
+                    <label for="textarea1">
+                        Textarea:
+                    </label>
+                    <textarea id="textarea1" cols="40" rows="4"></textarea>
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="textarea2">
+                        Required: <em>*</em>
+                    </label>
+                    <textarea id="textarea2" cols="40" rows="4" required="required"></textarea>
+                </div>
+
+                <div class="ch-form-row ch-form-required ch-form-disabled">
+                    <label for="textarea3">
+                        Required disabled: <em>*</em>
+                    </label>
+                    <textarea id="textarea3" cols="40" rows="4" required="required" disabled="disabled"></textarea>
+                </div>
+
+                <div class="ch-form-row ch-form-disabled">
+                    <label for="textarea4">
+                        Disabled:
+                    </label>
+                    <textarea id="textarea4" cols="40" rows="4" disabled="disabled"></textarea>
+                </div>
+            </fieldset>
+
+            <div class="ch-form-actions">
+                <input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn">
+                <input type="reset" value="Reset" class="ch-btn ch-btn-small ch-btn-skin">
+            </div>
+        </form>
+
+        <form action="/ajax.html" class="ch-form ch-form-big">
+            <fieldset>
+                <legend>Big inputs</legend>
+                <div class="ch-form-row">
+                    <label for="input_user">User:</label>
+                    <input class="ch-form-icon-input" type="text" id="input_user" name="input_user" size="50">
+                    <i class="ch-form-icon-inner ch-icon-user"></i>
+                </div>
+                <div class="ch-form-row">
+                    <label for="input_pass">Password:</label>
+                    <input class="ch-form-icon-input" type="password" id="input_pass" name="input_pass" size="50">
+                    <i class="ch-form-icon-inner ch-icon-lock"></i>
+                </div>
+                <div class="ch-form-actions">
+                    <input type="submit" name="confirmation" value="Login" class="ch-btn">
+                    <a href="#">Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ch-form-row"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"input_ico"</span><span class="nt">&gt;</span>Icon:<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"input_ico"</span> <span class="na">name=</span><span class="s">"input_ico"</span> <span class="na">size=</span><span class="s">"30"</span>
+               <span class="na">placeholder=</span><span class="s">""</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"ch-form-icon ch-icon-help-sign"</span><span class="nt">&gt;&lt;/i&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/form&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">form</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Form</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'.myForm'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'success'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="c1">// Do something</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">errors</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Do another thing</span>
+    <span class="p">});</span>
+
+<span class="kd">var</span>  <span class="nx">validation1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Validation</span><span class="p">(</span><span class="nx">ch</span><span class="p">(</span><span class="s1">'#input_ico'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+    <span class="s1">'conditions'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'required'</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'string'</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s1">'reference'</span><span class="p">:</span> <span class="nx">ch</span><span class="p">(</span><span class="s1">'#input_ico + .ch-form-icon.ch-icon-help-sign'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">});</span></code></pre></figure>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(e) {
+            var message = (function (message, value) {
+                var messages = {
+                    'option': 'Choose an option.',
+                    'requiredCheck': 'Accept the Terms of Use.',
+                    'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
+                };
+                return function (message, value) {
+                    var message = messages[message] || message;
+                    if(value){
+                        return message.replace('{#num#}', value)
+                    }
+                    return message;
+                }
+            }());
+
+            var m = new ch.Modal();
+            var form = new ch.Form(ch('.myForm')[0])
+                .on('success', function (event) {
+                    event.preventDefault();
+                    m.show('success');
+                })
+                .on('error', function (errors) {
+                    console.log(errors);
+                });
+
+            tiny.on(form._el, 'submit', function (event) {
+                if (!form.hasError()) {
+                    event.preventDefault();
+                    console.log('Ademas hago otra cosa en el submit');
+                }
+            });
+            var  validation1 = new ch.Validation(ch('#input_ico')[0], {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    },
+                    {
+                        'name': 'string'
+                    }
+                ],
+                'reference': ch('#input_ico + .ch-form-icon.ch-icon-help-sign')[0]
+            });
+            var  validation2 = new ch.Validation(ch('#input_ico_inside')[0], {
+                'conditions':[{'name': 'required'}, {'name': 'number'}]
+            });
+            var  validation4 = new ch.Validation(ch('#email')[0], {
+                'conditions':[{'name': 'required'}, {'name': 'email'}]
+            });
+            var  validation5 = new ch.Validation(ch('#custom')[0], {'conditions':[
+                {
+                    'name': 'myCustom1',
+                    'fn': function (v) {
+                        if (v.toString().indexOf("1") > -1) {
+                            return true;
+                        }
+                        return false;
+                    },
+                    'message': 'The number must contain a 1.'
+                },
+                {
+                    'name': 'myCustom2',
+                    'fn': function (v) {
+                        if (v.toString().indexOf("2") > -1) {
+                            return true;
+                        }
+                        return false;
+                    },
+                    'message': 'The number must contain a 2.'
+                }
+            ]});
+            var validation6 = new ch.Validation(ch('#url')[0], {'conditions':[{'name': 'url'}]});
+            var validation7 = new ch.Validation(ch('#number')[0], {
+                'conditions':[{'name': 'number'}, {'name': 'min', 'num': 5}]
+            });
+            var validation8 = new ch.Validation(ch('#range')[0], {
+                'conditions':[{'name': 'min', 'num': 8}, {'name': 'max', 'num': 10}]
+            });
+            var validation9 = new ch.Validation(ch('#characters')[0], {
+                'conditions':[{'name': 'maxLength', 'num': 20}, {'name': 'minLength', 'num': 6}]
+            });
+            var validation10 = new ch.Validation(ch('#select2')[0], {
+                'conditions':[{'name': 'required', 'message': message('option')}]
+            });
+            var validation11 = new ch.Validation(ch('.required-check')[0], {
+                'conditions':[{'name': 'required', 'message': message('requiredCheck')}]
+            });
+            var validation12 = new ch.Validation(ch('.required-option')[0], {
+                'conditions':[{'name': 'required', 'message': message('option')}]
+            });
+            var validation13 = new ch.Validation(ch('#double')[0], {
+                'conditions':[{'name': 'required', 'message': message('link')}, {'name': 'number'}]
+            });
+            var validation14 = new ch.Validation(ch('#textarea2')[0], {
+                'conditions':[{'name': 'required'}]
+            });
+        });
+    </script>
+</article>
+
+                <article id="wizard">
+    <h2>Wizard</h2>
+
+    <div class="component-example">
+        <form action="/" class="ch-wizard">
+            <ol class="ch-wizard-breadcrumb ch-steps-four">
+                <li><a href="#1">Step 1</a></li>
+                <li><a href="#2">Step 2</a></li>
+                <li class="ch-wizard-current">Step 3</li>
+                <li class="ch-wizard-step">Step 4</li>
+            </ol>
+            <div class="ch-box-container">
+                <h2>Caption heading</h2>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Donec
+                    sit amet purus in sapien luctus sodales. Curabitur dui
+                    velit,
+                    cursus in sagittis aliquam, dictum at neque. Ut gravida
+                    scelerisque lorem non pulvinar. Pellentesque et urna vitae
+                    nisl
+                    porta imperdiet sed nec ipsum. Sed non sem velit. Cras id
+                    consectetur tellus.</p>
+            </div>
+
+            <div class="ch-actions">
+                <button type="submit" class="ch-btn">Primary Action</button>
+                <a href="#">Secondary Action</a>
+            </div>
+        </form>
+    </div>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/"</span> <span class="na">class=</span><span class="s">"ch-wizard"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ol</span> <span class="na">class=</span><span class="s">"ch-wizard-breadcrumb ch-steps-four"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#1"</span><span class="nt">&gt;</span>Step 1<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#2"</span><span class="nt">&gt;</span>Step 2<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"ch-wizard-current"</span><span class="nt">&gt;</span>Step 3<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"ch-wizard-step"</span><span class="nt">&gt;</span>Step 4<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ol&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ch-box-container"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Caption heading<span class="nt">&lt;/h2&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ch-actions"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"ch-btn"</span><span class="nt">&gt;</span>Primary Action<span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Secondary Action<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/form&gt;</span></code></pre></figure>
+
+</article>
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <ul id="nav-sections">
+    <li>
+        <a class="" href="#autocomplete" data-section="autocomplete">Autocomplete</a>
+    </li>
+    <li>
+        <a class="" href="#expandable" data-section="expandable">Expandable</a>
+    </li>
+    <li>
+        <a class="" href="#menu" data-section="menu">Menu</a>
+    </li>
+    <li>
+        <a class="" href="#dropdown" data-section="dropdown">Dropdown</a>
+    </li>
+    <li>
+        <a class="" href="#tooltip" data-section="tooltip">Tooltip</a>
+    </li>
+    <li>
+        <a class="" href="#layer" data-section="layer">Layer</a>
+    </li>
+    <li>
+        <a class="" href="#bubble" data-section="bubble">Bubble</a>
+    </li>
+    <li>
+        <a class="" href="#modal" data-section="modal">Modal</a>
+    </li>
+    <li>
+        <a class="" href="#transition-window" data-section="transition-window">Transition</a>
+    </li>
+    <li>
+        <a class="" href="#zoom" data-section="zoom">Zoom</a>
+    </li>
+    <li>
+        <a class="" href="#carousel" data-section="carousel">Carousel</a>
+    </li>
+    <li>
+        <a class="" href="#tabs" data-section="tabs">Tabs</a>
+    </li>
+    <li>
+        <a class="" href="#calendar" data-section="calendar">Calendar</a>
+    </li>
+    <li>
+        <a class="" href="#datepicker" data-section="datepicker">Datepicker</a>
+    </li>
+    <li>
+        <a class="" href="#countdown" data-section="countdown">Countdown</a>
+    </li>
+    <li>
+        <a class="" href="#validations" data-section="validations">Validations</a>
+    </li>
+    <li>
+        <a class="" href="#wizard" data-section="wizard">Wizard</a>
+    </li>
+</ul>
+
+            </nav>
+
+        </div>
+    </section>
+</main>
+
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <small>©2016 MercadoLibre.com</small>
+
+        <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+
+    <script src="//ui.mlstatic.com/chico/tiny/0.1.1/tiny.min.js"></script>
+    <script src="//ui.mlstatic.com/chico/2.0.0-beta.1/ui/chico.min.js"></script>
+  </body>
+</html>

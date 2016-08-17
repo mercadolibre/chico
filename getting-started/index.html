@@ -1,0 +1,236 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>Chico UI</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="/chico/assets/ninja-45a14a876dfcc0a6718740e6eac2dbdd.ico">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
+
+    <!-- Chico -->
+    <link rel="stylesheet" href="/chico/assets/ui/chico-103b59c0942fbe87c478a127bb916917.css">
+
+    <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-54f91c3b2258b805714b2b33b770f482.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-da6396cbf0dae791010df11ba9bc2798.css">
+
+    <link rel="stylesheet" href="/chico/assets/ml-header-77d554c6e4451d2f3b0d7deff9d67022.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-3e66b68b5b9ed42066c44091f0dbc933.css">
+    <link rel="stylesheet" href="/chico/assets/highlighter-22319125406f6233c1ee514296bd36f3.css">
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css">
+    <![endif]-->
+</head>
+
+
+  <body data-country="MLA">
+
+      <header role="banner" class="ml-header">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/chico/"><h1 class="ml-title">Chico UI</h1></a>
+
+        <a class="ml-logo" href="/chico/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico Components</span></a>
+
+        <label for="toggle-menu" class="toggle-label"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account ">
+                   <a class=" active" href="/chico/getting-started/">Getting started</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="" href="/chico/ui-components/">UI Components</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="api-doc " href="/chico/api-doc/current/ui/ch">API Doc</a>
+
+                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
+                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="ml-header-menu">
+            <a class=" active" href="/chico/getting-started/">Getting started</a>
+            <a class="" href="/chico/common-css/">Common CSS</a>
+            <a class="" href="/chico/components/">Components</a>
+            <a class="" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
+        </nav>
+    </div>
+</header>
+
+
+
+      <div class="ml-wrapper">
+        <main role="main" class="chico-get-started">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">Getting started</h1>
+            <h3 class="mesh-col-12 mesh-6">
+                How to download and install Chico in your site.
+            </h3>
+        </div>
+    </section>
+
+    <section>
+
+        <div class="ml-bounds mesh-row">
+
+            <div class="mesh-col-12 mesh-col-m-9">
+
+                <h2 id="download">Download </h2>
+                <p>
+                    Getting started with Chico is easy. Whether you are a master of Sass, building a new app, or making your existing site responsive, we’ve got you covered. How would you like to get started?
+                </p>
+                <p>
+                    <a href="https://github.com/mercadolibre/chico.git" class="ch-btn ch-btn-large">Download Chico</a>
+                </p>
+
+                <h2 id="installing">Installing Chico in your site</h2>
+
+                <article>
+                    <h3 id="sniffing">Browser sniffing</h3>
+                    <p>
+                        We hate writing CSS hacks. Instead of hacking the code, we rather use IE’s conditional comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual inconsistencies:
+                    </p>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="c">&lt;!--[if lt IE 7]&gt; &lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 ie6"&gt; &lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 7]&gt;	&lt;html class="no-js  lt-ie10 lt-ie9 lt-ie8 ie7"&gt; &lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 8]&gt;	&lt;html class="no-js lt-ie10 lt-ie9 ie8"&gt; &lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 9]&gt;	&lt;html class="no-js lt-ie10 ie9"&gt; &lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if gt IE 8]&gt;&lt;!--&gt;</span> <span class="nt">&lt;html</span> <span class="na">class=</span><span class="s">"no-js"</span><span class="nt">&gt;</span> <span class="c">&lt;!--&lt;![endif]--&gt;</span></code></pre></figure>
+
+                </article>
+
+                <article>
+                    <h3 id="assets">Pointing to assets</h3>
+                    <p>You only have to add the CSS, JavaScript and assets of Chico UI, and that’s all!</p>
+                    <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"dist/ui/chico.min.css"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+                    <p>
+                        And you should add the JavaScript at bottom of page, before the <b>&lt;/body></b> closing tag and after jQuery script call.
+                    </p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/ui/chico.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+
+                    <p>
+                        Don’t forget to link to asset files within the stylesheet code.
+                    </p>
+
+                </article>
+
+                <article>
+
+                    <h3 id="overview">Overview</h3>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="c">&lt;!--[if lt IE 7]&gt; &lt;html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 ie6"&gt; &lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 7]&gt;	&lt;html class="no-js  lt-ie10 lt-ie9 lt-ie8 ie7"&gt; &lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 8]&gt;	&lt;html class="no-js lt-ie10 lt-ie9 ie8"&gt; &lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 9]&gt;	&lt;html class="no-js lt-ie10 ie9"&gt; &lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if gt IE 8]&gt;&lt;!--&gt;</span> <span class="nt">&lt;html</span> <span class="na">class=</span><span class="s">"no-js"</span><span class="nt">&gt;</span> <span class="c">&lt;!--&lt;![endif]--&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="c">&lt;!-- Avoid script blocking --&gt;</span>
+<span class="nt">&lt;script&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;title&gt;</span>Document Title<span class="nt">&lt;/title&gt;</span>
+<span class="c">&lt;!-- Chico UI Core stylesheet --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"dist/ui/chico.min.css"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+...
+<span class="c">&lt;!-- All markup here... --&gt;</span>
+...
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/ui/chico.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"Call your JavaScript here..."</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+                </article>
+            </div>
+
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <ul id="nav-sections">
+                    <li>
+                        <a href="#download" data-section="download">Download</a>
+                    </li>
+                    <li>
+                        <a href="#installing" data-section="installing">Installing Chico on your site</a>
+                        <ul>
+                            <li><a href="#sniffing" data-section="sniffing">Browser sniffing</a></li>
+                            <li><a href="#assets" data-section="assets">Pointing to assets</a></li>
+                            <li><a href="#overview" data-section="overview">Overview</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </section>
+</main>
+
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <small>©2016 MercadoLibre.com</small>
+
+        <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+
+  </body>
+</html>

@@ -1,0 +1,439 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>Source: shared/scripts/Countdown.js v2.0.6 - Chico UI API documentation</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="/chico/assets/ninja-45a14a876dfcc0a6718740e6eac2dbdd.ico">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
+
+    <!-- Chico -->
+    <link rel="stylesheet" href="/chico/assets/ui/chico-103b59c0942fbe87c478a127bb916917.css">
+
+    <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-54f91c3b2258b805714b2b33b770f482.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-da6396cbf0dae791010df11ba9bc2798.css">
+
+    <link rel="stylesheet" href="/chico/assets/ml-header-77d554c6e4451d2f3b0d7deff9d67022.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-3e66b68b5b9ed42066c44091f0dbc933.css">
+    <link rel="stylesheet" href="/chico/assets/highlighter-22319125406f6233c1ee514296bd36f3.css">
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css">
+    <![endif]-->
+</head>
+
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      <header role="banner" class="ml-header">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/chico/"><h1 class="ml-title">Chico UI</h1></a>
+
+        <a class="ml-logo" href="/chico/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico Components</span></a>
+
+        <label for="toggle-menu" class="toggle-label"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account ">
+                   <a class="" href="/chico/getting-started/">Getting started</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="" href="/chico/ui-components/">UI Components</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="api-doc  active" href="/chico/api-doc/current/ui/ch">API Doc</a>
+
+                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
+                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="ml-header-menu">
+            <a class="" href="/chico/getting-started/">Getting started</a>
+            <a class="" href="/chico/common-css/">Common CSS</a>
+            <a class="" href="/chico/components/">Components</a>
+            <a class=" active" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
+        </nav>
+    </div>
+</header>
+
+
+
+      <div class="ml-wrapper">
+        <div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>Source: shared/scripts/Countdown.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (window, ch) {
+    'use strict';
+
+    function normalizeOptions(options) {
+        var num = window.parseInt(options, 10);
+
+        if (!window.isNaN(num)) {
+            options = {
+                'max': num
+            };
+        }
+
+        return options;
+    }
+
+    /**
+     * Countdown counts the maximum of characters that user can enter in a form control. Countdown could limit the possibility to continue inserting charset.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Component
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Countdown.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control. Default: 500.
+     * @param {String} [options.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. Default: "# characters left.".
+     * @param {String} [options.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. Default: "# character left.".
+     * @returns {countdown} Returns a new instance of Countdown.
+     * @example
+     * // Create a new Countdown.
+     * var countdown = new ch.Countdown([el], [options]);
+     * @example
+     * // Create a new Countdown with custom options.
+     * var countdown = new ch.Countdown({
+     *     'max': 250,
+     *     'plural': 'Left: # characters.',
+     *     'singular': 'Left: # character.'
+     * });
+     * @example
+     * // Create a new Countdown using the shorthand way (max as parameter).
+     * var countdown = new ch.Countdown({'max': 500});
+     */
+    function Countdown(el, options) {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
+        this._init(el, options);
+
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Countdown is created.
+             * @memberof! ch.Countdown.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
+        /**
+         * Event emitted when the component is ready to use.
+         * @event ch.Countdown#ready
+         * @example
+         * // Subscribe to "ready" event.
+         * countdown.on('ready', function () {
+         *     // Some code here!
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
+    }
+
+    // Inheritance
+    tiny.inherits(Countdown, ch.Component);
+
+    var parent = Countdown.super_.prototype;
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Countdown.prototype
+     * @type {String}
+     */
+    Countdown.prototype.name = 'countdown';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Countdown.prototype
+     * @function
+     */
+    Countdown.prototype.constructor = Countdown;
+
+    /**
+     * Configuration by default.
+     * @type {Object}
+     * @private
+     */
+    Countdown.prototype._defaults = {
+        'plural': '# characters left.',
+        'singular': '# character left.',
+        'max': 500
+    };
+
+    /**
+     * Initialize a new instance of Countdown and merge custom options with defaults options.
+     * @memberof! ch.Countdown.prototype
+     * @function
+     * @private
+     * @returns {countdown}
+     */
+    Countdown.prototype._init = function (el, options) {
+        // Call to its parent init method
+        parent._init.call(this, el, options);
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this,
+
+            /**
+             * Create the "id" attribute.
+             * @type {String}
+             * @private
+             */
+            messageID = 'ch-countdown-message-' + that.uid,
+
+           /**
+             * Singular or Plural message depending on amount of remaining characters.
+             * @type {String}
+             * @private
+             */
+            message;
+
+        /**
+         * The countdown trigger.
+         * @type {HTMLTextAreaElement}
+         * @example
+         * // Gets the countdown trigger.
+         * countdown.trigger;
+         */
+        this.trigger = this._el;
+        'keyup keypress keydown input paste cut'.split(' ')
+            .forEach(function(name) {
+                tiny.on(that.trigger, name, function () { that._count(); });
+            });
+
+        /**
+         * Amount of free characters until full the field.
+         * @type {Number}
+         * @private
+         */
+        that._remaining = that._options.max - that._contentLength();
+
+        // Update the message
+        message = ((that._remaining === 1) ? that._options.singular : that._options.plural);
+
+        /**
+         * The countdown container.
+         * @type {HTMLParagraphElement}
+         */
+        that.container = (function () {
+            var parent = tiny.parent(that._el);
+            parent.insertAdjacentHTML('beforeend', '&lt;span class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '&lt;/span>');
+
+            return parent.querySelector('#' + messageID);
+        }());
+
+        this.on('disable', this._removeError);
+
+        return this;
+    };
+
+    /**
+     * Returns the length of value.
+     * @function
+     * @private
+     * @returns {Number}
+     */
+    Countdown.prototype._contentLength = function () {
+        return this._el.value.length;
+    };
+
+    /**
+     * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
+     * @function
+     * @private
+     * @returns {countdown}
+     */
+    Countdown.prototype._count = function () {
+
+        if (!this._enabled) {
+            return this;
+        }
+
+        var length = this._contentLength(),
+            message;
+
+        this._remaining = this._options.max - length;
+
+        // Limit Count alert the user
+        if (length &lt;= this._options.max) {
+
+            if (this._exceeded) {
+                // Update exceeded flag
+                this._exceeded = false;
+                this._removeError();
+            }
+
+        } else if (length > this._options.max) {
+
+            /**
+             * Event emitted when the lenght of characters is exceeded.
+             * @event ch.Countdown#exceed
+             * @example
+             * // Subscribe to "exceed" event.
+             * countdown.on('exceed', function () {
+             *     // Some code here!
+             * });
+             */
+            this.emit('exceed');
+
+            // Update exceeded flag
+            this._exceeded = true;
+
+            this.trigger.setAttribute('aria-invalid', 'true');
+            tiny.addClass(this.trigger, 'ch-validation-error');
+
+            tiny.addClass(this.container, 'ch-countdown-exceeded');
+        }
+
+        // Change visible message of remaining characters
+        // Singular or Plural message depending on amount of remaining characters
+        message = (this._remaining !== 1 ? this._options.plural : this._options.singular).replace(/\#/g, this._remaining);
+
+        // Update DOM text
+        this.container.innerText  = message;
+
+        return this;
+
+    };
+
+     /**
+     * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
+     * @function
+     * @private
+     * @returns {countdown}
+     */
+    Countdown.prototype._removeError = function () {
+        tiny.removeClass(this.trigger, 'ch-validation-error');
+        this.trigger.setAttribute('aria-invalid', 'false');
+
+        tiny.removeClass(this.container, 'ch-countdown-exceeded');
+
+        return this;
+    };
+
+    /**
+     * Destroys a Countdown instance.
+     * @memberof! ch.Countdown.prototype
+     * @function
+     * @example
+     * // Destroy a countdown
+     * countdown.destroy();
+     * // Empty the countdown reference
+     * countdown = undefined;
+     */
+    Countdown.prototype.destroy = function () {
+        var parentElement = tiny.parent(this.container);
+        parentElement.removeChild(this.container);
+
+        tiny.trigger(window.document, ch.onlayoutchange);
+
+        parent.destroy.call(this);
+
+        return;
+    };
+
+    // Factorize
+    ch.factory(Countdown, normalizeOptions);
+
+}(this, this.ch));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <small>©2016 MercadoLibre.com</small>
+
+        <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+  </body>
+</html>

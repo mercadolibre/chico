@@ -1,0 +1,455 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>ch.Condition v1.2.2 - Chico UI API documentation</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="/chico/assets/ninja-45a14a876dfcc0a6718740e6eac2dbdd.ico">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
+
+    <!-- Chico -->
+    <link rel="stylesheet" href="/chico/assets/ui/chico-103b59c0942fbe87c478a127bb916917.css">
+
+    <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-54f91c3b2258b805714b2b33b770f482.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-da6396cbf0dae791010df11ba9bc2798.css">
+
+    <link rel="stylesheet" href="/chico/assets/ml-header-77d554c6e4451d2f3b0d7deff9d67022.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-3e66b68b5b9ed42066c44091f0dbc933.css">
+    <link rel="stylesheet" href="/chico/assets/highlighter-22319125406f6233c1ee514296bd36f3.css">
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css">
+    <![endif]-->
+</head>
+
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      <header role="banner" class="ml-header">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/chico/"><h1 class="ml-title">Chico UI</h1></a>
+
+        <a class="ml-logo" href="/chico/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico Components</span></a>
+
+        <label for="toggle-menu" class="toggle-label"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account ">
+                   <a class="" href="/chico/getting-started/">Getting started</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="" href="/chico/ui-components/">UI Components</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="api-doc  active" href="/chico/api-doc/current/ui/ch">API Doc</a>
+
+                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
+                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="ml-header-menu">
+            <a class="" href="/chico/getting-started/">Getting started</a>
+            <a class="" href="/chico/common-css/">Common CSS</a>
+            <a class="" href="/chico/components/">Components</a>
+            <a class=" active" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
+        </nav>
+    </div>
+</header>
+
+
+
+      <div class="ml-wrapper">
+        <div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>ch.Condition</h1>
+                    
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>Condition utility.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+<div class="jsdoc-example">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new condition object with patt.</span>
+<span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Condition</span><span class="p">({</span>
+    <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'string'</span><span class="p">,</span>
+    <span class="s1">'patt'</span><span class="p">:</span> <span class="o">/^</span><span class="p">([</span><span class="nx">a</span><span class="o">-</span><span class="nx">zA</span><span class="o">-</span><span class="nx">Z</span><span class="err">\</span><span class="nx">u00C0</span><span class="o">-</span><span class="err">\</span><span class="nx">u00C4</span><span class="err">\</span><span class="nx">u00C8</span><span class="o">-</span><span class="err">\</span><span class="nx">u00CF</span><span class="err">\</span><span class="nx">u00D2</span><span class="o">-</span><span class="err">\</span><span class="nx">u00D6</span><span class="err">\</span><span class="nx">u00D9</span><span class="o">-</span><span class="err">\</span><span class="nx">u00DC</span><span class="err">\</span><span class="nx">u00E0</span><span class="o">-</span><span class="err">\</span><span class="nx">u00E4</span><span class="err">\</span><span class="nx">u00E8</span><span class="o">-</span><span class="err">\</span><span class="nx">u00EF</span><span class="err">\</span><span class="nx">u00F2</span><span class="o">-</span><span class="err">\</span><span class="nx">u00F6</span><span class="err">\</span><span class="nx">u00E9</span><span class="o">-</span><span class="err">\</span><span class="nx">u00FC</span><span class="err">\</span><span class="nx">u00C7</span><span class="err">\</span><span class="nx">u00E7</span><span class="err">\</span><span class="nx">s</span><span class="p">]</span><span class="o">*</span><span class="p">)</span><span class="nx">$</span><span class="o">/</span><span class="p">,</span>
+    <span class="s1">'message'</span><span class="p">:</span> <span class="s1">'Some message here!'</span>
+<span class="p">});</span></code></pre></figure>
+</div>
+
+
+<div class="jsdoc-example">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//Create a new condition object with expr.</span>
+<span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Condition</span><span class="p">({</span>
+    <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'maxLength'</span><span class="p">,</span>
+    <span class="s1">'patt'</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="nx">b</span> <span class="p">},</span>
+    <span class="s1">'message'</span><span class="p">:</span> <span class="s1">'Some message here!'</span><span class="p">,</span>
+    <span class="s1">'value'</span><span class="p">:</span> <span class="mi">4</span>
+<span class="p">});</span></code></pre></figure>
+</div>
+
+
+<div class="jsdoc-example">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new condition object with func.</span>
+<span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Condition</span><span class="p">({</span>
+    <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'custom'</span><span class="p">,</span>
+    <span class="s1">'patt'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="s1">'ChicoUI'</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="c1">// Some code here!</span>
+
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">};</span>
+
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="s1">'message'</span><span class="p">:</span> <span class="s1">'Your message here!'</span>
+<span class="p">});</span></code></pre></figure>
+</div>
+
+
+
+    
+
+    
+        <h2 class="api-title">Parameters</h2>
+        
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">condition</code>
+             - 
+            
+                
+<em class="param-type">Array</em>
+            
+            : A conditions to validate.
+
+            
+                
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The name of the condition.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">message</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The given error message to the condition.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">fn</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The method to validate a given condition.
+
+            
+        </li>
+	
+</ul>
+            
+        </li>
+	
+</ul>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Properties</h2>
+
+    <dl>
+        
+
+<h4>
+    <code class=" language-markup" id="Condition#name">.Condition#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of the component.</p>
+
+
+
+    
+<div class="jsdoc-example">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// You can reach the associated instance.</span>
+<span class="kd">var</span> <span class="nx">condition</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">'condition'</span><span class="p">);</span></code></pre></figure>
+</div>
+
+
+
+
+    </dl>
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.disable<span class="signature">()</span><span class="type-signature"> &rarr; {condition}</span></code></h4>
+<pre></pre>
+
+    <p>Disables an instance of a condition.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Disabling an instance of Condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span></code></pre></figure>
+</div>
+
+
+<div class="jsdoc-example">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Disabling a condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span></code></pre></figure>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.enable<span class="signature">()</span><span class="type-signature"> &rarr; {condition}</span></code></h4>
+<pre></pre>
+
+    <p>Enables an instance of condition.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Enabling an instance of Condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">enable</span><span class="p">();</span></code></pre></figure>
+</div>
+
+
+<div class="jsdoc-example">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Enabling a condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">enable</span><span class="p">();</span></code></pre></figure>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.test<span class="signature">(value, validation)</span><span class="type-signature"> &rarr; {Boolean}</span></code></h4>
+<pre></pre>
+
+    <p>Enables an instance of condition.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">value</code>
+             - 
+            
+                
+<em class="param-type">String | Number</em>
+            
+            : A given value.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">validation</code>
+             - 
+            
+                
+<em class="param-type">condition</em>
+            
+            : A given validation to execute.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Testing a condition.</span>
+<span class="nx">condition</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">'foobar'</span><span class="p">,</span> <span class="nx">validationA</span><span class="p">);</span></code></pre></figure>
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <small>©2016 MercadoLibre.com</small>
+
+        <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+  </body>
+</html>

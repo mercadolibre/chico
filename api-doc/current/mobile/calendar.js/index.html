@@ -1,0 +1,1043 @@
+<!doctype html>
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if lt IE 9]><script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+<!--[if gt IE 9] <!--> <html class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!-- Define the charset always before the title -->
+    <meta charset="utf-8"/>
+    <title>Source: shared/scripts/Calendar.js v2.0.6 - Chico UI API documentation</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <link rel="shortcut icon" href="/chico/assets/ninja-45a14a876dfcc0a6718740e6eac2dbdd.ico">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
+
+    <!-- Chico -->
+    <link rel="stylesheet" href="/chico/assets/ui/chico-103b59c0942fbe87c478a127bb916917.css">
+
+    <link rel="stylesheet" href="/chico/assets/mesh.min-e81ee0588892549e3ac0a118a64b34db.css">
+    <link rel="stylesheet" href="/chico/assets/base__small-247819098a4a725f6ff0724ecd73d659.css">
+    <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/chico__small-54f91c3b2258b805714b2b33b770f482.css">
+    <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css" media='(min-width: 768px)'>
+    <link rel="stylesheet" href="/chico/assets/ui-slug_element_component-da6396cbf0dae791010df11ba9bc2798.css">
+
+    <link rel="stylesheet" href="/chico/assets/ml-header-77d554c6e4451d2f3b0d7deff9d67022.css">
+    <link rel="stylesheet" href="/chico/assets/gh-pages-3e66b68b5b9ed42066c44091f0dbc933.css">
+    <link rel="stylesheet" href="/chico/assets/highlighter-22319125406f6233c1ee514296bd36f3.css">
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/chico/assets/base__large-85c373370c210b2cb9c2d558805050b4.css">
+        <link rel="stylesheet" href="/chico/assets/chico__large-8e94779543d788b6b87b5fcc85b495e5.css">
+    <![endif]-->
+</head>
+
+
+  <!-- Add the country in "data-country" attribute on <body> to get the portuguese logo (large devices) -->
+  <!-- Add `class="ml-contextual"` for a more contextual layout. -->
+  <body data-country="MLA">
+
+      <header role="banner" class="ml-header">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/chico/"><h1 class="ml-title">Chico UI</h1></a>
+
+        <a class="ml-logo" href="/chico/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico Components</span></a>
+
+        <label for="toggle-menu" class="toggle-label"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account ">
+                   <a class="" href="/chico/getting-started/">Getting started</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="" href="/chico/ui-components/">UI Components</a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account ">
+                    <a class="api-doc  active" href="/chico/api-doc/current/ui/ch">API Doc</a>
+
+                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
+                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="ml-header-menu">
+            <a class="" href="/chico/getting-started/">Getting started</a>
+            <a class="" href="/chico/common-css/">Common CSS</a>
+            <a class="" href="/chico/components/">Components</a>
+            <a class=" active" href="/chico/api-doc/current/ui/ch.autocomplete">API Doc</a>
+        </nav>
+    </div>
+</header>
+
+
+
+      <div class="ml-wrapper">
+        <div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>Source: shared/scripts/Calendar.js</h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (window, ch) {
+    'use strict';
+
+    function normalizeOptions(options) {
+        if (typeof options === 'string' || Array.isArray(options)) {
+            options = {
+                'selected': options
+            };
+        }
+        return options;
+    }
+
+    /**
+     * It lets you move across the months of the year and allow to set dates as selected.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Component
+     * @param {HTMLElement} el A HTMLElement to create an instance of ch.Calendar.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.format] Sets the date format. You must use "DD/MM/YYYY", "MM/DD/YYYY" or "YYYY/MM/DD". Default: "DD/MM/YYYY".
+     * @param {String} [options.selected] Sets a date that should be selected by default. Default: The date of today.
+     * @param {String} [options.from] Set a minimum selectable date. The format of the given date should be YYYY/MM/DD.
+     * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be YYYY/MM/DD.
+     * @param {Array} [options.monthsNames] A collection of months names. Default: ["Enero", ... , "Diciembre"].
+     * @param {Array} [options.weekdays] A collection of weekdays. Default: ["Dom", ... , "Sab"].
+     * @returns {calendar} Returns a new instance of Calendar.
+     * @example
+     * // Create a new Calendar.
+     * var calendar = new ch.Calendar([el], [options]);
+     * @example
+     * // Creates a new Calendar with custom options.
+     * var calendar =  new ch.Calendar({
+     *     'format': 'MM/DD/YYYY',
+     *     'selected': '2011/12/25',
+     *     'from': '2010/12/25',
+     *     'to': '2012/12/25',
+     *     'monthsNames': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+     *     'weekdays': ['Su', 'Mo', 'Tu', 'We', 'Thu', 'Fr', 'Sa']
+     * });
+     * @example
+     * // Creates a new Calendar using a shorthand way (selected date as parameter).
+     * var calendar = new ch.Calendar('2011/12/25');
+     */
+    function Calendar(el, options) {
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
+        this._init(el, options);
+
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Calendar is created.
+             * @memberof! ch.Calendar.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
+        /**
+         * Event emitted when the component is ready to use.
+         * @event ch.Calendar#ready
+         * @example
+         * // Subscribe to "ready" event.
+         * calendar.on('ready', function () {
+         *     // Some code here!
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
+    }
+
+    // Inheritance
+    tiny.inherits(Calendar, ch.Component);
+
+    /**
+     * Completes with zero the numbers less than 10.
+     * @function
+     * @private
+     * @returns {String}
+     */
+    var addZero = function (num) {
+            return (parseInt(num, 10) &lt; 10) ? '0' + num : num;
+        },
+
+        /**
+         * Map of date formats.
+         * @type {Object}
+         * @private
+         */
+        FORMAT_dates = {
+
+            /**
+             * Converts a given date to "YYYY/MM/DD" format.
+             * @params {Date} date A given date to convert.
+             * @function
+             * @returns {String}
+             */
+            'YYYY/MM/DD': function (date) {
+                return [date.year, addZero(date.month), addZero(date.day)].join('/');
+            },
+
+            /**
+             * Converts a given date to "DD/MM/YYYY" format.
+             * @params {Date} date A given date to convert.
+             * @function
+             * @returns {String}
+             */
+            'DD/MM/YYYY': function (date) {
+                return [addZero(date.day), addZero(date.month), date.year].join('/');
+            },
+
+            /**
+             * Converts a given date to "MM/DD/YYYY" format.
+             * @params {Date} date A given date to convert.
+             * @function
+             * @returns {String}
+             */
+            'MM/DD/YYYY': function (date) {
+                return [addZero(date.month), addZero(date.day), date.year].join('/');
+            }
+        },
+
+        /**
+         * Creates a JSON Object with reference to day, month and year, from a determinated date.
+         * @function
+         * @private
+         * @returns {Object}
+         */
+        createDateObject = function (date) {
+
+            // Uses date parameter or create a date from today
+            date = (date === 'today') ? new Date() : new Date(date);
+
+            /**
+             * Returned custom Date object.
+             * @type {Object}
+             * @private
+             */
+            return {
+
+                /**
+                 * Reference to native Date object.
+                 * @type {Date}
+                 * @private
+                 */
+                'native': date,
+
+                /**
+                 * Number of day.
+                 * @type {Number}
+                 * @private
+                 */
+                'day': date.getDate(),
+
+                /**
+                 * Order of day in a week.
+                 * @type {Number}
+                 * @private
+                 */
+                'order': date.getDay(),
+
+                /**
+                 * Number of month.
+                 * @type {Number}
+                 * @private
+                 */
+                'month': date.getMonth() + 1,
+
+                /**
+                 * Number of full year.
+                 * @type {Number}
+                 * @private
+                 */
+                'year': date.getFullYear()
+            };
+        },
+
+        parent = Calendar.super_.prototype;
+
+    /**
+     * The name of the component.
+     * @memberof! ch.Calendar.prototype
+     * @type {String}
+     */
+    Calendar.prototype.name = 'calendar';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     */
+    Calendar.prototype.constructor = Calendar;
+
+    /**
+     * Configuration by default.
+     * @type {Object}
+     * @private
+     */
+    Calendar.prototype._defaults = {
+        'monthsNames': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        'weekdays': ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        'format': 'DD/MM/YYYY'
+    };
+
+    /**
+     * Initialize a new instance of Calendar and merge custom options with defaults options.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @private
+     * @returns {calendar}
+     */
+    Calendar.prototype._init = function (el, options) {
+        // Call to its parent init method
+        parent._init.call(this, el, options);
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
+
+        /**
+         * Object to mange the date and its ranges.
+         * @type {Object}
+         * @private
+         */
+        this._dates = {
+            'range': {}
+        };
+
+        this._dates.today = createDateObject('today');
+
+        this._dates.current = this._dates.today;
+
+        /**
+         * Date of selected day.
+         * @type {Object}
+         * @private
+         */
+        this._dates.selected = (function () {
+
+            // Get date from configuration or input value, if configured could be an Array with multiple selections
+            var selected = that._options.selected;
+
+            // Do it only if there are a "selected" parameter
+            if (!selected) { return selected; }
+
+            // Simple date selection
+            if (!Array.isArray(selected)) {
+
+                if (selected !== 'today') {
+                    // Return date object and update currentDate
+                    selected = that._dates.current = createDateObject(selected);
+
+                } else {
+                    selected = that._dates.today;
+                }
+
+            // Multiple date selection
+            } else {
+                selected.forEach(function (e, i){
+                    // Simple date
+                    if (!Array.isArray(e)) {
+                        selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._dates.today;
+                    // Range
+                    } else {
+                        selected[i][0] = (selected[i][0] !== 'today') ? createDateObject(e[0]) : that._dates.today;
+                        selected[i][1] = (selected[i][1] !== 'today') ? createDateObject(e[1]) : that._dates.today;
+                    }
+                });
+            }
+
+            return selected;
+        }());
+
+        // Today's date object
+        this._dates.today = createDateObject('today');
+
+        // Minimum selectable date
+        this._dates.range.from = (function () {
+
+            // Only works when there are a "from" parameter on configuration
+            if (that._options.from === undefined || !that._options.from) { return; }
+
+            // Return date object
+            return (that._options.from === 'today') ? that._dates.today : createDateObject(that._options.from);
+
+        }());
+
+        // Maximum selectable date
+        this._dates.range.to = (function () {
+
+            // Only works when there are a "to" parameter on configuration
+            if (that._options.to === undefined || !that._options.to) { return; }
+
+            // Return date object
+            return (that._options.to === 'today') ? that._dates.today : createDateObject(that._options.to);
+
+        }());
+
+        /**
+         * Template of previous arrow.
+         * @type {HTMLDivElement}
+         */
+        this._prev = document.createElement('div');
+        this._prev.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
+        this._prev.setAttribute('role', 'button');
+        this._prev.setAttribute('aria-hidden', 'false');
+        tiny.addClass(this._prev, 'ch-calendar-prev');
+
+        /**
+         * Template of next arrow.
+         * @type {HTMLDivElement}
+         */
+        this._next = document.createElement('div');
+        this._next.setAttribute('aria-controls', 'ch-calendar-grid-' + this.uid);
+        this._next.setAttribute('role', 'button');
+        this._next.setAttribute('aria-hidden', 'false');
+        tiny.addClass(this._next, 'ch-calendar-next');
+
+
+        // Show or hide arrows depending on "from" and "to" limits
+        tiny.on(this._prev, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.prevMonth();
+        });
+        tiny.on(this._next, ch.onpointertap, function (event) {
+            event.preventDefault();
+            that.nextMonth();
+        });
+
+        /**
+         * The calendar container.
+         * @type {HTMLElement}
+         */
+        this.container = this._el;
+        this.container.insertBefore(this._prev, this.container.firstChild);
+        this.container.insertBefore(this._next, this.container.firstChild);
+        tiny.addClass(this.container, 'ch-calendar');
+        this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
+
+        this._updateControls();
+
+        // Avoid selection on the component
+        that.container.setAttribute('unselectable', 'on');
+        tiny.addClass(that.container, 'ch-user-no-select');
+
+        return this;
+    };
+
+    /**
+     * Checks if it has got a previous month to show depending on "from" limit.
+     * @function
+     * @private
+     */
+    Calendar.prototype._hasPrevMonth = function () {
+        return this._dates.range.from === undefined || !(this._dates.range.from.month >= this._dates.current.month && this._dates.range.from.year >= this._dates.current.year);
+    };
+
+    /**
+     * Checks if it has got a next month to show depending on "to" limits.
+     * @function
+     * @private
+     */
+    Calendar.prototype._hasNextMonth = function () {
+        return this._dates.range.to === undefined || !(this._dates.range.to.month &lt;= this._dates.current.month && this._dates.range.to.year &lt;= this._dates.current.year);
+    };
+
+    /**
+     * Refresh arrows visibility depending on "from" and "to" limits.
+     * @function
+     * @private
+     */
+    Calendar.prototype._updateControls = function () {
+
+        // Show previous arrow when it's out of limit
+        if (this._hasPrevMonth()) {
+            tiny.removeClass(this._prev, 'ch-hide');
+            this._prev.setAttribute('aria-hidden', 'false');
+
+        // Hide previous arrow when it's out of limit
+        } else {
+            tiny.addClass(this._prev, 'ch-hide');
+            this._prev.setAttribute('aria-hidden', 'true');
+        }
+
+        // Show next arrow when it's out of limit
+        if (this._hasNextMonth()) {
+            tiny.removeClass(this._next, 'ch-hide');
+            this._next.setAttribute('aria-hidden', 'false');
+
+        // Hide next arrow when it's out of limit
+        } else {
+            tiny.addClass(this._next, 'ch-hide');
+            this._next.setAttribute('aria-hidden', 'true');
+        }
+
+        return this;
+    };
+
+    /**
+     * Refresh the structure of Calendar's table with a new date.
+     * @function
+     * @private
+     */
+    Calendar.prototype._updateTemplate = function (date) {
+        var month;
+
+        // Update "currentDate" object
+        this._dates.current = (typeof date === 'string') ? createDateObject(date) : date;
+
+        // Delete old table
+        month = this.container.querySelector('table');
+        this.container.removeChild(month);
+
+        // Append new table to content
+        this.container.insertAdjacentHTML('beforeend', this._createTemplate(this._dates.current));
+
+        // Refresh arrows
+        this._updateControls();
+
+        return this;
+    };
+
+    /**
+     * Creates a complete month in a table.
+     * @function
+     * @private
+     */
+    Calendar.prototype._createTemplate = function (date) {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this,
+            cell,
+            positive,
+            day,
+            isSelected,
+            thead = (function () {
+
+                // Create thead structure
+                var t = ['&lt;thead>&lt;tr role="row">'],
+                    dayIndex;
+
+                // Add week names
+                for (dayIndex = 0; dayIndex &lt; 7; dayIndex += 1) {
+                    t.push('&lt;th role="columnheader">' + that._defaults.weekdays[dayIndex] + '&lt;/th>');
+                }
+
+                // Close thead structure
+                t.push('&lt;/tr>&lt;/thead>');
+
+                // Join structure and return
+                return t.join('');
+
+            }()),
+
+            table = [
+                '&lt;table class="ch-calendar-month" role="grid" id="ch-calendar-grid-' + that.uid + '">',
+                '&lt;caption>' + that._defaults.monthsNames[date.month - 1] + ' - ' + date.year + '&lt;/caption>',
+                thead
+            ],
+
+            // Total amount of days into month
+            cells = (function () {
+
+                // Amount of days of current month
+                var currentMonth = new Date(date.year, date.month, 0).getDate(),
+
+                // Amount of days of previous month
+                    prevMonth = new Date([date.year, date.month, '01'].join('/')).getDay(),
+
+                // Merge amount of previous and current month
+                    subtotal = prevMonth + currentMonth,
+
+                // Amount of days into last week of month
+                    latest = subtotal % 7,
+
+                // Amount of days of next month
+                    nextMonth = (latest > 0) ? 7 - latest : 0;
+
+                return {
+                    'previous': prevMonth,
+                    'subtotal': subtotal,
+                    'total': subtotal + nextMonth
+                };
+
+            }());
+
+        table.push('&lt;tbody>&lt;tr class="ch-calendar-week" role="row">');
+
+        // Iteration of weekdays
+        for (cell = 0; cell &lt; cells.total; cell += 1) {
+
+            // Push an empty cell on previous and next month
+            if (cell &lt; cells.previous || cell > cells.subtotal - 1) {
+                table.push('&lt;td role="gridcell" class="ch-calendar-other">X&lt;/td>');
+            } else {
+
+                // Positive number of iteration
+                positive = cell + 1;
+
+                // Day number
+                day = positive - cells.previous;
+
+                // Define if it's the day selected
+                isSelected = this._isSelected(date.year, date.month, day);
+
+                // Create cell
+                table.push(
+                    // Open cell structure including WAI-ARIA and classnames space opening
+                    '&lt;td role="gridcell"' + (isSelected ? ' aria-selected="true"' : '') + ' class="ch-calendar-day',
+
+                    // Add Today classname if it's necesary
+                    (date.year === that._dates.today.year && date.month === that._dates.today.month && day === that._dates.today.day) ? ' ch-calendar-today' : null,
+
+                    // Add Selected classname if it's necesary
+                    (isSelected ? ' ch-calendar-selected ' : null),
+
+                    // From/to range. Disabling cells
+                    (
+                        // Disable cell if it's out of FROM range
+                        (that._dates.range.from && day &lt; that._dates.range.from.day && date.month === that._dates.range.from.month && date.year === that._dates.range.from.year) ||
+
+                        // Disable cell if it's out of TO range
+                        (that._dates.range.to && day > that._dates.range.to.day && date.month === that._dates.range.to.month && date.year === that._dates.range.to.year)
+
+                    ) ? ' ch-calendar-disabled' : null,
+
+                    // Close classnames attribute and print content closing cell structure
+                    '">' + day + '&lt;/td>'
+                );
+
+                // Cut week if there are seven days
+                if (positive % 7 === 0) {
+                    table.push('&lt;/tr>&lt;tr class="ch-calendar-week" role="row">');
+                }
+
+            }
+
+        }
+
+        table.push('&lt;/tr>&lt;/tbody>&lt;/table>');
+
+        // Return table object
+        return table.join('');
+
+    };
+
+    /**
+     * Checks if a given date is into 'from' and 'to' dates.
+     * @function
+     * @private
+     */
+    Calendar.prototype._isInRange = function (date) {
+        var inRangeFrom = true,
+            inRangeTo = true;
+
+        if (this._dates.range.from) {
+            inRangeFrom = (this._dates.range.from.native &lt;= date.native);
+        }
+
+        if (this._dates.range.to) {
+            inRangeTo = (this._dates.range.to.native >= date.native);
+        }
+
+        return inRangeFrom && inRangeTo;
+    };
+
+    /**
+     * Indicates if an specific date is selected or not (including date ranges and simple dates).
+     * @function
+     * @private
+     */
+    Calendar.prototype._isSelected = function (year, month, day) {
+        var yepnope;
+
+        if (!this._dates.selected) { return; }
+
+        yepnope = false;
+
+        // Simple selection
+        if (!Array.isArray(this._dates.selected)) {
+            if (year === this._dates.selected.year && month === this._dates.selected.month && day === this._dates.selected.day) {
+                yepnope = true;
+                return yepnope;
+            }
+
+        // Multiple selection (ranges)
+        } else {
+            this._dates.selected.forEach(function (e) {
+                // Simple date
+                if (!Array.isArray(e)) {
+                    if (year === e.year && month === e.month && day === e.day) {
+                        yepnope = true;
+                        return yepnope;
+                    }
+                // Range
+                } else {
+                    if (
+                        (year >= e[0].year && month >= e[0].month && day >= e[0].day) &&
+                            (year &lt;= e[1].year && month &lt;= e[1].month && day &lt;= e[1].day)
+                    ) {
+                        yepnope = true;
+                        return yepnope;
+                    }
+                }
+            });
+        }
+
+        return yepnope;
+    };
+
+    /**
+     * Selects a specific date or returns the selected date.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @param {String} [date] A given date to select. The format of the given date should be "YYYY/MM/DD".
+     * @returns {calendar}
+     * @example
+     * // Returns the selected date.
+     * calendar.select();
+     * @example
+     * // Select a specific date.
+     * calendar.select('2014/05/28');
+     */
+    Calendar.prototype.select = function (date) {
+        // Getter
+        if (!date) {
+            if (this._dates.selected === undefined) {
+                return;
+            }
+            return FORMAT_dates[this._options.format](this._dates.selected);
+        }
+
+        // Setter
+        var newDate = createDateObject(date);
+
+
+        if (!this._isInRange(newDate)) {
+            return this;
+        }
+
+        // Update selected date
+        this._dates.selected = (date === 'today') ? this._dates.today : newDate;
+
+        // Create a new table of selected month
+        this._updateTemplate(this._dates.selected);
+
+        /**
+         * Event emitted when a date is selected.
+         * @event ch.Calendar#select
+         * @example
+         * // Subscribe to "select" event.
+         * calendar.on('select', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('select');
+
+        return this;
+    };
+
+    /**
+     * Returns date of today
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @returns {String} The date of today
+     * @example
+     * // Get the date of today.
+     * var today = calendar.getToday();
+     */
+    Calendar.prototype.getToday = function () {
+        return FORMAT_dates[this._options.format](this._dates.today);
+    };
+
+    /**
+     * Moves to the next month.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @returns {calendar}
+     * @example
+     * // Moves to the next month.
+     * calendar.nextMonth();
+     */
+    Calendar.prototype.nextMonth = function () {
+        if (!this._enabled || !this._hasNextMonth()) {
+            return this;
+        }
+
+        // Next year
+        if (this._dates.current.month === 12) {
+            this._dates.current.month = 0;
+            this._dates.current.year += 1;
+        }
+
+        // Create a new table of selected month
+        this._updateTemplate([this._dates.current.year, this._dates.current.month + 1, '01'].join('/'));
+
+        /**
+         * Event emitted when a next month is shown.
+         * @event ch.Calendar#nextmonth
+         * @example
+         * // Subscribe to "nextmonth" event.
+         * calendar.on('nextmonth', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('nextmonth');
+
+        return this;
+    };
+
+    /**
+     * Move to the previous month.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @returns {calendar}
+     * @example
+     * // Moves to the prev month.
+     * calendar.prevMonth();
+     */
+    Calendar.prototype.prevMonth = function () {
+
+        if (!this._enabled || !this._hasPrevMonth()) {
+            return this;
+        }
+
+        // Previous year
+        if (this._dates.current.month === 1) {
+            this._dates.current.month = 13;
+            this._dates.current.year -= 1;
+        }
+
+        // Create a new table to the prev month
+        this._updateTemplate([this._dates.current.year, this._dates.current.month - 1, '01'].join('/'));
+
+        /**
+         * Event emitted when a previous month is shown.
+         * @event ch.Calendar#prevmonth
+         * @example
+         * // Subscribe to "prevmonth" event.
+         * calendar.on('prevmonth', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('prevmonth');
+
+        return this;
+    };
+
+    /**
+     * Move to the next year.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @returns {calendar}
+     * @example
+     * // Moves to the next year.
+     * calendar.nextYear();
+     */
+    Calendar.prototype.nextYear = function () {
+
+        if (!this._enabled || !this._hasNextMonth()) {
+            return this;
+        }
+
+        // Create a new table of selected month
+        this._updateTemplate([this._dates.current.year + 1, this._dates.current.month, '01'].join('/'));
+
+        /**
+         * Event emitted when a next year is shown.
+         * @event ch.Calendar#nextyear
+         * @example
+         * // Subscribe to "nextyear" event.
+         * calendar.on('nextyear', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('nextyear');
+
+        return this;
+    };
+
+    /**
+     * Move to the previous year.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @returns {calendar}
+     * @example
+     * // Moves to the prev year.
+     * calendar.prevYear();
+     */
+    Calendar.prototype.prevYear = function () {
+
+        if (!this._enabled || !this._hasPrevMonth()) {
+            return this;
+        }
+
+        // Create a new table to the prev year
+        this._updateTemplate([this._dates.current.year - 1, this._dates.current.month, '01'].join('/'));
+
+        /**
+         * Event emitted when a previous year is shown.
+         * @event ch.Calendar#prevyear
+         * @example
+         * // Subscribe to "prevyear" event.
+         * calendar.on('prevyear', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('prevyear');
+
+        return this;
+    };
+
+    /**
+     * Set a minimum selectable date.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @param {String} date A given date to set as minimum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @returns {calendar}
+     * @example
+     * // Set a minimum selectable date.
+     * calendar.setFrom('2010/05/28');
+     */
+    Calendar.prototype.setFrom = function (date) {
+        // this from is a reference to the global form
+        this._dates.range.from = (date === 'auto') ? undefined : createDateObject(date);
+        this._updateTemplate(this._dates.current);
+
+        return this;
+    };
+
+    /**
+     * Set a maximum selectable date.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @param {String} date A given date to set as maximum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @returns {calendar}
+     * @example
+     * // Set a maximum selectable date.
+     * calendar.setTo('2014/05/28');
+     */
+    Calendar.prototype.setTo = function (date) {
+        // this to is a reference to the global to
+        this._dates.range.to = (date === 'auto') ? undefined : createDateObject(date);
+        this._updateTemplate(this._dates.current);
+
+        return this;
+    };
+
+    /**
+     * Destroys a Calendar instance.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @example
+     * // Destroy a calendar
+     * calendar.destroy();
+     * // Empty the calendar reference
+     * calendar = undefined;
+     */
+    Calendar.prototype.destroy = function () {
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        tiny.trigger(window.document, ch.onlayoutchange);
+
+        parent.destroy.call(this);
+
+        return;
+    };
+
+    // Factorize
+    ch.factory(Calendar, normalizeOptions);
+
+}(this, this.ch));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul><h3>Global</h3><ul><li><a href="../global/#cancelpointeronscroll">cancelPointerOnScroll</a></li><li><a href="../global/#fixlabels">fixLabels</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>
+
+      </div>
+
+    <footer role="contentinfo" class="ml-footer">
+    <div class="ml-bounds">
+        <small>©2016 MercadoLibre.com</small>
+
+        <a href="mailto:chico@mercadolibre.com" target="_blank" class="link-chico-footer"><span class="icon-contact-us"></span></a>
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+  </body>
+</html>
