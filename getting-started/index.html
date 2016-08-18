@@ -128,16 +128,17 @@
 
                 <article>
                     <h3 id="assets">Pointing to assets</h3>
-                    <p>You only have to add the CSS, JavaScript and assets of Chico UI, and that’s all!</p>
+                    <p>You only have to add the CSS, JavaScript and its <a href="https://github.com/mercadolibre/tiny.js">tiny</a> dependency. That’s all!</p>
                     <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"dist/ui/chico.min.css"</span> <span class="nt">/&gt;</span></code></pre></figure>
 
                     <p>
-                        And you should add the JavaScript at bottom of page, before the <b>&lt;/body></b> closing tag and after jQuery script call.
+                        And you should add the JavaScript at bottom of page, before the <b>&lt;/body></b> closing tag and after tiny.js script call.
                     </p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/ui/chico.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://ui.mlstatic.com/chico/tiny/0.2.3/tiny.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/ui/chico.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
                     <p>
                         Don’t forget to link to asset files within the stylesheet code.
