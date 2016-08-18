@@ -47,7 +47,7 @@ id: getting-started
 
                 <article>
                     <h3 id="assets">Pointing to assets</h3>
-                    <p>You only have to add the CSS, JavaScript and assets of Chico UI, and that’s all!</p>
+                    <p>You only have to add the CSS, JavaScript and its <a href="https://github.com/mercadolibre/tiny.js">tiny</a> dependency. That’s all!</p>
                     <p>Make sure to add the stylesheet call into the <b>&lt;head></b> tag.</p>
 
 {% highlight html %}
@@ -55,10 +55,11 @@ id: getting-started
 {% endhighlight %}
 
                     <p>
-                        And you should add the JavaScript at bottom of page, before the <b>&lt;/body></b> closing tag and after jQuery script call.
+                        And you should add the JavaScript at bottom of page, before the <b>&lt;/body></b> closing tag and after tiny.js script call.
                     </p>
 
 {% highlight html %}
+<script src="https://ui.mlstatic.com/chico/tiny/0.2.3/tiny.min.js"></script>
 <script src="dist/ui/chico.min.js"></script>
 {% endhighlight %}
 
