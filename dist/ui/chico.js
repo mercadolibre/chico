@@ -1,5 +1,5 @@
 /*!
- * Chico UI v2.0.6
+ * Chico UI v2.0.7
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2016, MercadoLibre.com
@@ -147,7 +147,7 @@ for (var m in tiny) {
     }
 }
 
-	ch.version = '2.0.6';
+	ch.version = '2.0.7';
 	window.ch = ch;
 }(this));
 (function (ch) {
@@ -2114,7 +2114,7 @@ for (var m in tiny) {
         },
         'email': {
             'fn': function (value) {
-                return (/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i).test(value);
+                return (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(value);
             },
             'message': 'Use a valid e-mail such as name@example.com.'
         },
