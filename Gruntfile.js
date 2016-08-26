@@ -162,9 +162,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('apidoc', ['updatedata', 'jsdoc', 'checkCurrent']);
 
-    grunt.registerTask('dev', ['copy', 'jekyll:dev', 'browserSync:dev', 'watch']);
+    grunt.registerTask('dev', ['jekyll:dev', 'browserSync:dev', 'watch', 'copy']);
 
-    grunt.registerTask('dist', ['copy', 'apidoc', 'jekyll:dist']);
+    grunt.registerTask('dist', ['apidoc', 'jekyll:dist', 'copy']);
 
     grunt.registerTask('deploy', ['dist', 'gh-pages']);
 
