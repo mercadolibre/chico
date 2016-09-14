@@ -268,6 +268,10 @@
         // Used to show when the user cancel the suggestions
         this._originalQuery = this._currentQuery = this._el.value;
 
+        // set the quantity of char for search autocomplete
+        this._quantityChar = document.getElementById(that._el.id).dataset.quantityChar;
+        this._quantityChar = (this._quantityChar !== undefined) ? this._quantityChar : 1;
+
         if (this._configureShortcuts !== undefined) {
             this._configureShortcuts();
         }
@@ -291,45 +295,48 @@
 
 
         function turnOn() {
-            that._currentQuery = that._el.value.trim();
+     that._currentQuery = that._el.value.trim();
+     if (that._currentQuery.length >= that._quantityChar) {
+         // when the user writes
+         window.clearTimeout(that._stopTyping);
 
-            // when the user writes
-            window.clearTimeout(that._stopTyping);
+         that._stopTyping = window.setTimeout(function() {
 
-            that._stopTyping = window.setTimeout(function () {
+             tiny.addClass(that.trigger, that._options.loadingClass);
+             /**
+              * Event emitted when the user is typing.
+              * @event ch.Autocomplete#type
+              * @example
+              * // Subscribe to "type" event with ajax call
+              * autocomplete.on('type', function (userInput) {
+              *      $.ajax({
+              *          'url': '/countries?q=' + userInput,
+              *          'dataType': 'json',
+              *          'success': function (response) {
+              *              autocomplete.suggest(response);
+              *          }
+              *      });
+              * });
+              * @example
+              * // Subscribe to "type" event with jsonp
+              * autocomplete.on('type', function (userInput) {
+              *       $.ajax({
+              *           'url': '/countries?q='+ userInput +'&callback=parseResults',
+              *           'dataType': 'jsonp',
+              *           'cache': false,
+              *           'global': true,
+              *           'context': window,
+              *           'jsonp': 'parseResults',
+              *           'crossDomain': true
+              *       });
+              * });
+              */
+             that.emit('type', that._currentQuery);
+         }, that._options.keystrokesTime);
+     }
+ }
 
-                tiny.addClass(that.trigger, that._options.loadingClass);
-                /**
-                 * Event emitted when the user is typing.
-                 * @event ch.Autocomplete#type
-                 * @example
-                 * // Subscribe to "type" event with ajax call
-                 * autocomplete.on('type', function (userInput) {
-                 *      $.ajax({
-                 *          'url': '/countries?q=' + userInput,
-                 *          'dataType': 'json',
-                 *          'success': function (response) {
-                 *              autocomplete.suggest(response);
-                 *          }
-                 *      });
-                 * });
-                 * @example
-                 * // Subscribe to "type" event with jsonp
-                 * autocomplete.on('type', function (userInput) {
-                 *       $.ajax({
-                 *           'url': '/countries?q='+ userInput +'&callback=parseResults',
-                 *           'dataType': 'jsonp',
-                 *           'cache': false,
-                 *           'global': true,
-                 *           'context': window,
-                 *           'jsonp': 'parseResults',
-                 *           'crossDomain': true
-                 *       });
-                 * });
-                 */
-                that.emit('type', that._currentQuery);
-            }, that._options.keystrokesTime);
-        }
+
 
         function turnOnFallback(e) {
             if (specialKeyCodeMap[e.which || e.keyCode]) {
