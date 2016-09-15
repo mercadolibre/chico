@@ -48,6 +48,7 @@
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
      * @param {(Boolean | String)} [options.wrapper] Wrap the reference element and place the container into it instead of body. When value is a string it will be applied as additional wrapper class. Default: false.
+     * @param {Number} [options.quantityChar] Number of characters required to begin to suggest. Default: 1.
      *
      * @returns {autocomplete}
      * @example
@@ -139,7 +140,8 @@
         '_hiddenby': 'none',
         'keystrokesTime': 150,
         '_itemTemplate': '<li class="{{itemClass}}"{{suggestedData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autocomplete-complete-query"></i></li>',
-        'wrapper': false
+        'wrapper': false,
+        'quantityChar': 1
     };
 
     /**
@@ -250,6 +252,7 @@
         this.trigger.setAttribute('aria-haspopup', 'true');
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
+        this.trigger.setAttribute('quantityChar', this._options.quantityChar);
 
         tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); });
         tiny.on(this.trigger, 'blur', function turnoff() {that._turn('off'); });
@@ -268,9 +271,8 @@
         // Used to show when the user cancel the suggestions
         this._originalQuery = this._currentQuery = this._el.value;
 
-        // set the quantity of char for search autocomplete
-        this._quantityChar = document.getElementById(that._el.id).dataset.quantityChar;
-        this._quantityChar = (this._quantityChar !== undefined) ? this._quantityChar : 1;
+        // set the number of characters required to begin to suggest
+        this._quantityChar = document.getElementById(that._el.id).getAttribute('quantitychar');
 
         if (this._configureShortcuts !== undefined) {
             this._configureShortcuts();
@@ -335,9 +337,6 @@
                 }, that._options.keystrokesTime);
             }
         }
-
-
-
 
         function turnOnFallback(e) {
             if (specialKeyCodeMap[e.which || e.keyCode]) {
