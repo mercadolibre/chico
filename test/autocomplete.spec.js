@@ -211,7 +211,7 @@ describe('ch.Autocomplete', function () {
             autocompleteMinChar.emit('type', autocompleteMinChar._el.value);
         });
 
-        it('should trigger the callback function', function () {
+        it('should not show suggestions', function () {
             expect(autocompleteMinChar.isShown()).to.not.be.true;
         });
     });
