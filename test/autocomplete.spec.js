@@ -205,7 +205,7 @@ describe('ch.Autocomplete', function () {
         });
     });
 
-    describe('It should emits typing event with quantity of characters and', function () {
+    describe('It should emits typing event with quantity of characters and ', function () {
         before(function () {
             autocompleteMinChar._el.focus();
             autocompleteMinChar.emit('type', autocompleteMinChar._el.value);
