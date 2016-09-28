@@ -48,7 +48,7 @@
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
      * @param {(Boolean | String)} [options.wrapper] Wrap the reference element and place the container into it instead of body. When value is a string it will be applied as additional wrapper class. Default: false.
-     * @param {Number} [options.minChar] Number of characters required to begin to suggest. Default: 1.
+     * @param {Number} [options.minChars] Number of characters required to begin to suggest. Default: 1.
      *
      * @returns {autocomplete}
      * @example
@@ -141,7 +141,7 @@
         'keystrokesTime': 150,
         '_itemTemplate': '<li class="{{itemClass}}"{{suggestedData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autocomplete-complete-query"></i></li>',
         'wrapper': false,
-        'minChar': 1
+        'minChars': 1
     };
 
     /**
@@ -252,7 +252,6 @@
         this.trigger.setAttribute('aria-haspopup', 'true');
         this.trigger.setAttribute('aria-owns', this.container.getAttribute('id'));
         this.trigger.setAttribute('autocomplete', 'off');
-        this.trigger.setAttribute('minChar', this._options.minChar);
 
         tiny.on(this.trigger, 'focus', function turnon() { that._turn('on'); });
         tiny.on(this.trigger, 'blur', function turnoff() {that._turn('off'); });
@@ -295,13 +294,12 @@
 
         function turnOn() {
             that._currentQuery = that._el.value.trim();
-            if (that._currentQuery.length >= that._options.minChar) {
-                // when the user writes
-                window.clearTimeout(that._stopTyping);
-
+            // when the user writes
+            window.clearTimeout(that._stopTyping);
+            if (that._currentQuery.length >= that._options.minChars) {
                 that._stopTyping = window.setTimeout(function() {
 
-                    tiny.addClass(that.trigger, that._options.loadingClass);
+                    tiny.addClass(that.trigger, that._options.loadingClass);        
                     /**
                      * Event emitted when the user is typing.
                      * @event ch.Autocomplete#type
@@ -329,11 +327,13 @@
                      *           'crossDomain': true
                      *       });
                      * });
-                     */
+                     */ 
                     that.emit('type', that._currentQuery);
                 }, that._options.keystrokesTime);
+            } else {
+                that._popover.hide();
             }
-        }
+        }   
 
         function turnOnFallback(e) {
             if (specialKeyCodeMap[e.which || e.keyCode]) {

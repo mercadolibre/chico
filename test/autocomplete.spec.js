@@ -42,7 +42,7 @@ describe('ch.Autocomplete', function () {
 
         autocomplete = new ch.Autocomplete(document.querySelector('#autocomplete-1'), {'fx': 'none'});
         autocompleteHTML = new ch.Autocomplete(document.querySelector('#autocomplete-2'), {'html': true});
-        autocompleteMinChar = new ch.Autocomplete(document.querySelector('#autocomplete-3'), {'fx': 'none', 'minChar': 4});
+        autocompleteMinChars = new ch.Autocomplete(document.querySelector('#autocomplete-3'), {'fx': 'none', 'minChars': 4});
 
         autocomplete
             .on('type', function () {
@@ -58,7 +58,7 @@ describe('ch.Autocomplete', function () {
             })
             ._el.value = 'ar';
 
-        autocompleteMinChar
+        autocompleteMinChars
             .on('type', function () {
             typingEvent();
             })
@@ -207,12 +207,12 @@ describe('ch.Autocomplete', function () {
 
     describe('It should emits typing event with quantity of characters and ', function () {
         before(function () {
-            autocompleteMinChar._el.focus();
-            autocompleteMinChar.emit('type', autocompleteMinChar._el.value);
+            autocompleteMinChars._el.focus();
+            autocompleteMinChars.emit('type', autocompleteMinChars._el.value);
         });
 
         it('should not show suggestions', function () {
-            expect(autocompleteMinChar.isShown()).to.not.be.true;
+            expect(autocompleteMinChars.isShown()).to.not.be.true;
         });
     });
 
