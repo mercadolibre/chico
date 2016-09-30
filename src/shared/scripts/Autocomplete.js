@@ -48,6 +48,7 @@
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
      * @param {(Boolean | String)} [options.wrapper] Wrap the reference element and place the container into it instead of body. When value is a string it will be applied as additional wrapper class. Default: false.
+     * @param {Number} [options.minChars] Number of characters required to begin to suggest. Default: 1.
      *
      * @returns {autocomplete}
      * @example
@@ -139,7 +140,8 @@
         '_hiddenby': 'none',
         'keystrokesTime': 150,
         '_itemTemplate': '<li class="{{itemClass}}"{{suggestedData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autocomplete-complete-query"></i></li>',
-        'wrapper': false
+        'wrapper': false,
+        'minChars': 1
     };
 
     /**
@@ -292,44 +294,46 @@
 
         function turnOn() {
             that._currentQuery = that._el.value.trim();
-
             // when the user writes
             window.clearTimeout(that._stopTyping);
+            if (that._currentQuery.length >= that._options.minChars) {
+                that._stopTyping = window.setTimeout(function() {
 
-            that._stopTyping = window.setTimeout(function () {
-
-                tiny.addClass(that.trigger, that._options.loadingClass);
-                /**
-                 * Event emitted when the user is typing.
-                 * @event ch.Autocomplete#type
-                 * @example
-                 * // Subscribe to "type" event with ajax call
-                 * autocomplete.on('type', function (userInput) {
-                 *      $.ajax({
-                 *          'url': '/countries?q=' + userInput,
-                 *          'dataType': 'json',
-                 *          'success': function (response) {
-                 *              autocomplete.suggest(response);
-                 *          }
-                 *      });
-                 * });
-                 * @example
-                 * // Subscribe to "type" event with jsonp
-                 * autocomplete.on('type', function (userInput) {
-                 *       $.ajax({
-                 *           'url': '/countries?q='+ userInput +'&callback=parseResults',
-                 *           'dataType': 'jsonp',
-                 *           'cache': false,
-                 *           'global': true,
-                 *           'context': window,
-                 *           'jsonp': 'parseResults',
-                 *           'crossDomain': true
-                 *       });
-                 * });
-                 */
-                that.emit('type', that._currentQuery);
-            }, that._options.keystrokesTime);
-        }
+                    tiny.addClass(that.trigger, that._options.loadingClass);        
+                    /**
+                     * Event emitted when the user is typing.
+                     * @event ch.Autocomplete#type
+                     * @example
+                     * // Subscribe to "type" event with ajax call
+                     * autocomplete.on('type', function (userInput) {
+                     *      $.ajax({
+                     *          'url': '/countries?q=' + userInput,
+                     *          'dataType': 'json',
+                     *          'success': function (response) {
+                     *              autocomplete.suggest(response);
+                     *          }
+                     *      });
+                     * });
+                     * @example
+                     * // Subscribe to "type" event with jsonp
+                     * autocomplete.on('type', function (userInput) {
+                     *       $.ajax({
+                     *           'url': '/countries?q='+ userInput +'&callback=parseResults',
+                     *           'dataType': 'jsonp',
+                     *           'cache': false,
+                     *           'global': true,
+                     *           'context': window,
+                     *           'jsonp': 'parseResults',
+                     *           'crossDomain': true
+                     *       });
+                     * });
+                     */ 
+                    that.emit('type', that._currentQuery);
+                }, that._options.keystrokesTime);
+            } else {
+                that._popover.hide();
+            }
+        }   
 
         function turnOnFallback(e) {
             if (specialKeyCodeMap[e.which || e.keyCode]) {

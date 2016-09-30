@@ -4,6 +4,7 @@ describe('ch.Autocomplete', function () {
     var suggestionsHTML = ['<span class="HTMLAdded">Argentina</span>', '<span class="HTMLAdded">Armenia</span>', '<span class="HTMLAdded">Aruba</span>'];
     var autocomplete;
     var autocompleteHTML;
+    var autocompleteMinChar;
 
     var readyEvent = chai.spy();
     var hideEvent = chai.spy();
@@ -27,11 +28,21 @@ describe('ch.Autocomplete', function () {
                                 '<div class="ch-form-actions">'+
                                     '<input type="submit" class="ch-btn">'+
                                 '</div>'+
+                            '</form>'+
+                            '<form id="form-3" action="./" class="ch-form">'+
+                                '<div class="ch-form-row">'+
+                                    '<label>Test {ID}</label>'+
+                                    '<input id="autocomplete-3" type="text">'+
+                                '</div>'+
+                                '<div class="ch-form-actions">'+
+                                    '<input type="submit" class="ch-btn">'+
+                                '</div>'+
                             '</form>'
         document.body.appendChild(container);
 
         autocomplete = new ch.Autocomplete(document.querySelector('#autocomplete-1'), {'fx': 'none'});
         autocompleteHTML = new ch.Autocomplete(document.querySelector('#autocomplete-2'), {'html': true});
+        autocompleteMinChars = new ch.Autocomplete(document.querySelector('#autocomplete-3'), {'fx': 'none', 'minChars': 4});
 
         autocomplete
             .on('type', function () {
@@ -47,6 +58,12 @@ describe('ch.Autocomplete', function () {
             })
             ._el.value = 'ar';
 
+        autocompleteMinChars
+            .on('type', function () {
+            typingEvent();
+            })
+            .on('ready', readyEvent)
+            ._el.value = 'ar';
     });
 
     after(function () {
@@ -186,7 +203,17 @@ describe('ch.Autocomplete', function () {
         it('should trigger the callback function', function () {
             expect(typingEvent).to.have.been.called();
         });
+    });
 
+    describe('It should emits typing event with quantity of characters and ', function () {
+        before(function () {
+            autocompleteMinChars._el.focus();
+            autocompleteMinChars.emit('type', autocompleteMinChars._el.value);
+        });
+
+        it('should not show suggestions', function () {
+            expect(autocompleteMinChars.isShown()).to.not.be.true;
+        });
     });
 
     describe('Its suggest() method', function () {
