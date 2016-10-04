@@ -13,6 +13,7 @@ describe('Modal', function () {
         container.innerHTML = modalHtml;
         document.body.appendChild(container);
 
+        readyEvent = chai.spy();
         showEvent = chai.spy();
         hideEvent = chai.spy();
 
@@ -20,12 +21,12 @@ describe('Modal', function () {
             'content': 'test',
             'fx': 'none'
         })
-        .on('show', showEvent)
-        .on('hide', hideEvent);
+            .on('ready', readyEvent)
+            .on('show', showEvent)
+            .on('hide', hideEvent);
 
         t = modal.trigger;
         c = modal.container;
-
     });
 
     after(function () {
@@ -39,6 +40,27 @@ describe('Modal', function () {
 
     it('should return a new instance of Modal', function () {
         expect(modal).to.be.an.instanceof(ch.Modal);
+    });
+
+    describe('It should emit', function() {
+        it('the "ready" event', function (done) {
+            setTimeout(function() {
+                expect(readyEvent).to.have.been.called.once;
+                done();
+            }, 50);
+        });
+
+        it('the "show" event', function () {
+            modal.show();
+
+            expect(showEvent).to.have.been.called.once;
+        });
+
+        it('the "hide" event', function () {
+            modal.hide();
+
+            expect(hideEvent).to.have.been.called.once;
+        });
     });
 
     describe('It should have a container with', function () {
@@ -62,10 +84,8 @@ describe('Modal', function () {
     });
 
     describe('It should have an underlay', function () {
-        
-
         it('that exists', function () {
-            modal.show()
+            modal.show();
             expect(document.querySelectorAll('.ch-underlay').length).to.equal(1);
         });
 
@@ -78,18 +98,4 @@ describe('Modal', function () {
             expect(document.querySelectorAll('.ch-underlay').length).to.equal(0);
         });
     });
-
-    it('should emit the "show" event', function () {
-        modal.show();
-
-        expect(showEvent).to.have.been.called();
-    });
-
-    it('should emit the "hide" event', function () {
-        modal.hide();
-
-        expect(hideEvent).to.have.been.called();
-
-    });
-
 });
