@@ -5,20 +5,27 @@ describe('Modal', function () {
         ].join(''),
         modal,
         t,
-        c;
+        c,
+        showEvent,
+        hideEvent;
 
     before(function() {
         container.innerHTML = modalHtml;
         document.body.appendChild(container);
 
+        showEvent = chai.spy();
+        hideEvent = chai.spy();
+
         modal = new ch.Modal(document.getElementById('modal'), {
             'content': 'test',
             'fx': 'none'
-        }).show();
+        })
+        .on('show', showEvent)
+        .on('hide', hideEvent);
 
         t = modal.trigger;
         c = modal.container;
-        ;
+
     });
 
     after(function () {
@@ -55,7 +62,10 @@ describe('Modal', function () {
     });
 
     describe('It should have an underlay', function () {
+        
+
         it('that exists', function () {
+            modal.show()
             expect(document.querySelectorAll('.ch-underlay').length).to.equal(1);
         });
 
@@ -67,6 +77,19 @@ describe('Modal', function () {
             modal.hide();
             expect(document.querySelectorAll('.ch-underlay').length).to.equal(0);
         });
+    });
+
+    it('should emit the "show" event', function () {
+        modal.show();
+
+        expect(showEvent).to.have.been.called();
+    });
+
+    it('should emit the "hide" event', function () {
+        modal.hide();
+
+        expect(hideEvent).to.have.been.called();
+
     });
 
 });
