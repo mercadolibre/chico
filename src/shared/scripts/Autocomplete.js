@@ -462,7 +462,7 @@
         var that = this,
             items = [],
             matchedRegExp = new RegExp('(' + this._currentQuery.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1') + ')', 'ig'),
-            totalItems = 0,
+            totalItems,
             itemDOMCollection,
             itemTemplate = this._options._itemTemplate,
             suggestedItem,
