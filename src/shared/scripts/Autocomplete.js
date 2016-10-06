@@ -299,7 +299,7 @@
             if (that._currentQuery.length >= that._options.minChars) {
                 that._stopTyping = window.setTimeout(function() {
 
-                    tiny.addClass(that.trigger, that._options.loadingClass);        
+                    tiny.addClass(that.trigger, that._options.loadingClass);
                     /**
                      * Event emitted when the user is typing.
                      * @event ch.Autocomplete#type
@@ -327,13 +327,13 @@
                      *           'crossDomain': true
                      *       });
                      * });
-                     */ 
+                     */
                     that.emit('type', that._currentQuery);
                 }, that._options.keystrokesTime);
             } else {
-                that._popover.hide();
+                that.suggest([]);
             }
-        }   
+        }
 
         function turnOnFallback(e) {
             if (specialKeyCodeMap[e.which || e.keyCode]) {
