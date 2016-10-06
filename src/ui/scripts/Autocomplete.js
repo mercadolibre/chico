@@ -89,10 +89,10 @@
         });
 
         // Activate the shortcuts for this instance
-        this._popover.on('show', function () { ch.shortcuts.on(that.uid); });
+        this._popover.on('beforeshow', function () { ch.shortcuts.on(that.uid); });
 
         // Deactivate the shortcuts for this instance
-        this._popover.on('hide', function () { ch.shortcuts.off(that.uid); });
+        this._popover.on('beforehide', function () { ch.shortcuts.off(that.uid); });
 
         this.on('destroy', function () {
             ch.shortcuts.remove(this.uid);

@@ -1281,26 +1281,15 @@
             }
         }
 
-        var suggestion,
-            cancelRequest;
         var autocomplete = new ch.Autocomplete(qS('.autocomplete'), {wrapper: 'ch-autocomplete-wrapper'})
                 .on('type', function (userInput) {
-                    // Cancel the jsonp request if any
-                    if (cancelRequest) {
-                        cancelRequest();
-                    }
-                    // Hide possibly active loading indicator
-                    if (!userInput) {
-                        return autocomplete.suggest([]);
-                    }
-                    cancelRequest = tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+                    tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
                         name: 'autocompleteSuggestion',
                         success: parseResults,
                         error: function(err) {
                             autocomplete.suggest([]);
                         }
                     });
-
                 });
 
         autocomplete.container.insertAdjacentHTML('beforeend', extraSuggestions);
