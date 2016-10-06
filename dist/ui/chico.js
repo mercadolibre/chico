@@ -1,5 +1,5 @@
 /*!
- * Chico UI v2.0.8
+ * Chico UI v2.0.9
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2016, MercadoLibre.com
@@ -147,7 +147,7 @@ for (var m in tiny) {
     }
 }
 
-	ch.version = '2.0.8';
+	ch.version = '2.0.9';
 	window.ch = ch;
 }(this));
 (function (ch) {
@@ -9492,7 +9492,7 @@ for (var m in tiny) {
             if (that._currentQuery.length >= that._options.minChars) {
                 that._stopTyping = window.setTimeout(function() {
 
-                    tiny.addClass(that.trigger, that._options.loadingClass);        
+                    tiny.addClass(that.trigger, that._options.loadingClass);
                     /**
                      * Event emitted when the user is typing.
                      * @event ch.Autocomplete#type
@@ -9520,13 +9520,13 @@ for (var m in tiny) {
                      *           'crossDomain': true
                      *       });
                      * });
-                     */ 
+                     */
                     that.emit('type', that._currentQuery);
                 }, that._options.keystrokesTime);
             } else {
-                that._popover.hide();
+                that.suggest([]);
             }
-        }   
+        }
 
         function turnOnFallback(e) {
             if (specialKeyCodeMap[e.which || e.keyCode]) {
@@ -9655,7 +9655,7 @@ for (var m in tiny) {
         var that = this,
             items = [],
             matchedRegExp = new RegExp('(' + this._currentQuery.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1') + ')', 'ig'),
-            totalItems = 0,
+            totalItems,
             itemDOMCollection,
             itemTemplate = this._options._itemTemplate,
             suggestedItem,
@@ -9901,10 +9901,10 @@ for (var m in tiny) {
         });
 
         // Activate the shortcuts for this instance
-        this._popover.on('show', function () { ch.shortcuts.on(that.uid); });
+        this._popover.on('beforeshow', function () { ch.shortcuts.on(that.uid); });
 
         // Deactivate the shortcuts for this instance
-        this._popover.on('hide', function () { ch.shortcuts.off(that.uid); });
+        this._popover.on('beforehide', function () { ch.shortcuts.off(that.uid); });
 
         this.on('destroy', function () {
             ch.shortcuts.remove(this.uid);
