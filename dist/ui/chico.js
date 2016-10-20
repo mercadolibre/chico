@@ -7630,6 +7630,7 @@ for (var m in tiny) {
         this._prevArrow = document.createElement('div');
         this._prevArrow.setAttribute('role', 'button');
         this._prevArrow.setAttribute('aria-hidden', 'true');
+        this._prevArrow.setAttribute('aria-label', 'Previous elements');
         this._prevArrow.setAttribute('class', 'ch-carousel-prev ch-carousel-disabled');
         tiny.on(this._prevArrow, pointertap, function () { that.prev(); }, false);
 
@@ -7640,6 +7641,7 @@ for (var m in tiny) {
          */
         this._nextArrow = document.createElement('div');
         this._nextArrow.setAttribute('role', 'button');
+        this._nextArrow.setAttribute('aria-label', 'Next elements');
         this._nextArrow.setAttribute('aria-hidden', 'true');
         this._nextArrow.setAttribute('class', 'ch-carousel-next');
         tiny.on(this._nextArrow, pointertap, function () { that.next(); }, false);
