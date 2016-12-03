@@ -1,6 +1,7 @@
 {
   "name": "chico",
   "version": "2.0.9",
+  "main": "index.js",
   "description": "Chico UI is a free and open source collection of easy-to-use web components for developers and designers.",
   "author": "<chico@mercadolibre.com>",
   "contributors": [
