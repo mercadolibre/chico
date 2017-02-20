@@ -263,7 +263,7 @@
                 that.validate();
             }
 
-            if (that.conditions.required === undefined && this.value === '') {
+            if ((that.conditions.required === undefined || that.conditions.required._enabled === false) && this.value === '') {
                 that.clear();
             }
 
@@ -359,7 +359,7 @@
         }
 
         var condition,
-            required = this.conditions.required,
+            required = this.conditions.required && this.conditions.required._enabled,
             value = this._el.value;
 
         // Avoid fields that aren't required when they are empty or de-activated
