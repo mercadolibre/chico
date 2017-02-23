@@ -1,8 +1,8 @@
 /*!
- * Chico UI v2.0.9
+ * Chico UI v2.0.10
  * http://chico-ui.com.ar/
  *
- * Copyright (c) 2016, MercadoLibre.com
+ * Copyright (c) 2017, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
@@ -180,7 +180,7 @@
         }
     }
 
-	ch.version = '2.0.9';
+	ch.version = '2.0.10';
 	window.ch = ch;
 }(this));
 (function (ch) {
@@ -4570,7 +4570,7 @@
                 that.validate();
             }
 
-            if (that.conditions.required === undefined && this.value === '') {
+            if ((that.conditions.required === undefined || that.conditions.required._enabled === false) && this.value === '') {
                 that.clear();
             }
 
@@ -4666,7 +4666,7 @@
         }
 
         var condition,
-            required = this.conditions.required,
+            required = this.conditions.required && this.conditions.required._enabled,
             value = this._el.value;
 
         // Avoid fields that aren't required when they are empty or de-activated
