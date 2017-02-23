@@ -302,13 +302,19 @@ describe('Validation', function () {
     describe('Its disable() method', function () {
         var instance;
 
-        it('should disable alidation', function () {
+        it('should disable validation', function () {
             instance = validation1.disable();
             expect(validation1.hasError()).to.be.false;
         });
 
         it('should return the same instance than initialized component', function () {
             expect(instance).to.eql(validation1);
+        });
+
+        it('should not have error empty field if required condition is disabled', function () {
+            validation1.disable('required');
+            validation1.trigger.setAttribute('value', '');
+            expect(validation1.hasError()).to.be.false;
         });
     });
 
