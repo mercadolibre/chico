@@ -307,14 +307,20 @@ describe('Validation', function () {
             expect(validation1.hasError()).to.be.false;
         });
 
-        it('should return the same instance than initialized component', function () {
-            expect(instance).to.eql(validation1);
-        });
-
-        it('should not have error empty field if required condition is disabled', function () {
+        it('should disable validation for "required" condition', function () {
             validation1.disable('required');
             validation1.trigger.setAttribute('value', '');
             expect(validation1.hasError()).to.be.false;
+        });
+
+        it('should disable validation for "mocha" condition', function () {
+            validation1.disable('mocha');
+            validation1.trigger.setAttribute('value', 'Foo');
+            expect(validation1.hasError()).to.be.false;
+        });
+
+        it('should return the same instance than initialized component', function () {
+            expect(instance).to.eql(validation1);
         });
     });
 
