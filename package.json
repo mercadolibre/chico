@@ -44,7 +44,8 @@
     "grunt-text-replace": "0.3.11",
     "jit-grunt": "0.9.1",
     "time-grunt": "1.2.1",
-    "taffydb": "2.7.3"
+    "taffydb": "2.7.3",
+    "catharsis": "0.8.8"
   },
   "license": "MIT",
   "engine": "node >= 0.8.6"
