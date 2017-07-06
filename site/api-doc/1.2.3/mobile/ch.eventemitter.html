@@ -1,0 +1,376 @@
+---
+layout: default
+id: api-doc
+title: "ch.EventEmitter v1.2.3 - Chico UI API Documentation"
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>
+                        ch.EventEmitter
+                    </h1>
+                    
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>Event Emitter Class for the browser.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new instance of EventEmitter.
+var emitter = new ch.EventEmitter();
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Inheriting from EventEmitter.
+ch.util.inherits(Component, ch.EventEmitter);
+{% endhighlight %}
+</div>
+
+
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.emit<span class="signature">(event, var_args)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Execute each item in the listener collection in order with the specified data.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The name of the event you want to emit.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">var_args</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Data to pass to the listeners.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Will emit the 'ready' event with 'param1' and 'param2' as arguments.
+component.emit('ready', 'param1', 'param2');
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.getListeners<span class="signature">(event)</span><span class="type-signature"> &rarr; {Array}</span></code></h4>
+<pre></pre>
+
+    <p>Returns all listeners from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Returns listeners from 'ready' event.
+component.getListeners('ready');
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.off<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Removes a listener from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Will remove event listener to 'ready' event.
+component.off('ready', listener);
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.on<span class="signature">(event, listener, once)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name to subscribe.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">once</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Indicate if a listener function will be called only one time.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Will add an event listener to 'ready' event.
+component.on('ready', listener);
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.once<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event to will execute only once.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Will add an event handler to 'contentLoad' event once.
+component.once('contentLoad', listener);
+{% endhighlight %}
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li><li><a href="../ch.util.mbp/">MBP</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>

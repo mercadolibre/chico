@@ -1,0 +1,567 @@
+---
+layout: default
+id: api-doc
+title: "ch.Carousel v2.0.9 - Chico UI API Documentation"
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>
+                        ch.Carousel
+                    </h1>
+                    
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>A large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new carousel.
+var carousel = new ch.Carousel(el, [options]);
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new Carousel with disabled effects.
+var carousel = new ch.Carousel(el, {
+    'fx': false
+});
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new Carousel with items asynchronously loaded.
+var carousel = new ch.Carousel(el, {
+    'async': 10
+}).on('itemsadd', function (collection) {
+    // Inject content into the added <li> elements
+    $.each(collection, function (i, e) {
+        e.innerHTML = 'Content into one of newly inserted <li> elements.';
+    });
+});
+{% endhighlight %}
+</div>
+
+
+
+    
+
+    
+        <h2 class="api-title">Parameters</h2>
+        
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">el</code>
+             - 
+            
+                
+<em class="param-type">HTMLElement</em>
+            
+            : A HTMLElement to create an instance of ch.Carousel.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">options</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Options to customize an instance.
+
+            
+                
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">async</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Defines the number of future asynchronous items to add to the component. Default: 0.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">arrows</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Defines if the arrow-buttons must be created or not at initialization. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">pagination</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Defines if a pagination must be created or not at initialization. Default: false.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">fx</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Enable or disable the slide effect. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">autoHeight</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Enable or disable the recalculation of item height on a proportional basis maintaining the proportions of an item. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">autoMargin</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Enable or disable the addition of a proportional margin to each item. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">limitPerPage</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Set the maximum amount of items to show in each page.
+
+            
+        </li>
+	
+</ul>
+            
+        </li>
+	
+</ul>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Properties</h2>
+
+    <dl>
+        
+
+<h4>
+    <code class=" language-markup" id="Carousel#name">.Carousel#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of the component.</p>
+
+
+
+    </dl>
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.destroy<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Destroys a Carousel instance.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.disable<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Disables a Carousel instance.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.enable<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Enables a Carousel instance.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.next<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Moves the list to the next page.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.prev<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Moves the list to the previous page.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.refresh<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Triggers all the necessary recalculations to be up-to-date.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.select<span class="signature">(page)</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Moves the list to the specified page.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">page</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Reference of page where the list has to move.
+
+            
+        </li>
+	
+</ul>
+
+
+
+
+    </dl>
+
+
+
+
+
+    <h2 class="api-title">Events</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">'itemsadd'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component creates new asynchronous empty items.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new Carousel with items asynchronously loaded.
+var carousel = new ch.Carousel({
+    'async': 10
+}).on('itemsadd', function (collection) {
+    // Inject content into the added <li> elements
+    $.each(collection, function (i, e) {
+        e.innerHTML = 'Content into one of newly inserted <li> elements.';
+    });
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'next'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component moves to the next page.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+carousel.on('next', function () {
+    alert('Carousel has moved to the next page.');
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'prev'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component moves to the previous page.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+carousel.on('prev', function () {
+    alert('Carousel has moved to the previous page.');
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'ready'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component is ready to use.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "ready" event.
+carousel.on('ready', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'refresh'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component makes all the necessary recalculations to be up-to-date.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "refresh" event.
+carousel.on('refresh', function () {
+    alert('Carousel was refreshed.');
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'select'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component moves to another page.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "select" event.
+carousel.on('select', function () {
+    alert('Carousel was moved.');
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul><h3>Global</h3><ul><li><a href="../global/#cancelpointeronscroll">cancelPointerOnScroll</a></li><li><a href="../global/#fixlabels">fixLabels</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>

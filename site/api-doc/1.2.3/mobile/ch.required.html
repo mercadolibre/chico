@@ -1,0 +1,1341 @@
+---
+layout: default
+id: api-doc
+title: "ch.Required v1.2.3 - Chico UI API Documentation"
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>
+                        ch.Required
+                    </h1>
+                    
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>Required creates a new instance of Validation to validate required values.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new Required Validation.
+var reqValidation = new ch.Required($el, [options]);
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new Required validation with jQuery or Zepto.
+var reqValidation = $(selector).required([options]);
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new Required validation with custom options.
+var reqValidation = $(selector).required({
+    'message': 'This field is required.',
+    'offsetX': 0,
+    'offsetY': 10,
+    'side': 'bottom',
+    'align': 'left'
+});
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new Required validation using the shorthand way (message as parameter).
+var reqValidation = $(selector).required('This field is required.');
+{% endhighlight %}
+</div>
+
+
+
+    
+
+    
+        <h2 class="api-title">Parameters</h2>
+        
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">$el</code>
+             - 
+            
+                
+<em class="param-type">jQuerySelector | ZeptoSelector</em>
+            
+            : A jQuery or Zepto Selector to create an instance of ch.Validation.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">options</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Options to customize an instance.
+
+            
+                
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">message</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The given error message to the condition.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">reference</code>
+             - 
+            
+                
+<em class="param-type">jQuerySelector | ZeptoSelector</em>
+            
+            : It's a reference to position and size of element that will be considered to carry out the position.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">side</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The side option where the target element will be positioned. Default: "right".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">align</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The align options where the target element will be positioned. Default: "top".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">offsetX</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Distance to displace the target horizontally. Default: "10px".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">offsetY</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Distance to displace the target vertically. Default: "0px".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">position</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The type of positioning used. Default: "absolute".
+
+            
+        </li>
+	
+</ul>
+            
+        </li>
+	
+</ul>
+    
+
+
+
+
+   <h2 class="api-title">Extends</h2>
+
+    <ul>
+        <li><a href="../ch.validation/">ch.Validation</a></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Properties</h2>
+
+    <dl>
+        
+
+<h4>
+    <code class=" language-markup" id="$trigger">.$trigger</code>
+    
+    
+<em class="param-type">jQuerySelector | ZeptoSelector</em>
+    
+</h4>
+
+
+<p>The validation trigger.</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="Component#name">.Component#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of a component.</p>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// You can reach the associated instance.
+var component = $(selector).data(name);
+{% endhighlight %}
+</div>
+
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="conditions">.conditions</code>
+    
+    
+<em class="param-type">Object</em>
+    
+</h4>
+
+
+<p>The collection of conditions.</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="error">.error</code>
+    
+    
+<em class="param-type">Object</em>
+    
+</h4>
+
+
+<p>The current error. If the validations has not error is "null".</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="form">.form</code>
+    
+    
+<em class="param-type">form</em>
+    
+</h4>
+
+
+<p>Reference to a Form instance. If there isn't any, the Validation instance will create one.</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="Required#name">.Required#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of the component.</p>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// You can reach the associated instance.
+var reqValidation = $(selector).data('validation');
+{% endhighlight %}
+</div>
+
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="uid">.uid</code>
+    
+    
+<em class="param-type">Number</em>
+    
+</h4>
+
+
+<p>A unique id to identify the instance of a component.</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="Validation#name">.Validation#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of the component.</p>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// You can reach the associated instance.
+var validation = $(selector).data('validation');
+{% endhighlight %}
+</div>
+
+
+
+
+    </dl>
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.destroy<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Destroys an instance of Component and remove its data from asociated element.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Destroy a component
+component.destroy();
+// Empty the component reference
+component = undefined;
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.disable<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Disables an instance of Component.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Disabling an instance of Component.
+component.disable();
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.enable<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Enables an instance of Component.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Enabling an instance of Component.
+component.enable();
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.require<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds functionality or abilities from other classes.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// You can require some abilitiest to use in your component.
+// For example you should require the collpasible abitliy.
+var component = new Component(element, options);
+component.require('Collapsible');
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.disable<span class="signature">(<span class="optional">condition</span>)</span><span class="type-signature"> &rarr; {validation}</span></code></h4>
+<pre></pre>
+
+    <p>Disables an instance of a validation or a specific condition.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">condition</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A given number of fold to disable.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Disabling an instance of Validation.
+validation.disable();
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Disabling the "email" condition.
+validation.disable('email');
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.enable<span class="signature">(<span class="optional">condition</span>)</span><span class="type-signature"> &rarr; {validation}</span></code></h4>
+<pre></pre>
+
+    <p>Enables an instance of validation or a specific condition.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">condition</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : A given number of fold to enable.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Enabling an instance of Validation.
+validation.enable();
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Enabling the "max" condition.
+validation.enable('max');
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.emit<span class="signature">(event, var_args)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Execute each item in the listener collection in order with the specified data.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The name of the event you want to emit.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">var_args</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Data to pass to the listeners.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Will emit the 'ready' event with 'param1' and 'param2' as arguments.
+component.emit('ready', 'param1', 'param2');
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.getListeners<span class="signature">(event)</span><span class="type-signature"> &rarr; {Array}</span></code></h4>
+<pre></pre>
+
+    <p>Returns all listeners from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Returns listeners from 'ready' event.
+component.getListeners('ready');
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.off<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Removes a listener from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Will remove event listener to 'ready' event.
+component.off('ready', listener);
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.on<span class="signature">(event, listener, once)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name to subscribe.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">once</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Indicate if a listener function will be called only one time.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Will add an event listener to 'ready' event.
+component.on('ready', listener);
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.once<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event to will execute only once.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Will add an event handler to 'contentLoad' event once.
+component.once('contentLoad', listener);
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.and<span class="signature">()</span><span class="type-signature"> &rarr; {jQuerySelector|ZeptoSelector}</span></code></h4>
+<pre></pre>
+
+    <p>Returns the jQuerySelector or ZeptoSelector to chaining more validations.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Concatenates another validation.
+validation.and().validation();
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.clear<span class="signature">()</span><span class="type-signature"> &rarr; {validation}</span></code></h4>
+<pre></pre>
+
+    <p>Clear active error.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Clear active error.
+validation.clear();
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.destroy<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Destroys a Validation instance.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Destroying an instance of Validation.
+validation.destroy();
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.hasError<span class="signature">()</span><span class="type-signature"> &rarr; {Boolean}</span></code></h4>
+<pre></pre>
+
+    <p>Checks if the validation has got errors but it doesn't show bubbles.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Checks if a validation has errors and do something.
+if (validation.hasError()) {
+    // Some code here!
+};
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.isShown<span class="signature">()</span><span class="type-signature"> &rarr; {Boolean}</span></code></h4>
+<pre></pre>
+
+    <p>Indicates if the validation is shown.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Execute a function if the validation is shown.
+if (validation.isShown()) {
+    fn();
+}
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.message<span class="signature">()</span><span class="type-signature"> &rarr; {validation|String}</span></code></h4>
+<pre></pre>
+
+    <p>Sets or gets messages to specifics conditions.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Gets a message from a condition
+validation.message('required');
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Sets a new message
+validation.message('required', 'New message for required validation');
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.validate<span class="signature">()</span><span class="type-signature"> &rarr; {validation}</span></code></h4>
+<pre></pre>
+
+    <p>Validates the value of $el.</p>
+
+
+
+
+
+
+    </dl>
+
+
+
+
+
+    <h2 class="api-title">Events</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">'clear'</code></h4>
+<pre></pre>
+
+    <p>It emits an event when a validation is cleaned.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "clear" event.
+validation.on('clear', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'destroy'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is destroyed.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "destroy" event.
+component.on('destroy', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'disable'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is disable.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "disable" event.
+component.on('disable', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'enable'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is enabled.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "enable" event.
+component.on('enable', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'error'</code></h4>
+<pre></pre>
+
+    <p>It emits an event when a validation hasn't got an error.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "error" event.
+validation.on('error', function (errors) {
+    console.log(errors.length);
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'ready'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component is ready to use.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "ready" event.
+validation.on('ready', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'success'</code></h4>
+<pre></pre>
+
+    <p>It emits an event when a validation hasn't got an error.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "success" event.
+validation.on("submit",function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li><li><a href="../ch.util.mbp/">MBP</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>

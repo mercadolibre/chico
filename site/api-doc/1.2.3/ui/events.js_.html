@@ -1,0 +1,120 @@
+---
+layout: default
+id: api-doc
+title: "Source: shared/scripts/events.js v1.2.3 - Chico UI API Documentation"
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>
+                        Source: shared/scripts/events.js
+                    </h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>    /**
+     * Every time Chico UI needs to inform all visual components that layout has been changed, it emits this event.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     */
+    ch.onlayoutchange = 'layoutchange';
+
+    /**
+     * Equivalent to 'resize'.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     */
+    ch.onresize = 'resize';
+
+    /**
+     * Equivalent to 'scroll'.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     */
+    ch.onscroll = 'scroll';
+
+    /**
+     * Equivalent to 'touchstart' or 'mousedown', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerdown | Pointer Events W3C Working Draft
+     */
+    ch.onpointerdown = (ch.support.touch) ? 'touchstart' : 'mousedown';
+
+    /**
+     * Equivalent to 'touchend' or 'mouseup', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerup | Pointer Events W3C Working Draft
+     */
+    ch.onpointerup = (ch.support.touch) ? 'touchend' : 'mouseup';
+
+    /**
+     * Equivalent to 'touchmove' or 'mousemove', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointermove | Pointer Events W3C Working Draft
+     */
+    ch.onpointermove = (ch.support.touch) ? 'touchmove' : 'mousemove';
+
+    /**
+     * Equivalent to 'touchend' or 'click', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#list-of-pointer-events | Pointer Events W3C Working Draft
+     */
+    ch.onpointertap = (ch.support.touch) ? 'touchend' : 'click';
+
+    /**
+     * Equivalent to 'touchstart' or 'mouseenter', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerenter | Pointer Events W3C Working Draft
+     */
+    ch.onpointerenter = (ch.support.touch) ? 'touchstart' : 'mouseenter';
+
+    /**
+     * Equivalent to 'touchend' or 'mouseleave', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerleave | Pointer Events W3C Working Draft
+     */
+    ch.onpointerleave = (ch.support.touch) ? 'touchend' : 'mouseleave';
+
+    /**
+     * Alphanumeric keys event.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     */
+    ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>

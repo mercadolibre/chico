@@ -1,0 +1,395 @@
+---
+layout: default
+id: api-doc
+title: "ch.Component v2.0.9 - Chico UI API Documentation"
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>
+                        ch.Component
+                    </h1>
+                    
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>Base class for all components.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new Component.
+var component = new ch.Component();
+var component = new ch.Component('.my-component', {'option': 'value'});
+var component = new ch.Component('.my-component');
+var component = new ch.Component({'option': 'value'});
+{% endhighlight %}
+</div>
+
+
+
+    
+
+    
+        <h2 class="api-title">Parameters</h2>
+        
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">el</code>
+             - 
+            
+                
+<em class="param-type">HTMLElement</em>
+            
+            : It must be a HTMLElement.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">options</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Configuration options.
+
+            
+        </li>
+	
+</ul>
+    
+
+
+
+
+   <h2 class="api-title">Extends</h2>
+
+    <ul>
+        <li>tiny.EventEmitter</li>
+    </ul>
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Properties</h2>
+
+    <dl>
+        
+
+<h4>
+    <code class=" language-markup" id="Component#name">.Component#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of a component.</p>
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="uid">.uid</code>
+    
+    
+<em class="param-type">Number</em>
+    
+</h4>
+
+
+<p>A unique id to identify the instance of a component.</p>
+
+
+
+    </dl>
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.destroy<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Destroys an instance of Component and remove its data from asociated element.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Destroy a component
+component.destroy();
+// Empty the component reference
+component = undefined;
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.disable<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Disables an instance of Component.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Disabling an instance of Component.
+component.disable();
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.enable<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Enables an instance of Component.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Enabling an instance of Component.
+component.enable();
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.require<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds functionality or abilities from other classes.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// You can require some abilitiest to use in your component.
+// For example you should require the collpasible abitliy.
+var component = new Component(element, options);
+component.require('Collapsible');
+{% endhighlight %}
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+    <h2 class="api-title">Events</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">'destroy'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is destroyed.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "destroy" event.
+component.on('destroy', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'disable'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is disable.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "disable" event.
+component.on('disable', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'enable'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is enabled.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "enable" event.
+component.on('enable', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'ready'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component is ready to use.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "ready" event.
+component.on('ready', function () {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>

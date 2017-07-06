@@ -1,0 +1,169 @@
+---
+layout: default
+id: api-doc
+title: "Source: mobile/scripts/util.js v1.2.3 - Chico UI API Documentation"
+---
+
+<div class="ml-wrapper">
+    <main role="main">
+        <section>
+            <div class="ml-bounds mesh-row">
+                <div class="mesh-col-12 mesh-col-m-9">
+                    <h1>
+                        Source: mobile/scripts/util.js
+                    </h1>
+                    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>    /**
+     * Fixes the broken iPad/iPhone form label click issue.
+     * @name fixLabels
+     * @memberof ch.util
+     * @see Based on: &lt;a href="http://www.quirksmode.org/dom/getstyles.html" target="_blank">http://www.quirksmode.org/dom/getstyles.html&lt;/a>
+     */
+    ch.util.fixLabels = function () {
+        var labels = document.getElementsByTagName('label'),
+            target_id,
+            el,
+            i = 0;
+
+        function labelTap() {
+            el = document.getElementById(this.getAttribute('for'));
+            if (['radio', 'checkbox'].indexOf(el.getAttribute('type')) !== -1) {
+                el.setAttribute('selected', !el.getAttribute('selected'));
+            } else {
+                el.focus();
+            }
+        }
+
+        for (; labels[i]; i += 1) {
+            if (labels[i].getAttribute('for')) {
+                $(labels[i]).on(ch.onpointertap, labelTap);
+            }
+        }
+    };
+
+    /**
+     * Cancel pointers if the user scroll.
+     * @name cancelPointerOnScroll
+     * @memberof ch.util
+     */
+    ch.util.cancelPointerOnScroll = function () {
+        $document.on('touchmove', function () {
+            ch.pointerCanceled = true;
+
+            $document.one('touchend', function () {
+                ch.pointerCanceled = false;
+            });
+        });
+    };
+
+    /*!
+     * MBP - Mobile boilerplate helper functions
+     * @name MBP
+     * @memberof ch.util
+     * @namespace
+     * @see View on &lt;a href="https://github.com/h5bp/mobile-boilerplate" target="_blank">https://github.com/h5bp/mobile-boilerplate&lt;/a>
+     */
+    ch.util.MBP = {
+
+        // Fix for iPhone viewport scale bug
+        // http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
+        'viewportmeta': $('meta[name=viewport]'),
+
+        'gestureStart': function () {
+            ch.util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+        },
+
+        'scaleFix': function () {
+            if (ch.util.MBP.viewportmeta && /iPhone|iPad|iPod/.test(userAgent) && !/Opera Mini/.test(userAgent)) {
+                ch.util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
+                document.addEventListener('gesturestart', ch.util.MBP.gestureStart, false);
+            }
+        },
+
+        /*
+        * Normalized hide address bar for iOS & Android
+        * (c) Scott Jehl, scottjehl.com
+        * MIT License
+        */
+        // If we cache this we don't need to re-calibrate everytime we call
+        // the hide url bar
+        'BODY_SCROLL_TOP': false,
+
+        // It should be up to the mobile
+        'hideUrlBar': function () {
+            // if there is a hash, or MBP.BODY_SCROLL_TOP hasn't been set yet, wait till that happens
+            if (!window.location.hash && ch.util.MBP.BODY_SCROLL_TOP !== false) {
+                window.scrollTo( 0, ch.util.MBP.BODY_SCROLL_TOP === 1 ? 0 : 1 );
+            }
+        },
+
+        'hideUrlBarOnLoad': function () {
+            // If there's a hash, or addEventListener is undefined, stop here
+            if( !window.location.hash && window.addEventListener ) {
+
+                var scrollTop = ch.util.getScroll().top;
+
+                //scroll to 1
+                window.scrollTo(0, 1);
+                ch.util.MBP.BODY_SCROLL_TOP = 1;
+
+                //reset to 0 on bodyready, if needed
+                var bodycheck = setInterval(function () {
+                    if(body) {
+                        clearInterval(bodycheck);
+                        ch.util.MBP.BODY_SCROLL_TOP = scrollTop;
+                        ch.util.MBP.hideUrlBar();
+                    }
+                }, 15 );
+
+                window.addEventListener('load', function() {
+                    setTimeout(function () {
+                        //at load, if user hasn't scrolled more than 20 or so...
+                        if(scrollTop &lt; 20) {
+                            //reset to hide addr bar at onload
+                            ch.util.MBP.hideUrlBar();
+                        }
+                    }, 0);
+                });
+            }
+        },
+
+        // Prevent iOS from zooming onfocus
+        // https://github.com/h5bp/mobile-boilerplate/pull/108
+        'preventZoom': function () {
+            var formFields = $('input, select, textarea'),
+                contentString = 'width=device-width,initial-scale=1,maximum-scale=',
+                i = 0;
+
+            for (; i &lt; formFields.length; i += 1) {
+
+                formFields[i].onfocus = function() {
+                    ch.util.MBP.viewportmeta.content = contentString + '1';
+                };
+
+                formFields[i].onblur = function () {
+                    ch.util.MBP.viewportmeta.content = contentString + '10';
+                };
+            }
+        }
+    };</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+
+                <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                    <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li><li><a href="../ch.util.mbp/">MBP</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+</div>

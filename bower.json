@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "chico": "chico#2.0.6"
+    "chico": "chico#2.0.9"
   }
 }
