@@ -115,7 +115,8 @@ module.exports = function (grunt) {
                 'options': {
                     'template': './libs/doc-template',
                     'destination': path.join('./site/api-doc', version, 'ui'),
-                    'private': false
+                    'private': false,
+                    'lenient': true
                 }
             },
             mobile: {
@@ -123,7 +124,8 @@ module.exports = function (grunt) {
                 'options': {
                     'template': './libs/doc-template',
                     'destination': path.join('./site/api-doc', version, 'mobile'),
-                    'private': false
+                    'private': false,
+                    'lenient': true
                 }
             }
         },
