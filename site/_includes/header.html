@@ -1,40 +1,66 @@
-<header role="banner" class="ml-header">
+<header class="ml-header" role="banner">
     <div class="ml-header-inner">
-        <a class="ml-logo-mobile" href="{{ site.baseurl }}/"><h1 class="ml-title">Chico UI</h1></a>
-
-        <a class="ml-logo" href="{{ site.baseurl }}/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico Components</span></a>
-
-        <label for="toggle-menu" class="toggle-label"></label>
+        <a class="ml-logo-mobile" href="{{ site.baseurl }}/">
+            <h1 class="ml-title">
+                Chico UI
+            </h1>
+        </a>
+        <a class="ml-logo" href="{{ site.baseurl }}/">
+            <span class="ch-brand-name">
+                Chico UI
+            </span>
+        </a>
+        <label class="toggle-label" for="toggle-menu"></label>
         <input type="checkbox" class="toggle-input" id="toggle-menu">
+
         <nav class="ml-navigation" role="navigation">
             <ul>
-                <li class="ml-navigation-item ml-navigation-account ">
-                   <a class="{% if page.id == 'getting-started' %} active{% endif %}" href="{{ site.baseurl }}/getting-started/">Getting started</a>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="{% if page.id == 'getting-started' %} active{% endif %}"
+                        href="{{ site.baseurl }}/getting-started/">
+                        Getting started
+                    </a>
                 </li>
-                <li class="ml-navigation-item ml-navigation-account ">
-                    <a class="{% if page.id == 'ui-components' %} active{% endif %}" href="{{ site.baseurl }}/ui-components/">UI Components</a>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="{% if page.id == 'layout' %} active{% endif %}"
+                        href="{{ site.baseurl }}/layout/">
+                        Layout
+                    </a>
                 </li>
-                <li class="ml-navigation-item ml-navigation-account ">
-                    <a class="api-doc {% if page.id == 'api-doc' %} active{% endif %}" href="{{ site.baseurl }}/api-doc/current/ui/ch">API Doc</a>
-
-                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
-                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="{% if page.id == 'components' %} active{% endif %}"
+                        href="{{ site.baseurl }}/components/">
+                        Components
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="api-doc {% if page.id == 'api-doc' %} active{% endif %}"
+                        href="{{ site.baseurl }}/api-doc/2.0.6/ui/ch/">
+                        API
+                    </a>
                 </li>
             </ul>
         </nav>
 
-        <div class="ml-navicon action-right">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <div class="ml-navicon action-right"><span></span><span></span><span></span></div>
 
         <nav class="ml-header-menu">
-            <a class="{% if page.id == 'getting-started' %} active{% endif %}" href="{{ site.baseurl }}/getting-started/">Getting started</a>
-            <a class="{% if page.id == 'common-css' %} active{% endif %}" href="{{ site.baseurl }}/common-css/">Common CSS</a>
-            <a class="{% if page.id == 'components' %} active{% endif %}" href="{{ site.baseurl }}/components/">Components</a>
-            <a class="{% if page.id == 'api-doc' %} active{% endif %}" href="{{ site.baseurl }}/api-doc/current/ui/ch.autocomplete">API Doc</a>
+            <a class="{% if page.id == 'getting-started' %} active{% endif %}"
+                href="{{ site.baseurl }}/getting-started/">
+                Getting started
+            </a>
+            <a class="{% if page.id == 'layout' %} active{% endif %}"
+                href="{{ site.baseurl }}/layout/">
+                Layout
+            </a>
+            <a class="{% if page.id == 'components' %} active{% endif %}"
+                href="{{ site.baseurl }}/components/">
+                Components
+            </a>
+            <a class="{% if page.id == 'api-doc' %} active{% endif %}"
+                href="{{ site.baseurl }}/api-doc/2.0.6/ui/ch/">
+                API
+            </a>
         </nav>
     </div>
 </header>
-
