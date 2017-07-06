@@ -88,13 +88,9 @@ header .ml-logo-mobile {
 }
 
 .chico-bottom .brand-ml {
-    margin: -12px 0 60px 0;
-}
-
-.chico-bottom .brand-ml {
     max-width: 100%;
     max-height: 100%;
-    margin: 0 0 50px 0;
+    margin: 0;
 }
 
 @media only screen and (max-width: 768px) {

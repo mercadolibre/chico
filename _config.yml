@@ -3,8 +3,6 @@ title: Chico UI
 email: chico@mercadolibre.com
 description: "A collection of easy-to-use UI components"
 baseurl: ""
-twitter_username: chicoui
-github_username:  chicoui
 
 # Build settings
 markdown: kramdown
