@@ -16,25 +16,25 @@ destination: _site/
 encoding: utf-8
 
 exclude:
-  - assets
-  - css
-  - js
-
-include:
-  - .nojekyll
-
-keep_files:
-  - "assets/assets"
-
-gems:
-  - jekyll-assets
-
-assets:
-  gzip: false
-  sources:
-    - ../bower_components/chico/dist
     - assets
     - css
     - js
+
+include:
+    - .nojekyll
+
+keep_files:
+    - "assets/assets"
+
+gems:
+    - jekyll-assets
+
+assets:
+    gzip: false
+    sources:
+        - ../bower_components/chico/dist
+        - assets
+        - css
+        - js
 
 #  prefix: "/assets"
