@@ -1,0 +1,30 @@
+---
+layout: showcase
+id: layout
+version: 1x_ui
+---
+
+<main role="main" class="chico-showcase">
+    {% include layout-header.html %}
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 ui-components">
+                {% include components/overview.html %}
+                {% include components/headings.html %}
+                {% include components/paragraphs.html %}
+                {% include components/links.html %}
+                {% include components/lists.html %}
+                {% include components/buttons.html %}
+                {% include components/boxes.html %}
+                {% include components/icons.html %}
+                {% include components/badges.html %}
+                {% include components/pagination.html %}
+                {% include components/tables.html %}
+                {% include components/loadings.html %}
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                {% include nav-common-css.html %}
+            </nav>
+        </div>
+    </section>
+</main>

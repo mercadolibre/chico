@@ -1,3 +1,26 @@
+{% case page.version %}
+    {% when "1x_mobile" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+        {% assign chico_current_path_base = site.chico_path_1x_mobile %}
+        {% assign chico_current_path_api_doc = site.chico_path_api_doc_1x_mobile %}
+    {% when "1x_ui" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+        {% assign chico_current_path_base = site.chico_path_1x_ui %}
+        {% assign chico_current_path_api_doc = site.chico_path_api_doc_1x_ui %}
+    {% when "2x_mobile" %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+        {% assign chico_current_path_base = site.chico_path_2x_mobile %}
+        {% assign chico_current_path_api_doc = site.chico_path_api_doc_2x_mobile %}
+    {% else %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+        {% assign chico_current_path_base = site.chico_path_2x_ui %}
+        {% assign chico_current_path_api_doc = site.chico_path_api_doc_2x_ui %}
+{% endcase %}
+
 <meta charset="utf-8" />
 <title>
     {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
@@ -14,18 +37,18 @@
 <![endif]-->
 
 <link href="https://ui.mlstatic.com/webfonts/v3.0.0/lato/300-400-700.css" rel="stylesheet" />
-
-{% stylesheet ui/chico %}
-
-{% stylesheet mesh.min %}
-{% stylesheet base__small %}
-{% stylesheet base__large media='(min-width: 768px)' %}
-{% stylesheet chico__small %}
-{% stylesheet chico__large media='(min-width: 768px)' %}
-{% stylesheet ui-slug_element_component %}
+<link href="https://ui.mlstatic.com/chico/mesh/4.2.2/mesh.min.css" rel="stylesheet" />
 
 {% stylesheet ml-header %}
+
+{% stylesheet base__small %}
+{% stylesheet base__large media="(min-width: 768px)" %}
+{% stylesheet chico__small %}
+{% stylesheet chico__large media="(min-width: 768px)" %}
+{% stylesheet ui-slug_element_component %}
+
 {% stylesheet gh-pages %}
+
 {% stylesheet highlighter %}
 
 <!--[if lt IE 9]>

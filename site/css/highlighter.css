@@ -1,6 +1,7 @@
 /*
  * Highlighter common styles
  */
+
 .highlight code,
 .highlight pre {
     color: black;
@@ -11,16 +12,15 @@
     white-space: pre;
     word-spacing: normal;
     word-break: normal;
-
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
-
     -webkit-hyphens: none;
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
 }
+
 .highlight pre {
     border: 1px solid #dedede;
     border-radius: 4px;
@@ -33,6 +33,7 @@
 /*
  * Highlighter theme
  */
+
 /* Github theme from https://github.com/richleland/pygments-css */
 .hll { background-color: #ffffcc }
 .c { color: #999988; font-style: italic } /* Comment */

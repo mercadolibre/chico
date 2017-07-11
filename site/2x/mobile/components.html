@@ -1,0 +1,35 @@
+---
+layout: showcase
+id: components
+version: 2x_mobile
+---
+
+<main role="main" class="chico-showcase">
+    {% include components-header.html %}
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 ui-components">
+                {% include components/autocomplete.html %}
+                {% include components/expandable.html %}
+                {% include components/menu.html %}
+                {% include components/dropdown.html %}
+                {% include components/tooltip.html %}
+                {% include components/layer.html %}
+                {% include components/bubble.html %}
+                {% include components/modal.html %}
+                {% include components/transition.html %}
+                {% include components/zoom.html %}
+                {% include components/carousel.html %}
+                {% include components/tabs.html %}
+                {% include components/calendar.html %}
+                {% include components/datepicker.html %}
+                {% include components/countdown.html %}
+                {% include components/forms.html %}
+                {% include components/wizard.html %}
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                {% include nav-components.html %}
+            </nav>
+        </div>
+    </section>
+</main>

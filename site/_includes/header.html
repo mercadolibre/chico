@@ -17,25 +17,25 @@
             <ul>
                 <li class="ml-navigation-item ml-navigation-account">
                     <a class="{% if page.id == 'getting-started' %} active{% endif %}"
-                        href="{{ site.baseurl }}/getting-started/">
+                        href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_getting_started }}">
                         Getting started
                     </a>
                 </li>
                 <li class="ml-navigation-item ml-navigation-account">
                     <a class="{% if page.id == 'layout' %} active{% endif %}"
-                        href="{{ site.baseurl }}/layout/">
+                        href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_layout }}">
                         Layout
                     </a>
                 </li>
                 <li class="ml-navigation-item ml-navigation-account">
                     <a class="{% if page.id == 'components' %} active{% endif %}"
-                        href="{{ site.baseurl }}/components/">
+                        href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_components }}">
                         Components
                     </a>
                 </li>
                 <li class="ml-navigation-item ml-navigation-account">
                     <a class="api-doc {% if page.id == 'api-doc' %} active{% endif %}"
-                        href="{{ site.baseurl }}/api-doc/2.0.9/ui/ch/">
+                        href="{{ site.baseurl }}/{{ chico_current_path_api_doc }}">
                         API
                     </a>
                 </li>
@@ -46,19 +46,19 @@
 
         <nav class="ml-header-menu">
             <a class="{% if page.id == 'getting-started' %} active{% endif %}"
-                href="{{ site.baseurl }}/getting-started/">
+                href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_getting_started }}">
                 Getting started
             </a>
             <a class="{% if page.id == 'layout' %} active{% endif %}"
-                href="{{ site.baseurl }}/layout/">
+                href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_layout }}">
                 Layout
             </a>
             <a class="{% if page.id == 'components' %} active{% endif %}"
-                href="{{ site.baseurl }}/components/">
+                href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_components }}">
                 Components
             </a>
             <a class="{% if page.id == 'api-doc' %} active{% endif %}"
-                href="{{ site.baseurl }}/api-doc/2.0.9/ui/ch/">
+                href="{{ site.baseurl }}/{{ chico_current_path_api_doc }}">
                 API
             </a>
         </nav>

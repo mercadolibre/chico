@@ -1,59 +1,31 @@
 /**
  * MercadoLibre Chico
- * @description:
  */
 
 /* Chico
 ---------------------------------------------------------------*/
 
-body {
-    font-family: 'Lato';
-    font-weight: 300;
-}
-
 .ml-wrapper {
     padding-bottom: 0;
 }
 
+.chico-head {
+    padding: 60px 0;
+    margin-bottom: 40px;
+}
+
 .chico-head h1 {
-    font-size: 3.1em;
-    line-height: 1em;
-    margin: 10px 0;
+    margin: 0 0 18px;
+    font-size: 40px;
+    line-height: 1.15;
     font-weight: 700;
 }
 
-h2 {
-    font-size: 2.6em;
-    line-height: 2em;
-    font-weight: lighter;
-    letter-spacing: 0.03em;
-    margin: 30px 0 15px 0;
-}
-
-h3 {
-    font-size: 1.5em;
-    line-height: 1.5em;
-}
-
-h4 {
-    font-size: 1.2em;
-    line-height: 1.2em;
-    margin: 20px 0;
-}
-
-p {
-    font-family: Helvetica, Arial,sans-serif;
-    font-size: 1.1em;
-    font-weight: lighter;
-    line-height: 22px;
-}
-
-section {
-    padding: 40px 0 70px;
-}
-
-article {
-    padding-bottom: 40px;
+.chico-head h3 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.15;
+    font-weight: 400;
 }
 
 pre.language-javascript {
@@ -61,7 +33,7 @@ pre.language-javascript {
     padding: 9.5px;
     margin: 20px 0;
     font-size: 13px;
-    line-height: 1.42857143;
+    line-height: 1.42;
     word-break: break-all;
     word-wrap: break-word;
     color: #333333;
@@ -75,9 +47,19 @@ pre.language-javascript {
 }
 
 .chico-title-section {
-    margin: 0;
+    width: 275px;
+    margin: 0 auto;
     text-align: center;
     font-size: 14px;
+    font-weight: 300;
+}
+
+.chico-title-section a,
+.chico-title-section a:link,
+.chico-title-section a:visited,
+.chico-title-section a:hover {
+    color: #333;
+    text-decoration: none;
 }
 
 .chico-title-section-tagline {
@@ -86,12 +68,20 @@ pre.language-javascript {
 }
 
 .chico-hero {
-    padding: 60px 0 15px 0;
+    padding: 60px 0;
     text-align: center;
 }
 
 .chico-hero h1 {
-    font-size: 3.1em;
+    margin: 5px 0 10px;
+    font-size: 40px;
+    line-height: 1.15;
+}
+
+.chico-hero h3 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.15;
 }
 
 .chico-hero figure {
@@ -110,14 +100,29 @@ pre.language-javascript {
 }
 
 .chico-features {
-    padding-top: 0;
+    padding: 40px 0;
     text-align: center;
 }
 
+.chico-features h2 {
+    margin: 0 0 15px;
+    font-size: 34px;
+    font-weight: 100;
+    line-height: 1.15;
+}
+
+.chico-features h3 {
+    margin: 10px 0 5px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.chico-features p {
+    font-size: 14px;
+}
+
 .chico-box-circle {
-    background: #CCC;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
+    background: #ccc;
     border-radius: 50%;
     display: block;
     margin: 0 auto 10px;
@@ -137,31 +142,8 @@ pre.language-javascript {
     display: none;
 }
 
-/* Header
----------------------------------------------------------------*/
-
-.ml-header-menu > a {
-    border: none;
-}
-
-/* Footer
----------------------------------------------------------------*/
-
-.ml-footer a {
-    border-left: solid 1px #CCC;
-    margin-left: 5px;
-}
-
-.ml-footer nav {
-    display: inline-block;
-}
-
-.ml-footer nav,
-.ml-footer nav a {
-    padding: 0 .8em;
-}
-
-.ml-bounds small a {
-    border-left: none;
-    margin-left: 0;
+.chico-getting-started,
+.chico-showcase,
+.chico-api-doc {
+    padding-bottom: 60px;
 }
