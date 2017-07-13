@@ -5,7 +5,7 @@ baseurl: ""
 
 # Chico & Paths
 chico_version_1x: "1.2.3"
-chico_version_2x: "2.0.9"
+chico_version_2x: "2.0.11"
 
 chico_short_version_1x: "1x"
 chico_short_version_2x: "1x"
@@ -34,8 +34,8 @@ chico_path_components: "components/"
 
 chico_path_api_doc_1x_mobile: "api-doc/1.2.3/mobile/ch/"
 chico_path_api_doc_1x_ui: "api-doc/1.2.3/ui/ch/"
-chico_path_api_doc_2x_mobile: "api-doc/2.0.9/mobile/ch/"
-chico_path_api_doc_2x_ui: "api-doc/2.0.9/ui/ch/"
+chico_path_api_doc_2x_mobile: "api-doc/2.0.11/mobile/ch/"
+chico_path_api_doc_2x_ui: "api-doc/2.0.11/ui/ch/"
 
 chico_repo: "https://github.com/mercadolibre/chico/"
 chico_repo_releases: "https://github.com/mercadolibre/chico/releases"
