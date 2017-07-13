@@ -101,10 +101,6 @@ header .ml-logo-mobile:visited {
     padding-top: 90px;
 }
 
-.ml-bounds dl h4 {
-    margin: 40px 0 10px 0;
-}
-
 .language-markup code {
     position: relative;
     left: -180px;
@@ -122,7 +118,7 @@ header .ml-logo-mobile:visited {
     margin: 20px 0 0;
     border: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
-    padding: 12px;
+    padding: 14px;
     position: relative;
     font-family: Arial, Helvetica, 'Nimbus Sans L', sans-serif; /* 1 */
 }
@@ -158,13 +154,13 @@ header .ml-logo-mobile:visited {
 }
 
 .component-example + .highlight,
-.ui-components .highlight + .highlight {
+.chico-showcase .highlight + .highlight {
     margin-top: -9px;
 }
 
 .component-example + .highlight > pre,
 .component-example + .highlight > code,
-.ui-components .highlight + .highlight > pre {
+.chico-showcase .highlight + .highlight > pre {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }

@@ -147,3 +147,70 @@ pre.language-javascript {
 .chico-api-doc {
     padding-bottom: 60px;
 }
+
+.chico-content > h1 {
+    margin: 0 0 15px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.chico-content > h2,
+.chico-content article > h2 {
+    margin: 0 0 15px;
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1.15;
+}
+
+.chico-content > h2 ~ h2 {
+    margin-top: 30px;
+}
+
+.chico-content article ~ article > h2 {
+    margin-top: 60px;
+}
+
+.chico-content > h3,
+.chico-content article > h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.chico-content article ~ article > h3 {
+    margin-top: 25px;
+}
+
+.chico-content dl > h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.chico-content dl > h4 ~ h4 {
+    margin-top: 25px;
+}
+
+.chico-content > p,
+.chico-content article > p,
+.chico-content dl > p {
+    font-size: 14px;
+}
+
+.chico-versions-list {
+    margin: 14px 0 14px 4px;
+    list-style: disc inside;
+    font-size: 14px;
+}
+
+.chico-versions-list ul {
+    margin: 4px 0 14px 20px;
+    list-style: circle inside;
+}
+
+.chico-versions-list a:visited {
+    color: #03b;
+}

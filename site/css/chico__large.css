@@ -24,6 +24,17 @@
     right: 63px;
 }
 
+.chico-nav > h2 {
+    margin: 0 0 15px;
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1.15;
+}
+
+.chico-nav > h2 ~ h2 {
+    margin-top: 30px;
+}
+
 .chico-nav > ul {
     border-left: solid 1px #ccc;
     padding-left: 20px;
