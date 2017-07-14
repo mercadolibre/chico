@@ -145,7 +145,7 @@ header .ml-logo-mobile:visited {
     display: block;
     position: absolute;
     padding: 0 4px;
-    content: "Example";
+    content: 'Example';
     top: -12px;
     left: 8px;
     font-weight: bold;
@@ -153,14 +153,17 @@ header .ml-logo-mobile:visited {
     background-color: #fff;
 }
 
-.component-example + .highlight,
-.chico-showcase .highlight + .highlight {
+.component-example + .highlight {
     margin-top: -9px;
+}
+
+.highlight + .highlight {
+    margin-top: -11px;
 }
 
 .component-example + .highlight > pre,
 .component-example + .highlight > code,
-.chico-showcase .highlight + .highlight > pre {
+.highlight + .highlight > pre {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
