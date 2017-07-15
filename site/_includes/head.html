@@ -3,22 +3,22 @@
         {% assign chico_current_version = site.chico_version_1x %}
         {% assign chico_current_platform = site.chico_platform_mobile %}
         {% assign chico_current_path_base = site.chico_path_1x_mobile %}
-        {% assign chico_current_path_api_doc = site.chico_path_api_doc_1x_mobile %}
+        {% assign chico_current_dependency_link = site.chico_dependency_1x_mobile_link %}
     {% when "1x_ui" %}
         {% assign chico_current_version = site.chico_version_1x %}
         {% assign chico_current_platform = site.chico_platform_ui %}
         {% assign chico_current_path_base = site.chico_path_1x_ui %}
-        {% assign chico_current_path_api_doc = site.chico_path_api_doc_1x_ui %}
+        {% assign chico_current_dependency_link = site.chico_dependency_1x_ui_link %}
     {% when "2x_mobile" %}
         {% assign chico_current_version = site.chico_version_2x %}
         {% assign chico_current_platform = site.chico_platform_mobile %}
         {% assign chico_current_path_base = site.chico_path_2x_mobile %}
-        {% assign chico_current_path_api_doc = site.chico_path_api_doc_2x_mobile %}
+        {% assign chico_current_dependency_link = site.chico_dependency_2x_mobile_link %}
     {% else %}
         {% assign chico_current_version = site.chico_version_2x %}
         {% assign chico_current_platform = site.chico_platform_ui %}
         {% assign chico_current_path_base = site.chico_path_2x_ui %}
-        {% assign chico_current_path_api_doc = site.chico_path_api_doc_2x_ui %}
+        {% assign chico_current_dependency_link = site.chico_dependency_2x_ui_link %}
 {% endcase %}
 
 <meta charset="utf-8" />

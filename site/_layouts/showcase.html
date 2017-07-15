@@ -19,17 +19,7 @@
 
     {% include analytics.html %}
 
-    {% case page.version %}
-        {% when '1x_mobile' %}
-            <!-- 1x_mobile -->
-        {% when '1x_ui' %}
-            <!-- 1x_ui -->
-        {% when '2x_mobile' %}
-            <script src="https://ui.mlstatic.com/chico/tiny/0.2.4/tiny.min.js"></script>
-        {% else %}
-            <script src="https://ui.mlstatic.com/chico/tiny/0.2.4/tiny.min.js"></script>
-    {% endcase %}
-
+    <script src="{{ chico_current_dependency_link }}"></script>
     <script src="https://ui.mlstatic.com/chico/{{ chico_current_version }}/{{ chico_current_platform }}/chico.min.js"></script>
 </body>
 </html>

@@ -35,7 +35,7 @@
                 </li>
                 <li class="ml-navigation-item ml-navigation-account">
                     <a class="api-doc {% if page.id == 'api-doc' %} active{% endif %}"
-                        href="{{ site.baseurl }}/{{ chico_current_path_api_doc }}">
+                        href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/{{ site.chico_path_api_doc_namespace }}">
                         API
                     </a>
                 </li>
@@ -58,7 +58,7 @@
                 Components
             </a>
             <a class="{% if page.id == 'api-doc' %} active{% endif %}"
-                href="{{ site.baseurl }}/{{ chico_current_path_api_doc }}">
+                href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/{{ site.chico_path_api_doc_namespace }}">
                 API
             </a>
         </nav>
