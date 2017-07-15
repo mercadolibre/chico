@@ -14,8 +14,16 @@
     margin-bottom: 40px;
 }
 
+.chico-head span {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.15;
+    color: #999;
+}
+
 .chico-head h1 {
-    margin: 0 0 18px;
+    margin: 0 0 10px;
     font-size: 40px;
     line-height: 1.15;
     font-weight: 700;
