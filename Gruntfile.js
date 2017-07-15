@@ -18,7 +18,6 @@ module.exports = function (grunt) {
         throw new Error('Provided version is invalid');
     }
 
-
     // Project configuration.
     grunt.initConfig({
         'pkg': grunt.file.readJSON('package.json'),
@@ -190,7 +189,6 @@ module.exports = function (grunt) {
                 jsFiles.push(abspath);
             }
         });
-        //console.log(jsFiles);
 
         return jsFiles;
     }
