@@ -32,3 +32,20 @@
     ```sh
     grunt dev
     ```
+
+### API documentation
+
+In `bower.json` file on the `chico` dependency, indicate the version for which
+you want to generate the documentation.
+
+- Install it using Bower:
+
+    ```sh
+    bower install
+    ```
+
+- Run locally:
+
+    ```sh
+    grunt apidoc
+    ```
