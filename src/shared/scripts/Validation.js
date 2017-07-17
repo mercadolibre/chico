@@ -331,7 +331,7 @@
          * @event ch.Validation#success
          * @example
          * // Subscribe to "success" event.
-         * validation.on("submit",function () {
+         * validation.on("success",function () {
          *     // Some code here!
          * });
          */

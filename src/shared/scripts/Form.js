@@ -249,12 +249,12 @@
              * @event ch.Form#success
              * @example
              * // Subscribe to "success" event.
-             * form.on("submit",function () {
+             * form.on("success",function () {
              *     // Some code here!
              * });
              * @example
              * // Subscribe to "success" event and prevent the submit event.
-             * form.on("submit",function (event) {
+             * form.on("success",function (event) {
              *     event.preventDefault();
              *     // Some code here!
              * });
