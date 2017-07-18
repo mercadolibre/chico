@@ -179,12 +179,12 @@ header .ml-logo-mobile:visited {
     line-height: 2em;
 }
 
-.icons-showcase li > i:before {
+.icons-showcase li > [class*=ch-icon-]:before {
     -webkit-transition: -webkit-transform .2s ease-out;
     transition: transform .2s ease-out;
 }
 
-.icons-showcase li:hover > i:before {
+.icons-showcase li:hover > [class*=ch-icon-]:before {
     -webkit-transform: scale(2.2);
     transform: scale(2.2);
 }
