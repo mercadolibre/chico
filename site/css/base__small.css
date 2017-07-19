@@ -11,19 +11,21 @@ html body {
     margin: 0;
 }
 
-/*
-a.ch-btn,
-a.ch-btn:focus,
-a.ch-btn:visited {
-   color: #fff;
+/**
+ * 1. Temporarily fix bug from Chico Mobile v1.2.3/v2.0.11.
+ */
+
+.chico-platform-mobile .ch-form legend {
+    padding: 0 0 8px; /* 1 */
 }
 
-a.ch-btn-skin,
-a.ch-btn-skin:focus,
-a.ch-btn-skin:visited {
-    color: #476274;
+/**
+ * 1. Temporarily fix bug from Chico Mobile v1.2.3/v2.0.11.
+ */
+
+.chico-platform-mobile .ch-form-options .ch-form-subtitle {
+    margin: 10px 0; /* 1 */
 }
-*/
 
 /* Bounds
 ---------------------------------------------------------------*/
