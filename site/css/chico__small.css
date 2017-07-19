@@ -187,7 +187,8 @@ pre.language-javascript {
     line-height: 1.15;
 }
 
-.chico-content article ~ article > h3 {
+.chico-content article ~ article > h3:first-child,
+.chico-content article > h3 ~ h3 {
     margin-top: 25px;
 }
 
