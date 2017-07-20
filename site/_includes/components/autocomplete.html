@@ -1,31 +1,31 @@
 <article id="autocomplete">
-    <h2>Autocomplete</h2>
-
-    <!-- Component example -->
+    <h2>
+        Autocomplete
+    </h2>
     <div class="component-example">
-        <form method="get" action="http://www.mercadolibre.com.ar/jm/search" class="ch-form">
+        <form class="ch-form" method="get" action="http://www.mercadolibre.com.ar/jm/search">
             <div class="ch-form-row">
-                <label for="product">Find a product:</label>
-                <input type="text" name="as_word" id="product" class="autocomplete" placeholder="iphone 5" />
-                <p class="ch-form-hint">This is working with the MercadoLibre API</p>
+                <label for="dm_ac">Autocomplete:</label>
+                <input id="dm_ac" name="as_word" type="text" placeholder="iPhone" />
+                <p class="ch-form-hint">This is working with the Mercado Libre API</p>
             </div>
-            <p class="ch-form-actions">
-                <input type="submit" name="autocompleteSubmit" class="ch-btn">
-            </p>
+
+            <div class="ch-form-actions">
+                <input class="ch-btn" id="dm_ac_sbt" name="dm_ac_sbt" type="submit" />
+            </div>
         </form>
     </div>
 {% highlight html %}
-<form method="get" action="http://www.mercadolibre.com.ar/jm/search" class="ch-form">
-    <input type="text" name="as_word" class="autocomplete" />
-    <input type="submit" name="autocompleteSubmit" class="ch-btn">
+<form class="ch-form" method="get" action="http://www.mercadolibre.com.ar/jm/search">
+    <input id="dm_ac" name="dm_ac" type="text" placeholder="iPhone" />
+    <input class="ch-btn" id="dm_ac_sbt" name="dm_ac_sbt" type="submit" />
 </form>
 {% endhighlight %}
-
 {% highlight javascript %}
-var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
+var autocomplete = new ch.Autocomplete(document.querySelector('#dm_ac'))
     .on('type', function (userInput) {
         tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
-            name: 'autocompleteSuggestion',
+            name: 'dm_ac_sbt',
             success: parseResults,
             error: function(err) {
                 autocomplete.suggest([]);
@@ -33,7 +33,6 @@ var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
         });
     });
 {% endhighlight %}
-
     <script>
         document.addEventListener('DOMContentLoaded', function(e) {
             function parseResults(results) {
@@ -47,7 +46,7 @@ var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
                 }
             }
             var cancelRequest;
-            var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
+            var autocomplete = new ch.Autocomplete(document.querySelector('#dm_ac'))
                 .on('type', function (userInput) {
                     // Cancel the jsonp request if any
                     if (cancelRequest) {
@@ -58,9 +57,9 @@ var autocomplete = new ch.Autocomplete(document.querySelector('.autocomplete'))
                         return autocomplete.suggest([]);
                     }
                     cancelRequest = tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
-                        name: 'autocompleteSuggestion',
+                        name: 'dm_ac_sbt',
                         success: parseResults,
-                        error: function(err) {
+                        error: function (err) {
                             autocomplete.suggest([]);
                         }
                     });
