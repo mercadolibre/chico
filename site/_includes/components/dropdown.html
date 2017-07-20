@@ -1,17 +1,16 @@
 <article id="dropdown">
-    <h2>Dropdown</h2>
-
-    <!-- Component example -->
+    <h2>
+        Dropdown
+    </h2>
     <div class="component-example">
-        <h3 class="demo-dropdown1">Default</h3>
-        <menu label="Links" class="ch-hide">
-            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        <h3 id="dm_dp_df">Dropdown</h3>
+        <menu class="ch-hide" label="Links">
+            <li><a href="http://www.mercadolibre.com">Mercado Libre</a></li>
+            <li><a href="http://www.mercadopago.com">Mercado Pago</a></li>
+            <li><a href="http://www.mercadoshops.com">Mercado Shops</a></li>
         </menu>
 
-        <span class="ch-icon-heart demo-dropdown2"></span>
+        <span class="ch-icon-th" id="dm_dp_ns"></span>
         <ul class="ch-hide">
             <li>
                 {% image ninja.png width='50' %}
@@ -30,53 +29,59 @@
             </li>
         </ul>
 
-        <p class="demo-dropdown3">With skin</p>
-        <menu label="Links" class="ch-hide">
-            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        <p id="dm_dp_skn">Dropdown</p>
+        <menu class="ch-hide" label="Links">
+            <li><a href="http://www.mercadolibre.com">Mercado Libre</a></li>
+            <li><a href="http://www.mercadopago.com">Mercado Pago</a></li>
+            <li><a href="http://www.mercadoshops.com">Mercado Shops</a></li>
         </menu>
     </div>
 {% highlight html %}
-<h3 class="demo-dropdown1">Default</h3>
-<menu label="Links" class="ch-hide">
-    <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-    ...
+<h3 id="dm_dp_df">Dropdown</h3>
+<menu class="ch-hide" label="Links">
+    <li><a href="http://www.mercadolibre.com">Mercado Libre</a></li>
+    <!-- [...] -->
 </menu>
 
-<span class="ch-icon-heart demo-dropdown2"></span>
+<span class="ch-icon-th" id="dm_dp_ns"></span>
 <ul class="ch-hide">
     <li>
-        <img src="..." />
-        ...
+        <img src="picture.png" />
+        <!-- [...] -->
     </li>
-    ...
+    <!-- [...] -->
 </ul>
 
-<p class="demo-dropdown3">With skin</p>
-<menu label="Links" class="ch-hide">
-    <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-    ...
+<p id="dm_dp_skn">Dropdown</p>
+<menu class="ch-hide" label="Links">
+    <li><a href="http://www.mercadolibre.com">Mercado Libre</a></li>
+    <!-- [...] -->
 </menu>
-
 {% endhighlight %}
 {% highlight javascript %}
-var dropdown1 = new ch.Dropdown(document.querySelector('.demo-dropdown1'));
-var dropdown2 = new ch.Dropdown(document.querySelector('.demo-dropdown2'), {
+var dropdownDefault = new ch.Dropdown(document.querySelector('#dm_dp_df'));
+
+var dropdownNoShortcuts = new ch.Dropdown(document.querySelector('#dm_dp_ns'), {
     'shortcuts': false,
     'skin': true
 });
-var dropdown3 = new ch.Dropdown(document.querySelector('.demo-dropdown3'), {
+
+var dropdownSkin = new ch.Dropdown(document.querySelector('#dm_dp_skn'), {
     'skin': true
 });
 {% endhighlight %}
-
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var dropdown1 = new ch.Dropdown(document.querySelector('.demo-dropdown1'));
-            var dropdown2 = new ch.Dropdown(document.querySelector('.demo-dropdown2'), {'shortcuts': false, 'skin': true});
-            var dropdown3 = new ch.Dropdown(document.querySelector('.demo-dropdown3'), {'skin': true});
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var dropdownDefault = new ch.Dropdown(document.querySelector('#dm_dp_df'));
+
+            var dropdownNoShortcuts = new ch.Dropdown(document.querySelector('#dm_dp_ns'), {
+                'shortcuts': false,
+                'skin': true
+            });
+
+            var dropdownSkin = new ch.Dropdown(document.querySelector('#dm_dp_skn'), {
+                'skin': true
+            });
         });
     </script>
 </article>
