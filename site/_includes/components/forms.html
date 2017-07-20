@@ -427,40 +427,50 @@
             <fieldset>
                 <legend>Checkbox</legend>
 
+                <h4 class="ch-form-subtitle">Checkbox:</h4>
                 <div class="ch-form-options">
-                    <h4 class="ch-form-subtitle">Checkbox:</h4>
                     <div class="ch-form-row">
                         <input id="cb" name="cb" type="checkbox" value="1" />
                         <label for="cb">Option</label>
                     </div>
                 </div>
 
+                <h4 class="ch-form-subtitle">Checkbox required: <em>*</em></h4>
                 <div class="ch-form-options ch-form-required">
-                    <h4 class="ch-form-subtitle">Checkbox required: <em>*</em></h4>
                     <div class="ch-form-row">
                         <input id="cb_rqd" name="cb_rqd" type="checkbox" value="1" required />
                         <label for="cb_rqd">Option</label>
                     </div>
                 </div>
 
+                <h4 class="ch-form-subtitle">Checkbox disabled:</h4>
                 <div class="ch-form-options ch-form-disabled">
-                    <h4 class="ch-form-subtitle">Checkbox disabled:</h4>
                     <div class="ch-form-row">
                         <input id="cb_dis" name="cb_dis" type="checkbox" value="1" disabled />
                         <label for="cb_dis">Option</label>
                     </div>
                 </div>
 
+                <h4 class="ch-form-subtitle">Checkbox required and disabled: <em>*</em></h4>
                 <div class="ch-form-options ch-form-required ch-form-disabled">
-                    <h4 class="ch-form-subtitle">Checkbox required and disabled: <em>*</em></h4>
                     <div class="ch-form-row">
                         <input id="cb_rqd_dis" name="cb_rqd_dis" type="checkbox" value="1" required disabled />
                         <label for="cb_rqd_dis">Option</label>
                     </div>
                 </div>
 
+                {% if chico_current_platform == site.chico_platform_mobile %}
+                <h4 class="ch-form-subtitle">Checkbox inside list box:</h4>
+                <div class="ch-form-options ch-box-list">
+                    <div class="ch-form-row">
+                        <input id="cb_bl" name="cb_bl" type="checkbox" value="1" />
+                        <label for="cb_bl">Option</label>
+                    </div>
+                </div>
+                {% endif %}
+
+                <h4 class="ch-form-subtitle">Checkbox group:</h4>
                 <div class="ch-form-options">
-                    <h4 class="ch-form-subtitle">Checkbox group:</h4>
                     <ul>
                         <li class="ch-form-row">
                             <input id="cb_grp_1" name="cb_grp" type="checkbox" value="1" />
@@ -473,8 +483,8 @@
                     </ul>
                 </div>
 
+                <h4 class="ch-form-subtitle">Checkbox group disabled:</h4>
                 <div class="ch-form-options ch-form-disabled">
-                    <h4 class="ch-form-subtitle">Checkbox group disabled:</h4>
                     <ul>
                         <li class="ch-form-row">
                             <input id="cb_grp_dis_1" name="cb_grp_dis" type="checkbox" value="1" disabled />
@@ -486,6 +496,22 @@
                         </li>
                     </ul>
                 </div>
+
+                {% if chico_current_platform == site.chico_platform_mobile %}
+                <h4 class="ch-form-subtitle">Checkbox group inside list box:</h4>
+                <div class="ch-form-options ch-box-list">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input id="cb_bl_grp_1" name="cb_bl_grp" type="checkbox" value="1" />
+                            <label for="cb_bl_grp_1">Option 1</label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input id="cb_bl_grp_2" name="cb_bl_grp" type="checkbox" value="2" />
+                            <label for="cb_bl_grp_2">Option 2</label>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
             </fieldset>
 
             <div class="ch-form-actions">
@@ -499,40 +525,48 @@
     <fieldset>
         <legend>Checkbox</legend>
 
+        <h4 class="ch-form-subtitle">Checkbox:</h4>
         <div class="ch-form-options">
-            <h4 class="ch-form-subtitle">Checkbox:</h4>
             <div class="ch-form-row">
                 <input id="cb" name="cb" type="checkbox" value="1" />
                 <label for="cb">Option</label>
             </div>
         </div>
 
+        <h4 class="ch-form-subtitle">Checkbox required: <em>*</em></h4>
         <div class="ch-form-options ch-form-required">
-            <h4 class="ch-form-subtitle">Checkbox required: <em>*</em></h4>
             <div class="ch-form-row">
                 <input id="cb_rqd" name="cb_rqd" type="checkbox" value="1" required />
                 <label for="cb_rqd">Option</label>
             </div>
         </div>
 
+        <h4 class="ch-form-subtitle">Checkbox disabled:</h4>
         <div class="ch-form-options ch-form-disabled">
-            <h4 class="ch-form-subtitle">Checkbox disabled:</h4>
             <div class="ch-form-row">
                 <input id="cb_dis" name="cb_dis" type="checkbox" value="1" disabled />
                 <label for="cb_dis">Option</label>
             </div>
         </div>
 
+        <h4 class="ch-form-subtitle">Checkbox required and disabled: <em>*</em></h4>
         <div class="ch-form-options ch-form-required ch-form-disabled">
-            <h4 class="ch-form-subtitle">Checkbox required and disabled: <em>*</em></h4>
             <div class="ch-form-row">
                 <input id="cb_rqd_dis" name="cb_rqd_dis" type="checkbox" value="1" required disabled />
                 <label for="cb_rqd_dis">Option</label>
             </div>
         </div>
-
+        {% if chico_current_platform == site.chico_platform_mobile %}
+        <h4 class="ch-form-subtitle">Checkbox inside list box:</h4>
+        <div class="ch-form-options ch-box-list">
+            <div class="ch-form-row">
+                <input id="cb_bl" name="cb_bl" type="checkbox" value="1" />
+                <label for="cb_bl">Option</label>
+            </div>
+        </div>
+        {% endif %}
+        <h4 class="ch-form-subtitle">Checkbox group:</h4>
         <div class="ch-form-options">
-            <h4 class="ch-form-subtitle">Checkbox group:</h4>
             <ul>
                 <li class="ch-form-row">
                     <input id="cb_grp_1" name="cb_grp" type="checkbox" value="1" />
@@ -545,8 +579,8 @@
             </ul>
         </div>
 
+        <h4 class="ch-form-subtitle">Checkbox group disabled:</h4>
         <div class="ch-form-options ch-form-disabled">
-            <h4 class="ch-form-subtitle">Checkbox group disabled:</h4>
             <ul>
                 <li class="ch-form-row">
                     <input id="cb_grp_dis_1" name="cb_grp_dis" type="checkbox" value="1" disabled />
@@ -558,6 +592,20 @@
                 </li>
             </ul>
         </div>
+        {% if chico_current_platform == site.chico_platform_mobile %}
+        <h4 class="ch-form-subtitle">Checkbox group inside list box:</h4>
+        <div class="ch-form-options ch-box-list">
+            <ul>
+                <li class="ch-form-row">
+                    <input id="cb_bl_grp_1" name="cb_bl_grp" type="checkbox" value="1" />
+                    <label for="cb_bl_grp_1">Option 1</label>
+                </li>
+                <li class="ch-form-row">
+                    <input id="cb_bl_grp_2" name="cb_bl_grp" type="checkbox" value="2" />
+                    <label for="cb_bl_grp_2">Option 2</label>
+                </li>
+            </ul>
+        </div>{% endif %}
     </fieldset>
 
     <div class="ch-form-actions">
@@ -575,8 +623,8 @@
             <fieldset>
                 <legend>Radio</legend>
 
+                <h4 class="ch-form-subtitle">Radio group:</h4>
                 <div class="ch-form-options">
-                    <h4 class="ch-form-subtitle">Radio group:</h4>
                     <ul>
                         <li class="ch-form-row">
                             <input id="rd_grp_1" name="rd_grp" type="radio" value="1" />
@@ -589,8 +637,8 @@
                     </ul>
                 </div>
 
+                <h4 class="ch-form-subtitle">Radio group disabled:</h4>
                 <div class="ch-form-options ch-form-disabled">
-                    <h4 class="ch-form-subtitle">Radio group disabled:</h4>
                     <ul>
                         <li class="ch-form-row">
                             <input id="rd_grp_dis_1" name="rd_grp_dis" type="radio" value="1" disabled />
@@ -602,6 +650,20 @@
                         </li>
                     </ul>
                 </div>
+                {% if chico_current_platform == site.chico_platform_mobile %}
+                <h4 class="ch-form-subtitle">Radio group inside list box:</h4>
+                <div class="ch-form-options ch-box-list">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input id="rd_bl_grp_1" name="rd_bl_grp" type="radio" value="1" />
+                            <label for="rd_bl_grp_1">Option 1</label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input id="rd_bl_grp_2" name="rd_bl_grp" type="radio" value="2" />
+                            <label for="rd_bl_grp_2">Option 2</label>
+                        </li>
+                    </ul>
+                </div>{% endif %}
             </fieldset>
 
             <div class="ch-form-actions">
@@ -615,8 +677,8 @@
     <fieldset>
         <legend>Radio</legend>
 
+        <h4 class="ch-form-subtitle">Radio group:</h4>
         <div class="ch-form-options">
-            <h4 class="ch-form-subtitle">Radio group:</h4>
             <ul>
                 <li class="ch-form-row">
                     <input id="rd_grp_1" name="rd_grp" type="radio" value="1" />
@@ -629,8 +691,8 @@
             </ul>
         </div>
 
+        <h4 class="ch-form-subtitle">Radio group disabled:</h4>
         <div class="ch-form-options ch-form-disabled">
-            <h4 class="ch-form-subtitle">Radio group disabled:</h4>
             <ul>
                 <li class="ch-form-row">
                     <input id="rd_grp_dis_1" name="rd_grp_dis" type="radio" value="1" disabled />
@@ -642,6 +704,20 @@
                 </li>
             </ul>
         </div>
+        {% if chico_current_platform == site.chico_platform_mobile %}
+        <h4 class="ch-form-subtitle">Radio group inside list box:</h4>
+        <div class="ch-form-options ch-box-list">
+            <ul>
+                <li class="ch-form-row">
+                    <input id="rd_bl_grp_1" name="rd_bl_grp" type="radio" value="1" />
+                    <label for="rd_bl_grp_1">Option 1</label>
+                </li>
+                <li class="ch-form-row">
+                    <input id="rd_bl_grp_2" name="rd_bl_grp" type="radio" value="2" />
+                    <label for="rd_bl_grp_2">Option 2</label>
+                </li>
+            </ul>
+        </div>{% endif %}
     </fieldset>
 
     <div class="ch-form-actions">

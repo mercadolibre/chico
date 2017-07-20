@@ -19,14 +19,6 @@ html body {
     padding: 0 0 8px; /* 1 */
 }
 
-/**
- * 1. Temporarily fix bug from Chico Mobile v1.2.3/v2.0.11.
- */
-
-.chico-platform-mobile .ch-form-options .ch-form-subtitle {
-    margin: 10px 0; /* 1 */
-}
-
 /* Bounds
 ---------------------------------------------------------------*/
 
