@@ -1,20 +1,20 @@
 <article id="menu">
-    <h2>Menu</h2>
-
-    <!-- Component example -->
+    <h2>
+        Menu
+    </h2>
     <div class="component-example">
-        <ul class="demo-menu ch-menu">
+        <ul id="dm_mn">
             <li>
-                <span>Collapsible</span>
-                <ul>
+                <span>Option</span>
+                <ul{% if chico_current_platform == site.chico_platform_mobile %} class="ch-box-list"{% endif %}>
                     <li><a href="#">Link 1</a></li>
                     <li><a href="#">Link 2</a></li>
                     <li><a href="#">Link 3</a></li>
                 </ul>
             </li>
             <li>
-                <span>Collapsible</span>
-                <ul>
+                <span>Option</span>
+                <ul{% if chico_current_platform == site.chico_platform_mobile %} class="ch-box-list"{% endif %}>
                     <li><a href="#">Link 1</a></li>
                     <li><a href="#">Link 2</a></li>
                     <li><a href="#">Link 3</a></li>
@@ -24,16 +24,16 @@
                 <a href="#">Link</a>
             </li>
             <li>
-                <span>Collapsible</span>
-                <ul>
+                <span>Option</span>
+                <ul{% if chico_current_platform == site.chico_platform_mobile %} class="ch-box-list"{% endif %}>
                     <li><a href="#">Link 1</a></li>
                     <li><a href="#">Link 2</a></li>
                     <li><a href="#">Link 3</a></li>
                 </ul>
             </li>
             <li>
-                <span>Collapsible</span>
-                <ul>
+                <span>Option</span>
+                <ul{% if chico_current_platform == site.chico_platform_mobile %} class="ch-box-list"{% endif %}>
                     <li><a href="#">Link 1</a></li>
                     <li><a href="#">Link 2</a></li>
                     <li><a href="#">Link 3</a></li>
@@ -42,30 +42,26 @@
         </ul>
     </div>
 {% highlight html %}
-<ul class="demo-menu ch-menu">
+<ul class="ch-menu" id="dm_mn">
     <li>
-        <span>Collapsible</span>
-        <ul>
-            <li>...</li>
-            <li>...</li>
+        <span>Option</span>
+        <ul{% if chico_current_platform == site.chico_platform_mobile %} class="ch-box-list"{% endif %}>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
         </ul>
     </li>
     <li>
-        <span>Collapsible</span>
-        <ul>
-            <li>...</li>
-            <li>...</li>
-        </ul>
+        <a href="#">Link</a>
     </li>
 </ul>
 {% endhighlight %}
 {% highlight javascript %}
-var menu = new ch.Menu(document.querySelector('.demo-menu'));
+var menu = new ch.Menu(document.querySelector('#dm_mn'));
 {% endhighlight %}
-
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var menu = new ch.Menu(document.querySelector('.demo-menu'));
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var menu = new ch.Menu(document.querySelector('#dm_mn'));
         });
     </script>
 </article>
