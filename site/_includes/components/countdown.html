@@ -1,33 +1,36 @@
 <article id="countdown">
-    <h2>Countdown</h2>
-
-    <!-- Component example -->
+    <h2>
+        Countdown
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.countdown/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
-        <form action="{{ site.baseUrl }}/ajax.html" class="ch-form">
-            <p class="ch-form-row">
-                <label for="text_cd">Text:</label>
-                <textarea id="text_cd" cols="35" rows="4"></textarea>
-            </p>
+        <form class="ch-form" action="{{ site.baseUrl }}/ajax.html">
+            <div class="ch-form-row">
+                <label for="dm_codw">Text:</label>
+                <textarea id="dm_codw" name="dm_codw" cols="35" rows="4"></textarea>
+            </div>
         </form>
     </div>
 {% highlight html %}
-<textarea id="text_cd" cols="35" rows="4"></textarea>
+<textarea id="dm_codw" name="dm_codw" cols="35" rows="4"></textarea>
 {% endhighlight %}
-
 {% highlight javascript %}
-var countdown = new ch.Countdown(ch('#text_cd')[0], {
+var countdown = new ch.Countdown(ch('#dm_codw')[0], {
     'max': 140,
-    'plural': '# chars left',
-    'singular': '# char left'
+    'plural': '# characters left',
+    'singular': '# character left'
 });
 {% endhighlight %}
-
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var countdown = new ch.Countdown(ch('#text_cd')[0], {
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var countdown = new ch.Countdown(ch('#dm_codw')[0], {
                 'max': 140,
-                'plural': '# chars left',
-                'singular': '# char left'
+                'plural': '# characters left',
+                'singular': '# character left'
             });
         });
     </script>
