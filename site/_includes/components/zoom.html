@@ -1,49 +1,56 @@
 <article id="zoom">
-    <h2>Zoom</h2>
-
-    <!-- Component example -->
+    <h2>
+        Zoom
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.zoom/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
         <div class="mesh-row">
             <div class="mesh-col-m-3">
-                <h3>Default behavior</h3>
-                <a id="zoom-default" class="zoom" href="{% asset_path html5-logo-big.png %}" target="_blank">
+                <h3>Zoom default</h3>
+                <a id="dm_zm_df" href="{% asset_path html5-logo-big.png %}">
                     {% image html5-logo-medium.png alt="HTML5" %}
                 </a>
             </div>
 
-            <div class="mesh-col-m-3">
-                <h3>Preloaded image</h3>
-                <a id="zoom-preload" class="zoom" href="{% asset_path html5-logo-big.png %}" target="_blank">
+            <div class="mesh-col-m-4">
+                <h3>Zoom with preloaded image</h3>
+                <a id="dm_zm_pr" href="{% asset_path html5-logo-big.png %}">
                     {% image html5-logo-medium.png alt="HTML5" %}
                 </a>
             </div>
         </div>
     </div>
 {% highlight html %}
-<a id="zoom-default" class="zoom" href="html5-logo-big.png" target="_blank">
-    <img src="html5-logo-medium.png" alt="HTML5"/>
+<h3>Zoom default</h3>
+<a id="dm_zm_df" href="/assets/html5-logo-big.png">
+    <img src="/assets/html5-logo-medium.png" />
 </a>
 
-<a id="zoom-preload" class="zoom" href="html5-logo-big.png" target="_blank">
-    <img src="html5-logo-medium.png" alt="HTML5"/>
+<h3>Zoom with preloaded image</h3>
+<a id="dm_zm_pr" href="/assets/html5-logo-big.png">
+    <img src="/assets/html5-logo-medium.png" />
 </a>
 {% endhighlight %}
-
 {% highlight javascript %}
-var zoom1 = new ch.Zoom(ch('#zoom-default')[0]);
+var zoomDefault = new ch.Zoom(ch('#dm_zm_df')[0]);
 
-var zoom2 = new ch.Zoom(ch('#zoom-preload')[0]);
+var zoomPreload = new ch.Zoom(ch('#dm_zm_pr')[0]);
+
 // Preload image
-zoom2.loadImage();
+zoomPreload.loadImage();
 {% endhighlight %}
-
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var zoom1 = new ch.Zoom(ch('#zoom-default')[0]);
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var zoomDefault = new ch.Zoom(ch('#dm_zm_df')[0]);
 
-            var zoom2 = new ch.Zoom(ch('#zoom-preload')[0]);
+            var zoomPreload = new ch.Zoom(ch('#dm_zm_pr')[0]);
+
             // Preload image
-            zoom2.loadImage();
+            zoomPreload.loadImage();
         });
     </script>
 </article>
