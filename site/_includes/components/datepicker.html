@@ -1,35 +1,37 @@
 <article id="datepicker">
-    <h2>Date Picker</h2>
-
-    <!-- Component example -->
+    <h2>
+        Datepicker
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.datepicker/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
-        <form action="{{ site.baseUrl }}/ajax.html" class="ch-form">
-            <p class="ch-form-row">
-                <label for="val_date">
-                    Date:
-                </label>
-                <input type="date" id="val_date" class="myDatepicker" placeholder="DD/MM/YYYY">
-            </p>
+        <form class="ch-form" action="{{ site.baseUrl }}/ajax.html">
+            <div class="ch-form-row">
+                <label for="dm_dtpk">Date:</label>
+                <input id="dm_dtpk" name="dm_dtpk" type="date" placeholder="DD/MM/YYYY" />
+            </div>
         </form>
     </div>
 {% highlight html %}
-<input type="date" id="val_date" placeholder="DD/MM/YYYY">
+<input id="dm_dtpk" name="dm_dtpk" type="date" placeholder="MM/DD/YYYY" />
 {% endhighlight %}
-
 {% highlight javascript %}
-var datepicker = new ch.Datepicker(ch('#val_date')[0], {
-    'selected': '2015/11/15',
+var datepicker = new ch.Datepicker(ch('#dm_dtpk')[0], {
+    'selected': '2017/11/15',
     'to': 'today'
 });
 {% endhighlight %}
-
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
+        document.addEventListener('DOMContentLoaded', function (e) {
             var s1 = new Date();
+
             s1.setDate(s1.getDate() - 14);
 
-            var datepicker = new ch.Datepicker(ch('#val_date')[0], {
-                'selected': s1.getFullYear()+'/'+(s1.getMonth()+1)+'/'+s1.getDate(),
+            var datepicker = new ch.Datepicker(ch('#dm_dtpk')[0], {
+                'selected': s1.getFullYear() + '/' + (s1.getMonth() + 1) + '/' + s1.getDate(),
                 'to': 'today'
             });
         });
