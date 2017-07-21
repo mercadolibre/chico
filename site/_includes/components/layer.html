@@ -1,96 +1,119 @@
 <article id="layer">
-    <h2>Layer</h2>
-
-    <!-- Component example -->
+    <h2>
+        Layer
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.layer/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
         <ul class="ch-list">
-            <li><span id="layer1">Executed on: <strong>pointerenter</strong>, Content: <strong>unique parameter</strong>.</span></li>
-            <li><span id="layer2">Executed on: <strong>pointertap</strong>, Content: <strong>HTML Element</strong>, Hidden by: <strong>all</strong>.</span></li>
-            <li><span id="layer3">Executed on: <strong>pointertap</strong>, Content: <strong>element in DOM</strong>, Hidden by: <strong>none</strong>.</span></li>
-            <li><span id="layer4">Executed on: <strong>pointertap</strong>, Content: <strong>plain text</strong>, Hidden by: <strong>button</strong>.</span></li>
-            <li><span id="layer5">Executed on: <strong>pointertap</strong>, Content: <strong>AJAX</strong>, Hidden by: <strong>pointers</strong>.</span></li>
+            <li>
+                <span id="dm_ly_pl">
+                    Executed on: <strong>pointerenter</strong>, Content: <strong>plain text</strong>.
+                </span>
+            </li>
+            <li>
+                <span id="dm_ly_el">
+                    Executed on: <strong>pointertap</strong>, Content: <strong>HTML Element</strong>,
+                    Hidden by: <strong>all</strong>.
+                </span>
+            </li>
+            <li>
+                <span id="dm_ly_dom">
+                    Executed on: <strong>pointertap</strong>, Content: <strong>element in DOM</strong>,
+                    Hidden by: <strong>none</strong>.
+                </span>
+            </li>
+            <li>
+                <span id="dm_ly_btn">
+                    Executed on: <strong>pointertap</strong>, Content: <strong>plain text</strong>,
+                    Hidden by: <strong>button</strong>.
+                </span>
+            </li>
+            <li>
+                <span id="dm_ly_ajax">
+                    Executed on: <strong>pointertap</strong>, Content: <strong>Ajax</strong>,
+                    Hidden by: <strong>pointers</strong>.
+                </span>
+            </li>
         </ul>
-        <div id="invisible-content-for-layer" class="ch-hide">
-            <h1>This content is invisible</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+
+        <div class="ch-hide" id="dm_ly_dom_cnt">
+            <h1>Heading</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
     </div>
 {% highlight html %}
-<span id="layer1">...</span>
-<span id="layer2">...</span>
-...
+<span id="dm_ly_pl">Content</span>
+<span id="dm_ly_el">Content</span>
+<span id="dm_ly_dom">Content</span>
+<span id="dm_ly_btn">Content</span>
+<span id="dm_ly_ajax">Content</span>
 
-<div id="invisible-content-for-layer" class="ch-hide">
-    <h1>This content is invisible</h1>
-    <p>...</p>
+<div class="ch-hide" id="dm_ly_dom_cnt">
+    <h1>Heading</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 </div>
 {% endhighlight %}
 {% highlight javascript %}
-var layer1 = new ch.Layer(ch('#layer1')[0], {
-    'content': 'foo'
+var layerPlain = new ch.Layer(ch('#dm_ly_pl')[0], {
+    'content': 'Plain text'
 });
 
-var layerContent = document.createElement('p');
-layerContent.innerHTML = 'This is an HTML P Element as content.';
-var layer2 = new ch.Layer(ch('#layer2')[0], {
-    'content': layerContent,
+var layerElement = new ch.Layer(ch('#dm_ly_el')[0], {
+    'content': document.createElement('p').innerHTML = 'HTML Element',
     'shownby': 'pointertap',
     'hiddenby': 'all'
 });
 
-var layer3 = new ch.Layer(ch('#layer3')[0], {
-    'content': ch('#invisible-content-for-layer')[0],
+var layerDom = new ch.Layer(ch('#dm_ly_dom')[0], {
+    'content': ch('#dm_ly_dom_cnt')[0],
     'shownby': 'pointertap',
     'hiddenby': 'none'
 });
 
-var layer4 = new ch.Layer(ch('#layer4')[0], {
-    'content': 'Plain text.',
+var layerButton = new ch.Layer(ch('#dm_ly_btn')[0], {
+    'content': 'Plain text',
     'shownby': 'pointertap',
     'hiddenby': 'button'
 });
 
-var layer5 = new ch.Layer(ch('#layer5')[0], {
-    'content': '/ajax.html',
+var layerAjax = new ch.Layer(ch('#dm_ly_ajax')[0], {
+    'content': '{{ site.baseUrl }}/ajax.html',
     'shownby': 'pointertap',
     'hiddenby': 'pointers'
 });
-
-var layerX = new ch.Layer({
-    'content': 'Layer without trigger!',
-    'reference': ch('#layer5')[0]
-});
 {% endhighlight %}
-
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var layer1 = new ch.Layer(ch('#layer1')[0], {'content': 'foo'});
-            var layerContent = document.createElement('p');
-            layerContent.innerHTML = 'This is an HTML P Element as content.';
-            var layer2 = new ch.Layer(ch('#layer2')[0], {
-                'content': layerContent,
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var layerPlain = new ch.Layer(ch('#dm_ly_pl')[0], {
+                'content': 'Plain text'
+            });
+
+            var layerElement = new ch.Layer(ch('#dm_ly_el')[0], {
+                'content': document.createElement('p').innerHTML = 'HTML Element',
                 'shownby': 'pointertap',
                 'hiddenby': 'all'
             });
-            var invisibleContent = ch('#invisible-content-for-layer');
-            var layer3 = new ch.Layer(ch('#layer3')[0], {
-                'content': ch('#invisible-content-for-layer')[0],
+
+            var layerDom = new ch.Layer(ch('#dm_ly_dom')[0], {
+                'content': ch('#dm_ly_dom_cnt')[0],
                 'shownby': 'pointertap',
                 'hiddenby': 'none'
             });
-            var layer4 = new ch.Layer(ch('#layer4')[0], {
-                'content': 'Plain text.',
+
+            var layerButton = new ch.Layer(ch('#dm_ly_btn')[0], {
+                'content': 'Plain text',
                 'shownby': 'pointertap',
                 'hiddenby': 'button'
             });
-            var layer5 = new ch.Layer(ch('#layer5')[0], {
+
+            var layerAjax = new ch.Layer(ch('#dm_ly_ajax')[0], {
                 'content': '{{ site.baseUrl }}/ajax.html',
                 'shownby': 'pointertap',
                 'hiddenby': 'pointers'
-            });
-            var layerX = new ch.Layer({
-                'content': 'Layer without trigger!',
-                'reference': ch('#layer5')[0]
             });
         });
     </script>
