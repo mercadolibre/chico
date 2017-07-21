@@ -11,6 +11,10 @@ html body {
     margin: 0;
 }
 
+html a:visited {
+    color: #03b;
+}
+
 /**
  * 1. Temporarily fix bug from Chico Mobile v1.2.3/v2.0.11.
  */
