@@ -1,121 +1,145 @@
 <article id="tooltip">
-    <h2>Tooltip</h2>
-
-    <!-- Component example -->
+    <h2>
+        Tooltip
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.tooltip/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
         <div class="mesh-row">
             <div class="mesh-col-m-6">
                 <div class="ch-box-container">
                     <h3>Bottom</h3>
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-default' %}
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-ctcb' %}
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-rtrb' %}
+                    {% image ninja.png width='120' alt='Tooltip Bottom-Left' id='dm_tt_ltlb' %}
+                    {% image ninja.png width='120' alt='Tooltip Bottom-Center' id='dm_tt_ctcb' %}
+                    {% image ninja.png width='120' alt='Tooltip Bottom-Right' id='dm_tt_rtrb' %}
                 </div>
 
                 <div class="ch-box-container">
                     <h3>Top</h3>
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-lblt' %}
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-cbct' %}
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-rbrt' %}
+                    {% image ninja.png width='120' alt='Tooltip Top-Left' id='dm_tt_lblt' %}
+                    {% image ninja.png width='120' alt='Tooltip Top-Center' id='dm_tt_cbct' %}
+                    {% image ninja.png width='120' alt='Tooltip Top-Right' id='dm_tt_rbrt' %}
                 </div>
             </div>
 
             <div class="mesh-col-m-6">
                 <div class="ch-box-container">
                     <h3>Right</h3>
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-ltrt' %}
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-lmrm' %}
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-lbrb' %}
+                    {% image ninja.png width='120' alt='Tooltip Right-Top' id='dm_tt_ltrt' %}
+                    {% image ninja.png width='120' alt='Tooltip Right-Center' id='dm_tt_lmrm' %}
+                    {% image ninja.png width='120' alt='Tooltip Right-Bottom' id='dm_tt_lbrb' %}
                 </div>
 
                 <div class="ch-box-container">
                     <h3>Left</h3>
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-rtlt' %}
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-rmlm' %}
-                    {% image ninja.png width='120' alt='This is a tooltip' id='tooltip-rblb' %}
+                    {% image ninja.png width='120' alt='Tooltip Left-Top' id='dm_tt_rtlt' %}
+                    {% image ninja.png width='120' alt='Tooltip Left-Center' id='dm_tt_rmlm' %}
+                    {% image ninja.png width='120' alt='Tooltip Left-Bottom' id='dm_tt_rblb' %}
                 </div>
             </div>
+        </div>
     </div>
 {% highlight html %}
-<img src="..." alt="Tooltip content" id="tooltip-default" />
-<img src="..." alt="Tooltip content" id="tooltip-ctcb" />
-<img src="..." alt="Tooltip content" id="tooltip-lblt" />
+<img id="dm_tt_ltlb" src="picture.png" alt="Tooltip Bottom-Left" />
+<img id="dm_tt_cbct" src="picture.png" alt="Tooltip Top-Center" />
+<img id="dm_tt_lbrb" src="picture.png" alt="Tooltip Right-Bottom" />
+<img id="dm_tt_rtlt" src="picture.png" alt="Tooltip Left-Top" />
 {% endhighlight %}
 {% highlight javascript %}
-// Default tooltip
-var tooltip1 = new ch.Tooltip(ch('#tooltip-default')[0]); // lt lb
+// Bottom-Left (default)
+var tooltipBottomLeft = new ch.Tooltip(ch('#dm_tt_ltlb')[0]);
 
-// Custom position
-var tooltip2 = new ch.Tooltip(ch('#tooltip-ctcb')[0], {
-    'side': 'bottom',
-    'align': 'center'
-});
-
-// Tooltip with offset
-var tooltip3 = new ch.Tooltip(ch('#tooltip-lblt')[0], {
+// Top-Center with negative offset
+var tooltipTopCenter = new ch.Tooltip(ch('#dm_tt_cbct')[0], {
     'side': 'top',
-    'align': 'left',
-    'offsetX': 10,
+    'align': 'center',
     'offsetY': -10
 });
+
+// Right-Bottom with offset
+var tooltipRightBottom = new ch.Tooltip(ch('#dm_tt_lbrb')[0], {
+    'side': 'right',
+    'align': 'bottom',
+    'offsetX': 10
+});
+
+// Left-Top with negative offset
+var tooltipLeftTop = new ch.Tooltip(ch('#dm_tt_rtlt')[0], {
+    'side': 'left',
+    'align': 'top',
+    'offsetX': -10
+});
 {% endhighlight %}
-
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var tooltip1 = new ch.Tooltip(ch('#tooltip-default')[0]); // lt lb
+        document.addEventListener('DOMContentLoaded', function (e) {
+            // Bottom
+            var tooltipBottomLeft = new ch.Tooltip(ch('#dm_tt_ltlb')[0]);
 
-            var tooltip2 = new ch.Tooltip(ch('#tooltip-ctcb')[0], {
+            var tooltipBottomCenter = new ch.Tooltip(ch('#dm_tt_ctcb')[0], {
                 'side': 'bottom',
                 'align': 'center'
             });
-            var tooltip3 = new ch.Tooltip(ch('#tooltip-rtrb')[0], {
+
+            var tooltipBottomRight = new ch.Tooltip(ch('#dm_tt_rtrb')[0], {
                 'side': 'bottom',
                 'align': 'right'
             });
+
             // Top
-            var tooltip4 = new ch.Tooltip(ch('#tooltip-lblt')[0], {
+            var tooltipTopLeft = new ch.Tooltip(ch('#dm_tt_lblt')[0], {
                 'side': 'top',
                 'align': 'left',
                 'offsetY': -10
             });
-            var tooltip5 = new ch.Tooltip(ch('#tooltip-cbct')[0], {
+
+            var tooltipTopCenter = new ch.Tooltip(ch('#dm_tt_cbct')[0], {
                 'side': 'top',
                 'align': 'center',
                 'offsetY': -10
             });
-            var tooltip6 = new ch.Tooltip(ch('#tooltip-rbrt')[0], {
+
+            var tooltipTopRight = new ch.Tooltip(ch('#dm_tt_rbrt')[0], {
                 'side': 'top',
                 'align': 'right',
                 'offsetY': -10
             });
+
             // Right
-            var tooltip7 = new ch.Tooltip(ch('#tooltip-ltrt')[0], {
+            var tooltipRightTop = new ch.Tooltip(ch('#dm_tt_ltrt')[0], {
                 'side': 'right',
                 'align': 'top',
                 'offsetX': 10
             });
-            var tooltip8 = new ch.Tooltip(ch('#tooltip-lmrm')[0], {
+
+            var tooltipRightCenter = new ch.Tooltip(ch('#dm_tt_lmrm')[0], {
                 'side': 'right',
                 'align': 'center',
                 'offsetX': 10
             });
-            var tooltip9 = new ch.Tooltip(ch('#tooltip-lbrb')[0], {
+
+            var tooltipRightBottom = new ch.Tooltip(ch('#dm_tt_lbrb')[0], {
                 'side': 'right',
                 'align': 'bottom',
                 'offsetX': 10
             });
+
             // Left
-            var tooltip10 = new ch.Tooltip(ch('#tooltip-rtlt')[0], {
+            var tooltipLeftTop = new ch.Tooltip(ch('#dm_tt_rtlt')[0], {
                 'side': 'left',
                 'align': 'top',
                 'offsetX': -10
             });
-            var tooltip11 = new ch.Tooltip(ch('#tooltip-rmlm')[0], {
+
+            var tooltipLeftCenter = new ch.Tooltip(ch('#dm_tt_rmlm')[0], {
                 'side': 'left',
                 'align': 'center',
                 'offsetX': -10
             });
-            var tooltip12 = new ch.Tooltip(ch('#tooltip-rblb')[0], {
+
+            var tooltipLeftBottom = new ch.Tooltip(ch('#dm_tt_rblb')[0], {
                 'side': 'left',
                 'align': 'bottom',
                 'offsetX': -10
