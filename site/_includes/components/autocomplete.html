@@ -22,7 +22,7 @@
 </form>
 {% endhighlight %}
 {% highlight javascript %}
-var autocomplete = new ch.Autocomplete(document.querySelector('#dm_ac'))
+var autocomplete = new ch.Autocomplete(ch('#dm_ac')[0])
     .on('type', function (userInput) {
         tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
             name: 'dm_ac_sbt',
@@ -46,7 +46,7 @@ var autocomplete = new ch.Autocomplete(document.querySelector('#dm_ac'))
                 }
             }
             var cancelRequest;
-            var autocomplete = new ch.Autocomplete(document.querySelector('#dm_ac'))
+            var autocomplete = new ch.Autocomplete(ch('#dm_ac')[0])
                 .on('type', function (userInput) {
                     // Cancel the jsonp request if any
                     if (cancelRequest) {

@@ -56,15 +56,15 @@
 </div>
 {% endhighlight %}
 {% highlight javascript %}
-var expandableParagraph = new ch.Expandable(document.querySelector('#dm_exp_pr'));
+var expandableParagraph = new ch.Expandable(ch('#dm_exp_pr')[0]);
 
-var expandableList = new ch.Expandable(document.querySelector('#dm_exp_li'));
+var expandableList = new ch.Expandable(ch('#dm_exp_li')[0]);
 {% if chico_current_platform == site.chico_platform_mobile %}
-var expandableBoxList = new ch.Expandable(document.querySelector('#dm_exp_bli'));
+var expandableBoxList = new ch.Expandable(ch('#dm_exp_bli')[0]);
 {% endif %}
-var expandableAjax = new ch.Expandable(document.querySelector('#dm_exp_ajax'), {
+var expandableAjax = new ch.Expandable(ch('#dm_exp_ajax')[0], {
     'content': '{{ site.baseurl }}/ajax.html',
-    'container': document.querySelector('#dm_exp_ajax_cnt')
+    'container': ch('#dm_exp_ajax_cnt')[0]
 });
 
 expandableAjax.on('contentdone', function () {
@@ -73,17 +73,17 @@ expandableAjax.on('contentdone', function () {
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var expandableParagraph = new ch.Expandable(document.querySelector('#dm_exp_pr'));
+            var expandableParagraph = new ch.Expandable(ch('#dm_exp_pr')[0]);
 
-            var expandableList = new ch.Expandable(document.querySelector('#dm_exp_li'));
+            var expandableList = new ch.Expandable(ch('#dm_exp_li')[0]);
 
             {% if chico_current_platform == site.chico_platform_mobile %}
-            var expandableBoxList = new ch.Expandable(document.querySelector('#dm_exp_bli'));
+            var expandableBoxList = new ch.Expandable(ch('#dm_exp_bli')[0]);
             {% endif %}
 
-            var expandableAjax = new ch.Expandable(document.querySelector('#dm_exp_ajax'), {
+            var expandableAjax = new ch.Expandable(ch('#dm_exp_ajax')[0], {
                 'content': '{{ site.baseurl }}/ajax.html',
-                'container': document.querySelector('#dm_exp_ajax_cnt')
+                'container': ch('#dm_exp_ajax_cnt')[0]
             });
 
             expandableAjax.on('contentdone', function () {

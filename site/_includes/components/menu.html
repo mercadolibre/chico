@@ -56,11 +56,11 @@
 </ul>
 {% endhighlight %}
 {% highlight javascript %}
-var menu = new ch.Menu(document.querySelector('#dm_mn'));
+var menu = new ch.Menu(ch('#dm_mn')[0]);
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var menu = new ch.Menu(document.querySelector('#dm_mn'));
+            var menu = new ch.Menu(ch('#dm_mn')[0]);
         });
     </script>
 </article>
