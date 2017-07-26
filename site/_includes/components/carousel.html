@@ -112,26 +112,26 @@
 </div>
 {% endhighlight %}
 {% highlight javascript %}
-var carouselDefault = new ch.Carousel(ch('#dm_crs_df')[0]);
+var carouselDefault = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_df')[0]{% endif %});
 
-var carouselPagination = new ch.Carousel(ch('#dm_crs_pg')[0], {
+var carouselPagination = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_pg'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_pg')[0]{% endif %}, {
     pagination: true
 });
 
-var carouselLimit = new ch.Carousel(ch('#dm_crs_lm')[0], {
+var carouselLimit = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_lm'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_lm')[0]{% endif %}, {
     pagination: true,
     limitPerPage: 4
 });
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var carouselDefault = new ch.Carousel(ch('#dm_crs_df')[0]);
+            var carouselDefault = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_df')[0]{% endif %});
 
-            var carouselPagination = new ch.Carousel(ch('#dm_crs_pg')[0], {
+            var carouselPagination = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_pg'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_pg')[0]{% endif %}, {
                 pagination: true
             });
 
-            var carouselLimit = new ch.Carousel(ch('#dm_crs_lm')[0], {
+            var carouselLimit = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_lm'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_lm')[0]{% endif %}, {
                 pagination: true,
                 limitPerPage: 4
             });

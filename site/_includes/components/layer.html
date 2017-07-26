@@ -58,29 +58,29 @@
 </div>
 {% endhighlight %}
 {% highlight javascript %}
-var layerPlain = new ch.Layer(ch('#dm_ly_pl')[0], {
+var layerPlain = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_pl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_pl')[0]{% endif %}, {
     'content': 'Plain text'
 });
 
-var layerElement = new ch.Layer(ch('#dm_ly_el')[0], {
+var layerElement = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_el'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_el')[0]{% endif %}, {
     'content': document.createElement('p').innerHTML = 'HTML Element',
     'shownby': 'pointertap',
     'hiddenby': 'all'
 });
 
-var layerDom = new ch.Layer(ch('#dm_ly_dom')[0], {
-    'content': ch('#dm_ly_dom_cnt')[0],
+var layerDom = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_dom'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_dom')[0]{% endif %}, {
+    'content': {% if chico_current_version == site.chico_version_1x %}$('#dm_ly_dom_cnt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_dom_cnt')[0]{% endif %},
     'shownby': 'pointertap',
     'hiddenby': 'none'
 });
 
-var layerButton = new ch.Layer(ch('#dm_ly_btn')[0], {
+var layerButton = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_btn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_btn')[0]{% endif %}, {
     'content': 'Plain text',
     'shownby': 'pointertap',
     'hiddenby': 'button'
 });
 
-var layerAjax = new ch.Layer(ch('#dm_ly_ajax')[0], {
+var layerAjax = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_ajax'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_ajax')[0]{% endif %}, {
     'content': '{{ site.baseUrl }}/ajax.html',
     'shownby': 'pointertap',
     'hiddenby': 'pointers'
@@ -88,29 +88,29 @@ var layerAjax = new ch.Layer(ch('#dm_ly_ajax')[0], {
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var layerPlain = new ch.Layer(ch('#dm_ly_pl')[0], {
+            var layerPlain = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_pl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_pl')[0]{% endif %}, {
                 'content': 'Plain text'
             });
 
-            var layerElement = new ch.Layer(ch('#dm_ly_el')[0], {
+            var layerElement = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_el'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_el')[0]{% endif %}, {
                 'content': document.createElement('p').innerHTML = 'HTML Element',
                 'shownby': 'pointertap',
                 'hiddenby': 'all'
             });
 
-            var layerDom = new ch.Layer(ch('#dm_ly_dom')[0], {
-                'content': ch('#dm_ly_dom_cnt')[0],
+            var layerDom = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_dom'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_dom')[0]{% endif %}, {
+                'content': {% if chico_current_version == site.chico_version_1x %}$('#dm_ly_dom_cnt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_dom_cnt')[0]{% endif %},
                 'shownby': 'pointertap',
                 'hiddenby': 'none'
             });
 
-            var layerButton = new ch.Layer(ch('#dm_ly_btn')[0], {
+            var layerButton = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_btn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_btn')[0]{% endif %}, {
                 'content': 'Plain text',
                 'shownby': 'pointertap',
                 'hiddenby': 'button'
             });
 
-            var layerAjax = new ch.Layer(ch('#dm_ly_ajax')[0], {
+            var layerAjax = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_ajax'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_ajax')[0]{% endif %}, {
                 'content': '{{ site.baseUrl }}/ajax.html',
                 'shownby': 'pointertap',
                 'hiddenby': 'pointers'

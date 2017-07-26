@@ -16,14 +16,16 @@
 <input class="ch-btn ch-btn-small" id="dm_tr" value="Transition" type="submit" />
 {% endhighlight %}
 {% highlight javascript %}
-var transition = new ch.Transition(ch('#dm_tr')[0]);
+var transition = new ch.Transition({% if chico_current_version == site.chico_version_1x %}$('#dm_tr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_tr')[0]{% endif %});
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var transition = new ch.Transition(ch('#dm_tr')[0]);
+            var transition = new ch.Transition({% if chico_current_version == site.chico_version_1x %}$('#dm_tr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_tr')[0]{% endif %});
 
-            tiny.on('#dm_tr', 'click', function(e){
-                setTimeout(function (){ transition.hide() }, 5000);
+            {% if chico_current_version == site.chico_version_1x %}$('#dm_tr').on({% endif %}{% if chico_current_version == site.chico_version_2x %}tiny.on('#dm_tr', {% endif %}'click', function (e) {
+                setTimeout(function () {
+                    transition.hide();
+                }, 5000);
             });
         });
     </script>

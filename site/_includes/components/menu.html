@@ -61,11 +61,11 @@
 </ul>
 {% endhighlight %}
 {% highlight javascript %}
-var menu = new ch.Menu(ch('#dm_mn')[0]);
+var menu = new ch.Menu({% if chico_current_version == site.chico_version_1x %}$('#dm_mn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mn')[0]{% endif %});
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var menu = new ch.Menu(ch('#dm_mn')[0]);
+            var menu = new ch.Menu({% if chico_current_version == site.chico_version_1x %}$('#dm_mn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mn')[0]{% endif %});
         });
     </script>
 </article>

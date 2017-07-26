@@ -71,11 +71,11 @@
 </div>
 {% endhighlight %}
 {% highlight javascript %}
-var tabs = new ch.Tabs(ch('#dm_tbs')[0]);
+var tabs = new ch.Tabs({% if chico_current_version == site.chico_version_1x %}$('#dm_tbs'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_tbs')[0]{% endif %});
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var tabs = new ch.Tabs(ch('#dm_tbs')[0]);
+            var tabs = new ch.Tabs({% if chico_current_version == site.chico_version_1x %}$('#dm_tbs'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_tbs')[0]{% endif %});
         });
     </script>
 </article>

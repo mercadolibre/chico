@@ -36,18 +36,18 @@
 </a>
 {% endhighlight %}
 {% highlight javascript %}
-var zoomDefault = new ch.Zoom(ch('#dm_zm_df')[0]);
+var zoomDefault = new ch.Zoom({% if chico_current_version == site.chico_version_1x %}$('#dm_zm_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_zm_df')[0]{% endif %});
 
-var zoomPreload = new ch.Zoom(ch('#dm_zm_pr')[0]);
+var zoomPreload = new ch.Zoom({% if chico_current_version == site.chico_version_1x %}$('#dm_zm_pr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_zm_pr')[0]{% endif %});
 
 // Preload image
 zoomPreload.loadImage();
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var zoomDefault = new ch.Zoom(ch('#dm_zm_df')[0]);
+            var zoomDefault = new ch.Zoom({% if chico_current_version == site.chico_version_1x %}$('#dm_zm_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_zm_df')[0]{% endif %});
 
-            var zoomPreload = new ch.Zoom(ch('#dm_zm_pr')[0]);
+            var zoomPreload = new ch.Zoom({% if chico_current_version == site.chico_version_1x %}$('#dm_zm_pr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_zm_pr')[0]{% endif %});
 
             // Preload image
             zoomPreload.loadImage();

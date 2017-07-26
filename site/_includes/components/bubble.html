@@ -14,21 +14,21 @@
 <button class="ch-btn ch-btn-small" id="dm_bbl">Bubble</button>
 {% endhighlight %}
 {% highlight javascript %}
-var bubble = new ch.Bubble(ch('#dm_bbl')[0], {
+var bubble = new ch.Bubble({% if chico_current_version == site.chico_version_1x %}$('#dm_bbl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_bbl')[0]{% endif %}, {
     content: 'This is an error bubble!'
 });
 
-tiny.on('#dm_bbl', 'click', function (e) {
+{% if chico_current_version == site.chico_version_1x %}$('#dm_bbl').on({% endif %}{% if chico_current_version == site.chico_version_2x %}tiny.on('#dm_bbl', {% endif %}'click', function (e) {
     bubble.show();
 });
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var bubble = new ch.Bubble(ch('#dm_bbl')[0], {
+            var bubble = new ch.Bubble({% if chico_current_version == site.chico_version_1x %}$('#dm_bbl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_bbl')[0]{% endif %}, {
                 content: 'This is an error bubble!'
             });
 
-            tiny.on('#dm_bbl', 'click', function (e) {
+            {% if chico_current_version == site.chico_version_1x %}$('#dm_bbl').on({% endif %}{% if chico_current_version == site.chico_version_2x %}tiny.on('#dm_bbl', {% endif %}'click', function (e) {
                 bubble.show();
             });
         });

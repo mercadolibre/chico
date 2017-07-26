@@ -9,11 +9,13 @@
     </p>
     <div class="component-example">
         <form class="ch-form" method="get" action="http://www.mercadolibre.com.ar/jm/search">
-            <div class="ch-form-row">
-                <label for="dm_ac">Autocomplete:</label>
-                <input id="dm_ac" name="as_word" type="text" placeholder="iPhone" />
-                <p class="ch-form-hint">This is working with the Mercado Libre API</p>
-            </div>
+            <fieldset>
+                <div class="ch-form-row">
+                    <label for="dm_ac">Autocomplete:</label>
+                    <input id="dm_ac" name="as_word" type="text" placeholder="iPhone" />
+                    <p class="ch-form-hint">This is working with the Mercado Libre API</p>
+                </div>
+            </fieldset>
 
             <div class="ch-form-actions">
                 <input class="ch-btn" id="dm_ac_sbt" name="dm_ac_sbt" type="submit" />
@@ -27,47 +29,73 @@
 </form>
 {% endhighlight %}
 {% highlight javascript %}
-var autocomplete = new ch.Autocomplete(ch('#dm_ac')[0])
+function parseResults(results) {
+    var data = [];
+    if (results[2].suggested_queries !== undefined) {
+        results[2].suggested_queries.forEach(function (e, i) {
+            data.push(e.q);
+        });
+        // Show suggestions
+        autocomplete.suggest(data);
+    }
+}
+
+var autocomplete = new ch.Autocomplete({% if chico_current_version == site.chico_version_1x %}$('#dm_ac'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ac')[0]{% endif %})
     .on('type', function (userInput) {
-        tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
-            name: 'dm_ac_sbt',
-            success: parseResults,
-            error: function(err) {
+        {% if chico_current_version == site.chico_version_1x %}$.ajax({
+            'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1&callback=parseResults',
+            'dataType': 'jsonp',
+            'cache': false,
+            'global': true,
+            'context': window,
+            'jsonp': 'parseResults',
+            'crossDomain': true
+        });{% endif %}{% if chico_current_version == site.chico_version_2x %}tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+            'name': 'dm_ac_sbt',
+            'success': parseResults,
+            'error': function (err) {
                 autocomplete.suggest([]);
             }
-        });
+        });{% endif %}
     });
 {% endhighlight %}
     <script>
-        document.addEventListener('DOMContentLoaded', function (e) {
-            function parseResults(results) {
-                var data = [];
-                if (results[2].suggested_queries !== undefined) {
-                    results[2].suggested_queries.forEach(function (e, i) {
-                        data.push(e.q);
-                    });
-                    // Show suggestions
-                    autocomplete.suggest(data);
-                }
+        function parseResults(results) {
+            var data = [];
+            if (results[2].suggested_queries !== undefined) {
+                results[2].suggested_queries.forEach(function (e, i) {
+                    data.push(e.q);
+                });
+                // Show suggestions
+                autocomplete.suggest(data);
             }
-            var cancelRequest;
-            var autocomplete = new ch.Autocomplete(ch('#dm_ac')[0])
+        }
+
+        var autocomplete;
+
+        document.addEventListener('DOMContentLoaded', function (e) {
+            autocomplete = new ch.Autocomplete({% if chico_current_version == site.chico_version_1x %}$('#dm_ac'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ac')[0]{% endif %})
                 .on('type', function (userInput) {
-                    // Cancel the jsonp request if any
-                    if (cancelRequest) {
-                        cancelRequest();
-                    }
-                    // Hide possibly active loading indicator
-                    if (!userInput) {
-                        return autocomplete.suggest([]);
-                    }
-                    cancelRequest = tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
-                        name: 'dm_ac_sbt',
-                        success: parseResults,
-                        error: function (err) {
+                    {% if chico_current_version == site.chico_version_1x %}
+                    $.ajax({
+                        'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1&callback=parseResults',
+                        'dataType': 'jsonp',
+                        'cache': false,
+                        'global': true,
+                        'context': window,
+                        'jsonp': 'parseResults',
+                        'crossDomain': true
+                    });
+                    {% endif %}
+                    {% if chico_current_version == site.chico_version_2x %}
+                    tiny.jsonp('http://suggestgz.mlapps.com/sites/MLA/autosuggest?q=' + userInput + '&v=1', {
+                        'name': 'dm_ac_sbt',
+                        'success': parseResults,
+                        'error': function (err) {
                             autocomplete.suggest([]);
                         }
                     });
+                    {% endif %}
                 });
         });
     </script>

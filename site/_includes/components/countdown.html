@@ -19,7 +19,7 @@
 <textarea id="dm_codw" name="dm_codw" cols="35" rows="4"></textarea>
 {% endhighlight %}
 {% highlight javascript %}
-var countdown = new ch.Countdown(ch('#dm_codw')[0], {
+var countdown = new ch.Countdown({% if chico_current_version == site.chico_version_1x %}$('#dm_codw'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_codw')[0]{% endif %}, {
     'max': 140,
     'plural': '# characters left',
     'singular': '# character left'
@@ -27,7 +27,7 @@ var countdown = new ch.Countdown(ch('#dm_codw')[0], {
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var countdown = new ch.Countdown(ch('#dm_codw')[0], {
+            var countdown = new ch.Countdown({% if chico_current_version == site.chico_version_1x %}$('#dm_codw'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_codw')[0]{% endif %}, {
                 'max': 140,
                 'plural': '# characters left',
                 'singular': '# character left'

@@ -64,27 +64,27 @@
 </menu>
 {% endhighlight %}
 {% highlight javascript %}
-var dropdownDefault = new ch.Dropdown(ch('#dm_dp_df')[0]);
+var dropdownDefault = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_df')[0]{% endif %});
 
-var dropdownNoShortcuts = new ch.Dropdown(ch('#dm_dp_ns')[0], {
+var dropdownNoShortcuts = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_ns'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_ns')[0]{% endif %}, {
     'shortcuts': false,
     'skin': true
 });
 
-var dropdownSkin = new ch.Dropdown(ch('#dm_dp_skn')[0], {
+var dropdownSkin = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_skn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_skn')[0]{% endif %}, {
     'skin': true
 });
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var dropdownDefault = new ch.Dropdown(ch('#dm_dp_df')[0]);
+            var dropdownDefault = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_df')[0]{% endif %});
 
-            var dropdownNoShortcuts = new ch.Dropdown(ch('#dm_dp_ns')[0], {
+            var dropdownNoShortcuts = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_ns'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_ns')[0]{% endif %}, {
                 'shortcuts': false,
                 'skin': true
             });
 
-            var dropdownSkin = new ch.Dropdown(ch('#dm_dp_skn')[0], {
+            var dropdownSkin = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_skn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_skn')[0]{% endif %}, {
                 'skin': true
             });
         });

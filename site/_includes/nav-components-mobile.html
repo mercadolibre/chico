@@ -8,12 +8,14 @@
     <li>
         <a href="#menu" data-section="menu">Menu</a>
     </li>
-    <li>
-        <a href="#dropdown" data-section="dropdown">Dropdown</a>
-    </li>
-    <li>
-        <a href="#layer" data-section="layer">Layer</a>
-    </li>
+    {% if chico_current_version == site.chico_version_2x %}
+        <li>
+            <a href="#dropdown" data-section="dropdown">Dropdown</a>
+        </li>
+        <li>
+            <a href="#layer" data-section="layer">Layer</a>
+        </li>
+    {% endif %}
     <li>
         <a href="#modal" data-section="modal">Modal</a>
     </li>
@@ -23,12 +25,14 @@
     <li>
         <a href="#carousel" data-section="carousel">Carousel</a>
     </li>
-    <li>
-        <a href="#calendar" data-section="calendar">Calendar</a>
-    </li>
-    <li>
-        <a href="#datepicker" data-section="datepicker">Datepicker</a>
-    </li>
+    {% if chico_current_version == site.chico_version_2x %}
+        <li>
+            <a href="#calendar" data-section="calendar">Calendar</a>
+        </li>
+        <li>
+            <a href="#datepicker" data-section="datepicker">Datepicker</a>
+        </li>
+    {% endif %}
     <li>
         <a href="#countdown" data-section="countdown">Countdown</a>
     </li>

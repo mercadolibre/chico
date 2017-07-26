@@ -65,38 +65,29 @@
 </div>
 {% endhighlight %}
 {% highlight javascript %}
-var expandableParagraph = new ch.Expandable(ch('#dm_exp_pr')[0]);
+var expandableParagraph = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_pr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_pr')[0]{% endif %});
 
-var expandableList = new ch.Expandable(ch('#dm_exp_li')[0]);
+var expandableList = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_li'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_li')[0]{% endif %});
 {% if chico_current_platform == site.chico_platform_mobile %}
-var expandableBoxList = new ch.Expandable(ch('#dm_exp_bli')[0]);
+var expandableBoxList = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_bli'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_bli')[0]{% endif %});
 {% endif %}
-var expandableAjax = new ch.Expandable(ch('#dm_exp_ajax')[0], {
+var expandableAjax = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax')[0]{% endif %}, {
     'content': '{{ site.baseurl }}/ajax.html',
-    'container': ch('#dm_exp_ajax_cnt')[0]
-});
-
-expandableAjax.on('contentdone', function () {
-    console.log('Content loaded for component ' + this.uid);
-});
-{% endhighlight %}
+    'container': {% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax_cnt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax_cnt')[0]{% endif %}
+});{% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var expandableParagraph = new ch.Expandable(ch('#dm_exp_pr')[0]);
+            var expandableParagraph = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_pr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_pr')[0]{% endif %});
 
-            var expandableList = new ch.Expandable(ch('#dm_exp_li')[0]);
+            var expandableList = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_li'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_li')[0]{% endif %});
 
             {% if chico_current_platform == site.chico_platform_mobile %}
-            var expandableBoxList = new ch.Expandable(ch('#dm_exp_bli')[0]);
+            var expandableBoxList = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_bli'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_bli')[0]{% endif %});
             {% endif %}
 
-            var expandableAjax = new ch.Expandable(ch('#dm_exp_ajax')[0], {
+            var expandableAjax = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax')[0]{% endif %}, {
                 'content': '{{ site.baseurl }}/ajax.html',
-                'container': ch('#dm_exp_ajax_cnt')[0]
-            });
-
-            expandableAjax.on('contentdone', function () {
-                console.log('Content loaded for component ' + this.uid);
+                'container': {% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax_cnt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax_cnt')[0]{% endif %}
             });
         });
     </script>

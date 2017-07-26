@@ -51,15 +51,15 @@
 </div>
 {% endhighlight %}
 {% highlight javascript %}
-var modalLink = new ch.Modal(ch('#dm_mdl_lnk')[0], {
+var modalLink = new ch.Modal({% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_lnk'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mdl_lnk')[0]{% endif %}, {
     'width': '500px'
 });
 
-var modalDom = new ch.Modal(ch('#dm_mdl_dom')[0], {
-    'content': document.querySelector('#dm_mdl_dom_cnt')
+var modalDom = new ch.Modal({% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_dom'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mdl_dom')[0]{% endif %}, {
+    'content': {% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_dom_cnt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mdl_dom_cnt')[0]{% endif %}
 });
 
-var modalLite = new ch.Modal(ch('#dm_mdl_lt')[0], {
+var modalLite = new ch.Modal({% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_lt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mdl_lt')[0]{% endif %}, {
     'content': '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>',
     'addClass': 'ch-modal-lite'
 });
@@ -68,22 +68,22 @@ var modalForm = new ch.Modal({
     'hiddenby': 'button'
 });
 
-tiny.on('#dm_mdl_frm', 'submit', function (e) {
+{% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_frm').on({% endif %}{% if chico_current_version == site.chico_version_2x %}tiny.on('#dm_mdl_frm', {% endif %}'submit', function (e) {
     e.preventDefault();
     modalForm.show('<h2>Heading</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>');
 });
 {% endhighlight %}
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
-            var modalLink = new ch.Modal(ch('#dm_mdl_lnk')[0], {
+            var modalLink = new ch.Modal({% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_lnk'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mdl_lnk')[0]{% endif %}, {
                 'width': '500px'
             });
 
-            var modalDom = new ch.Modal(ch('#dm_mdl_dom')[0], {
-                'content': document.querySelector('#dm_mdl_dom_cnt')
+            var modalDom = new ch.Modal({% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_dom'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mdl_dom')[0]{% endif %}, {
+                'content': {% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_dom_cnt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mdl_dom_cnt')[0]{% endif %}
             });
 
-            var modalLite = new ch.Modal(ch('#dm_mdl_lt')[0], {
+            var modalLite = new ch.Modal({% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_lt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mdl_lt')[0]{% endif %}, {
                 'content': '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>',
                 'addClass': 'ch-modal-lite'
             });
@@ -92,7 +92,7 @@ tiny.on('#dm_mdl_frm', 'submit', function (e) {
                 'hiddenby': 'button'
             });
 
-            tiny.on('#dm_mdl_frm', 'submit', function (e) {
+            {% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_frm').on({% endif %}{% if chico_current_version == site.chico_version_2x %}tiny.on('#dm_mdl_frm', {% endif %}'submit', function (e) {
                 e.preventDefault();
                 modalForm.show('<h2>Heading</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>');
             });

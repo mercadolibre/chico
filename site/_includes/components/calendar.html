@@ -14,7 +14,7 @@
 <div id="dm_cldr"></div>
 {% endhighlight %}
 {% highlight javascript %}
-var calendar = new ch.Calendar(ch('.demo-calendar')[0], {
+var calendar = new ch.Calendar({% if chico_current_version == site.chico_version_1x %}$('#dm_cldr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_cldr')[0]{% endif %}, {
     'selected': ['2017/01/22', '2017/01/21']
 });
 {% endhighlight %}
@@ -26,7 +26,7 @@ var calendar = new ch.Calendar(ch('.demo-calendar')[0], {
             s1.setDate(s1.getDate() - 7);
             s2.setDate(s2.getDate() - 3);
 
-            var calendar = new ch.Calendar(ch('#dm_cldr')[0], {
+            var calendar = new ch.Calendar({% if chico_current_version == site.chico_version_1x %}$('#dm_cldr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_cldr')[0]{% endif %}, {
                 'selected': [
                     s1.getFullYear() + '/' + (s1.getMonth() + 1) + '/' + s1.getDate(),
                     s2.getFullYear() + '/' + (s2.getMonth() + 1) + '/' + s2.getDate()

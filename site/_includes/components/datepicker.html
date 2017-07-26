@@ -19,7 +19,7 @@
 <input id="dm_dtpk" name="dm_dtpk" type="date" placeholder="MM/DD/YYYY" />
 {% endhighlight %}
 {% highlight javascript %}
-var datepicker = new ch.Datepicker(ch('#dm_dtpk')[0], {
+var datepicker = new ch.Datepicker({% if chico_current_version == site.chico_version_1x %}$('#dm_dtpk'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dtpk')[0]{% endif %}, {
     'selected': '2017/11/15',
     'to': 'today'
 });
@@ -30,7 +30,7 @@ var datepicker = new ch.Datepicker(ch('#dm_dtpk')[0], {
 
             s1.setDate(s1.getDate() - 14);
 
-            var datepicker = new ch.Datepicker(ch('#dm_dtpk')[0], {
+            var datepicker = new ch.Datepicker({% if chico_current_version == site.chico_version_1x %}$('#dm_dtpk'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dtpk')[0]{% endif %}, {
                 'selected': s1.getFullYear() + '/' + (s1.getMonth() + 1) + '/' + s1.getDate(),
                 'to': 'today'
             });
