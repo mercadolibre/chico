@@ -75,6 +75,9 @@ var dropdownSkin = new ch.Dropdown({% if chico_current_version == site.chico_ver
     'skin': true
 });
 {% endhighlight %}
+    <p>
+        Back to <a href="#dropdown">Dropdown</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var dropdownDefault = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_df')[0]{% endif %});

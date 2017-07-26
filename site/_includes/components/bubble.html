@@ -22,6 +22,9 @@ var bubble = new ch.Bubble({% if chico_current_version == site.chico_version_1x 
     bubble.show();
 });
 {% endhighlight %}
+    <p>
+        Back to <a href="#bubble">Bubble</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var bubble = new ch.Bubble({% if chico_current_version == site.chico_version_1x %}$('#dm_bbl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_bbl')[0]{% endif %}, {

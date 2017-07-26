@@ -73,6 +73,9 @@ var modalForm = new ch.Modal({
     modalForm.show('<h2>Heading</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>');
 });
 {% endhighlight %}
+    <p>
+        Back to <a href="#modal">Modal</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var modalLink = new ch.Modal({% if chico_current_version == site.chico_version_1x %}$('#dm_mdl_lnk'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mdl_lnk')[0]{% endif %}, {

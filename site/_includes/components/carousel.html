@@ -123,6 +123,9 @@ var carouselLimit = new ch.Carousel({% if chico_current_version == site.chico_ve
     limitPerPage: 4
 });
 {% endhighlight %}
+    <p>
+        Back to <a href="#carousel">Carousel</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var carouselDefault = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_df')[0]{% endif %});

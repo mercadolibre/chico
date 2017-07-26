@@ -393,6 +393,9 @@ var validationRadioGroup = new ch.Validation({% if chico_current_version == site
     ]
 });
 {% endhighlight %}
+    <p>
+        Back to <a href="#validation">Validation</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var validationRequired = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_rqd')[0]{% endif %}, {

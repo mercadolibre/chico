@@ -18,6 +18,9 @@
 {% highlight javascript %}
 var transition = new ch.Transition({% if chico_current_version == site.chico_version_1x %}$('#dm_tr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_tr')[0]{% endif %});
 {% endhighlight %}
+    <p>
+        Back to <a href="#transition">Transition</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var transition = new ch.Transition({% if chico_current_version == site.chico_version_1x %}$('#dm_tr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_tr')[0]{% endif %});

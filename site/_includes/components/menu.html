@@ -63,6 +63,9 @@
 {% highlight javascript %}
 var menu = new ch.Menu({% if chico_current_version == site.chico_version_1x %}$('#dm_mn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mn')[0]{% endif %});
 {% endhighlight %}
+    <p>
+        Back to <a href="#menu">Menu</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var menu = new ch.Menu({% if chico_current_version == site.chico_version_1x %}$('#dm_mn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_mn')[0]{% endif %});

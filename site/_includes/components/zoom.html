@@ -43,6 +43,9 @@ var zoomPreload = new ch.Zoom({% if chico_current_version == site.chico_version_
 // Preload image
 zoomPreload.loadImage();
 {% endhighlight %}
+    <p>
+        Back to <a href="#zoom">Zoom</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var zoomDefault = new ch.Zoom({% if chico_current_version == site.chico_version_1x %}$('#dm_zm_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_zm_df')[0]{% endif %});

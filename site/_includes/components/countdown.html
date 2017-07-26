@@ -25,6 +25,9 @@ var countdown = new ch.Countdown({% if chico_current_version == site.chico_versi
     'singular': '# character left'
 });
 {% endhighlight %}
+    <p>
+        Back to <a href="#countdown">Countdown</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var countdown = new ch.Countdown({% if chico_current_version == site.chico_version_1x %}$('#dm_codw'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_codw')[0]{% endif %}, {

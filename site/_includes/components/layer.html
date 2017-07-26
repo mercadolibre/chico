@@ -86,6 +86,9 @@ var layerAjax = new ch.Layer({% if chico_current_version == site.chico_version_1
     'hiddenby': 'pointers'
 });
 {% endhighlight %}
+    <p>
+        Back to <a href="#layer">Layer</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var layerPlain = new ch.Layer({% if chico_current_version == site.chico_version_1x %}$('#dm_ly_pl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_ly_pl')[0]{% endif %}, {

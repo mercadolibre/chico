@@ -74,7 +74,11 @@ var expandableBoxList = new ch.Expandable({% if chico_current_version == site.ch
 var expandableAjax = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax')[0]{% endif %}, {
     'content': '{{ site.baseurl }}/ajax.html',
     'container': {% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax_cnt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax_cnt')[0]{% endif %}
-});{% endhighlight %}
+});
+{% endhighlight %}
+    <p>
+        Back to <a href="#expandable">Expandable</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
         document.addEventListener('DOMContentLoaded', function (e) {
             var expandableParagraph = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_pr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_pr')[0]{% endif %});
