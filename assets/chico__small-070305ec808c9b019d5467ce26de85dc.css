@@ -1,0 +1,226 @@
+/**
+ * MercadoLibre Chico
+ */
+
+/* Chico
+---------------------------------------------------------------*/
+
+
+.ml-wrapper {
+    padding-bottom: 0;
+}
+
+.chico-head {
+    padding: 60px 0;
+    margin-bottom: 40px;
+}
+
+.chico-head span {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.15;
+    color: #999;
+}
+
+.chico-head h1 {
+    margin: 0 0 10px;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.chico-head h3 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.15;
+    font-weight: 400;
+}
+
+pre.language-javascript {
+    display: block;
+    padding: 9.5px;
+    margin: 20px 0;
+    font-size: 13px;
+    line-height: 1.42;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: #333333;
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.row {
+    margin: 0 auto;
+}
+
+.chico-title-section {
+    width: 275px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.chico-title-section a,
+.chico-title-section a:link,
+.chico-title-section a:visited,
+.chico-title-section a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.chico-title-section-tagline {
+    display: block;
+    padding-bottom: 15px;
+}
+
+.chico-hero {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.chico-hero h1 {
+    margin: 5px 0 10px;
+    font-size: 40px;
+    line-height: 1.15;
+}
+
+.chico-hero h3 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.15;
+}
+
+.chico-hero figure {
+    text-align: center;
+}
+
+.chico-hero-img {
+    max-width: 100%;
+    max-height: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.chico-bg-noise {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAABGdBTUEAALGPC/xhBQAAACFQTFRF7u7u+Pj47+/v8PDw9/f38fHx9vb28vLy9fX19PT08/PzyraY2wAABANJREFUOMsN1Lt22zYAgGGMbR8gp51zfGpnbONY0tjoQmmsLVHU1sjibZVIAthSkyCArZFIAhgjCgTwlM0L/Nv3g6HAx6Jh+SYnFg11MzaGPQe1ZaBPrMPOvdeepbvSbEjLqEUd9UDSBAw/94abXH8M45wl8Ip4vruB6kgOw3qanpaFQPkiZ3i4bjvRMzBk6VW1q70+dg0fmRzFiJ1dSyuQ6aTxJ6dDTlefZpNknBaD6KTeI9C1nTBBK63jrarMLqoDX14uNwVCobWUzOtYrF7t3KhmK30SNjuwLkThSpjlKSQ9ni/sgSqLIhUD5JuaMmTYn25sdg7131ebIe6jEryuNY3dakv9chj5XU2o6oqG4A54Qdza9voyQLEftfmsCF6MdH33BGJdaNgF9HFaHLkXWE6oTuccjwD1P9SxbJe7CxkZS090gmPYqMgCVVSWN3AxhqWKUBYcC7zfYB050LZfpsxiq6Cnz483yg99csycSkCp31aKcUbxQjNBUhglW0sGV4OePmpUyszz6UMc66wKFkjyoaXAFKobUTucs3isq8D+nbmwnw4rCRpd1/f4nWFx1DkBl/k65AqhfQTeJ06MhxtkvwWn0wLCIHTzOozetkAiXY+Oz07VdyksByW+YTPIjm3Aro07Sr45BBfhZL5j0fohfjtiVQLNXGpOV3G9D8M7I5zL+j3yCVwBLfOmlnWaQxe/2Xp4asg8NNhEIDgXX6NY/zU5tNozlayz16nErQ3AaEjLL+2wzwlRrzlfLkTdkwcBIYh79b4u+NbcIz5ydKFHFZ8q+VmAlCx9epdcvKIfhjIkXqMCTrzPGMTioBKziK6FJytSYvnsIyWLsACbjTXMe8Vr0hyj4j+kOsZFm+Q1yG9msS34ZNnYT1RY33RMpn03dEDKBNkgh0thFhN7HenWXdKpDBxQpHoMcTCNQrr6BfmM5zC9pOfxGihx3ib4YNV8QX+HQUolYXYSlg70Z59lJ/xPZ8nH3jJFOpFHP/hhYGsRCzEKYaz7l/DXcTlwF9/aVoGH1W9dRPwUJYNJ9hh6UKQ8PZoUYI1wus+NrFo+a+AcUU+uPZdoUFeBkzFmvU8erRFJX3PrVuNuDA5rE9E6PF8+oJ1RO3Fpir5geUrAcS6usKhoct/MB9/J9Lari0R1ITin6b4QwtCxerdWgteoPdRDHF8ArmZxl7fuNqY/+vpfRNh3MjdLBAKbETbTYdFN4DnLf2xIt7J7dWfwikjHZxt/RPIwcXfGKvL5j9NhM4CTcLhYlUqzBiXVzzKz8inTNycAV2rlwkRP5RWq6qfltqVbHG9cDESYXneTrJs/JXwRjW6RdeTlFqZvIEnSdRowe9glq4Sn3J1h81WqfPY/NvRcq/PK60EAAAAASUVORK5CYII=);
+}
+
+.chico-features {
+    padding: 40px 0;
+    text-align: center;
+}
+
+.chico-features h2 {
+    margin: 0 0 15px;
+    font-size: 34px;
+    font-weight: 100;
+    line-height: 1.15;
+}
+
+.chico-features h3 {
+    margin: 10px 0 5px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.chico-features p {
+    font-size: 14px;
+}
+
+.chico-box-circle {
+    background: #ccc;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.chico-box-circle-medium {
+    width: 150px;
+    height: 150px;
+}
+
+.chico-box-circle-large {
+    width: 250px;
+    height: 250px;
+}
+
+.chico-nav {
+    display: none;
+}
+
+.chico-getting-started,
+.chico-showcase,
+.chico-api-doc {
+    padding-bottom: 60px;
+}
+
+.chico-content > h1 {
+    margin: 0 0 15px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.chico-content > h2,
+.chico-content article > h2 {
+    margin: 0 0 15px;
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1.15;
+}
+
+.chico-content > h2 ~ h2 {
+    margin-top: 30px;
+}
+
+.chico-content article ~ article > h2 {
+    margin-top: 60px;
+}
+
+.chico-content > h3,
+.chico-content article > h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.chico-content article ~ article > h3:first-child,
+.chico-content article > h3 ~ h3 {
+    margin-top: 25px;
+}
+
+.chico-content dl > h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.chico-content dl > h4 ~ h4 {
+    margin-top: 25px;
+}
+
+.chico-content > p,
+.chico-content article > p,
+.chico-content dl > p {
+    font-size: 14px;
+}
+
+.chico-versions-list {
+    margin: 14px 0 14px 4px;
+    list-style: disc inside;
+    font-size: 14px;
+}
+
+.chico-versions-list ul {
+    margin: 4px 0 14px 20px;
+    list-style: circle inside;
+}
+
+.chico-versions-list a:visited {
+    color: #03b;
+}

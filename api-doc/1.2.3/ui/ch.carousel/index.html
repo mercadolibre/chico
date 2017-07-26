@@ -1,0 +1,706 @@
+<!doctype html>
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+<head>
+    
+        
+        
+        
+        
+    
+
+<meta charset="utf-8" />
+<title>
+    ch.Carousel v1.2.3 - Chico UI API Documentation
+</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="cleartype" content="on" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+<link href="/assets/ninja-6ec421bf2f0e80ff1da4face92e29007.ico" rel="shortcut icon" />
+
+<!--[if lt IE 9]>
+    <script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+
+<link href="https://ui.mlstatic.com/webfonts/v3.0.0/lato/300-400-700.css" rel="stylesheet" />
+<link href="https://ui.mlstatic.com/chico/mesh/4.2.2/mesh.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="/assets/ml-header-cc2ff5baef62f4e76d879681c84dd7ea.css">
+
+<link rel="stylesheet" href="/assets/base__small-06c664d77b79734cf0b3f4665778b772.css">
+<link rel="stylesheet" href="/assets/base__large-a6599a68ef4a01b6b5dc2c3f89bda983.css" media="(min-width: 768px)">
+<link rel="stylesheet" href="/assets/chico__small-070305ec808c9b019d5467ce26de85dc.css">
+<link rel="stylesheet" href="/assets/chico__large-26a808b115642e86288cd8fa9f41a966.css" media="(min-width: 768px)">
+<link rel="stylesheet" href="/assets/ui-slug_element_component-97357578f15eef69933279ff9c60476e.css">
+
+<link rel="stylesheet" href="/assets/gh-pages-7276a8d2b00c380d26fae18f6e8f9264.css">
+
+<link rel="stylesheet" href="/assets/highlighter-42b8cd6c5c44b7f1eef7e3b45dc555f2.css">
+
+<!--[if lt IE 9]>
+    <link rel="stylesheet" href="/assets/base__large-a6599a68ef4a01b6b5dc2c3f89bda983.css">
+    <link rel="stylesheet" href="/assets/chico__large-26a808b115642e86288cd8fa9f41a966.css">
+<![endif]-->
+
+
+    <link href="https://ui.mlstatic.com/chico/2.0.11/ui/chico.min.css"
+        rel="stylesheet" />
+</head>
+<body data-country="MLA">
+    <header class="ml-header" id="top" role="banner">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/">
+            <h1 class="ml-title">
+                Chico UI
+            </h1>
+        </a>
+        <a class="ml-logo" href="/">
+            <span class="ch-brand-name">
+                Chico UI
+            </span>
+        </a>
+        <label class="toggle-label" for="toggle-menu"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class=""
+                        href="/1x/ui/getting-started/">
+                        Getting started
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class=""
+                        href="/1x/ui/layout/">
+                        Layout
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class=""
+                        href="/1x/ui/components/">
+                        Components
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="api-doc  active"
+                        href="/api-doc/1.2.3/ui/ch/">
+                        API
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right"><span></span><span></span><span></span></div>
+
+        <nav class="ml-header-menu">
+            <a class=""
+                href="/1x/ui/getting-started/">
+                Getting started
+            </a>
+            <a class=""
+                href="/1x/ui/layout/">
+                Layout
+            </a>
+            <a class=""
+                href="/1x/ui/components/">
+                Components
+            </a>
+            <a class=" active"
+                href="/api-doc/1.2.3/ui/ch/">
+                API
+            </a>
+        </nav>
+    </div>
+</header>
+
+
+    <div class="ml-wrapper">
+        <main role="main" class="chico-api-doc">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <span class="mesh-col-12">
+                v1.2.3 ui
+            </span>
+            <h1 class="mesh-col-12">
+                API
+            </h1>
+            <h3 class="mesh-col-12">
+                Full API documentation.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                <h1>
+                    ch.Carousel
+                </h1>
+                
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>A large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new carousel.</span>
+<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Carousel</span><span class="p">(</span><span class="nx">$el</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span></code></pre></div>
+</div>
+
+
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with jQuery or Zepto.</span>
+<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">carousel</span><span class="p">([</span><span class="nx">options</span><span class="p">]);</span></code></pre></div>
+</div>
+
+
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with disabled effects.</span>
+<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">carousel</span><span class="p">({</span>
+    <span class="s1">&#39;fx&#39;</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with items asynchronously loaded.</span>
+<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">carousel</span><span class="p">({</span>
+    <span class="s1">&#39;async&#39;</span><span class="o">:</span> <span class="mi">10</span>
+<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;itemsadd&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$items</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Inject content into the added &lt;li&gt; elements</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">$items</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;Content into one of newly inserted &lt;li&gt; elements.&#39;</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+    
+
+    
+        <h2 class="api-title">Parameters</h2>
+        
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">$el</code>
+             - 
+            
+                
+<em class="param-type">jQuerySelector | ZeptoSelector</em>
+            
+            : A jQuery or Zepto Selector to create an instance of ch.Carousel.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">options</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Options to customize an instance.
+
+            
+                
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">async</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Defines the number of future asynchronous items to add to the component. Default: 0.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">arrows</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Defines if the arrow-buttons must be created or not at initialization. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">pagination</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Defines if a pagination must be created or not at initialization. Default: false.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">fx</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Enable or disable the slide effect. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">limitPerPage</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Set the maximum amount of items to show in each page.
+
+            
+        </li>
+	
+</ul>
+            
+        </li>
+	
+</ul>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Properties</h2>
+
+    <dl>
+        
+
+<h4>
+    <code class=" language-markup" id="Carousel#name">.Carousel#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of the component.</p>
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// You can reach the associated instance.</span>
+<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;carousel&#39;</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+
+    </dl>
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.destroy<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Destroys a Carousel instance.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.disable<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Disables a Carousel instance.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.enable<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Enables a Carousel instance.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.next<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Moves the list to the next page.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.prev<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Moves the list to the previous page.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.refresh<span class="signature">()</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Triggers all the necessary recalculations to be up-to-date.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.select<span class="signature">(page)</span><span class="type-signature"> &rarr; {carousel}</span></code></h4>
+<pre></pre>
+
+    <p>Moves the list to the specified page.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">page</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Reference of page where the list has to move.
+
+            
+        </li>
+	
+</ul>
+
+
+
+
+    </dl>
+
+
+
+
+
+    <h2 class="api-title">Events</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">'itemsadd'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component creates new asynchronous empty items.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Carousel with items asynchronously loaded.</span>
+<span class="kd">var</span> <span class="nx">carousel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">carousel</span><span class="p">({</span>
+    <span class="s1">&#39;async&#39;</span><span class="o">:</span> <span class="mi">10</span>
+<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;itemsadd&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$items</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Inject content into the added &lt;li&gt; elements</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">$items</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;Content into one of newly inserted &lt;li&gt; elements.&#39;</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'next'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component moves to the next page.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;next&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Carousel has moved to the next page.&#39;</span><span class="p">);</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'prev'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component moves to the previous page.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;prev&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Carousel has moved to the previous page.&#39;</span><span class="p">);</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'ready'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component is ready to use.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;ready&quot; event.</span>
+<span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some code here!</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'refresh'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component makes all the necessary recalculations to be up-to-date.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;refresh&quot; event.</span>
+<span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;refresh&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Carousel was refreshed.&#39;</span><span class="p">);</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'select'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component moves to another page.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;select&quot; event.</span>
+<span class="nx">carousel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Carousel was moved.&#39;</span><span class="p">);</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+            </nav>
+        </div>
+    </section>
+</main>
+    </div>
+
+    <footer class="ml-footer" role="contentinfo">
+    <div class="ml-bounds">
+        <small>
+            © 2017 Mercado Libre
+        </small>
+        /
+        <a href="https://github.com/mercadolibre/chico/">
+            GitHub Repository
+        </a>
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+</body>
+</html>

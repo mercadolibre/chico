@@ -1,0 +1,198 @@
+/* General styles
+---------------------------------------------------------------*/
+
+
+.ml-wrapper:after {
+    height: 0;
+}
+
+.ml-footer {
+    margin-top: 0;
+}
+
+/* Header
+---------------------------------------------------------------*/
+
+header .toggle-label {
+    z-index: 999;
+    cursor: pointer;
+    display: none;
+}
+
+header .ml-logo-mobile,
+header .ml-logo-mobile:link,
+header .ml-logo-mobile:visited {
+    text-decoration: none;
+    color: #333;
+}
+
+.ml-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+@media only screen and (min-width: 768px) {
+    .toggle-label,
+    .ml-navicon {
+        display: none;
+    }
+
+    .chico-getting-started section .ml-bounds article .language-javascript .class-name {
+        position: absolute;
+        left: 44px;
+    }
+}
+
+/* Home
+---------------------------------------------------------------*/
+
+.chico-bottom {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.chico-bottom .brand-ml {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+    .ml-navigation {
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    .ml-header .toggle-label {
+        display: block;
+    }
+
+    .ml-header .ml-logo {
+        display: none;
+    }
+
+    .chico-features ul li {
+        margin: 0 0 30px 0;
+    }
+
+    .chico-getting-started section .ml-bounds article .language-javascript .class-name {
+        margin-left: -220px;
+        position: relative;
+        left: 10px;
+    }
+
+    .ml-footer {
+        height: 42px;
+        line-height: 42px;
+        background-color: #fff;
+    }
+}
+
+/* Getting started
+---------------------------------------------------------------*/
+
+.chico-getting-started .language-javascript {
+    word-wrap: break-word;
+}
+
+/* API doc
+---------------------------------------------------------------*/
+
+.main {
+    padding-top: 90px;
+}
+
+.language-markup code {
+    position: relative;
+    left: -180px;
+    top: 2px;
+}
+
+/* Components
+---------------------------------------------------------------*/
+
+/**
+ * 1. Restore Chico's default font.
+ */
+
+.component-example {
+    margin: 25px 0 0;
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+    padding: 14px;
+    position: relative;
+    font-family: Arial, Helvetica, 'Nimbus Sans L', sans-serif; /* 1 */
+}
+
+/**
+ * 1. Restore Chico Mobile's defaults.
+ */
+
+.chico-platform-mobile .component-example {
+    font-size: 14px; /* 1 */
+    line-height: 21px; /* 1 */
+}
+
+/**
+ * 1. Restore Chico Desktop's defaults.
+ */
+
+.chico-platform-ui .component-example {
+    font-size: 13px; /* 1 */
+    line-height: 20px; /* 1 */
+}
+
+.component-example:before {
+    display: block;
+    position: absolute;
+    padding: 0 4px;
+    content: 'Example';
+    top: -12px;
+    left: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.component-example + .highlight {
+    margin-top: -9px;
+}
+
+.highlight + .highlight {
+    margin-top: -11px;
+}
+
+.component-example + .highlight > pre,
+.component-example + .highlight > code,
+.highlight + .highlight > pre {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.icons-showcase {
+    overflow: hidden;
+    padding: 1em;
+}
+
+.icons-showcase li {
+    float:left;
+    width: 33%;
+    line-height: 2em;
+}
+
+.icons-showcase li > [class*=ch-icon-]:before {
+    -webkit-transition: -webkit-transform .2s ease-out;
+    transition: transform .2s ease-out;
+}
+
+.icons-showcase li:hover > [class*=ch-icon-]:before {
+    -webkit-transform: scale(2.2);
+    transform: scale(2.2);
+}
+
+/* Help
+---------------------------------------------------------------*/
+
+.help p {
+    margin: 15px 0 30px 0;
+}

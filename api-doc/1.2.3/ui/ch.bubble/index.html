@@ -1,0 +1,1131 @@
+<!doctype html>
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+<head>
+    
+        
+        
+        
+        
+    
+
+<meta charset="utf-8" />
+<title>
+    ch.Bubble v1.2.3 - Chico UI API Documentation
+</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="cleartype" content="on" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+<link href="/assets/ninja-6ec421bf2f0e80ff1da4face92e29007.ico" rel="shortcut icon" />
+
+<!--[if lt IE 9]>
+    <script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+
+<link href="https://ui.mlstatic.com/webfonts/v3.0.0/lato/300-400-700.css" rel="stylesheet" />
+<link href="https://ui.mlstatic.com/chico/mesh/4.2.2/mesh.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="/assets/ml-header-cc2ff5baef62f4e76d879681c84dd7ea.css">
+
+<link rel="stylesheet" href="/assets/base__small-06c664d77b79734cf0b3f4665778b772.css">
+<link rel="stylesheet" href="/assets/base__large-a6599a68ef4a01b6b5dc2c3f89bda983.css" media="(min-width: 768px)">
+<link rel="stylesheet" href="/assets/chico__small-070305ec808c9b019d5467ce26de85dc.css">
+<link rel="stylesheet" href="/assets/chico__large-26a808b115642e86288cd8fa9f41a966.css" media="(min-width: 768px)">
+<link rel="stylesheet" href="/assets/ui-slug_element_component-97357578f15eef69933279ff9c60476e.css">
+
+<link rel="stylesheet" href="/assets/gh-pages-7276a8d2b00c380d26fae18f6e8f9264.css">
+
+<link rel="stylesheet" href="/assets/highlighter-42b8cd6c5c44b7f1eef7e3b45dc555f2.css">
+
+<!--[if lt IE 9]>
+    <link rel="stylesheet" href="/assets/base__large-a6599a68ef4a01b6b5dc2c3f89bda983.css">
+    <link rel="stylesheet" href="/assets/chico__large-26a808b115642e86288cd8fa9f41a966.css">
+<![endif]-->
+
+
+    <link href="https://ui.mlstatic.com/chico/2.0.11/ui/chico.min.css"
+        rel="stylesheet" />
+</head>
+<body data-country="MLA">
+    <header class="ml-header" id="top" role="banner">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/">
+            <h1 class="ml-title">
+                Chico UI
+            </h1>
+        </a>
+        <a class="ml-logo" href="/">
+            <span class="ch-brand-name">
+                Chico UI
+            </span>
+        </a>
+        <label class="toggle-label" for="toggle-menu"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class=""
+                        href="/1x/ui/getting-started/">
+                        Getting started
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class=""
+                        href="/1x/ui/layout/">
+                        Layout
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class=""
+                        href="/1x/ui/components/">
+                        Components
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="api-doc  active"
+                        href="/api-doc/1.2.3/ui/ch/">
+                        API
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right"><span></span><span></span><span></span></div>
+
+        <nav class="ml-header-menu">
+            <a class=""
+                href="/1x/ui/getting-started/">
+                Getting started
+            </a>
+            <a class=""
+                href="/1x/ui/layout/">
+                Layout
+            </a>
+            <a class=""
+                href="/1x/ui/components/">
+                Components
+            </a>
+            <a class=" active"
+                href="/api-doc/1.2.3/ui/ch/">
+                API
+            </a>
+        </nav>
+    </div>
+</header>
+
+
+    <div class="ml-wrapper">
+        <main role="main" class="chico-api-doc">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <span class="mesh-col-12">
+                v1.2.3 ui
+            </span>
+            <h1 class="mesh-col-12">
+                API
+            </h1>
+            <h3 class="mesh-col-12">
+                Full API documentation.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                <h1>
+                    ch.Bubble
+                </h1>
+                
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>Dialog window with an error skin.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Bubble.</span>
+<span class="kd">var</span> <span class="nx">bubble</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ch</span><span class="p">.</span><span class="nx">Bubble</span><span class="p">(</span><span class="nx">$el</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span></code></pre></div>
+</div>
+
+
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Bubble with jQuery or Zepto.</span>
+<span class="kd">var</span> <span class="nx">bubble</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">bubble</span><span class="p">([</span><span class="nx">options</span><span class="p">]);</span></code></pre></div>
+</div>
+
+
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Bubble with disabled effects.</span>
+<span class="kd">var</span> <span class="nx">bubble</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">bubble</span><span class="p">({</span>
+    <span class="s1">&#39;fx&#39;</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create a new Bubble using the shorthand way (content as parameter).</span>
+<span class="kd">var</span> <span class="nx">bubble</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">bubble</span><span class="p">(</span><span class="s1">&#39;http://ui.ml.com:3040/ajax&#39;</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+    
+
+    
+        <h2 class="api-title">Parameters</h2>
+        
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">$el</code>
+             - 
+            
+                
+<em class="param-type">jQuerySelector | ZeptoSelector</em>
+            
+            : A jQuery or Zepto Selector to create an instance of ch.Bubble.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">options</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Options to customize an instance.
+
+            
+                
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">addClass</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : CSS class names that will be added to the container on the component initialization.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">fx</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">width</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Set a width for the container. Default: "auto".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">height</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Set a height for the container. Default: "auto".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">shownby</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "none".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">hiddenby</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">reference</code>
+             - 
+            
+                
+<em class="param-type">jQuerySelector | ZeptoSelector</em>
+            
+            : It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">side</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "right".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">align</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "top".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">offsetX</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Distance to displace the target horizontally. Default: 10.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">offsetY</code>
+             - 
+            
+                
+<em class="param-type">Number</em>
+            
+            : Distance to displace the target vertically. Default: 0.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">position</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The type of positioning used. Its value must be "absolute" or "fixed". Default: "absolute".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">method</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">params</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Params like query string to be sent to the server.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">cache</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Force to cache the request by the browser. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">async</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Force to sent request asynchronously. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">waiting</code>
+             - 
+            
+                
+<em class="param-type">String | jQuerySelector | ZeptoSelector</em>
+            
+            : Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">content</code>
+             - 
+            
+                
+<em class="param-type">jQuerySelector | ZeptoSelector | HTMLElement | String</em>
+            
+            : The content to be shown into the Bubble container. Default: "Check the information, please."
+
+            
+        </li>
+	
+</ul>
+            
+        </li>
+	
+</ul>
+    
+
+
+
+
+   <h2 class="api-title">Extends</h2>
+
+    <ul>
+        <li><a href="../ch.component/">ch.Component</a></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Properties</h2>
+
+    <dl>
+        
+
+<h4>
+    <code class=" language-markup" id="Bubble#name">.Bubble#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of the component.</p>
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// You can reach the associated instance.</span>
+<span class="kd">var</span> <span class="nx">bubble</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;bubble&#39;</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="Component#name">.Component#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of a component.</p>
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// You can reach the associated instance.</span>
+<span class="kd">var</span> <span class="nx">component</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+
+    
+        
+
+<h4>
+    <code class=" language-markup" id="uid">.uid</code>
+    
+    
+<em class="param-type">Number</em>
+    
+</h4>
+
+
+<p>A unique id to identify the instance of a component.</p>
+
+
+
+    </dl>
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.destroy<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Destroys an instance of Component and remove its data from asociated element.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Destroy a component</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+<span class="c1">// Empty the component reference</span>
+<span class="nx">component</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.disable<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Disables an instance of Component.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Disabling an instance of Component.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">disable</span><span class="p">();</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.enable<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Enables an instance of Component.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Enabling an instance of Component.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">enable</span><span class="p">();</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.require<span class="signature">()</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds functionality or abilities from other classes.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// You can require some abilitiest to use in your component.</span>
+<span class="c1">// For example you should require the collpasible abitliy.</span>
+<span class="kd">var</span> <span class="nx">component</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Component</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;Collapsible&#39;</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.emit<span class="signature">(event, var_args)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Execute each item in the listener collection in order with the specified data.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The name of the event you want to emit.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">var_args</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : Data to pass to the listeners.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Will emit the &#39;ready&#39; event with &#39;param1&#39; and &#39;param2&#39; as arguments.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="s1">&#39;param1&#39;</span><span class="p">,</span> <span class="s1">&#39;param2&#39;</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.getListeners<span class="signature">(event)</span><span class="type-signature"> &rarr; {Array}</span></code></h4>
+<pre></pre>
+
+    <p>Returns all listeners from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Returns listeners from &#39;ready&#39; event.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">getListeners</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.off<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Removes a listener from the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Will remove event listener to &#39;ready&#39; event.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="nx">listener</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.on<span class="signature">(event, listener, once)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The event name to subscribe.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">once</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Indicate if a listener function will be called only one time.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Will add an event listener to &#39;ready&#39; event.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="nx">listener</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.once<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
+<pre></pre>
+
+    <p>Adds a listener to the collection for a specified event to will execute only once.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">event</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Event name.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">listener</code>
+             - 
+            
+                
+<em class="param-type">function</em>
+            
+            : Listener function.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Will add an event handler to &#39;contentLoad&#39; event once.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;contentLoad&#39;</span><span class="p">,</span> <span class="nx">listener</span><span class="p">);</span></code></pre></div>
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+    <h2 class="api-title">Events</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">'destroy'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is destroyed.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;destroy&quot; event.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;destroy&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some code here!</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'disable'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is disable.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;disable&quot; event.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;disable&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some code here!</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'enable'</code></h4>
+<pre></pre>
+
+    <p>Emits when a component is enabled.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;enable&quot; event.</span>
+<span class="nx">component</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;enable&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some code here!</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'ready'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the component is ready to use.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Subscribe to &quot;ready&quot; event.</span>
+<span class="nx">bubble</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Some code here!</span>
+<span class="p">});</span></code></pre></div>
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+            </nav>
+        </div>
+    </section>
+</main>
+    </div>
+
+    <footer class="ml-footer" role="contentinfo">
+    <div class="ml-bounds">
+        <small>
+            © 2017 Mercado Libre
+        </small>
+        /
+        <a href="https://github.com/mercadolibre/chico/">
+            GitHub Repository
+        </a>
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+</body>
+</html>

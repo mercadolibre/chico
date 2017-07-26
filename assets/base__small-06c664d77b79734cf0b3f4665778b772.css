@@ -1,0 +1,139 @@
+/**
+ * Navigation boilerplate
+ * @description: A responsive frame to wrap your layout. Use only the fragments you need.
+ */
+
+/* Chico overwrites
+---------------------------------------------------------------*/
+
+
+html body {
+    padding: 0;
+    margin: 0;
+}
+
+html a:visited {
+    color: #03b;
+}
+
+/**
+ * 1. Temporarily fix bug from Chico Mobile v1.2.3/v2.0.11.
+ */
+
+.chico-platform-mobile .ch-form legend {
+    padding: 0 0 8px; /* 1 */
+}
+
+/* Bounds
+---------------------------------------------------------------*/
+
+/**
+ * 1. Normalize Mobile and Desktop versions.
+ */
+
+.ml-bounds {
+    display: block;
+    padding: 0 10px;
+    font-size: 13px; /* 1 */
+    font-family: 'Lato';
+    font-weight: 300;
+    line-height: 20px; /* 1 */
+}
+
+.ml-wrapper {
+    min-height: 100%;
+    padding-bottom: 1em;
+}
+
+.ml-wrapper:after {
+    content: '';
+    display: block;
+    height: 95px; /* same as footer height */
+}
+
+/* Header
+---------------------------------------------------------------*/
+
+.ml-header h1 {
+    font-size: 1.2em;
+    line-height: 44px; /* same as header height. It changes in small devices */
+    margin: 0;
+    text-align: center;
+    text-shadow: 0 1px rgba(255, 255, 255, .75);
+}
+
+/* Hidden elements from bigger devices
+---------------------------------------------------------------*/
+
+.ml-logo,
+.ml-header-menu {
+    display: none;
+}
+
+/* Header buttons
+---------------------------------------------------------------*/
+
+.ml-header-btn {
+    background-image: -webkit-linear-gradient(transparent 25%, rgba(99, 99, 99, .12));
+    background-image: linear-gradient(transparent 25%, rgba(99, 99, 99, .12));
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    box-shadow: inset 0 1px rgba(255, 255, 255, .75);
+    font-size: .9em;
+    height: 30px;
+    left: 7px; /* keep the same distance as top */
+    line-height: 30px;
+    padding: 0 10px;
+    position: absolute;
+    text-shadow: 0 1px rgba(255, 255, 255, .75);
+    top: 7px; /* difference between header height and button height */
+}
+
+.ml-header-btn,
+.ml-header-btn:visited,
+a.ml-header-btn,
+a.ml-header-btn:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+.ml-header-btn:active {
+    background-image: -webkit-linear-gradient(rgba(99, 99, 99, .12) 25%, rgba(99, 99, 99, .2));
+    background-image: linear-gradient(rgba(99, 99, 99, .12) 25%, rgba(99, 99, 99, .2));
+    box-shadow: inset 0 1px rgba(99, 99, 99, .2);
+}
+
+.ml-header-action {
+    left: auto;
+    right: 7px; /* keep the same distance as top */
+}
+
+/* Footer
+---------------------------------------------------------------*/
+
+.ml-footer {
+    color: #999;
+    font-size: 13px;
+    height: 95px; /* same as ml-wrapper:after size */
+    margin-top: -95px; /* same as height */
+    overflow: hidden;
+}
+
+.ml-footer small {
+    font-size: inherit;
+    line-height: 42px;
+}
+
+.ml-footer a,
+.ml-footer a:link,
+.ml-footer a:hover,
+.ml-footer a:visited {
+    color: #999;
+}
+
+/* Contextual layout
+---------------------------------------------------------------*/
+
+.ml-contextual .ml-wrapper {
+    background-color: #f7f7f7;
+}

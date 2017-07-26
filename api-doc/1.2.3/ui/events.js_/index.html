@@ -1,0 +1,289 @@
+<!doctype html>
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+<head>
+    
+        
+        
+        
+        
+    
+
+<meta charset="utf-8" />
+<title>
+    Source: shared/scripts/events.js v1.2.3 - Chico UI API Documentation
+</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="cleartype" content="on" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+<link href="/assets/ninja-6ec421bf2f0e80ff1da4face92e29007.ico" rel="shortcut icon" />
+
+<!--[if lt IE 9]>
+    <script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
+
+<link href="https://ui.mlstatic.com/webfonts/v3.0.0/lato/300-400-700.css" rel="stylesheet" />
+<link href="https://ui.mlstatic.com/chico/mesh/4.2.2/mesh.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="/assets/ml-header-cc2ff5baef62f4e76d879681c84dd7ea.css">
+
+<link rel="stylesheet" href="/assets/base__small-06c664d77b79734cf0b3f4665778b772.css">
+<link rel="stylesheet" href="/assets/base__large-a6599a68ef4a01b6b5dc2c3f89bda983.css" media="(min-width: 768px)">
+<link rel="stylesheet" href="/assets/chico__small-070305ec808c9b019d5467ce26de85dc.css">
+<link rel="stylesheet" href="/assets/chico__large-26a808b115642e86288cd8fa9f41a966.css" media="(min-width: 768px)">
+<link rel="stylesheet" href="/assets/ui-slug_element_component-97357578f15eef69933279ff9c60476e.css">
+
+<link rel="stylesheet" href="/assets/gh-pages-7276a8d2b00c380d26fae18f6e8f9264.css">
+
+<link rel="stylesheet" href="/assets/highlighter-42b8cd6c5c44b7f1eef7e3b45dc555f2.css">
+
+<!--[if lt IE 9]>
+    <link rel="stylesheet" href="/assets/base__large-a6599a68ef4a01b6b5dc2c3f89bda983.css">
+    <link rel="stylesheet" href="/assets/chico__large-26a808b115642e86288cd8fa9f41a966.css">
+<![endif]-->
+
+
+    <link href="https://ui.mlstatic.com/chico/2.0.11/ui/chico.min.css"
+        rel="stylesheet" />
+</head>
+<body data-country="MLA">
+    <header class="ml-header" id="top" role="banner">
+    <div class="ml-header-inner">
+        <a class="ml-logo-mobile" href="/">
+            <h1 class="ml-title">
+                Chico UI
+            </h1>
+        </a>
+        <a class="ml-logo" href="/">
+            <span class="ch-brand-name">
+                Chico UI
+            </span>
+        </a>
+        <label class="toggle-label" for="toggle-menu"></label>
+        <input type="checkbox" class="toggle-input" id="toggle-menu">
+
+        <nav class="ml-navigation" role="navigation">
+            <ul>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class=""
+                        href="/1x/ui/getting-started/">
+                        Getting started
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class=""
+                        href="/1x/ui/layout/">
+                        Layout
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class=""
+                        href="/1x/ui/components/">
+                        Components
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="api-doc  active"
+                        href="/api-doc/1.2.3/ui/ch/">
+                        API
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="ml-navicon action-right"><span></span><span></span><span></span></div>
+
+        <nav class="ml-header-menu">
+            <a class=""
+                href="/1x/ui/getting-started/">
+                Getting started
+            </a>
+            <a class=""
+                href="/1x/ui/layout/">
+                Layout
+            </a>
+            <a class=""
+                href="/1x/ui/components/">
+                Components
+            </a>
+            <a class=" active"
+                href="/api-doc/1.2.3/ui/ch/">
+                API
+            </a>
+        </nav>
+    </div>
+</header>
+
+
+    <div class="ml-wrapper">
+        <main role="main" class="chico-api-doc">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <span class="mesh-col-12">
+                v1.2.3 ui
+            </span>
+            <h1 class="mesh-col-12">
+                API
+            </h1>
+            <h3 class="mesh-col-12">
+                Full API documentation.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                <h1>
+                    Source: shared/scripts/events.js
+                </h1>
+                
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>    /**
+     * Every time Chico UI needs to inform all visual components that layout has been changed, it emits this event.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     */
+    ch.onlayoutchange = 'layoutchange';
+
+    /**
+     * Equivalent to 'resize'.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     */
+    ch.onresize = 'resize';
+
+    /**
+     * Equivalent to 'scroll'.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     */
+    ch.onscroll = 'scroll';
+
+    /**
+     * Equivalent to 'touchstart' or 'mousedown', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerdown | Pointer Events W3C Working Draft
+     */
+    ch.onpointerdown = (ch.support.touch) ? 'touchstart' : 'mousedown';
+
+    /**
+     * Equivalent to 'touchend' or 'mouseup', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerup | Pointer Events W3C Working Draft
+     */
+    ch.onpointerup = (ch.support.touch) ? 'touchend' : 'mouseup';
+
+    /**
+     * Equivalent to 'touchmove' or 'mousemove', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointermove | Pointer Events W3C Working Draft
+     */
+    ch.onpointermove = (ch.support.touch) ? 'touchmove' : 'mousemove';
+
+    /**
+     * Equivalent to 'touchend' or 'click', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#list-of-pointer-events | Pointer Events W3C Working Draft
+     */
+    ch.onpointertap = (ch.support.touch) ? 'touchend' : 'click';
+
+    /**
+     * Equivalent to 'touchstart' or 'mouseenter', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerenter | Pointer Events W3C Working Draft
+     */
+    ch.onpointerenter = (ch.support.touch) ? 'touchstart' : 'mouseenter';
+
+    /**
+     * Equivalent to 'touchend' or 'mouseleave', depending on device capabilities.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerleave | Pointer Events W3C Working Draft
+     */
+    ch.onpointerleave = (ch.support.touch) ? 'touchend' : 'mouseleave';
+
+    /**
+     * Alphanumeric keys event.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     */
+    ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+            </nav>
+        </div>
+    </section>
+</main>
+
+    </div>
+
+    <footer class="ml-footer" role="contentinfo">
+    <div class="ml-bounds">
+        <small>
+            © 2017 Mercado Libre
+        </small>
+        /
+        <a href="https://github.com/mercadolibre/chico/">
+            GitHub Repository
+        </a>
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    /* Analytics */
+    (function(a, b) {
+        a.GoogleAnalyticsObject = b;
+        a['MeliAnalyticsData'] = {'dimensions': {'deviceLayout': 'desktop','business': 'NONE','pageVertical': 'NONE'}};
+        a[b] = a[b] || function() {
+                    (a[b].q = a[b].q || []).push(arguments)
+                };
+        a[b].l = 1 * new Date
+    })(window, "meli_ga");
+    meli_ga("set", "title", "app-chico-frontend-0.8.5");
+    meli_ga("set", "page", "/CHICO/");
+    meli_ga('send', 'pageview');
+    (function(b, d) {
+        var a = b.createElement("iframe");
+        (a.frameElement || a).style.cssText = "width: 0; height: 0; border: 0; position: absolute";
+        a.src = "javascript:false";
+        a.id = "GoogleAnalyticsIframe";
+        var c = b.getElementsByTagName("script")[0];
+        c.parentNode.insertBefore(a, c);
+        a = a.contentWindow.document;
+        a.open().write("<body onload=\"var js = document.createElement('script');js.src = '" + d + "';document.body.appendChild(js);\">");
+        a.close()
+    })(document, "http://analytics.mlstatic.com/ga/mla-ml-analytics.min.js");
+</script>
+
+</body>
+</html>
