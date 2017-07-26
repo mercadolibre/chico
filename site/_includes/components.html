@@ -1,0 +1,132 @@
+{% case page.version %}
+    {% when "1x_mobile" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+    {% when "1x_ui" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+    {% when "2x_mobile" %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+    {% else %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+{% endcase %}
+
+<main role="main" class="chico-showcase">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <span class="mesh-col-12">
+                v{{ chico_current_version }} {{ chico_current_platform }}
+            </span>
+            <h1 class="mesh-col-12">
+                Components
+            </h1>
+            <h3 class="mesh-col-12">
+                Amazing components built to provide dropdowns, input groups, navigation, modals, and much more.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                {% include components/autocomplete.html %}
+                {% include components/expandable.html %}
+                {% include components/menu.html %}
+
+                {% unless chico_current_platform == site.chico_platform_mobile and chico_current_version == site.chico_version_1x %}
+                    {% include components/dropdown.html %}
+                    {% include components/layer.html %}
+                {% endunless %}
+
+                {% if chico_current_platform == site.chico_platform_ui %}
+                    {% include components/tooltip.html %}
+                {% endif %}
+
+                {% include components/modal.html %}
+                {% include components/transition.html %}
+                {% include components/carousel.html %}
+
+                {% if chico_current_platform == site.chico_platform_ui %}
+                    {% include components/zoom.html %}
+                    {% include components/tabs.html %}
+                {% endif %}
+
+                {% unless chico_current_platform == site.chico_platform_mobile and chico_current_version == site.chico_version_1x %}
+                    {% include components/calendar.html %}
+                    {% include components/datepicker.html %}
+                {% endunless %}
+
+                {% include components/countdown.html %}
+
+                {% if chico_current_platform == site.chico_platform_ui %}
+                    {% include components/bubble.html %}
+                {% endif %}
+
+                {% include components/validation.html %}
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <ul id="nav-sections">
+                    <li>
+                        <a href="#autocomplete" data-section="autocomplete">Autocomplete</a>
+                    </li>
+                    <li>
+                        <a href="#expandable" data-section="expandable">Expandable</a>
+                    </li>
+                    <li>
+                        <a href="#menu" data-section="menu">Menu</a>
+                    </li>
+                    {% unless chico_current_platform == site.chico_platform_mobile and chico_current_version == site.chico_version_1x %}
+                        <li>
+                            <a href="#dropdown" data-section="dropdown">Dropdown</a>
+                        </li>
+                        <li>
+                            <a href="#layer" data-section="layer">Layer</a>
+                        </li>
+                    {% endunless %}
+                    {% if chico_current_platform == site.chico_platform_ui %}
+                        <li>
+                            <a href="#tooltip" data-section="tooltip">Tooltip</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="#modal" data-section="modal">Modal</a>
+                    </li>
+                    <li>
+                        <a href="#transition" data-section="transition">Transition</a>
+                    </li>
+                    <li>
+                        <a href="#carousel" data-section="carousel">Carousel</a>
+                    </li>
+                    {% if chico_current_platform == site.chico_platform_ui %}
+                        <li>
+                            <a href="#zoom" data-section="zoom">Zoom</a>
+                        </li>
+                        <li>
+                            <a href="#tabs" data-section="tabs">Tabs</a>
+                        </li>
+                    {% endif %}
+                    {% unless chico_current_platform == site.chico_platform_mobile and chico_current_version == site.chico_version_1x %}
+                        <li>
+                            <a href="#calendar" data-section="calendar">Calendar</a>
+                        </li>
+                        <li>
+                            <a href="#datepicker" data-section="datepicker">Datepicker</a>
+                        </li>
+                    {% endunless %}
+                    <li>
+                        <a href="#countdown" data-section="countdown">Countdown</a>
+                    </li>
+                    {% if chico_current_platform == site.chico_platform_ui %}
+                        <li>
+                            <a href="#bubble" data-section="bubble">Bubble</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="#validation" data-section="validation">Validation</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</main>

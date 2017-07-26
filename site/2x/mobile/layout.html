@@ -4,29 +4,4 @@ id: layout
 version: 2x_mobile
 ---
 
-<main role="main" class="chico-showcase">
-    {% include header-layout.html %}
-    <section>
-        <div class="ml-bounds mesh-row">
-            <div class="mesh-col-12 mesh-col-m-9 chico-content">
-                {% include components/reset.html %}
-                {% include components/headings.html %}
-                {% include components/paragraphs.html %}
-                {% include components/links.html %}
-                {% include components/lists.html %}
-                {% include components/list-boxes.html %}
-                {% include components/buttons.html %}
-                {% include components/boxes.html %}
-                {% include components/icons.html %}
-                {% include components/tags.html %}
-                {% include components/pagination.html %}
-                {% include components/tables.html %}
-                {% include components/loadings.html %}
-                {% include components/forms.html %}
-            </div>
-            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
-                {% include nav-layout-mobile.html %}
-            </nav>
-        </div>
-    </section>
-</main>
+{% include layout.html %}
