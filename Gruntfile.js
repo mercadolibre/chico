@@ -165,7 +165,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dev', ['jekyll:dev', 'browserSync:dev', 'watch', 'copy']);
 
-    grunt.registerTask('dist', ['apidoc', 'jekyll:dist', 'copy']);
+    grunt.registerTask('dist', ['jekyll:dist', 'copy']);
 
     grunt.registerTask('deploy', ['dist', 'gh-pages']);
 
