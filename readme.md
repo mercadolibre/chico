@@ -49,3 +49,11 @@ you want to generate the documentation.
     ```sh
     grunt apidoc
     ```
+
+### Deploy
+
+To publish your changes to http://chico.mercadolibre.com run:
+
+    ```sh
+    grunt deploy
+    ```
