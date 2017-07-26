@@ -54,6 +54,6 @@ you want to generate the documentation.
 
 To publish your changes to http://chico.mercadolibre.com run:
 
-    ```sh
-    grunt deploy
-    ```
+```sh
+grunt deploy
+```
