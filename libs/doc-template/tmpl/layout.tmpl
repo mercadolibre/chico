@@ -2,15 +2,12 @@
 layout: default
 id: api-doc
 version: <?js= version[0] ?>x_<?js= env.opts.destination.substr(env.opts.destination.lastIndexOf('/') + 1) ?>
-title: "<?js= title ?> v<?js= version ?> - Chico UI API Documentation"
+title: "Chico UI - v<?js= version[0] ?>x <?js= env.opts.destination.substr(env.opts.destination.lastIndexOf('/') + 1) ?> - API - <?js= title ?>"
 ---
 
 <main role="main" class="chico-api-doc">
     <section class="chico-bg-noise chico-head">
         <div class="ml-bounds mesh-row">
-            <span class="mesh-col-12">
-                v<?js= version ?> <?js= env.opts.destination.substr(env.opts.destination.lastIndexOf('/') + 1) ?>
-            </span>
             <h1 class="mesh-col-12">
                 API
             </h1>

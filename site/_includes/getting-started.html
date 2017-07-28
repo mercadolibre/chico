@@ -24,9 +24,6 @@
 <main role="main" class="chico-getting-started">
     <section class="chico-bg-noise chico-head">
         <div class="ml-bounds mesh-row">
-            <span class="mesh-col-12">
-                v{{ chico_current_version }} {{ chico_current_platform }}
-            </span>
             <h1 class="mesh-col-12">
                 Getting started
             </h1>
@@ -42,38 +39,38 @@
                     Overview
                 </h2>
                 <p>
-                    Chico supports mobile and desktop —called “ui”— platforms and has two major releases: v1x and v2x.
+                    Chico supports desktop —called “ui”— and mobile platforms and has two major releases: v1x and v2x.
                 </p>
                 <p>
                     To get started, please, select version and platform:
                 </p>
                 <ul class="chico-versions-list">
                     <li>
-                        v1x
+                        v{{ site.chico_version_1x }}
                         <ul>
                             <li>
-                                <a href="{{ site.baseurl }}/{{ site.chico_path_1x_mobile }}{{ site.chico_path_getting_started }}">
-                                    Mobile
+                                <a href="{{ site.baseurl }}/{{ site.chico_path_1x_ui }}{{ site.chico_path_getting_started }}">
+                                    {{ site.chico_platform_ui }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ site.baseurl }}/{{ site.chico_path_1x_ui }}{{ site.chico_path_getting_started }}">
-                                    UI
+                                <a href="{{ site.baseurl }}/{{ site.chico_path_1x_mobile }}{{ site.chico_path_getting_started }}">
+                                    {{ site.chico_platform_mobile }}
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        v2x
+                        v{{ site.chico_version_2x }}
                         <ul>
                             <li>
-                                <a href="{{ site.baseurl }}/{{ site.chico_path_2x_mobile }}{{ site.chico_path_getting_started }}">
-                                    Mobile
+                                <a href="{{ site.baseurl }}/{{ site.chico_path_2x_ui }}{{ site.chico_path_getting_started }}">
+                                    {{ site.chico_platform_ui }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ site.baseurl }}/{{ site.chico_path_2x_ui }}{{ site.chico_path_getting_started }}">
-                                    UI
+                                <a href="{{ site.baseurl }}/{{ site.chico_path_2x_mobile }}{{ site.chico_path_getting_started }}">
+                                    {{ site.chico_platform_mobile }}
                                 </a>
                             </li>
                         </ul>

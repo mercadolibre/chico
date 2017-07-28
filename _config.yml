@@ -26,7 +26,7 @@ chico_dependency_2x_mobile_name: "Tiny"
 chico_dependency_2x_ui_name: "Tiny"
 
 chico_path_getting_started: "getting-started/"
-chico_path_layout: "layout/"
+chico_path_styles: "styles/"
 chico_path_components: "components/"
 chico_path_api_doc: "api-doc/"
 chico_path_api_doc_namespace: "ch/"

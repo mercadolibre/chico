@@ -61,6 +61,65 @@ main.ml-bounds,
     display: none;
 }
 
+.chico-version {
+    padding: 10px;
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 185px;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #4e4e31;
+    background: #f2dc00;
+    border-radius: 5px;
+}
+
+.chico-version .chico-version-icon {
+    width: auto;
+    margin: 0 0 0 10px;
+    font-size: 14px;
+    color: #4e4e31;
+    line-height: 1;
+}
+
+.chico-version-list {
+    /*width: 125%;
+    max-width: 145px;*/
+
+    width: 145px;
+
+    padding: 10px;
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 30px;
+    background: #f2dc00;
+    border-radius: 5px;
+}
+
+.chico-version:hover .chico-version-list {
+    display: block;
+}
+
+.chico-version-list a,
+.chico-version-list a:link,
+.chico-version-list a:visited {
+    color: #4e4e31;
+}
+
+.chico-version-list-current a,
+.chico-version-list-current a:link,
+.chico-version-list-current a:visited {
+    pointer-events: none;
+    color: #a6a672;
+}
+
+.chico-version-list li + li {
+    margin-top: 10px;
+}
+
 /* Header
 ---------------------------------------------------------------*/
 
@@ -81,7 +140,7 @@ main.ml-bounds,
 }
 
 .ch-brand-name {
-    padding: 5px 12px;
+    padding: 5px 0 5px 12px;
     position: absolute;
     top: 11px;
     left: 65px;

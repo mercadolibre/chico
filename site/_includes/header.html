@@ -10,6 +10,34 @@
                 Chico UI
             </span>
         </a>
+        <div class="chico-version">
+            <span class="chico-version-current">
+                v{{ chico_current_version }} {{ chico_current_platform }}
+                <span class="chico-version-icon ch-icon-caret-down"></span>
+            </span>
+            <ul class="chico-version-list">
+                <li {% if chico_current_version == site.chico_version_1x and chico_current_platform == site.chico_platform_ui %}class="chico-version-list-current"{% endif %}>
+                    <a href="{{ site.baseurl }}/{{ site.chico_path_1x_ui }}{{ site.chico_path_getting_started }}">
+                        v{{ site.chico_version_1x }} {{ site.chico_platform_ui }}
+                    </a>
+                </li>
+                <li {% if chico_current_version == site.chico_version_1x and chico_current_platform == site.chico_platform_mobile %}class="chico-version-list-current"{% endif %}>
+                    <a href="{{ site.baseurl }}/{{ site.chico_path_1x_mobile }}{{ site.chico_path_getting_started }}">
+                        v{{ site.chico_version_1x }} {{ site.chico_platform_mobile }}
+                    </a>
+                </li>
+                <li {% if chico_current_version == site.chico_version_2x and chico_current_platform == site.chico_platform_ui %}class="chico-version-list-current"{% endif %}>
+                    <a href="{{ site.baseurl }}/{{ site.chico_path_2x_ui }}{{ site.chico_path_getting_started }}">
+                        v{{ site.chico_version_2x }} {{ site.chico_platform_ui }}
+                    </a>
+                </li>
+                <li {% if chico_current_version == site.chico_version_2x and chico_current_platform == site.chico_platform_mobile %}class="chico-version-list-current"{% endif %}>
+                    <a href="{{ site.baseurl }}/{{ site.chico_path_2x_mobile }}{{ site.chico_path_getting_started }}">
+                        v{{ site.chico_version_2x }} {{ site.chico_platform_mobile }}
+                    </a>
+                </li>
+            </ul>
+        </div>
         <label class="toggle-label" for="toggle-menu"></label>
         <input type="checkbox" class="toggle-input" id="toggle-menu">
 
@@ -22,9 +50,9 @@
                     </a>
                 </li>
                 <li class="ml-navigation-item ml-navigation-account">
-                    <a class="{% if page.id == 'layout' %} active{% endif %}"
-                        href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_layout }}">
-                        Layout
+                    <a class="{% if page.id == 'styles' %} active{% endif %}"
+                        href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_styles }}">
+                        Styles
                     </a>
                 </li>
                 <li class="ml-navigation-item ml-navigation-account">
@@ -49,9 +77,9 @@
                 href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_getting_started }}">
                 Getting started
             </a>
-            <a class="{% if page.id == 'layout' %} active{% endif %}"
-                href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_layout }}">
-                Layout
+            <a class="{% if page.id == 'styles' %} active{% endif %}"
+                href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_styles }}">
+                Styles
             </a>
             <a class="{% if page.id == 'components' %} active{% endif %}"
                 href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_components }}">
