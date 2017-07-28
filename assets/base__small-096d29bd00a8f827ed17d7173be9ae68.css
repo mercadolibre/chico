@@ -62,6 +62,10 @@ html a:visited {
     text-shadow: 0 1px rgba(255, 255, 255, .75);
 }
 
+.chico-version {
+    display: none;
+}
+
 /* Hidden elements from bigger devices
 ---------------------------------------------------------------*/
 
