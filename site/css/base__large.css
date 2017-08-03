@@ -72,31 +72,33 @@ main.ml-bounds,
     font-weight: 400;
     line-height: 1;
     color: #4e4e31;
-    background: #f2dc00;
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
 }
 
 .chico-version .chico-version-icon {
     width: auto;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 5px;
     font-size: 14px;
     color: #4e4e31;
     line-height: 1;
 }
 
 .chico-version-list {
-    /*width: 125%;
-    max-width: 145px;*/
-
     width: 145px;
-
     padding: 10px;
     display: none;
     position: absolute;
     left: 0;
     top: 30px;
-    background: #f2dc00;
+    background: #fff;
     border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(99, 99, 99, 0.2);
+}
+
+.chico-version:hover {
+    background: #fff;
+    box-shadow: 2px 2px 2px rgba(99, 99, 99, 0.2);
 }
 
 .chico-version:hover .chico-version-list {
@@ -113,7 +115,7 @@ main.ml-bounds,
 .chico-version-list-current a:link,
 .chico-version-list-current a:visited {
     pointer-events: none;
-    color: #a6a672;
+    text-decoration: underline;
 }
 
 .chico-version-list li + li {
