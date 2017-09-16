@@ -1,27 +1,30 @@
 <article id="pagination">
-    <h2>Pagination</h2>
-
-    <!-- Component example -->
+    <h2>
+        Pagination
+    </h2>
     <div class="component-example">
         <ul class="ch-pagination">
-            <li><a type="prev" href="/2.html">Previous</a></li>
-            <li><a href="/1.html">1</a></li>
-            <li><a href="/2.html">2</a></li>
-            <li class="ch-pagination-current"><a href="/3.html">3</a></li>
-            <li><a href="/4.html">4</a></li>
-            <li><a href="/5.html">5</a></li>
-            <li><a type="next" href="/4.html">Next</a></li>
+            <li{% if chico_current_version == site.chico_version_2x %} class="ch-pagination-sequence"{% endif %}><a{% if chico_current_version == site.chico_version_1x %} type="prev"{% endif %} href="/2"{% if chico_current_version == site.chico_version_2x %} rel="prev"{% endif %}>Previous</a></li>
+            <li><a href="/1">1</a></li>
+            <li><a href="/2">2</a></li>
+            <li class="ch-pagination-current"><a href="/3">3</a></li>
+            <li><a href="/4">4</a></li>
+            <li><a href="/5">5</a></li>
+            <li{% if chico_current_version == site.chico_version_2x %} class="ch-pagination-sequence"{% endif %}><a{% if chico_current_version == site.chico_version_1x %} type="next"{% endif %} href="/4"{% if chico_current_version == site.chico_version_2x %} rel="next"{% endif %}>Next</a></li>
         </ul>
     </div>
 {% highlight html %}
 <ul class="ch-pagination">
-    <li><a type="prev" href="/2.html">Previous</a></li>
-    <li><a href="/1.html">1</a></li>
-    <li><a href="/2.html">2</a></li>
-    <li class="ch-pagination-current"><a href="/3.html">3</a></li>
-    <li><a href="/4.html">4</a></li>
-    <li><a href="/5.html">5</a></li>
-    <li><a type="next" href="/4.html">Next</a></li>
+    <li{% if chico_current_version == site.chico_version_2x %} class="ch-pagination-sequence"{% endif %}><a{% if chico_current_version == site.chico_version_1x %} type="prev"{% endif %} href="/2"{% if chico_current_version == site.chico_version_2x %} rel="prev"{% endif %}>Previous</a></li>
+    <li><a href="/1">1</a></li>
+    <li><a href="/2">2</a></li>
+    <li class="ch-pagination-current"><a href="/3">3</a></li>
+    <li><a href="/4">4</a></li>
+    <li><a href="/5">5</a></li>
+    <li{% if chico_current_version == site.chico_version_2x %} class="ch-pagination-sequence"{% endif %}><a{% if chico_current_version == site.chico_version_1x %} type="next"{% endif %} href="/4"{% if chico_current_version == site.chico_version_2x %} rel="next"{% endif %}>Next</a></li>
 </ul>
 {% endhighlight %}
+    <p>
+        Back to <a href="#pagination">Pagination</a> / Back to <a href="#top">Top</a>
+    </p>
 </article>

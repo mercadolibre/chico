@@ -1,0 +1,547 @@
+<article id="validation">
+    <h2>
+        Validation
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.validation/">API documentation</a>
+        for this component.
+    </p>
+    <div class="component-example">
+        <form class="ch-form" id="dm_vl_frm" method="GET" action="{{ site.baseUrl }}/ajax.html">
+            <fieldset>
+                <legend>Input</legend>
+                <p class="ch-form-hint">* Required fields</p>
+
+                <div class="ch-form-row">
+                    <label for="dm_vl_opt">Text:</label>
+                    <input id="dm_vl_opt" name="dm_vl_opt" type="text" required />
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="dm_vl_rqd">Text: <em>*</em></label>
+                    <input id="dm_vl_rqd" name="dm_vl_rqd" type="text" required />
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="dm_vl_str_rqd">Letters: <em>*</em></label>
+                    <input id="dm_vl_str_rqd" name="dm_vl_str_rqd" type="text" required />
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="dm_vl_em_rqd">E-mail: <em>*</em></label>
+                    <input id="dm_vl_em_rqd" name="dm_vl_em_rqd" type="email" required />
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="dm_vl_url_rqd">URL: <em>*</em></label>
+                    <input id="dm_vl_url_rqd" name="dm_vl_url_rqd" type="url" required />
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="dm_vl_num_rqd">Number: <em>*</em></label>
+                    <input id="dm_vl_num_rqd" name="dm_vl_num_rqd" type="number" required />
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="dm_vl_num_mn_mx_rqd">Number: <em>*</em></label>
+                    <input id="dm_vl_num_mn_mx_rqd" name="dm_vl_num_mn_mx_rqd" type="number" min="1" max="99" required />
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="dm_vl_cust">Custom: <em>*</em></label>
+                    <input id="dm_vl_cust" name="dm_vl_cust" type="text" required />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Textarea</legend>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="dm_vl_mnl_mxl">Textarea: <em>*</em></label>
+                    <textarea id="dm_vl_mnl_mxl" name="dm_vl_mnl_mxl" cols="20" rows="4" minlength="10" maxlength="40" required></textarea>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Select</legend>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="dm_vl_sel_rqd">Options: <em>*</em></label>
+                    <select id="dm_vl_sel_rqd" name="dm_vl_sel_rqd" required pattern="[^-1]">
+                        <option value="-1">Select an option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Checkbox</legend>
+
+                <h4 class="ch-form-subtitle">Option: <em>*</em></h4>
+                <div>
+                    <div class="ch-form-options ch-form-required" id="dm_vl_cb_rqd_opt">
+                        <div class="ch-form-row">
+                            <input id="dm_vl_cb_rqd" name="dm_vl_cb_rqd" type="checkbox" value="1" required />
+                            <label for="dm_vl_cb_rqd">Option</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Checkbox group</legend>
+
+                <h4 class="ch-form-subtitle">Options: <em>*</em></h4>
+                <div class="ch-form-options ch-form-required" id="dm_vl_cb_grp_rqd_opt">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input id="dm_vl_cb_grp_rqd_1" name="dm_vl_cb_grp_rqd" type="checkbox" value="1" />
+                            <label for="dm_vl_cb_grp_rqd_1">Option 1</label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input id="dm_vl_cb_grp_rqd_2" name="dm_vl_cb_grp_rqd" type="checkbox" value="2" />
+                            <label for="dm_vl_cb_grp_rqd_2">Option 2</label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Radio group</legend>
+
+                <h4 class="ch-form-subtitle">Options: <em>*</em></h4>
+                <div class="ch-form-options ch-form-required" id="dm_vl_rd_grp_opt">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input id="dm_vl_rd_grp_1" name="dm_vl_rd_grp" type="radio" value="1" />
+                            <label for="dm_vl_rd_grp_1">Option 1</label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input id="dm_vl_rd_grp_2" name="dm_vl_rd_grp" type="radio" value="2" />
+                            <label for="dm_vl_rd_grp_2">Option 2</label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <div class="ch-form-actions">
+                <input class="ch-btn" id="dm_vl_smt" name="dm_vl_smt" type="submit" value="Submit" />
+                <a href="#">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% highlight html %}
+<form class="ch-form" id="dm_vl_frm" method="GET" action="{{ site.baseUrl }}/ajax.html">
+    <fieldset>
+        <legend>Input</legend>
+        <p class="ch-form-hint">* Required fields</p>
+
+        <div class="ch-form-row">
+            <label for="dm_vl_opt">Text:</label>
+            <input id="dm_vl_opt" name="dm_vl_opt" type="text" required />
+        </div>
+
+        <div class="ch-form-row ch-form-required">
+            <label for="dm_vl_rqd">Text: <em>*</em></label>
+            <input id="dm_vl_rqd" name="dm_vl_rqd" type="text" required />
+        </div>
+
+        <div class="ch-form-row ch-form-required">
+            <label for="dm_vl_str_rqd">Letters: <em>*</em></label>
+            <input id="dm_vl_str_rqd" name="dm_vl_str_rqd" type="text" required />
+        </div>
+
+        <div class="ch-form-row ch-form-required">
+            <label for="dm_vl_em_rqd">E-mail: <em>*</em></label>
+            <input id="dm_vl_em_rqd" name="dm_vl_em_rqd" type="email" required />
+        </div>
+
+        <div class="ch-form-row ch-form-required">
+            <label for="dm_vl_url_rqd">URL: <em>*</em></label>
+            <input id="dm_vl_url_rqd" name="dm_vl_url_rqd" type="url" required />
+        </div>
+
+        <div class="ch-form-row ch-form-required">
+            <label for="dm_vl_num_rqd">Number: <em>*</em></label>
+            <input id="dm_vl_num_rqd" name="dm_vl_num_rqd" type="number" required />
+        </div>
+
+        <div class="ch-form-row ch-form-required">
+            <label for="dm_vl_num_mn_mx_rqd">Number: <em>*</em></label>
+            <input id="dm_vl_num_mn_mx_rqd" name="dm_vl_num_mn_mx_rqd" type="number" min="1" max="99" required />
+        </div>
+
+        <div class="ch-form-row ch-form-required">
+            <label for="dm_vl_cust">Custom: <em>*</em></label>
+            <input id="dm_vl_cust" name="dm_vl_cust" type="text" required />
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Textarea</legend>
+
+        <div class="ch-form-row ch-form-required">
+            <label for="dm_vl_mnl_mxl">Textarea: <em>*</em></label>
+            <textarea id="dm_vl_mnl_mxl" name="dm_vl_mnl_mxl" cols="20" rows="4" minlength="10" maxlength="40" required></textarea>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Select</legend>
+
+        <div class="ch-form-row ch-form-required">
+            <label for="dm_vl_sel_rqd">Options: <em>*</em></label>
+            <select id="dm_vl_sel_rqd" name="dm_vl_sel_rqd" required pattern="[^-1]">
+                <option value="-1">Select an option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+            </select>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Checkbox</legend>
+
+        <h4 class="ch-form-subtitle">Option: <em>*</em></h4>
+        <div>
+            <div class="ch-form-options ch-form-required" id="dm_vl_cb_rqd_opt">
+                <div class="ch-form-row">
+                    <input id="dm_vl_cb_rqd" name="dm_vl_cb_rqd" type="checkbox" value="1" required />
+                    <label for="dm_vl_cb_rqd">Option</label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Checkbox group</legend>
+
+        <h4 class="ch-form-subtitle">Options: <em>*</em></h4>
+        <div class="ch-form-options ch-form-required" id="dm_vl_cb_grp_rqd_opt">
+            <ul>
+                <li class="ch-form-row">
+                    <input id="dm_vl_cb_grp_rqd_1" name="dm_vl_cb_grp_rqd" type="checkbox" value="1" />
+                    <label for="dm_vl_cb_grp_rqd_1">Option 1</label>
+                </li>
+                <li class="ch-form-row">
+                    <input id="dm_vl_cb_grp_rqd_2" name="dm_vl_cb_grp_rqd" type="checkbox" value="2" />
+                    <label for="dm_vl_cb_grp_rqd_2">Option 2</label>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Radio group</legend>
+
+        <h4 class="ch-form-subtitle">Options: <em>*</em></h4>
+        <div class="ch-form-options ch-form-required" id="dm_vl_rd_grp_opt">
+            <ul>
+                <li class="ch-form-row">
+                    <input id="dm_vl_rd_grp_1" name="dm_vl_rd_grp" type="radio" value="1" />
+                    <label for="dm_vl_rd_grp_1">Option 1</label>
+                </li>
+                <li class="ch-form-row">
+                    <input id="dm_vl_rd_grp_2" name="dm_vl_rd_grp" type="radio" value="2" />
+                    <label for="dm_vl_rd_grp_2">Option 2</label>
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+
+    <div class="ch-form-actions">
+        <input class="ch-btn" id="dm_vl_smt" name="dm_vl_smt" type="submit" value="Submit" />
+        <a href="#">Cancel</a>
+    </div>
+</form>
+{% endhighlight %}
+{% highlight javascript %}
+var validationRequired = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_rqd')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required'
+        }
+    ]
+});
+
+var validationString = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_str_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_str_rqd')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required'
+        },
+        {
+            'name': 'string'
+        }
+    ]
+});
+
+var validationEmail = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_em_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_em_rqd')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required'
+        },
+        {
+            'name': 'email'
+        }
+    ]
+});
+
+var validationUrl = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_url_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_url_rqd')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required'
+        },
+        {
+            'name': 'url'
+        }
+    ]
+});
+
+var validationNumber = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_num_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_num_rqd')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required'
+        },
+        {
+            'name': 'number'
+        }
+    ]
+});
+
+var validationNumberMinMax = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_num_mn_mx_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_num_mn_mx_rqd')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required'
+        },
+        {
+            'name': 'number'
+        },
+        {
+            'name': 'min',
+            'num': 1
+        },
+        {
+            'name': 'max',
+            'num': 99
+        }
+    ]
+});
+
+var validationCustom = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_cust'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_cust')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required'
+        },
+        {
+            'name': 'charOne',
+            'fn': function (val) {
+                return val.toString().indexOf('1') !== -1;
+            },
+            'message': 'The field must contain a 1.'
+        },
+        {
+            'name': 'charTwo',
+            'fn': function (val) {
+                return val.toString().indexOf('2') !== -1;
+            },
+            'message': 'The field must contain a 2.'
+        }
+    ]
+});
+
+var validationTextareaMinMax = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_mnl_mxl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_mnl_mxl')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required'
+        },
+        {
+            'name': 'minLength',
+            'num': 10
+        },
+        {
+            'name': 'maxLength',
+            'num': 40
+        }
+    ]
+});
+
+var validationSelect = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_sel_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_sel_rqd')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required',
+            'message': 'Select a valid option.'
+        }
+    ]
+});
+
+var validationCheckbox = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_cb_rqd_opt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_cb_rqd_opt')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required',
+            'message': 'This option must be checked.'
+        }
+    ]
+});
+
+var validationCheckboxGroup = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_cb_grp_rqd_opt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_cb_grp_rqd_opt')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required',
+            'message': 'Select at least one option.'
+        }
+    ]
+});
+
+var validationRadioGroup = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_rd_grp_opt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_rd_grp_opt')[0]{% endif %}, {
+    'conditions': [
+        {
+            'name': 'required',
+            'message': 'Select at least one option.'
+        }
+    ]
+});
+{% endhighlight %}
+    <p>
+        Back to <a href="#validation">Validation</a> / Back to <a href="#top">Top</a>
+    </p>
+    <script>
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var validationRequired = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_rqd')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    }
+                ]
+            });
+
+            var validationString = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_str_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_str_rqd')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    },
+                    {
+                        'name': 'string'
+                    }
+                ]
+            });
+
+            var validationEmail = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_em_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_em_rqd')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    },
+                    {
+                        'name': 'email'
+                    }
+                ]
+            });
+
+            var validationUrl = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_url_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_url_rqd')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    },
+                    {
+                        'name': 'url'
+                    }
+                ]
+            });
+
+            var validationNumber = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_num_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_num_rqd')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    },
+                    {
+                        'name': 'number'
+                    }
+                ]
+            });
+
+            var validationNumberMinMax = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_num_mn_mx_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_num_mn_mx_rqd')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    },
+                    {
+                        'name': 'number'
+                    },
+                    {
+                        'name': 'min',
+                        'num': 1
+                    },
+                    {
+                        'name': 'max',
+                        'num': 99
+                    }
+                ]
+            });
+
+            var validationCustom = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_cust'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_cust')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    },
+                    {
+                        'name': 'charOne',
+                        'fn': function (val) {
+                            return val.toString().indexOf('1') !== -1;
+                        },
+                        'message': 'The field must contain a 1.'
+                    },
+                    {
+                        'name': 'charTwo',
+                        'fn': function (val) {
+                            return val.toString().indexOf('2') !== -1;
+                        },
+                        'message': 'The field must contain a 2.'
+                    }
+                ]
+            });
+
+            var validationTextareaMinMax = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_mnl_mxl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_mnl_mxl')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required'
+                    },
+                    {
+                        'name': 'minLength',
+                        'num': 10
+                    },
+                    {
+                        'name': 'maxLength',
+                        'num': 40
+                    }
+                ]
+            });
+
+            var validationSelect = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_sel_rqd'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_sel_rqd')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required',
+                        'message': 'Select a valid option.'
+                    }
+                ]
+            });
+
+            var validationCheckbox = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_cb_rqd_opt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_cb_rqd_opt')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required',
+                        'message': 'This option must be checked.'
+                    }
+                ]
+            });
+
+            var validationCheckboxGroup = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_cb_grp_rqd_opt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_cb_grp_rqd_opt')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required',
+                        'message': 'Select at least one option.'
+                    }
+                ]
+            });
+
+            var validationRadioGroup = new ch.Validation({% if chico_current_version == site.chico_version_1x %}$('#dm_vl_rd_grp_opt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_vl_rd_grp_opt')[0]{% endif %}, {
+                'conditions': [
+                    {
+                        'name': 'required',
+                        'message': 'Select at least one option.'
+                    }
+                ]
+            });
+        });
+    </script>
+</article>

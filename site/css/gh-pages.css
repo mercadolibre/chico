@@ -1,12 +1,5 @@
-/* General Styles
+/* General styles
 ---------------------------------------------------------------*/
-h2 {
-    line-height: 1em;
-}
-
-.ml-wrapper {
-    padding-top: 0;
-}
 
 .ml-wrapper:after {
     height: 0;
@@ -16,26 +9,20 @@ h2 {
     margin-top: 0;
 }
 
-
 /* Header
 ---------------------------------------------------------------*/
+
 header .toggle-label {
     z-index: 999;
     cursor: pointer;
     display: none;
 }
 
-header .ml-logo-mobile {
+header .ml-logo-mobile,
+header .ml-logo-mobile:link,
+header .ml-logo-mobile:visited {
     text-decoration: none;
     color: #333;
-}
-
-.ml-header {
-    background-image: none;
-}
-
-.ml-header .ml-logo {
-    display: inline;
 }
 
 .ml-header-inner {
@@ -44,61 +31,33 @@ header .ml-logo-mobile {
     position: relative;
 }
 
-.ch-brand-name {
-    font-size: 20px;
-    margin: 14px 0 0 14px;
-    border-left: 1px solid #333;
-    padding: 5px 12px 3px 12px;
-    font-family: sans-serif;
-}
-
-.ml-header .ml-logo {
-    width: 259px;
-    height: 54px;
-    margin: 0;
-    background: url(http://static.mlstatic.com/org-img/mobile/ch/0.4.7/assets/logo-large-new.png?v2) no-repeat left center;
-    background-size: 58px auto;
-    text-indent: -99999px;
-}
-
 @media only screen and (min-width: 768px) {
-
     .toggle-label,
     .ml-navicon {
         display: none;
     }
 
-    .chico-get-started section .ml-bounds article .language-javascript .class-name {
+    .chico-getting-started section .ml-bounds article .language-javascript .class-name {
         position: absolute;
         left: 44px;
     }
-
 }
 
-
-
-/* Home Page
+/* Home
 ---------------------------------------------------------------*/
-.chico-bottom .ml-bounds {
-    text-align: center;
-}
 
 .chico-bottom {
+    padding: 60px 0;
     text-align: center;
-}
-
-.chico-bottom .brand-ml {
-    margin: -12px 0 60px 0;
 }
 
 .chico-bottom .brand-ml {
     max-width: 100%;
     max-height: 100%;
-    margin: 0 0 50px 0;
+    margin: 0;
 }
 
 @media only screen and (max-width: 768px) {
-
     .ml-navigation {
         border-bottom: 1px solid #eaeaea;
     }
@@ -115,7 +74,7 @@ header .ml-logo-mobile {
         margin: 0 0 30px 0;
     }
 
-    .chico-get-started section .ml-bounds article .language-javascript .class-name {
+    .chico-getting-started section .ml-bounds article .language-javascript .class-name {
         margin-left: -220px;
         position: relative;
         left: 10px;
@@ -124,62 +83,22 @@ header .ml-logo-mobile {
     .ml-footer {
         height: 42px;
         line-height: 42px;
-        margin-top: -42px;
-        background-color: #FFF;
-    }
-
-    .ml-footer .contact {
-        display: none;
-    }
-
-    .ml-footer a {
-        border-right: solid 1px #CCC;
-    }
-
-    .ml-footer .link-chico-footer {
-        top: 6px;
-        position: absolute;
+        background-color: #fff;
     }
 }
 
-
-
-/* Footer
+/* Getting started
 ---------------------------------------------------------------*/
-footer {
-    position: relative;
-    z-index: 999;
-}
 
-footer .icon-contact-us {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAARCAYAAAAyhueAAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK6wAACusBgosNWgAAABR0RVh0Q3JlYXRpb24gVGltZQA0LzEvMTTrBXF4AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAATlJREFUOI21kyGMwjAUhj84TGexD1u72Wk0drqGhGFxJCQnsFhmp2epncYOudnq6cmeGuIydsfBfbbtl9eX/5947/35fOZ2u/EOkiRhUte1P51ObxH2TN9q66Uiwnw+f5tQa800CALSNEUp9bJQREjTlKlzDucch8MBEfmzMAxDdrsd1lo+NpvNZ5ZlAGy3WwCapvm1TCnFer1muVyS5znX65VZf1iWJXVdY4whiiKyLKNt21Gh1hpjDM459vs9XdcBDEcqSRLiOMZaS1mWg8KxO7OhB0VRUFUVxhi01uR5fp9CRDDGAHA8Hgd/Mxp+pRSr1Yo4jqmqiiAIiKKIy+WCtfbhWgYn7em67j611pq2bSmK4sddj0p7mqZ5KhH/U9N/kYrIS036ThiGTLz3Hp5r0SOUUiwWC74AFYOLVWN2/4gAAAAASUVORK5CYII=) no-repeat;
-    height: 22px;
-    width: 22px;
-    float: right;
-    margin: 12px 0 0 0;
-    border: none;
-}
-
-footer .link-chico-footer {
-    border: none;
-}
-
-
-/* Get started
----------------------------------------------------------------*/
-.chico-get-started .language-javascript {
+.chico-getting-started .language-javascript {
     word-wrap: break-word;
 }
 
-
-/* Api doc
+/* API doc
 ---------------------------------------------------------------*/
+
 .main {
     padding-top: 90px;
-}
-
-.ml-bounds dl h4 {
-    margin: 40px 0 10px 0;
 }
 
 .language-markup code {
@@ -188,34 +107,63 @@ footer .link-chico-footer {
     top: 2px;
 }
 
-
-/* Ui components
+/* Components
 ---------------------------------------------------------------*/
+
+/**
+ * 1. Restore Chico's default font.
+ */
+
 .component-example {
-    margin: 20px 0 0;
+    margin: 25px 0 0;
     border: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
-    padding: 12px;
+    padding: 14px;
     position: relative;
+    font-family: Arial, Helvetica, 'Nimbus Sans L', sans-serif; /* 1 */
 }
+
+/**
+ * 1. Restore Chico Mobile's defaults.
+ */
+
+.chico-platform-mobile .component-example {
+    font-size: 14px; /* 1 */
+    line-height: 21px; /* 1 */
+}
+
+/**
+ * 1. Restore Chico Desktop's defaults.
+ */
+
+.chico-platform-ui .component-example {
+    font-size: 13px; /* 1 */
+    line-height: 20px; /* 1 */
+}
+
 .component-example:before {
     display: block;
     position: absolute;
     padding: 0 4px;
-    content: "Example";
+    content: 'Example';
     top: -12px;
     left: 8px;
     font-weight: bold;
     font-size: 14px;
     background-color: #fff;
 }
-.component-example + .highlight,
-.ui-components .highlight + .highlight {
-    margin-top: -8px;
+
+.component-example + .highlight {
+    margin-top: -9px;
 }
+
+.highlight + .highlight {
+    margin-top: -11px;
+}
+
 .component-example + .highlight > pre,
 .component-example + .highlight > code,
-.ui-components .highlight + .highlight > pre {
+.highlight + .highlight > pre {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
@@ -224,22 +172,26 @@ footer .link-chico-footer {
     overflow: hidden;
     padding: 1em;
 }
+
 .icons-showcase li {
     float:left;
     width: 33%;
     line-height: 2em;
 }
-.icons-showcase li > i:before {
+
+.icons-showcase li > [class*=ch-icon-]:before {
     -webkit-transition: -webkit-transform .2s ease-out;
     transition: transform .2s ease-out;
 }
-.icons-showcase li:hover > i:before {
+
+.icons-showcase li:hover > [class*=ch-icon-]:before {
     -webkit-transform: scale(2.2);
     transform: scale(2.2);
 }
 
-    /* Help
-    ---------------------------------------------------------------*/
+/* Help
+---------------------------------------------------------------*/
+
 .help p {
     margin: 15px 0 30px 0;
 }

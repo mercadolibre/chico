@@ -1,0 +1,151 @@
+---
+layout: default
+id: api-doc
+version: 1x_ui
+title: "Chico UI - v1x ui - API - Source: ui/scripts/Validation.js"
+---
+
+<main role="main" class="chico-api-doc">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">
+                API
+            </h1>
+            <h3 class="mesh-col-12">
+                Full API documentation.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                <h1>
+                    Source: ui/scripts/Validation.js
+                </h1>
+                
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function ($, ch) {
+    'use strict';
+
+    /**
+     * Creates a bubble to show the validation message.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @private
+     * @returns {validation}
+     */
+    ch.Validation.prototype._configureContainer = function () {
+
+        var that = this;
+
+        /**
+         * Is the little sign that popover showing the validation message. It's a Popover component, so you can change it's content, width or height and change its visibility state.
+         * @type {Bubble}
+         * @see ch.Bubble
+         */
+        this.bubble = this._container = $.bubble({
+            'reference': that._options.reference || (function () {
+                var reference,
+                    $trigger = that.$trigger,
+                    h4;
+                // CHECKBOX, RADIO
+                // TODO: when old forms be deprecated we must only support ch-form-options class
+                if ($trigger.hasClass('ch-form-options')) {
+                // Helper reference from will be fired
+                // H4
+                    if ($trigger.find('h4').length > 0) {
+                        h4 = $trigger.find('h4'); // Find h4
+                        h4.wrapInner('&lt;span>'); // Wrap content with inline element
+                        reference = h4.children(); // Inline element in h4 like helper reference
+                    // Legend
+                    } else if ($trigger.prev().prop('tagName') === 'LEGEND') {
+                        reference = $trigger.prev(); // Legend like helper reference
+                    } else {
+                        reference = $($trigger.find('label')[0]);
+                    }
+                // INPUT, SELECT, TEXTAREA
+                } else {
+                    reference = $trigger;
+                }
+
+                return reference;
+            }()),
+            'align': that._options.align,
+            'side': that._options.side,
+            'offsetY': that._options.offsetY,
+            'offsetX': that._options.offsetX
+            // 'position': that._options.position
+        });
+
+    };
+
+    /**
+     * Shows the validation message.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @private
+     * @returns {validation}
+     */
+    ch.Validation.prototype._showErrorMessage = function (message) {
+        this.bubble.content(message).show();
+        this.$trigger.attr('aria-label', 'ch-' + this.bubble.name + '-' + this.bubble.uid);
+
+        return this;
+    };
+
+    /**
+     * Hides the validation message.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @private
+     * @returns {validation}
+     */
+    ch.Validation.prototype._hideErrorMessage = function () {
+        this.bubble.hide();
+        this.$trigger.removeAttr('aria-label');
+
+        return this;
+    };
+
+    /**
+     * Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @returns {validation}
+     * @example
+     * // Change validaton bubble's position.
+     * validation.refreshPosition({
+     *     offsetY: -10,
+     *     side: 'top',
+     *     align: 'left'
+     * });
+     */
+    ch.Validation.prototype.refreshPosition = function (options) {
+
+        if (options === undefined) {
+            return this.bubble._position;
+        }
+
+        this.bubble.refreshPosition(options);
+
+        return this;
+    };
+
+}(this.ch.$, this.ch));</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+            </nav>
+        </div>
+    </section>
+</main>

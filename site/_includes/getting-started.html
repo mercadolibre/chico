@@ -1,0 +1,238 @@
+{% case page.version %}
+    {% when "1x_mobile" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+        {% assign chico_current_dependency_link = site.chico_dependency_1x_mobile_link %}
+        {% assign chico_current_dependency_name = site.chico_dependency_1x_mobile_name %}
+    {% when "1x_ui" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+        {% assign chico_current_dependency_link = site.chico_dependency_1x_ui_link %}
+        {% assign chico_current_dependency_name = site.chico_dependency_1x_ui_name %}
+    {% when "2x_mobile" %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+        {% assign chico_current_dependency_link = site.chico_dependency_2x_mobile_link %}
+        {% assign chico_current_dependency_name = site.chico_dependency_2x_mobile_name %}
+    {% else %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+        {% assign chico_current_dependency_link = site.chico_dependency_2x_ui_link %}
+        {% assign chico_current_dependency_name = site.chico_dependency_2x_ui_name %}
+{% endcase %}
+
+<main role="main" class="chico-getting-started">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">
+                Getting started
+            </h1>
+            <h3 class="mesh-col-12">
+                How to use Chico in your site.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                <h2 id="overview">
+                    Overview
+                </h2>
+                <p>
+                    Chico supports desktop —called “ui”— and mobile platforms and has two major releases: v1x and v2x.
+                </p>
+                <p>
+                    To get started, please, select version and platform:
+                </p>
+                <ul class="chico-versions-list">
+                    <li>
+                        v{{ site.chico_version_1x }}
+                        <ul>
+                            <li>
+                                <a href="{{ site.baseurl }}/{{ site.chico_path_1x_ui }}{{ site.chico_path_getting_started }}">
+                                    {{ site.chico_platform_ui }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ site.baseurl }}/{{ site.chico_path_1x_mobile }}{{ site.chico_path_getting_started }}">
+                                    {{ site.chico_platform_mobile }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        v{{ site.chico_version_2x }}
+                        <ul>
+                            <li>
+                                <a href="{{ site.baseurl }}/{{ site.chico_path_2x_ui }}{{ site.chico_path_getting_started }}">
+                                    {{ site.chico_platform_ui }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ site.baseurl }}/{{ site.chico_path_2x_mobile }}{{ site.chico_path_getting_started }}">
+                                    {{ site.chico_platform_mobile }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <h2 id="resources">
+                    Resources
+                </h2>
+                <p>
+                    To get started you first need to get a copy of Chico. You have 2 options:
+                </p>
+                <p>
+                    Install it using npm:
+                </p>
+{% highlight sh %}
+npm install chico
+{% endhighlight %}
+                <p>
+                    Use the resources from our CDN:
+                </p>
+{% highlight text %}
+// HTTP/1.1
+https://ui.mlstatic.com/chico/{{ chico_current_version }}/{{ chico_current_platform }}/chico.min.css
+https://ui.mlstatic.com/chico/{{ chico_current_version }}/{{ chico_current_platform }}/chico.min.js
+
+// HTTP/2
+https://http2.mlstatic.com/ui/chico/{{ chico_current_version }}/{{ chico_current_platform }}/chico.min.css
+https://http2.mlstatic.com/ui/chico/{{ chico_current_version }}/{{ chico_current_platform }}/chico.min.js
+{% endhighlight %}
+                <p>
+                    <em>
+                        For a specific version, please check the
+                        <a href="{{ site.chico_repo_releases }}">releases</a>
+                        in the
+                        <a href="{{ site.chico_repo }}">repository</a>.
+                    </em>
+                </p>
+                <h2 id="usage">
+                    Usage and dependencies
+                </h2>
+                <article>
+                    <h3 id="sniffing">
+                        Browser sniffing
+                    </h3>
+                    <p>
+                        We hate writing CSS hacks. Instead of hacking the code, we rather use IE’s conditional
+                        comments, so if you paste this code in your HTML, Chico UI will know how to fix the visual
+                        inconsistencies:
+                    </p>
+{% highlight html %}
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+{% endhighlight %}
+                </article>
+                <article>
+                    <h3 id="dependencies">
+                        Dependencies
+                    </h3>
+                    <p>
+                        You must include <a href="{{ chico_current_dependency_link }}">{{ chico_current_dependency_name }}</a>
+                        as a dependency.
+                    </p>
+                </article>
+                <article>
+                    <h3 id="assets">
+                        Including assets
+                    </h3>
+                    <p>
+                        Add the CSS file within the `head` tag:
+                    </p>
+{% highlight html %}
+<link href="https://ui.mlstatic.com/chico/{{ chico_current_version }}/{{ chico_current_platform }}/chico.min.css" rel="stylesheet" />
+{% endhighlight %}
+                    <p>
+                        Add the JavaScript files before the closing `body` tag:
+                    </p>
+{% highlight html %}
+<script src="{{ chico_current_dependency_link }}"></script>
+<script src="https://ui.mlstatic.com/chico/{{ chico_current_version }}/{{ chico_current_platform }}/chico.min.js"></script>
+{% endhighlight %}
+                    <p>
+                        <em>
+                            If you’re not using the assets from our CDN make sure that the references to the images
+                            and fonts are correct.
+                        </em>
+                    </p>
+                </article>
+                <article>
+                    <h3 id="example">
+                        Example
+                    </h3>
+                    <p>
+                        Putting it all together we get something like the following document:
+                    </p>
+{% highlight html %}
+<!doctype html>
+<!--[if IE 8]><html class="no-js lt-ie10 lt-ie9 ie8"><![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie10 ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>Title<title>
+    <link href="https://ui.mlstatic.com/chico/{{ chico_current_version }}/{{ chico_current_platform }}/chico.min.css" rel="stylesheet" />
+
+    <!--
+        `head` content.
+    -->
+</head>
+<body>
+    <!--
+        `body` content.
+    -->
+
+    <script src="{{ chico_current_dependency_link }}"></script>
+    <script src="https://ui.mlstatic.com/chico/{{ chico_current_version }}/{{ chico_current_platform }}/chico.min.js"></script>
+</body>
+<html>
+{% endhighlight %}
+                </article>
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <ul id="nav-sections">
+                    <li>
+                        <a href="#overview" data-section="overview">
+                            Overview
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#resources" data-section="resources">
+                            Resources
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#usage" data-section="usage">
+                            Usage and dependencies
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="#sniffing" data-section="sniffing">
+                                    Browser sniffing
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#dependencies" data-section="dependencies">
+                                    Dependencies
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#assets" data-section="assets">
+                                    Including assets
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#example" data-section="example">
+                                    Example
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</main>

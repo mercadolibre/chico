@@ -1,28 +1,13 @@
 /**
  * MercadoLibre Chico
- * @description:
  */
 
 /* Chico
 ---------------------------------------------------------------*/
 
 .ml-wrapper {
-	padding-bottom: 0;
+    padding-bottom: 0;
 }
-
-section {
-	padding: 40px 0 70px;
-}
-
-.chico-head {
-	padding: 90px 70px;
-}
-
-.chico-bottom .ml-bounds {
-	max-width: 800px;
-	margin: auto;
-}
-
 
 /* Navigation
 ---------------------------------------------------------------*/
@@ -33,10 +18,21 @@ section {
 }
 
 .chico-nav.sticky {
-	position: fixed;
-	z-index: 555;
-	top: 20px;
-	right: 63px;
+    position: fixed;
+    z-index: 555;
+    top: 20px;
+    right: 63px;
+}
+
+.chico-nav > h2 {
+    margin: 0 0 15px;
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1.15;
+}
+
+.chico-nav > h2 ~ h2 {
+    margin-top: 30px;
 }
 
 .chico-nav > ul {
@@ -45,11 +41,11 @@ section {
 }
 
 .chico-nav li a {
-	display: block;
-	padding: 5px 0;
-	color: #0033CC;
+    display: block;
+    padding: 5px 0;
+    color: #03c;
 }
 
 .chico-nav li > ul > li {
-	padding-left: 15px;
+    padding-left: 15px;
 }

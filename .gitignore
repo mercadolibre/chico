@@ -2,6 +2,8 @@
 .grunt
 .sass-cache
 .idea
+.asset-cache/
 node_modules/
 bower_components/
 _site/
+*.log

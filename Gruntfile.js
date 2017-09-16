@@ -18,7 +18,6 @@ module.exports = function (grunt) {
         throw new Error('Provided version is invalid');
     }
 
-
     // Project configuration.
     grunt.initConfig({
         'pkg': grunt.file.readJSON('package.json'),
@@ -115,7 +114,8 @@ module.exports = function (grunt) {
                 'options': {
                     'template': './libs/doc-template',
                     'destination': path.join('./site/api-doc', version, 'ui'),
-                    'private': false
+                    'private': false,
+                    'lenient': true
                 }
             },
             mobile: {
@@ -123,7 +123,8 @@ module.exports = function (grunt) {
                 'options': {
                     'template': './libs/doc-template',
                     'destination': path.join('./site/api-doc', version, 'mobile'),
-                    'private': false
+                    'private': false,
+                    'lenient': true
                 }
             }
         },
@@ -164,7 +165,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dev', ['jekyll:dev', 'browserSync:dev', 'watch', 'copy']);
 
-    grunt.registerTask('dist', ['apidoc', 'jekyll:dist', 'copy']);
+    grunt.registerTask('dist', ['jekyll:dist', 'copy']);
 
     grunt.registerTask('deploy', ['dist', 'gh-pages']);
 
@@ -188,7 +189,6 @@ module.exports = function (grunt) {
                 jsFiles.push(abspath);
             }
         });
-        //console.log(jsFiles);
 
         return jsFiles;
     }

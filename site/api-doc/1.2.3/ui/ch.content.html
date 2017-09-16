@@ -1,0 +1,299 @@
+---
+layout: default
+id: api-doc
+version: 1x_ui
+title: "Chico UI - v1x ui - API - Content (Mixins)"
+---
+
+<main role="main" class="chico-api-doc">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">
+                API
+            </h1>
+            <h3 class="mesh-col-12">
+                Full API documentation.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                <h1>
+                    Content (Mixins)
+                </h1>
+                
+
+
+
+
+
+
+
+    
+        <h2 class="api-title">Description</h2>
+        <p>Add a function to manage components content.</p>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.this.content<span class="signature">(content, <span class="optional">options</span>)</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Allows to manage the components content.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">content</code>
+             - 
+            
+                
+<em class="param-type">String | jQuerySelector | ZeptoSelector</em>
+            
+            : The content that will be used by a component.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">options</code>
+             - 
+            
+                
+<em class="param-type">Object</em>
+            
+            : A custom options to be used with content loaded by ajax.
+
+            
+                
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">method</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">params</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : Params like query string to be sent to the server.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">cache</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Force to cache the request by the browser. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">async</code>
+             - 
+            
+                
+<em class="param-type">Boolean</em>
+            
+            : Force to sent request asynchronously. Default: true.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">waiting</code>
+             - 
+            
+                
+<em class="param-type">String | jQuerySelector | ZeptoSelector</em>
+            
+            : Temporary content to use while the ajax request is loading.
+
+            
+        </li>
+	
+</ul>
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Update content with some string.
+component.content('Some new content here!');
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Update content that will be loaded by ajax with custom options.
+component.content('http://chico-ui.com.ar/ajax', {
+    'cache': false,
+    'params': 'x-request=true'
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+    <h2 class="api-title">Events</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">'contentdone'</code></h4>
+<pre></pre>
+
+    <p>Event emitted if the content is loaded successfully.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "contentdone" event.
+component.on('contentdone', function (event) {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'contenterror'</code></h4>
+<pre></pre>
+
+    <p>Event emitted if the content isn't loaded successfully.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "contenterror" event.
+component.on('contenterror', function (event) {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">'contentwaiting'</code></h4>
+<pre></pre>
+
+    <p>Event emitted when the content is loading.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Subscribe to "contentwaiting" event.
+component.on('contentwaiting', function (event) {
+    // Some code here!
+});
+{% endhighlight %}
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+            </nav>
+        </div>
+    </section>
+</main>

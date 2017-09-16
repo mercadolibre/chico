@@ -1,26 +1,34 @@
-<article id="transition-window">
-    <h2>Transition window</h2>
-
-    <!-- Component example -->
+<article id="transition">
+    <h2>
+        Transition
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.transition/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
         <form action="{{ site.baseUrl }}/ajax.html">
-            <input type="submit" id="transition" class="ch-btn ch-btn-small" value="Execute it!">
+            <input class="ch-btn ch-btn-small" id="dm_tr" value="Transition" type="submit" />
         </form>
     </div>
 {% highlight html %}
-<input type="submit" id="transition" class="ch-btn ch-btn-small" value="Execute it!">
+<input class="ch-btn ch-btn-small" id="dm_tr" value="Transition" type="submit" />
 {% endhighlight %}
-
 {% highlight javascript %}
-var transition = new ch.Transition(ch('#transition')[0]);
+var transition = new ch.Transition({% if chico_current_version == site.chico_version_1x %}$('#dm_tr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_tr')[0]{% endif %});
 {% endhighlight %}
-
+    <p>
+        Back to <a href="#transition">Transition</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            transition = new ch.Transition(ch('#transition')[0]);
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var transition = new ch.Transition({% if chico_current_version == site.chico_version_1x %}$('#dm_tr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_tr')[0]{% endif %});
 
-            tiny.on('#transition', 'click', function(e){
-                setTimeout(function(){transition.hide()}, 5000);
+            {% if chico_current_version == site.chico_version_1x %}$('#dm_tr').on({% endif %}{% if chico_current_version == site.chico_version_2x %}tiny.on('#dm_tr', {% endif %}'click', function (e) {
+                setTimeout(function () {
+                    transition.hide();
+                }, 5000);
             });
         });
     </script>

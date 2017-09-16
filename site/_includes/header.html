@@ -1,40 +1,94 @@
-<header role="banner" class="ml-header">
+<header class="ml-header" id="top" role="banner">
     <div class="ml-header-inner">
-        <a class="ml-logo-mobile" href="{{ site.baseurl }}/"><h1 class="ml-title">Chico UI</h1></a>
-
-        <a class="ml-logo" href="{{ site.baseurl }}/">MercadoLibre - Donde compras y vendes de todo<span class="ch-brand-name">Chico Components</span></a>
-
-        <label for="toggle-menu" class="toggle-label"></label>
+        <a class="ml-logo-mobile" href="{{ site.baseurl }}/">
+            <h1 class="ml-title">
+                Chico UI
+            </h1>
+        </a>
+        <a class="ml-logo" href="{{ site.baseurl }}/">
+            <span class="ch-brand-name">
+                Chico UI
+            </span>
+        </a>
+        <div class="chico-version">
+            <span class="chico-version-current">
+                v{{ chico_current_version }} {{ chico_current_platform }}
+                <span class="chico-version-icon ch-icon-caret-down"></span>
+            </span>
+            <ul class="chico-version-list">
+                <li {% if chico_current_version == site.chico_version_1x and chico_current_platform == site.chico_platform_ui %}class="chico-version-list-current"{% endif %}>
+                    <a href="{{ site.baseurl }}/{{ site.chico_path_1x_ui }}{{ site.chico_path_getting_started }}">
+                        v{{ site.chico_version_1x }} {{ site.chico_platform_ui }}
+                    </a>
+                </li>
+                <li {% if chico_current_version == site.chico_version_1x and chico_current_platform == site.chico_platform_mobile %}class="chico-version-list-current"{% endif %}>
+                    <a href="{{ site.baseurl }}/{{ site.chico_path_1x_mobile }}{{ site.chico_path_getting_started }}">
+                        v{{ site.chico_version_1x }} {{ site.chico_platform_mobile }}
+                    </a>
+                </li>
+                <li {% if chico_current_version == site.chico_version_2x and chico_current_platform == site.chico_platform_ui %}class="chico-version-list-current"{% endif %}>
+                    <a href="{{ site.baseurl }}/{{ site.chico_path_2x_ui }}{{ site.chico_path_getting_started }}">
+                        v{{ site.chico_version_2x }} {{ site.chico_platform_ui }}
+                    </a>
+                </li>
+                <li {% if chico_current_version == site.chico_version_2x and chico_current_platform == site.chico_platform_mobile %}class="chico-version-list-current"{% endif %}>
+                    <a href="{{ site.baseurl }}/{{ site.chico_path_2x_mobile }}{{ site.chico_path_getting_started }}">
+                        v{{ site.chico_version_2x }} {{ site.chico_platform_mobile }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <label class="toggle-label" for="toggle-menu"></label>
         <input type="checkbox" class="toggle-input" id="toggle-menu">
+
         <nav class="ml-navigation" role="navigation">
             <ul>
-                <li class="ml-navigation-item ml-navigation-account ">
-                   <a class="{% if page.id == 'getting-started' %} active{% endif %}" href="{{ site.baseurl }}/getting-started/">Getting started</a>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="{% if page.id == 'getting-started' %} active{% endif %}"
+                        href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_getting_started }}">
+                        Getting started
+                    </a>
                 </li>
-                <li class="ml-navigation-item ml-navigation-account ">
-                    <a class="{% if page.id == 'ui-components' %} active{% endif %}" href="{{ site.baseurl }}/ui-components/">UI Components</a>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="{% if page.id == 'styles' %} active{% endif %}"
+                        href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_styles }}">
+                        Styles
+                    </a>
                 </li>
-                <li class="ml-navigation-item ml-navigation-account ">
-                    <a class="api-doc {% if page.id == 'api-doc' %} active{% endif %}" href="{{ site.baseurl }}/api-doc/current/ui/ch">API Doc</a>
-
-                    <label for="toggle-sub-menu" class="toggle-sub-menu-label"></label>
-                    <input type="checkbox" class="toggle-input-sub-menu" id="toggle-sub-menu">
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="{% if page.id == 'components' %} active{% endif %}"
+                        href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_components }}">
+                        Components
+                    </a>
+                </li>
+                <li class="ml-navigation-item ml-navigation-account">
+                    <a class="api-doc {% if page.id == 'api-doc' %} active{% endif %}"
+                        href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/{{ site.chico_path_api_doc_namespace }}">
+                        API
+                    </a>
                 </li>
             </ul>
         </nav>
 
-        <div class="ml-navicon action-right">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <div class="ml-navicon action-right"><span></span><span></span><span></span></div>
 
         <nav class="ml-header-menu">
-            <a class="{% if page.id == 'getting-started' %} active{% endif %}" href="{{ site.baseurl }}/getting-started/">Getting started</a>
-            <a class="{% if page.id == 'common-css' %} active{% endif %}" href="{{ site.baseurl }}/common-css/">Common CSS</a>
-            <a class="{% if page.id == 'components' %} active{% endif %}" href="{{ site.baseurl }}/components/">Components</a>
-            <a class="{% if page.id == 'api-doc' %} active{% endif %}" href="{{ site.baseurl }}/api-doc/current/ui/ch.autocomplete">API Doc</a>
+            <a class="{% if page.id == 'getting-started' %} active{% endif %}"
+                href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_getting_started }}">
+                Getting started
+            </a>
+            <a class="{% if page.id == 'styles' %} active{% endif %}"
+                href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_styles }}">
+                Styles
+            </a>
+            <a class="{% if page.id == 'components' %} active{% endif %}"
+                href="{{ site.baseurl }}/{{ chico_current_path_base }}{{ site.chico_path_components }}">
+                Components
+            </a>
+            <a class="{% if page.id == 'api-doc' %} active{% endif %}"
+                href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/{{ site.chico_path_api_doc_namespace }}">
+                API
+            </a>
         </nav>
     </div>
 </header>
-

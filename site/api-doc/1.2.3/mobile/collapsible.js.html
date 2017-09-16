@@ -1,0 +1,195 @@
+---
+layout: default
+id: api-doc
+version: 1x_mobile
+title: "Chico UI - v1x mobile - API - Source: shared/scripts/Collapsible.js"
+---
+
+<main role="main" class="chico-api-doc">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">
+                API
+            </h1>
+            <h3 class="mesh-col-12">
+                Full API documentation.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                <h1>
+                    Source: shared/scripts/Collapsible.js
+                </h1>
+                
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function (ch) {
+    'use strict';
+
+    var toggleEffects = {
+        'slideDown': 'slideUp',
+        'slideUp': 'slideDown',
+        'fadeIn': 'fadeOut',
+        'fadeOut': 'fadeIn'
+    };
+
+    /**
+     * The Collapsible class gives to components the ability to shown or hidden its container.
+     * @memberOf ch
+     * @mixin
+     * @returns {Function} Returns a private function.
+     */
+    function Collapsible() {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this,
+            triggerClass = 'ch-' + this.name + '-trigger-on',
+            fx = this._options.fx,
+            useEffects = (ch.support.fx && fx !== 'none' && fx !== false);
+
+        function showCallback() {
+            that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
+
+            /**
+             * Event emitted when the componentg is shown.
+             * @event ch.Collapsible#show
+             * @example
+             * // Subscribe to "show" event.
+             * collapsible.on('show', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('show');
+        }
+
+        function hideCallback() {
+            that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
+
+            /**
+             * Event emitted when the component is hidden.
+             * @event ch.Collapsible#hide
+             * @example
+             * // Subscribe to "hide" event.
+             * collapsible.on('hide', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('hide');
+        }
+
+        this._shown = false;
+
+        /**
+         * Shows the component container.
+         * @function
+         * @private
+         */
+        this._show = function () {
+
+            that._shown = true;
+
+            if (that.$trigger !== undefined) {
+                that.$trigger.addClass(triggerClass);
+            }
+
+            /**
+             * Event emitted before the component is shown.
+             * @event ch.Collapsible#beforeshow
+             * @example
+             * // Subscribe to "beforeshow" event.
+             * collapsible.on('beforeshow', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('beforeshow');
+
+            // Animate or not
+            if (useEffects) {
+                that.$container[fx]('fast', showCallback);
+            } else {
+                showCallback();
+            }
+
+            that.emit('_show');
+
+            return that;
+        };
+
+        /**
+         * Hides the component container.
+         * @function
+         * @private
+         */
+        this._hide = function () {
+
+            that._shown = false;
+
+            if (that.$trigger !== undefined) {
+                that.$trigger.removeClass(triggerClass);
+            }
+
+            /**
+             * Event emitted before the component is hidden.
+             * @event ch.Collapsible#beforehide
+             * @example
+             * // Subscribe to "beforehide" event.
+             * collapsible.on('beforehide', function () {
+             *     // Some code here!
+             * });
+             */
+            that.emit('beforehide');
+
+            // Animate or not
+            if (useEffects) {
+                that.$container[toggleEffects[fx]]('fast', hideCallback);
+            } else {
+                hideCallback();
+            }
+
+            return that;
+        };
+
+        /**
+         * Shows or hides the component.
+         * @function
+         * @private
+         */
+        this._toggle = function () {
+
+            if (that._shown) {
+                that.hide();
+            } else {
+                that.show();
+            }
+
+            return that;
+        };
+
+        this.on('disable', this.hide);
+    }
+
+    ch.Collapsible = Collapsible;
+
+}(this.ch));</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li><li><a href="../ch.util.mbp/">MBP</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+            </nav>
+        </div>
+    </section>
+</main>

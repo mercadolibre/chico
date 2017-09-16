@@ -1,17 +1,21 @@
 <article id="dropdown">
-    <h2>Dropdown</h2>
-
-    <!-- Component example -->
+    <h2>
+        Dropdown
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.dropdown/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
-        <h3 class="demo-dropdown1">Default</h3>
-        <menu label="Links" class="ch-hide">
-            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        <h3 id="dm_dp_df">Dropdown</h3>
+        <menu class="ch-hide" label="Links">
+            <li><a href="http://www.mercadolibre.com">Mercado Libre</a></li>
+            <li><a href="http://www.mercadopago.com">Mercado Pago</a></li>
+            <li><a href="http://www.mercadoshops.com">Mercado Shops</a></li>
         </menu>
 
-        <i class="ch-icon-heart demo-dropdown2"></i>
+        <span class="ch-icon-th" id="dm_dp_ns"></span>
         <ul class="ch-hide">
             <li>
                 {% image ninja.png width='50' %}
@@ -30,53 +34,62 @@
             </li>
         </ul>
 
-        <p class="demo-dropdown3">With skin</p>
-        <menu label="Links" class="ch-hide">
-            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        <p id="dm_dp_skn">Dropdown</p>
+        <menu class="ch-hide" label="Links">
+            <li><a href="http://www.mercadolibre.com">Mercado Libre</a></li>
+            <li><a href="http://www.mercadopago.com">Mercado Pago</a></li>
+            <li><a href="http://www.mercadoshops.com">Mercado Shops</a></li>
         </menu>
     </div>
 {% highlight html %}
-<h3 class="demo-dropdown1">Default</h3>
-<menu label="Links" class="ch-hide">
-    <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-    ...
+<h3 id="dm_dp_df">Dropdown</h3>
+<menu class="ch-hide" label="Links">
+    <li><a href="http://www.mercadolibre.com">Mercado Libre</a></li>
+    <!-- [...] -->
 </menu>
 
-<i class="ch-icon-heart demo-dropdown2"></i>
+<span class="ch-icon-th" id="dm_dp_ns"></span>
 <ul class="ch-hide">
     <li>
-        <img src="..." />
-        ...
+        <img src="picture.png" />
+        <!-- [...] -->
     </li>
-    ...
+    <!-- [...] -->
 </ul>
 
-<p class="demo-dropdown3">With skin</p>
-<menu label="Links" class="ch-hide">
-    <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-    ...
+<p id="dm_dp_skn">Dropdown</p>
+<menu class="ch-hide" label="Links">
+    <li><a href="http://www.mercadolibre.com">Mercado Libre</a></li>
+    <!-- [...] -->
 </menu>
-
 {% endhighlight %}
 {% highlight javascript %}
-var dropdown1 = new ch.Dropdown(document.querySelector('.demo-dropdown1'));
-var dropdown2 = new ch.Dropdown(document.querySelector('.demo-dropdown2'), {
+var dropdownDefault = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_df')[0]{% endif %});
+
+var dropdownNoShortcuts = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_ns'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_ns')[0]{% endif %}, {
     'shortcuts': false,
     'skin': true
 });
-var dropdown3 = new ch.Dropdown(document.querySelector('.demo-dropdown3'), {
+
+var dropdownSkin = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_skn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_skn')[0]{% endif %}, {
     'skin': true
 });
 {% endhighlight %}
-
+    <p>
+        Back to <a href="#dropdown">Dropdown</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var dropdown1 = new ch.Dropdown(document.querySelector('.demo-dropdown1'));
-            var dropdown2 = new ch.Dropdown(document.querySelector('.demo-dropdown2'), {'shortcuts': false, 'skin': true});
-            var dropdown3 = new ch.Dropdown(document.querySelector('.demo-dropdown3'), {'skin': true});
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var dropdownDefault = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_df')[0]{% endif %});
+
+            var dropdownNoShortcuts = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_ns'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_ns')[0]{% endif %}, {
+                'shortcuts': false,
+                'skin': true
+            });
+
+            var dropdownSkin = new ch.Dropdown({% if chico_current_version == site.chico_version_1x %}$('#dm_dp_skn'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_dp_skn')[0]{% endif %}, {
+                'skin': true
+            });
         });
     </script>
 </article>

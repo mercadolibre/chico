@@ -1,0 +1,350 @@
+---
+layout: default
+id: api-doc
+version: 2x_ui
+title: "Chico UI - v2x ui - API - ch.Condition"
+---
+
+<main role="main" class="chico-api-doc">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">
+                API
+            </h1>
+            <h3 class="mesh-col-12">
+                Full API documentation.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                <h1>
+                    ch.Condition
+                </h1>
+                
+
+
+
+
+
+
+
+    
+    <h2 class="api-title">Description</h2>
+    <p>Condition utility.</p>
+    
+
+    
+        <h2 class="api-title">How-to</h2>
+        
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new condition object with patt.
+var condition = ch.Condition({
+    'name': 'string',
+    'patt': /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
+    'message': 'Some message here!'
+});
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+//Create a new condition object with expr.
+var condition = ch.Condition({
+    'name': 'maxLength',
+    'patt': function(a,b) { return a.length <= b },
+    'message': 'Some message here!',
+    'value': 4
+});
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Create a new condition object with func.
+var condition = ch.Condition({
+    'name': 'custom',
+    'patt': function (value) {
+        if (value === 'ChicoUI') {
+
+            // Some code here!
+
+            return true;
+        };
+
+        return false;
+    },
+    'message': 'Your message here!'
+});
+{% endhighlight %}
+</div>
+
+
+
+    
+
+    
+        <h2 class="api-title">Parameters</h2>
+        
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">condition</code>
+             - 
+            
+                
+<em class="param-type">Array</em>
+            
+            : A conditions to validate.
+
+            
+                
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">name</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The name of the condition.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">message</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The given error message to the condition.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">fn</code>
+             - 
+            
+                
+<em class="param-type">String</em>
+            
+            : The method to validate a given condition.
+
+            
+        </li>
+	
+</ul>
+            
+        </li>
+	
+</ul>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 class="api-title">Properties</h2>
+
+    <dl>
+        
+
+<h4>
+    <code class=" language-markup" id="Condition#name">.Condition#name</code>
+    
+    
+<em class="param-type">String</em>
+    
+</h4>
+
+
+<p>The name of the component.</p>
+
+
+
+    </dl>
+
+
+
+    <h2 class="api-title">Methods</h2>
+
+    <dl>
+        
+
+
+
+<h4><code class=" language-markup">.constructor<span class="signature">()</span><span class="type-signature"></span></code></h4>
+<pre></pre>
+
+    <p>Returns a reference to the constructor function.</p>
+
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.disable<span class="signature">()</span><span class="type-signature"> &rarr; {condition}</span></code></h4>
+<pre></pre>
+
+    <p>Disables an instance of a condition.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Disabling an instance of Condition.
+condition.disable();
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Disabling a condition.
+condition.disable();
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.enable<span class="signature">()</span><span class="type-signature"> &rarr; {condition}</span></code></h4>
+<pre></pre>
+
+    <p>Enables an instance of condition.</p>
+
+
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Enabling an instance of Condition.
+condition.enable();
+{% endhighlight %}
+</div>
+
+
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Enabling a condition.
+condition.enable();
+{% endhighlight %}
+</div>
+
+
+
+
+
+    
+        
+
+
+
+<h4><code class=" language-markup">.test<span class="signature">(value, validation)</span><span class="type-signature"> &rarr; {Boolean}</span></code></h4>
+<pre></pre>
+
+    <p>Enables an instance of condition.</p>
+
+
+
+    
+
+<ul class="ch-list parameters">
+	
+        <li>
+            
+            <code class="language-markup">value</code>
+             - 
+            
+                
+<em class="param-type">String | Number</em>
+            
+            : A given value.
+
+            
+        </li>
+	
+        <li>
+            
+            <code class="language-markup">validation</code>
+             - 
+            
+                
+<em class="param-type">condition</em>
+            
+            : A given validation to execute.
+
+            
+        </li>
+	
+</ul>
+
+
+
+    
+<div class="jsdoc-example">
+{% highlight javascript %}
+// Testing a condition.
+condition.test('foobar', validationA);
+{% endhighlight %}
+</div>
+
+
+
+
+
+    </dl>
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.datepicker/">Datepicker</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.tabs/">Tabs</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li><li><a href="../ch.zoom/">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.shortcuts/">shortcuts</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+            </nav>
+        </div>
+    </section>
+</main>

@@ -1,10 +1,40 @@
 # Site settings
 title: Chico UI
-email: chico@mercadolibre.com
 description: "A collection of easy-to-use UI components"
 baseurl: ""
-twitter_username: chicoui
-github_username:  chicoui
+
+# Chico & Paths
+chico_version_1x: "1.2.3"
+chico_version_2x: "2.0.11"
+
+chico_platform_mobile: "mobile"
+chico_platform_ui: "ui"
+
+chico_path_1x_mobile: "1x/mobile/"
+chico_path_1x_ui: "1x/ui/"
+chico_path_2x_mobile: "2x/mobile/"
+chico_path_2x_ui: "2x/ui/"
+
+chico_dependency_1x_mobile_link: "https://static.mlstatic.com/org-img/ch/vendor/zepto/zepto-1.0.min.js"
+chico_dependency_1x_ui_link: "https://static.mlstatic.com/org-img/ch/vendor/jquery/jquery-1.10.2.min.js"
+chico_dependency_2x_mobile_link: "https://ui.mlstatic.com/chico/tiny/0.2.4/tiny.min.js"
+chico_dependency_2x_ui_link: "https://ui.mlstatic.com/chico/tiny/0.2.4/tiny.min.js"
+
+chico_dependency_1x_mobile_name: "Zepto"
+chico_dependency_1x_ui_name: "jQuery"
+chico_dependency_2x_mobile_name: "Tiny"
+chico_dependency_2x_ui_name: "Tiny"
+
+chico_path_getting_started: "getting-started/"
+chico_path_styles: "styles/"
+chico_path_components: "components/"
+chico_path_api_doc: "api-doc/"
+chico_path_api_doc_namespace: "ch/"
+
+chico_repo: "https://github.com/mercadolibre/chico/"
+chico_repo_releases: "https://github.com/mercadolibre/chico/releases"
+
+opensource_site: "https://opensource.mercadolibre.com/"
 
 # Build settings
 markdown: kramdown
@@ -19,25 +49,25 @@ destination: _site/
 encoding: utf-8
 
 exclude:
-  - assets
-  - css
-  - js
-
-include:
-  - .nojekyll
-
-keep_files:
-  - "assets/assets"
-
-gems:
-  - jekyll-assets
-
-assets:
-  gzip: false
-  sources:
-    - ../bower_components/chico/dist
     - assets
     - css
     - js
+
+include:
+    - .nojekyll
+
+keep_files:
+    - "assets/assets"
+
+gems:
+    - jekyll-assets
+
+assets:
+    gzip: false
+    sources:
+        - ../bower_components/chico/dist
+        - assets
+        - css
+        - js
 
 #  prefix: "/assets"

@@ -1,54 +1,97 @@
 <article id="expandable">
-    <h2>Expandable</h2>
-
-    <!-- Component example -->
+    <h2>
+        Expandable
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.expandable/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
-        <h4 class="demo_expandable1 ch-expandable-trigger">Lorem ipsum dolor sit amet.</h4>
-        <div id="container1" class="ch-hide">
-            <div id="content">
-                <h2 class="demo-expandable-test">Lorem</h2>
-                <p>ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p>
-            </div>
-        </div>
+        <h3>Expandable with paragraph</h3>
+        <h4 id="dm_exp_pr">Expandable</h4>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua.
+        </p>
 
-        <h4 class="demo_expandable2">Lorem ipsum dolor sit amet.</h4>
-        <div class="container_expandable2"></div>
+        <h3>Expandable with list</h3>
+        <h4 id="dm_exp_li">Expandable</h4>
+        <ul class="ch-list">
+            <li>Foo</li>
+            <li>Bar</li>
+            <li>Baz</li>
+        </ul>
+
+        {% if chico_current_platform == site.chico_platform_mobile %}
+        <h3>Expandable with box list</h3>
+        <h4 id="dm_exp_bli">Expandable</h4>
+        <ul class="ch-box-list">
+            <li><a href="#">Foo</a></li>
+            <li><a href="#">Bar</a></li>
+            <li><a href="#">Baz</a></li>
+        </ul>
+        {% endif %}
+
+        <h3>Expandable with Ajax call</h3>
+        <h4 id="dm_exp_ajax">Expandable</h4>
+        <div id="dm_exp_ajax_cnt">
+            <!-- Content will be loaded using Ajax. -->
+        </div>
     </div>
 {% highlight html %}
-<h4 class="demo_expandable1 ch-expandable-trigger">Lorem ipsum dolor sit amet.</h4>
-<div class="ch-hide">
-    <div>
-        <!-- Expandable content -->
-        ...
-    </div>
+<h3>Expandable with paragraph</h3>
+<h4 id="dm_exp_pr">Expandable</h4>
+<p>Lorem ipsum dolor sit amet.</p>
+
+<h3>Expandable with list</h3>
+<h4 id="dm_exp_li">Expandable</h4>
+<ul class="ch-list">
+    <li>Foo</li>
+    <!-- [...] -->
+</ul>
+{% if chico_current_platform == site.chico_platform_mobile %}
+<h3>Expandable with box list</h3>
+<h4 id="dm_exp_bli">Expandable</h4>
+<ul class="ch-box-list">
+    <li><a href="#">Foo</a></li>
+    <!-- [...] -->
+</ul>
+{% endif %}
+<h3>Expandable with Ajax call</h3>
+<h4 id="dm_exp_ajax">Expandable</h4>
+<div id="dm_exp_ajax_cnt">
+    <!-- Content will be loaded using Ajax. -->
 </div>
-
-<h4 class="demo_expandable2">Lorem ipsum dolor sit amet.</h4>
-<div class="container_expandable2"><!-- Content will load with Ajax --></div>
 {% endhighlight %}
-
 {% highlight javascript %}
-var expandable1 = new ch.Expandable(document.querySelector('.demo_expandable1'));
+var expandableParagraph = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_pr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_pr')[0]{% endif %});
 
-var expandable2 = new ch.Expandable(document.querySelector('.demo_expandable2'), {
+var expandableList = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_li'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_li')[0]{% endif %});
+{% if chico_current_platform == site.chico_platform_mobile %}
+var expandableBoxList = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_bli'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_bli')[0]{% endif %});
+{% endif %}
+var expandableAjax = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax')[0]{% endif %}, {
     'content': '{{ site.baseurl }}/ajax.html',
-    'container': document.querySelector('.container_expandable2')
-});
-expandable2.on('contentdone', function () {
-    console.log('Content loaded for component ' + this.uid);
+    'container': {% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax_cnt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax_cnt')[0]{% endif %}
 });
 {% endhighlight %}
-
+    <p>
+        Back to <a href="#expandable">Expandable</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var expandable1 = new ch.Expandable(document.querySelector('.demo_expandable1'));
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var expandableParagraph = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_pr'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_pr')[0]{% endif %});
 
-            var expandable2 = new ch.Expandable(document.querySelector('.demo_expandable2'), {
+            var expandableList = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_li'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_li')[0]{% endif %});
+
+            {% if chico_current_platform == site.chico_platform_mobile %}
+            var expandableBoxList = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_bli'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_bli')[0]{% endif %});
+            {% endif %}
+
+            var expandableAjax = new ch.Expandable({% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax')[0]{% endif %}, {
                 'content': '{{ site.baseurl }}/ajax.html',
-                'container': document.querySelector('.container_expandable2')
-            });
-            expandable2.on('contentdone', function () {
-                console.log('Content loaded for component  ' + this.uid);
+                'container': {% if chico_current_version == site.chico_version_1x %}$('#dm_exp_ajax_cnt'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_exp_ajax_cnt')[0]{% endif %}
             });
         });
     </script>

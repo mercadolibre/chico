@@ -1,0 +1,153 @@
+---
+layout: default
+id: api-doc
+version: 1x_mobile
+title: "Chico UI - v1x mobile - API - Source: shared/scripts/helpers.js"
+---
+
+<main role="main" class="chico-api-doc">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">
+                API
+            </h1>
+            <h3 class="mesh-col-12">
+                Full API documentation.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                <h1>
+                    Source: shared/scripts/helpers.js
+                </h1>
+                
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>    /**
+     * An object which contains all the public members.
+     * @namespace
+     */
+    var ch = {},
+
+        /**
+         * Reference to the window jQuery or Zepto Selector.
+         * @private
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        $window = $(window),
+
+        /**
+         * Reference to the navigator object.
+         * @private
+         * @type {Object}
+         */
+        navigator = window.navigator,
+
+        /**
+         * Reference to the userAgent.
+         * @private
+         * @type {String}
+         */
+        userAgent = navigator.userAgent,
+
+        /**
+         * Reference to the HTMLDocument.
+         * @private
+         * @type {Object}
+         */
+        document = window.document,
+
+        /**
+         * Reference to the document jQuery or Zepto Selector.
+         * @private
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        $document = $(document),
+
+        /**
+         * Reference to the HTMLBodyElement.
+         * @private
+         * @type {HTMLBodyElement}
+         */
+        body = document.body,
+
+        /**
+         * Reference to the body jQuery or Zepto Selector.
+         * @private
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        $body = $(body),
+
+        /**
+         * Reference to the HTMLhtmlElement.
+         * @private
+         * @type {HTMLhtmlElement}
+         */
+        html = document.getElementsByTagName('html')[0],
+
+        /**
+         * Reference to the html jQuery or Zepto Selector.
+         * @private
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        $html = $(html),
+
+        /**
+         * Reference to the Object Contructor.
+         * @private
+         * @constructor
+         */
+        Object = window.Object,
+
+        /**
+         * Reference to the Array Contructor.
+         * @private
+         * @constructor
+         */
+        Array = window.Array,
+
+        /**
+         * Reference to the vendor prefix of the current browser.
+         * @constant
+         * @private
+         * @type {String}
+         * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
+         */
+        VENDOR_PREFIX = (function () {
+
+            var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
+                styleDeclaration = document.getElementsByTagName('script')[0].style,
+                prop;
+
+            for (prop in styleDeclaration) {
+                if (regex.test(prop)) {
+                    return prop.match(regex)[0].toLowerCase();
+                }
+            }
+
+            // Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+            // However (prop in style) returns the correct value, so we'll have to test for
+            // the precence of a specific property
+            if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
+            if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
+
+            return '';
+        }());</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <h2>Classes</h2><ul><li><a href="../ch.autocomplete/">Autocomplete</a></li><li><a href="../ch.bubble/">Bubble</a></li><li><a href="../ch.calendar/">Calendar</a></li><li><a href="../ch.carousel/">Carousel</a></li><li><a href="../ch.component/">Component</a></li><li><a href="../ch.condition/">Condition</a></li><li><a href="../ch.countdown/">Countdown</a></li><li><a href="../ch.custom/">Custom</a></li><li><a href="../ch.dropdown/">Dropdown</a></li><li><a href="../ch.email/">Email</a></li><li><a href="../ch.eventemitter/">EventEmitter</a></li><li><a href="../ch.expandable/">Expandable</a></li><li><a href="../ch.form/">Form</a></li><li><a href="../ch.layer/">Layer</a></li><li><a href="../ch.max/">Max</a></li><li><a href="../ch.maxlength/">MaxLength</a></li><li><a href="../ch.menu/">Menu</a></li><li><a href="../ch.min/">Min</a></li><li><a href="../ch.minlength/">MinLength</a></li><li><a href="../ch.modal/">Modal</a></li><li><a href="../ch.number/">Number</a></li><li><a href="../ch.popover/">Popover</a></li><li><a href="../ch.positioner/">Positioner</a></li><li><a href="../ch.required/">Required</a></li><li><a href="../ch.string/">String</a></li><li><a href="../ch.tooltip/">Tooltip</a></li><li><a href="../ch.transition/">Transition</a></li><li><a href="../ch.url/">URL</a></li><li><a href="../ch.validation/">Validation</a></li><li><a href="../ch.viewport/">Viewport</a></li></ul><h2>Namespaces</h2><ul><li><a href="../ch/">ch</a></li><li><a href="../ch.support/">support</a></li><li><a href="../ch.util/">util</a></li><li><a href="../ch.util.mbp/">MBP</a></li></ul><h2>Mixins</h2><ul><li><a href="../ch.collapsible/">Collapsible</a></li><li><a href="../ch.content/">Content</a></li></ul>
+            </nav>
+        </div>
+    </section>
+</main>

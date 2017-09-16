@@ -1,29 +1,37 @@
 <article id="bubble">
-    <h2>Validation Bubble</h2>
-
-    <!-- Component example -->
+    <h2>
+        Bubble
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.bubble/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
-        <button id="bubble1" class="ch-btn ch-btn-small">Show an error message</button>
+        <button class="ch-btn ch-btn-small" id="dm_bbl">Bubble</button>
     </div>
 {% highlight html %}
-<button id="bubble1" class="ch-btn ch-btn-small">Show an error message</button>
+<button class="ch-btn ch-btn-small" id="dm_bbl">Bubble</button>
 {% endhighlight %}
-
 {% highlight javascript %}
-var bubble = new ch.Bubble(ch('#bubble1')[0], {
-    content: 'Check the information, please.'
+var bubble = new ch.Bubble({% if chico_current_version == site.chico_version_1x %}$('#dm_bbl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_bbl')[0]{% endif %}, {
+    content: 'This is an error bubble!'
 });
-tiny.on('#bubble1', 'click', function(e) {
+
+{% if chico_current_version == site.chico_version_1x %}$('#dm_bbl').on({% endif %}{% if chico_current_version == site.chico_version_2x %}tiny.on('#dm_bbl', {% endif %}'click', function (e) {
     bubble.show();
 });
 {% endhighlight %}
-
+    <p>
+        Back to <a href="#bubble">Bubble</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var bubble = new ch.Bubble(ch('#bubble1')[0], {
-                content: 'Check the information, please.'
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var bubble = new ch.Bubble({% if chico_current_version == site.chico_version_1x %}$('#dm_bbl'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_bbl')[0]{% endif %}, {
+                content: 'This is an error bubble!'
             });
-            tiny.on('#bubble1', 'click', function(e) {
+
+            {% if chico_current_version == site.chico_version_1x %}$('#dm_bbl').on({% endif %}{% if chico_current_version == site.chico_version_2x %}tiny.on('#dm_bbl', {% endif %}'click', function (e) {
                 bubble.show();
             });
         });

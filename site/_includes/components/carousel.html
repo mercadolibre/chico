@@ -1,51 +1,142 @@
 <article id="carousel">
-    <h2>Carousel</h2>
-
-    <!-- Component example -->
+    <h2>
+        Carousel
+    </h2>
+    <p>
+        Check the
+        <a href="{{ site.baseurl }}/{{ site.chico_path_api_doc }}{{ chico_current_version }}/{{ chico_current_platform }}/ch.carousel/">API documentation</a>
+        for this component.
+    </p>
     <div class="component-example">
-        <div class="demo-carousel ch-carousel">
+        <h3>Carousel default</h3>
+        <div id="dm_crs_df">
             <ul>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
-                <li>{% image ninja.png alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+            </ul>
+        </div>
+
+        <h3>Carousel with pagination</h3>
+        <div id="dm_crs_pg">
+            <ul>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+            </ul>
+        </div>
+
+        <h3>Carousel with limit per page</h3>
+        <div id="dm_crs_lm">
+            <ul>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
+                <li>{% image ninja.png width='120' alt="Ninja" %}</li>
             </ul>
         </div>
     </div>
 {% highlight html %}
-<div class="demo-carousel ch-carousel">
+<h3>Carousel default</h3>
+<div id="dm_crs_df">
     <ul>
-        <li><img src="img.png"></li>
-        <li><img src="img.png"></li>
-        ...
+        <li>
+            <img src="picture.png" />
+        </li>
+        <!-- [...] -->
+    </ul>
+</div>
+
+<h3>Carousel with pagination</h3>
+<div id="dm_crs_pg">
+    <ul>
+        <li>
+            <img src="picture.png" />
+        </li>
+        <!-- [...] -->
+    </ul>
+</div>
+
+<h3>Carousel with limit per page</h3>
+<div id="dm_crs_lm">
+    <ul>
+        <li>
+            <img src="picture.png" />
+        </li>
+        <!-- [...] -->
     </ul>
 </div>
 {% endhighlight %}
-
 {% highlight javascript %}
-var carousel = new ch.Carousel(ch('.demo-carousel')[0], {
+var carouselDefault = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_df')[0]{% endif %});
+
+var carouselPagination = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_pg'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_pg')[0]{% endif %}, {
     pagination: true
 });
-{% endhighlight %}
 
+var carouselLimit = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_lm'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_lm')[0]{% endif %}, {
+    pagination: true,
+    limitPerPage: 4
+});
+{% endhighlight %}
+    <p>
+        Back to <a href="#carousel">Carousel</a> / Back to <a href="#top">Top</a>
+    </p>
     <script>
-        document.addEventListener('DOMContentLoaded', function(e) {
-            var carousel = new ch.Carousel(ch('.demo-carousel')[0], {
+        document.addEventListener('DOMContentLoaded', function (e) {
+            var carouselDefault = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_df'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_df')[0]{% endif %});
+
+            var carouselPagination = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_pg'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_pg')[0]{% endif %}, {
                 pagination: true
+            });
+
+            var carouselLimit = new ch.Carousel({% if chico_current_version == site.chico_version_1x %}$('#dm_crs_lm'){% endif %}{% if chico_current_version == site.chico_version_2x %}ch('#dm_crs_lm')[0]{% endif %}, {
+                pagination: true,
+                limitPerPage: 4
             });
         });
     </script>

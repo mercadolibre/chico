@@ -6,37 +6,37 @@
 /* Chico overwrites
 ---------------------------------------------------------------*/
 
-a.ch-btn,
-a.ch-btn:focus,
-a.ch-btn:visited {
-   color: #fff;
-}
-
-a.ch-btn-skin,
-a.ch-btn-skin:focus,
-a.ch-btn-skin:visited {
-    color: #476274;
-}
-
-/* Base
----------------------------------------------------------------*/
-
-html,
-body {
-    background-color: #fff;
-    font-size: 14px;
-    height: 100%;
-    margin: 0;
+html body {
     padding: 0;
+    margin: 0;
 }
 
+html a:visited {
+    color: #03b;
+}
+
+/**
+ * 1. Temporarily fix bug from Chico Mobile v1.2.3/v2.0.11.
+ */
+
+.chico-platform-mobile .ch-form legend {
+    padding: 0 0 8px; /* 1 */
+}
 
 /* Bounds
 ---------------------------------------------------------------*/
 
+/**
+ * 1. Normalize Mobile and Desktop versions.
+ */
+
 .ml-bounds {
     display: block;
     padding: 0 10px;
+    font-size: 13px; /* 1 */
+    font-family: 'Lato';
+    font-weight: 300;
+    line-height: 20px; /* 1 */
 }
 
 .ml-wrapper {
@@ -44,31 +44,13 @@ body {
     padding-bottom: 1em;
 }
 
-    .ml-wrapper:after {
-        content: '';
-        display: block;
-        height: 95px; /* same as footer height */
-    }
-
+.ml-wrapper:after {
+    content: '';
+    display: block;
+    height: 95px; /* same as footer height */
+}
 
 /* Header
----------------------------------------------------------------*/
-
-.ml-header {
-    background-color: #fff059;
-    background-image: -webkit-linear-gradient(#fdee4c 50%, #f0da16);
-    background-image: linear-gradient(#fdee4c 50%, #f0da16);
-    border-bottom: 1px solid #d9d9d9;
-    color: #5b562f;
-    height: 44px; /* It changes in bigger devices */
-    position: relative;
-}
-
-.ml-logo {
-    float: left;
-}
-
-/* Title of the page
 ---------------------------------------------------------------*/
 
 .ml-header h1 {
@@ -79,6 +61,10 @@ body {
     text-shadow: 0 1px rgba(255, 255, 255, .75);
 }
 
+.chico-version {
+    display: none;
+}
+
 /* Hidden elements from bigger devices
 ---------------------------------------------------------------*/
 
@@ -86,7 +72,6 @@ body {
 .ml-header-menu {
     display: none;
 }
-
 
 /* Header buttons
 ---------------------------------------------------------------*/
@@ -126,7 +111,6 @@ a.ml-header-btn:visited {
     right: 7px; /* keep the same distance as top */
 }
 
-
 /* Footer
 ---------------------------------------------------------------*/
 
@@ -138,36 +122,21 @@ a.ml-header-btn:visited {
     overflow: hidden;
 }
 
-    .ml-footer small {
-        font-size: inherit;
-        line-height: 4em;
-    }
-
-    .ml-footer-nav {
-        display: none;
-    }
-
-.ml-footer-user {
-    background-color: #f7f7f7;
-    border-radius: 5px;
-    padding: .9em;
+.ml-footer small {
+    font-size: inherit;
+    line-height: 42px;
 }
 
-    .ml-footer-user .ch-btn-skin {
-        margin-right: 1em;
-    }
+.ml-footer a,
+.ml-footer a:link,
+.ml-footer a:hover,
+.ml-footer a:visited {
+    color: #999;
+}
 
 /* Contextual layout
 ---------------------------------------------------------------*/
 
 .ml-contextual .ml-wrapper {
     background-color: #f7f7f7;
-}
-
-.ml-contextual .ml-footer-user {
-    background-color: transparent;
-    border-bottom: 1px solid #eee;
-    border-radius: 0;
-    padding-left: 0;
-    padding-right: 0;
 }

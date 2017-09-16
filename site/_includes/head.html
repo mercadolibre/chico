@@ -1,33 +1,57 @@
-<head>
-    <!-- Define the charset always before the title -->
-    <meta charset="utf-8"/>
-    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+{% case page.version %}
+    {% when "1x_mobile" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+        {% assign chico_current_path_base = site.chico_path_1x_mobile %}
+        {% assign chico_current_dependency_link = site.chico_dependency_1x_mobile_link %}
+    {% when "1x_ui" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+        {% assign chico_current_path_base = site.chico_path_1x_ui %}
+        {% assign chico_current_dependency_link = site.chico_dependency_1x_ui_link %}
+    {% when "2x_mobile" %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+        {% assign chico_current_path_base = site.chico_path_2x_mobile %}
+        {% assign chico_current_dependency_link = site.chico_dependency_2x_mobile_link %}
+    {% else %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+        {% assign chico_current_path_base = site.chico_path_2x_ui %}
+        {% assign chico_current_dependency_link = site.chico_dependency_2x_ui_link %}
+{% endcase %}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta http-equiv="cleartype" content="on"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta charset="utf-8" />
+<title>
+    {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
+</title>
 
-    <link rel="shortcut icon" href="{% asset_path ninja.ico %}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="cleartype" content="on" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
 
-    <!-- Font -->
-    <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ui/font/lato/v11/300-400-700.min.css">
+<link href="{% asset_path ninja.ico %}" rel="shortcut icon" />
 
-    <!-- Chico -->
-    {% stylesheet ui/chico %}
+<!--[if lt IE 9]>
+    <script src="http://static.mlstatic.com/org-img/ch/vendor/html5shiv/html5shiv-3.7.0.js"></script>
+<![endif]-->
 
-    {% stylesheet mesh.min %}
-    {% stylesheet base__small %}
-    {% stylesheet base__large media='(min-width: 768px)' %}
-    {% stylesheet chico__small %}
-    {% stylesheet chico__large media='(min-width: 768px)' %}
-    {% stylesheet ui-slug_element_component %}
+<link href="https://ui.mlstatic.com/webfonts/v3.0.0/lato/300-400-700.css" rel="stylesheet" />
+<link href="https://ui.mlstatic.com/chico/mesh/4.2.2/mesh.min.css" rel="stylesheet" />
 
-    {% stylesheet ml-header %}
-    {% stylesheet gh-pages %}
-    {% stylesheet highlighter %}
+{% stylesheet ml-header %}
 
-    <!--[if lt IE 9]>
-        {% stylesheet base__large %}
-        {% stylesheet chico__large %}
-    <![endif]-->
-</head>
+{% stylesheet base__small %}
+{% stylesheet base__large media="(min-width: 768px)" %}
+{% stylesheet chico__small %}
+{% stylesheet chico__large media="(min-width: 768px)" %}
+{% stylesheet ui-slug_element_component %}
+
+{% stylesheet gh-pages %}
+
+{% stylesheet highlighter %}
+
+<!--[if lt IE 9]>
+    {% stylesheet base__large %}
+    {% stylesheet chico__large %}
+<![endif]-->

@@ -1,0 +1,173 @@
+{% case page.version %}
+    {% when "1x_mobile" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+    {% when "1x_ui" %}
+        {% assign chico_current_version = site.chico_version_1x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+    {% when "2x_mobile" %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_mobile %}
+    {% else %}
+        {% assign chico_current_version = site.chico_version_2x %}
+        {% assign chico_current_platform = site.chico_platform_ui %}
+{% endcase %}
+
+<main role="main" class="chico-showcase">
+    <section class="chico-bg-noise chico-head">
+        <div class="ml-bounds mesh-row">
+            <h1 class="mesh-col-12">
+                Styles
+            </h1>
+            <h3 class="mesh-col-12">
+                Global CSS settings including typography, buttons, iconography, tables, and much more.
+            </h3>
+        </div>
+    </section>
+    <section>
+        <div class="ml-bounds mesh-row">
+            <div class="mesh-col-12 mesh-col-m-9 chico-content">
+                {% include components/reset.html %}
+                {% include components/headings.html %}
+                {% include components/paragraphs.html %}
+                {% include components/links.html %}
+                {% include components/lists.html %}
+
+                {% if chico_current_platform == site.chico_platform_mobile %}
+                    {% include components/list-boxes.html %}
+                {% endif %}
+
+                {% include components/buttons.html %}
+                {% include components/boxes.html %}
+                {% include components/icons.html %}
+
+                {% if chico_current_platform == site.chico_platform_ui %}
+                    {% include components/badges.html %}
+                {% endif %}
+
+                {% if chico_current_platform == site.chico_platform_mobile %}
+                    {% include components/tags.html %}
+                {% endif %}
+
+                {% include components/pagination.html %}
+                {% include components/tables.html %}
+                {% include components/loadings.html %}
+
+                {% if chico_current_platform == site.chico_platform_ui %}
+                    {% include components/wizard.html %}
+                {% endif %}
+
+                {% include components/forms.html %}
+            </div>
+            <nav class="mesh-col-12 mesh-col-m-3 chico-nav">
+                <ul id="nav-sections">
+                    <li>
+                        <a href="#reset" data-section="reset">Reset</a>
+                    </li>
+                    <li>
+                        <a href="#headings" data-section="headings">Headings</a>
+                    </li>
+                    <li>
+                        <a href="#paragraphs" data-section="paragraphs">Paragraphs</a>
+                    </li>
+                    <li>
+                        <a href="#links" data-section="links">Links</a>
+                    </li>
+                    <li>
+                        <a href="#lists" data-section="lists">Lists</a>
+                    </li>
+                    {% if chico_current_platform == site.chico_platform_mobile %}
+                        <li>
+                            <a href="#list-boxes" data-section="list-boxes">List boxes</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="#buttons" data-section="buttons">Buttons</a>
+                    </li>
+                    <li>
+                        <a href="#boxes" data-section="boxes">Boxes</a>
+                    </li>
+                    <li>
+                        <a href="#icons" data-section="icons">Icons</a>
+                    </li>
+                    {% if chico_current_platform == site.chico_platform_ui %}
+                        <li>
+                            <a href="#badges" data-section="badges">Badges</a>
+                        </li>
+                    {% endif %}
+                    {% if chico_current_platform == site.chico_platform_mobile %}
+                        <li>
+                            <a href="#tags" data-section="tags">Tags</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="#pagination" data-section="pagination">Pagination</a>
+                    </li>
+                    <li>
+                        <a href="#tables" data-section="tables">Tables</a>
+                        <ul>
+                            <li>
+                                <a href="#tables-default" data-section="tables-default">
+                                    Default
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tables-controls" data-section="tables-controls">
+                                    Controls
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#loadings" data-section="loadings">Loadings</a>
+                    </li>
+                    {% if chico_current_platform == site.chico_platform_ui %}
+                        <li>
+                            <a href="#wizard" data-section="wizard">Wizard</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="#forms" data-section="forms">Forms</a>
+                        <ul>
+                            <li>
+                                <a href="#input" data-section="input">
+                                    Input
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#textarea" data-section="textarea">
+                                    Textarea
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#select" data-section="select">
+                                    Select
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#checkbox" data-section="checkbox">
+                                    Checkbox
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#radio" data-section="radio">
+                                    Radio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#large" data-section="large">
+                                    Large
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#misc" data-section="misc">
+                                    Misc
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</main>
