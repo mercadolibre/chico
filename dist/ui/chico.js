@@ -1,8 +1,8 @@
 /*!
- * Chico Theme UI v1.2.3
+ * Chico Theme UI v1.2.4
  * http://chico-ui.com.ar/
  *
- * Copyright (c) 2016, MercadoLibre.com
+ * Copyright (c) 2017, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
@@ -752,7 +752,7 @@ ch.factory = function (Klass, fn) {
 
     // Exposse private $ (jQuery) into ch.$
     ch.$ = window.$;
-	ch.version = '1.2.3';
+	ch.version = '1.2.4';
 	window.ch = ch;
 }(this, this.$));
 (function (ch) {
@@ -2643,12 +2643,12 @@ ch.factory = function (Klass, fn) {
              * @event ch.Form#success
              * @example
              * // Subscribe to "success" event.
-             * form.on("submit",function () {
+             * form.on("success",function () {
              *     // Some code here!
              * });
              * @example
              * // Subscribe to "success" event and prevent the submit event.
-             * form.on("submit",function (event) {
+             * form.on("success",function (event) {
              *     event.preventDefault();
              *     // Some code here!
              * });
@@ -3336,7 +3336,7 @@ ch.factory = function (Klass, fn) {
          * @event ch.Validation#success
          * @example
          * // Subscribe to "success" event.
-         * validation.on("submit",function () {
+         * validation.on("success",function () {
          *     // Some code here!
          * });
          */
@@ -6211,7 +6211,7 @@ ch.factory = function (Klass, fn) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Tooltip container.
      * @returns {tooltip} Returns a new instance of Tooltip.
      * @example

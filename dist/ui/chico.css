@@ -1,8 +1,8 @@
 /*!
- * Chico Theme UI v1.2.3
+ * Chico Theme UI v1.2.4
  * http://chico-ui.com.ar/
  *
- * Copyright (c) 2016, MercadoLibre.com
+ * Copyright (c) 2017, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  */
@@ -2780,7 +2780,7 @@ dl.ch-list dd {
 }
 
 .ch-steps-three li {
-  width: 33.33333%;
+  width: 33.3333333333%;
 }
 
 .ch-steps-four li {
@@ -2792,7 +2792,7 @@ dl.ch-list dd {
 }
 
 .ch-steps-six li {
-  width: 16.66667%;
+  width: 16.6666666667%;
 }
 
 .ch-wizard-breadcrumb a,
