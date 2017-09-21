@@ -1,5 +1,5 @@
 /*!
- * Chico UI v2.0.11
+ * Chico UI v2.0.12
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2017, MercadoLibre.com
@@ -180,7 +180,7 @@
         }
     }
 
-	ch.version = '2.0.11';
+	ch.version = '2.0.12';
 	window.ch = ch;
 }(this));
 (function (ch) {
@@ -3953,12 +3953,12 @@
              * @event ch.Form#success
              * @example
              * // Subscribe to "success" event.
-             * form.on("submit",function () {
+             * form.on("success",function () {
              *     // Some code here!
              * });
              * @example
              * // Subscribe to "success" event and prevent the submit event.
-             * form.on("submit",function (event) {
+             * form.on("success",function (event) {
              *     event.preventDefault();
              *     // Some code here!
              * });
@@ -4638,7 +4638,7 @@
          * @event ch.Validation#success
          * @example
          * // Subscribe to "success" event.
-         * validation.on("submit",function () {
+         * validation.on("success",function () {
          *     // Some code here!
          * });
          */

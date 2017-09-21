@@ -1,5 +1,5 @@
 /*!
- * Chico UI v2.0.11
+ * Chico UI v2.0.12
  * http://chico-ui.com.ar/
  *
  * Copyright (c) 2017, MercadoLibre.com
@@ -147,7 +147,7 @@ for (var m in tiny) {
     }
 }
 
-	ch.version = '2.0.11';
+	ch.version = '2.0.12';
 	window.ch = ch;
 }(this));
 (function (ch) {
@@ -1421,7 +1421,7 @@ for (var m in tiny) {
             }
         },
         shortcutsEmitter = function (event) {
-            var keyCode = event.keyCode.toString(),
+            var keyCode = event.keyCode && event.keyCode.toString(),
                 shortcut = codeMap[keyCode],
                 callbacks,
                 callbacksLenght,
@@ -1955,12 +1955,12 @@ for (var m in tiny) {
              * @event ch.Form#success
              * @example
              * // Subscribe to "success" event.
-             * form.on("submit",function () {
+             * form.on("success",function () {
              *     // Some code here!
              * });
              * @example
              * // Subscribe to "success" event and prevent the submit event.
-             * form.on("submit",function (event) {
+             * form.on("success",function (event) {
              *     event.preventDefault();
              *     // Some code here!
              * });
@@ -2640,7 +2640,7 @@ for (var m in tiny) {
          * @event ch.Validation#success
          * @example
          * // Subscribe to "success" event.
-         * validation.on("submit",function () {
+         * validation.on("success",function () {
          *     // Some code here!
          * });
          */
@@ -4549,7 +4549,7 @@ for (var m in tiny) {
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {(String | HTMLElement)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(String | HTMLElement)} [options.content] The content to be shown into the Tooltip container.
      * @returns {tooltip} Returns a new instance of Tooltip.
      * @example
