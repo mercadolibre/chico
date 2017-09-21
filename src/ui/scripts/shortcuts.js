@@ -152,7 +152,7 @@
             }
         },
         shortcutsEmitter = function (event) {
-            var keyCode = event.keyCode.toString(),
+            var keyCode = event.keyCode && event.keyCode.toString(),
                 shortcut = codeMap[keyCode],
                 callbacks,
                 callbacksLenght,
