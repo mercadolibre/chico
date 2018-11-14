@@ -6,8 +6,7 @@
 A collection of easy-to-use UI components.
 
 > **IMPORTANT NOTICE**: this project is deprecated and unmaintained.
-> Only critical bugs will be fixed. Please consider using *Andes* or
-> another components library instead.
+> Only critical bugs will be fixed.
 
 ## Installation
 
