@@ -1,0 +1,19 @@
+repos:
+  - repo: https://github.com/mercadolibre/fury_code-quality-pre-commit-java
+    rev: 0.1.2
+    hooks:
+    - id: checkstyle
+      args:
+        - -c
+        - .code_quality/checkstyle_rules.xml
+    - id: pmd
+      args:
+        - -R
+        - .code_quality/pmd_rules.xml
+    - id: spotbugs
+      args:
+        - -include
+        - .code_quality/spotbugs_rules.xml
+        - -exclude
+        - .code_quality/spotbugs_excludes.xml
+        - ./build # Replace this with ./build (Gradle) or ./target for speeding up the analysis

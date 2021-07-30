@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <Match>
+    <Source name="~gradle\..*"/>
+  </Match>
+  <Match>
+    <Source name="~.gradle\..*"/>
+  </Match>
+  <Match>
+    <Package name="~.*\.gradle.*" />
+  </Match>
+</FindBugsFilter>
